@@ -1,21 +1,22 @@
 
-# scrapers/luxhome_scraper_real.py
+# scrapers/newimmo_scraper_real.py
 import logging
+import re
 from scrapers.selenium_template import SeleniumScraperBase
+from selenium.webdriver.common.by import By
 
 logger = logging.getLogger(__name__)
 
-class LuxhomeScraperReal(SeleniumScraperBase):
+class NewimmoScraperReal(SeleniumScraperBase):
     def __init__(self):
         super().__init__(
-            site_name="Luxhome",
+            site_name="Newimmo.lu",
             base_url="https://www.newimmo.lu",
             search_url="https://www.newimmo.lu/louer"
         )
 
     def find_listings_elements(self, driver):
         """Trouver les éléments d'annonces"""
-        # Essayer différents sélecteurs
         selectors = [
             'article.property-item',
             '.property-card',
@@ -26,19 +27,18 @@ class LuxhomeScraperReal(SeleniumScraperBase):
         ]
 
         for selector in selectors:
-            elements = driver.find_elements_by_css_selector(selector)
-            if len(elements) > 3:  # Si on trouve au moins 4 éléments
+            elements = driver.find_elements(By.CSS_SELECTOR, selector)
+            if len(elements) > 3:
                 logger.info(f"Utilisation sélecteur: {selector}")
                 return elements
 
-        # Si aucun sélecteur ne fonctionne, prendre tous les articles/div
-        return driver.find_elements_by_css_selector('article, div[class]')
+        return driver.find_elements(By.CSS_SELECTOR, 'article, div[class]')
 
     def extract_listing_data(self, element):
-        """Extraire données d'une annonce Luxhome"""
+        """Extraire données d'une annonce Newimmo"""
         try:
             # URL
-            link_elem = element.find_element_by_css_selector('a')
+            link_elem = element.find_element(By.CSS_SELECTOR, 'a')
             url = link_elem.get_attribute('href')
             if not url or 'newimmo.lu' not in url:
                 return None
@@ -48,18 +48,18 @@ class LuxhomeScraperReal(SeleniumScraperBase):
 
             # Titre
             try:
-                title_elem = element.find_element_by_css_selector('h2, h3, [class*="title"]')
+                title_elem = element.find_element(By.CSS_SELECTOR, 'h2, h3, [class*="title"]')
                 title = title_elem.text
-            except:
+            except Exception:
                 title = element.text[:100]
 
             # Prix
             price = 0
-            price_elems = element.find_elements_by_xpath(".//*[contains(text(), '€')]")
+            price_elems = element.find_elements(By.XPATH, ".//*[contains(text(), '€')]")
             for price_elem in price_elems:
                 price_text = price_elem.text
                 parsed_price = self.parse_price(price_text)
-                if parsed_price > price:  # Prendre le plus grand prix trouvé
+                if parsed_price > price:
                     price = parsed_price
 
             # Pièces et surface
@@ -67,15 +67,12 @@ class LuxhomeScraperReal(SeleniumScraperBase):
             surface = 0
             text_content = element.text
 
-            # Chercher pièces
-            import re
             rooms_match = re.search(r'(\d+)\s*(?:pièces|chambres|rooms)', text_content, re.IGNORECASE)
             if rooms_match:
                 rooms = int(rooms_match.group(1))
             else:
                 rooms = self.parse_rooms(text_content)
 
-            # Chercher surface
             surface_match = re.search(r'(\d+)\s*m²', text_content)
             if surface_match:
                 surface = int(surface_match.group(1))
@@ -84,7 +81,7 @@ class LuxhomeScraperReal(SeleniumScraperBase):
 
             # Ville
             city = "Luxembourg"
-            city_match = re.search(r'\b(Luxembourg|Esch|Differdange|Dudelange|Mersch|Walferdange)\b', text_content, re.IGNORECASE)
+            city_match = re.search(r'\b(Luxembourg|Esch|Differdange|Dudelange|Mersch|Walferdange|Bertrange|Strassen|Howald|Hesperange|Mamer)\b', text_content, re.IGNORECASE)
             if city_match:
                 city = city_match.group(1)
 
@@ -98,8 +95,8 @@ class LuxhomeScraperReal(SeleniumScraperBase):
                 return None
 
             return {
-                'listing_id': f'luxhome_{listing_id}',
-                'site': 'Luxhome',
+                'listing_id': f'newimmo_{listing_id}',
+                'site': 'Newimmo.lu',
                 'title': title[:200],
                 'city': city,
                 'price': price,
@@ -110,8 +107,8 @@ class LuxhomeScraperReal(SeleniumScraperBase):
             }
 
         except Exception as e:
-            logger.debug(f"Erreur extraction Luxhome: {e}")
+            logger.debug(f"Erreur extraction Newimmo: {e}")
             return None
 
 # Instance à importer
-luxhome_scraper_real = LuxhomeScraperReal()
+newimmo_scraper_real = NewimmoScraperReal()

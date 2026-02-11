@@ -15,7 +15,7 @@ class Database:
     def init_db(self):
         """Initialiser la base de données SQLite"""
         try:
-            self.conn = sqlite3.connect(self.db_path)
+            self.conn = sqlite3.connect(self.db_path, timeout=10)
             self.cursor = self.conn.cursor()
 
             # Table des annonces (avec colonnes GPS)

@@ -177,6 +177,9 @@ class AthomeScraperJSON:
             'rooms': rooms,
             'surface': surface,
             'url': url,
+            'latitude': lat,
+            'longitude': lng,
+            'distance_km': distance_km,
             'time_ago': 'Récemment'
         }
 

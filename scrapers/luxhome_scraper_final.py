@@ -101,8 +101,8 @@ class LuxhomeScraperFinal:
                 logger.info(f"✅ {len(listings)} annonces extraites")
                 return listings
             else:
-                logger.info("📭 Aucune annonce extraite, utilisation des données de fallback")
-                return self.get_fallback_data()
+                logger.info("📭 Aucune annonce extraite sur Luxhome")
+                return []
 
         finally:
             if driver:
@@ -182,11 +182,11 @@ class LuxhomeScraperFinal:
                 'site': self.site_name,
                 'title': title[:150],
                 'city': city,
-                'price': price if price > 0 else random.randint(1500, 2200),
-                'rooms': random.randint(2, 4),
-                'surface': random.randint(60, 90),
+                'price': price if price > 0 else 0,
+                'rooms': 0,
+                'surface': 0,
                 'url': url,
-                'time_ago': random.choice(['Aujourd\'hui', 'Hier', 'Cette semaine'])
+                'time_ago': 'Récemment'
             }
 
         except:
@@ -226,23 +226,9 @@ class LuxhomeScraperFinal:
         return True
 
     def get_fallback_data(self):
-        """Données de repli quand le scraping échoue"""
-        cities = ['Luxembourg', 'Esch-sur-Alzette', 'Differdange', 'Merl', 'Bertrange']
-
-        return [
-            {
-                'listing_id': f'luxhome_fallback_{i}',
-                'site': self.site_name,
-                'title': f'Appartement {i+2} pièces {cities[i % len(cities)]}',
-                'city': cities[i % len(cities)],
-                'price': random.randint(1600, 2400),
-                'rooms': i + 2,
-                'surface': random.randint(65, 85),
-                'url': f'https://www.luxhome.lu/annonce-{i+1000}',
-                'time_ago': random.choice(['Aujourd\'hui', 'Hier', 'Cette semaine'])
-            }
-            for i in range(4)  # 4 annonces de fallback
-        ]
+        """Retourner liste vide quand le scraping échoue"""
+        logger.warning("Luxhome scraping échoué, aucune donnée de fallback")
+        return []
 
     def scrape(self):
         """Méthode principale"""

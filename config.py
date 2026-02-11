@@ -19,11 +19,11 @@ if not TELEGRAM_CHAT_ID:
     print("❌ ERREUR: TELEGRAM_CHAT_ID manquant dans .env")
     sys.exit(1)
 
-# Gérer plusieurs Chat IDs
+# Gérer plusieurs Chat IDs (séparés par virgule)
 if ',' in TELEGRAM_CHAT_ID:
-    TELEGRAM_CHAT_ID = TELEGRAM_CHAT_ID
+    TELEGRAM_CHAT_IDS = [cid.strip() for cid in TELEGRAM_CHAT_ID.split(',')]
 else:
-    TELEGRAM_CHAT_ID = str(TELEGRAM_CHAT_ID)
+    TELEGRAM_CHAT_IDS = [TELEGRAM_CHAT_ID.strip()]
 
 # ===== CRITÈRES RECHERCHE =====
 try:
