@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Bot Immobilier Luxembourg</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: #2c3e50; color: white; padding: 20px; border-radius: 10px; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0; }
+        .stat-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .stat-value { font-size: 2em; font-weight: bold; color: #3498db; }
+        .chart { background: white; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f8f9fa; }
+        .badge { background: #3498db; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Dashboard Bot Immobilier Luxembourg</h1>
+            <p>🕐 17/01/2026 20:08:08</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div>Annonces totales</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div>Sites surveillés</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div>Villes couvertes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">1,634€</div>
+                <div>Prix moyen</div>
+            </div>
+        </div>
+
+        <div class="chart">
+            <h2>🏢 Répartition par site</h2>
+            <table>
+                <tr>
+                    <th>Site</th>
+                    <th>Annonces</th>
+                    <th>Pourcentage</th>
+                    <th>Prix moyen</th>
+                </tr>
+    
+                <tr>
+                    <td>Athome.lu</td>
+                    <td>1</td>
+                    <td>33.3%</td>
+                    <td>1,723€</td>
+                </tr>
+        
+                <tr>
+                    <td>Immotop.lu</td>
+                    <td>1</td>
+                    <td>33.3%</td>
+                    <td>1,363€</td>
+                </tr>
+        
+                <tr>
+                    <td>Viti.lu</td>
+                    <td>1</td>
+                    <td>33.3%</td>
+                    <td>1,816€</td>
+                </tr>
+        
+            </table>
+        </div>
+
+        <div class="chart">
+            <h2>📍 Top villes</h2>
+            <table>
+                <tr>
+                    <th>Ville</th>
+                    <th>Annonces</th>
+                    <th>Prix moyen</th>
+                </tr>
+    
+                <tr>
+                    <td>Differdange</td>
+                    <td>1</td>
+                    <td>1,363€</td>
+                </tr>
+        
+                <tr>
+                    <td>Dudelange</td>
+                    <td>1</td>
+                    <td>1,723€</td>
+                </tr>
+        
+                <tr>
+                    <td>Luxembourg</td>
+                    <td>1</td>
+                    <td>1,816€</td>
+                </tr>
+        
+            </table>
+        </div>
+
+        <div class="chart">
+            <h2>🆕 Dernières annonces</h2>
+            <table>
+                <tr>
+                    <th>Site</th>
+                    <th>Titre</th>
+                    <th>Prix</th>
+                    <th>Ville</th>
+                    <th>Date</th>
+                </tr>
+    
+                <tr>
+                    <td><span class="badge">Athome.lu</span></td>
+                    <td>Appartement 2 pièces Dudelange...</td>
+                    <td>1,723€</td>
+                    <td>Dudelange</td>
+                    <td>2026-01-17 19:03</td>
+                </tr>
+        
+                <tr>
+                    <td><span class="badge">Viti.lu</span></td>
+                    <td>Appartement 2 pièces Luxembourg...</td>
+                    <td>1,816€</td>
+                    <td>Luxembourg</td>
+                    <td>2026-01-17 18:58</td>
+                </tr>
+        
+                <tr>
+                    <td><span class="badge">Immotop.lu</span></td>
+                    <td>Studio 1 pièces Differdange...</td>
+                    <td>1,363€</td>
+                    <td>Differdange</td>
+                    <td>2026-01-17 18:58</td>
+                </tr>
+        
+            </table>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0; color: #7f8c8d; font-size: 0.9em;">
+            <p>🤖 Généré automatiquement par le Bot Immobilier Luxembourg</p>
+            <p>🔄 Dernière mise à jour: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}</p>
+        </div>
+    </div>
+</body>
+</html>
+    

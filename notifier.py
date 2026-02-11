@@ -1,0 +1,319 @@
+# notifier.py - VERSION COMPLÈTE CORRIGÉE AVEC GPS
+import logging
+import requests
+import time
+from config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+
+logger = logging.getLogger(__name__)
+
+class TelegramNotifier:
+    """Gestionnaire de notifications Telegram pour groupes/individus"""
+
+    def __init__(self):
+        self.token = TELEGRAM_BOT_TOKEN
+        self.base_url = f"https://api.telegram.org/bot{self.token}"
+
+        # Gérer plusieurs Chat IDs (séparés par virgules) ou un seul
+        if isinstance(TELEGRAM_CHAT_ID, str) and ',' in TELEGRAM_CHAT_ID:
+            self.chat_ids = [cid.strip() for cid in TELEGRAM_CHAT_ID.split(',')]
+        elif isinstance(TELEGRAM_CHAT_ID, list):
+            self.chat_ids = TELEGRAM_CHAT_ID
+        else:
+            self.chat_ids = [str(TELEGRAM_CHAT_ID)]
+
+        # Nettoyer les IDs (s'assurer qu'ils sont strings)
+        self.chat_ids = [str(cid) for cid in self.chat_ids]
+
+        logger.info(f"✅ Notifier initialisé pour {len(self.chat_ids)} destinataire(s)")
+        logger.info(f"   IDs: {', '.join([f'{cid[:10]}...' if len(cid) > 10 else cid for cid in self.chat_ids])}")
+
+        # Tester la connexion
+        self.test_connection()
+
+    def test_connection(self):
+        """Tester la connexion au bot et aux chats"""
+        try:
+            # Test 1: Le bot existe-t-il ?
+            response = requests.get(f"{self.base_url}/getMe", timeout=10)
+            if response.status_code == 200:
+                bot_info = response.json()['result']
+                logger.info(f"🤖 Bot: @{bot_info.get('username', 'N/A')} ({bot_info.get('first_name', 'N/A')})")
+            else:
+                logger.error(f"❌ Erreur bot: {response.json()}")
+                return False
+
+            # Test 2: Chaque chat est-il accessible ?
+            success_count = 0
+            for chat_id in self.chat_ids:
+                try:
+                    chat_response = requests.post(
+                        f"{self.base_url}/getChat",
+                        json={"chat_id": chat_id},
+                        timeout=10
+                    )
+
+                    if chat_response.status_code == 200:
+                        chat_info = chat_response.json().get('result', {})
+                        chat_type = chat_info.get('type', 'inconnu')
+                        chat_name = chat_info.get('title', chat_info.get('first_name', 'N/A'))
+
+                        logger.info(f"   💬 Chat {chat_id}: {chat_name} ({chat_type})")
+                        success_count += 1
+                    else:
+                        logger.warning(f"   ⚠️  Chat {chat_id}: inaccessible ({chat_response.json().get('description', 'N/A')})")
+
+                except Exception as e:
+                    logger.warning(f"   ⚠️  Chat {chat_id}: erreur test - {e}")
+
+            if success_count > 0:
+                logger.info(f"✅ {success_count}/{len(self.chat_ids)} chats accessibles")
+                return True
+            else:
+                logger.error("❌ Aucun chat accessible!")
+                return False
+
+        except Exception as e:
+            logger.error(f"❌ Erreur test connexion: {e}")
+            return False
+
+    def send_message(self, text, parse_mode='HTML', silent=False, retry_count=3):
+        """Envoyer un message à tous les chats configurés"""
+        success_count = 0
+        total_chats = len(self.chat_ids)
+
+        for chat_id in self.chat_ids:
+            for attempt in range(retry_count):
+                try:
+                    url = f"{self.base_url}/sendMessage"
+                    data = {
+                        "chat_id": chat_id,
+                        "text": text,
+                        "parse_mode": parse_mode,
+                        "disable_web_page_preview": False,
+                        "disable_notification": silent
+                    }
+
+                    response = requests.post(url, json=data, timeout=10)
+
+                    if response.status_code == 200:
+                        success_count += 1
+                        if attempt > 0:
+                            logger.debug(f"   ✅ Chat {chat_id}: envoyé (tentative {attempt+1})")
+                        break
+
+                    else:
+                        error_data = response.json()
+                        error_desc = error_data.get('description', 'Unknown error')
+
+                        if "Too Many Requests" in error_desc:
+                            wait_time = 2 ** attempt
+                            logger.warning(f"   ⚠️  Chat {chat_id}: Rate limit, attente {wait_time}s...")
+                            time.sleep(wait_time)
+                            continue
+
+                        elif "chat not found" in error_desc or "bot was kicked" in error_desc:
+                            logger.error(f"   ❌ Chat {chat_id}: inaccessible - {error_desc}")
+                            break
+
+                        else:
+                            logger.warning(f"   ⚠️  Chat {chat_id}: erreur {response.status_code} - {error_desc}")
+                            if attempt < retry_count - 1:
+                                time.sleep(1)
+
+                except requests.exceptions.Timeout:
+                    logger.warning(f"   ⚠️  Chat {chat_id}: timeout (tentative {attempt+1}/{retry_count})")
+                    if attempt < retry_count - 1:
+                        time.sleep(2)
+
+                except Exception as e:
+                    logger.error(f"   ❌ Chat {chat_id}: exception - {e}")
+                    break
+
+        # Résumé
+        if success_count == total_chats:
+            logger.debug(f"📨 Messages envoyés: {success_count}/{total_chats}")
+            return True
+        elif success_count > 0:
+            logger.info(f"📨 Messages envoyés: {success_count}/{total_chats} (partiel)")
+            return True
+        else:
+            logger.error(f"❌ Aucun message envoyé (0/{total_chats})")
+            return False
+
+    def send_listing(self, listing):
+        """Envoyer une annonce immobilière formatée avec distance GPS"""
+        try:
+            # Extraire et nettoyer les données
+            site = listing.get('site', 'Site inconnu').strip()
+            title = listing.get('title', 'Sans titre').strip()
+            city = listing.get('city', 'N/A').strip()
+            price = listing.get('price', 'N/A')
+            rooms = listing.get('rooms', 'N/A')
+            surface = listing.get('surface', 'N/A')
+            url = listing.get('url', '#').strip()
+            time_ago = listing.get('time_ago', 'récemment').strip()
+            distance_km = listing.get('distance_km')
+
+            # Formater le prix
+            try:
+                price_formatted = f"{int(price):,}€".replace(',', ' ')
+            except:
+                price_formatted = f"{price}€"
+
+            # Créer le message HTML
+            message = f"""
+🏠 <b>NOUVELLE ANNONCE • {site}</b>
+
+<b>{title}</b>
+
+📍 <b>Ville:</b> {city}
+"""
+            
+            # Ajouter distance si disponible
+            if distance_km is not None:
+                from utils import format_distance, get_distance_emoji
+                from config import REFERENCE_NAME
+                emoji = get_distance_emoji(distance_km)
+                dist_str = format_distance(distance_km)
+                message += f"{emoji} <b>Distance:</b> {dist_str} de {REFERENCE_NAME}\n"
+            
+            message += f"""💰 <b>Prix:</b> {price_formatted}/mois
+🛏️ <b>Chambres:</b> {rooms}
+📏 <b>Surface:</b> {surface}m²
+⏰ <b>Publiée:</b> {time_ago}
+
+🔗 <a href="{url}">📱 Voir l'annonce complète</a>
+"""
+
+            # Ajouter description si disponible
+            description = listing.get('description', '').strip()
+            if description:
+                message += f"\n\n📝 <i>{description[:200]}{'...' if len(description) > 200 else ''}</i>"
+
+            # Ajouter hashtags
+            hashtags = []
+            if 'luxembourg' in city.lower():
+                hashtags.append('#Luxembourg')
+            if 'appartement' in title.lower():
+                hashtags.append('#Appartement')
+            elif 'studio' in title.lower():
+                hashtags.append('#Studio')
+            elif 'maison' in title.lower():
+                hashtags.append('#Maison')
+
+            if hashtags:
+                message += f"\n\n{' '.join(hashtags)}"
+
+            # Envoyer le message
+            success = self.send_message(message, silent=False)
+
+            if success:
+                logger.info(f"✅ Annonce envoyée: {title[:50]}...")
+                time.sleep(1.5)  # Délai anti-rate-limit
+            else:
+                logger.error(f"❌ Échec envoi annonce: {title[:50]}...")
+
+            return success
+
+        except Exception as e:
+            logger.error(f"❌ Erreur formatage annonce: {e}")
+            fallback_msg = f"🏠 Nouvelle annonce {listing.get('site', '')}: {listing.get('title', '')} - {listing.get('url', '#')}"
+            return self.send_message(fallback_msg)
+
+    def send_startup_message(self, bot_info):
+        """Envoyer message de démarrage du bot"""
+        message = f"""
+🤖 <b>BOT IMMOBILIER LANCÉ</b>
+
+✅ Surveillance active
+🕐 Démarrage: {time.strftime('%d/%m/%Y %H:%M:%S')}
+🌐 Sites surveillés: {bot_info.get('sites_count', 'N/A')}
+👥 Destinataires: {len(self.chat_ids)}
+
+📊 <i>Les nouvelles annonces apparaîtront ici automatiquement.</i>
+"""
+        return self.send_message(message, silent=True)
+
+    def send_shutdown_message(self, stats=None):
+        """Envoyer message d'arrêt du bot"""
+        message = f"""
+⏹️ <b>BOT IMMOBILIER ARRÊTÉ</b>
+
+🕐 Arrêt: {time.strftime('%d/%m/%Y %H:%M:%S')}
+"""
+
+        if stats:
+            message += f"""
+📊 <b>Statistiques de session:</b>
+🏠 Annonces totales: {stats.get('total', 0)}
+🆕 Nouvelles annonces: {stats.get('new', 0)}
+🌐 Sites actifs: {stats.get('sites', 0)}
+"""
+
+        message += "\n👋 À bientôt!"
+        return self.send_message(message, silent=True)
+
+    def send_daily_summary(self, stats):
+        """Envoyer résumé quotidien"""
+        message = f"""
+📊 <b>RÉSUMÉ QUOTIDIEN</b>
+
+🏠 <b>Annonces totales:</b> {stats.get('total', 0)}
+🆕 <b>Nouvelles aujourd'hui:</b> {stats.get('new', 0)}
+👁️ <b>Annonces uniques:</b> {stats.get('unique', 0)}
+
+<b>📈 Répartition par site:</b>
+"""
+
+        for site, count in stats.get('by_site', {}).items():
+            message += f"• {site}: {count}\n"
+
+        if 'top_cities' in stats:
+            message += f"\n<b>📍 Top villes:</b>\n"
+            for city, count in stats['top_cities'][:3]:
+                message += f"• {city}: {count}\n"
+
+        if 'avg_price' in stats:
+            message += f"\n<b>💰 Prix moyen:</b> {stats['avg_price']:,}€".replace(',', ' ')
+
+        return self.send_message(message, silent=True)
+
+    def send_error_message(self, error, context=""):
+        """Envoyer message d'erreur"""
+        message = f"""
+🚨 <b>ERREUR BOT IMMOBILIER</b>
+
+{context}
+
+<code>{str(error)[:300]}</code>
+
+🕐 Heure: {time.strftime('%H:%M:%S')}
+"""
+        return self.send_message(message, silent=False)
+
+    def send_test_message(self):
+        """Envoyer message de test"""
+        message = f"""
+🧪 <b>TEST BOT IMMOBILIER</b>
+
+✅ Connexion établie
+👥 Destinataires: {len(self.chat_ids)}
+🕐 Heure: {time.strftime('%H:%M:%S')}
+
+📱 <i>Ceci est un message de test. Les annonces arriveront normalement.</i>
+"""
+        return self.send_message(message, silent=True)
+
+
+# Instance globale singleton
+_notifier_instance = None
+
+def get_notifier():
+    """Obtenir l'instance singleton du notifier"""
+    global _notifier_instance
+    if _notifier_instance is None:
+        _notifier_instance = TelegramNotifier()
+    return _notifier_instance
+
+# Alias pour compatibilité
+notifier = get_notifier()

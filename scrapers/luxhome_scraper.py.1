@@ -1,0 +1,143 @@
+
+# scrapers/luxhome_scraper.py
+import requests
+import re
+from typing import List, Dict
+from config import (
+    MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE,
+    PREFERRED_CITIES, EXCLUDED_WORDS
+)
+
+class LuxhomeScraper:
+    def __init__(self):
+        self.name = "Luxhome.lu"
+        self.base_url = "https://www.luxhome.lu"
+        self.search_url = f"{self.base_url}/recherche/?status%5B%5D=location"
+
+    def decode_text(self, text: str) -> str:
+        """Décode caractères Unicode + HTML entities"""
+        replacements = {
+            '\\u00e9': 'é', '\\u00e8': 'è', '\\u00ea': 'ê', '\\u00e0': 'à',
+            '\\u00e2': 'â', '\\u00ee': 'î', '\\u00f4': 'ô', '\\u00fb': 'û',
+            '\\u00e7': 'ç', '\\u00ef': 'ï', '\\u00eb': 'ë', '\\u00fc': 'ü',
+            '\\u00f9': 'ù', '\\u20ac': '€', '\\u00b2': '²', '\\u00b3': '³',
+            '&#8217;': "'", '&#8211;': '-', '&#8220;': '"', '&#8221;': '"',
+            '&#038;': '&', '\\/': '/'
+        }
+        for code, char in replacements.items():
+            text = text.replace(code, char)
+        return text
+
+    def extract_number(self, text: str, pattern: str) -> int:
+        """Extrait nombre depuis texte via regex"""
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            try:
+                return int(match.group(1))
+            except:
+                pass
+        return 0
+
+    def scrape(self) -> List[Dict]:
+        """Extrait annonces depuis Luxhome.lu"""
+        try:
+            response = requests.get(
+                self.search_url,
+                headers={'User-Agent': 'Mozilla/5.0'},
+                timeout=15
+            )
+            response.raise_for_status()
+            html = response.text
+
+            # Pattern regex pour extraire chaque annonce individuellement
+            # Structure : {"title":"...","propertyType":"...","price":"...","url":"...","id":123,...}
+            pattern = r'\{\s*"title":"([^"]+)",\s*"propertyType":"([^"]+)",\s*"price":"([^"]+)",\s*"url":"([^"]+)",\s*"id":(\d+),\s*"lat":"([^"]+)",\s*"lng":"([^"]+)",\s*"thumb":"([^"]+)",'
+
+            matches = re.findall(pattern, html, re.DOTALL)
+
+            listings = []
+
+            for match in matches:
+                titre_raw, type_raw, prix_raw, url_rel, id_str, lat, lng, thumb_raw = match
+
+                # Décodage Unicode
+                titre = self.decode_text(titre_raw)
+                type_bien = self.decode_text(type_raw).replace('<small>', '').replace('</small>', '')
+                url = self.decode_text(url_rel)
+
+                # Construction URL complète (si relative)
+                if url.startswith('/'):
+                    url = f"{self.base_url}{url}"
+                elif not url.startswith('http'):
+                    url = f"{self.base_url}/{url}"
+
+                # Extraction prix (format "2 500 €/mois" ou "2500€")
+                prix = 0
+                prix_match = re.search(r'([\d\s,.]+)', prix_raw)
+                if prix_match:
+                    try:
+                        prix = int(prix_match.group(1).replace(' ', '').replace(',', '').replace('.', ''))
+                    except:
+                        pass
+
+                # Extraction surface (depuis titre)
+                surface = self.extract_number(titre, r'(\d+)\s*m\s*[²2b]')
+
+                # Extraction chambres (depuis titre)
+                chambres = self.extract_number(titre, r'(\d+)\s*(chambre|chbr|chr|pi[èe]ce|room|ch|bedroom)')
+
+                # Extraction localisation (depuis titre)
+                localisation = ''
+                for city in PREFERRED_CITIES:
+                    if city.lower() in titre.lower():
+                        localisation = city
+                        break
+
+                # FILTRAGE (applique critères config.py)
+                # Filtre 1 : Type appartement uniquement
+                if 'appartement' not in type_bien.lower() and 'apartment' not in type_bien.lower():
+                    continue
+
+                # Filtre 2 : Prix
+                if prix < MIN_PRICE or prix > MAX_PRICE:
+                    continue
+
+                # Filtre 3 : Chambres
+                if chambres < MIN_ROOMS or chambres > MAX_ROOMS:
+                    continue
+
+                # Filtre 4 : Surface (si détectée)
+                if surface > 0 and surface < MIN_SURFACE:
+                    continue
+
+                # Filtre 5 : Mots exclus
+                titre_lower = titre.lower()
+                if any(word.lower() in titre_lower for word in EXCLUDED_WORDS):
+                    continue
+
+                # Construction objet standardisé
+                listing = {
+                    'id': f"luxhome_{id_str}",
+                    'site': self.name,
+                    'title': titre,
+                    'price': prix,
+                    'rooms': chambres,
+                    'surface': surface,
+                    'location': localisation,
+                    'url': url,
+                    'property_type': type_bien
+                }
+
+                listings.append(listing)
+
+            return listings
+
+        except requests.RequestException as e:
+            print(f"❌ Erreur HTTP Luxhome: {e}")
+            return []
+        except Exception as e:
+            print(f"❌ Erreur scraping Luxhome: {e}")
+            return []
+
+# Instance globale (pour import dans main.py)
+luxhome_scraper = LuxhomeScraper()

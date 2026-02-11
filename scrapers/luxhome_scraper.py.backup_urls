@@ -1,0 +1,161 @@
+
+#!/usr/bin/env python3
+"""
+Scraper Luxhome.lu - Extraction via regex JSON embarqué
+Basé sur script test validé (61 annonces extraites avec succès)
+"""
+import requests
+import re
+from typing import List, Dict
+import logging
+
+logger = logging.getLogger(__name__)
+
+class LuxhomeScraper:
+    def __init__(self):
+        self.name = "Luxhome.lu"
+        self.base_url = "https://www.luxhome.lu"
+        self.search_url = f"{self.base_url}/recherche/?status%5B%5D=location"
+
+    def decode_text(self, text: str) -> str:
+        """Décode caractères Unicode + HTML entities"""
+        replacements = {
+            '\\u00e9': 'é', '\\u00e8': 'è', '\\u00ea': 'ê', '\\u00e0': 'à',
+            '\\u00e2': 'â', '\\u00ee': 'î', '\\u00f4': 'ô', '\\u00fb': 'û',
+            '\\u00e7': 'ç', '\\u00ef': 'ï', '\\u00eb': 'ë', '\\u00fc': 'ü',
+            '\\u00f9': 'ù', '\\u20ac': '€', '\\u00b2': '²', '\\u00b3': '³',
+            '&#8217;': "'", '&#8211;': '-', '&#8220;': '"', '&#8221;': '"',
+            '&#038;': '&', '\\/': '/'
+        }
+        for code, char in replacements.items():
+            text = text.replace(code, char)
+        return text
+
+    def extract_number(self, text: str, pattern: str) -> int:
+        """Extrait premier nombre depuis texte via regex"""
+        match = re.search(pattern, text, re.IGNORECASE)
+        if match:
+            try:
+                return int(match.group(1))
+            except:
+                pass
+        return 0
+
+    def scrape(self) -> List[Dict]:
+        """
+        Extrait annonces location depuis Luxhome.lu
+        Retourne liste objets standardisés : {id, site, title, price, rooms, surface, location, url}
+        """
+        try:
+            # Import config ici (évite erreur circulaire)
+            from config import (
+                MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE,
+                PREFERRED_CITIES, EXCLUDED_WORDS
+            )
+
+            logger.info(f"Scraping {self.search_url}")
+
+            response = requests.get(
+                self.search_url,
+                headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'},
+                timeout=15
+            )
+            response.raise_for_status()
+            html = response.text
+
+            # Pattern regex validé par script test (61 annonces extraites)
+            pattern = r'\{\s*"title":"([^"]+)",\s*"propertyType":"([^"]+)",\s*"price":"([^"]+)",\s*"url":"([^"]+)",\s*"id":(\d+),\s*"lat":"([^"]+)",\s*"lng":"([^"]+)",\s*"thumb":"([^"]+)",'
+
+            matches = re.findall(pattern, html, re.DOTALL)
+            logger.info(f"Annonces brutes trouvées: {len(matches)}")
+
+            listings = []
+
+            for match in matches:
+                titre_raw, type_raw, prix_raw, url_rel, id_str, lat, lng, thumb_raw = match
+
+                # Décodage Unicode
+                titre = self.decode_text(titre_raw)
+                type_bien = self.decode_text(type_raw).replace('<small>', '').replace('</small>', '').strip()
+
+                # Construction URL complète
+                url = self.decode_text(url_rel)
+                if url.startswith('/'):
+                    url = f"{self.base_url}{url}"
+                elif not url.startswith('http'):
+                    url = f"{self.base_url}/{url}"
+
+                # Extraction prix (format "2 500 €/mois" ou "2500€" ou "1.100€")
+                prix = 0
+                prix_clean = prix_raw.replace('\\u20ac', '').replace('€', '').replace(' ', '').replace('.', '').replace(',', '')
+                prix_match = re.search(r'(\d+)', prix_clean)
+                if prix_match:
+                    try:
+                        prix = int(prix_match.group(1))
+                    except:
+                        pass
+
+                # Extraction surface (depuis titre)
+                surface = self.extract_number(titre, r'(\d+)\s*m\s*[²2b]')
+
+                # Extraction chambres (depuis titre)
+                chambres = self.extract_number(titre, r'(\d+)\s*(chambre|chbr|chr|pi[èe]ce|room|ch\b|bedroom)')
+
+                # Extraction localisation (depuis titre)
+                localisation = ''
+                for city in PREFERRED_CITIES:
+                    if city.lower() in titre.lower():
+                        localisation = city
+                        break
+
+                # === FILTRAGE (applique critères config.py) ===
+
+                # Filtre 1 : Type appartement uniquement
+                type_lower = type_bien.lower()
+                if not ('appartement' in type_lower or 'apartment' in type_lower or 'studio' in type_lower):
+                    continue
+
+                # Filtre 2 : Prix
+                if prix < MIN_PRICE or prix > MAX_PRICE:
+                    continue
+
+                # Filtre 3 : Chambres (si détectées)
+                # Note : Luxhome a peu d'info chambres dans titre, on accepte si non détecté
+                if chambres > 0 and (chambres < MIN_ROOMS or chambres > MAX_ROOMS):
+                    continue
+
+                # Filtre 4 : Surface (si détectée)
+                if surface > 0 and surface < MIN_SURFACE:
+                    continue
+
+                # Filtre 5 : Mots exclus
+                titre_lower = titre.lower()
+                if any(word.lower() in titre_lower for word in EXCLUDED_WORDS):
+                    continue
+
+                # Construction objet standardisé
+                listing = {
+                    'listing_id': f"luxhome_{id_str}",  
+                    'site': self.name,
+                    'title': titre,
+                    'price': prix,
+                    'rooms': chambres if chambres > 0 else None,
+                    'surface': surface if surface > 0 else None,
+                    'city': localisation,  
+                    'url': url
+                }
+
+                listings.append(listing)
+
+            logger.info(f"✅ {len(listings)} annonces après filtrage")
+            return listings
+
+        except requests.RequestException as e:
+            logger.error(f"❌ Erreur HTTP Luxhome: {e}")
+            return []
+        except Exception as e:
+            logger.error(f"❌ Erreur scraping Luxhome: {e}", exc_info=True)
+            return []
+
+# Instance globale (pour import dans main.py)
+luxhome_scraper = LuxhomeScraper()

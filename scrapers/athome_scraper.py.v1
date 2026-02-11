@@ -1,0 +1,381 @@
+
+# scrapers/athome_scraper.py - VERSION CORRIGÉE
+import requests
+import logging
+import re
+import time
+import random
+from bs4 import BeautifulSoup
+from config import USER_AGENT, MAX_PRICE, MIN_ROOMS, CITIES
+
+logger = logging.getLogger(__name__)
+
+class AthomeScraper:
+    """Scraper pour athome.lu avec contournement anti-bot"""
+
+    def __init__(self):
+        self.base_url = 'https://www.athome.lu'
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Sec-Fetch-User': '?1',
+            'Cache-Control': 'max-age=0',
+        }
+
+        # Sessions pour garder les cookies
+        self.session = requests.Session()
+        self.session.headers.update(self.headers)
+
+    def get_with_retry(self, url, params=None, max_retries=3):
+        """GET avec retry et délais aléatoires"""
+        for attempt in range(max_retries):
+            try:
+                # Délai aléatoire entre les requêtes
+                delay = random.uniform(2, 5)
+                time.sleep(delay)
+
+                # Ajouter headers dynamiques
+                dynamic_headers = {
+                    'Referer': self.base_url,
+                    'X-Requested-With': 'XMLHttpRequest' if attempt > 0 else None,
+                }
+
+                headers = {**self.headers, **dynamic_headers}
+
+                response = self.session.get(
+                    url,
+                    params=params,
+                    headers=headers,
+                    timeout=30,
+                    allow_redirects=True
+                )
+
+                # Vérifier si bloqué
+                if response.status_code == 403 or "access denied" in response.text.lower():
+                    logger.warning(f"   ⚠️  Accès bloqué (403), tentative {attempt+1}/{max_retries}")
+                    time.sleep(random.uniform(5, 10))
+                    continue
+
+                response.raise_for_status()
+                return response
+
+            except requests.exceptions.HTTPError as e:
+                if response.status_code == 500:
+                    logger.warning(f"   ⚠️  Erreur 500, tentative {attempt+1}/{max_retries}")
+                    time.sleep(random.uniform(5, 10))
+                    continue
+                elif response.status_code == 429:  # Too Many Requests
+                    wait_time = random.uniform(30, 60)
+                    logger.warning(f"   ⚠️  Rate limit (429), attente {wait_time:.1f}s")
+                    time.sleep(wait_time)
+                    continue
+                else:
+                    raise e
+            except Exception as e:
+                logger.error(f"   ❌ Erreur requête: {e}")
+                if attempt == max_retries - 1:
+                    raise
+
+        return None
+
+    def scrape(self):
+        """Scraper les annonces Athome.lu - version robuste"""
+        listings = []
+
+        try:
+            logger.info("🔍 Scraping Athome.lu (version robuste)...")
+
+            # URL plus simple et générale
+            search_url = f"{self.base_url}/louer/appartement"
+
+            # Paramètres simples
+            params = {
+                'size': '100',
+                'page': '1',
+                'sort': 'date_desc'
+            }
+
+            # Essayer une requête générale d'abord
+            try:
+                response = self.get_with_retry(search_url, params)
+                if not response:
+                    logger.error("   ❌ Échec après plusieurs tentatives")
+                    return []
+
+                logger.info(f"   ✅ Page chargée ({len(response.content)} bytes)")
+
+                # Analyser le contenu
+                soup = BeautifulSoup(response.content, 'html.parser')
+
+                # Méthode 1: Chercher par structure commune
+                listings_data = self._extract_from_page(soup)
+
+                if listings_data:
+                    listings.extend(listings_data)
+                    logger.info(f"   📊 {len(listings_data)} annonces extraites")
+
+                # Méthode 2: Chercher données JSON dans la page
+                json_listings = self._extract_json_data(response.text)
+                if json_listings:
+                    listings.extend(json_listings)
+                    logger.info(f"   📊 +{len(json_listings)} annonces depuis JSON")
+
+                # Filtrer doublons
+                unique_ids = set()
+                unique_listings = []
+                for listing in listings:
+                    if listing['listing_id'] not in unique_ids:
+                        unique_ids.add(listing['listing_id'])
+                        unique_listings.append(listing)
+
+                listings = unique_listings
+
+                # Filtrer par villes si spécifiées
+                if CITIES:
+                    filtered_listings = []
+                    cities_lower = [c.lower() for c in CITIES]
+                    for listing in listings:
+                        city = listing.get('city', '').lower()
+                        if any(target_city in city for target_city in cities_lower):
+                            filtered_listings.append(listing)
+
+                    listings = filtered_listings
+
+                logger.info(f"✅ Athome.lu: {len(listings)} annonces valides après filtrage")
+                return listings
+
+            except Exception as e:
+                logger.error(f"   ❌ Erreur scraping général: {e}")
+                return []
+
+        except Exception as e:
+            logger.error(f"❌ Erreur scraping Athome.lu: {e}")
+            return []
+
+    def _extract_from_page(self, soup):
+        """Extraire annonces depuis le HTML"""
+        listings = []
+
+        # Différents sélecteurs possibles (athome change souvent)
+        selectors = [
+            'article[class*="property"]',
+            'div[class*="listing"]',
+            'div[data-testid*="property"]',
+            'a[href*="/annonce/"]',
+            '.property-item',
+            '.srp-list-item',
+            '[data-id]'
+        ]
+
+        for selector in selectors:
+            try:
+                elements = soup.select(selector)
+                if elements and len(elements) > 2:  # Au moins quelques éléments
+                    logger.info(f"   🔎 Sélecteur '{selector}': {len(elements)} éléments")
+
+                    for elem in elements[:20]:  # Limiter pour test
+                        listing = self._parse_element(elem)
+                        if listing:
+                            listings.append(listing)
+
+                    if listings:
+                        break  # Sélecteur valide trouvé
+            except Exception as e:
+                continue
+
+        return listings
+
+    def _extract_json_data(self, html):
+        """Extraire données depuis scripts JSON"""
+        import json
+        listings = []
+
+        try:
+            # Chercher des patterns JSON dans la page
+            patterns = [
+                r'window\.__INITIAL_STATE__\s*=\s*({.*?});',
+                r'"properties"\s*:\s*(\[.*?\])',
+                r'"items"\s*:\s*(\[.*?\])',
+                r'"listings"\s*:\s*(\[.*?\])',
+            ]
+
+            for pattern in patterns:
+                matches = re.findall(pattern, html, re.DOTALL)
+                for match in matches:
+                    try:
+                        data = json.loads(match)
+                        listings_from_json = self._parse_json_data(data)
+                        if listings_from_json:
+                            listings.extend(listings_from_json)
+                    except:
+                        continue
+
+        except Exception as e:
+            logger.debug(f"   ⚠️  Erreur extraction JSON: {e}")
+
+        return listings
+
+    def _parse_json_data(self, data):
+        """Parser données JSON"""
+        listings = []
+
+        def extract_from_dict(obj, path=""):
+            results = []
+
+            if isinstance(obj, dict):
+                # Vérifier si cet objet ressemble à une annonce
+                if any(key in obj for key in ['id', 'price', 'title', 'city']):
+                    listing = self._parse_json_listing(obj)
+                    if listing:
+                        results.append(listing)
+
+                # Explorer récursivement
+                for key, value in obj.items():
+                    results.extend(extract_from_dict(value, f"{path}.{key}"))
+
+            elif isinstance(obj, list):
+                for item in obj:
+                    results.extend(extract_from_dict(item, path))
+
+            return results
+
+        return extract_from_dict(data)
+
+    def _parse_json_listing(self, data):
+        """Parser une annonce depuis JSON"""
+        try:
+            listing_id = str(data.get('id') or data.get('propertyId') or '')
+            if not listing_id:
+                return None
+
+            title = data.get('title') or data.get('name') or 'Sans titre'
+            price = data.get('price') or data.get('priceAmount') or 0
+            if isinstance(price, dict):
+                price = price.get('amount', 0)
+
+            city = data.get('city') or data.get('location', {}).get('city', '')
+            rooms = data.get('bedrooms') or data.get('roomCount') or 0
+            surface = data.get('surface') or data.get('livingArea') or 0
+
+            # URL
+            url_slug = data.get('slug') or data.get('url') or f'/annonce/{listing_id}'
+            url = f"{self.base_url}{url_slug}" if url_slug.startswith('/') else url_slug
+
+            return {
+                'listing_id': f'athome_{listing_id}',
+                'site': 'Athome.lu',
+                'title': str(title)[:100],
+                'city': str(city),
+                'price': int(price) if price else 0,
+                'rooms': int(rooms) if rooms else 0,
+                'surface': int(surface) if surface else 0,
+                'url': url,
+                'time_ago': 'récent'
+            }
+
+        except Exception as e:
+            logger.debug(f"   ⚠️  Erreur parsing JSON listing: {e}")
+            return None
+
+    def _parse_element(self, elem):
+        """Parser un élément HTML"""
+        try:
+            # Extraire ID
+            elem_id = elem.get('id') or elem.get('data-id') or ''
+            if not elem_id:
+                # Essayer de trouver un ID dans les enfants
+                id_elem = elem.find(attrs={'data-id': True})
+                if id_elem:
+                    elem_id = id_elem.get('data-id', '')
+
+            if not elem_id:
+                return None
+
+            # Titre
+            title_elem = elem.find(['h2', 'h3', 'h4']) or elem.find(attrs={'class': re.compile(r'title|name')})
+            title = title_elem.text.strip() if title_elem else 'Sans titre'
+
+            # Prix
+            price_elem = elem.find(attrs={'class': re.compile(r'price|amount|€')})
+            price = 0
+            if price_elem:
+                price_text = price_elem.text.strip()
+                price_match = re.search(r'(\d[\d\s]*)', price_text.replace('.', '').replace(',', ''))
+                if price_match:
+                    price = int(price_match.group(1).replace(' ', ''))
+
+            # Ville
+            city_elem = elem.find(attrs={'class': re.compile(r'city|location|place')})
+            city = city_elem.text.strip() if city_elem else ''
+
+            # Chambres
+            rooms_elem = elem.find(attrs={'class': re.compile(r'bedroom|room|chambre')})
+            rooms = 0
+            if rooms_elem:
+                rooms_text = rooms_elem.text.strip()
+                rooms_match = re.search(r'(\d+)', rooms_text)
+                if rooms_match:
+                    rooms = int(rooms_match.group(1))
+
+            # Surface
+            surface_elem = elem.find(attrs={'class': re.compile(r'surface|area|m²')})
+            surface = 0
+            if surface_elem:
+                surface_text = surface_elem.text.strip()
+                surface_match = re.search(r'(\d+)', surface_text)
+                if surface_match:
+                    surface = int(surface_match.group(1))
+
+            # URL
+            link_elem = elem.find('a', href=True)
+            url = '#'
+            if link_elem:
+                href = link_elem['href']
+                if href and not href.startswith('javascript'):
+                    url = href if href.startswith('http') else f"{self.base_url}{href}"
+
+            return {
+                'listing_id': f'athome_{elem_id}',
+                'site': 'Athome.lu',
+                'title': title[:100],
+                'city': city,
+                'price': price,
+                'rooms': rooms,
+                'surface': surface,
+                'url': url,
+                'time_ago': 'récent'
+            }
+
+        except Exception as e:
+            logger.debug(f"   ⚠️  Erreur parsing élément: {e}")
+            return None
+
+    def _matches_criteria(self, listing):
+        """Vérifier si annonce correspond aux critères"""
+        try:
+            # Prix
+            price = listing.get('price', 0)
+            if price > MAX_PRICE or price <= 0:
+                return False
+
+            # Chambres
+            rooms = listing.get('rooms', 0)
+            if rooms < MIN_ROOMS:
+                return False
+
+            return True
+
+        except Exception as e:
+            logger.error(f"   ❌ Erreur vérification critères: {e}")
+            return False
+
+
+# Instance globale
+athome_scraper = AthomeScraper()

@@ -1,0 +1,115 @@
+[{"@type":"WebPage","@id":"https://www.luxhome.lu/recherche/","url":"https://www.luxhome.lu/recherche/","name":"Recherche - LuxHome.lu","isPartOf":{"@id":"https://www.luxhome.lu/#website"},"datePublished":"2022-12-02T04:40:06+00:00","dateModified":"2023-03-12T11:37:11+00:00","description":"Rechercher un bien sur LuxHome.lu, le premier portail immobilier exclusivement dédié au Luxembourg. 100% gratuit","breadcrumb":{"@id":"https://www.luxhome.lu/recherche/#breadcrumb"},"inLanguage":"fr-FR","potentialAction":[{"@type":"ReadAction","target":["https://www.luxhome.lu/recherche/"]}]},{"@type":"BreadcrumbList","@id":"https://www.luxhome.lu/recherche/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.luxhome.lu/"},{"@type":"ListItem","position":2,"name":"Recherche"}]},{"@type":"WebSite","@id":"https://www.luxhome.lu/#website","url":"https://www.luxhome.lu/","name":"LuxHome.lu","description":"Trouver ou publier un bien n&#039;a jamais été aussi facile avec LuxHome.lu","publisher":{"@id":"https://www.luxhome.lu/#organization"},"alternateName":"LuxHome.lu","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.luxhome.lu/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"fr-FR"},{"@type":"Organization","@id":"https://www.luxhome.lu/#organization","name":"ImmoVisio3D SARL-S","alternateName":"LuxHome.lu","url":"https://www.luxhome.lu/","logo":{"@type":"ImageObject","inLanguage":"fr-FR","@id":"https://www.luxhome.lu/#/schema/logo/image/","url":"https://www.luxhome.lu/wp-content/uploads/2022/11/Logo_LuxHome-square500-BIS.jpg","contentUrl":"https://www.luxhome.lu/wp-content/uploads/2022/11/Logo_LuxHome-square500-BIS.jpg","width":500,"height":500,"caption":"ImmoVisio3D SARL-S"},"image":{"@id":"https://www.luxhome.lu/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/LuxHome.luxembourg","https://www.instagram.com/luxhome.lu/","https://lu.linkedin.com/in/lux-home-2b144a264?original_referer=httpswww.luxhome.lu"]}]}</script>
+	<!-- / Yoast SEO Premium plugin. -->
+
+
+<link rel='dns-prefetch' href='//unpkg.com' />
+<link rel='dns-prefetch' href='//api.mapbox.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https://s.w.org/images/core/emoji/15.0.3/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/15.0.3/svg/","svgExt":".svg","source":{"wpemoji":"https://www.luxhome.lu/wp-includes/js/wp-emoji.js?ver=6.7.2","twemoji":"https://www.luxhome.lu/wp-includes/js/twemoji.js?ver=6.7.2"}};
+/**
+ * @output wp-includes/js/wp-emoji-loader.js
+ */
+
+/**
+ * Emoji Settings as exported in PHP via _print_emoji_detection_script().
+ * @typedef WPEmojiSettings
+ * @type {object}
+ * @property {?object} source
+ * @property {?string} source.concatemoji
+ * @property {?string} source.twemoji
+ * @property {?string} source.wpemoji
+ * @property {?boolean} DOMReady
+ * @property {?Function} readyCallback
+ */
+
+/**
+ * Support tests.
+ * @typedef SupportTests
+ * @type {object}
+ * @property {?boolean} flag
+ * @property {?boolean} emoji
+ */
+
+/**
+ * IIFE to detect emoji support and load Twemoji if needed.
+ *
+ * @param {Window} window
+ * @param {Document} document
+ * @param {WPEmojiSettings} settings
+ */
+( function wpEmojiLoader( window, document, settings ) {
+	if ( typeof Promise === 'undefined' ) {
+		return;
+	}
+
+	var sessionStorageKey = 'wpEmojiSettingsSupports';
+	var tests = [ 'flag', 'emoji' ];
+
+	/**
+	 * Checks whether the browser supports offloading to a Worker.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @returns {boolean}
+	 */
+	function supportsWorkerOffloading() {
+		return (
+			typeof Worker !== 'undefined' &&
+			typeof OffscreenCanvas !== 'undefined' &&
+			typeof URL !== 'undefined' &&
+			URL.createObjectURL &&
+			typeof Blob !== 'undefined'
+		);
+	}
+
+	/**
+	 * @typedef SessionSupportTests
+	 * @type {object}
+	 * @property {number} timestamp
+	 * @property {SupportTests} supportTests
+	 */
+
+	/**
+	 * Get support tests from session.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @returns {?SupportTests} Support tests, or null if not set or older than 1 week.
+	 */
+	function getSessionSupportTests() {
+		try {
+			/** @type {SessionSupportTests} */
+			var item = JSON.parse(
+				sessionStorage.getItem( sessionStorageKey )
+			);
+			if (
+				typeof item === 'object' &&
+				typeof item.timestamp === 'number' &&
+				new Date().valueOf() < item.timestamp + 604800 && // Note: Number is a week in seconds.
+				typeof item.supportTests === 'object'
+			) {
+				return item.supportTests;
+			}
+		} catch ( e ) {}
+		return null;
+	}
+
+	/**
+	 * Persist the supports in session storage.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @private
+	 *
+	 * @param {SupportTests} supportTests Support tests.
+	 */
+	function setSessionSupportTests( supportTests ) {
+		try {
+			/** @type {SessionSupportTests} */
+			
