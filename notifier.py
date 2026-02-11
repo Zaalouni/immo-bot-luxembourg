@@ -140,13 +140,24 @@ class TelegramNotifier:
             logger.error(f"❌ Aucun message envoyé (0/{total_chats})")
             return False
 
+    @staticmethod
+    def _escape_html(text):
+        """Échapper les caractères spéciaux HTML pour Telegram"""
+        if not text:
+            return ''
+        return (str(text)
+                .replace('&', '&amp;')
+                .replace('<', '&lt;')
+                .replace('>', '&gt;')
+                .replace('"', '&quot;'))
+
     def send_listing(self, listing):
         """Envoyer une annonce immobilière formatée avec distance GPS"""
         try:
-            # Extraire et nettoyer les données
-            site = listing.get('site', 'Site inconnu').strip()
-            title = listing.get('title', 'Sans titre').strip()
-            city = listing.get('city', 'N/A').strip()
+            # Extraire et nettoyer les données (échapper HTML)
+            site = self._escape_html(listing.get('site', 'Site inconnu').strip())
+            title = self._escape_html(listing.get('title', 'Sans titre').strip())
+            city = self._escape_html(listing.get('city', 'N/A').strip())
             price = listing.get('price', 'N/A')
             rooms = listing.get('rooms', 'N/A')
             surface = listing.get('surface', 'N/A')
@@ -186,7 +197,7 @@ class TelegramNotifier:
 """
 
             # Ajouter description si disponible
-            description = listing.get('description', '').strip()
+            description = self._escape_html(listing.get('description', '').strip())
             if description:
                 message += f"\n\n📝 <i>{description[:200]}{'...' if len(description) > 200 else ''}</i>"
 

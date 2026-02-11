@@ -43,8 +43,11 @@ class NewimmoScraperReal(SeleniumScraperBase):
             if not url or 'newimmo.lu' not in url:
                 return None
 
-            # ID depuis URL
-            listing_id = url.split('/')[-1].split('?')[0]
+            # ID depuis URL (gérer les URLs qui finissent par /)
+            url_clean = url.rstrip('/')
+            listing_id = url_clean.split('/')[-1].split('?')[0]
+            if not listing_id:
+                listing_id = str(abs(hash(url)))[:10]
 
             # Titre
             try:
@@ -67,17 +70,20 @@ class NewimmoScraperReal(SeleniumScraperBase):
             surface = 0
             text_content = element.text
 
-            rooms_match = re.search(r'(\d+)\s*(?:pièces|chambres|rooms)', text_content, re.IGNORECASE)
-            if rooms_match:
-                rooms = int(rooms_match.group(1))
-            else:
-                rooms = self.parse_rooms(text_content)
-
-            surface_match = re.search(r'(\d+)\s*m²', text_content)
+            # Surface d'abord (pour éviter que parse_rooms capture "33" de "33 m²")
+            surface_match = re.search(r'(\d+)\s*m[²2]', text_content)
             if surface_match:
                 surface = int(surface_match.group(1))
             else:
                 surface = self.parse_surface(text_content)
+
+            # Chambres (exclure les chiffres suivis de m²)
+            rooms_match = re.search(r'(\d+)\s*(?:pièces|chambres|rooms|ch\.)', text_content, re.IGNORECASE)
+            if rooms_match:
+                # Vérifier que ce n'est pas la surface
+                matched_num = int(rooms_match.group(1))
+                if matched_num != surface and matched_num < 20:
+                    rooms = matched_num
 
             # Ville
             city = "Luxembourg"

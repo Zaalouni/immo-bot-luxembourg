@@ -43,13 +43,12 @@ class SeleniumScraperBase:
         """Extraire le nombre de pièces"""
         if not rooms_text:
             return 0
-        # Chercher chiffres dans le texte
-        match = re.search(r'(\d+(?:,\d+)?)', rooms_text)
+        # Chercher explicitement "N chambres/pièces/rooms"
+        match = re.search(r'(\d+)\s*(?:pièces|chambres|rooms|ch\.)', rooms_text, re.IGNORECASE)
         if match:
-            try:
-                return int(float(match.group(1).replace(',', '.')))
-            except:
-                return 0
+            val = int(match.group(1))
+            if val < 20:  # Sanity check
+                return val
         # Détection basique
         if 'studio' in rooms_text.lower():
             return 1

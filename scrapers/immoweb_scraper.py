@@ -18,9 +18,17 @@ class ImmowebScraper:
         self.search_url = 'https://www.immoweb.be/en/search/apartment/for-rent/luxembourg/province'
         self.site_name = 'Immoweb.be'
         self.headers = {
-            'User-Agent': USER_AGENT,
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+            'Accept-Language': 'fr-BE,fr;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Sec-Fetch-User': '?1',
+            'Cache-Control': 'max-age=0',
         }
 
     def scrape(self):
@@ -30,7 +38,17 @@ class ImmowebScraper:
         try:
             logger.info(f"🔍 Scraping {self.site_name}...")
 
-            response = requests.get(self.search_url, headers=self.headers, timeout=15)
+            # Utiliser une session pour garder les cookies
+            session = requests.Session()
+            session.headers.update(self.headers)
+
+            # Visiter la page d'accueil d'abord (cookies)
+            try:
+                session.get('https://www.immoweb.be/en', timeout=10)
+            except Exception:
+                pass
+
+            response = session.get(self.search_url, timeout=15)
 
             if response.status_code != 200:
                 logger.warning(f"HTTP {response.status_code} pour {self.search_url}")

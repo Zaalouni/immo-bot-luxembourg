@@ -14,7 +14,7 @@ class NextimmoScraper:
 
     def __init__(self):
         self.base_url = 'https://nextimmo.lu'
-        self.search_url = 'https://nextimmo.lu/en/for-rent/apartments/luxembourg-country'
+        self.search_url = 'https://nextimmo.lu/en/rent/apartment/luxembourg-country'
         self.site_name = 'Nextimmo.lu'
         self.headers = {
             'User-Agent': USER_AGENT,
