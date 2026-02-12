@@ -152,16 +152,13 @@ class ViviScraperSelenium:
     def _matches_criteria(self, listing):
         """Vérifier critères filtrage"""
         try:
-            # Prix
             if listing['price'] > MAX_PRICE or listing['price'] <= 0:
                 return False
-
-            # Chambres
-            if listing['rooms'] < MIN_ROOMS:
+            rooms = listing.get('rooms', 0)
+            if rooms > 0 and rooms < MIN_ROOMS:
                 return False
-
             return True
-        except:
+        except Exception:
             return False
 
 vivi_scraper_selenium = ViviScraperSelenium()

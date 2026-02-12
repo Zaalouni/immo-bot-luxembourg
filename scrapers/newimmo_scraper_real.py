@@ -95,9 +95,11 @@ class NewimmoScraperReal(SeleniumScraperBase):
             from config import MAX_PRICE, MIN_ROOMS
             if price > MAX_PRICE or price < 500:
                 return None
-            if rooms < MIN_ROOMS:
+            # Ne rejeter sur rooms que si explicitement détecté et insuffisant
+            if rooms > 0 and rooms < MIN_ROOMS:
                 return None
-            if surface < 40:
+            # Ne rejeter sur surface que si explicitement détectée et insuffisante
+            if surface > 0 and surface < 40:
                 return None
 
             return {

@@ -201,7 +201,10 @@ class ImmoBot:
                 return False
 
             rooms = listing.get('rooms', 0)
-            if not isinstance(rooms, (int, float)) or rooms < MIN_ROOMS:
+            if rooms is None:
+                rooms = 0
+            # Si rooms est connu (>0), vérifier le minimum
+            if isinstance(rooms, (int, float)) and rooms > 0 and rooms < MIN_ROOMS:
                 return False
 
             return True

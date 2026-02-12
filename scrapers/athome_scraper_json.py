@@ -104,9 +104,11 @@ class AthomeScraperJSON:
         if not id_val:
             return None
 
-        # Prix
-        price = item.get('price', 0)
-        if not isinstance(price, int):
+        # Prix (peut être int ou float)
+        price_raw = item.get('price', 0)
+        try:
+            price = int(float(price_raw)) if price_raw else 0
+        except (ValueError, TypeError):
             price = 0
 
         # Type immeuble
@@ -134,14 +136,19 @@ class AthomeScraperJSON:
         url = f"{self.base_url}/location/{type_fr}/{city_slug}/id-{id_val}.html"
 
         # Chambres depuis characteristic
-        rooms = 1
+        rooms = 0
         char = item.get('characteristic', {})
         if isinstance(char, dict):
             rooms_count = char.get('rooms_count')
-            if isinstance(rooms_count, int) and rooms_count > 0:
-                rooms = rooms_count
+            if isinstance(rooms_count, (int, float)) and rooms_count > 0:
+                rooms = int(rooms_count)
             elif isinstance(rooms_count, dict):
-                rooms = rooms_count.get('value', 1)
+                rooms = int(rooms_count.get('value', 0))
+            # Fallback: bedroom_count
+            if rooms == 0:
+                bedroom_count = char.get('bedroom_count')
+                if isinstance(bedroom_count, (int, float)) and bedroom_count > 0:
+                    rooms = int(bedroom_count)
 
         # Surface - utiliser property_surface
         surface = 0
@@ -186,14 +193,21 @@ class AthomeScraperJSON:
     def _matches_criteria(self, listing):
         """Vérifier critères filtrage"""
         try:
-            if listing['price'] > MAX_PRICE or listing['price'] <= 0:
-                return False
+            price = listing.get('price', 0)
+            rooms = listing.get('rooms', 0)
 
-            if listing['rooms'] < MIN_ROOMS:
+            if price <= 0:
+                logger.debug(f"Athome rejeté (prix=0): {listing.get('listing_id')}")
+                return False
+            if price > MAX_PRICE:
+                logger.debug(f"Athome rejeté (prix={price} > {MAX_PRICE}): {listing.get('listing_id')}")
+                return False
+            if rooms < MIN_ROOMS:
+                logger.debug(f"Athome rejeté (rooms={rooms} < {MIN_ROOMS}): {listing.get('listing_id')}")
                 return False
 
             return True
-        except:
+        except Exception:
             return False
 
 athome_scraper_json = AthomeScraperJSON()

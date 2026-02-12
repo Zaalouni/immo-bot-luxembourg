@@ -74,9 +74,9 @@ class LuxhomeScraper:
             for match in matches:
                 titre_raw, type_raw, prix_raw, url_rel, id_str, lat, lng, thumb_raw = match
 
-                # Décodage Unicode
-                titre = self.decode_text(titre_raw)
-                type_bien = self.decode_text(type_raw).replace('<small>', '').replace('</small>', '').strip()
+                # Décodage Unicode + suppression balises HTML
+                titre = re.sub(r'<[^>]+>', '', self.decode_text(titre_raw)).strip()
+                type_bien = re.sub(r'<[^>]+>', '', self.decode_text(type_raw)).strip()
 
                 # Construction URL complète (correction /fr/)
                 url = self.decode_text(url_rel)
@@ -155,8 +155,8 @@ class LuxhomeScraper:
                     'site': self.name,
                     'title': titre,
                     'price': prix,
-                    'rooms': chambres if chambres > 0 else None,
-                    'surface': surface if surface > 0 else None,
+                    'rooms': chambres if chambres > 0 else 0,
+                    'surface': surface if surface > 0 else 0,
                     'city': localisation,
                     'url': url,
                     'latitude': lat,
