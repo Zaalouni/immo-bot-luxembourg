@@ -128,25 +128,39 @@ class AthomeScraperJSON:
         if not id_val:
             return None
 
-        # Prix (peut être int ou float)
+        # Prix (peut être int, float ou dict)
         price_raw = item.get('price', 0)
+        price = 0
+        if isinstance(price_raw, dict):
+            price_raw = price_raw.get('value', 0) or price_raw.get('amount', 0) or 0
         try:
             price = int(float(price_raw)) if price_raw else 0
         except (ValueError, TypeError):
             price = 0
 
         # Type immeuble
-        immotype = item.get('immotype', 'apartment').lower()
+        immotype_raw = item.get('immotype', 'apartment')
+        if isinstance(immotype_raw, dict):
+            immotype = str(immotype_raw.get('name', '') or immotype_raw.get('id', 'apartment')).lower()
+        elif isinstance(immotype_raw, str):
+            immotype = immotype_raw.lower()
+        else:
+            immotype = 'apartment'
         type_fr = self.type_map.get(immotype, immotype)
 
         # Ville + GPS
         geo = item.get('geo', {})
         lat = None
         lng = None
-        
+
         if isinstance(geo, dict):
             city_raw = geo.get('city')
-            city = city_raw if isinstance(city_raw, str) else 'Luxembourg'
+            if isinstance(city_raw, dict):
+                city = str(city_raw.get('name', '') or city_raw.get('value', 'Luxembourg'))
+            elif isinstance(city_raw, str):
+                city = city_raw
+            else:
+                city = 'Luxembourg'
             
             # Extraire coordonnées GPS
             lat = geo.get('lat') or geo.get('latitude')
@@ -197,7 +211,9 @@ class AthomeScraperJSON:
 
         # Description/Titre
         description = item.get('description', '')
-        title = description[:70] if description else f"{type_fr.title()} {city}"
+        if isinstance(description, dict):
+            description = str(description.get('value', '') or description.get('text', '') or '')
+        title = str(description)[:70] if description else f"{type_fr.title()} {city}"
 
         return {
             'listing_id': f'athome_{id_val}',
