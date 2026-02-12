@@ -33,7 +33,7 @@ class ImmowebScraper:
             options.add_argument('--disable-dev-shm-usage')
 
             driver = webdriver.Firefox(options=options)
-            driver.set_page_load_timeout(30)
+            driver.set_page_load_timeout(60)
 
             logger.info(f"   Chargement {self.search_url}")
             driver.get(self.search_url)
