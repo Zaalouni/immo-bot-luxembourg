@@ -122,97 +122,81 @@ class AthomeScraperJSON:
             return []
 
     def _extract_listing(self, item):
-        """Extraire données d'une annonce JSON"""
+        """Extraire données d'une annonce JSON Athome.lu"""
         # ID
         id_val = item.get('id')
         if not id_val:
             return None
 
-        # Prix (peut être int, float ou dict)
-        price_raw = item.get('price', 0)
+        # Prix (int direct)
         price = 0
-        if isinstance(price_raw, dict):
-            price_raw = price_raw.get('value', 0) or price_raw.get('amount', 0) or 0
         try:
-            price = int(float(price_raw)) if price_raw else 0
+            price = int(float(item.get('price', 0) or 0))
         except (ValueError, TypeError):
             price = 0
 
-        # Type immeuble
-        immotype_raw = item.get('immotype', 'apartment')
+        # Type immeuble — immotype est un dict {label, portal_group, ...}
+        immotype_raw = item.get('immotype', {})
         if isinstance(immotype_raw, dict):
-            immotype = str(immotype_raw.get('name', '') or immotype_raw.get('id', 'apartment')).lower()
+            immotype = str(immotype_raw.get('label', '') or immotype_raw.get('portal_group', 'apartment')).lower()
         elif isinstance(immotype_raw, str):
             immotype = immotype_raw.lower()
         else:
-            immotype = 'apartment'
+            immotype = str(item.get('propertyType', 'apartment')).lower()
         type_fr = self.type_map.get(immotype, immotype)
 
-        # Ville + GPS
-        geo = item.get('geo', {})
-        lat = None
-        lng = None
-
-        if isinstance(geo, dict):
-            city_raw = geo.get('city')
-            if isinstance(city_raw, dict):
-                city = str(city_raw.get('name', '') or city_raw.get('value', 'Luxembourg'))
-            elif isinstance(city_raw, str):
-                city = city_raw
-            else:
-                city = 'Luxembourg'
-            
-            # Extraire coordonnées GPS
-            lat = geo.get('lat') or geo.get('latitude')
-            lng = geo.get('lng') or geo.get('longitude')
-        else:
-            city = 'Luxembourg'
+        # Ville + GPS — geo a cityName, lat, lon
+        geo = item.get('geo', {}) or {}
+        city = str(geo.get('cityName', '') or geo.get('city', '') or 'Luxembourg')
+        lat = geo.get('lat') or geo.get('latitude')
+        lng = geo.get('lon') or geo.get('lng') or geo.get('longitude')
 
         city_slug = city.lower().replace(' ', '-').replace("'", '')
 
         # Construction URL
         url = f"{self.base_url}/location/{type_fr}/{city_slug}/id-{id_val}.html"
 
-        # Chambres depuis characteristic
+        # Chambres — top-level roomsCount/bedroomsCount ou characteristic.bedrooms_count
         rooms = 0
-        char = item.get('characteristic', {})
-        if isinstance(char, dict):
-            rooms_count = char.get('rooms_count')
-            if isinstance(rooms_count, (int, float)) and rooms_count > 0:
-                rooms = int(rooms_count)
-            elif isinstance(rooms_count, dict):
-                rooms = int(rooms_count.get('value', 0))
-            # Fallback: bedroom_count
-            if rooms == 0:
-                bedroom_count = char.get('bedroom_count')
-                if isinstance(bedroom_count, (int, float)) and bedroom_count > 0:
-                    rooms = int(bedroom_count)
+        rooms_count = item.get('roomsCount') or item.get('bedroomsCount') or 0
+        try:
+            rooms = int(rooms_count)
+        except (ValueError, TypeError):
+            pass
+        # Fallback dans characteristic
+        if rooms == 0:
+            char = item.get('characteristic', {}) or {}
+            if isinstance(char, dict):
+                bc = char.get('bedrooms_count', 0) or char.get('rooms_count', 0) or 0
+                try:
+                    rooms = int(bc)
+                except (ValueError, TypeError):
+                    pass
 
-        # Surface - utiliser property_surface
+        # Surface — top-level propertySurface ou characteristic
         surface = 0
-        if isinstance(char, dict):
-            # Priorité: property_surface > property_max_surface
-            surface_val = char.get('property_surface') or char.get('property_max_surface')
-            if isinstance(surface_val, (int, float)) and surface_val > 0:
-                surface = int(surface_val)
+        surface_raw = item.get('propertySurface') or item.get('minPropertySurface') or 0
+        try:
+            surface = int(float(surface_raw))
+        except (ValueError, TypeError):
+            pass
 
         # Calcul distance GPS
         distance_km = None
-        if lat is not None and lng is not None:
+        if lat and lng:
             try:
                 from config import REFERENCE_LAT, REFERENCE_LNG
                 distance_km = haversine_distance(
                     REFERENCE_LAT, REFERENCE_LNG,
                     float(lat), float(lng)
                 )
-            except Exception as e:
-                logger.debug(f"Erreur calcul distance: {e}")
-
+            except Exception:
+                pass
 
         # Description/Titre
-        description = item.get('description', '')
+        description = item.get('description', '') or ''
         if isinstance(description, dict):
-            description = str(description.get('value', '') or description.get('text', '') or '')
+            description = str(description.get('value', '') or '')
         title = str(description)[:70] if description else f"{type_fr.title()} {city}"
 
         return {
