@@ -145,7 +145,8 @@ class WortimmoScraper:
         try:
             if listing['price'] > MAX_PRICE or listing['price'] <= 0:
                 return False
-            if listing['rooms'] < MIN_ROOMS:
+            rooms = listing.get('rooms', 0)
+            if rooms > 0 and rooms < MIN_ROOMS:
                 return False
             return True
         except Exception:

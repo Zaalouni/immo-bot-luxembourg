@@ -1,243 +1,325 @@
 
 # scrapers/immoweb_scraper.py
-# Scraper pour Immoweb.be — section Luxembourg
-import requests
+# Scraper pour Immoweb.be — section Luxembourg (Selenium)
+# Immoweb bloque les requêtes HTTP classiques (403) et nécessite JavaScript
 import logging
 import re
-import json
-from config import USER_AGENT, MAX_PRICE, MIN_ROOMS
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.by import By
+from config import MAX_PRICE, MIN_ROOMS
 
 logger = logging.getLogger(__name__)
 
 class ImmowebScraper:
-    """Scraper pour Immoweb.be — annonces Luxembourg"""
+    """Scraper pour Immoweb.be — annonces Luxembourg via Selenium"""
 
     def __init__(self):
         self.base_url = 'https://www.immoweb.be'
-        # API JSON d'Immoweb (retourne du JSON directement)
-        self.search_url = 'https://www.immoweb.be/en/search/apartment/for-rent/luxembourg/province'
+        self.search_url = 'https://www.immoweb.be/en/search/apartment/for-rent?countries=LU&orderBy=newest'
         self.site_name = 'Immoweb.be'
-        self.headers = {
-            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-            'Accept-Language': 'fr-BE,fr;q=0.9,en-US;q=0.8,en;q=0.7',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-            'Sec-Fetch-Dest': 'document',
-            'Sec-Fetch-Mode': 'navigate',
-            'Sec-Fetch-Site': 'none',
-            'Sec-Fetch-User': '?1',
-            'Cache-Control': 'max-age=0',
-        }
 
     def scrape(self):
-        """Scraper les annonces de location au Luxembourg"""
+        """Scraper Immoweb.be avec Selenium"""
         listings = []
+        driver = None
 
         try:
-            logger.info(f"🔍 Scraping {self.site_name}...")
+            logger.info(f"🔍 Scraping {self.site_name} (Selenium)...")
 
-            # Utiliser une session pour garder les cookies
-            session = requests.Session()
-            session.headers.update(self.headers)
+            options = Options()
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
 
-            # Visiter la page d'accueil d'abord (cookies)
+            driver = webdriver.Firefox(options=options)
+            driver.set_page_load_timeout(30)
+
+            logger.info(f"   Chargement {self.search_url}")
+            driver.get(self.search_url)
+
+            import time
+            time.sleep(8)
+
+            # Accepter cookies si popup
             try:
-                session.get('https://www.immoweb.be/en', timeout=10)
+                cookie_btn = driver.find_elements(By.CSS_SELECTOR, '[data-testid="uc-accept-all-button"], .didomi-continue-without-agreeing, #uc-btn-accept-banner')
+                if cookie_btn:
+                    cookie_btn[0].click()
+                    time.sleep(2)
             except Exception:
                 pass
 
-            response = session.get(self.search_url, timeout=15)
+            # Scroll pour charger plus
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight/2);")
+            time.sleep(2)
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(2)
 
-            if response.status_code != 200:
-                logger.warning(f"HTTP {response.status_code} pour {self.search_url}")
-                return []
+            # Méthode 1: Chercher JSON dans page source (window.classified ou hydration)
+            page_source = driver.page_source
+            json_listings = self._extract_from_json(page_source)
+            if json_listings:
+                logger.info(f"✅ {len(json_listings)} annonces (JSON)")
+                return json_listings
 
-            html = response.text
+            # Méthode 2: Sélecteurs CSS Immoweb
+            cards = driver.find_elements(By.CSS_SELECTOR, '.search-results__item')
+            if not cards:
+                cards = driver.find_elements(By.CSS_SELECTOR, '[class*="search-results"] article')
+            if not cards:
+                cards = driver.find_elements(By.CSS_SELECTOR, 'article[id^="classified_"]')
+            if not cards:
+                cards = driver.find_elements(By.CSS_SELECTOR, 'article')
 
-            # Immoweb stocke les données dans un JSON embarqué
-            # Chercher window.__CLASSIFIED_LIST__ ou iw-search
-            json_match = re.search(r'window\.classified\s*=\s*(\{.+?\});', html, re.DOTALL)
+            logger.info(f"   🔍 {len(cards)} cartes trouvées")
 
-            if json_match:
-                return self._parse_json(json_match.group(1))
-
-            # Sinon, parser le HTML avec regex
-            return self._parse_html(html)
-
-        except requests.RequestException as e:
-            logger.error(f"❌ Erreur réseau {self.site_name}: {e}")
-            return []
-        except Exception as e:
-            logger.error(f"❌ Erreur scraping {self.site_name}: {e}")
-            return []
-
-    def _parse_html(self, html):
-        """Parser le HTML pour extraire les annonces"""
-        listings = []
-
-        # Pattern pour les cartes d'annonces Immoweb
-        # Format: <article> avec data-url, prix, titre, etc.
-        card_pattern = re.compile(
-            r'<article[^>]*class="[^"]*card--result[^"]*"[^>]*>.*?</article>',
-            re.DOTALL | re.IGNORECASE
-        )
-
-        cards = card_pattern.findall(html)
-
-        if not cards:
-            # Alternative : chercher les liens d'annonces
-            link_pattern = re.compile(
-                r'href="(/en/classified/[^"]+/(\d+))"[^>]*>.*?'
-                r'([\d\s\.]+)\s*€',
-                re.DOTALL | re.IGNORECASE
-            )
-            matches = link_pattern.findall(html)
-
-            for match in matches[:15]:
-                url_path, listing_id, price_str = match
-                price = self._parse_price(price_str)
-
-                if price <= 0 or price > MAX_PRICE:
+            for card in cards[:20]:
+                try:
+                    listing = self._extract_listing(card)
+                    if listing and self._matches_criteria(listing):
+                        listings.append(listing)
+                except Exception as e:
+                    logger.debug(f"   Erreur extraction: {e}")
                     continue
 
-                listings.append({
-                    'listing_id': f'immoweb_{listing_id}',
-                    'site': self.site_name,
-                    'title': f'Appartement Luxembourg',
-                    'city': 'Luxembourg',
-                    'price': price,
-                    'rooms': 0,
-                    'surface': 0,
-                    'url': f'{self.base_url}{url_path}',
-                    'time_ago': 'Récemment'
-                })
-
-            logger.info(f"✅ {len(listings)} annonces trouvées (HTML)")
+            logger.info(f"✅ {len(listings)} annonces après filtrage")
             return listings
 
-        for card_html in cards[:15]:
-            try:
-                listing = self._extract_from_card(card_html)
-                if listing and self._matches_criteria(listing):
-                    listings.append(listing)
-            except Exception as e:
-                logger.debug(f"Erreur extraction: {e}")
-                continue
+        except Exception as e:
+            logger.error(f"❌ Scraping {self.site_name}: {e}")
+            return []
 
-        logger.info(f"✅ {len(listings)} annonces après filtrage")
-        return listings
-
-    def _extract_from_card(self, card_html):
-        """Extraire données d'une carte HTML"""
-        # URL
-        url_match = re.search(r'href="(/en/classified/[^"]+/(\d+))"', card_html)
-        if not url_match:
-            return None
-
-        url = f'{self.base_url}{url_match.group(1)}'
-        listing_id = url_match.group(2)
-
-        # Titre
-        title_match = re.search(r'<h2[^>]*>(.*?)</h2>', card_html, re.DOTALL)
-        title = re.sub(r'<[^>]+>', '', title_match.group(1)).strip() if title_match else 'Appartement'
-
-        # Prix
-        price_match = re.search(r'([\d\s\.]+)\s*€', card_html)
-        price = self._parse_price(price_match.group(1)) if price_match else 0
-
-        if price <= 0:
-            return None
-
-        # Chambres
-        rooms = 0
-        rooms_match = re.search(r'(\d+)\s*(?:ch\.|bedroom|chambre|room)', card_html, re.IGNORECASE)
-        if rooms_match:
-            rooms = int(rooms_match.group(1))
-
-        # Surface
-        surface = 0
-        surface_match = re.search(r'(\d+)\s*m[²2]', card_html)
-        if surface_match:
-            surface = int(surface_match.group(1))
-
-        # Ville
-        city = 'Luxembourg'
-        city_match = re.search(
-            r'\b(Luxembourg|Esch|Differdange|Dudelange|Mersch|Ettelbruck|Diekirch|Wiltz|Clervaux|Remich|Grevenmacher)\b',
-            card_html, re.IGNORECASE
-        )
-        if city_match:
-            city = city_match.group(1).title()
-
-        return {
-            'listing_id': f'immoweb_{listing_id}',
-            'site': self.site_name,
-            'title': title[:200],
-            'city': city,
-            'price': price,
-            'rooms': rooms,
-            'surface': surface,
-            'url': url,
-            'time_ago': 'Récemment'
-        }
-
-    def _parse_json(self, json_str):
-        """Parser les données JSON embarquées"""
-        listings = []
-        try:
-            data = json.loads(json_str)
-            items = data if isinstance(data, list) else data.get('results', [])
-
-            for item in items[:15]:
+        finally:
+            if driver:
                 try:
-                    listing_id = item.get('id', '')
-                    price = item.get('price', {}).get('mainValue', 0) if isinstance(item.get('price'), dict) else 0
-                    title = item.get('property', {}).get('title', 'Appartement')
-                    city = item.get('property', {}).get('location', {}).get('locality', 'Luxembourg')
-                    rooms = item.get('property', {}).get('bedroomCount', 0)
-                    surface = item.get('property', {}).get('netHabitableSurface', 0)
-                    url = f'{self.base_url}/en/classified/{listing_id}'
+                    driver.quit()
+                except Exception:
+                    pass
 
-                    if price > 0 and self._matches_criteria({'price': price, 'rooms': rooms}):
-                        listings.append({
-                            'listing_id': f'immoweb_{listing_id}',
-                            'site': self.site_name,
-                            'title': str(title)[:200],
-                            'city': str(city),
-                            'price': int(price),
-                            'rooms': int(rooms) if rooms else 0,
-                            'surface': int(surface) if surface else 0,
-                            'url': url,
-                            'time_ago': 'Récemment'
-                        })
-                except Exception as e:
-                    logger.debug(f"Erreur extraction JSON: {e}")
+    def _extract_from_json(self, page_source):
+        """Extraire annonces depuis JSON embarqué dans la page"""
+        import json
+
+        listings = []
+
+        # Chercher iw-search hydration data
+        match = re.search(r'<iw-search[^>]*:results-storage="(\[.*?\])"', page_source, re.DOTALL)
+        if match:
+            try:
+                import html
+                json_str = html.unescape(match.group(1))
+                items = json.loads(json_str)
+                logger.info(f"   📊 iw-search contient {len(items)} annonces")
+                for item in items[:20]:
+                    listing = self._parse_json_item(item)
+                    if listing and self._matches_criteria(listing):
+                        listings.append(listing)
+                return listings if listings else None
+            except Exception as e:
+                logger.debug(f"   iw-search parse error: {e}")
+
+        # Chercher window.dataLayer ou __NEXT_DATA__
+        for pattern in [
+            r'window\.__NEXT_DATA__\s*=\s*(\{.*?\})\s*;?\s*</script>',
+            r'"results"\s*:\s*(\[.*?\])\s*[,}]',
+        ]:
+            match = re.search(pattern, page_source, re.DOTALL)
+            if match:
+                try:
+                    data = json.loads(match.group(1))
+                    items = data if isinstance(data, list) else data.get('props', {}).get('pageProps', {}).get('results', [])
+                    if items:
+                        logger.info(f"   📊 JSON contient {len(items)} annonces")
+                        for item in items[:20]:
+                            listing = self._parse_json_item(item)
+                            if listing and self._matches_criteria(listing):
+                                listings.append(listing)
+                        return listings if listings else None
+                except Exception:
                     continue
 
-            logger.info(f"✅ {len(listings)} annonces trouvées (JSON)")
-        except json.JSONDecodeError as e:
-            logger.warning(f"JSON decode error: {e}")
+        return None
 
-        return listings
-
-    def _parse_price(self, price_str):
-        """Parser un prix depuis une chaîne"""
-        if not price_str:
-            return 0
-        cleaned = price_str.replace(' ', '').replace('.', '').replace('\u202f', '').replace(',', '')
+    def _parse_json_item(self, item):
+        """Parser un item JSON Immoweb"""
         try:
-            return int(cleaned)
-        except ValueError:
-            return 0
+            listing_id = item.get('id', '')
+            if not listing_id:
+                return None
+
+            # Prix
+            price = 0
+            price_obj = item.get('price', {})
+            if isinstance(price_obj, dict):
+                price = int(price_obj.get('mainValue', 0) or 0)
+            elif isinstance(price_obj, (int, float)):
+                price = int(price_obj)
+
+            if price <= 0:
+                return None
+
+            # Propriété
+            prop = item.get('property', {}) or {}
+
+            # Titre
+            title = prop.get('title', '') or item.get('title', '') or 'Appartement'
+
+            # Ville
+            location = prop.get('location', {}) or {}
+            city = location.get('locality', '') or location.get('city', '') or 'Luxembourg'
+
+            # Chambres
+            rooms = int(prop.get('bedroomCount', 0) or 0)
+
+            # Surface
+            surface = int(prop.get('netHabitableSurface', 0) or 0)
+
+            # Image
+            media = item.get('media', {}) or {}
+            pictures = media.get('pictures', []) or []
+            image_url = pictures[0].get('smallUrl', '') if pictures else None
+
+            # URL
+            url = f'{self.base_url}/en/classified/{listing_id}'
+
+            # GPS
+            lat = location.get('latitude')
+            lng = location.get('longitude')
+            distance_km = None
+            if lat and lng:
+                try:
+                    from utils import haversine_distance
+                    from config import REFERENCE_LAT, REFERENCE_LNG
+                    distance_km = haversine_distance(REFERENCE_LAT, REFERENCE_LNG, float(lat), float(lng))
+                except Exception:
+                    pass
+
+            return {
+                'listing_id': f'immoweb_{listing_id}',
+                'site': self.site_name,
+                'title': str(title)[:200],
+                'city': str(city),
+                'price': price,
+                'rooms': rooms,
+                'surface': surface,
+                'url': url,
+                'image_url': image_url,
+                'latitude': lat,
+                'longitude': lng,
+                'distance_km': distance_km,
+                'time_ago': 'Récemment'
+            }
+        except Exception as e:
+            logger.debug(f"JSON item error: {e}")
+            return None
+
+    def _extract_listing(self, card):
+        """Extraire données d'une carte Selenium"""
+        try:
+            # URL et ID
+            link = None
+            try:
+                link = card.find_element(By.CSS_SELECTOR, '.card__title-link, a[href*="/classified/"]')
+            except Exception:
+                try:
+                    link = card.find_element(By.CSS_SELECTOR, 'a')
+                except Exception:
+                    return None
+
+            if not link:
+                return None
+
+            url = link.get_attribute('href') or ''
+            if '/classified/' not in url:
+                return None
+
+            # ID depuis URL
+            id_match = re.search(r'/(\d+)(?:\?|$)', url)
+            listing_id = id_match.group(1) if id_match else url.rstrip('/').split('/')[-1]
+
+            # Titre
+            title = link.get_attribute('aria-label') or ''
+            if not title:
+                try:
+                    title_elem = card.find_element(By.CSS_SELECTOR, 'h2, [class*="title"]')
+                    title = title_elem.text
+                except Exception:
+                    title = 'Appartement'
+
+            # Texte complet de la carte
+            text = card.text or ''
+
+            # Prix
+            price = 0
+            for line in text.split('\n'):
+                if '€' in line:
+                    price_digits = re.sub(r'[^\d]', '', line.split('€')[0])
+                    if price_digits:
+                        try:
+                            price = int(price_digits)
+                            if 100 < price < 100000:
+                                break
+                        except ValueError:
+                            continue
+
+            if price <= 0:
+                return None
+
+            # Chambres
+            rooms = 0
+            rooms_match = re.search(r'(\d+)\s*(?:bedroom|chambre|ch\.)', text, re.IGNORECASE)
+            if rooms_match:
+                rooms = int(rooms_match.group(1))
+
+            # Surface
+            surface = 0
+            surface_match = re.search(r'(\d+)\s*m[²2]', text)
+            if surface_match:
+                surface = int(surface_match.group(1))
+
+            # Ville
+            city = 'Luxembourg'
+            city_match = re.search(
+                r'\b(Luxembourg|Esch|Differdange|Dudelange|Mersch|Ettelbruck|Diekirch|Wiltz|Clervaux|Remich|Grevenmacher|Arlon|Strassen|Bertrange|Hesperange)\b',
+                text, re.IGNORECASE
+            )
+            if city_match:
+                city = city_match.group(1).title()
+
+            # Image
+            image_url = None
+            try:
+                img = card.find_element(By.CSS_SELECTOR, 'img')
+                image_url = img.get_attribute('src')
+            except Exception:
+                pass
+
+            return {
+                'listing_id': f'immoweb_{listing_id}',
+                'site': self.site_name,
+                'title': str(title)[:200],
+                'city': city,
+                'price': price,
+                'rooms': rooms,
+                'surface': surface,
+                'url': url,
+                'image_url': image_url,
+                'time_ago': 'Récemment'
+            }
+
+        except Exception as e:
+            logger.debug(f"Erreur extraction carte: {e}")
+            return None
 
     def _matches_criteria(self, listing):
         """Vérifier critères"""
         try:
-            if listing['price'] > MAX_PRICE or listing['price'] <= 0:
+            price = listing.get('price', 0)
+            if price <= 0 or price > MAX_PRICE:
                 return False
-            if listing.get('rooms', 0) < MIN_ROOMS:
+            rooms = listing.get('rooms', 0)
+            if rooms > 0 and rooms < MIN_ROOMS:
                 return False
             return True
         except Exception:
