@@ -45,31 +45,55 @@ class AthomeScraperJSON:
                 logger.error("JSON __INITIAL_STATE__ non trouvé")
                 return []
 
-            # Parser JSON (corriger undefined → null)
+            # Parser JSON (corriger valeurs JavaScript → JSON valide)
             json_str = json_match.group(1).strip()
 
-            # Corrections multiples
-            json_clean = (json_str
-                .replace(':undefined', ':null')
-                .replace(',undefined', ',null')
-                .replace('undefined,', 'null,')
-                .replace('undefined}', 'null}'))
+            # Corrections JS → JSON
+            json_clean = json_str
+            # undefined, NaN, Infinity → null
+            json_clean = re.sub(r':\s*undefined\b', ':null', json_clean)
+            json_clean = re.sub(r',\s*undefined\b', ',null', json_clean)
+            json_clean = re.sub(r'\bundefined\s*[,}]', 'null,', json_clean)
+            json_clean = re.sub(r':\s*NaN\b', ':null', json_clean)
+            json_clean = re.sub(r':\s*-?Infinity\b', ':null', json_clean)
+            # Trailing commas: ,] ou ,}
+            json_clean = re.sub(r',\s*([}\]])', r'\1', json_clean)
+            # new Date(...) → null
+            json_clean = re.sub(r'new\s+Date\([^)]*\)', 'null', json_clean)
 
             try:
                 data = json.loads(json_clean)
             except json.JSONDecodeError as e:
-                logger.error(f"Parsing JSON échoué position {e.pos}: {e.msg}")
-                # Tentative avec extraction jusqu'à position erreur
+                logger.warning(f"JSON parse error pos {e.pos}, tentative extraction list...")
+                # Extraire directement le tableau "list" depuis le JSON brut
                 try:
-                    # Chercher dernier objet valide avant erreur
+                    list_match = re.search(r'"list"\s*:\s*(\[.*?\])\s*,\s*"(?:total|count|pagination)', json_clean, re.DOTALL)
+                    if list_match:
+                        items = json.loads(list_match.group(1))
+                        logger.info(f"Extraction directe list: {len(items)} annonces")
+                        listings = []
+                        for item in items[:15]:
+                            try:
+                                listing = self._extract_listing(item)
+                                if listing and self._matches_criteria(listing):
+                                    listings.append(listing)
+                            except Exception:
+                                continue
+                        logger.info(f"✅ {len(listings)} annonces après filtrage")
+                        return listings
+                except Exception as e2:
+                    logger.debug(f"Extraction directe échouée: {e2}")
+
+                # Dernière tentative : tronquer et compléter
+                try:
                     json_truncated = json_clean[:e.pos]
-                    # Compléter si nécessaire
                     open_braces = json_truncated.count('{') - json_truncated.count('}')
-                    json_fixed = json_truncated + ('}' * open_braces)
+                    open_brackets = json_truncated.count('[') - json_truncated.count(']')
+                    json_fixed = json_truncated + (']' * max(0, open_brackets)) + ('}' * max(0, open_braces))
                     data = json.loads(json_fixed)
-                    logger.warning("JSON parsé partiellement après correction")
-                except:
-                    logger.error("Impossible de parser JSON même partiellement")
+                    logger.warning("JSON parsé partiellement après troncature")
+                except Exception:
+                    logger.error("Impossible de parser JSON")
                     return []
 
             # Extraire annonces
@@ -202,7 +226,7 @@ class AthomeScraperJSON:
             if price > MAX_PRICE:
                 logger.debug(f"Athome rejeté (prix={price} > {MAX_PRICE}): {listing.get('listing_id')}")
                 return False
-            if rooms < MIN_ROOMS:
+            if rooms > 0 and rooms < MIN_ROOMS:
                 logger.debug(f"Athome rejeté (rooms={rooms} < {MIN_ROOMS}): {listing.get('listing_id')}")
                 return False
 

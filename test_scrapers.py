@@ -101,15 +101,7 @@ def main():
         print(f"\n❌ Luxhome.lu: {e}")
         results['Luxhome.lu'] = -1
 
-    # 4. Wortimmo.lu
-    try:
-        from scrapers.wortimmo_scraper import wortimmo_scraper
-        results['Wortimmo.lu'] = test_scraper('Wortimmo.lu', wortimmo_scraper)
-    except ImportError as e:
-        print(f"\n❌ Wortimmo.lu: {e}")
-        results['Wortimmo.lu'] = -1
-
-    # 5. Nextimmo.lu (API JSON)
+    # 4. Nextimmo.lu (API JSON)
     try:
         from scrapers.nextimmo_scraper import nextimmo_scraper
         results['Nextimmo.lu'] = test_scraper('Nextimmo.lu (API JSON)', nextimmo_scraper)
@@ -119,7 +111,7 @@ def main():
 
     # === SCRAPERS SELENIUM (nécessitent Firefox) ===
     if '--no-selenium' not in sys.argv:
-        # 6. VIVI.lu
+        # 5. VIVI.lu
         try:
             from scrapers.vivi_scraper_selenium import vivi_scraper_selenium
             results['VIVI.lu'] = test_scraper('VIVI.lu (Selenium)', vivi_scraper_selenium)
@@ -127,7 +119,7 @@ def main():
             print(f"\n❌ VIVI.lu: {e}")
             results['VIVI.lu'] = -1
 
-        # 7. Newimmo.lu
+        # 6. Newimmo.lu
         try:
             from scrapers.newimmo_scraper_real import newimmo_scraper_real
             results['Newimmo.lu'] = test_scraper('Newimmo.lu (Selenium)', newimmo_scraper_real)
@@ -135,7 +127,7 @@ def main():
             print(f"\n❌ Newimmo.lu: {e}")
             results['Newimmo.lu'] = -1
 
-        # 8. Unicorn.lu
+        # 7. Unicorn.lu
         try:
             from scrapers.unicorn_scraper_real import unicorn_scraper_real
             results['Unicorn.lu'] = test_scraper('Unicorn.lu (Selenium)', unicorn_scraper_real)
@@ -143,13 +135,21 @@ def main():
             print(f"\n❌ Unicorn.lu: {e}")
             results['Unicorn.lu'] = -1
 
-        # 9. Immoweb.be (Selenium)
+        # 8. Immoweb.be (Selenium)
         try:
             from scrapers.immoweb_scraper import immoweb_scraper
             results['Immoweb.be'] = test_scraper('Immoweb.be (Selenium)', immoweb_scraper)
         except ImportError as e:
             print(f"\n❌ Immoweb.be: {e}")
             results['Immoweb.be'] = -1
+
+        # 9. Wortimmo.lu (Selenium)
+        try:
+            from scrapers.wortimmo_scraper import wortimmo_scraper
+            results['Wortimmo.lu'] = test_scraper('Wortimmo.lu (Selenium)', wortimmo_scraper)
+        except ImportError as e:
+            print(f"\n❌ Wortimmo.lu: {e}")
+            results['Wortimmo.lu'] = -1
     else:
         print("\n⏭️  Scrapers Selenium ignorés (--no-selenium)")
 

@@ -46,14 +46,14 @@ class ImmotopScraperReal:
                 
                 # Extraire chambres
                 rooms_match = re.search(r'(\d+)\s*chambre', title, re.IGNORECASE)
-                rooms = int(rooms_match.group(1)) if rooms_match else 2
-                
-                if rooms < MIN_ROOMS:
+                rooms = int(rooms_match.group(1)) if rooms_match else 0
+
+                if rooms > 0 and rooms < MIN_ROOMS:
                     continue
-                
+
                 # Surface
-                surface_match = re.search(r'(\d+)\s*m', title)
-                surface = int(surface_match.group(1)) if surface_match else 65
+                surface_match = re.search(r'(\d+)\s*m[²2]', title)
+                surface = int(surface_match.group(1)) if surface_match else 0
                 
                 # Ville (dernier élément après virgule)
                 parts = title.split(',')
