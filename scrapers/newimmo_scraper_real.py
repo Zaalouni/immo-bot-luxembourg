@@ -1,18 +1,20 @@
 
 # =============================================================================
-# scrapers/newimmo_scraper_real.py — Scraper Newimmo.lu via Selenium
+# scrapers/newimmo_scraper_real.py — Scraper Newimmo.lu via Selenium + regex
 # =============================================================================
-# Methode : herite de SeleniumScraperBase, charge la page de recherche,
-#           extrait les cartes d'annonces via selecteurs CSS
-# Surface : gere les formats decimaux (52.00 m2, 52,5 m2)
-# Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE,
-#            EXCLUDED_WORDS (titre + texte complet)
+# Methode : herite de SeleniumScraperBase MAIS override scrape() completement.
+#           Les selecteurs CSS du site changent souvent, donc on extrait
+#           depuis page_source avec regex sur les liens d'annonces.
+# Multi-URL : /fr/louer/appartement/ + /fr/louer/maison/
+# Extraction : regex sur le HTML autour de chaque lien /fr/louer/TYPE/VILLE/ID-...
+# Lien pattern : /fr/louer/appartement/beaufort/127259-appartement-beaufort/
+# Ville : extraite depuis l'URL (4eme segment)
+# Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
 # Instance globale : newimmo_scraper_real
 # =============================================================================
 import logging
 import re
 from scrapers.selenium_template import SeleniumScraperBase
-from selenium.webdriver.common.by import By
 
 logger = logging.getLogger(__name__)
 
@@ -21,114 +23,167 @@ class NewimmoScraperReal(SeleniumScraperBase):
         super().__init__(
             site_name="Newimmo.lu",
             base_url="https://www.newimmo.lu",
-            search_url="https://www.newimmo.lu/louer"
+            search_url="https://www.newimmo.lu/fr/louer/appartement/"
         )
-
-    def find_listings_elements(self, driver):
-        """Trouver les éléments d'annonces"""
-        selectors = [
-            'article.property-item',
-            '.property-card',
-            '.listing-item',
-            '[class*="property"]',
-            '[class*="listing"]',
-            'div[class*="card"]'
+        self.search_urls = [
+            "https://www.newimmo.lu/fr/louer/appartement/",
+            "https://www.newimmo.lu/fr/louer/maison/",
         ]
 
-        for selector in selectors:
-            elements = driver.find_elements(By.CSS_SELECTOR, selector)
-            if len(elements) > 3:
-                logger.info(f"Utilisation sélecteur: {selector}")
-                return elements
-
-        return driver.find_elements(By.CSS_SELECTOR, 'article, div[class]')
+    def find_listings_elements(self, driver):
+        """Non utilise — extraction via page_source"""
+        return []
 
     def extract_listing_data(self, element):
-        """Extraire données d'une annonce Newimmo"""
+        """Non utilise — extraction via page_source"""
+        return None
+
+    def scrape(self):
+        """Override: extraire depuis page_source — appartements + maisons"""
+        import time
+        driver = None
         try:
-            # URL
-            link_elem = element.find_element(By.CSS_SELECTOR, 'a')
-            url = link_elem.get_attribute('href')
-            if not url or 'newimmo.lu' not in url:
-                return None
+            driver = self.setup_driver()
+            all_links = set()
+            combined_source = ''
 
-            # ID depuis URL (gérer les URLs qui finissent par /)
-            url_clean = url.rstrip('/')
-            listing_id = url_clean.split('/')[-1].split('?')[0]
-            if not listing_id:
-                listing_id = str(abs(hash(url)))[:10]
+            for search_url in self.search_urls:
+                try:
+                    logger.info(f"🟡 {self.site_name}: Chargement {search_url}")
+                    driver.get(search_url)
+                    time.sleep(8)
+                    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                    time.sleep(3)
 
-            # Titre
-            try:
-                title_elem = element.find_element(By.CSS_SELECTOR, 'h2, h3, [class*="title"]')
-                title = title_elem.text
-            except Exception:
-                title = element.text[:100]
+                    page_source = driver.page_source
+                    combined_source += '\n' + page_source
 
-            # Prix
-            price = 0
-            price_elems = element.find_elements(By.XPATH, ".//*[contains(text(), '€')]")
-            for price_elem in price_elems:
-                price_text = price_elem.text
-                parsed_price = self.parse_price(price_text)
-                if parsed_price > price:
-                    price = parsed_price
+                    # Pattern: /fr/louer/TYPE/VILLE/ID-TYPE-VILLE/
+                    links = re.findall(
+                        r'href="(/fr/louer/(?:appartement|maison|studio|appartement-meuble|duplex|penthouse)/[^/]+/\d+-[^"]+)"',
+                        page_source
+                    )
+                    new_links = set(links) - all_links
+                    all_links.update(links)
+                    logger.info(f"  {search_url.split('/')[-2]}: {len(new_links)} nouvelles annonces")
+                except Exception as e:
+                    logger.debug(f"Erreur {search_url}: {e}")
+                    continue
 
-            # Pièces et surface
-            rooms = 0
-            surface = 0
-            text_content = element.text
+            logger.info(f"🔍 {self.site_name}: {len(all_links)} annonces uniques total")
 
-            # Surface d'abord (pour éviter que parse_rooms capture "33" de "33 m²")
-            # Gère "52.00 m²", "52 m²", "52m2"
-            surface_match = re.search(r'(\d+(?:[.,]\d+)?)\s*m[²2]', text_content)
-            if surface_match:
-                surface = int(float(surface_match.group(1).replace(',', '.')))
-            else:
-                surface = self.parse_surface(text_content)
+            if not all_links:
+                return []
 
-            # Chambres (exclure les chiffres suivis de m²)
-            rooms_match = re.search(r'(\d+)\s*(?:pièces|chambres|rooms|ch\.)', text_content, re.IGNORECASE)
-            if rooms_match:
-                # Vérifier que ce n'est pas la surface
-                matched_num = int(rooms_match.group(1))
-                if matched_num != surface and matched_num < 20:
-                    rooms = matched_num
+            listings = []
+            for link_path in all_links:
+                try:
+                    listing = self._extract_from_source(combined_source, link_path)
+                    if listing:
+                        listings.append(listing)
+                except Exception as e:
+                    logger.debug(f"Erreur extraction: {e}")
+                    continue
 
-            # Ville
-            city = "Luxembourg"
-            city_match = re.search(r'\b(Luxembourg|Esch|Differdange|Dudelange|Mersch|Walferdange|Bertrange|Strassen|Howald|Hesperange|Mamer)\b', text_content, re.IGNORECASE)
-            if city_match:
-                city = city_match.group(1)
-
-            # Filtrer selon config
-            from config import MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
-            if price < MIN_PRICE or price > MAX_PRICE:
-                return None
-            if rooms > 0 and (rooms < MIN_ROOMS or rooms > MAX_ROOMS):
-                return None
-            if surface > 0 and surface < MIN_SURFACE:
-                return None
-            # Vérifier mots exclus dans titre ET texte complet
-            check_text = (title + ' ' + text_content).lower()
-            if any(w.strip().lower() in check_text for w in EXCLUDED_WORDS if w.strip()):
-                return None
-
-            return {
-                'listing_id': f'newimmo_{listing_id}',
-                'site': 'Newimmo.lu',
-                'title': title[:200],
-                'city': city,
-                'price': price,
-                'rooms': rooms,
-                'surface': surface,
-                'url': url,
-                'time_ago': 'Récemment'
-            }
+            logger.info(f"✅ {self.site_name}: {len(listings)} annonces valides")
+            return listings
 
         except Exception as e:
-            logger.debug(f"Erreur extraction Newimmo: {e}")
+            logger.error(f"❌ {self.site_name}: {e}")
+            return []
+        finally:
+            if driver:
+                driver.quit()
+
+    def _extract_from_source(self, page_source, link_path):
+        """Extraire donnees d'une annonce depuis le HTML source"""
+        full_url = f"https://www.newimmo.lu{link_path}"
+
+        # ID depuis URL: /fr/louer/appartement/beaufort/127259-appartement-beaufort/
+        id_match = re.search(r'/(\d+)-', link_path)
+        listing_id = id_match.group(1) if id_match else str(abs(hash(link_path)))[:10]
+
+        # Contexte HTML autour du lien
+        pos = page_source.find(link_path)
+        if pos == -1:
             return None
+
+        start = max(0, pos - 1500)
+        end = min(len(page_source), pos + 800)
+        context = page_source[start:end]
+        text = re.sub(r'<[^>]+>', ' ', context)
+        text = re.sub(r'\s+', ' ', text)
+
+        # Prix — "5 350€" ou "1 250 €"
+        price = 0
+        price_match = re.search(r'([\d\s\.]+)\s*€', text)
+        if price_match:
+            price_str = price_match.group(1).strip().replace(' ', '').replace('.', '')
+            try:
+                price = int(price_str)
+            except ValueError:
+                pass
+        if price <= 0 or price > 100000:
+            return None
+
+        # Ville depuis URL — 5eme segment: /fr/louer/type/VILLE/id
+        parts = link_path.strip('/').split('/')
+        city = 'Luxembourg'
+        if len(parts) >= 4:
+            city = parts[3].replace('-', ' ').title()
+
+        # Type de bien depuis URL — 3eme segment
+        bien_type = 'Annonce'
+        if len(parts) >= 3:
+            bien_type = parts[2].replace('-', ' ').title()
+
+        title = f"{bien_type} - {city}"
+
+        # Chambres
+        rooms = 0
+        rooms_match = re.search(r'(\d+)\s*(?:chambre|pièce|room|ch\.)', text, re.I)
+        if rooms_match:
+            rooms = int(rooms_match.group(1))
+
+        # Surface
+        surface = 0
+        surface_match = re.search(r'(\d+(?:[.,]\d+)?)\s*m[²2]', text)
+        if surface_match:
+            surface = int(float(surface_match.group(1).replace(',', '.')))
+
+        # Image
+        image_url = None
+        img_match = re.search(
+            r'<img[^>]+(?:src|data-src)="(https?://[^"]+\.(?:jpg|jpeg|png|webp)[^"]*)"',
+            context
+        )
+        if img_match:
+            image_url = img_match.group(1)
+
+        # Filtrer
+        from config import MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
+        if price < MIN_PRICE or price > MAX_PRICE:
+            return None
+        if rooms > 0 and (rooms < MIN_ROOMS or rooms > MAX_ROOMS):
+            return None
+        if surface > 0 and surface < MIN_SURFACE:
+            return None
+        check_text = title.lower()
+        if any(w.strip().lower() in check_text for w in EXCLUDED_WORDS if w.strip()):
+            return None
+
+        return {
+            'listing_id': f'newimmo_{listing_id}',
+            'site': 'Newimmo.lu',
+            'title': str(title)[:200],
+            'city': city,
+            'price': price,
+            'rooms': rooms,
+            'surface': surface,
+            'url': full_url,
+            'image_url': image_url,
+            'time_ago': 'Récemment'
+        }
 
 # Instance à importer
 newimmo_scraper_real = NewimmoScraperReal()

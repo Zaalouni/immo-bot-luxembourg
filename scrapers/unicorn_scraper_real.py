@@ -109,28 +109,48 @@ class UnicornScraperReal(SeleniumScraperBase):
         if not listing_id:
             return None
 
-        # Chercher le bloc HTML autour de ce lien (methode rapide sans regex lourd)
-        pos = page_source.find(link_path)
-        if pos == -1:
+        # METHODE PRINCIPALE : data-id="LISTING_ID" (carte de l'annonce)
+        # Les liens apparaissent 14-18x dans la page mais data-id est unique par carte
+        context = None
+        text = None
+        data_id_pos = page_source.find(f'data-id="{listing_id}"')
+        if data_id_pos != -1:
+            start = max(0, data_id_pos - 200)
+            end = min(len(page_source), data_id_pos + 2000)
+            context = page_source[start:end]
+            text = re.sub(r'<[^>]+>', ' ', context)
+            text = re.sub(r'\s+', ' ', text)
+
+        # FALLBACK : chercher occurrence du lien avec prix dans le contexte
+        if not text or '€' not in text:
+            search_start = 0
+            while True:
+                pos = page_source.find(link_path, search_start)
+                if pos == -1:
+                    break
+                search_start = pos + 1
+                s = max(0, pos - 1500)
+                e = min(len(page_source), pos + 800)
+                ctx = page_source[s:e]
+                txt = re.sub(r'<[^>]+>', ' ', ctx)
+                txt = re.sub(r'\s+', ' ', txt)
+                if '€' in txt:
+                    context = ctx
+                    text = txt
+                    break
+
+        if not text or '€' not in text:
             return None
 
-        start = max(0, pos - 2000)
-        end = min(len(page_source), pos + 1000)
-        context = page_source[start:end]
-        text = re.sub(r'<[^>]+>', ' ', context)  # Strip HTML
-        text = re.sub(r'\s+', ' ', text)  # Normalize spaces
-
-        # Prix — "1 250€" ou "1250 €"
+        # Prix — "1 600€" ou "1 250 €" (prendre le 1er, ignorer charges)
         price = 0
         price_match = re.search(r'([\d\s\.]+)\s*€', text)
         if price_match:
-            price_str = price_match.group(1).replace(' ', '').replace('.', '')
+            price_str = price_match.group(1).strip().replace(' ', '').replace('.', '')
             try:
                 price = int(price_str)
             except ValueError:
                 pass
-
-        # Ignorer les charges
         if price <= 0 or price > 100000:
             return None
 
@@ -140,11 +160,11 @@ class UnicornScraperReal(SeleniumScraperBase):
         if rooms_match:
             rooms = int(rooms_match.group(1))
 
-        # Surface
+        # Surface — gerer "51.58 m²" correctement
         surface = 0
-        surface_match = re.search(r'(\d+)\s*m[²2]', text)
+        surface_match = re.search(r'(\d+(?:[.,]\d+)?)\s*m[²2]', text)
         if surface_match:
-            surface = int(surface_match.group(1))
+            surface = int(float(surface_match.group(1).replace(',', '.')))
 
         # Titre depuis URL: detail-9278-location-studio-esch-sur-alzette
         parts = link_path.split('-location-')

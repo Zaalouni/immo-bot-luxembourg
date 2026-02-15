@@ -29,6 +29,9 @@ scrapers.sauv/
 main.py.123
 main.py.1801
 
+# === Scripts diagnostic (oneshot, pas dans le repo) ===
+diagnostic_*.py
+
 # === Fichiers debug/data temporaires ===
 photolog.txt
 page.html

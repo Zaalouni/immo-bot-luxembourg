@@ -107,6 +107,22 @@
 | 2.3.6 | Mise a jour .env.example avec ACCEPTED_CITIES | DONE | Basse | Documentation |
 | 2.3.7 | Mise a jour planning.md, CLAUDE.md | DONE | Haute | Suivi |
 
+### v2.4 — Fix scrapers Selenium (2026-02-15)
+
+> **Methode** : diagnostic HTML/Selenium → identifier structure reelle des pages →
+> corriger extraction → valider avec scripts de test
+
+| ID | Action | Statut | Priorite | Notes |
+|----|--------|--------|----------|-------|
+| 2.4.1 | Diagnostic Selenium (driver, pages, blocages) | DONE | Critique | Newimmo 404, Unicorn CAPTCHA, Wortimmo Cloudflare, Immoweb bloque |
+| 2.4.2 | Diagnostic HTML (structure reelle des pages) | DONE | Critique | Unicorn data-id, Newimmo /fr/louer/, Wortimmo prix=filtres dropdown |
+| 2.4.3 | Fix Newimmo : rewrite page_source regex | DONE | Haute | URL /fr/louer/TYPE/VILLE/ID, multi-URL appart+maison, 5 annonces OK |
+| 2.4.4 | Fix Unicorn : data-id extraction principale | DONE | Haute | data-id card boundary au lieu de find() 1ere occurrence, surface decimale |
+| 2.4.5 | Fix Wortimmo : relaxer filtre href | DONE | Haute | Accepter tout href wortimmo.lu, patterns URL elargis |
+| 2.4.6 | Diagnostic Wortimmo approfondi | DONE | Haute | 191 prix = dropdown filtres, 88 <a> = filtres, Cloudflare bloque listing data |
+| 2.4.7 | Conclusion : Wortimmo + Immoweb infixables | DONE | Info | Cloudflare/CAPTCHA empechent acces aux donnees, desactiver proprement |
+| 2.4.8 | Ajout ~16 villes au dictionnaire GPS (utils.py) | DONE | Moyenne | Schengen + localites manquantes |
+
 ## Actions planifiees (futures)
 
 ### v3.0 — Performance et fiabilite (TODO)
@@ -139,3 +155,4 @@
 | 2025-02-15 | Session 4 | Analyse structure, push GitHub, documentation (v2.1) |
 | 2025-02-15 | Session 4b | Nettoyage complet v2.2 : suppression ~40 fichiers inutiles, .gitignore, rotation logs, requirements |
 | 2025-02-15 | Session 4c | v2.3 : geocodage ~120 villes Luxembourg, enrichissement GPS, filtre ACCEPTED_CITIES |
+| 2026-02-15 | Session 5 | v2.4 : fix Newimmo (5 annonces OK), fix Unicorn (data-id), Wortimmo+Immoweb infixables (Cloudflare) |

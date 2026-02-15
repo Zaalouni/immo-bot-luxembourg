@@ -286,11 +286,13 @@ class WortimmoScraper:
         """Extraire depuis les liens dans le HTML rendu"""
         listings = []
 
-        # Patterns URL larges (relatifs et absolus)
+        # Patterns URL larges (relatifs et absolus) — inclure TOUT lien wortimmo detail
         url_patterns = [
             r'href="(/en/rent/[^"]{10,})"',
-            r'href="(https?://(?:www\.)?wortimmo\.lu/en/rent/[^"]+)"',
-            r'href="(/[a-z]{2}/(?:louer|mieten|rent)/[^"]+)"',
+            r'href="(/fr/location/[^"]{10,})"',
+            r'href="(/de/mieten/[^"]{10,})"',
+            r'href="(https?://(?:www\.)?wortimmo\.lu/(?:en/rent|fr/location|de/mieten)/[^"]+)"',
+            r'href="(/[a-z]{2}/[^"]*(?:apartment|house|flat|studio|appartement|maison)[^"]*)"',
         ]
 
         all_links = set()
@@ -302,8 +304,8 @@ class WortimmoScraper:
         detail_links = []
         for link in all_links:
             parts = link.rstrip('/').split('/')
-            # Un lien de détail a typiquement 6+ segments ou contient un ID numérique
-            if len(parts) >= 5 or re.search(r'/\d{4,}', link):
+            # Un lien de détail a 5+ segments ou contient un ID numérique
+            if len(parts) >= 5 or re.search(r'/\d{3,}', link):
                 detail_links.append(link)
 
         logger.info(f"   Liens détail trouvés: {len(detail_links)}")
@@ -395,14 +397,25 @@ class WortimmoScraper:
         logger.info(f"   <a> avec €: {len(price_links)}")
 
         seen_urls = set()
-        for elem in price_links[:30]:
+        for elem in price_links[:50]:
             try:
                 href = elem.get_attribute('href') or ''
                 text = elem.text or ''
 
                 if not href or not text or href in seen_urls:
                     continue
-                if '/rent/' not in href and '/louer/' not in href and '/mieten/' not in href:
+                # Accepter tout lien wortimmo (les detail links n'ont pas forcement /rent/)
+                if 'wortimmo.lu' not in href:
+                    continue
+                # Ignorer navigation et pagination
+                clean_href = href.rstrip('/')
+                if clean_href == self.search_url.rstrip('/'):
+                    continue
+                if '?page=' in href and '/' not in href.split('?page=')[1]:
+                    continue
+                # Ignorer liens trop courts (navigation)
+                path = href.replace('https://www.wortimmo.lu', '').rstrip('/')
+                if len(path) < 10:
                     continue
                 seen_urls.add(href)
 
