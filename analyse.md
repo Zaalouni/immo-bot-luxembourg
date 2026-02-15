@@ -67,34 +67,49 @@
 | selenium_template.py | Fallback Chrome si Firefox indisponible, surface decimale |
 | test_scrapers.py | Affiche filtres actifs avant tests |
 
-## Problemes connus
+### v2.2 (15 fevrier 2025) — Nettoyage et optimisation
 
-### Critiques
-1. **`.env` commite dans le repo** — Le fichier `.env` contient les tokens Telegram. Bien qu'il soit dans `.gitignore` maintenant, il a pu etre commite dans des versions anterieures. Verifier l'historique git.
+#### Fichiers supprimes (~40 fichiers, ~2.5 Mo)
+| Categorie | Fichiers supprimes |
+|-----------|-------------------|
+| Backups racine | main.py.backup, main.py.123, main.py.1801, main.py.backup_avant_phase2, main.py.sauvvv, config.py.backup_final, notifier.py.backup_old, 0, except |
+| Dossier scrapers.sauv/ | ~26 fichiers (copie complete de scrapers/) |
+| Scrapers legacy | athome_scraper_simple.py, athome_scraper_real.py, luxhome_scraper_simple.py, luxhome_scraper_stealth.py, luxhome_scraper_real.py, vivi_scraper_real.py, selenium_template_fixed.py |
+| Debug/data | photolog.txt (1.4 Mo), page.html, page_raw.html, json_raw.txt, json_cleaned.txt, raw.json, debug_error.json, annonces.*, luxhome_annonces.*, tableau_complet.txt, script_31.txt |
+| Scripts oneshot | aa.sh, correct_new_sites.sh, fix_scrapers.py, explore_selectors.py, diagnostic*.py (x3), bot_simple.py, scraper_simple.py, athome.py |
+| Anciens tests | test.py, test_installation.py, test_installation_v2.py, test_athome_scraper.py, test_groupe.py |
+
+#### Optimisations
+| Correction | Avant | Apres |
+|------------|-------|-------|
+| .gitignore | 10 lignes basiques | 55 lignes, couvre backups, data, debug, IDE |
+| Logs | FileHandler simple (grossit indefiniment) | RotatingFileHandler 5 Mo, 3 backups |
+| requirements.txt | 9 packages (feedparser, schedule inutilises) | 6 packages utiles uniquement |
+| Securite .env | Non verifie | Confirme : jamais commite dans l'historique git |
+
+## Problemes connus (apres v2.2)
 
 ### Importants
-2. **Pas d'async** — Les 9 scrapers tournent sequentiellement. Avec les delais (5s entre scrapers + 8-10s Selenium), un cycle complet prend ~2-3 minutes minimum.
-3. **Singletons a l'import** — `db` et `notifier` sont instancies au moment de l'import. Le notifier teste la connexion Telegram a chaque demarrage (meme en mode test).
-4. **Selenium fragile** — Les sites changent regulierement leur HTML. Les selecteurs CSS et regex doivent etre mis a jour.
-5. **Pas de retry scraper** — Si un scraper echoue, on passe au suivant. Pas de re-essai dans le meme cycle.
+1. **Pas d'async** — Les 9 scrapers tournent sequentiellement. Avec les delais (5s entre scrapers + 8-10s Selenium), un cycle complet prend ~2-3 minutes minimum.
+2. **Singletons a l'import** — `db` et `notifier` sont instancies au moment de l'import. Le notifier teste la connexion Telegram a chaque demarrage (meme en mode test).
+3. **Selenium fragile** — Les sites changent regulierement leur HTML. Les selecteurs CSS et regex doivent etre mis a jour.
+4. **Pas de retry scraper** — Si un scraper echoue, on passe au suivant. Pas de re-essai dans le meme cycle.
+5. **Filtrage duplique** — _matches_criteria() est dans chaque scraper ET dans main.py. A centraliser (v3.0).
 
 ### Mineurs
-6. **Fichiers legacy** — ~10 fichiers scraper inutilises dans `scrapers/` (anciennes versions)
-7. **Fichiers backup a la racine** — `main.py.backup`, `main.py.123`, `config.py.backup_final`, etc.
-8. **Pas de logging structure** — Logs en fichier plat, pas de rotation
-9. **feedparser et schedule** — Installes (requirements.txt) mais non utilises
+6. **dashboard.py et web_dashboard.py** — Presents mais non integres au bot principal
+7. **Pas de tests automatises** — Uniquement test_scrapers.py (test manuel)
 
-## Metriques du projet
+## Metriques du projet (apres v2.2)
 
-| Metrique | Valeur |
-|----------|--------|
-| Fichiers Python actifs | 15 |
-| Fichiers Python legacy | ~10 |
-| Lignes de code (actifs) | ~2500 |
-| Sites scraped | 9 |
-| Scrapers Selenium | 4 (VIVI, Newimmo, Unicorn, Wortimmo) |
-| Scrapers HTTP | 5 (Athome, Immotop, Luxhome, Immoweb, Nextimmo) |
-| Dependances | 9 packages |
+| Metrique | Avant v2.2 | Apres v2.2 |
+|----------|-----------|------------|
+| Fichiers Python actifs | 15 | 15 |
+| Fichiers Python legacy | ~10 | 0 |
+| Fichiers total racine | ~60 | ~18 |
+| Lignes de code (actifs) | ~2500 | ~2500 |
+| Dependances | 9 packages | 6 packages |
+| Taille repo (hors venv/db) | ~3 Mo | ~500 Ko |
 
 ## Points d'attention pour modifications futures
 

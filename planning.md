@@ -7,7 +7,7 @@
 ## Legende statuts
 
 - `DONE` — Termine et commite
-- `IN_PROGRESS` — En cours de developpement
+- `DONE` — En cours de developpement
 - `TODO` — Planifie, pas encore commence
 - `BLOCKED` — Bloque par une dependance ou un probleme
 - `CANCELLED` — Annule
@@ -71,18 +71,27 @@
 | 2.1.4 | Creer planning.md | DONE | 2025-02-15 |
 | 2.1.5 | Ajouter commentaires detailles dans tous les fichiers sources | DONE | 2025-02-15 |
 
-## Actions planifiees (futures)
+### v2.2 — Nettoyage, .gitignore, optimisation (2025-02-15)
 
-### v2.2 — Nettoyage et robustesse (TODO)
+> **Methode** : revue complete du repo → lister tout ce qui est inutile/dangereux →
+> mettre a jour .gitignore → supprimer fichiers locaux → nettoyer requirements →
+> optimiser logs → commit + push
 
 | ID | Action | Statut | Priorite | Notes |
 |----|--------|--------|----------|-------|
-| 2.2.1 | Supprimer fichiers backup racine (*.backup, *.123, *.1801, etc.) | TODO | Haute | Encombrent le repo |
-| 2.2.2 | Supprimer scrapers legacy non utilises dans scrapers/ | TODO | Haute | ~8 fichiers inutiles |
-| 2.2.3 | Supprimer scrapers.sauv/ (dossier backup complet) | TODO | Haute | Doublon de backup/ |
-| 2.2.4 | Verifier historique git pour .env commite accidentellement | TODO | Critique | Tokens Telegram exposes |
-| 2.2.5 | Ajouter rotation des logs (RotatingFileHandler) | TODO | Moyenne | immo_bot.log grossit indefiniment |
-| 2.2.6 | Supprimer feedparser et schedule de requirements.txt | TODO | Basse | Non utilises |
+| 2.2.1 | Mettre a jour .gitignore (backups, logs, data, debug, legacy) | DONE | Critique | Empecher tout fichier inutile de rentrer dans git |
+| 2.2.2 | Supprimer fichiers backup racine (main.py.*, config.py.*, notifier.py.*, 0, except) | DONE | Haute | 8 fichiers, ~55 Ko |
+| 2.2.3 | Supprimer dossier scrapers.sauv/ | DONE | Haute | ~26 fichiers legacy, doublon de backup/ |
+| 2.2.4 | Supprimer scrapers legacy non importes dans scrapers/ | DONE | Haute | 5 fichiers : athome_simple, athome_real, luxhome_simple/stealth/real, vivi_real, selenium_template_fixed |
+| 2.2.5 | Supprimer fichiers debug/data racine (*.html, *.csv, *.json debug, photolog.txt) | DONE | Haute | ~2.2 Mo de fichiers temporaires |
+| 2.2.6 | Supprimer scripts oneshot racine (aa.sh, correct_new_sites.sh, fix_scrapers.py, explore_selectors.py, diagnostic*.py, bot_simple.py, scraper_simple.py, athome.py) | DONE | Haute | Scripts de debug/migration obsoletes |
+| 2.2.7 | Supprimer anciens tests racine (test.py, test_installation*.py, test_athome_scraper.py, test_groupe.py) | DONE | Moyenne | Remplaces par test_scrapers.py |
+| 2.2.8 | Nettoyer requirements.txt (retirer feedparser, schedule non utilises) | DONE | Basse | 2 packages inutiles |
+| 2.2.9 | Ajouter rotation logs (RotatingFileHandler) dans main.py | DONE | Moyenne | immo_bot.log grossit indefiniment |
+| 2.2.10 | Verifier historique git pour .env | DONE | Critique | S'assurer que les tokens n'ont jamais ete commites |
+| 2.2.11 | Mettre a jour CLAUDE.md, analyse.md avec les changements v2.2 | DONE | Haute | Garder la doc a jour |
+
+## Actions planifiees (futures)
 
 ### v3.0 — Performance et fiabilite (TODO)
 
@@ -111,4 +120,5 @@
 | 2025-01-17 | Session 1 | Creation projet, 6 scrapers, bot fonctionnel (v1.0) |
 | 2025-01-17-18 | Session 2 | +3 scrapers, corrections bugs, filtrage (v1.1-v1.5) |
 | 2025-02-12 | Session 3 | Refonte v2.0 : dedup, photos, GPS, filtrage complet |
-| 2025-02-15 | Session 4 | Analyse structure, push GitHub, documentation |
+| 2025-02-15 | Session 4 | Analyse structure, push GitHub, documentation (v2.1) |
+| 2025-02-15 | Session 4b | Nettoyage complet v2.2 : suppression ~40 fichiers inutiles, .gitignore, rotation logs, requirements |

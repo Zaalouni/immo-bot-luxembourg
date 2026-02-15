@@ -1,10 +1,55 @@
+# =============================================================================
+# .gitignore — Immo-Bot Luxembourg
+# =============================================================================
+
+# === Environnement Python ===
 venv/
 __pycache__/
 *.pyc
-*.log
+*.pyo
+
+# === Secrets ===
+.env
+
+# === Base de donnees ===
 *.db
 *.db.backup
-.env
+
+# === Logs ===
+*.log
 geckodriver.log
+
+# === Backups et fichiers temporaires ===
 backup/
+scrapers.sauv/
+*.backup
+*.backup_*
+*.sauvvv
+*.sauv
+main.py.123
+main.py.1801
+
+# === Fichiers debug/data temporaires ===
+photolog.txt
+page.html
+page_raw.html
+json_raw.txt
+json_cleaned.txt
+raw.json
+debug_error.json
+annonces.json
+annonces.txt
+luxhome_annonces.*
+tableau_complet.txt
+script_31.txt
+test_results.log
+
+# === Fichiers vides/orphelins ===
+0
+except
+
+# === IDE / Outils ===
+.claude/
 /tmp/
+.vscode/
+.idea/

@@ -16,16 +16,21 @@
 # Voir architecture.md pour le flux de donnees complet.
 # =============================================================================
 import logging
+import logging.handlers
 import time
 import sys
 import argparse
 from datetime import datetime
 
+# Rotation des logs : max 5 Mo par fichier, garde 3 fichiers anciens
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('immo_bot.log', encoding='utf-8'),
+        logging.handlers.RotatingFileHandler(
+            'immo_bot.log', encoding='utf-8',
+            maxBytes=5*1024*1024, backupCount=3
+        ),
         logging.StreamHandler()
     ]
 )
