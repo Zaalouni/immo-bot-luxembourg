@@ -191,6 +191,17 @@ class ImmoBot:
                         pass
                 continue
 
+        # Enrichissement GPS : geocoder les annonces sans coordonnees
+        from utils import enrich_listing_gps
+        enriched_count = 0
+        for listing in all_listings:
+            had_gps = listing.get('latitude') is not None
+            enrich_listing_gps(listing)
+            if not had_gps and listing.get('latitude') is not None:
+                enriched_count += 1
+        if enriched_count > 0:
+            logger.info(f"   📍 {enriched_count} annonces geocodees par ville")
+
         # Dédoublonnage cross-sites (même bien sur plusieurs sites)
         unique_listings = self._deduplicate(all_listings)
         dupes_removed = len(all_listings) - len(unique_listings)
@@ -279,7 +290,7 @@ class ImmoBot:
                 logger.debug(f"Rejeté mot exclu dans: {check_text[:50]}")
                 return False
 
-            # Distance GPS (si disponible)
+            # Distance GPS (si disponible apres enrichissement)
             distance_km = listing.get('distance_km')
             if distance_km is not None:
                 try:
@@ -288,6 +299,14 @@ class ImmoBot:
                         return False
                 except (ValueError, TypeError):
                     pass
+            else:
+                # Pas de GPS meme apres geocodage → filtre par liste de villes acceptees
+                from config import ACCEPTED_CITIES
+                if ACCEPTED_CITIES:
+                    city = self._normalize_city(listing.get('city', ''))
+                    if city and not any(acc in city or city in acc for acc in ACCEPTED_CITIES):
+                        logger.debug(f"Rejeté ville='{city}' pas dans ACCEPTED_CITIES: {listing.get('listing_id')}")
+                        return False
 
             return True
         except Exception as e:

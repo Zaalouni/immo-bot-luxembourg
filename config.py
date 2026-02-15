@@ -61,12 +61,17 @@ try:
     REFERENCE_LNG = float(os.getenv('REFERENCE_LNG', '6.1342'))
     REFERENCE_NAME = os.getenv('REFERENCE_NAME', 'Luxembourg Gare')
     MAX_DISTANCE = float(os.getenv('MAX_DISTANCE', '15'))
+    # Filtre villes acceptees (fallback si geocodage echoue)
+    # Si vide → pas de filtre par ville (seulement distance GPS)
+    _accepted_raw = os.getenv('ACCEPTED_CITIES', '')
+    ACCEPTED_CITIES = [c.strip().lower() for c in _accepted_raw.split(',') if c.strip()]
 except ValueError:
     print("⚠️ Erreur GPS, valeurs par défaut utilisées")
     REFERENCE_LAT = 49.6000
     REFERENCE_LNG = 6.1342
     REFERENCE_NAME = "Luxembourg Gare"
     MAX_DISTANCE = 15.0
+    ACCEPTED_CITIES = []
 
 # ===== CONFIG TECHNIQUE =====
 CHECK_INTERVAL = int(os.getenv('CHECK_INTERVAL', '600'))  # 10 minutes

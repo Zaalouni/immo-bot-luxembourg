@@ -91,6 +91,22 @@
 | 2.2.10 | Verifier historique git pour .env | DONE | Critique | S'assurer que les tokens n'ont jamais ete commites |
 | 2.2.11 | Mettre a jour CLAUDE.md, analyse.md avec les changements v2.2 | DONE | Haute | Garder la doc a jour |
 
+### v2.3 — Geocodage villes + filtre localisation (2025-02-15)
+
+> **Methode** : diagnostic → identifier les scrapers sans GPS → creer dictionnaire
+> villes luxembourgeoises → enrichir les annonces avant filtrage → ajouter filtre
+> par villes acceptees en fallback
+
+| ID | Action | Statut | Priorite | Notes |
+|----|--------|--------|----------|-------|
+| 2.3.1 | Diagnostic localisations (script diagnostic_locations.py) | DONE | Critique | Resultat : 7/9 scrapers sans GPS |
+| 2.3.2 | Dictionnaire GPS ~120 villes luxembourgeoises dans utils.py | DONE | Critique | LUXEMBOURG_CITIES + geocode_city() + enrich_listing_gps() |
+| 2.3.3 | Enrichissement GPS dans main.py (avant dedup et filtrage) | DONE | Critique | Geocode par ville si lat/lng absents |
+| 2.3.4 | Filtre ACCEPTED_CITIES en fallback (config.py + main.py) | DONE | Haute | Si geocodage echoue + pas de GPS → filtre par nom de ville |
+| 2.3.5 | Fix bug diagnostic (lat/lng string au lieu de float) | DONE | Haute | Conversion float() dans diagnostic + affichage source GPS |
+| 2.3.6 | Mise a jour .env.example avec ACCEPTED_CITIES | DONE | Basse | Documentation |
+| 2.3.7 | Mise a jour planning.md, CLAUDE.md | DONE | Haute | Suivi |
+
 ## Actions planifiees (futures)
 
 ### v3.0 — Performance et fiabilite (TODO)
@@ -122,3 +138,4 @@
 | 2025-02-12 | Session 3 | Refonte v2.0 : dedup, photos, GPS, filtrage complet |
 | 2025-02-15 | Session 4 | Analyse structure, push GitHub, documentation (v2.1) |
 | 2025-02-15 | Session 4b | Nettoyage complet v2.2 : suppression ~40 fichiers inutiles, .gitignore, rotation logs, requirements |
+| 2025-02-15 | Session 4c | v2.3 : geocodage ~120 villes Luxembourg, enrichissement GPS, filtre ACCEPTED_CITIES |

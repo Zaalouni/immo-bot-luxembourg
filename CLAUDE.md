@@ -30,9 +30,15 @@ Bot Python qui scrape 9 sites immobiliers luxembourgeois, filtre les annonces de
 Chaque scraper expose `.scrape()` → `list[dict]` avec cles : listing_id, site, title, city, price, rooms, surface, url, image_url, latitude, longitude, distance_km, time_ago, full_text
 
 ## Etat actuel
-- **Version** : v2.2 (2025-02-15)
-- **Statut** : fonctionnel, en production, repo nettoye
-- **Derniere action** : nettoyage ~40 fichiers legacy, .gitignore, rotation logs, requirements
+- **Version** : v2.3 (2025-02-15)
+- **Statut** : fonctionnel, en production, repo nettoye, GPS enrichi
+- **Derniere action** : geocodage ~120 villes Luxembourg, enrichissement GPS avant filtrage
+
+## Localisation (v2.3)
+- utils.py contient LUXEMBOURG_CITIES (~120 villes → lat/lng)
+- main.py appelle enrich_listing_gps() avant dedup/filtrage
+- Si geocodage echoue → filtre par ACCEPTED_CITIES (.env, fallback)
+- diagnostic_locations.py pour tester les localisations
 
 ## Prochaines actions (voir planning.md)
 - v3.0 : async scrapers HTTP, retry auto, centraliser filtrage, tests pytest
