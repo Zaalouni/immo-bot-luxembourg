@@ -1,5 +1,20 @@
 
-# main.py - VERSION CORRIGÉE
+# =============================================================================
+# main.py — Orchestrateur principal du bot immobilier Luxembourg
+# =============================================================================
+# Point d'entree du projet. Contient la classe ImmoBot qui :
+#   1. Charge les 9 scrapers au demarrage (imports dynamiques try/except)
+#   2. Execute des cycles de scraping sequentiels (check_new_listings)
+#   3. Deduplique les annonces cross-sites (prix + ville + surface)
+#   4. Filtre selon les criteres config.py (prix, rooms, surface, distance, mots exclus)
+#   5. Stocke en SQLite et envoie les notifications Telegram
+#
+# Modes d'execution :
+#   python main.py          → mode continu (boucle toutes les CHECK_INTERVAL secondes)
+#   python main.py --once   → mode test (1 seul cycle)
+#
+# Voir architecture.md pour le flux de donnees complet.
+# =============================================================================
 import logging
 import time
 import sys

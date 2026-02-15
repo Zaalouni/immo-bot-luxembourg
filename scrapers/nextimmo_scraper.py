@@ -1,6 +1,16 @@
 
-# scrapers/nextimmo_scraper.py
-# Scraper pour Nextimmo.lu — API JSON directe
+# =============================================================================
+# scrapers/nextimmo_scraper.py — Scraper Nextimmo.lu via API JSON
+# =============================================================================
+# Methode : requete directe sur l'API REST Nextimmo (JSON)
+# Multi-type : type=1 (appartements) + type=2 (maisons), dedup interne seen_ids
+# Fallback : _scrape_html() si l'API retourne 0 resultats ou erreur HTTP
+# GPS : extraction lat/lng depuis JSON + calcul distance Haversine
+# Images : extraction depuis champs JSON (image, photo, thumbnail)
+# Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE,
+#            EXCLUDED_WORDS, MAX_DISTANCE
+# Instance globale : nextimmo_scraper
+# =============================================================================
 import requests
 import logging
 from config import USER_AGENT, MAX_PRICE, MIN_ROOMS

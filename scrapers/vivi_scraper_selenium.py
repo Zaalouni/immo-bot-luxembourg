@@ -1,6 +1,16 @@
 
-# scrapers/vivi_scraper_selenium.py
-# Scraper RÉEL pour VIVI.lu avec Selenium
+# =============================================================================
+# scrapers/vivi_scraper_selenium.py — Scraper VIVI.lu via Selenium
+# =============================================================================
+# Methode : Selenium Firefox headless, charge la page de recherche,
+#           scroll pour charger les cartes, extrait prix/chambres/surface
+#           depuis le texte de chaque carte <a>
+# Images : extraction <img> src/data-src depuis chaque carte
+# full_text : stocke le texte complet pour filtrage mots exclus
+# Ville : extraite depuis l'URL (/location/type/VILLE)
+# Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
+# Instance globale : vivi_scraper_selenium
+# =============================================================================
 import logging
 import re
 from selenium import webdriver

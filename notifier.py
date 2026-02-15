@@ -1,4 +1,16 @@
-# notifier.py - VERSION COMPLÈTE CORRIGÉE AVEC GPS
+# =============================================================================
+# notifier.py — Gestionnaire de notifications Telegram
+# =============================================================================
+# Classe TelegramNotifier (instance globale `notifier`) qui gere :
+#   - Envoi de messages HTML a 1+ chats Telegram (multi-destinataires)
+#   - Envoi de photos avec legende (send_photo, fallback texte si echec)
+#   - Formatage des annonces : titre, ville, distance+Maps, prix/m2, hashtags
+#   - Messages systeme : demarrage, arret, erreur, resume quotidien
+#   - Retry automatique avec gestion rate limit Telegram
+#   - Echappement HTML (& < > ") pour eviter les erreurs de parsing
+#
+# Instance globale : `from notifier import notifier`
+# =============================================================================
 import logging
 import requests
 import time

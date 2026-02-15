@@ -1,6 +1,18 @@
 
-# scrapers/athome_scraper_json.py
-# Scraper Athome.lu basé sur parsing JSON (CORRIGÉ)
+# =============================================================================
+# scrapers/athome_scraper_json.py — Scraper Athome.lu via JSON embarque
+# =============================================================================
+# Methode : extrait window.__INITIAL_STATE__ du HTML, parse le JSON, extrait
+#           les annonces depuis data['search']['list']
+# Multi-URL : scrape /location/appartement/ ET /location/maison/
+# Robustesse : _safe_str() gere les champs dict/list/None dans le JSON Athome
+#              (immotype, price, city, description peuvent etre des dicts)
+# Fallbacks JSON : si parse echoue → extraction directe du tableau "list"
+#                  → troncature + completion des brackets
+# Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE,
+#            EXCLUDED_WORDS, MAX_DISTANCE (GPS Haversine)
+# Instance globale : athome_scraper_json
+# =============================================================================
 import requests
 import re
 import json

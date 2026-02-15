@@ -1,4 +1,16 @@
-# database.py
+# =============================================================================
+# database.py — Couche de persistence SQLite pour les annonces
+# =============================================================================
+# Classe Database (instance globale `db`) qui gere :
+#   - Table `listings` : stocke toutes les annonces avec prix, GPS, etc.
+#   - Dedup par listing_id (UNIQUE) et par URL (UNIQUE)
+#   - Dedup cross-site : similar_listing_exists(prix, ville, surface ±15m2)
+#   - Statistiques : total, nouvelles, notifiees, par site, distance moyenne
+#   - Nettoyage automatique des annonces > N jours (cleanup_old_listings)
+#
+# Schema : voir architecture.md pour le detail des colonnes et index.
+# Instance globale : `from database import db`
+# =============================================================================
 import sqlite3
 import logging
 from datetime import datetime

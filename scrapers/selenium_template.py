@@ -1,5 +1,19 @@
 
-# scrapers/selenium_template.py
+# =============================================================================
+# scrapers/selenium_template.py — Classe de base pour scrapers Selenium
+# =============================================================================
+# Classe SeleniumScraperBase heritee par : newimmo, unicorn (+ override scrape)
+# Fonctionnalites :
+#   - setup_driver() : Firefox headless en priorite, fallback Chrome si absent
+#   - parse_price(text) : extrait prix depuis texte ("1 250 €" → 1250)
+#   - parse_rooms(text) : extrait nombre de chambres
+#   - parse_surface(text) : extrait surface (gere decimales : "52.00 m2")
+#   - scrape() : methode generique (find_listings_elements → extract_listing_data)
+#
+# Les sous-classes doivent implementer :
+#   - find_listings_elements(driver) → liste d'elements Selenium
+#   - extract_listing_data(element) → dict listing ou None
+# =============================================================================
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By

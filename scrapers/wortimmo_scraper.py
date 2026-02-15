@@ -1,7 +1,21 @@
 
-# scrapers/wortimmo_scraper.py
-# Scraper pour Wortimmo.lu (Luxemburger Wort immobilier)
-# Approche: Selenium + extraction JSON/regex large
+# =============================================================================
+# scrapers/wortimmo_scraper.py — Scraper Wortimmo.lu (Luxemburger Wort)
+# =============================================================================
+# Methode : Selenium Firefox headless avec 3 strategies d'extraction en cascade :
+#   1. _extract_from_json()  : cherche JSON embarque (Nuxt, Next, INITIAL_STATE)
+#      avec recherche recursive dans les dicts imbriques (_find_listings_in_dict)
+#   2. _extract_from_links() : regex sur tous les liens /en/rent/ dans le HTML,
+#      extraction du contexte HTML (±1500 chars) autour de chaque lien
+#   3. _extract_from_price_elements() : fallback Selenium, cherche les <a>
+#      dont le texte contient "€"
+#
+# GPS : extraction lat/lng depuis JSON + calcul distance Haversine
+# Ville : extraite depuis l'URL (/en/rent/TYPE/VILLE/...)
+# Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE,
+#            EXCLUDED_WORDS, MAX_DISTANCE
+# Instance globale : wortimmo_scraper
+# =============================================================================
 import logging
 import re
 import json

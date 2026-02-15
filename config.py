@@ -1,4 +1,19 @@
-# config.py - Version améliorée
+# =============================================================================
+# config.py — Configuration centralisee du bot immobilier
+# =============================================================================
+# Charge toutes les variables depuis le fichier .env via python-dotenv.
+# Variables exposees :
+#   - TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TELEGRAM_CHAT_IDS (liste)
+#   - MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE
+#   - EXCLUDED_WORDS (liste), CITIES, PREFERRED_CITIES
+#   - REFERENCE_LAT, REFERENCE_LNG, REFERENCE_NAME, MAX_DISTANCE (GPS)
+#   - CHECK_INTERVAL, DEBUG, USER_AGENT
+#
+# Validation : le script quitte (exit 1) si les tokens Telegram sont absents
+# ou si les valeurs numeriques sont invalides.
+#
+# Usage : importe par tous les autres modules (main, scrapers, notifier, etc.)
+# =============================================================================
 import os
 import sys
 from dotenv import load_dotenv

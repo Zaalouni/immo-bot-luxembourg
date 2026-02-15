@@ -1,9 +1,17 @@
 
 #!/usr/bin/env python3
-"""
-Scraper Luxhome.lu - Extraction via regex JSON embarqué
-Basé sur script test validé (61 annonces extraites avec succès)
-"""
+# =============================================================================
+# scrapers/luxhome_scraper.py — Scraper Luxhome.lu via JSON/Regex embarque
+# =============================================================================
+# Methode : requete HTTP GET, extraction des annonces par regex sur JSON
+#           embarque dans le HTML. Base sur script test valide (61 annonces).
+# Types : appartement, maison, duplex, triplex, penthouse
+# GPS : calcul distance Haversine depuis point de reference config.py
+# Images : extraction thumbnails depuis le HTML
+# Filtrage : prix, rooms, surface, mots exclus, distance GPS max
+# Fallback : luxhome_scraper_final.py (Selenium) si cet import echoue
+# Instance globale : luxhome_scraper
+# =============================================================================
 import requests
 import re
 from typing import List, Dict

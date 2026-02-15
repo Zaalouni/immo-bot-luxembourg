@@ -1,3 +1,13 @@
+# =============================================================================
+# scrapers/immotop_scraper_real.py — Scraper Immotop.lu via HTML regex
+# =============================================================================
+# Methode : requete HTTP GET sur la page de recherche, extraction des annonces
+#           par regex sur le HTML (prix, URL, ID, titre)
+# Images : extraction des data-src images associees aux IDs d'annonces
+# Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
+# Limite : 20 annonces max par cycle
+# Instance globale : immotop_scraper_real
+# =============================================================================
 import requests
 import re
 import logging

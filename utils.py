@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
-"""
-Utilitaires - Calcul distance GPS
-"""
+# =============================================================================
+# utils.py — Utilitaires GPS pour le bot immobilier
+# =============================================================================
+# Fonctions :
+#   - haversine_distance(lat1, lng1, lat2, lng2) : distance en km entre 2 points
+#   - format_distance(km) : formatage lisible ("moins de 1 km", "3.5 km")
+#   - get_distance_emoji(km) : emoji couleur selon distance
+#     (vert < 2km, jaune < 5km, orange < 10km, rouge > 10km)
+#
+# Utilise par : main.py (filtrage distance) et notifier.py (affichage)
+# =============================================================================
 import math
 import logging
 

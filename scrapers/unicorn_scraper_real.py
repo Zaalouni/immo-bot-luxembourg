@@ -1,6 +1,18 @@
 
-# scrapers/unicorn_scraper_real.py
-# Scraper Unicorn.lu — URL corrigée /recherche/location/appartement
+# =============================================================================
+# scrapers/unicorn_scraper_real.py — Scraper Unicorn.lu via Selenium + regex
+# =============================================================================
+# Methode : herite de SeleniumScraperBase MAIS override scrape() completement.
+#           Les elements Selenium retournaient du texte vide (wrappers image),
+#           donc on extrait depuis page_source avec regex.
+# Multi-URL : /recherche/location/appartement + /recherche/location/maison
+# Extraction : regex sur le HTML autour de chaque lien /detail-XXXX-location-...
+#              (contexte ±2000 chars, strip HTML, parse prix/rooms/surface)
+# Ville : extraite depuis l'URL (apres suppression des mots-cles type de bien)
+# Images : extraction <img> src/data-src dans le contexte HTML local
+# Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
+# Instance globale : unicorn_scraper_real
+# =============================================================================
 import logging
 import re
 from scrapers.selenium_template import SeleniumScraperBase

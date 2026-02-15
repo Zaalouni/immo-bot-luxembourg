@@ -1,5 +1,14 @@
 
-# scrapers/newimmo_scraper_real.py
+# =============================================================================
+# scrapers/newimmo_scraper_real.py — Scraper Newimmo.lu via Selenium
+# =============================================================================
+# Methode : herite de SeleniumScraperBase, charge la page de recherche,
+#           extrait les cartes d'annonces via selecteurs CSS
+# Surface : gere les formats decimaux (52.00 m2, 52,5 m2)
+# Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE,
+#            EXCLUDED_WORDS (titre + texte complet)
+# Instance globale : newimmo_scraper_real
+# =============================================================================
 import logging
 import re
 from scrapers.selenium_template import SeleniumScraperBase

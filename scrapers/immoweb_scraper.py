@@ -1,7 +1,11 @@
 
-# scrapers/immoweb_scraper.py
-# Scraper pour Immoweb.be — section Luxembourg (Selenium)
-# Immoweb bloque les requêtes HTTP classiques (403) et nécessite JavaScript
+# =============================================================================
+# scrapers/immoweb_scraper.py — Scraper Immoweb.be section Luxembourg
+# =============================================================================
+# Methode : Selenium Firefox headless (Immoweb bloque les requetes HTTP → 403)
+# Cible : section Luxembourg du site belge Immoweb.be
+# Instance globale : immoweb_scraper
+# =============================================================================
 import logging
 import re
 from selenium import webdriver
