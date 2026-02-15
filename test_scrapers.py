@@ -70,7 +70,21 @@ def test_scraper(name, scraper):
 
 
 def main():
-    print("🧪 TEST DES SCRAPERS IMMO-BOT-LUXEMBOURG")
+    # Afficher les critères de filtrage actifs
+    try:
+        from config import MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, MAX_DISTANCE, EXCLUDED_WORDS
+        print(f"{'='*60}")
+        print(f"FILTRES ACTIFS:")
+        print(f"  Prix: {MIN_PRICE}-{MAX_PRICE}EUR")
+        print(f"  Chambres: {MIN_ROOMS}-{MAX_ROOMS}")
+        print(f"  Surface min: {MIN_SURFACE}m2")
+        print(f"  Distance max: {MAX_DISTANCE}km")
+        print(f"  Mots exclus: {EXCLUDED_WORDS}")
+    except Exception as e:
+        print(f"  Config error: {e}")
+
+    print(f"\n{'='*60}")
+    print("TEST DES SCRAPERS IMMO-BOT-LUXEMBOURG")
     print(f"{'='*60}")
 
     results = {}

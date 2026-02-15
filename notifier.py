@@ -158,9 +158,9 @@ class TelegramNotifier:
             site = self._escape_html(listing.get('site', 'Site inconnu').strip())
             title = self._escape_html(listing.get('title', 'Sans titre').strip())
             city = self._escape_html(listing.get('city', 'N/A').strip())
-            price = listing.get('price', 'N/A')
-            rooms = listing.get('rooms', 'N/A')
-            surface = listing.get('surface', 'N/A')
+            price = listing.get('price', 0)
+            rooms = listing.get('rooms', 0)
+            surface = listing.get('surface', 0)
             url = listing.get('url', '#').strip()
             time_ago = listing.get('time_ago', 'récemment').strip()
             distance_km = listing.get('distance_km')
@@ -177,50 +177,75 @@ class TelegramNotifier:
 
 <b>{title}</b>
 
-📍 <b>Ville:</b> {city}
+📍 <b>Ville:</b> {city if city else 'N/A'}
 """
-            
-            # Ajouter distance si disponible
+
+            # Distance GPS + lien Google Maps
+            from utils import format_distance, get_distance_emoji
+            from config import REFERENCE_NAME, MAX_DISTANCE
+            lat = listing.get('latitude')
+            lng = listing.get('longitude')
             if distance_km is not None:
-                from utils import format_distance, get_distance_emoji
-                from config import REFERENCE_NAME
                 emoji = get_distance_emoji(distance_km)
                 dist_str = format_distance(distance_km)
-                message += f"{emoji} <b>Distance:</b> {dist_str} de {REFERENCE_NAME}\n"
-            
-            message += f"""💰 <b>Prix:</b> {price_formatted}/mois
-🛏️ <b>Chambres:</b> {rooms}
-📏 <b>Surface:</b> {surface}m²
-⏰ <b>Publiée:</b> {time_ago}
+                dist_line = f"{emoji} <b>Distance:</b> {dist_str} de {self._escape_html(REFERENCE_NAME)}"
+                if lat and lng:
+                    dist_line += f' (<a href="https://www.google.com/maps?q={lat},{lng}">Maps</a>)'
+                message += dist_line + "\n"
+            else:
+                message += f"📍 <b>Distance:</b> N/A\n"
 
-🔗 <a href="{url}">📱 Voir l'annonce complète</a>
+            rooms_str = f"{rooms}" if rooms and rooms > 0 else "N/A"
+            surface_str = f"{surface}m²" if surface and surface > 0 else "N/A"
+
+            # Prix par m²
+            prix_m2_str = ""
+            if surface and surface > 0 and price and price > 0:
+                prix_m2 = round(price / surface, 1)
+                prix_m2_str = f" ({prix_m2}€/m²)"
+
+            message += f"""💰 <b>Prix:</b> {price_formatted}/mois{prix_m2_str}
+🛏️ <b>Chambres:</b> {rooms_str}
+📏 <b>Surface:</b> {surface_str}
+
+🔗 <a href="{url}">Voir l'annonce</a>
 """
 
-            # Ajouter description si disponible
-            description = self._escape_html(listing.get('description', '').strip())
-            if description:
-                message += f"\n\n📝 <i>{description[:200]}{'...' if len(description) > 200 else ''}</i>"
-
-            # Ajouter hashtags
+            # Hashtags dynamiques
             hashtags = []
-            if 'luxembourg' in city.lower():
+            if city and 'luxembourg' in city.lower():
                 hashtags.append('#Luxembourg')
+            elif city and city.strip():
+                hashtags.append(f'#{self._escape_html(city.replace(" ", ""))}')
             if 'appartement' in title.lower():
                 hashtags.append('#Appartement')
-            elif 'studio' in title.lower():
-                hashtags.append('#Studio')
             elif 'maison' in title.lower():
                 hashtags.append('#Maison')
+            elif 'duplex' in title.lower() or 'triplex' in title.lower():
+                hashtags.append('#Duplex')
+            if price and price <= 1500:
+                hashtags.append('#PrixBas')
+            if distance_km is not None and distance_km < 5:
+                hashtags.append('#Proche')
+            if surface and surface >= 100:
+                hashtags.append('#GrandeSurface')
 
             if hashtags:
-                message += f"\n\n{' '.join(hashtags)}"
+                message += f"\n{' '.join(hashtags)}"
 
-            # Envoyer le message
-            success = self.send_message(message, silent=False)
+            # Envoyer avec photo si disponible, sinon texte
+            image_url = listing.get('image_url')
+            if image_url:
+                success = self.send_photo(image_url, message, silent=False)
+                if not success:
+                    # Fallback texte si photo échoue
+                    success = self.send_message(message, silent=False)
+            else:
+                success = self.send_message(message, silent=False)
 
             if success:
                 logger.info(f"✅ Annonce envoyée: {title[:50]}...")
-                time.sleep(1.5)  # Délai anti-rate-limit
+                time.sleep(5)
             else:
                 logger.error(f"❌ Échec envoi annonce: {title[:50]}...")
 
@@ -230,6 +255,41 @@ class TelegramNotifier:
             logger.error(f"❌ Erreur formatage annonce: {e}")
             fallback_msg = f"🏠 Nouvelle annonce {listing.get('site', '')}: {listing.get('title', '')} - {listing.get('url', '#')}"
             return self.send_message(fallback_msg)
+
+    def send_photo(self, photo_url, caption, parse_mode='HTML', silent=False, retry_count=2):
+        """Envoyer une photo avec légende à tous les chats"""
+        success_count = 0
+
+        # Telegram limite caption à 1024 caractères
+        if len(caption) > 1024:
+            caption = caption[:1020] + '...'
+
+        for chat_id in self.chat_ids:
+            for attempt in range(retry_count):
+                try:
+                    url = f"{self.base_url}/sendPhoto"
+                    data = {
+                        "chat_id": chat_id,
+                        "photo": photo_url,
+                        "caption": caption,
+                        "parse_mode": parse_mode,
+                        "disable_notification": silent
+                    }
+                    response = requests.post(url, json=data, timeout=15)
+
+                    if response.status_code == 200:
+                        success_count += 1
+                        break
+                    else:
+                        error_desc = response.json().get('description', '')
+                        logger.debug(f"sendPhoto erreur: {error_desc}")
+                        if attempt < retry_count - 1:
+                            time.sleep(2)
+                except Exception as e:
+                    logger.debug(f"sendPhoto exception: {e}")
+                    break
+
+        return success_count > 0
 
     def send_startup_message(self, bot_info):
         """Envoyer message de démarrage du bot"""

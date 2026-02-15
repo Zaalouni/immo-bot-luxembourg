@@ -114,9 +114,9 @@ class LuxhomeScraper:
 
                 # === FILTRAGE (applique critères config.py) ===
 
-                # Filtre 1 : Type appartement uniquement
+                # Filtre 1 : Type appartement/maison uniquement (studio exclu via EXCLUDED_WORDS)
                 type_lower = type_bien.lower()
-                if not ('appartement' in type_lower or 'apartment' in type_lower or 'studio' in type_lower):
+                if not ('appartement' in type_lower or 'apartment' in type_lower or 'maison' in type_lower or 'house' in type_lower or 'duplex' in type_lower or 'triplex' in type_lower or 'penthouse' in type_lower):
                     continue
 
                 # Filtre 2 : Prix
@@ -137,17 +137,30 @@ class LuxhomeScraper:
                 if any(word.lower() in titre_lower for word in EXCLUDED_WORDS):
                     continue
 
- # Calcul distance depuis point référence
+                # Calcul distance depuis point référence
                 distance_km = None
                 if lat and lng:
                     try:
-                        from config import REFERENCE_LAT, REFERENCE_LNG
+                        from config import REFERENCE_LAT, REFERENCE_LNG, MAX_DISTANCE
                         distance_km = haversine_distance(
                             REFERENCE_LAT, REFERENCE_LNG,
                             float(lat), float(lng)
                         )
-                    except:
+                        # Filtre 6 : Distance max
+                        if distance_km is not None and distance_km > MAX_DISTANCE:
+                            continue
+                    except Exception:
                         pass
+
+                # Image thumbnail
+                image_url = None
+                if thumb_raw:
+                    thumb = self.decode_text(thumb_raw)
+                    if thumb.startswith('//'):
+                        thumb = 'https:' + thumb
+                    elif thumb.startswith('/'):
+                        thumb = self.base_url + thumb
+                    image_url = thumb
 
                 # Construction objet standardisé
                 listing = {
@@ -159,6 +172,7 @@ class LuxhomeScraper:
                     'surface': surface if surface > 0 else 0,
                     'city': localisation,
                     'url': url,
+                    'image_url': image_url,
                     'latitude': lat,
                     'longitude': lng,
                     'distance_km': distance_km

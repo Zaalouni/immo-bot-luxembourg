@@ -19,12 +19,27 @@ class SeleniumScraperBase:
         self.search_url = search_url
 
     def setup_driver(self):
-        """Configurer le driver Selenium"""
-        options = Options()
-        options.add_argument('--headless')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        return webdriver.Firefox(options=options)
+        """Configurer le driver Selenium (Firefox, fallback Chrome)"""
+        # Firefox en priorité
+        try:
+            options = Options()
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+            return webdriver.Firefox(options=options)
+        except Exception as e:
+            logger.warning(f"Firefox indisponible ({e}), tentative Chrome...")
+        # Fallback Chrome
+        try:
+            from selenium.webdriver.chrome.options import Options as ChromeOptions
+            chrome_opts = ChromeOptions()
+            chrome_opts.add_argument('--headless')
+            chrome_opts.add_argument('--no-sandbox')
+            chrome_opts.add_argument('--disable-dev-shm-usage')
+            return webdriver.Chrome(options=chrome_opts)
+        except Exception as e2:
+            logger.error(f"Aucun navigateur disponible: {e2}")
+            raise
 
     def parse_price(self, price_text):
         """Extraire le prix d'un texte"""
@@ -55,10 +70,10 @@ class SeleniumScraperBase:
         return 0
 
     def parse_surface(self, surface_text):
-        """Extraire la surface"""
+        """Extraire la surface — gère 52.00 m², 52,5 m², 52 m²"""
         if not surface_text:
             return 0
-        match = re.search(r'(\d+(?:,\d+)?)\s*m²', surface_text)
+        match = re.search(r'(\d+(?:[.,]\d+)?)\s*m[²2]', surface_text)
         if match:
             try:
                 return int(float(match.group(1).replace(',', '.')))

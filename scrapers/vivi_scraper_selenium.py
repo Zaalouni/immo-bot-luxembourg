@@ -110,8 +110,8 @@ class ViviScraperSelenium:
             logger.debug(f"Prix non trouvé dans: {text[:100]}")
             return None
 
-        # Chambres
-        rooms = 1
+        # Chambres (0 = inconnu, pas 1 par défaut)
+        rooms = 0
         rooms_match = re.search(r'(\d+)\s*chambres?', text, re.IGNORECASE)
         if rooms_match:
             rooms = int(rooms_match.group(1))
@@ -121,6 +121,14 @@ class ViviScraperSelenium:
         surface_match = re.search(r'(\d+)\s*m[²2]', text)
         if surface_match:
             surface = int(surface_match.group(1))
+
+        # Image
+        image_url = None
+        try:
+            img_elem = card.find_element(By.CSS_SELECTOR, 'img')
+            image_url = img_elem.get_attribute('src') or img_elem.get_attribute('data-src')
+        except Exception:
+            pass
 
         # Ville (extraire depuis URL)
         city = self._extract_city(url)
@@ -134,6 +142,8 @@ class ViviScraperSelenium:
             'rooms': rooms,
             'surface': surface,
             'url': url,
+            'image_url': image_url,
+            'full_text': text,
             'time_ago': 'Récemment'
         }
 
@@ -150,13 +160,27 @@ class ViviScraperSelenium:
         return 'Luxembourg'
 
     def _matches_criteria(self, listing):
-        """Vérifier critères filtrage"""
+        """Vérifier critères filtrage complets"""
         try:
-            if listing['price'] > MAX_PRICE or listing['price'] <= 0:
+            from config import MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
+
+            price = listing.get('price', 0)
+            if price <= 0 or price < MIN_PRICE or price > MAX_PRICE:
                 return False
-            rooms = listing.get('rooms', 0)
-            if rooms > 0 and rooms < MIN_ROOMS:
+
+            rooms = listing.get('rooms', 0) or 0
+            if rooms > 0 and (rooms < MIN_ROOMS or rooms > MAX_ROOMS):
                 return False
+
+            surface = listing.get('surface', 0) or 0
+            if surface > 0 and surface < MIN_SURFACE:
+                return False
+
+            # Vérifier mots exclus dans titre ET texte complet
+            check_text = (str(listing.get('title', '')) + ' ' + str(listing.get('full_text', ''))).lower()
+            if any(w.strip().lower() in check_text for w in EXCLUDED_WORDS if w.strip()):
+                return False
+
             return True
         except Exception:
             return False

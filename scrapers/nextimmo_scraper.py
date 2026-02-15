@@ -22,42 +22,53 @@ class NextimmoScraper:
         }
 
     def scrape(self):
-        """Scraper via API JSON"""
+        """Scraper via API JSON — appartements + maisons"""
         listings = []
+        seen_ids = set()
 
         try:
             logger.info(f"🔍 Scraping {self.site_name} (API JSON)...")
 
-            params = {
-                'country': 1,       # Luxembourg
-                'type': 1,          # Apartment
-                'category': 2,      # Rent
-                'page': 1,
-            }
+            # Chercher appartements (type=1) ET maisons (type=2)
+            property_types = [
+                (1, 'appartements'),
+                (2, 'maisons'),
+            ]
 
-            response = requests.get(self.api_url, params=params, headers=self.headers, timeout=15)
+            for prop_type, label in property_types:
+                try:
+                    params = {
+                        'country': 1,       # Luxembourg
+                        'type': prop_type,
+                        'category': 2,      # Rent
+                        'page': 1,
+                    }
 
-            if response.status_code != 200:
-                logger.warning(f"API HTTP {response.status_code}, fallback HTML...")
-                return self._scrape_html()
+                    response = requests.get(self.api_url, params=params, headers=self.headers, timeout=15)
 
-            data = response.json()
-            items = data.get('data', [])
+                    if response.status_code != 200:
+                        continue
 
-            if not items:
+                    data = response.json()
+                    items = data.get('data', [])
+                    logger.info(f"   {label}: {len(items)} brutes")
+
+                    for item in items[:20]:
+                        try:
+                            listing = self._extract_from_json(item)
+                            if listing and listing['listing_id'] not in seen_ids:
+                                if self._matches_criteria(listing):
+                                    listings.append(listing)
+                                    seen_ids.add(listing['listing_id'])
+                        except Exception as e:
+                            logger.debug(f"Erreur extraction: {e}")
+                            continue
+                except Exception as e:
+                    logger.debug(f"Erreur type {label}: {e}")
+
+            if not listings:
                 logger.warning("API retourne 0 résultats, fallback HTML...")
                 return self._scrape_html()
-
-            logger.info(f"   📊 API retourne {len(items)} annonces")
-
-            for item in items[:20]:
-                try:
-                    listing = self._extract_from_json(item)
-                    if listing and self._matches_criteria(listing):
-                        listings.append(listing)
-                except Exception as e:
-                    logger.debug(f"Erreur extraction: {e}")
-                    continue
 
             logger.info(f"✅ {len(listings)} annonces après filtrage")
             return listings
@@ -207,14 +218,34 @@ class NextimmoScraper:
             return []
 
     def _matches_criteria(self, listing):
-        """Vérifier critères"""
+        """Vérifier critères complets"""
         try:
+            from config import MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS, MAX_DISTANCE
+
             price = listing.get('price', 0)
-            if price <= 0 or price > MAX_PRICE:
+            if price <= 0 or price < MIN_PRICE or price > MAX_PRICE:
                 return False
-            rooms = listing.get('rooms', 0)
-            if rooms > 0 and rooms < MIN_ROOMS:
+
+            rooms = listing.get('rooms', 0) or 0
+            if rooms > 0 and (rooms < MIN_ROOMS or rooms > MAX_ROOMS):
                 return False
+
+            surface = listing.get('surface', 0) or 0
+            if surface > 0 and surface < MIN_SURFACE:
+                return False
+
+            title = str(listing.get('title', '')).lower()
+            if any(w.strip().lower() in title for w in EXCLUDED_WORDS if w.strip()):
+                return False
+
+            distance_km = listing.get('distance_km')
+            if distance_km is not None:
+                try:
+                    if float(distance_km) > MAX_DISTANCE:
+                        return False
+                except (ValueError, TypeError):
+                    pass
+
             return True
         except Exception:
             return False

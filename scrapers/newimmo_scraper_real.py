@@ -71,9 +71,10 @@ class NewimmoScraperReal(SeleniumScraperBase):
             text_content = element.text
 
             # Surface d'abord (pour éviter que parse_rooms capture "33" de "33 m²")
-            surface_match = re.search(r'(\d+)\s*m[²2]', text_content)
+            # Gère "52.00 m²", "52 m²", "52m2"
+            surface_match = re.search(r'(\d+(?:[.,]\d+)?)\s*m[²2]', text_content)
             if surface_match:
-                surface = int(surface_match.group(1))
+                surface = int(float(surface_match.group(1).replace(',', '.')))
             else:
                 surface = self.parse_surface(text_content)
 
@@ -92,14 +93,16 @@ class NewimmoScraperReal(SeleniumScraperBase):
                 city = city_match.group(1)
 
             # Filtrer selon config
-            from config import MAX_PRICE, MIN_ROOMS
-            if price > MAX_PRICE or price < 500:
+            from config import MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
+            if price < MIN_PRICE or price > MAX_PRICE:
                 return None
-            # Ne rejeter sur rooms que si explicitement détecté et insuffisant
-            if rooms > 0 and rooms < MIN_ROOMS:
+            if rooms > 0 and (rooms < MIN_ROOMS or rooms > MAX_ROOMS):
                 return None
-            # Ne rejeter sur surface que si explicitement détectée et insuffisante
-            if surface > 0 and surface < 40:
+            if surface > 0 and surface < MIN_SURFACE:
+                return None
+            # Vérifier mots exclus dans titre ET texte complet
+            check_text = (title + ' ' + text_content).lower()
+            if any(w.strip().lower() in check_text for w in EXCLUDED_WORDS if w.strip()):
                 return None
 
             return {

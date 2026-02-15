@@ -13,7 +13,11 @@ logger = logging.getLogger(__name__)
 class AthomeScraperJSON:
     def __init__(self):
         self.base_url = "https://www.athome.lu"
-        self.search_url = f"{self.base_url}/location"
+        # Chercher appartements ET maisons separement pour plus de resultats
+        self.search_urls = [
+            f"{self.base_url}/location/appartement/",
+            f"{self.base_url}/location/maison/",
+        ]
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         }
@@ -27,85 +31,77 @@ class AthomeScraperJSON:
             'commercial': 'commerce'
         }
 
-    def scrape(self):
+    def _parse_page(self, url):
+        """Parser une page Athome et retourner la liste d'items JSON"""
         try:
-            logger.info("Scraping Athome.lu via JSON")
-            response = requests.get(self.search_url, headers=self.headers, timeout=15)
-
+            response = requests.get(url, headers=self.headers, timeout=15)
             if response.status_code != 200:
-                logger.error(f"HTTP {response.status_code}")
+                logger.warning(f"HTTP {response.status_code} pour {url}")
                 return []
 
             html = response.text
-
-            # Extraire JSON depuis window.__INITIAL_STATE__
-            # Chercher pattern jusqu'au }; final
             json_match = re.search(r'window\.__INITIAL_STATE__\s*=\s*(\{.+\});', html, re.DOTALL)
             if not json_match:
-                logger.error("JSON __INITIAL_STATE__ non trouvé")
                 return []
 
-            # Parser JSON (corriger valeurs JavaScript → JSON valide)
             json_str = json_match.group(1).strip()
-
-            # Corrections JS → JSON
             json_clean = json_str
-            # undefined, NaN, Infinity → null
             json_clean = re.sub(r':\s*undefined\b', ':null', json_clean)
             json_clean = re.sub(r',\s*undefined\b', ',null', json_clean)
             json_clean = re.sub(r'\bundefined\s*[,}]', 'null,', json_clean)
             json_clean = re.sub(r':\s*NaN\b', ':null', json_clean)
             json_clean = re.sub(r':\s*-?Infinity\b', ':null', json_clean)
-            # Trailing commas: ,] ou ,}
             json_clean = re.sub(r',\s*([}\]])', r'\1', json_clean)
-            # new Date(...) → null
             json_clean = re.sub(r'new\s+Date\([^)]*\)', 'null', json_clean)
 
             try:
                 data = json.loads(json_clean)
             except json.JSONDecodeError as e:
-                logger.warning(f"JSON parse error pos {e.pos}, tentative extraction list...")
-                # Extraire directement le tableau "list" depuis le JSON brut
+                # Fallback: extraction directe du tableau "list"
                 try:
                     list_match = re.search(r'"list"\s*:\s*(\[.*?\])\s*,\s*"(?:total|count|pagination)', json_clean, re.DOTALL)
                     if list_match:
-                        items = json.loads(list_match.group(1))
-                        logger.info(f"Extraction directe list: {len(items)} annonces")
-                        listings = []
-                        for item in items[:15]:
-                            try:
-                                listing = self._extract_listing(item)
-                                if listing and self._matches_criteria(listing):
-                                    listings.append(listing)
-                            except Exception:
-                                continue
-                        logger.info(f"✅ {len(listings)} annonces après filtrage")
-                        return listings
-                except Exception as e2:
-                    logger.debug(f"Extraction directe échouée: {e2}")
-
-                # Dernière tentative : tronquer et compléter
+                        return json.loads(list_match.group(1))
+                except Exception:
+                    pass
+                # Dernier recours: tronquer et compléter
                 try:
                     json_truncated = json_clean[:e.pos]
                     open_braces = json_truncated.count('{') - json_truncated.count('}')
                     open_brackets = json_truncated.count('[') - json_truncated.count(']')
                     json_fixed = json_truncated + (']' * max(0, open_brackets)) + ('}' * max(0, open_braces))
                     data = json.loads(json_fixed)
-                    logger.warning("JSON parsé partiellement après troncature")
                 except Exception:
-                    logger.error("Impossible de parser JSON")
                     return []
 
-            # Extraire annonces
-            if 'search' not in data or 'list' not in data['search']:
-                logger.error("Structure JSON inattendue")
-                return []
+            if 'search' in data and 'list' in data['search']:
+                return data['search']['list']
+            return []
 
-            items = data['search']['list']
-            logger.info(f"Annonces trouvées: {len(items)}")
+        except Exception as e:
+            logger.debug(f"Erreur parse {url}: {e}")
+            return []
+
+    def scrape(self):
+        """Scraper Athome.lu — appartements + maisons, limite 30 par type"""
+        try:
+            logger.info("Scraping Athome.lu via JSON (appartements + maisons)")
+            all_items = []
+            seen_ids = set()
+
+            for search_url in self.search_urls:
+                items = self._parse_page(search_url)
+                logger.info(f"  {search_url.split('/')[-2]}: {len(items)} annonces brutes")
+                for item in items:
+                    item_id = item.get('id')
+                    if item_id and item_id not in seen_ids:
+                        seen_ids.add(item_id)
+                        all_items.append(item)
+
+            logger.info(f"Total brut (dedupliqué): {len(all_items)}")
 
             listings = []
-            for item in items[:15]:  # Limiter à 15
+            for item in all_items[:30]:
                 try:
                     listing = self._extract_listing(item)
                     if listing and self._matches_criteria(listing):
@@ -121,6 +117,16 @@ class AthomeScraperJSON:
             logger.error(f"❌ Scraping Athome: {e}")
             return []
 
+    def _safe_str(self, val, default=''):
+        """Convertir en string de façon sûre (dict, list, None → string)"""
+        if val is None:
+            return default
+        if isinstance(val, dict):
+            return str(val.get('value', '') or val.get('label', '') or val.get('name', '') or default)
+        if isinstance(val, list):
+            return str(val[0]) if val else default
+        return str(val)
+
     def _extract_listing(self, item):
         """Extraire données d'une annonce JSON Athome.lu"""
         # ID
@@ -130,26 +136,41 @@ class AthomeScraperJSON:
 
         # Prix (int direct)
         price = 0
+        price_raw = item.get('price', 0)
+        if isinstance(price_raw, dict):
+            price_raw = price_raw.get('value', 0) or price_raw.get('amount', 0) or 0
         try:
-            price = int(float(item.get('price', 0) or 0))
+            price = int(float(price_raw or 0))
         except (ValueError, TypeError):
             price = 0
 
-        # Type immeuble — immotype est un dict {label, portal_group, ...}
+        # Type immeuble — immotype peut être dict, string, ou autre
         immotype_raw = item.get('immotype', {})
         if isinstance(immotype_raw, dict):
-            immotype = str(immotype_raw.get('label', '') or immotype_raw.get('portal_group', 'apartment')).lower()
+            label = immotype_raw.get('label', '') or ''
+            if isinstance(label, dict):
+                label = label.get('value', '') or label.get('name', '') or ''
+            portal = immotype_raw.get('portal_group', 'apartment') or 'apartment'
+            if isinstance(portal, dict):
+                portal = portal.get('value', '') or portal.get('name', '') or 'apartment'
+            immotype = str(label or portal).lower()
         elif isinstance(immotype_raw, str):
             immotype = immotype_raw.lower()
         else:
-            immotype = str(item.get('propertyType', 'apartment')).lower()
+            immotype = str(item.get('propertyType', 'apartment') or 'apartment').lower()
         type_fr = self.type_map.get(immotype, immotype)
 
         # Ville + GPS — geo a cityName, lat, lon
         geo = item.get('geo', {}) or {}
-        city = str(geo.get('cityName', '') or geo.get('city', '') or 'Luxembourg')
-        lat = geo.get('lat') or geo.get('latitude')
-        lng = geo.get('lon') or geo.get('lng') or geo.get('longitude')
+        if isinstance(geo, str):
+            city = geo
+            lat = None
+            lng = None
+        else:
+            city_raw = geo.get('cityName', '') or geo.get('city', '') or 'Luxembourg'
+            city = self._safe_str(city_raw, 'Luxembourg')
+            lat = geo.get('lat') or geo.get('latitude')
+            lng = geo.get('lon') or geo.get('lng') or geo.get('longitude')
 
         city_slug = city.lower().replace(' ', '-').replace("'", '')
 
@@ -159,6 +180,8 @@ class AthomeScraperJSON:
         # Chambres — top-level roomsCount/bedroomsCount ou characteristic.bedrooms_count
         rooms = 0
         rooms_count = item.get('roomsCount') or item.get('bedroomsCount') or 0
+        if isinstance(rooms_count, dict):
+            rooms_count = rooms_count.get('value', 0) or 0
         try:
             rooms = int(rooms_count)
         except (ValueError, TypeError):
@@ -168,6 +191,8 @@ class AthomeScraperJSON:
             char = item.get('characteristic', {}) or {}
             if isinstance(char, dict):
                 bc = char.get('bedrooms_count', 0) or char.get('rooms_count', 0) or 0
+                if isinstance(bc, dict):
+                    bc = bc.get('value', 0) or 0
                 try:
                     rooms = int(bc)
                 except (ValueError, TypeError):
@@ -176,8 +201,10 @@ class AthomeScraperJSON:
         # Surface — top-level propertySurface ou characteristic
         surface = 0
         surface_raw = item.get('propertySurface') or item.get('minPropertySurface') or 0
+        if isinstance(surface_raw, dict):
+            surface_raw = surface_raw.get('value', 0) or 0
         try:
-            surface = int(float(surface_raw))
+            surface = int(float(surface_raw or 0))
         except (ValueError, TypeError):
             pass
 
@@ -193,11 +220,32 @@ class AthomeScraperJSON:
             except Exception:
                 pass
 
-        # Description/Titre
+        # Description/Titre — peut être dict, list, ou string
         description = item.get('description', '') or ''
         if isinstance(description, dict):
-            description = str(description.get('value', '') or '')
+            description = str(description.get('value', '') or description.get('text', '') or '')
+        elif isinstance(description, list):
+            description = str(description[0]) if description else ''
         title = str(description)[:70] if description else f"{type_fr.title()} {city}"
+
+        # Image — chercher dans photos/images/pictures
+        image_url = None
+        photos = item.get('photos') or item.get('images') or item.get('pictures') or []
+        if isinstance(photos, list) and photos:
+            first = photos[0]
+            if isinstance(first, dict):
+                image_url = first.get('url') or first.get('src') or first.get('thumb')
+            elif isinstance(first, str):
+                image_url = first
+        elif isinstance(photos, dict):
+            image_url = photos.get('url') or photos.get('src') or photos.get('thumb')
+        # Fallback: mainPhoto
+        if not image_url:
+            main_photo = item.get('mainPhoto') or item.get('photo') or item.get('thumbnail')
+            if isinstance(main_photo, dict):
+                image_url = main_photo.get('url') or main_photo.get('src')
+            elif isinstance(main_photo, str):
+                image_url = main_photo
 
         return {
             'listing_id': f'athome_{id_val}',
@@ -208,6 +256,7 @@ class AthomeScraperJSON:
             'rooms': rooms,
             'surface': surface,
             'url': url,
+            'image_url': image_url,
             'latitude': lat,
             'longitude': lng,
             'distance_km': distance_km,
@@ -215,20 +264,33 @@ class AthomeScraperJSON:
         }
 
     def _matches_criteria(self, listing):
-        """Vérifier critères filtrage"""
+        """Vérifier critères filtrage complets"""
         try:
-            price = listing.get('price', 0)
-            rooms = listing.get('rooms', 0)
+            from config import MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS, MAX_DISTANCE
 
-            if price <= 0:
-                logger.debug(f"Athome rejeté (prix=0): {listing.get('listing_id')}")
+            price = listing.get('price', 0)
+            if price <= 0 or price < MIN_PRICE or price > MAX_PRICE:
                 return False
-            if price > MAX_PRICE:
-                logger.debug(f"Athome rejeté (prix={price} > {MAX_PRICE}): {listing.get('listing_id')}")
+
+            rooms = listing.get('rooms', 0) or 0
+            if rooms > 0 and (rooms < MIN_ROOMS or rooms > MAX_ROOMS):
                 return False
-            if rooms > 0 and rooms < MIN_ROOMS:
-                logger.debug(f"Athome rejeté (rooms={rooms} < {MIN_ROOMS}): {listing.get('listing_id')}")
+
+            surface = listing.get('surface', 0) or 0
+            if surface > 0 and surface < MIN_SURFACE:
                 return False
+
+            title = str(listing.get('title', '')).lower()
+            if any(w.strip().lower() in title for w in EXCLUDED_WORDS if w.strip()):
+                return False
+
+            distance_km = listing.get('distance_km')
+            if distance_km is not None:
+                try:
+                    if float(distance_km) > MAX_DISTANCE:
+                        return False
+                except (ValueError, TypeError):
+                    pass
 
             return True
         except Exception:

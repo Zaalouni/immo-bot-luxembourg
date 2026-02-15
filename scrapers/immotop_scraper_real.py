@@ -1,7 +1,7 @@
 import requests
 import re
 import logging
-from config import MAX_PRICE, MIN_ROOMS
+from config import MAX_PRICE, MIN_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
 
 logger = logging.getLogger(__name__)
 
@@ -28,9 +28,24 @@ class ImmotopScraperReal:
             matches = re.findall(pattern, html, re.DOTALL)
             
             logger.info(f"Annonces trouvées: {len(matches)}")
-            
+
+            # Extraire images par ID d'annonce
+            image_map = {}
+            img_matches = re.findall(r'data-src="(https://[^"]*immotop[^"]*\.(?:jpg|jpeg|png|webp)[^"]*)"[^>]*?(?:annonces/(\d+)|data-id="(\d+))', html, re.IGNORECASE)
+            if not img_matches:
+                # Fallback: chercher img src proche des liens
+                img_matches2 = re.findall(r'<img[^>]+src="(https://[^"]+\.(?:jpg|jpeg|png|webp)[^"]*)"[^>]*>.*?annonces/(\d+)/', html, re.DOTALL)
+                for img_url, img_id in img_matches2[:30]:
+                    if img_id not in image_map:
+                        image_map[img_id] = img_url
+
+            for img_url, id1, id2 in img_matches[:30]:
+                img_id = id1 or id2
+                if img_id and img_id not in image_map:
+                    image_map[img_id] = img_url
+
             listings = []
-            for price_text, url_annonce, id_val, title in matches[:10]:
+            for price_text, url_annonce, id_val, title in matches[:20]:
                 # Nettoyer prix (enlever espaces normaux + insécables)
                 price_clean = price_text.replace(' ', '').replace('\u202f', '').replace(',', '')
                 
@@ -41,19 +56,27 @@ class ImmotopScraperReal:
                     continue
                 
                 # Filtrer prix
-                if price > MAX_PRICE or price <= 0:
+                if price < MIN_PRICE or price > MAX_PRICE or price <= 0:
                     continue
-                
+
                 # Extraire chambres
                 rooms_match = re.search(r'(\d+)\s*chambre', title, re.IGNORECASE)
                 rooms = int(rooms_match.group(1)) if rooms_match else 0
 
-                if rooms > 0 and rooms < MIN_ROOMS:
+                if rooms > 0 and (rooms < MIN_ROOMS or rooms > MAX_ROOMS):
                     continue
 
                 # Surface
                 surface_match = re.search(r'(\d+)\s*m[²2]', title)
                 surface = int(surface_match.group(1)) if surface_match else 0
+
+                if surface > 0 and surface < MIN_SURFACE:
+                    continue
+
+                # Mots exclus
+                title_lower = title.lower()
+                if any(w.strip().lower() in title_lower for w in EXCLUDED_WORDS if w.strip()):
+                    continue
                 
                 # Ville (dernier élément après virgule)
                 parts = title.split(',')
@@ -68,6 +91,7 @@ class ImmotopScraperReal:
                     'rooms': rooms,
                     'surface': surface,
                     'url': url_annonce,
+                    'image_url': image_map.get(id_val),
                     'time_ago': 'Récemment'
                 }
                 listings.append(listing)

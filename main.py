@@ -120,6 +120,7 @@ class ImmoBot:
     def __init__(self):
         self.scrapers = scrapers_config
         self.cycle_count = 0
+        self.scraper_failures = {}  # Compteur échecs consécutifs par site
 
         logger.info(f"🤖 Bot initialisé avec {len(self.scrapers)} sites")
 
@@ -130,11 +131,19 @@ class ImmoBot:
         logger.info(f"🔍 CYCLE #{self.cycle_count} - {datetime.now().strftime('%H:%M:%S')}")
         logger.info(f"{'='*60}")
 
+        # Nettoyage DB (annonces >30 jours)
+        if self.cycle_count == 1 or self.cycle_count % 10 == 0:
+            db.cleanup_old_listings(30)
+
         all_listings = []
         stats_per_site = {}
 
-        for scraper_name, scraper in self.scrapers:
+        for idx, (scraper_name, scraper) in enumerate(self.scrapers):
             try:
+                # Délai 5s entre scrapers (évite blocage)
+                if idx > 0:
+                    time.sleep(5)
+
                 logger.info(f"▶️ {scraper_name}")
                 listings = scraper.scrape()
 
@@ -146,27 +155,51 @@ class ImmoBot:
                 valid_listings = [l for l in listings if l is not None]
                 all_listings.extend(valid_listings)
                 stats_per_site[scraper_name] = len(valid_listings)
+                self.scraper_failures[scraper_name] = 0  # Reset compteur
 
                 logger.info(f"   📊 {len(valid_listings)} annonces")
 
             except Exception as e:
                 logger.error(f"   ❌ {scraper_name}: {str(e)[:100]}")
                 stats_per_site[scraper_name] = 0
+                # Compter les échecs consécutifs
+                self.scraper_failures[scraper_name] = self.scraper_failures.get(scraper_name, 0) + 1
+                if self.scraper_failures[scraper_name] == 3:
+                    try:
+                        notifier.send_message(f"🚨 <b>ALERTE:</b> {scraper_name} a échoué 3 fois consécutives!", parse_mode='HTML')
+                    except Exception:
+                        pass
                 continue
+
+        # Dédoublonnage cross-sites (même bien sur plusieurs sites)
+        unique_listings = self._deduplicate(all_listings)
+        dupes_removed = len(all_listings) - len(unique_listings)
+        if dupes_removed > 0:
+            logger.info(f"   🔄 {dupes_removed} doublons cross-sites supprimés")
 
         # Traitement des nouvelles annonces
         new_count = 0
 
-        for listing in all_listings:
+        for listing in unique_listings:
             try:
                 if self._matches_criteria(listing):
                     if not db.listing_exists(listing['listing_id']):
+                        # Check doublon cross-site en DB (même prix+ville)
+                        if db.similar_listing_exists(
+                            listing.get('price', 0),
+                            listing.get('city', ''),
+                            listing.get('surface', 0)
+                        ):
+                            logger.debug(f"🔄 Doublon DB ignoré: {listing.get('listing_id')}")
+                            continue
                         if db.add_listing(listing):
                             logger.info(f"🎉 NOUVELLE ANNONCE")
                             logger.info(f"   📝 {listing['title'][:50]}...")
                             logger.info(f"   💰 {listing['price']}€ | 🛏️ {listing['rooms']} | 📍 {listing['city']}")
 
-                            # Envoyer notification
+                            # Envoyer notification (avec délai 5s entre envois)
+                            if new_count > 0:
+                                time.sleep(5)
                             if notifier.send_listing(listing):
                                 db.mark_as_notified(listing['listing_id'])
                                 new_count += 1
@@ -194,22 +227,142 @@ class ImmoBot:
         return new_count
 
     def _matches_criteria(self, listing):
-        """Critères de base"""
+        """Filtre central — tous les critères config.py"""
         try:
+            from config import MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS, MAX_DISTANCE
+
+            # Prix
             price = listing.get('price', 0)
-            if not isinstance(price, (int, float)) or price > MAX_PRICE or price <= 0:
+            if not isinstance(price, (int, float)) or price <= 0:
+                return False
+            if price < MIN_PRICE or price > MAX_PRICE:
+                logger.debug(f"Rejeté prix={price} (limites {MIN_PRICE}-{MAX_PRICE}): {listing.get('listing_id')}")
                 return False
 
-            rooms = listing.get('rooms', 0)
-            if rooms is None:
-                rooms = 0
-            # Si rooms est connu (>0), vérifier le minimum
-            if isinstance(rooms, (int, float)) and rooms > 0 and rooms < MIN_ROOMS:
+            # Chambres (si connu)
+            rooms = listing.get('rooms', 0) or 0
+            if isinstance(rooms, (int, float)) and rooms > 0:
+                if rooms < MIN_ROOMS or rooms > MAX_ROOMS:
+                    logger.debug(f"Rejeté rooms={rooms} (limites {MIN_ROOMS}-{MAX_ROOMS}): {listing.get('listing_id')}")
+                    return False
+
+            # Surface (si connue)
+            surface = listing.get('surface', 0) or 0
+            if isinstance(surface, (int, float)) and surface > 0:
+                if surface < MIN_SURFACE:
+                    logger.debug(f"Rejeté surface={surface} (min {MIN_SURFACE}): {listing.get('listing_id')}")
+                    return False
+
+            # Mots exclus dans le titre + texte complet
+            check_text = (str(listing.get('title', '')) + ' ' + str(listing.get('full_text', ''))).lower()
+            if any(word.strip().lower() in check_text for word in EXCLUDED_WORDS if word.strip()):
+                logger.debug(f"Rejeté mot exclu dans: {check_text[:50]}")
                 return False
+
+            # Distance GPS (si disponible)
+            distance_km = listing.get('distance_km')
+            if distance_km is not None:
+                try:
+                    if float(distance_km) > MAX_DISTANCE:
+                        logger.debug(f"Rejeté distance={distance_km:.1f}km (max {MAX_DISTANCE}): {listing.get('listing_id')}")
+                        return False
+                except (ValueError, TypeError):
+                    pass
 
             return True
-        except Exception:
+        except Exception as e:
+            logger.debug(f"Erreur filtre: {e}")
             return False
+
+    @staticmethod
+    def _normalize_city(city):
+        """Normaliser le nom de ville pour comparaison"""
+        if not city:
+            return ''
+        import unicodedata
+        city = str(city).lower().strip()
+        # Supprimer accents
+        city = unicodedata.normalize('NFD', city)
+        city = ''.join(c for c in city if unicodedata.category(c) != 'Mn')
+        # Supprimer suffixes courants
+        for suffix in ['-ville', '-gare', '-centre', '-nord', '-sud']:
+            city = city.replace(suffix, '')
+        return city.replace('-', ' ').replace("'", '').strip()
+
+    def _deduplicate(self, listings):
+        """Supprimer les doublons cross-sites (même bien sur plusieurs sites)
+
+        Critères : même prix + même ville (normalisée) + surface similaire (±15m²)
+        Si doublon, garder celui avec le plus d'infos (GPS, surface, chambres).
+        """
+        if not listings:
+            return []
+
+        seen = {}  # clé de dédup → meilleur listing
+        result = []
+
+        for listing in listings:
+            price = listing.get('price', 0)
+            city = self._normalize_city(listing.get('city', ''))
+            surface = listing.get('surface', 0) or 0
+
+            # Clé de dédup : prix exact + ville normalisée
+            dedup_key = f"{price}_{city}"
+
+            if dedup_key in seen:
+                existing = seen[dedup_key]
+                existing_surface = existing.get('surface', 0) or 0
+
+                # Vérifier si surfaces compatibles (les deux à 0 ou écart ≤15m²)
+                surfaces_match = (
+                    surface == 0 or existing_surface == 0 or
+                    abs(surface - existing_surface) <= 15
+                )
+
+                if surfaces_match:
+                    # Garder celui avec le plus d'infos
+                    new_score = self._listing_quality_score(listing)
+                    old_score = self._listing_quality_score(existing)
+                    if new_score > old_score:
+                        seen[dedup_key] = listing
+                        logger.debug(f"🔄 Doublon remplacé: {listing.get('listing_id')} > {existing.get('listing_id')}")
+                    else:
+                        logger.debug(f"🔄 Doublon ignoré: {listing.get('listing_id')} (garde {existing.get('listing_id')})")
+                    continue
+
+            seen[dedup_key] = listing
+            result.append(listing)
+
+        # Remplacer les listings dans result par les meilleurs de seen
+        final = []
+        seen_ids = set()
+        for listing in result:
+            price = listing.get('price', 0)
+            city = self._normalize_city(listing.get('city', ''))
+            dedup_key = f"{price}_{city}"
+            best = seen[dedup_key]
+            best_id = best.get('listing_id')
+            if best_id not in seen_ids:
+                final.append(best)
+                seen_ids.add(best_id)
+
+        return final
+
+    @staticmethod
+    def _listing_quality_score(listing):
+        """Score de qualité d'une annonce (plus c'est haut, mieux c'est)"""
+        score = 0
+        if listing.get('distance_km') is not None:
+            score += 3  # GPS = très utile
+        if listing.get('surface', 0) and listing['surface'] > 0:
+            score += 2
+        if listing.get('rooms', 0) and listing['rooms'] > 0:
+            score += 2
+        if listing.get('city', ''):
+            score += 1
+        if listing.get('image_url'):
+            score += 1
+        return score
 
     def run_once(self):
         """Test unique"""
@@ -229,21 +382,12 @@ class ImmoBot:
         """Mode production"""
         logger.info("🚀 DÉMARRAGE EN CONTINU...")
 
-        site_names = [name for name, _ in self.scrapers]
-        sites_list = '\n'.join([f'• {s}' for s in site_names])
+        from config import MIN_PRICE, MIN_SURFACE, MAX_DISTANCE
 
-        message = f"""
-🤖 *BOT IMMOBILIER DÉMARRÉ*
-
-📊 *Sites actifs:* {len(self.scrapers)}
-💰 *Prix max:* {MAX_PRICE}€
-🛏️ *Pièces min:* {MIN_ROOMS}
-⏰ *Cycle:* {CHECK_INTERVAL//60} minutes
-
-✅ *Sites:*
-{sites_list}
-        """
-        notifier.send_message(message)
+        # Message de démarrage formaté HTML
+        notifier.send_startup_message({
+            'sites_count': len(self.scrapers)
+        })
 
         while True:
             try:
@@ -261,7 +405,12 @@ class ImmoBot:
                 time.sleep(CHECK_INTERVAL)
             except KeyboardInterrupt:
                 logger.info("\n⏹️ Arrêt manuel")
-                notifier.send_message("⏹️ *Bot arrêté*")
+                stats = db.get_stats()
+                notifier.send_shutdown_message({
+                    'total': stats.get('total', 0),
+                    'new': stats.get('new', 0),
+                    'sites': len(self.scrapers)
+                })
                 db.close()
                 break
 

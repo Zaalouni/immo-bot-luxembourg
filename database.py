@@ -107,6 +107,35 @@ class Database:
             logger.error(f"❌ Erreur ajout annonce: {e}")
             return False
 
+    def similar_listing_exists(self, price, city, surface=0):
+        """Vérifier si une annonce similaire existe déjà (cross-site dedup)"""
+        try:
+            city_clean = city.lower().strip() if city else ''
+            if not city_clean or price <= 0:
+                return False
+
+            if surface and surface > 0:
+                # Même prix, ville similaire, surface ±15m²
+                self.cursor.execute('''
+                    SELECT listing_id FROM listings
+                    WHERE price = ? AND LOWER(city) LIKE ? AND ABS(surface - ?) <= 15
+                    LIMIT 1
+                ''', (price, f'%{city_clean}%', surface))
+            else:
+                # Même prix, ville similaire
+                self.cursor.execute('''
+                    SELECT listing_id FROM listings
+                    WHERE price = ? AND LOWER(city) LIKE ?
+                    LIMIT 1
+                ''', (price, f'%{city_clean}%'))
+
+            result = self.cursor.fetchone()
+            if result:
+                logger.debug(f"Doublon DB trouvé: prix={price} ville={city} → {result[0]}")
+            return result is not None
+        except sqlite3.Error:
+            return False
+
     def mark_as_notified(self, listing_id):
         """Marquer une annonce comme notifiée"""
         try:
@@ -165,6 +194,26 @@ class Database:
         except sqlite3.Error as e:
             logger.error(f"❌ Erreur récupération annonces proches: {e}")
             return []
+
+    def cleanup_old_listings(self, days=30):
+        """Supprimer les annonces de plus de N jours"""
+        try:
+            self.cursor.execute('''
+                DELETE FROM listings
+                WHERE created_at < datetime('now', ?)
+            ''', (f'-{days} days',))
+            deleted = self.cursor.rowcount
+            self.conn.commit()
+            if deleted > 0:
+                logger.info(f"🧹 Nettoyage DB: {deleted} annonces de +{days}j supprimées")
+                try:
+                    self.conn.execute('VACUUM')
+                except sqlite3.Error:
+                    pass
+            return deleted
+        except sqlite3.Error as e:
+            logger.error(f"❌ Erreur nettoyage DB: {e}")
+            return 0
 
     def close(self):
         """Fermer la connexion"""

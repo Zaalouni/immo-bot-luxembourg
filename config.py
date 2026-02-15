@@ -32,9 +32,10 @@ try:
     MIN_ROOMS = int(os.getenv('MIN_ROOMS', '2'))
     MAX_ROOMS = int(os.getenv('MAX_ROOMS', '3'))
     MIN_SURFACE = int(os.getenv('MIN_SURFACE', '70'))
-    EXCLUDED_WORDS = os.getenv('EXCLUDED_WORDS', 'parking,garage,cave').split(',')
-    CITIES = [city.strip() for city in os.getenv('CITIES', 'Luxembourg').split(',')]
-    PREFERRED_CITIES = CITIES
+    _excluded_raw = os.getenv('EXCLUDED_WORDS', 'parking,garage,cave')
+    EXCLUDED_WORDS = [w.strip() for w in _excluded_raw.split(',') if w.strip()]
+    CITIES = [city.strip() for city in os.getenv('CITIES', 'Luxembourg').split(',') if city.strip()]
+    PREFERRED_CITIES = CITIES  # Alias pour compatibilité
 except ValueError as e:
     print(f"❌ ERREUR configuration: {e}")
     sys.exit(1)

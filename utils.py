@@ -43,7 +43,7 @@ def format_distance(distance_km):
     if distance_km is None:
         return "N/A"
     elif distance_km < 1:
-        return "< 1 km"
+        return "moins de 1 km"
     elif distance_km < 10:
         return f"{distance_km:.1f} km"
     else:
