@@ -1,7 +1,7 @@
 # Immo-Bot Luxembourg — Contexte rapide pour IA
 
 ## Quoi
-Bot Python qui scrape 9 sites immobiliers luxembourgeois, filtre les annonces de location, deduplique cross-sites, stocke en SQLite et notifie via Telegram (photos + Google Maps).
+Bot Python qui scrape 7 sites immobiliers luxembourgeois, filtre les annonces de location, deduplique cross-sites, stocke en SQLite et notifie via Telegram (photos + Google Maps).
 
 ## Fichiers cles
 | Fichier | Role |
@@ -10,45 +10,48 @@ Bot Python qui scrape 9 sites immobiliers luxembourgeois, filtre les annonces de
 | config.py | Charge .env : prix, rooms, surface, distance GPS, mots exclus, tokens Telegram |
 | database.py | SQLite listings.db : insert, dedup (listing_exists + similar_listing_exists), cleanup >30j |
 | notifier.py | Telegram HTML : send_listing (photo+Maps+prix/m2+hashtags), send_photo, retry+rate limit |
-| utils.py | GPS : haversine_distance, format_distance, get_distance_emoji |
-| scrapers/ | 9 scrapers actifs + 1 template Selenium (12 fichiers total) |
+| utils.py | GPS : haversine_distance, geocode_city (~130 villes), enrich_listing_gps |
+| scrapers/ | 7 scrapers actifs + 2 desactives + 1 template Selenium |
 
-## Scrapers actifs
-| Scraper | Site | Methode |
-|---------|------|---------|
-| athome_scraper_json.py | Athome.lu | JSON __INITIAL_STATE__, multi-URL appart+maison |
-| immotop_scraper_real.py | Immotop.lu | HTML regex |
-| luxhome_scraper.py | Luxhome.lu | JSON/Regex + GPS (fallback: luxhome_scraper_final.py) |
-| vivi_scraper_selenium.py | VIVI.lu | Selenium |
-| newimmo_scraper_real.py | Newimmo.lu | Selenium (herite selenium_template) |
-| unicorn_scraper_real.py | Unicorn.lu | Selenium + regex page_source (override scrape) |
-| wortimmo_scraper.py | Wortimmo.lu | Selenium, 3 methodes cascade (JSON→liens→prix) |
-| immoweb_scraper.py | Immoweb.be | Selenium |
-| nextimmo_scraper.py | Nextimmo.lu | API JSON + fallback HTML |
+## Scrapers actifs (7/9)
+| Scraper | Site | Methode | Statut |
+|---------|------|---------|--------|
+| athome_scraper_json.py | Athome.lu | JSON __INITIAL_STATE__, multi-URL | Stable |
+| immotop_scraper_real.py | Immotop.lu | HTML regex | Stable |
+| luxhome_scraper.py | Luxhome.lu | JSON/Regex + GPS | Stable |
+| vivi_scraper_selenium.py | VIVI.lu | Selenium | Stable |
+| nextimmo_scraper.py | Nextimmo.lu | API JSON + fallback HTML | Stable |
+| newimmo_scraper_real.py | Newimmo.lu | Selenium + page_source regex /fr/louer/ | Fixe v2.4 |
+| unicorn_scraper_real.py | Unicorn.lu | Selenium + data-id card extraction | Fixe v2.4 |
+
+## Scrapers desactives (2/9) — Cloudflare/CAPTCHA
+| Scraper | Site | Raison |
+|---------|------|--------|
+| wortimmo_scraper.py | Wortimmo.lu | Cloudflare bloque les donnees listing (prix = dropdown filtres) |
+| immoweb_scraper.py | Immoweb.be | CAPTCHA bloque tout (page 1592 chars) |
 
 ## Contrat scraper
 Chaque scraper expose `.scrape()` → `list[dict]` avec cles : listing_id, site, title, city, price, rooms, surface, url, image_url, latitude, longitude, distance_km, time_ago, full_text
 
 ## Etat actuel
-- **Version** : v2.3 (2025-02-15)
-- **Statut** : fonctionnel, en production, repo nettoye, GPS enrichi
-- **Derniere action** : geocodage ~120 villes Luxembourg, enrichissement GPS avant filtrage
+- **Version** : v2.4 (2026-02-15)
+- **Statut** : fonctionnel, en production, 7/9 scrapers actifs
+- **Derniere action** : fix Newimmo (page_source regex), fix Unicorn (data-id), Wortimmo+Immoweb infixables
 
-## Localisation (v2.3)
-- utils.py contient LUXEMBOURG_CITIES (~120 villes → lat/lng)
+## Localisation (v2.3+)
+- utils.py contient LUXEMBOURG_CITIES (~130 villes → lat/lng)
 - main.py appelle enrich_listing_gps() avant dedup/filtrage
 - Si geocodage echoue → filtre par ACCEPTED_CITIES (.env, fallback)
-- diagnostic_locations.py pour tester les localisations
 
 ## Prochaines actions (voir planning.md)
 - v3.0 : async scrapers HTTP, retry auto, centraliser filtrage, tests pytest
-- v3.1 : nouveaux scrapers (Century21, ImmoScout24, Engelvoelkers)
+- v3.1 : nouveaux scrapers pour remplacer Wortimmo/Immoweb
 
 ## Problemes connus
-- Scrapers Selenium fragiles (sites changent leur HTML regulierement)
+- Wortimmo + Immoweb bloques par Cloudflare/CAPTCHA → remplacer par nouveaux sites
+- Unicorn : CAPTCHA intermittent, peu d'annonces, filtrage surface strict
 - Filtrage duplique (chaque scraper + main.py) → a centraliser v3.0
 - Pas de tests automatises (uniquement test_scrapers.py manuel)
-- Singletons db/notifier instancies a l'import
 
 ## Docs detaillees
 - architecture.md : flux complet, schema DB, roles fichiers
