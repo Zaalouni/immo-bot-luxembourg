@@ -1,18 +1,24 @@
-// Genere le 16/02/2026 22:36
+// Genere le 16/02/2026 22:38
 const STATS = {
-  "total": 11,
-  "avg_price": 2281,
+  "total": 21,
+  "avg_price": 2330,
   "min_price": 1800,
   "max_price": 2800,
-  "avg_surface": 87,
-  "cities": 8,
+  "avg_surface": 98,
+  "cities": 14,
   "sites": {
-    "Luxhome.lu": 3,
+    "VIVI.lu": 3,
+    "Luxhome.lu": 10,
     "Immotop.lu": 5,
     "Newimmo.lu": 1,
     "Athome.lu": 2
   },
   "by_city": [
+    {
+      "city": "Cessange",
+      "count": 2,
+      "avg_price": 2375
+    },
     {
       "city": "Kirchberg",
       "count": 2,
@@ -22,6 +28,31 @@ const STATS = {
       "city": "Luxembourg",
       "count": 2,
       "avg_price": 2125
+    },
+    {
+      "city": "Bech",
+      "count": 1,
+      "avg_price": 2800
+    },
+    {
+      "city": "Gasperich",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Bonnevoie",
+      "count": 1,
+      "avg_price": 2650
+    },
+    {
+      "city": "Strassen",
+      "count": 1,
+      "avg_price": 2230
+    },
+    {
+      "city": "Hollerich",
+      "count": 1,
+      "avg_price": 2450
     },
     {
       "city": "Bertrange",
@@ -56,14 +87,15 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 3,
-    "2000 - 2500": 4,
-    "> 2500": 4
+    "1500 - 2000": 4,
+    "2000 - 2500": 9,
+    "> 2500": 8
   }
 };
 const SITE_COLORS = {
-  "Luxhome.lu": "#FF6384",
-  "Immotop.lu": "#36A2EB",
-  "Newimmo.lu": "#FFCE56",
-  "Athome.lu": "#4BC0C0"
+  "VIVI.lu": "#FF6384",
+  "Luxhome.lu": "#36A2EB",
+  "Immotop.lu": "#FFCE56",
+  "Newimmo.lu": "#4BC0C0",
+  "Athome.lu": "#9966FF"
 };
