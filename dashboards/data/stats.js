@@ -1,20 +1,25 @@
-// Genere le 16/02/2026 20:56
+// Genere le 16/02/2026 21:19
 const STATS = {
-  "total": 38,
-  "avg_price": 2269,
+  "total": 41,
+  "avg_price": 2251,
   "min_price": 1700,
   "max_price": 2800,
-  "avg_surface": 114,
-  "cities": 29,
+  "avg_surface": 116,
+  "cities": 32,
   "sites": {
     "Nextimmo.lu": 11,
-    "Newimmo.lu": 2,
+    "Newimmo.lu": 3,
     "VIVI.lu": 4,
     "Luxhome.lu": 11,
-    "Immotop.lu": 5,
-    "Athome.lu": 5
+    "Immotop.lu": 6,
+    "Athome.lu": 6
   },
   "by_city": [
+    {
+      "city": "Luxembourg",
+      "count": 3,
+      "avg_price": 2050
+    },
     {
       "city": "Schengen",
       "count": 2,
@@ -24,16 +29,6 @@ const STATS = {
       "city": "Cessange",
       "count": 2,
       "avg_price": 2375
-    },
-    {
-      "city": "Kirchberg",
-      "count": 2,
-      "avg_price": 2650
-    },
-    {
-      "city": "Luxembourg",
-      "count": 2,
-      "avg_price": 2125
     },
     {
       "city": "Perl",
@@ -91,9 +86,14 @@ const STATS = {
       "avg_price": 2000
     },
     {
-      "city": "Luxembourg Gare",
+      "city": "Luxembourg Neudorf",
       "count": 1,
       "avg_price": 2000
+    },
+    {
+      "city": "Luxembourg Limpertsberg",
+      "count": 1,
+      "avg_price": 2500
     },
     {
       "city": "Echternach",
@@ -121,9 +121,19 @@ const STATS = {
       "avg_price": 2230
     },
     {
+      "city": "Gare",
+      "count": 1,
+      "avg_price": 1700
+    },
+    {
       "city": "Hollerich",
       "count": 1,
       "avg_price": 2450
+    },
+    {
+      "city": "Kirchberg",
+      "count": 1,
+      "avg_price": 2500
     },
     {
       "city": "Esch",
@@ -146,6 +156,11 @@ const STATS = {
       "avg_price": 1950
     },
     {
+      "city": "Luxembourg-Kirchberg",
+      "count": 1,
+      "avg_price": 2800
+    },
+    {
       "city": "Luxembourg-Centre Ville",
       "count": 1,
       "avg_price": 2350
@@ -163,9 +178,9 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 9,
+    "1500 - 2000": 11,
     "2000 - 2500": 15,
-    "> 2500": 14
+    "> 2500": 15
   }
 };
 const SITE_COLORS = {
