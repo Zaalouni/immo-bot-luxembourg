@@ -6,6 +6,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#667eea">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; img-src 'self' data: https://*.tile.openstreetmap.org; connect-src 'self'; font-src 'self' https://cdn.jsdelivr.net;">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
     <title>ImmoLux Dashboard</title>
@@ -68,7 +71,11 @@
         a:hover { text-decoration: underline; }
         .listing-count { font-size: 0.8rem; color: #888; }
 
-        /* Mobile */
+        .history-card { background: white; border-radius: 12px; padding: 1rem; margin-bottom: 0.6rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; }
+        .history-date { font-weight: 600; color: var(--primary); }
+        .history-stats { font-size: 0.8rem; color: #888; }
+
         @media (max-width: 768px) {
             .header h1 { font-size: 1.1rem; }
             .stat-value { font-size: 1.2rem; }
@@ -86,7 +93,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <h1>ImmoLux Dashboard</h1>
-            <small>Mis a jour le 16/02/2026 20:07 — 48 annonces</small>
+            <small>Mis a jour le 16/02/2026 20:10 — 48 annonces</small>
         </div>
         <div>
             <span class="listing-count">38 villes | 6 sites</span>
@@ -155,6 +162,9 @@
         </li>
         <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-map">Carte</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-history">Historique</button>
         </li>
     </ul>
 
@@ -233,6 +243,17 @@
             </div>
         </div>
 
+        <!-- TAB: Historique -->
+        <div class="tab-pane fade" id="tab-history">
+            <div class="filter-section mb-2">
+                <strong>Archives quotidiennes</strong>
+                <span class="listing-count ms-2">Un snapshot JSON par jour avec toutes les annonces et stats</span>
+            </div>
+            <div id="history-container">
+                <p class="text-muted text-center py-3">Chargement...</p>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -240,13 +261,29 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="data/listings.js"></script>
 <script src="data/stats.js"></script>
+<script src="data/history/index.js"></script>
 <script>
 
+// --- Securite : echapper le HTML pour eviter XSS ---
+function esc(str) {
+    if (!str) return '';
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+}
+
+// Valider URL (doit etre http/https)
+function safeUrl(url) {
+    if (!url) return '#';
+    try { const u = new URL(url); return ['http:', 'https:'].includes(u.protocol) ? u.href : '#'; }
+    catch { return '#'; }
+}
+
 // --- Utilitaires ---
-function fmt(n) { return n ? n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '—'; }
+function fmt(n) { return n ? n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '\u2014'; }
 function badge(site) {
-    const bg = SITE_COLORS[site] || '#888';
-    return `<span class="site-badge" style="background:${bg}">${site}</span>`;
+    const bg = SITE_COLORS[esc(site)] || '#888';
+    return `<span class="site-badge" style="background:${esc(bg)}">${esc(site)}</span>`;
 }
 
 // --- Tableau triable ---
@@ -292,13 +329,13 @@ function renderTable() {
     tbody.innerHTML = filtered.map(l => `
         <tr>
             <td>${badge(l.site)}</td>
-            <td>${l.city || '—'}</td>
+            <td>${esc(l.city) || '\u2014'}</td>
             <td><strong>${fmt(l.price)}&euro;</strong></td>
-            <td>${l.rooms || '—'}</td>
-            <td>${l.surface || '—'}</td>
-            <td>${l.price_m2 ? l.price_m2 + '&euro;' : '—'}</td>
-            <td>${l.distance_km != null ? l.distance_km + ' km' : '—'}</td>
-            <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 50)}</a></td>
+            <td>${l.rooms || '\u2014'}</td>
+            <td>${l.surface || '\u2014'}</td>
+            <td>${l.price_m2 ? l.price_m2 + '&euro;' : '\u2014'}</td>
+            <td>${l.distance_km != null ? l.distance_km + ' km' : '\u2014'}</td>
+            <td><a href="${safeUrl(l.url)}" target="_blank" rel="noopener noreferrer">${esc((l.title || 'Voir').substring(0, 50))}</a></td>
         </tr>
     `).join('');
 }
@@ -349,15 +386,15 @@ function renderCityView() {
             <tr>
                 <td>${badge(l.site)}</td>
                 <td><strong>${fmt(l.price)}&euro;</strong></td>
-                <td>${l.rooms || '—'} ch.</td>
-                <td>${l.surface || '—'} m&sup2;</td>
-                <td>${l.price_m2 ? l.price_m2 + ' &euro;/m&sup2;' : '—'}</td>
-                <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 45)}</a></td>
+                <td>${l.rooms || '\u2014'} ch.</td>
+                <td>${l.surface || '\u2014'} m&sup2;</td>
+                <td>${l.price_m2 ? l.price_m2 + ' &euro;/m&sup2;' : '\u2014'}</td>
+                <td><a href="${safeUrl(l.url)}" target="_blank" rel="noopener noreferrer">${esc((l.title || 'Voir').substring(0, 45))}</a></td>
             </tr>
         `).join('');
         return `
             <div class="city-group">
-                <h5>${city} <span class="listing-count">(${items.length} ann. | moy. ${fmt(avg)}&euro; | ${fmt(mn)}&euro; - ${fmt(mx)}&euro;)</span></h5>
+                <h5>${esc(city)} <span class="listing-count">(${items.length} ann. | moy. ${fmt(avg)}&euro; | ${fmt(mn)}&euro; - ${fmt(mx)}&euro;)</span></h5>
                 <div class="table-responsive">
                 <table class="table table-sm table-hover mb-0">
                     <thead><tr><th>Site</th><th>Prix</th><th>Ch.</th><th>m&sup2;</th><th>&euro;/m&sup2;</th><th>Titre</th></tr></thead>
@@ -384,12 +421,12 @@ function renderPriceView() {
         const rows = items.map(l => `
             <tr>
                 <td>${badge(l.site)}</td>
-                <td>${l.city || '—'}</td>
+                <td>${esc(l.city) || '\u2014'}</td>
                 <td><strong>${fmt(l.price)}&euro;</strong></td>
-                <td>${l.rooms || '—'} ch.</td>
-                <td>${l.surface || '—'} m&sup2;</td>
-                <td>${l.price_m2 ? l.price_m2 + ' &euro;/m&sup2;' : '—'}</td>
-                <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 45)}</a></td>
+                <td>${l.rooms || '\u2014'} ch.</td>
+                <td>${l.surface || '\u2014'} m&sup2;</td>
+                <td>${l.price_m2 ? l.price_m2 + ' &euro;/m&sup2;' : '\u2014'}</td>
+                <td><a href="${safeUrl(l.url)}" target="_blank" rel="noopener noreferrer">${esc((l.title || 'Voir').substring(0, 45))}</a></td>
             </tr>
         `).join('');
         return `
@@ -407,7 +444,7 @@ function renderPriceView() {
     }).join('');
 }
 
-// --- Carte Leaflet (lazy load quand onglet actif) ---
+// --- Carte Leaflet (lazy load) ---
 let mapInit = false;
 const isMobile = window.innerWidth < 768;
 
@@ -429,20 +466,42 @@ document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs
             radius: markerRadius, fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.9
         }).addTo(map).bindPopup(`
             <div style="min-width:200px;font-size:${isMobile ? '14px' : '12px'}">
-            <strong style="font-size:${isMobile ? '16px' : '13px'}">${l.city || '—'}</strong><br>
+            <strong style="font-size:${isMobile ? '16px' : '13px'}">${esc(l.city) || '\u2014'}</strong><br>
             <span style="font-size:${isMobile ? '15px' : '12px'}">${fmt(l.price)}&euro; | ${l.rooms || '?'} ch. | ${l.surface || '?'} m&sup2;</span><br>
-            <a href="${l.url}" target="_blank" style="display:inline-block;margin-top:6px;padding:${isMobile ? '8px 16px' : '4px 8px'};background:var(--primary);color:white;border-radius:6px;text-decoration:none;font-size:${isMobile ? '14px' : '12px'}">Voir l'annonce</a>
+            <a href="${safeUrl(l.url)}" target="_blank" rel="noopener noreferrer"
+               style="display:inline-block;margin-top:6px;padding:${isMobile ? '10px 20px' : '4px 8px'};background:#667eea;color:white;border-radius:6px;text-decoration:none;font-size:${isMobile ? '14px' : '12px'}">
+               Voir l'annonce</a>
             </div>
         `, { maxWidth: isMobile ? 280 : 250, closeButton: true });
     });
     map.fitBounds(withGPS.map(l => [l.latitude, l.longitude]), { padding: [30, 30] });
 });
 
+// --- Historique ---
+function renderHistory() {
+    const container = document.getElementById('history-container');
+    if (typeof HISTORY_INDEX === 'undefined' || !HISTORY_INDEX.length) {
+        container.innerHTML = '<p class="text-muted text-center py-3">Aucun historique disponible</p>';
+        return;
+    }
+    container.innerHTML = HISTORY_INDEX.map(h => `
+        <div class="history-card">
+            <div>
+                <span class="history-date">${esc(h.date)}</span>
+                <div class="history-stats">${h.total} annonces | ${h.cities} villes | moy. ${fmt(h.avg_price)}&euro;</div>
+            </div>
+            <a href="data/history/${esc(h.file)}" target="_blank" rel="noopener noreferrer"
+               class="btn btn-sm btn-outline-primary">JSON</a>
+        </div>
+    `).join('');
+}
+
 // --- Init ---
 initFilters();
 applyFilters();
 renderCityView();
 renderPriceView();
+renderHistory();
 </script>
 </body>
 </html>

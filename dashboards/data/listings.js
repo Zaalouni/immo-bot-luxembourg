@@ -1,4 +1,4 @@
-// Genere le 16/02/2026 20:07
+// Genere le 16/02/2026 20:10
 // 48 annonces depuis listings.db
 const LISTINGS = [
   {
@@ -109,7 +109,7 @@ const LISTINGS = [
   {
     "listing_id": "immotop_1872659",
     "site": "Immotop.lu",
-    "title": "Appartement 2 chambres 6 Grand&#x27;rue, Hobscheid, Habscht",
+    "title": "Appartement 2 chambres 6 Grand&amp;#x27;rue, Hobscheid, Habscht",
     "city": "Habscht",
     "price": 1900,
     "rooms": 2,
@@ -634,7 +634,7 @@ const LISTINGS = [
   {
     "listing_id": "athome_8726425",
     "site": "Athome.lu",
-    "title": "À louer, magnifique appartement d'environ 80m2 avec deux chambres situ",
+    "title": "À louer, magnifique appartement d&#x27;environ 80m2 avec deux chambres situ",
     "city": "Luxembourg-Kirchberg",
     "price": 2800,
     "rooms": 2,
@@ -649,7 +649,7 @@ const LISTINGS = [
   {
     "listing_id": "athome_8726729",
     "site": "Athome.lu",
-    "title": "L'offre est sans commission pour le locataire !!! \n\nAppartement modern",
+    "title": "L&#x27;offre est sans commission pour le locataire !!! \n\nAppartement modern",
     "city": "Perl",
     "price": 2000,
     "rooms": 4,
