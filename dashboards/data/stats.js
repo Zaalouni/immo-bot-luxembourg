@@ -1,29 +1,34 @@
-// Genere le 16/02/2026 20:01
+// Genere le 16/02/2026 20:07
 const STATS = {
-  "total": 38,
-  "avg_price": 2309,
+  "total": 48,
+  "avg_price": 2290,
   "min_price": 1700,
   "max_price": 2800,
-  "avg_surface": 129,
-  "cities": 30,
+  "avg_surface": 122,
+  "cities": 38,
   "sites": {
-    "Nextimmo.lu": 7,
+    "Nextimmo.lu": 13,
+    "VIVI.lu": 7,
+    "Immotop.lu": 7,
     "Newimmo.lu": 3,
-    "VIVI.lu": 6,
     "Luxhome.lu": 11,
-    "Immotop.lu": 4,
     "Athome.lu": 7
   },
   "by_city": [
     {
+      "city": "Luxembourg",
+      "count": 3,
+      "avg_price": 2050
+    },
+    {
+      "city": "Junglinster",
+      "count": 2,
+      "avg_price": 2375
+    },
+    {
       "city": "Schengen",
       "count": 2,
       "avg_price": 1750
-    },
-    {
-      "city": "Luxembourg",
-      "count": 2,
-      "avg_price": 1950
     },
     {
       "city": "Cessange",
@@ -34,6 +39,46 @@ const STATS = {
       "city": "Perl",
       "count": 2,
       "avg_price": 1875
+    },
+    {
+      "city": "Mondorf-les-Bains",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Luxembourg-Cessange",
+      "count": 1,
+      "avg_price": 2000
+    },
+    {
+      "city": "Luxembourg-Hollerich",
+      "count": 1,
+      "avg_price": 2150
+    },
+    {
+      "city": "Gonderange",
+      "count": 1,
+      "avg_price": 2200
+    },
+    {
+      "city": "Luxembourg-Weimershof",
+      "count": 1,
+      "avg_price": 2550
+    },
+    {
+      "city": "Mamer",
+      "count": 1,
+      "avg_price": 2000
+    },
+    {
+      "city": "Bonnevoie",
+      "count": 1,
+      "avg_price": 2650
+    },
+    {
+      "city": "Habscht",
+      "count": 1,
+      "avg_price": 1900
     },
     {
       "city": "Bettembourg",
@@ -94,11 +139,6 @@ const STATS = {
       "city": "Echternach",
       "count": 1,
       "avg_price": 2795
-    },
-    {
-      "city": "Junglinster",
-      "count": 1,
-      "avg_price": 2800
     },
     {
       "city": "Gasperich",
@@ -168,16 +208,16 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 9,
-    "2000 - 2500": 12,
-    "> 2500": 17
+    "1500 - 2000": 11,
+    "2000 - 2500": 17,
+    "> 2500": 20
   }
 };
 const SITE_COLORS = {
   "Nextimmo.lu": "#FF6384",
-  "Newimmo.lu": "#36A2EB",
-  "VIVI.lu": "#FFCE56",
-  "Luxhome.lu": "#4BC0C0",
-  "Immotop.lu": "#9966FF",
+  "VIVI.lu": "#36A2EB",
+  "Immotop.lu": "#FFCE56",
+  "Newimmo.lu": "#4BC0C0",
+  "Luxhome.lu": "#9966FF",
   "Athome.lu": "#FF9F40"
 };
