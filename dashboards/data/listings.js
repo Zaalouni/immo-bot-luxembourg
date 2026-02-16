@@ -1,6 +1,66 @@
-// Genere le 16/02/2026 22:38
-// 22 annonces depuis listings.db
+// Genere le 16/02/2026 22:39
+// 26 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "nextimmo_86748513",
+    "site": "Nextimmo.lu",
+    "title": "Appartement Luxembourg-Weimershof",
+    "city": "Luxembourg-Weimershof",
+    "price": 2550,
+    "rooms": 2,
+    "surface": 90,
+    "url": "https://nextimmo.lu/en/details/86748513",
+    "latitude": 49.62155,
+    "longitude": 6.16217,
+    "distance_km": 3.1,
+    "created_at": "2026-02-16 21:39:10",
+    "price_m2": 28.3
+  },
+  {
+    "listing_id": "nextimmo_86702812",
+    "site": "Nextimmo.lu",
+    "title": "Appartement Mamer",
+    "city": "Mamer",
+    "price": 2000,
+    "rooms": 2,
+    "surface": 81,
+    "url": "https://nextimmo.lu/en/details/86702812",
+    "latitude": 49.62391,
+    "longitude": 6.01063,
+    "distance_km": 9.3,
+    "created_at": "2026-02-16 21:39:00",
+    "price_m2": 24.7
+  },
+  {
+    "listing_id": "nextimmo_104734",
+    "site": "Nextimmo.lu",
+    "title": "Appartement Schengen",
+    "city": "Schengen",
+    "price": 1700,
+    "rooms": 2,
+    "surface": 91,
+    "url": "https://nextimmo.lu/en/details/104734",
+    "latitude": 49.47,
+    "longitude": 6.37,
+    "distance_km": 22.3,
+    "created_at": "2026-02-16 21:38:49",
+    "price_m2": 18.7
+  },
+  {
+    "listing_id": "newimmo_127151",
+    "site": "Newimmo.lu",
+    "title": "Appartement - Luxembourg Gare",
+    "city": "Luxembourg Gare",
+    "price": 2000,
+    "rooms": 2,
+    "surface": 90,
+    "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-gare/127151-appartement-luxembourg-gare/",
+    "latitude": 49.6,
+    "longitude": 6.1342,
+    "distance_km": 0.0,
+    "created_at": "2026-02-16 21:38:39",
+    "price_m2": 22.2
+  },
   {
     "listing_id": "vivi_211797",
     "site": "VIVI.lu",
