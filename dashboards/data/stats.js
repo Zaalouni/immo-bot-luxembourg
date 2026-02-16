@@ -1,13 +1,13 @@
-// Genere le 16/02/2026 22:39
+// Genere le 16/02/2026 22:40
 const STATS = {
-  "total": 26,
-  "avg_price": 2306,
+  "total": 34,
+  "avg_price": 2290,
   "min_price": 1700,
   "max_price": 2800,
-  "avg_surface": 100,
-  "cities": 18,
+  "avg_surface": 112,
+  "cities": 26,
   "sites": {
-    "Nextimmo.lu": 3,
+    "Nextimmo.lu": 11,
     "Newimmo.lu": 2,
     "VIVI.lu": 4,
     "Luxhome.lu": 10,
@@ -34,6 +34,46 @@ const STATS = {
       "city": "Luxembourg",
       "count": 2,
       "avg_price": 2125
+    },
+    {
+      "city": "Mondorf-les-Bains",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Bettembourg",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Bettendorf",
+      "count": 1,
+      "avg_price": 1800
+    },
+    {
+      "city": "Oberanven",
+      "count": 1,
+      "avg_price": 2800
+    },
+    {
+      "city": "Differdange",
+      "count": 1,
+      "avg_price": 1950
+    },
+    {
+      "city": "Luxembourg-Cessange",
+      "count": 1,
+      "avg_price": 2000
+    },
+    {
+      "city": "Luxembourg-Hollerich",
+      "count": 1,
+      "avg_price": 2150
+    },
+    {
+      "city": "Gonderange",
+      "count": 1,
+      "avg_price": 2200
     },
     {
       "city": "Luxembourg-Weimershof",
@@ -108,9 +148,9 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 5,
-    "2000 - 2500": 11,
-    "> 2500": 10
+    "1500 - 2000": 7,
+    "2000 - 2500": 14,
+    "> 2500": 13
   }
 };
 const SITE_COLORS = {

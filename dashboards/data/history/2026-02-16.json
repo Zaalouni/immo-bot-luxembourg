@@ -1,15 +1,15 @@
 {
   "date": "2026-02-16",
-  "generated_at": "16/02/2026 22:39",
+  "generated_at": "16/02/2026 22:40",
   "stats": {
-    "total": 26,
-    "avg_price": 2306,
+    "total": 34,
+    "avg_price": 2290,
     "min_price": 1700,
     "max_price": 2800,
-    "avg_surface": 100,
-    "cities": 18,
+    "avg_surface": 112,
+    "cities": 26,
     "sites": {
-      "Nextimmo.lu": 3,
+      "Nextimmo.lu": 11,
       "Newimmo.lu": 2,
       "VIVI.lu": 4,
       "Luxhome.lu": 10,
@@ -36,6 +36,46 @@
         "city": "Luxembourg",
         "count": 2,
         "avg_price": 2125
+      },
+      {
+        "city": "Mondorf-les-Bains",
+        "count": 1,
+        "avg_price": 2500
+      },
+      {
+        "city": "Bettembourg",
+        "count": 1,
+        "avg_price": 2500
+      },
+      {
+        "city": "Bettendorf",
+        "count": 1,
+        "avg_price": 1800
+      },
+      {
+        "city": "Oberanven",
+        "count": 1,
+        "avg_price": 2800
+      },
+      {
+        "city": "Differdange",
+        "count": 1,
+        "avg_price": 1950
+      },
+      {
+        "city": "Luxembourg-Cessange",
+        "count": 1,
+        "avg_price": 2000
+      },
+      {
+        "city": "Luxembourg-Hollerich",
+        "count": 1,
+        "avg_price": 2150
+      },
+      {
+        "city": "Gonderange",
+        "count": 1,
+        "avg_price": 2200
       },
       {
         "city": "Luxembourg-Weimershof",
@@ -110,12 +150,132 @@
     ],
     "by_price_range": {
       "< 1500": 0,
-      "1500 - 2000": 5,
-      "2000 - 2500": 11,
-      "> 2500": 10
+      "1500 - 2000": 7,
+      "2000 - 2500": 14,
+      "> 2500": 13
     }
   },
   "listings": [
+    {
+      "listing_id": "nextimmo_86703040",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Mondorf-les-Bains",
+      "city": "Mondorf-les-Bains",
+      "price": 2500,
+      "rooms": 5,
+      "surface": 175,
+      "url": "https://nextimmo.lu/en/details/86703040",
+      "latitude": 49.50185,
+      "longitude": 6.27573,
+      "distance_km": 14.9,
+      "created_at": "2026-02-16 21:40:31",
+      "price_m2": 14.3
+    },
+    {
+      "listing_id": "nextimmo_1206319",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Bettembourg",
+      "city": "Bettembourg",
+      "price": 2500,
+      "rooms": 4,
+      "surface": 134,
+      "url": "https://nextimmo.lu/en/details/1206319",
+      "latitude": 49.52,
+      "longitude": 6.105,
+      "distance_km": 9.1,
+      "created_at": "2026-02-16 21:40:21",
+      "price_m2": 18.7
+    },
+    {
+      "listing_id": "nextimmo_6750104",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Bettendorf",
+      "city": "Bettendorf",
+      "price": 1800,
+      "rooms": 3,
+      "surface": 146,
+      "url": "https://nextimmo.lu/en/details/6750104",
+      "latitude": 49.87557,
+      "longitude": 6.20615,
+      "distance_km": 31.1,
+      "created_at": "2026-02-16 21:40:11",
+      "price_m2": 12.3
+    },
+    {
+      "listing_id": "nextimmo_84538821",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Oberanven",
+      "city": "Oberanven",
+      "price": 2800,
+      "rooms": 3,
+      "surface": 140,
+      "url": "https://nextimmo.lu/en/details/84538821",
+      "latitude": 49.65768,
+      "longitude": 6.24065,
+      "distance_km": 10.0,
+      "created_at": "2026-02-16 21:40:01",
+      "price_m2": 20.0
+    },
+    {
+      "listing_id": "nextimmo_479",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Differdange",
+      "city": "Differdange",
+      "price": 1950,
+      "rooms": 4,
+      "surface": 180,
+      "url": "https://nextimmo.lu/en/details/479",
+      "latitude": 49.525,
+      "longitude": 5.89,
+      "distance_km": 19.5,
+      "created_at": "2026-02-16 21:39:51",
+      "price_m2": 10.8
+    },
+    {
+      "listing_id": "nextimmo_8988132",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Cessange",
+      "city": "Luxembourg-Cessange",
+      "price": 2000,
+      "rooms": 2,
+      "surface": 85,
+      "url": "https://nextimmo.lu/en/details/8988132",
+      "latitude": 49.58789890000001,
+      "longitude": 6.1048624,
+      "distance_km": 2.5,
+      "created_at": "2026-02-16 21:39:40",
+      "price_m2": 23.5
+    },
+    {
+      "listing_id": "nextimmo_86748114",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Hollerich",
+      "city": "Luxembourg-Hollerich",
+      "price": 2150,
+      "rooms": 2,
+      "surface": 85,
+      "url": "https://nextimmo.lu/en/details/86748114",
+      "latitude": 49.60034,
+      "longitude": 6.12105,
+      "distance_km": 0.9,
+      "created_at": "2026-02-16 21:39:30",
+      "price_m2": 25.3
+    },
+    {
+      "listing_id": "nextimmo_4280",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Gonderange",
+      "city": "Gonderange",
+      "price": 2200,
+      "rooms": 2,
+      "surface": 95,
+      "url": "https://nextimmo.lu/en/details/4280",
+      "latitude": 49.69,
+      "longitude": 6.25,
+      "distance_km": 13.0,
+      "created_at": "2026-02-16 21:39:20",
+      "price_m2": 23.2
+    },
     {
       "listing_id": "nextimmo_86748513",
       "site": "Nextimmo.lu",
