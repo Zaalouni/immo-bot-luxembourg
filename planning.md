@@ -1,158 +1,182 @@
-# Planning — Immo-Bot Luxembourg
+# 📊 DASHBOARD IMMO LUXEMBOURG - BRIEF CLAUDE CODE
 
-> Ce fichier suit les actions planifiees, en cours et terminees.
-> Chaque action a un identifiant, une version cible, une date et un statut.
-> Ce fichier est mis a jour a chaque session de travail.
+## 🎯 MISSION SIMPLE
+Créer **1 script** `dashboard_generator.py` qui génère un **Dashboard HTML interactif** en <5 secondes à partir de `listings.db` SQLite.
 
-## Legende statuts
+**Bot scraping reste intact** (main.py, scrapers inchangés).
 
-- `DONE` — Termine et commite
-- `DONE` — En cours de developpement
-- `TODO` — Planifie, pas encore commence
-- `BLOCKED` — Bloque par une dependance ou un probleme
-- `CANCELLED` — Annule
+---
 
-## Versions livrees
+## 📋 CONTEXTE
+- **Données existantes**: listings.db (Athome, Immotop, Century21)
+- **Colonnes**: listing_id, title, price, rooms, surface, city, url, score
+- **Objectif**: Utilisateur exécute `python dashboard_generator.py` → fichier HTML créé
 
-### v1.0 — Initial (2025-01-17)
+---
 
-| ID | Action | Statut | Date |
-|----|--------|--------|------|
-| 1.0.1 | Creer structure projet (main, config, db, notifier) | DONE | 2025-01-17 |
-| 1.0.2 | Scraper Athome.lu (JSON __INITIAL_STATE__) | DONE | 2025-01-17 |
-| 1.0.3 | Scraper Immotop.lu (HTML regex) | DONE | 2025-01-17 |
-| 1.0.4 | Scraper Luxhome.lu (JSON/Regex) | DONE | 2025-01-17 |
-| 1.0.5 | Scraper VIVI.lu (Selenium) | DONE | 2025-01-17 |
-| 1.0.6 | Scraper Unicorn.lu (Selenium) | DONE | 2025-01-17 |
-| 1.0.7 | Notifications Telegram texte HTML | DONE | 2025-01-17 |
-| 1.0.8 | Base SQLite + dedup par listing_id | DONE | 2025-01-17 |
-| 1.0.9 | Configuration .env (prix, rooms) | DONE | 2025-01-17 |
+## 🚀 FLUX UTILISATEUR (3 étapes)
+```
+$ python dashboard_generator.py
+✅ Dashboard généré! 42 annonces
+$ open dashboards/index.html  (ou double-click)
+→ Voir tableau interactif, filtres, carte, comparateur
+```
 
-### v1.1-v1.5 — Corrections et nouveaux sites (2025-01-17 → 2025-01-18)
+---
 
-| ID | Action | Statut | Date |
-|----|--------|--------|------|
-| 1.1.1 | Ajouter scrapers Newimmo, Wortimmo, Immoweb, Nextimmo | DONE | 2025-01-17 |
-| 1.2.1 | Fix filtrage trop strict (rooms=0 rejetait tout) | DONE | 2025-01-17 |
-| 1.3.1 | Fix 3 bugs identifies dans les logs | DONE | 2025-01-17 |
-| 1.4.1 | Fix Athome JSON parsing (champs dict au lieu de str) | DONE | 2025-01-18 |
-| 1.4.2 | Fix Wortimmo Selenium + Immotop filtrage | DONE | 2025-01-18 |
-| 1.5.1 | Fix Unicorn URL changee | DONE | 2025-02-12 |
-| 1.5.2 | Fix Immoweb timeout Selenium | DONE | 2025-02-12 |
-| 1.5.3 | Fix Athome dict crash (immotype, price, city, description) | DONE | 2025-02-12 |
+## 📁 STRUCTURE
+```
+immo-bot-luxembourg/
+├── main.py, database.py, config.py (INCHANGÉS)
+├── listings.db (INCHANGÉ)
+│
+├── [NOUVEAU] dashboard_generator.py ← À créer
+├── [NOUVEAU] templates/dashboard.html ← Template Jinja2
+│
+└── [NOUVEAU] dashboards/ (créé auto)
+    ├── index.html ← Dashboard live
+    ├── archives/2025-02-16.html ← Snapshot
+    └── data/listings.json ← Données
+```
 
-### v2.0 — Refonte majeure (2025-02-12)
+---
 
-| ID | Action | Statut | Date |
-|----|--------|--------|------|
-| 2.0.1 | Filtrage complet : MIN_PRICE, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS, MAX_DISTANCE | DONE | 2025-02-12 |
-| 2.0.2 | Dedup cross-sites en memoire (prix+ville+surface) | DONE | 2025-02-12 |
-| 2.0.3 | Dedup cross-sites en DB (similar_listing_exists) | DONE | 2025-02-12 |
-| 2.0.4 | Nettoyage auto DB (annonces > 30 jours) | DONE | 2025-02-12 |
-| 2.0.5 | Compteur echecs + alerte Telegram apres 3 fails | DONE | 2025-02-12 |
-| 2.0.6 | Photos dans notifications Telegram (send_photo) | DONE | 2025-02-12 |
-| 2.0.7 | Lien Google Maps si GPS disponible | DONE | 2025-02-12 |
-| 2.0.8 | Prix/m2 dans notifications | DONE | 2025-02-12 |
-| 2.0.9 | Hashtags dynamiques (#PrixBas, #Proche, #GrandeSurface) | DONE | 2025-02-12 |
-| 2.0.10 | Multi-type tous scrapers (appartements + maisons) | DONE | 2025-02-12 |
-| 2.0.11 | Extraction images tous scrapers | DONE | 2025-02-12 |
-| 2.0.12 | Reecriture Unicorn (page_source regex) | DONE | 2025-02-12 |
-| 2.0.13 | Reecriture Wortimmo (3 methodes cascade) | DONE | 2025-02-12 |
-| 2.0.14 | Selenium fallback Chrome si Firefox absent | DONE | 2025-02-12 |
-| 2.0.15 | Test scrapers affiche filtres actifs | DONE | 2025-02-12 |
+## 🔧 4 ÉTAPES DU SCRIPT
 
-### v2.1 — Documentation (2025-02-15)
+| Étape | Quoi | Détails |
+|-------|------|---------|
+| 1 | **Lire** | Ouvrir listings.db → exporter en JSON (42 annonces) |
+| 2 | **Calculer** | Stats: total, prix moyen/ville, annonces/site |
+| 3 | **Générer** | Load template Jinja2 + insérer données JSON + stats |
+| 4 | **Écrire** | Créer: index.html + archive jour + data/listings.json |
 
-| ID | Action | Statut | Date |
-|----|--------|--------|------|
-| 2.1.1 | Creer README.md | DONE | 2025-02-15 |
-| 2.1.2 | Creer architecture.md | DONE | 2025-02-15 |
-| 2.1.3 | Creer analyse.md | DONE | 2025-02-15 |
-| 2.1.4 | Creer planning.md | DONE | 2025-02-15 |
-| 2.1.5 | Ajouter commentaires detailles dans tous les fichiers sources | DONE | 2025-02-15 |
+---
 
-### v2.2 — Nettoyage, .gitignore, optimisation (2025-02-15)
+## 🎨 DASHBOARD: 5 COMPOSANTS
 
-> **Methode** : revue complete du repo → lister tout ce qui est inutile/dangereux →
-> mettre a jour .gitignore → supprimer fichiers locaux → nettoyer requirements →
-> optimiser logs → commit + push
+### 1️⃣ **Tableau** (CRITIQUE)
+```
+Ville | Prix | m² | €/m² | Score | Site | Action
+Belair | 1950€ | 82 | 23.78 | 8.5 | Immotop | [Voir]
+...
+→ Interactif: tri click, checkboxes, lien URLs
+```
 
-| ID | Action | Statut | Priorite | Notes |
-|----|--------|--------|----------|-------|
-| 2.2.1 | Mettre a jour .gitignore (backups, logs, data, debug, legacy) | DONE | Critique | Empecher tout fichier inutile de rentrer dans git |
-| 2.2.2 | Supprimer fichiers backup racine (main.py.*, config.py.*, notifier.py.*, 0, except) | DONE | Haute | 8 fichiers, ~55 Ko |
-| 2.2.3 | Supprimer dossier scrapers.sauv/ | DONE | Haute | ~26 fichiers legacy, doublon de backup/ |
-| 2.2.4 | Supprimer scrapers legacy non importes dans scrapers/ | DONE | Haute | 5 fichiers : athome_simple, athome_real, luxhome_simple/stealth/real, vivi_real, selenium_template_fixed |
-| 2.2.5 | Supprimer fichiers debug/data racine (*.html, *.csv, *.json debug, photolog.txt) | DONE | Haute | ~2.2 Mo de fichiers temporaires |
-| 2.2.6 | Supprimer scripts oneshot racine (aa.sh, correct_new_sites.sh, fix_scrapers.py, explore_selectors.py, diagnostic*.py, bot_simple.py, scraper_simple.py, athome.py) | DONE | Haute | Scripts de debug/migration obsoletes |
-| 2.2.7 | Supprimer anciens tests racine (test.py, test_installation*.py, test_athome_scraper.py, test_groupe.py) | DONE | Moyenne | Remplaces par test_scrapers.py |
-| 2.2.8 | Nettoyer requirements.txt (retirer feedparser, schedule non utilises) | DONE | Basse | 2 packages inutiles |
-| 2.2.9 | Ajouter rotation logs (RotatingFileHandler) dans main.py | DONE | Moyenne | immo_bot.log grossit indefiniment |
-| 2.2.10 | Verifier historique git pour .env | DONE | Critique | S'assurer que les tokens n'ont jamais ete commites |
-| 2.2.11 | Mettre a jour CLAUDE.md, analyse.md avec les changements v2.2 | DONE | Haute | Garder la doc a jour |
+### 2️⃣ **Filtres** (CRITIQUE)
+```
+Ville [multiselect]
+Prix [range €1000-3000]
+Surface [range m²]
+[Appliquer] → Tableau update JavaScript
+```
 
-### v2.3 — Geocodage villes + filtre localisation (2025-02-15)
+### 3️⃣ **Stats Header**
+```
+42 annonces | Moy 1938€ | Athome 12 | Immotop 18 | ...
+```
 
-> **Methode** : diagnostic → identifier les scrapers sans GPS → creer dictionnaire
-> villes luxembourgeoises → enrichir les annonces avant filtrage → ajouter filtre
-> par villes acceptees en fallback
+### 4️⃣ **Carte** (BONUS)
+```
+Leaflet.js pins clusters
+Click pin → popup (prix, surface)
+```
 
-| ID | Action | Statut | Priorite | Notes |
-|----|--------|--------|----------|-------|
-| 2.3.1 | Diagnostic localisations (script diagnostic_locations.py) | DONE | Critique | Resultat : 7/9 scrapers sans GPS |
-| 2.3.2 | Dictionnaire GPS ~120 villes luxembourgeoises dans utils.py | DONE | Critique | LUXEMBOURG_CITIES + geocode_city() + enrich_listing_gps() |
-| 2.3.3 | Enrichissement GPS dans main.py (avant dedup et filtrage) | DONE | Critique | Geocode par ville si lat/lng absents |
-| 2.3.4 | Filtre ACCEPTED_CITIES en fallback (config.py + main.py) | DONE | Haute | Si geocodage echoue + pas de GPS → filtre par nom de ville |
-| 2.3.5 | Fix bug diagnostic (lat/lng string au lieu de float) | DONE | Haute | Conversion float() dans diagnostic + affichage source GPS |
-| 2.3.6 | Mise a jour .env.example avec ACCEPTED_CITIES | DONE | Basse | Documentation |
-| 2.3.7 | Mise a jour planning.md, CLAUDE.md | DONE | Haute | Suivi |
+### 5️⃣ **Comparateur** (BONUS)
+```
+Cocher 2-3 annonces → [Comparer]
+Modal tableau côte-à-côte
+```
 
-### v2.4 — Fix scrapers Selenium (2026-02-15)
+---
 
-> **Methode** : diagnostic HTML/Selenium → identifier structure reelle des pages →
-> corriger extraction → valider avec scripts de test
+## ⚙️ TECHNOS
 
-| ID | Action | Statut | Priorite | Notes |
-|----|--------|--------|----------|-------|
-| 2.4.1 | Diagnostic Selenium (driver, pages, blocages) | DONE | Critique | Newimmo 404, Unicorn CAPTCHA, Wortimmo Cloudflare, Immoweb bloque |
-| 2.4.2 | Diagnostic HTML (structure reelle des pages) | DONE | Critique | Unicorn data-id, Newimmo /fr/louer/, Wortimmo prix=filtres dropdown |
-| 2.4.3 | Fix Newimmo : rewrite page_source regex | DONE | Haute | URL /fr/louer/TYPE/VILLE/ID, multi-URL appart+maison, 5 annonces OK |
-| 2.4.4 | Fix Unicorn : data-id extraction principale | DONE | Haute | data-id card boundary au lieu de find() 1ere occurrence, surface decimale |
-| 2.4.5 | Fix Wortimmo : relaxer filtre href | DONE | Haute | Accepter tout href wortimmo.lu, patterns URL elargis |
-| 2.4.6 | Diagnostic Wortimmo approfondi | DONE | Haute | 191 prix = dropdown filtres, 88 <a> = filtres, Cloudflare bloque listing data |
-| 2.4.7 | Conclusion : Wortimmo + Immoweb infixables | DONE | Info | Cloudflare/CAPTCHA empechent acces aux donnees, desactiver proprement |
-| 2.4.8 | Ajout ~16 villes au dictionnaire GPS (utils.py) | DONE | Moyenne | Schengen + localites manquantes |
+**Python**: sqlite3, json, jinja2, datetime  
+**HTML**: Bootstrap 5 (CDN), Leaflet.js (CDN), JavaScript vanilla  
+**Avantage**: Fichier standalone, fonctionne offline, pas serveur web
 
-## Actions planifiees (futures)
+---
 
-### v3.0 — Performance et fiabilite (TODO)
+## 💡 CLÉS ARCHITECTURE
 
-| ID | Action | Statut | Priorite | Notes |
-|----|--------|--------|----------|-------|
-| 3.0.1 | Passer les scrapers HTTP en async (aiohttp) | TODO | Haute | Reduire temps cycle de ~3min a ~30s |
-| 3.0.2 | Ajouter retry automatique pour scrapers en echec | TODO | Moyenne | 1 retry apres 30s si echec |
-| 3.0.3 | Creer une classe de base commune pour tous les scrapers | TODO | Moyenne | Interface uniforme scrape() + matches_criteria() |
-| 3.0.4 | Deplacer _matches_criteria() hors des scrapers (centraliser dans main.py uniquement) | TODO | Moyenne | Le filtrage est duplique dans chaque scraper + main.py |
-| 3.0.5 | Ajouter tests unitaires (pytest) | TODO | Haute | Aucun test automatise actuellement |
-| 3.0.6 | Ajouter healthcheck endpoint ou commande /status Telegram | TODO | Basse | Pour monitoring distant |
-| 3.0.7 | Dashboard web (reactiver dashboard.py ou web_dashboard.py) | TODO | Basse | Fichiers presents mais non integres |
+✅ HTML standalone (ouvre file:// navigateur)  
+✅ Données JSON embedées dans `<script>`  
+✅ Filtres/tri côté JavaScript (pas API)  
+✅ Archive auto YYYY-MM-DD  
+✅ Zéro modification au bot
 
-### v3.1 — Nouveaux scrapers (TODO)
+---
 
-| ID | Action | Statut | Priorite | Notes |
-|----|--------|--------|----------|-------|
-| 3.1.1 | Evaluer ajout Century21.lu | TODO | Basse | Scraper legacy dans backup/ |
-| 3.1.2 | Evaluer ajout ImmoScout24.lu | TODO | Basse | Site present au Luxembourg |
-| 3.1.3 | Evaluer ajout Engelvoelkers.com/lu | TODO | Basse | Segment premium |
+## 📊 PRIORITÉS
 
-## Journal des sessions
+| Priorité | Composant | Effort |
+|----------|-----------|--------|
+| 1 | Tableau + Tri | 🟢 Bas |
+| 2 | Filtres | 🟢 Bas |
+| 3 | Stats | 🟢 Bas |
+| 4 | Carte | 🟡 Moyen |
+| 5 | Comparateur | 🟡 Moyen |
 
-| Date | Session | Actions realisees |
-|------|---------|-------------------|
-| 2025-01-17 | Session 1 | Creation projet, 6 scrapers, bot fonctionnel (v1.0) |
-| 2025-01-17-18 | Session 2 | +3 scrapers, corrections bugs, filtrage (v1.1-v1.5) |
-| 2025-02-12 | Session 3 | Refonte v2.0 : dedup, photos, GPS, filtrage complet |
-| 2025-02-15 | Session 4 | Analyse structure, push GitHub, documentation (v2.1) |
-| 2025-02-15 | Session 4b | Nettoyage complet v2.2 : suppression ~40 fichiers inutiles, .gitignore, rotation logs, requirements |
-| 2025-02-15 | Session 4c | v2.3 : geocodage ~120 villes Luxembourg, enrichissement GPS, filtre ACCEPTED_CITIES |
-| 2026-02-15 | Session 5 | v2.4 : fix Newimmo (5 annonces OK), fix Unicorn (data-id), Wortimmo+Immoweb infixables (Cloudflare) |
+**MVP = 1-3** (30min, 95% valeur)
+
+---
+
+## ✅ CRITÈRES SUCCÈS
+
+- ✅ Script <5sec exécution
+- ✅ HTML sans erreurs (fichier standalone)
+- ✅ Tableau affiche toutes annonces
+- ✅ Filtres fonctionnent (JavaScript)
+- ✅ Archive créée YYYY-MM-DD
+- ✅ Bot inchangé
+
+---
+
+## 🚨 CONTRAINTES
+
+❌ **Pas de**: Flask, FastAPI, serveur web, BD additionnelle, React/Vue  
+✅ **Oui**: HTML simple, JavaScript vanilla, CDN externes, offline
+
+---
+
+## 📱 EXEMPLE USAGE
+
+**Jour 1**:
+```bash
+python dashboard_generator.py
+✅ dashboards/index.html créé
+open dashboards/index.html → voir 42 annonces
+```
+
+**Jour 2** (5 nouvelles annonces scrapées):
+```bash
+python main.py  # scraping normal
+python dashboard_generator.py  # regénère
+open dashboards/index.html → 47 annonces à jour
+```
+
+---
+
+## 🎯 INSTRUCTIONS CLAUDE CODE
+```
+Crée: dashboard_generator.py
+
+INPUT:  listings.db (SQLite), templates/dashboard.html (Jinja2)
+OUTPUT: dashboards/index.html, dashboards/archives/YYYY-MM-DD.html
+
+LOGIC:
+  [1] Read listings.db → JSON
+  [2] Calc stats (total, avg price, by site/city)
+  [3] Render Jinja2 template (remplace {{listings_json}}, {{stats}})
+  [4] Write files + print success
+
+PRIORITÉ: Tableau + Filtres + Stats
+BONUS: Carte Leaflet + Comparateur
+
+Pas de modification à main.py/database.py/config.py
+HTML standalone, fonctionne offline
+```
+
+---
+
+**Envoyez ce fichier à Claude Code avec instruction simple ci-dessus** ✅
