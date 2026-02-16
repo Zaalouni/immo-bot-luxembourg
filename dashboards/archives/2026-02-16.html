@@ -75,7 +75,7 @@
             .stat-label { font-size: 0.6rem; }
             .table { font-size: 0.7rem; }
             .container-fluid { padding-left: 0.5rem; padding-right: 0.5rem; }
-            #map { height: 280px; }
+            #map { height: 450px; }
         }
     </style>
 </head>
@@ -86,7 +86,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <h1>ImmoLux Dashboard</h1>
-            <small>Mis a jour le 16/02/2026 19:58 — 38 annonces</small>
+            <small>Mis a jour le 16/02/2026 19:59 — 38 annonces</small>
         </div>
         <div>
             <span class="listing-count">30 villes | 6 sites</span>
@@ -409,6 +409,8 @@ function renderPriceView() {
 
 // --- Carte Leaflet (lazy load quand onglet actif) ---
 let mapInit = false;
+const isMobile = window.innerWidth < 768;
+
 document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', () => {
     if (mapInit) return;
     mapInit = true;
@@ -417,17 +419,21 @@ document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs
         document.getElementById('map').innerHTML = '<p class="text-center text-muted py-5">Aucune annonce avec coordonnees GPS</p>';
         return;
     }
-    const map = L.map('map').setView([49.6116, 6.1319], 10);
+    const map = L.map('map', { tap: true, tapTolerance: 30 }).setView([49.6116, 6.1319], 10);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
+
+    const markerRadius = isMobile ? 14 : 8;
     withGPS.forEach(l => {
         const color = SITE_COLORS[l.site] || '#888';
         L.circleMarker([l.latitude, l.longitude], {
-            radius: 7, fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
+            radius: markerRadius, fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.9
         }).addTo(map).bindPopup(`
-            <strong>${l.city || '—'}</strong><br>
-            ${fmt(l.price)}&euro; | ${l.rooms || '?'} ch. | ${l.surface || '?'} m&sup2;<br>
-            <a href="${l.url}" target="_blank">Voir l'annonce</a>
-        `);
+            <div style="min-width:200px;font-size:${isMobile ? '14px' : '12px'}">
+            <strong style="font-size:${isMobile ? '16px' : '13px'}">${l.city || '—'}</strong><br>
+            <span style="font-size:${isMobile ? '15px' : '12px'}">${fmt(l.price)}&euro; | ${l.rooms || '?'} ch. | ${l.surface || '?'} m&sup2;</span><br>
+            <a href="${l.url}" target="_blank" style="display:inline-block;margin-top:6px;padding:${isMobile ? '8px 16px' : '4px 8px'};background:var(--primary);color:white;border-radius:6px;text-decoration:none;font-size:${isMobile ? '14px' : '12px'}">Voir l'annonce</a>
+            </div>
+        `, { maxWidth: isMobile ? 280 : 250, closeButton: true });
     });
     map.fitBounds(withGPS.map(l => [l.latitude, l.longitude]), { padding: [30, 30] });
 });
