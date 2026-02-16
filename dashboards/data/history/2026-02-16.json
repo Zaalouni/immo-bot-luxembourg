@@ -1,16 +1,16 @@
 {
   "date": "2026-02-16",
-  "generated_at": "16/02/2026 21:58",
+  "generated_at": "16/02/2026 22:07",
   "stats": {
-    "total": 41,
+    "total": 43,
     "avg_price": 2251,
     "min_price": 1700,
     "max_price": 2800,
-    "avg_surface": 116,
-    "cities": 32,
+    "avg_surface": 114,
+    "cities": 33,
     "sites": {
+      "Newimmo.lu": 5,
       "Nextimmo.lu": 11,
-      "Newimmo.lu": 3,
       "VIVI.lu": 4,
       "Luxhome.lu": 11,
       "Immotop.lu": 6,
@@ -21,6 +21,11 @@
         "city": "Luxembourg",
         "count": 3,
         "avg_price": 2050
+      },
+      {
+        "city": "Bertrange",
+        "count": 2,
+        "avg_price": 2500
       },
       {
         "city": "Schengen",
@@ -36,6 +41,11 @@
         "city": "Perl",
         "count": 2,
         "avg_price": 1875
+      },
+      {
+        "city": "Luxembourg Gare",
+        "count": 1,
+        "avg_price": 2000
       },
       {
         "city": "Mondorf-les-Bains",
@@ -143,11 +153,6 @@
         "avg_price": 2750
       },
       {
-        "city": "Bertrange",
-        "count": 1,
-        "avg_price": 2500
-      },
-      {
         "city": "Habscht",
         "count": 1,
         "avg_price": 1900
@@ -181,11 +186,41 @@
     "by_price_range": {
       "< 1500": 0,
       "1500 - 2000": 11,
-      "2000 - 2500": 15,
-      "> 2500": 15
+      "2000 - 2500": 16,
+      "> 2500": 16
     }
   },
   "listings": [
+    {
+      "listing_id": "newimmo_127151",
+      "site": "Newimmo.lu",
+      "title": "Appartement - Luxembourg Gare",
+      "city": "Luxembourg Gare",
+      "price": 2000,
+      "rooms": 2,
+      "surface": 90,
+      "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-gare/127151-appartement-luxembourg-gare/",
+      "latitude": 49.6,
+      "longitude": 6.1342,
+      "distance_km": 0.0,
+      "created_at": "2026-02-16 21:05:59",
+      "price_m2": 22.2
+    },
+    {
+      "listing_id": "newimmo_127171",
+      "site": "Newimmo.lu",
+      "title": "Appartement - Bertrange",
+      "city": "Bertrange",
+      "price": 2500,
+      "rooms": 2,
+      "surface": 84,
+      "url": "https://www.newimmo.lu/fr/louer/appartement/bertrange/127171-appartement-bertrange/",
+      "latitude": 49.61,
+      "longitude": 6.05,
+      "distance_km": 6.2,
+      "created_at": "2026-02-16 21:05:54",
+      "price_m2": 29.8
+    },
     {
       "listing_id": "nextimmo_86703040",
       "site": "Nextimmo.lu",

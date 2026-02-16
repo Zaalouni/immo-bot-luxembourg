@@ -1,5 +1,35 @@
 [
   {
+    "listing_id": "newimmo_127151",
+    "site": "Newimmo.lu",
+    "title": "Appartement - Luxembourg Gare",
+    "city": "Luxembourg Gare",
+    "price": 2000,
+    "rooms": 2,
+    "surface": 90,
+    "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-gare/127151-appartement-luxembourg-gare/",
+    "latitude": 49.6,
+    "longitude": 6.1342,
+    "distance_km": 0.0,
+    "created_at": "2026-02-16 21:05:59",
+    "price_m2": 22.2
+  },
+  {
+    "listing_id": "newimmo_127171",
+    "site": "Newimmo.lu",
+    "title": "Appartement - Bertrange",
+    "city": "Bertrange",
+    "price": 2500,
+    "rooms": 2,
+    "surface": 84,
+    "url": "https://www.newimmo.lu/fr/louer/appartement/bertrange/127171-appartement-bertrange/",
+    "latitude": 49.61,
+    "longitude": 6.05,
+    "distance_km": 6.2,
+    "created_at": "2026-02-16 21:05:54",
+    "price_m2": 29.8
+  },
+  {
     "listing_id": "nextimmo_86703040",
     "site": "Nextimmo.lu",
     "title": "Appartement Mondorf-les-Bains",

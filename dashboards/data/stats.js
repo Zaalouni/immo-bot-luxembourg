@@ -1,14 +1,14 @@
-// Genere le 16/02/2026 21:58
+// Genere le 16/02/2026 22:07
 const STATS = {
-  "total": 41,
+  "total": 43,
   "avg_price": 2251,
   "min_price": 1700,
   "max_price": 2800,
-  "avg_surface": 116,
-  "cities": 32,
+  "avg_surface": 114,
+  "cities": 33,
   "sites": {
+    "Newimmo.lu": 5,
     "Nextimmo.lu": 11,
-    "Newimmo.lu": 3,
     "VIVI.lu": 4,
     "Luxhome.lu": 11,
     "Immotop.lu": 6,
@@ -19,6 +19,11 @@ const STATS = {
       "city": "Luxembourg",
       "count": 3,
       "avg_price": 2050
+    },
+    {
+      "city": "Bertrange",
+      "count": 2,
+      "avg_price": 2500
     },
     {
       "city": "Schengen",
@@ -34,6 +39,11 @@ const STATS = {
       "city": "Perl",
       "count": 2,
       "avg_price": 1875
+    },
+    {
+      "city": "Luxembourg Gare",
+      "count": 1,
+      "avg_price": 2000
     },
     {
       "city": "Mondorf-les-Bains",
@@ -141,11 +151,6 @@ const STATS = {
       "avg_price": 2750
     },
     {
-      "city": "Bertrange",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
       "city": "Habscht",
       "count": 1,
       "avg_price": 1900
@@ -179,13 +184,13 @@ const STATS = {
   "by_price_range": {
     "< 1500": 0,
     "1500 - 2000": 11,
-    "2000 - 2500": 15,
-    "> 2500": 15
+    "2000 - 2500": 16,
+    "> 2500": 16
   }
 };
 const SITE_COLORS = {
-  "Nextimmo.lu": "#FF6384",
-  "Newimmo.lu": "#36A2EB",
+  "Newimmo.lu": "#FF6384",
+  "Nextimmo.lu": "#36A2EB",
   "VIVI.lu": "#FFCE56",
   "Luxhome.lu": "#4BC0C0",
   "Immotop.lu": "#9966FF",
