@@ -1,36 +1,6 @@
-// Genere le 16/02/2026 22:07
-// 43 annonces depuis listings.db
+// Genere le 16/02/2026 22:24
+// 36 annonces depuis listings.db
 const LISTINGS = [
-  {
-    "listing_id": "newimmo_127151",
-    "site": "Newimmo.lu",
-    "title": "Appartement - Luxembourg Gare",
-    "city": "Luxembourg Gare",
-    "price": 2000,
-    "rooms": 2,
-    "surface": 90,
-    "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-gare/127151-appartement-luxembourg-gare/",
-    "latitude": 49.6,
-    "longitude": 6.1342,
-    "distance_km": 0.0,
-    "created_at": "2026-02-16 21:05:59",
-    "price_m2": 22.2
-  },
-  {
-    "listing_id": "newimmo_127171",
-    "site": "Newimmo.lu",
-    "title": "Appartement - Bertrange",
-    "city": "Bertrange",
-    "price": 2500,
-    "rooms": 2,
-    "surface": 84,
-    "url": "https://www.newimmo.lu/fr/louer/appartement/bertrange/127171-appartement-bertrange/",
-    "latitude": 49.61,
-    "longitude": 6.05,
-    "distance_km": 6.2,
-    "created_at": "2026-02-16 21:05:54",
-    "price_m2": 29.8
-  },
   {
     "listing_id": "nextimmo_86703040",
     "site": "Nextimmo.lu",
@@ -43,7 +13,7 @@ const LISTINGS = [
     "latitude": 49.50185,
     "longitude": 6.27573,
     "distance_km": 14.9,
-    "created_at": "2026-02-16 20:12:00",
+    "created_at": "2026-02-16 21:22:46",
     "price_m2": 14.3
   },
   {
@@ -58,7 +28,7 @@ const LISTINGS = [
     "latitude": 49.52,
     "longitude": 6.105,
     "distance_km": 9.1,
-    "created_at": "2026-02-16 20:11:50",
+    "created_at": "2026-02-16 21:22:36",
     "price_m2": 18.7
   },
   {
@@ -73,7 +43,7 @@ const LISTINGS = [
     "latitude": 49.87557,
     "longitude": 6.20615,
     "distance_km": 31.1,
-    "created_at": "2026-02-16 20:11:40",
+    "created_at": "2026-02-16 21:22:26",
     "price_m2": 12.3
   },
   {
@@ -88,7 +58,7 @@ const LISTINGS = [
     "latitude": 49.65768,
     "longitude": 6.24065,
     "distance_km": 10.0,
-    "created_at": "2026-02-16 20:11:29",
+    "created_at": "2026-02-16 21:22:16",
     "price_m2": 20.0
   },
   {
@@ -103,7 +73,7 @@ const LISTINGS = [
     "latitude": 49.525,
     "longitude": 5.89,
     "distance_km": 19.5,
-    "created_at": "2026-02-16 20:11:19",
+    "created_at": "2026-02-16 21:22:06",
     "price_m2": 10.8
   },
   {
@@ -118,7 +88,7 @@ const LISTINGS = [
     "latitude": 49.58789890000001,
     "longitude": 6.1048624,
     "distance_km": 2.5,
-    "created_at": "2026-02-16 20:11:09",
+    "created_at": "2026-02-16 21:21:56",
     "price_m2": 23.5
   },
   {
@@ -133,7 +103,7 @@ const LISTINGS = [
     "latitude": 49.60034,
     "longitude": 6.12105,
     "distance_km": 0.9,
-    "created_at": "2026-02-16 20:10:59",
+    "created_at": "2026-02-16 21:21:45",
     "price_m2": 25.3
   },
   {
@@ -148,7 +118,7 @@ const LISTINGS = [
     "latitude": 49.69,
     "longitude": 6.25,
     "distance_km": 13.0,
-    "created_at": "2026-02-16 20:10:49",
+    "created_at": "2026-02-16 21:21:35",
     "price_m2": 23.2
   },
   {
@@ -163,7 +133,7 @@ const LISTINGS = [
     "latitude": 49.62155,
     "longitude": 6.16217,
     "distance_km": 3.1,
-    "created_at": "2026-02-16 20:10:39",
+    "created_at": "2026-02-16 21:21:25",
     "price_m2": 28.3
   },
   {
@@ -178,7 +148,7 @@ const LISTINGS = [
     "latitude": 49.62391,
     "longitude": 6.01063,
     "distance_km": 9.3,
-    "created_at": "2026-02-16 20:10:28",
+    "created_at": "2026-02-16 21:21:15",
     "price_m2": 24.7
   },
   {
@@ -193,22 +163,22 @@ const LISTINGS = [
     "latitude": 49.47,
     "longitude": 6.37,
     "distance_km": 22.3,
-    "created_at": "2026-02-16 20:10:18",
+    "created_at": "2026-02-16 21:21:05",
     "price_m2": 18.7
   },
   {
-    "listing_id": "newimmo_127231",
+    "listing_id": "newimmo_127187",
     "site": "Newimmo.lu",
-    "title": "Appartement - Luxembourg",
-    "city": "Luxembourg",
-    "price": 1900,
+    "title": "Appartement - Luxembourg Limpertsberg",
+    "city": "Luxembourg Limpertsberg",
+    "price": 2500,
     "rooms": 0,
     "surface": 0,
-    "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg/127231-appartement-luxembourg/",
+    "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-limpertsberg/127187-appartement-luxembourg-limpertsberg/",
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-16 20:10:08",
+    "created_at": "2026-02-16 21:20:55",
     "price_m2": null
   },
   {
@@ -223,22 +193,7 @@ const LISTINGS = [
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-16 20:09:58",
-    "price_m2": null
-  },
-  {
-    "listing_id": "newimmo_127187",
-    "site": "Newimmo.lu",
-    "title": "Appartement - Luxembourg Limpertsberg",
-    "city": "Luxembourg Limpertsberg",
-    "price": 2500,
-    "rooms": 0,
-    "surface": 0,
-    "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-limpertsberg/127187-appartement-luxembourg-limpertsberg/",
-    "latitude": 49.6116,
-    "longitude": 6.1319,
-    "distance_km": 1.3,
-    "created_at": "2026-02-16 20:09:48",
+    "created_at": "2026-02-16 21:20:34",
     "price_m2": null
   },
   {
@@ -253,7 +208,7 @@ const LISTINGS = [
     "latitude": 49.81,
     "longitude": 6.42,
     "distance_km": 31.1,
-    "created_at": "2026-02-16 20:09:35",
+    "created_at": "2026-02-16 21:20:22",
     "price_m2": 17.5
   },
   {
@@ -268,7 +223,7 @@ const LISTINGS = [
     "latitude": 49.75,
     "longitude": 6.36,
     "distance_km": 23.3,
-    "created_at": "2026-02-16 20:09:23",
+    "created_at": "2026-02-16 21:20:09",
     "price_m2": 17.5
   },
   {
@@ -283,7 +238,7 @@ const LISTINGS = [
     "latitude": 49.585,
     "longitude": 6.13,
     "distance_km": 1.7,
-    "created_at": "2026-02-16 20:09:10",
+    "created_at": "2026-02-16 21:19:57",
     "price_m2": 24.8
   },
   {
@@ -298,7 +253,7 @@ const LISTINGS = [
     "latitude": 49.595,
     "longitude": 6.14,
     "distance_km": 0.7,
-    "created_at": "2026-02-16 20:08:58",
+    "created_at": "2026-02-16 21:19:44",
     "price_m2": 33.1
   },
   {
@@ -313,7 +268,7 @@ const LISTINGS = [
     "latitude": 49.611158923224,
     "longitude": 6.1296986792347,
     "distance_km": 1.3,
-    "created_at": "2026-02-16 20:08:47",
+    "created_at": "2026-02-16 21:19:34",
     "price_m2": null
   },
   {
@@ -328,7 +283,7 @@ const LISTINGS = [
     "latitude": 49.59972985,
     "longitude": 6.135144553486908,
     "distance_km": 0.1,
-    "created_at": "2026-02-16 20:08:35",
+    "created_at": "2026-02-16 21:19:22",
     "price_m2": null
   },
   {
@@ -343,7 +298,7 @@ const LISTINGS = [
     "latitude": 49.61115892322423,
     "longitude": 6.12969867923474,
     "distance_km": 1.3,
-    "created_at": "2026-02-16 20:08:25",
+    "created_at": "2026-02-16 21:19:12",
     "price_m2": null
   },
   {
@@ -358,7 +313,7 @@ const LISTINGS = [
     "latitude": 49.60897266860193,
     "longitude": 6.12419061173447,
     "distance_km": 1.2,
-    "created_at": "2026-02-16 20:08:15",
+    "created_at": "2026-02-16 21:19:01",
     "price_m2": null
   },
   {
@@ -373,7 +328,7 @@ const LISTINGS = [
     "latitude": 49.6591416079615,
     "longitude": 5.919087763935368,
     "distance_km": 16.8,
-    "created_at": "2026-02-16 20:08:04",
+    "created_at": "2026-02-16 21:18:51",
     "price_m2": null
   },
   {
@@ -388,7 +343,7 @@ const LISTINGS = [
     "latitude": 49.665401,
     "longitude": 5.9169789,
     "distance_km": 17.3,
-    "created_at": "2026-02-16 20:07:54",
+    "created_at": "2026-02-16 21:18:41",
     "price_m2": null
   },
   {
@@ -403,7 +358,7 @@ const LISTINGS = [
     "latitude": 49.5956314,
     "longitude": 6.1376614,
     "distance_km": 0.5,
-    "created_at": "2026-02-16 20:07:44",
+    "created_at": "2026-02-16 21:18:31",
     "price_m2": null
   },
   {
@@ -418,7 +373,7 @@ const LISTINGS = [
     "latitude": 49.5990604,
     "longitude": 6.122144,
     "distance_km": 0.9,
-    "created_at": "2026-02-16 20:07:34",
+    "created_at": "2026-02-16 21:18:21",
     "price_m2": null
   },
   {
@@ -433,7 +388,7 @@ const LISTINGS = [
     "latitude": 49.5989966,
     "longitude": 6.1221453,
     "distance_km": 0.9,
-    "created_at": "2026-02-16 20:07:24",
+    "created_at": "2026-02-16 21:18:10",
     "price_m2": null
   },
   {
@@ -448,23 +403,23 @@ const LISTINGS = [
     "latitude": 49.6283549,
     "longitude": 6.1140089,
     "distance_km": 3.5,
-    "created_at": "2026-02-16 20:07:14",
+    "created_at": "2026-02-16 21:18:00",
     "price_m2": null
   },
   {
-    "listing_id": "luxhome_30842",
+    "listing_id": "luxhome_31147",
     "site": "Luxhome.lu",
-    "title": "Spacious 125 m² Duplex (2 chr, 2 SBD) with Private Garden in Esch-sur-Alzette for 2.750,-",
-    "city": "Esch",
-    "price": 2750,
-    "rooms": 2,
-    "surface": 125,
-    "url": "https://www.luxhome.lu/bien/spacious-125-m%c2%b2-duplex-2-chr-2-sbd-with-private-garden-in-esch-sur-alzette-for-2-750/",
-    "latitude": 49.496957,
-    "longitude": 5.978518,
-    "distance_km": 16.0,
-    "created_at": "2026-02-16 20:07:03",
-    "price_m2": 22.0
+    "title": "Kirchberg Appartement meublé moderne 92m2",
+    "city": "Kirchberg",
+    "price": 2800,
+    "rooms": 0,
+    "surface": 92,
+    "url": "https://www.luxhome.lu/bien/kirchberg-appartement-meuble-moderne-92m2/",
+    "latitude": 49.61115892322423,
+    "longitude": 6.12969867923474,
+    "distance_km": 1.3,
+    "created_at": "2026-02-16 21:17:50",
+    "price_m2": 30.4
   },
   {
     "listing_id": "immotop_1847365",
@@ -478,7 +433,7 @@ const LISTINGS = [
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-16 20:06:53",
+    "created_at": "2026-02-16 21:17:40",
     "price_m2": null
   },
   {
@@ -493,7 +448,7 @@ const LISTINGS = [
     "latitude": 49.61,
     "longitude": 6.05,
     "distance_km": 6.2,
-    "created_at": "2026-02-16 20:06:43",
+    "created_at": "2026-02-16 21:17:30",
     "price_m2": null
   },
   {
@@ -508,7 +463,7 @@ const LISTINGS = [
     "latitude": 49.47,
     "longitude": 6.37,
     "distance_km": 22.3,
-    "created_at": "2026-02-16 20:06:33",
+    "created_at": "2026-02-16 21:17:20",
     "price_m2": null
   },
   {
@@ -523,7 +478,7 @@ const LISTINGS = [
     "latitude": null,
     "longitude": null,
     "distance_km": null,
-    "created_at": "2026-02-16 20:06:23",
+    "created_at": "2026-02-16 21:17:09",
     "price_m2": null
   },
   {
@@ -538,7 +493,7 @@ const LISTINGS = [
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-16 20:06:13",
+    "created_at": "2026-02-16 21:16:59",
     "price_m2": null
   },
   {
@@ -553,53 +508,8 @@ const LISTINGS = [
     "latitude": 49.71,
     "longitude": 6.25,
     "distance_km": 14.8,
-    "created_at": "2026-02-16 20:06:02",
+    "created_at": "2026-02-16 21:16:49",
     "price_m2": null
-  },
-  {
-    "listing_id": "athome_8726425",
-    "site": "Athome.lu",
-    "title": "À louer, magnifique appartement d'environ 80m2 avec deux chambres situ",
-    "city": "Luxembourg-Kirchberg",
-    "price": 2800,
-    "rooms": 2,
-    "surface": 80,
-    "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-8726425.html",
-    "latitude": 49.6285462,
-    "longitude": 6.1525617,
-    "distance_km": 3.4,
-    "created_at": "2026-02-16 20:05:52",
-    "price_m2": 35.0
-  },
-  {
-    "listing_id": "athome_8726729",
-    "site": "Athome.lu",
-    "title": "L'offre est sans commission pour le locataire !!! \n\nAppartement modern",
-    "city": "Perl",
-    "price": 2000,
-    "rooms": 4,
-    "surface": 120,
-    "url": "https://www.athome.lu/location/appartement/perl/id-8726729.html",
-    "latitude": 49.47774580000001,
-    "longitude": 6.3818646,
-    "distance_km": 22.5,
-    "created_at": "2026-02-16 20:05:42",
-    "price_m2": 16.7
-  },
-  {
-    "listing_id": "athome_8831762",
-    "site": "Athome.lu",
-    "title": "Wohnung zur Miete ? Perl (Deutschland)\nDiese helle Wohnung befindet si",
-    "city": "Perl",
-    "price": 1750,
-    "rooms": 4,
-    "surface": 110,
-    "url": "https://www.athome.lu/location/appartement/perl/id-8831762.html",
-    "latitude": 49.4778083,
-    "longitude": 6.3823749,
-    "distance_km": 22.5,
-    "created_at": "2026-02-16 20:05:32",
-    "price_m2": 15.9
   },
   {
     "listing_id": "athome_8971722",
@@ -613,7 +523,7 @@ const LISTINGS = [
     "latitude": 49.6118458,
     "longitude": 6.126972500000001,
     "distance_km": 1.4,
-    "created_at": "2026-02-16 20:05:21",
+    "created_at": "2026-02-16 21:16:39",
     "price_m2": 25.3
   },
   {
@@ -628,22 +538,7 @@ const LISTINGS = [
     "latitude": 49.5854461,
     "longitude": 6.224731299999999,
     "distance_km": 6.7,
-    "created_at": "2026-02-16 20:05:11",
+    "created_at": "2026-02-16 21:16:33",
     "price_m2": 29.3
-  },
-  {
-    "listing_id": "athome_8957695",
-    "site": "Athome.lu",
-    "title": "Triplex Arlon",
-    "city": "Arlon",
-    "price": 1850,
-    "rooms": 3,
-    "surface": 150,
-    "url": "https://www.athome.lu/location/triplex/arlon/id-8957695.html",
-    "latitude": 49.68841190000001,
-    "longitude": 5.8166288,
-    "distance_km": 24.9,
-    "created_at": "2026-02-16 20:05:06",
-    "price_m2": 12.3
   }
 ];

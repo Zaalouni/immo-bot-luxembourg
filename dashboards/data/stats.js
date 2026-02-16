@@ -1,30 +1,20 @@
-// Genere le 16/02/2026 22:07
+// Genere le 16/02/2026 22:24
 const STATS = {
-  "total": 43,
-  "avg_price": 2251,
+  "total": 36,
+  "avg_price": 2279,
   "min_price": 1700,
   "max_price": 2800,
-  "avg_surface": 114,
-  "cities": 33,
+  "avg_surface": 115,
+  "cities": 28,
   "sites": {
-    "Newimmo.lu": 5,
     "Nextimmo.lu": 11,
+    "Newimmo.lu": 2,
     "VIVI.lu": 4,
     "Luxhome.lu": 11,
     "Immotop.lu": 6,
-    "Athome.lu": 6
+    "Athome.lu": 2
   },
   "by_city": [
-    {
-      "city": "Luxembourg",
-      "count": 3,
-      "avg_price": 2050
-    },
-    {
-      "city": "Bertrange",
-      "count": 2,
-      "avg_price": 2500
-    },
     {
       "city": "Schengen",
       "count": 2,
@@ -36,14 +26,14 @@ const STATS = {
       "avg_price": 2375
     },
     {
-      "city": "Perl",
+      "city": "Kirchberg",
       "count": 2,
-      "avg_price": 1875
+      "avg_price": 2650
     },
     {
-      "city": "Luxembourg Gare",
-      "count": 1,
-      "avg_price": 2000
+      "city": "Luxembourg",
+      "count": 2,
+      "avg_price": 2125
     },
     {
       "city": "Mondorf-les-Bains",
@@ -96,14 +86,14 @@ const STATS = {
       "avg_price": 2000
     },
     {
-      "city": "Luxembourg Neudorf",
-      "count": 1,
-      "avg_price": 2000
-    },
-    {
       "city": "Luxembourg Limpertsberg",
       "count": 1,
       "avg_price": 2500
+    },
+    {
+      "city": "Luxembourg Neudorf",
+      "count": 1,
+      "avg_price": 2000
     },
     {
       "city": "Echternach",
@@ -141,14 +131,9 @@ const STATS = {
       "avg_price": 2450
     },
     {
-      "city": "Kirchberg",
+      "city": "Bertrange",
       "count": 1,
       "avg_price": 2500
-    },
-    {
-      "city": "Esch",
-      "count": 1,
-      "avg_price": 2750
     },
     {
       "city": "Habscht",
@@ -161,11 +146,6 @@ const STATS = {
       "avg_price": 1950
     },
     {
-      "city": "Luxembourg-Kirchberg",
-      "count": 1,
-      "avg_price": 2800
-    },
-    {
       "city": "Luxembourg-Centre Ville",
       "count": 1,
       "avg_price": 2350
@@ -174,23 +154,18 @@ const STATS = {
       "city": "Contern",
       "count": 1,
       "avg_price": 2400
-    },
-    {
-      "city": "Arlon",
-      "count": 1,
-      "avg_price": 1850
     }
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 11,
-    "2000 - 2500": 16,
-    "> 2500": 16
+    "1500 - 2000": 8,
+    "2000 - 2500": 14,
+    "> 2500": 14
   }
 };
 const SITE_COLORS = {
-  "Newimmo.lu": "#FF6384",
-  "Nextimmo.lu": "#36A2EB",
+  "Nextimmo.lu": "#FF6384",
+  "Newimmo.lu": "#36A2EB",
   "VIVI.lu": "#FFCE56",
   "Luxhome.lu": "#4BC0C0",
   "Immotop.lu": "#9966FF",
