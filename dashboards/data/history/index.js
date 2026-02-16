@@ -1,4 +1,4 @@
-// Index des archives — genere le 16/02/2026 20:18
+// Index des archives — genere le 16/02/2026 20:19
 const HISTORY_INDEX = [
   {
     "date": "2026-02-16",
