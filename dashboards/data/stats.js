@@ -1,13 +1,13 @@
 // Genere le 16/02/2026 22:38
 const STATS = {
-  "total": 21,
-  "avg_price": 2330,
+  "total": 22,
+  "avg_price": 2351,
   "min_price": 1800,
   "max_price": 2800,
-  "avg_surface": 98,
-  "cities": 14,
+  "avg_surface": 106,
+  "cities": 15,
   "sites": {
-    "VIVI.lu": 3,
+    "VIVI.lu": 4,
     "Luxhome.lu": 10,
     "Immotop.lu": 5,
     "Newimmo.lu": 1,
@@ -28,6 +28,11 @@ const STATS = {
       "city": "Luxembourg",
       "count": 2,
       "avg_price": 2125
+    },
+    {
+      "city": "Echternach",
+      "count": 1,
+      "avg_price": 2795
     },
     {
       "city": "Bech",
@@ -89,7 +94,7 @@ const STATS = {
     "< 1500": 0,
     "1500 - 2000": 4,
     "2000 - 2500": 9,
-    "> 2500": 8
+    "> 2500": 9
   }
 };
 const SITE_COLORS = {
