@@ -1,5 +1,5 @@
-// Genere le 16/02/2026 20:10
-// 48 annonces depuis listings.db
+// Genere le 16/02/2026 20:18
+// 48 annonces (DB + historiques fusionnes, dedupliques)
 const LISTINGS = [
   {
     "listing_id": "nextimmo_86703040",
