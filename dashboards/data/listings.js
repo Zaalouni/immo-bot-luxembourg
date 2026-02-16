@@ -1,6 +1,21 @@
 // Genere le 16/02/2026 22:36
-// 10 annonces depuis listings.db
+// 11 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "luxhome_26406",
+    "site": "Luxhome.lu",
+    "title": "Penthouse 2 chambres 2 terrasses",
+    "city": "",
+    "price": 2650,
+    "rooms": 2,
+    "surface": 0,
+    "url": "https://www.luxhome.lu/bien/penthouse-2-chambres-2-terrasses/",
+    "latitude": 49.5989966,
+    "longitude": 6.1221453,
+    "distance_km": 0.9,
+    "created_at": "2026-02-16 21:36:28",
+    "price_m2": null
+  },
   {
     "listing_id": "luxhome_28799",
     "site": "Luxhome.lu",

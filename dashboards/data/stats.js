@@ -1,13 +1,13 @@
 // Genere le 16/02/2026 22:36
 const STATS = {
-  "total": 10,
-  "avg_price": 2245,
+  "total": 11,
+  "avg_price": 2281,
   "min_price": 1800,
   "max_price": 2800,
   "avg_surface": 87,
   "cities": 8,
   "sites": {
-    "Luxhome.lu": 2,
+    "Luxhome.lu": 3,
     "Immotop.lu": 5,
     "Newimmo.lu": 1,
     "Athome.lu": 2
@@ -58,7 +58,7 @@ const STATS = {
     "< 1500": 0,
     "1500 - 2000": 3,
     "2000 - 2500": 4,
-    "> 2500": 3
+    "> 2500": 4
   }
 };
 const SITE_COLORS = {
