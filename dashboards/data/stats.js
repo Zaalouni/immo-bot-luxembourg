@@ -1,18 +1,18 @@
-// Genere le 17/02/2026 19:40
+// Genere le 17/02/2026 20:16
 const STATS = {
-  "total": 144,
-  "avg_price": 2342,
+  "total": 168,
+  "avg_price": 2305,
   "min_price": 1650,
   "max_price": 2800,
-  "avg_surface": 106,
-  "cities": 75,
+  "avg_surface": 109,
+  "cities": 91,
   "sites": {
-    "Nextimmo.lu": 28,
+    "Nextimmo.lu": 40,
     "Newimmo.lu": 2,
     "VIVI.lu": 4,
-    "Luxhome.lu": 8,
+    "Luxhome.lu": 10,
     "Immotop.lu": 4,
-    "Athome.lu": 98
+    "Athome.lu": 108
   },
   "by_city": [
     {
@@ -66,6 +66,11 @@ const STATS = {
       "avg_price": 2472
     },
     {
+      "city": "Steinsel",
+      "count": 3,
+      "avg_price": 2573
+    },
+    {
       "city": "Belvaux",
       "count": 3,
       "avg_price": 2216
@@ -86,9 +91,19 @@ const STATS = {
       "avg_price": 2283
     },
     {
+      "city": "Perl",
+      "count": 3,
+      "avg_price": 2083
+    },
+    {
       "city": "Bettembourg",
       "count": 2,
       "avg_price": 2475
+    },
+    {
+      "city": "Hautcharage",
+      "count": 2,
+      "avg_price": 1915
     },
     {
       "city": "Rodange",
@@ -96,14 +111,14 @@ const STATS = {
       "avg_price": 2125
     },
     {
-      "city": "Luxembourg-Merl",
-      "count": 2,
-      "avg_price": 2635
-    },
-    {
       "city": "Mertert",
       "count": 2,
       "avg_price": 2500
+    },
+    {
+      "city": "Mamer",
+      "count": 2,
+      "avg_price": 2250
     },
     {
       "city": "Cessange",
@@ -116,19 +131,39 @@ const STATS = {
       "avg_price": 1750
     },
     {
-      "city": "Junglinster",
-      "count": 2,
-      "avg_price": 2225
-    },
-    {
       "city": "Hesperange",
       "count": 2,
       "avg_price": 2600
     },
     {
+      "city": "Wasserbillig",
+      "count": 2,
+      "avg_price": 1865
+    },
+    {
+      "city": "Arlon",
+      "count": 2,
+      "avg_price": 1900
+    },
+    {
       "city": "Arsdorf",
       "count": 2,
       "avg_price": 2375
+    },
+    {
+      "city": "Cattenom",
+      "count": 2,
+      "avg_price": 1715
+    },
+    {
+      "city": "Junglinster",
+      "count": 2,
+      "avg_price": 2225
+    },
+    {
+      "city": "Luxembourg-Merl",
+      "count": 2,
+      "avg_price": 2635
     },
     {
       "city": "Bereldange",
@@ -144,11 +179,6 @@ const STATS = {
       "city": "Dickweiler",
       "count": 2,
       "avg_price": 2400
-    },
-    {
-      "city": "Steinsel",
-      "count": 2,
-      "avg_price": 2510
     },
     {
       "city": "Contern",
@@ -191,9 +221,24 @@ const STATS = {
       "avg_price": 2500
     },
     {
-      "city": "Hautcharage",
+      "city": "Emerange",
       "count": 1,
-      "avg_price": 1850
+      "avg_price": 2400
+    },
+    {
+      "city": "Luxembourg-Hamm",
+      "count": 1,
+      "avg_price": 1890
+    },
+    {
+      "city": "Wellenstein",
+      "count": 1,
+      "avg_price": 1800
+    },
+    {
+      "city": "Tétange",
+      "count": 1,
+      "avg_price": 2450
     },
     {
       "city": "Luxembourg-Rollingergrund",
@@ -206,7 +251,17 @@ const STATS = {
       "avg_price": 1900
     },
     {
-      "city": "Luxembourg Gare",
+      "city": "Bergem",
+      "count": 1,
+      "avg_price": 1950
+    },
+    {
+      "city": "Luxembourg",
+      "count": 1,
+      "avg_price": 1900
+    },
+    {
+      "city": "Luxembourg Neudorf",
       "count": 1,
       "avg_price": 2000
     },
@@ -216,14 +271,19 @@ const STATS = {
       "avg_price": 2500
     },
     {
-      "city": "Mamer",
+      "city": "Gare",
       "count": 1,
-      "avg_price": 2000
+      "avg_price": 1700
     },
     {
       "city": "Kirchberg",
       "count": 1,
       "avg_price": 2500
+    },
+    {
+      "city": "Esch",
+      "count": 1,
+      "avg_price": 2750
     },
     {
       "city": "Habscht",
@@ -241,9 +301,9 @@ const STATS = {
       "avg_price": 1750
     },
     {
-      "city": "Wasserbillig",
+      "city": "Messancy",
       "count": 1,
-      "avg_price": 1980
+      "avg_price": 2250
     },
     {
       "city": "Attert",
@@ -264,6 +324,26 @@ const STATS = {
       "city": "Nagem",
       "count": 1,
       "avg_price": 2600
+    },
+    {
+      "city": "Langsur",
+      "count": 1,
+      "avg_price": 1990
+    },
+    {
+      "city": "Niederanven",
+      "count": 1,
+      "avg_price": 2000
+    },
+    {
+      "city": "Luxembourg-Cents",
+      "count": 1,
+      "avg_price": 2250
+    },
+    {
+      "city": "Filsdorf",
+      "count": 1,
+      "avg_price": 2350
     },
     {
       "city": "Alzingen",
@@ -393,9 +473,9 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 20,
-    "2000 - 2500": 69,
-    "> 2500": 55
+    "1500 - 2000": 33,
+    "2000 - 2500": 76,
+    "> 2500": 59
   }
 };
 const SITE_COLORS = {

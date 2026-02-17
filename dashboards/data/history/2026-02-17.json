@@ -1,20 +1,20 @@
 {
   "date": "2026-02-17",
-  "generated_at": "17/02/2026 19:40",
+  "generated_at": "17/02/2026 20:16",
   "stats": {
-    "total": 144,
-    "avg_price": 2342,
+    "total": 168,
+    "avg_price": 2305,
     "min_price": 1650,
     "max_price": 2800,
-    "avg_surface": 106,
-    "cities": 75,
+    "avg_surface": 109,
+    "cities": 91,
     "sites": {
-      "Nextimmo.lu": 28,
+      "Nextimmo.lu": 40,
       "Newimmo.lu": 2,
       "VIVI.lu": 4,
-      "Luxhome.lu": 8,
+      "Luxhome.lu": 10,
       "Immotop.lu": 4,
-      "Athome.lu": 98
+      "Athome.lu": 108
     },
     "by_city": [
       {
@@ -68,6 +68,11 @@
         "avg_price": 2472
       },
       {
+        "city": "Steinsel",
+        "count": 3,
+        "avg_price": 2573
+      },
+      {
         "city": "Belvaux",
         "count": 3,
         "avg_price": 2216
@@ -88,9 +93,19 @@
         "avg_price": 2283
       },
       {
+        "city": "Perl",
+        "count": 3,
+        "avg_price": 2083
+      },
+      {
         "city": "Bettembourg",
         "count": 2,
         "avg_price": 2475
+      },
+      {
+        "city": "Hautcharage",
+        "count": 2,
+        "avg_price": 1915
       },
       {
         "city": "Rodange",
@@ -98,14 +113,14 @@
         "avg_price": 2125
       },
       {
-        "city": "Luxembourg-Merl",
-        "count": 2,
-        "avg_price": 2635
-      },
-      {
         "city": "Mertert",
         "count": 2,
         "avg_price": 2500
+      },
+      {
+        "city": "Mamer",
+        "count": 2,
+        "avg_price": 2250
       },
       {
         "city": "Cessange",
@@ -118,19 +133,39 @@
         "avg_price": 1750
       },
       {
-        "city": "Junglinster",
-        "count": 2,
-        "avg_price": 2225
-      },
-      {
         "city": "Hesperange",
         "count": 2,
         "avg_price": 2600
       },
       {
+        "city": "Wasserbillig",
+        "count": 2,
+        "avg_price": 1865
+      },
+      {
+        "city": "Arlon",
+        "count": 2,
+        "avg_price": 1900
+      },
+      {
         "city": "Arsdorf",
         "count": 2,
         "avg_price": 2375
+      },
+      {
+        "city": "Cattenom",
+        "count": 2,
+        "avg_price": 1715
+      },
+      {
+        "city": "Junglinster",
+        "count": 2,
+        "avg_price": 2225
+      },
+      {
+        "city": "Luxembourg-Merl",
+        "count": 2,
+        "avg_price": 2635
       },
       {
         "city": "Bereldange",
@@ -146,11 +181,6 @@
         "city": "Dickweiler",
         "count": 2,
         "avg_price": 2400
-      },
-      {
-        "city": "Steinsel",
-        "count": 2,
-        "avg_price": 2510
       },
       {
         "city": "Contern",
@@ -193,9 +223,24 @@
         "avg_price": 2500
       },
       {
-        "city": "Hautcharage",
+        "city": "Emerange",
         "count": 1,
-        "avg_price": 1850
+        "avg_price": 2400
+      },
+      {
+        "city": "Luxembourg-Hamm",
+        "count": 1,
+        "avg_price": 1890
+      },
+      {
+        "city": "Wellenstein",
+        "count": 1,
+        "avg_price": 1800
+      },
+      {
+        "city": "Tétange",
+        "count": 1,
+        "avg_price": 2450
       },
       {
         "city": "Luxembourg-Rollingergrund",
@@ -208,7 +253,17 @@
         "avg_price": 1900
       },
       {
-        "city": "Luxembourg Gare",
+        "city": "Bergem",
+        "count": 1,
+        "avg_price": 1950
+      },
+      {
+        "city": "Luxembourg",
+        "count": 1,
+        "avg_price": 1900
+      },
+      {
+        "city": "Luxembourg Neudorf",
         "count": 1,
         "avg_price": 2000
       },
@@ -218,14 +273,19 @@
         "avg_price": 2500
       },
       {
-        "city": "Mamer",
+        "city": "Gare",
         "count": 1,
-        "avg_price": 2000
+        "avg_price": 1700
       },
       {
         "city": "Kirchberg",
         "count": 1,
         "avg_price": 2500
+      },
+      {
+        "city": "Esch",
+        "count": 1,
+        "avg_price": 2750
       },
       {
         "city": "Habscht",
@@ -243,9 +303,9 @@
         "avg_price": 1750
       },
       {
-        "city": "Wasserbillig",
+        "city": "Messancy",
         "count": 1,
-        "avg_price": 1980
+        "avg_price": 2250
       },
       {
         "city": "Attert",
@@ -266,6 +326,26 @@
         "city": "Nagem",
         "count": 1,
         "avg_price": 2600
+      },
+      {
+        "city": "Langsur",
+        "count": 1,
+        "avg_price": 1990
+      },
+      {
+        "city": "Niederanven",
+        "count": 1,
+        "avg_price": 2000
+      },
+      {
+        "city": "Luxembourg-Cents",
+        "count": 1,
+        "avg_price": 2250
+      },
+      {
+        "city": "Filsdorf",
+        "count": 1,
+        "avg_price": 2350
       },
       {
         "city": "Alzingen",
@@ -395,9 +475,9 @@
     ],
     "by_price_range": {
       "< 1500": 0,
-      "1500 - 2000": 20,
-      "2000 - 2500": 69,
-      "> 2500": 55
+      "1500 - 2000": 33,
+      "2000 - 2500": 76,
+      "> 2500": 59
     }
   },
   "listings": [
@@ -413,7 +493,7 @@
       "latitude": null,
       "longitude": null,
       "distance_km": null,
-      "created_at": "2026-02-17 18:29:30",
+      "created_at": "2026-02-17 19:14:54",
       "price_m2": 13.8
     },
     {
@@ -428,7 +508,7 @@
       "latitude": 49.50185,
       "longitude": 6.27573,
       "distance_km": 14.9,
-      "created_at": "2026-02-17 18:29:19",
+      "created_at": "2026-02-17 19:14:44",
       "price_m2": 14.3
     },
     {
@@ -443,8 +523,98 @@
       "latitude": 49.52,
       "longitude": 6.105,
       "distance_km": 9.1,
-      "created_at": "2026-02-17 18:29:09",
+      "created_at": "2026-02-17 19:14:34",
       "price_m2": 18.7
+    },
+    {
+      "listing_id": "nextimmo_86002754",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Emerange",
+      "city": "Emerange",
+      "price": 2400,
+      "rooms": 4,
+      "surface": 123,
+      "url": "https://nextimmo.lu/en/details/86002754",
+      "latitude": 49.48752,
+      "longitude": 6.29127,
+      "distance_km": 16.9,
+      "created_at": "2026-02-17 19:14:24",
+      "price_m2": 19.5
+    },
+    {
+      "listing_id": "nextimmo_5710",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Hamm",
+      "city": "Luxembourg-Hamm",
+      "price": 1890,
+      "rooms": 2,
+      "surface": 81,
+      "url": "https://nextimmo.lu/en/details/5710",
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-02-17 19:14:14",
+      "price_m2": 23.3
+    },
+    {
+      "listing_id": "nextimmo_2889746",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Steinsel",
+      "city": "Steinsel",
+      "price": 2700,
+      "rooms": 2,
+      "surface": 100,
+      "url": "https://nextimmo.lu/en/details/2889746",
+      "latitude": 49.6767,
+      "longitude": 6.1244,
+      "distance_km": 8.6,
+      "created_at": "2026-02-17 19:14:03",
+      "price_m2": 27.0
+    },
+    {
+      "listing_id": "nextimmo_85075359",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Wellenstein",
+      "city": "Wellenstein",
+      "price": 1800,
+      "rooms": 2,
+      "surface": 110,
+      "url": "https://nextimmo.lu/en/details/85075359",
+      "latitude": 49.52284,
+      "longitude": 6.34504,
+      "distance_km": 17.5,
+      "created_at": "2026-02-17 19:13:53",
+      "price_m2": 16.4
+    },
+    {
+      "listing_id": "nextimmo_1699665",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Hautcharage",
+      "city": "Hautcharage",
+      "price": 1980,
+      "rooms": 2,
+      "surface": 128,
+      "url": "https://nextimmo.lu/en/details/1699665",
+      "latitude": 49.5771,
+      "longitude": 5.90988,
+      "distance_km": 16.4,
+      "created_at": "2026-02-17 19:13:42",
+      "price_m2": 15.5
+    },
+    {
+      "listing_id": "nextimmo_85909901",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Tétange",
+      "city": "Tétange",
+      "price": 2450,
+      "rooms": 2,
+      "surface": 103,
+      "url": "https://nextimmo.lu/en/details/85909901",
+      "latitude": 49.47374,
+      "longitude": 6.03998,
+      "distance_km": 15.6,
+      "created_at": "2026-02-17 19:13:32",
+      "price_m2": 23.8
     },
     {
       "listing_id": "nextimmo_85053030",
@@ -458,7 +628,7 @@
       "latitude": 49.6177,
       "longitude": 6.12718,
       "distance_km": 2.0,
-      "created_at": "2026-02-17 18:28:59",
+      "created_at": "2026-02-17 19:13:22",
       "price_m2": 28.8
     },
     {
@@ -473,7 +643,7 @@
       "latitude": 49.54524,
       "longitude": 5.83908,
       "distance_km": 22.1,
-      "created_at": "2026-02-17 18:28:48",
+      "created_at": "2026-02-17 19:13:12",
       "price_m2": 22.3
     },
     {
@@ -488,23 +658,8 @@
       "latitude": 49.5771,
       "longitude": 5.90988,
       "distance_km": 16.4,
-      "created_at": "2026-02-17 18:28:38",
+      "created_at": "2026-02-17 19:13:02",
       "price_m2": 20.1
-    },
-    {
-      "listing_id": "nextimmo_6974877",
-      "site": "Nextimmo.lu",
-      "title": "Appartement Luxembourg-Merl",
-      "city": "Luxembourg-Merl",
-      "price": 2650,
-      "rooms": 2,
-      "surface": 94,
-      "url": "https://nextimmo.lu/en/details/6974877",
-      "latitude": 49.60265,
-      "longitude": 6.10642,
-      "distance_km": 2.0,
-      "created_at": "2026-02-17 18:28:27",
-      "price_m2": 28.2
     },
     {
       "listing_id": "nextimmo_5423556",
@@ -518,7 +673,7 @@
       "latitude": 49.6116,
       "longitude": 6.1319,
       "distance_km": 1.3,
-      "created_at": "2026-02-17 18:28:17",
+      "created_at": "2026-02-17 19:12:51",
       "price_m2": 15.6
     },
     {
@@ -533,7 +688,7 @@
       "latitude": 49.60034,
       "longitude": 6.12105,
       "distance_km": 0.9,
-      "created_at": "2026-02-17 18:28:07",
+      "created_at": "2026-02-17 19:12:41",
       "price_m2": 25.3
     },
     {
@@ -548,7 +703,7 @@
       "latitude": 49.60751,
       "longitude": 6.10969,
       "distance_km": 2.0,
-      "created_at": "2026-02-17 18:27:57",
+      "created_at": "2026-02-17 19:12:31",
       "price_m2": 26.2
     },
     {
@@ -563,23 +718,53 @@
       "latitude": 49.61517,
       "longitude": 6.22115,
       "distance_km": 6.5,
-      "created_at": "2026-02-17 18:27:46",
+      "created_at": "2026-02-17 19:12:21",
       "price_m2": 22.1
     },
     {
-      "listing_id": "newimmo_127151",
+      "listing_id": "nextimmo_85415025",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Bergem",
+      "city": "Bergem",
+      "price": 1950,
+      "rooms": 5,
+      "surface": 95,
+      "url": "https://nextimmo.lu/en/details/85415025",
+      "latitude": 49.52586,
+      "longitude": 6.03942,
+      "distance_km": 10.7,
+      "created_at": "2026-02-17 19:12:11",
+      "price_m2": 20.5
+    },
+    {
+      "listing_id": "newimmo_127231",
       "site": "Newimmo.lu",
-      "title": "Appartement - Luxembourg Gare",
-      "city": "Luxembourg Gare",
+      "title": "Appartement - Luxembourg",
+      "city": "Luxembourg",
+      "price": 1900,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg/127231-appartement-luxembourg/",
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-02-17 19:12:01",
+      "price_m2": null
+    },
+    {
+      "listing_id": "newimmo_127084",
+      "site": "Newimmo.lu",
+      "title": "Appartement - Luxembourg Neudorf",
+      "city": "Luxembourg Neudorf",
       "price": 2000,
-      "rooms": 2,
-      "surface": 90,
-      "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-gare/127151-appartement-luxembourg-gare/",
-      "latitude": 49.6,
-      "longitude": 6.1342,
-      "distance_km": 0.0,
-      "created_at": "2026-02-17 18:27:36",
-      "price_m2": 22.2
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-neudorf/127084-appartement-luxembourg-neudorf/",
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-02-17 19:11:51",
+      "price_m2": null
     },
     {
       "listing_id": "vivi_188402",
@@ -593,7 +778,7 @@
       "latitude": 49.54,
       "longitude": 6.19,
       "distance_km": 7.8,
-      "created_at": "2026-02-17 18:27:24",
+      "created_at": "2026-02-17 19:11:38",
       "price_m2": 19.2
     },
     {
@@ -608,7 +793,7 @@
       "latitude": 49.705,
       "longitude": 6.48,
       "distance_km": 27.5,
-      "created_at": "2026-02-17 18:27:11",
+      "created_at": "2026-02-17 19:11:26",
       "price_m2": 18.2
     },
     {
@@ -623,7 +808,7 @@
       "latitude": 49.627,
       "longitude": 6.023,
       "distance_km": 8.6,
-      "created_at": "2026-02-17 18:26:58",
+      "created_at": "2026-02-17 19:11:13",
       "price_m2": 24.7
     },
     {
@@ -638,7 +823,22 @@
       "latitude": 49.611158923224,
       "longitude": 6.1296986792347,
       "distance_km": 1.3,
-      "created_at": "2026-02-17 18:26:48",
+      "created_at": "2026-02-17 19:11:03",
+      "price_m2": null
+    },
+    {
+      "listing_id": "luxhome_15094",
+      "site": "Luxhome.lu",
+      "title": "APPARTEMENT LOUE A LUXEMBURG-GARE",
+      "city": "Gare",
+      "price": 1700,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.luxhome.lu/bien/appartement-1-chambre-a-louer/",
+      "latitude": 49.59972985,
+      "longitude": 6.135144553486908,
+      "distance_km": 0.1,
+      "created_at": "2026-02-17 19:10:50",
       "price_m2": null
     },
     {
@@ -653,7 +853,7 @@
       "latitude": 49.61115892322423,
       "longitude": 6.12969867923474,
       "distance_km": 1.3,
-      "created_at": "2026-02-17 18:26:38",
+      "created_at": "2026-02-17 19:10:40",
       "price_m2": null
     },
     {
@@ -668,7 +868,7 @@
       "latitude": 49.60897266860193,
       "longitude": 6.12419061173447,
       "distance_km": 1.2,
-      "created_at": "2026-02-17 18:26:28",
+      "created_at": "2026-02-17 19:10:30",
       "price_m2": null
     },
     {
@@ -683,7 +883,7 @@
       "latitude": 49.6591416079615,
       "longitude": 5.919087763935368,
       "distance_km": 16.8,
-      "created_at": "2026-02-17 18:26:18",
+      "created_at": "2026-02-17 19:10:19",
       "price_m2": null
     },
     {
@@ -698,7 +898,7 @@
       "latitude": 49.665401,
       "longitude": 5.9169789,
       "distance_km": 17.3,
-      "created_at": "2026-02-17 18:26:07",
+      "created_at": "2026-02-17 19:10:09",
       "price_m2": null
     },
     {
@@ -713,7 +913,7 @@
       "latitude": 49.5956314,
       "longitude": 6.1376614,
       "distance_km": 0.5,
-      "created_at": "2026-02-17 18:25:57",
+      "created_at": "2026-02-17 19:09:59",
       "price_m2": null
     },
     {
@@ -728,7 +928,7 @@
       "latitude": 49.5989966,
       "longitude": 6.1221453,
       "distance_km": 0.9,
-      "created_at": "2026-02-17 18:25:47",
+      "created_at": "2026-02-17 19:09:49",
       "price_m2": null
     },
     {
@@ -743,23 +943,38 @@
       "latitude": 49.6283549,
       "longitude": 6.1140089,
       "distance_km": 3.5,
-      "created_at": "2026-02-17 18:25:37",
+      "created_at": "2026-02-17 19:09:39",
       "price_m2": null
     },
     {
-      "listing_id": "newimmo_127171",
-      "site": "Newimmo.lu",
-      "title": "Appartement - Bertrange",
+      "listing_id": "luxhome_30842",
+      "site": "Luxhome.lu",
+      "title": "Spacious 125 m² Duplex (2 chr, 2 SBD) with Private Garden in Esch-sur-Alzette for 2.750,-",
+      "city": "Esch",
+      "price": 2750,
+      "rooms": 2,
+      "surface": 125,
+      "url": "https://www.luxhome.lu/bien/spacious-125-m%c2%b2-duplex-2-chr-2-sbd-with-private-garden-in-esch-sur-alzette-for-2-750/",
+      "latitude": 49.496957,
+      "longitude": 5.978518,
+      "distance_km": 16.0,
+      "created_at": "2026-02-17 19:09:29",
+      "price_m2": 22.0
+    },
+    {
+      "listing_id": "immotop_1856543",
+      "site": "Immotop.lu",
+      "title": "Appartement 2 chambres neuf, quatrième étage, Bertrange",
       "city": "Bertrange",
       "price": 2500,
       "rooms": 2,
-      "surface": 84,
-      "url": "https://www.newimmo.lu/fr/louer/appartement/bertrange/127171-appartement-bertrange/",
+      "surface": 0,
+      "url": "https://www.immotop.lu/annonces/1856543/",
       "latitude": 49.61,
       "longitude": 6.05,
       "distance_km": 6.2,
-      "created_at": "2026-02-17 18:25:27",
-      "price_m2": 29.8
+      "created_at": "2026-02-17 19:09:18",
+      "price_m2": null
     },
     {
       "listing_id": "immotop_1809589",
@@ -773,7 +988,7 @@
       "latitude": 49.47,
       "longitude": 6.37,
       "distance_km": 22.3,
-      "created_at": "2026-02-17 18:25:16",
+      "created_at": "2026-02-17 19:09:08",
       "price_m2": null
     },
     {
@@ -788,22 +1003,7 @@
       "latitude": null,
       "longitude": null,
       "distance_km": null,
-      "created_at": "2026-02-17 18:25:06",
-      "price_m2": null
-    },
-    {
-      "listing_id": "immotop_1856337",
-      "site": "Immotop.lu",
-      "title": "Appartement 2 chambres rez-de-chaussée, Junglinster Localité, Junglins",
-      "city": "Junglinster",
-      "price": 1950,
-      "rooms": 2,
-      "surface": 0,
-      "url": "https://www.immotop.lu/annonces/1856337/",
-      "latitude": 49.71,
-      "longitude": 6.25,
-      "distance_km": 14.8,
-      "created_at": "2026-02-17 18:24:56",
+      "created_at": "2026-02-17 19:08:58",
       "price_m2": null
     },
     {
@@ -818,7 +1018,7 @@
       "latitude": 49.57,
       "longitude": 6.15,
       "distance_km": 3.5,
-      "created_at": "2026-02-17 18:24:46",
+      "created_at": "2026-02-17 19:08:48",
       "price_m2": null
     },
     {
@@ -833,7 +1033,7 @@
       "latitude": 49.61214,
       "longitude": 6.4046832,
       "distance_km": 19.5,
-      "created_at": "2026-02-17 18:24:36",
+      "created_at": "2026-02-17 19:08:38",
       "price_m2": 15.0
     },
     {
@@ -848,7 +1048,7 @@
       "latitude": 49.7880278,
       "longitude": 6.2675721,
       "distance_km": 23.0,
-      "created_at": "2026-02-17 18:24:25",
+      "created_at": "2026-02-17 19:08:28",
       "price_m2": 20.6
     },
     {
@@ -863,8 +1063,23 @@
       "latitude": 49.7164103,
       "longitude": 6.5024867,
       "distance_km": 29.5,
-      "created_at": "2026-02-17 18:24:15",
+      "created_at": "2026-02-17 19:08:18",
       "price_m2": 18.9
+    },
+    {
+      "listing_id": "athome_8958244",
+      "site": "Athome.lu",
+      "title": "W Immobilière vous propose à Arlon, à deux pas du centre-ville et de t",
+      "city": "Arlon",
+      "price": 1950,
+      "rooms": 4,
+      "surface": 288,
+      "url": "https://www.athome.lu/location/maison/arlon/id-8958244.html",
+      "latitude": 49.6829691,
+      "longitude": 5.8075929,
+      "distance_km": 25.3,
+      "created_at": "2026-02-17 19:08:07",
+      "price_m2": 6.8
     },
     {
       "listing_id": "athome_8957937",
@@ -878,8 +1093,23 @@
       "latitude": 49.86171239999999,
       "longitude": 5.8452145,
       "distance_km": 35.8,
-      "created_at": "2026-02-17 18:24:05",
+      "created_at": "2026-02-17 19:07:56",
       "price_m2": 14.5
+    },
+    {
+      "listing_id": "athome_8938058",
+      "site": "Athome.lu",
+      "title": "Située au 47E, avenue de Longwy à Messancy, cette maison neuve se dist",
+      "city": "Messancy",
+      "price": 2250,
+      "rooms": 4,
+      "surface": 231,
+      "url": "https://www.athome.lu/location/detached house/messancy/id-8938058.html",
+      "latitude": 49.58662220000001,
+      "longitude": 5.8145193,
+      "distance_km": 23.1,
+      "created_at": "2026-02-17 19:07:46",
+      "price_m2": 9.7
     },
     {
       "listing_id": "athome_8040167",
@@ -893,7 +1123,7 @@
       "latitude": 49.5043347,
       "longitude": 5.9214334,
       "distance_km": 18.7,
-      "created_at": "2026-02-17 18:23:54",
+      "created_at": "2026-02-17 19:07:36",
       "price_m2": 20.4
     },
     {
@@ -908,7 +1138,7 @@
       "latitude": 49.7399967,
       "longitude": 5.7178818,
       "distance_km": 33.8,
-      "created_at": "2026-02-17 18:23:44",
+      "created_at": "2026-02-17 19:07:26",
       "price_m2": 3.3
     },
     {
@@ -923,7 +1153,7 @@
       "latitude": 49.34690399999999,
       "longitude": 6.344152999999999,
       "distance_km": 32.0,
-      "created_at": "2026-02-17 18:23:34",
+      "created_at": "2026-02-17 19:07:16",
       "price_m2": 11.7
     },
     {
@@ -938,8 +1168,23 @@
       "latitude": 49.8603614,
       "longitude": 5.8428625,
       "distance_km": 35.7,
-      "created_at": "2026-02-17 18:23:23",
+      "created_at": "2026-02-17 19:07:05",
       "price_m2": 16.1
+    },
+    {
+      "listing_id": "athome_7968706",
+      "site": "Athome.lu",
+      "title": "Belardimmo vous propose une belle maison mitoyenne à Cattenom/Sentzich",
+      "city": "Cattenom",
+      "price": 1700,
+      "rooms": 5,
+      "surface": 100,
+      "url": "https://www.athome.lu/location/detached house/cattenom/id-7968706.html",
+      "latitude": 49.406263,
+      "longitude": 6.243668,
+      "distance_km": 22.9,
+      "created_at": "2026-02-17 19:06:55",
+      "price_m2": 17.0
     },
     {
       "listing_id": "nextimmo_84538821",
@@ -953,8 +1198,23 @@
       "latitude": 49.65768,
       "longitude": 6.24065,
       "distance_km": 10.0,
-      "created_at": "2026-02-17 18:23:13",
+      "created_at": "2026-02-17 19:06:45",
       "price_m2": 20.0
+    },
+    {
+      "listing_id": "athome_8872001",
+      "site": "Athome.lu",
+      "title": "Maison 150 m² – 5 pièces – Cattenom (Sentzich)\n\nSituée dans le secteur",
+      "city": "Cattenom",
+      "price": 1730,
+      "rooms": 5,
+      "surface": 150,
+      "url": "https://www.athome.lu/location/maison/cattenom/id-8872001.html",
+      "latitude": 49.4086846,
+      "longitude": 6.2433064,
+      "distance_km": 22.7,
+      "created_at": "2026-02-17 19:06:35",
+      "price_m2": 11.5
     },
     {
       "listing_id": "athome_8801297",
@@ -968,8 +1228,128 @@
       "latitude": 49.786216,
       "longitude": 5.8550269,
       "distance_km": 28.8,
-      "created_at": "2026-02-17 18:23:03",
+      "created_at": "2026-02-17 19:06:24",
       "price_m2": 13.5
+    },
+    {
+      "listing_id": "athome_6402510",
+      "site": "Athome.lu",
+      "title": "Appartement meublé lumineux et bien agencé. Ce bien entouré par la vég",
+      "city": "Mamer",
+      "price": 2500,
+      "rooms": 3,
+      "surface": 100,
+      "url": "https://www.athome.lu/location/appartement/mamer/id-6402510.html",
+      "latitude": 49.6270927,
+      "longitude": 6.0146129,
+      "distance_km": 9.1,
+      "created_at": "2026-02-17 19:06:14",
+      "price_m2": 25.0
+    },
+    {
+      "listing_id": "athome_8760004",
+      "site": "Athome.lu",
+      "title": "Erstbezug - Neubau direkt an der Grenze zu Luxemburg-Wasserbillig (300",
+      "city": "Langsur",
+      "price": 1990,
+      "rooms": 3,
+      "surface": 111,
+      "url": "https://www.athome.lu/location/appartement/langsur/id-8760004.html",
+      "latitude": 49.7242831,
+      "longitude": 6.4973807,
+      "distance_km": 29.6,
+      "created_at": "2026-02-17 19:06:04",
+      "price_m2": 17.9
+    },
+    {
+      "listing_id": "athome_8919578",
+      "site": "Athome.lu",
+      "title": "L’appartement rénové en 2024 fait +/− 100 m2 et il est situé au rez-de",
+      "city": "Niederanven",
+      "price": 2000,
+      "rooms": 2,
+      "surface": 0,
+      "url": "https://www.athome.lu/location/appartement/niederanven/id-8919578.html",
+      "latitude": 49.6524374,
+      "longitude": 6.257763100000001,
+      "distance_km": 10.6,
+      "created_at": "2026-02-17 19:05:53",
+      "price_m2": null
+    },
+    {
+      "listing_id": "nextimmo_4271",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Junglinster",
+      "city": "Junglinster",
+      "price": 1950,
+      "rooms": 2,
+      "surface": 100,
+      "url": "https://nextimmo.lu/en/details/4271",
+      "latitude": 49.71,
+      "longitude": 6.25,
+      "distance_km": 14.8,
+      "created_at": "2026-02-17 19:05:43",
+      "price_m2": 19.5
+    },
+    {
+      "listing_id": "nextimmo_6974877",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Merl",
+      "city": "Luxembourg-Merl",
+      "price": 2650,
+      "rooms": 2,
+      "surface": 94,
+      "url": "https://nextimmo.lu/en/details/6974877",
+      "latitude": 49.60265,
+      "longitude": 6.10642,
+      "distance_km": 2.0,
+      "created_at": "2026-02-17 19:05:33",
+      "price_m2": 28.2
+    },
+    {
+      "listing_id": "athome_8708331",
+      "site": "Athome.lu",
+      "title": "L'agence Immo LEO vous présente ce joli et lumineux appartement d’une ",
+      "city": "Luxembourg-Cents",
+      "price": 2250,
+      "rooms": 2,
+      "surface": 90,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-cents/id-8708331.html",
+      "latitude": 49.6178179,
+      "longitude": 6.1664492,
+      "distance_km": 3.1,
+      "created_at": "2026-02-17 19:05:22",
+      "price_m2": 25.0
+    },
+    {
+      "listing_id": "nextimmo_86346261",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Filsdorf",
+      "city": "Filsdorf",
+      "price": 2350,
+      "rooms": 3,
+      "surface": 114,
+      "url": "https://nextimmo.lu/en/details/86346261",
+      "latitude": 49.53025,
+      "longitude": 6.24472,
+      "distance_km": 11.1,
+      "created_at": "2026-02-17 19:05:12",
+      "price_m2": 20.6
+    },
+    {
+      "listing_id": "athome_8820412",
+      "site": "Athome.lu",
+      "title": "Notre agence Antony.E Immobilier est fière de vous proposer à la locat",
+      "city": "Wasserbillig",
+      "price": 1750,
+      "rooms": 3,
+      "surface": 94,
+      "url": "https://www.athome.lu/location/appartement/wasserbillig/id-8820412.html",
+      "latitude": 49.71422,
+      "longitude": 6.50208,
+      "distance_km": 29.4,
+      "created_at": "2026-02-17 19:05:02",
+      "price_m2": 18.6
     },
     {
       "listing_id": "athome_8976207",
@@ -983,7 +1363,7 @@
       "latitude": 49.62369109999999,
       "longitude": 6.121335699999999,
       "distance_km": 2.8,
-      "created_at": "2026-02-17 18:22:53",
+      "created_at": "2026-02-17 19:04:52",
       "price_m2": 24.5
     },
     {
@@ -998,7 +1378,7 @@
       "latitude": 49.58789890000001,
       "longitude": 6.1048624,
       "distance_km": 2.5,
-      "created_at": "2026-02-17 18:22:42",
+      "created_at": "2026-02-17 19:04:42",
       "price_m2": 23.5
     },
     {
@@ -1013,7 +1393,7 @@
       "latitude": 49.5712572,
       "longitude": 6.1637244,
       "distance_km": 3.8,
-      "created_at": "2026-02-17 18:22:32",
+      "created_at": "2026-02-17 19:04:32",
       "price_m2": 29.4
     },
     {
@@ -1028,7 +1408,7 @@
       "latitude": 49.6548632,
       "longitude": 6.1272733,
       "distance_km": 6.1,
-      "created_at": "2026-02-17 18:22:22",
+      "created_at": "2026-02-17 19:04:21",
       "price_m2": 23.3
     },
     {
@@ -1043,7 +1423,7 @@
       "latitude": 49.69,
       "longitude": 6.25,
       "distance_km": 13.0,
-      "created_at": "2026-02-17 18:22:12",
+      "created_at": "2026-02-17 19:04:11",
       "price_m2": 23.2
     },
     {
@@ -1058,7 +1438,7 @@
       "latitude": 49.502401,
       "longitude": 5.9721782,
       "distance_km": 15.9,
-      "created_at": "2026-02-17 18:22:01",
+      "created_at": "2026-02-17 19:04:01",
       "price_m2": 23.1
     },
     {
@@ -1073,7 +1453,7 @@
       "latitude": 49.55093489999999,
       "longitude": 6.2076007,
       "distance_km": 7.6,
-      "created_at": "2026-02-17 18:21:51",
+      "created_at": "2026-02-17 19:03:51",
       "price_m2": 21.5
     },
     {
@@ -1088,7 +1468,7 @@
       "latitude": 49.6773648,
       "longitude": 6.4402066,
       "distance_km": 23.7,
-      "created_at": "2026-02-17 18:21:41",
+      "created_at": "2026-02-17 19:03:41",
       "price_m2": 23.5
     },
     {
@@ -1103,22 +1483,22 @@
       "latitude": 49.48081,
       "longitude": 6.07795,
       "distance_km": 13.9,
-      "created_at": "2026-02-17 18:21:30",
+      "created_at": "2026-02-17 19:03:31",
       "price_m2": 26.1
     },
     {
-      "listing_id": "athome_8523167",
-      "site": "Athome.lu",
-      "title": "ðŸ“¢ EXCLUSIVITÉ :  L'agence immobilière 2M's SARL\r\n\r\n – SUPERBE APPAR",
+      "listing_id": "nextimmo_85703143",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Esch-sur-Alzette",
       "city": "Esch-sur-Alzette",
       "price": 2650,
       "rooms": 5,
       "surface": 133,
-      "url": "https://www.athome.lu/location/penthouse/esch-sur-alzette/id-8523167.html",
-      "latitude": 49.5024342,
-      "longitude": 5.9722212,
-      "distance_km": 15.9,
-      "created_at": "2026-02-17 18:21:20",
+      "url": "https://nextimmo.lu/en/details/85703143",
+      "latitude": 49.4989,
+      "longitude": 5.99059,
+      "distance_km": 15.3,
+      "created_at": "2026-02-17 19:03:20",
       "price_m2": 19.9
     },
     {
@@ -1133,7 +1513,7 @@
       "latitude": 49.7843691,
       "longitude": 6.4672279,
       "distance_km": 31.5,
-      "created_at": "2026-02-17 18:21:10",
+      "created_at": "2026-02-17 19:03:10",
       "price_m2": 18.8
     },
     {
@@ -1148,7 +1528,7 @@
       "latitude": 49.7843691,
       "longitude": 6.4672279,
       "distance_km": 31.5,
-      "created_at": "2026-02-17 18:20:59",
+      "created_at": "2026-02-17 19:02:59",
       "price_m2": 21.3
     },
     {
@@ -1163,7 +1543,7 @@
       "latitude": 49.6084908,
       "longitude": 6.066778999999999,
       "distance_km": 4.9,
-      "created_at": "2026-02-17 18:20:49",
+      "created_at": "2026-02-17 19:02:49",
       "price_m2": 28.6
     },
     {
@@ -1178,7 +1558,7 @@
       "latitude": 49.6769782,
       "longitude": 6.123892,
       "distance_km": 8.6,
-      "created_at": "2026-02-17 18:20:38",
+      "created_at": "2026-02-17 19:02:39",
       "price_m2": 30.1
     },
     {
@@ -1193,7 +1573,7 @@
       "latitude": 49.6023272,
       "longitude": 6.1137845,
       "distance_km": 1.5,
-      "created_at": "2026-02-17 18:20:28",
+      "created_at": "2026-02-17 19:02:28",
       "price_m2": 26.2
     },
     {
@@ -1208,7 +1588,7 @@
       "latitude": 49.5085182,
       "longitude": 5.9368383,
       "distance_km": 17.5,
-      "created_at": "2026-02-17 18:20:18",
+      "created_at": "2026-02-17 19:02:18",
       "price_m2": 20.5
     },
     {
@@ -1223,22 +1603,22 @@
       "latitude": 49.6750699,
       "longitude": 6.1377211,
       "distance_km": 8.4,
-      "created_at": "2026-02-17 18:20:07",
+      "created_at": "2026-02-17 19:02:08",
       "price_m2": 26.5
     },
     {
-      "listing_id": "athome_8902299",
-      "site": "Athome.lu",
-      "title": "Découvrez ce bel appartement à louer à Bereldange.\n\nCet appartement él",
+      "listing_id": "nextimmo_8902299",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Bereldange",
       "city": "Bereldange",
       "price": 2700,
       "rooms": 2,
       "surface": 120,
-      "url": "https://www.athome.lu/location/appartement/bereldange/id-8902299.html",
+      "url": "https://nextimmo.lu/en/details/8902299",
       "latitude": 49.651267,
       "longitude": 6.1256089,
       "distance_km": 5.7,
-      "created_at": "2026-02-17 18:19:57",
+      "created_at": "2026-02-17 19:01:57",
       "price_m2": 22.5
     },
     {
@@ -1253,7 +1633,7 @@
       "latitude": 49.5731206,
       "longitude": 6.161307000000001,
       "distance_km": 3.6,
-      "created_at": "2026-02-17 18:19:47",
+      "created_at": "2026-02-17 19:01:47",
       "price_m2": 28.2
     },
     {
@@ -1268,7 +1648,7 @@
       "latitude": 49.6585471,
       "longitude": 6.4363572,
       "distance_km": 22.7,
-      "created_at": "2026-02-17 18:19:36",
+      "created_at": "2026-02-17 19:01:37",
       "price_m2": 20.6
     },
     {
@@ -1283,7 +1663,7 @@
       "latitude": 49.5298488,
       "longitude": 5.9832854,
       "distance_km": 13.4,
-      "created_at": "2026-02-17 18:19:26",
+      "created_at": "2026-02-17 19:01:27",
       "price_m2": 22.9
     },
     {
@@ -1298,7 +1678,7 @@
       "latitude": 49.59625699999999,
       "longitude": 6.1366508,
       "distance_km": 0.5,
-      "created_at": "2026-02-17 18:19:15",
+      "created_at": "2026-02-17 19:01:16",
       "price_m2": 23.7
     },
     {
@@ -1313,7 +1693,7 @@
       "latitude": 49.7073681,
       "longitude": 6.4865353,
       "distance_km": 28.0,
-      "created_at": "2026-02-17 18:19:05",
+      "created_at": "2026-02-17 19:01:06",
       "price_m2": 28.6
     },
     {
@@ -1328,7 +1708,7 @@
       "latitude": 49.6123327,
       "longitude": 6.125843199999999,
       "distance_km": 1.5,
-      "created_at": "2026-02-17 18:18:55",
+      "created_at": "2026-02-17 19:00:56",
       "price_m2": 25.6
     },
     {
@@ -1343,7 +1723,7 @@
       "latitude": 49.6100703,
       "longitude": 6.128842199999999,
       "distance_km": 1.2,
-      "created_at": "2026-02-17 18:18:45",
+      "created_at": "2026-02-17 19:00:46",
       "price_m2": 27.5
     },
     {
@@ -1358,7 +1738,7 @@
       "latitude": 49.5846224,
       "longitude": 6.2257527,
       "distance_km": 6.8,
-      "created_at": "2026-02-17 18:18:34",
+      "created_at": "2026-02-17 19:00:36",
       "price_m2": 25.0
     },
     {
@@ -1373,7 +1753,7 @@
       "latitude": 49.62977069999999,
       "longitude": 6.179113,
       "distance_km": 4.6,
-      "created_at": "2026-02-17 18:18:24",
+      "created_at": "2026-02-17 19:00:25",
       "price_m2": 26.8
     },
     {
@@ -1388,7 +1768,7 @@
       "latitude": 49.58636180000001,
       "longitude": 6.1078242,
       "distance_km": 2.4,
-      "created_at": "2026-02-17 18:18:14",
+      "created_at": "2026-02-17 19:00:15",
       "price_m2": 32.6
     },
     {
@@ -1403,7 +1783,7 @@
       "latitude": 49.6240248,
       "longitude": 6.127524699999999,
       "distance_km": 2.7,
-      "created_at": "2026-02-17 18:18:03",
+      "created_at": "2026-02-17 19:00:04",
       "price_m2": 27.7
     },
     {
@@ -1418,7 +1798,7 @@
       "latitude": 49.4881875,
       "longitude": 6.0857749,
       "distance_km": 12.9,
-      "created_at": "2026-02-17 18:17:53",
+      "created_at": "2026-02-17 18:59:54",
       "price_m2": 23.5
     },
     {
@@ -1433,7 +1813,7 @@
       "latitude": 49.5849,
       "longitude": 6.12475,
       "distance_km": 1.8,
-      "created_at": "2026-02-17 18:17:43",
+      "created_at": "2026-02-17 18:59:44",
       "price_m2": 27.4
     },
     {
@@ -1448,7 +1828,7 @@
       "latitude": 49.6799894,
       "longitude": 6.4422868,
       "distance_km": 23.9,
-      "created_at": "2026-02-17 18:17:32",
+      "created_at": "2026-02-17 18:59:34",
       "price_m2": 18.3
     },
     {
@@ -1463,7 +1843,7 @@
       "latitude": 49.6221039,
       "longitude": 6.1169699,
       "distance_km": 2.8,
-      "created_at": "2026-02-17 18:17:22",
+      "created_at": "2026-02-17 18:59:24",
       "price_m2": 32.9
     },
     {
@@ -1478,7 +1858,7 @@
       "latitude": 49.6123327,
       "longitude": 6.125843199999999,
       "distance_km": 1.5,
-      "created_at": "2026-02-17 18:17:12",
+      "created_at": "2026-02-17 18:59:13",
       "price_m2": 24.8
     },
     {
@@ -1493,7 +1873,7 @@
       "latitude": 49.583476,
       "longitude": 6.115351,
       "distance_km": 2.3,
-      "created_at": "2026-02-17 18:17:02",
+      "created_at": "2026-02-17 18:59:03",
       "price_m2": 28.6
     },
     {
@@ -1508,7 +1888,7 @@
       "latitude": 49.5983656,
       "longitude": 6.11858,
       "distance_km": 1.1,
-      "created_at": "2026-02-17 18:16:51",
+      "created_at": "2026-02-17 18:58:53",
       "price_m2": 27.2
     },
     {
@@ -1523,7 +1903,7 @@
       "latitude": 49.599092,
       "longitude": 6.132617,
       "distance_km": 0.2,
-      "created_at": "2026-02-17 18:16:41",
+      "created_at": "2026-02-17 18:58:43",
       "price_m2": 26.6
     },
     {
@@ -1538,23 +1918,8 @@
       "latitude": 49.6123327,
       "longitude": 6.1258432,
       "distance_km": 1.5,
-      "created_at": "2026-02-17 18:16:31",
+      "created_at": "2026-02-17 18:58:33",
       "price_m2": 30.0
-    },
-    {
-      "listing_id": "athome_8940694",
-      "site": "Athome.lu",
-      "title": "+352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Estate Invest vous prop",
-      "city": "Luxembourg-Limpertsberg",
-      "price": 2500,
-      "rooms": 2,
-      "surface": 110,
-      "url": "https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-8940694.html",
-      "latitude": 49.6261216,
-      "longitude": 6.113202299999999,
-      "distance_km": 3.3,
-      "created_at": "2026-02-17 18:16:21",
-      "price_m2": 22.7
     },
     {
       "listing_id": "athome_8970293",
@@ -1568,8 +1933,23 @@
       "latitude": 49.62487309999999,
       "longitude": 6.1091941,
       "distance_km": 3.3,
-      "created_at": "2026-02-17 18:16:10",
+      "created_at": "2026-02-17 18:58:23",
       "price_m2": 28.5
+    },
+    {
+      "listing_id": "athome_8940694",
+      "site": "Athome.lu",
+      "title": "+352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Estate Invest vous prop",
+      "city": "Luxembourg-Limpertsberg",
+      "price": 2500,
+      "rooms": 2,
+      "surface": 110,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-8940694.html",
+      "latitude": 49.6261216,
+      "longitude": 6.113202299999999,
+      "distance_km": 3.3,
+      "created_at": "2026-02-17 18:58:13",
+      "price_m2": 22.7
     },
     {
       "listing_id": "athome_8297734",
@@ -1583,7 +1963,7 @@
       "latitude": 49.591618,
       "longitude": 6.115675,
       "distance_km": 1.6,
-      "created_at": "2026-02-17 18:16:00",
+      "created_at": "2026-02-17 18:58:02",
       "price_m2": 34.5
     },
     {
@@ -1598,7 +1978,7 @@
       "latitude": 49.6214421,
       "longitude": 6.0656327,
       "distance_km": 5.5,
-      "created_at": "2026-02-17 18:15:49",
+      "created_at": "2026-02-17 18:57:52",
       "price_m2": 28.7
     },
     {
@@ -1613,7 +1993,7 @@
       "latitude": 49.6450986,
       "longitude": 6.2223386,
       "distance_km": 8.1,
-      "created_at": "2026-02-17 18:15:39",
+      "created_at": "2026-02-17 18:57:42",
       "price_m2": 26.6
     },
     {
@@ -1628,7 +2008,7 @@
       "latitude": 49.6022613,
       "longitude": 6.117406099999999,
       "distance_km": 1.2,
-      "created_at": "2026-02-17 18:15:29",
+      "created_at": "2026-02-17 18:57:32",
       "price_m2": 30.0
     },
     {
@@ -1643,7 +2023,7 @@
       "latitude": 49.815273,
       "longitude": 6.129583,
       "distance_km": 23.9,
-      "created_at": "2026-02-17 18:15:19",
+      "created_at": "2026-02-17 18:57:22",
       "price_m2": 31.8
     },
     {
@@ -1658,7 +2038,7 @@
       "latitude": 49.6123327,
       "longitude": 6.125843199999999,
       "distance_km": 1.5,
-      "created_at": "2026-02-17 18:15:08",
+      "created_at": "2026-02-17 18:57:11",
       "price_m2": 25.2
     },
     {
@@ -1673,7 +2053,7 @@
       "latitude": 49.5398355,
       "longitude": 6.1444186,
       "distance_km": 6.7,
-      "created_at": "2026-02-17 18:14:58",
+      "created_at": "2026-02-17 18:57:01",
       "price_m2": 24.5
     },
     {
@@ -1688,7 +2068,7 @@
       "latitude": 49.47,
       "longitude": 6.37,
       "distance_km": 22.3,
-      "created_at": "2026-02-17 18:14:48",
+      "created_at": "2026-02-17 18:56:51",
       "price_m2": 18.7
     },
     {
@@ -1703,7 +2083,7 @@
       "latitude": 49.6106248,
       "longitude": 6.0502349,
       "distance_km": 6.2,
-      "created_at": "2026-02-17 18:14:37",
+      "created_at": "2026-02-17 18:56:41",
       "price_m2": 20.4
     },
     {
@@ -1718,7 +2098,7 @@
       "latitude": 49.5998688,
       "longitude": 6.1317861,
       "distance_km": 0.2,
-      "created_at": "2026-02-17 18:14:27",
+      "created_at": "2026-02-17 18:56:31",
       "price_m2": 24.3
     },
     {
@@ -1733,7 +2113,7 @@
       "latitude": 49.6124029,
       "longitude": 6.129606799999999,
       "distance_km": 1.4,
-      "created_at": "2026-02-17 18:14:17",
+      "created_at": "2026-02-17 18:56:20",
       "price_m2": 29.2
     },
     {
@@ -1748,7 +2128,7 @@
       "latitude": 49.4801198,
       "longitude": 6.0821581,
       "distance_km": 13.8,
-      "created_at": "2026-02-17 18:14:06",
+      "created_at": "2026-02-17 18:56:10",
       "price_m2": 25.5
     },
     {
@@ -1763,7 +2143,7 @@
       "latitude": 49.6083062,
       "longitude": 6.10673,
       "distance_km": 2.2,
-      "created_at": "2026-02-17 18:13:56",
+      "created_at": "2026-02-17 18:56:00",
       "price_m2": 22.6
     },
     {
@@ -1778,7 +2158,7 @@
       "latitude": 49.6155658,
       "longitude": 6.1028472,
       "distance_km": 2.8,
-      "created_at": "2026-02-17 18:13:46",
+      "created_at": "2026-02-17 18:55:50",
       "price_m2": 16.7
     },
     {
@@ -1793,7 +2173,7 @@
       "latitude": 49.6247615,
       "longitude": 6.1294726,
       "distance_km": 2.8,
-      "created_at": "2026-02-17 18:13:35",
+      "created_at": "2026-02-17 18:55:40",
       "price_m2": 17.2
     },
     {
@@ -1808,7 +2188,7 @@
       "latitude": 49.599092,
       "longitude": 6.132617,
       "distance_km": 0.2,
-      "created_at": "2026-02-17 18:13:25",
+      "created_at": "2026-02-17 18:55:30",
       "price_m2": 30.6
     },
     {
@@ -1823,8 +2203,23 @@
       "latitude": 49.52026,
       "longitude": 5.94715,
       "distance_km": 16.1,
-      "created_at": "2026-02-17 18:13:15",
+      "created_at": "2026-02-17 18:55:20",
       "price_m2": 21.9
+    },
+    {
+      "listing_id": "athome_8974600",
+      "site": "Athome.lu",
+      "title": "ACHTUNG: KEINE VERMITTLUNGSPROVISION / SOFORTIGER BEZUG MÖGLICH\n\n\n\nBes",
+      "city": "Perl",
+      "price": 2500,
+      "rooms": 3,
+      "surface": 135,
+      "url": "https://www.athome.lu/location/penthouse/perl/id-8974600.html",
+      "latitude": 49.4730674,
+      "longitude": 6.3851003,
+      "distance_km": 23.0,
+      "created_at": "2026-02-17 18:55:09",
+      "price_m2": 18.5
     },
     {
       "listing_id": "athome_1719537",
@@ -1838,7 +2233,7 @@
       "latitude": 49.64983,
       "longitude": 6.22619,
       "distance_km": 8.6,
-      "created_at": "2026-02-17 18:13:05",
+      "created_at": "2026-02-17 18:54:59",
       "price_m2": 23.0
     },
     {
@@ -1853,7 +2248,7 @@
       "latitude": 49.5837607,
       "longitude": 6.1424563,
       "distance_km": 1.9,
-      "created_at": "2026-02-17 18:12:54",
+      "created_at": "2026-02-17 18:54:49",
       "price_m2": 25.2
     },
     {
@@ -1868,23 +2263,23 @@
       "latitude": 49.5176326,
       "longitude": 6.098749499999999,
       "distance_km": 9.5,
-      "created_at": "2026-02-17 18:12:44",
+      "created_at": "2026-02-17 18:54:38",
       "price_m2": 19.6
     },
     {
-      "listing_id": "athome_8974098",
-      "site": "Athome.lu",
-      "title": "Appartement 2 chambres à Belair, Avenue du Dix Septembre\r\n\r\nEngel & Vö",
+      "listing_id": "nextimmo_8880291",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Belair",
       "city": "Luxembourg-Belair",
       "price": 2600,
       "rooms": 2,
-      "surface": 97,
-      "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-8974098.html",
-      "latitude": 49.6081079,
-      "longitude": 6.112749399999999,
-      "distance_km": 1.8,
-      "created_at": "2026-02-17 18:12:34",
-      "price_m2": 26.8
+      "surface": 95,
+      "url": "https://nextimmo.lu/en/details/8880291",
+      "latitude": 49.6097283,
+      "longitude": 6.1092036,
+      "distance_km": 2.1,
+      "created_at": "2026-02-17 18:54:28",
+      "price_m2": 27.4
     },
     {
       "listing_id": "nextimmo_85400498",
@@ -1898,22 +2293,22 @@
       "latitude": 49.58421,
       "longitude": 5.96409,
       "distance_km": 12.4,
-      "created_at": "2026-02-17 18:12:24",
+      "created_at": "2026-02-17 18:54:18",
       "price_m2": 23.3
     },
     {
-      "listing_id": "athome_8899869",
+      "listing_id": "athome_8899871",
       "site": "Athome.lu",
-      "title": "Superbe duplex de 98,78 m² situé à Garnich, Luxembourg, est une opport",
+      "title": "Superbe duplex de 98,43 m² situé à Garnich, Luxembourg, est une opport",
       "city": "Garnich",
       "price": 2400,
       "rooms": 2,
       "surface": 98,
-      "url": "https://www.athome.lu/location/duplex/garnich/id-8899869.html",
+      "url": "https://www.athome.lu/location/duplex/garnich/id-8899871.html",
       "latitude": 49.6174427,
       "longitude": 5.9512695,
       "distance_km": 13.3,
-      "created_at": "2026-02-17 18:12:14",
+      "created_at": "2026-02-17 18:54:08",
       "price_m2": 24.5
     },
     {
@@ -1928,7 +2323,7 @@
       "latitude": 49.5986098,
       "longitude": 6.1186307,
       "distance_km": 1.1,
-      "created_at": "2026-02-17 18:12:03",
+      "created_at": "2026-02-17 18:53:57",
       "price_m2": 30.8
     },
     {
@@ -1943,7 +2338,7 @@
       "latitude": 49.62508,
       "longitude": 6.14274,
       "distance_km": 2.9,
-      "created_at": "2026-02-17 18:11:53",
+      "created_at": "2026-02-17 18:53:47",
       "price_m2": 27.0
     },
     {
@@ -1958,7 +2353,7 @@
       "latitude": 49.6576485,
       "longitude": 6.0817229,
       "distance_km": 7.4,
-      "created_at": "2026-02-17 18:11:43",
+      "created_at": "2026-02-17 18:53:37",
       "price_m2": 24.7
     },
     {
@@ -1973,7 +2368,7 @@
       "latitude": 49.8268301,
       "longitude": 5.965631,
       "distance_km": 28.0,
-      "created_at": "2026-02-17 18:11:33",
+      "created_at": "2026-02-17 18:53:27",
       "price_m2": 21.2
     },
     {
@@ -1988,7 +2383,7 @@
       "latitude": 49.6287422,
       "longitude": 6.1138499,
       "distance_km": 3.5,
-      "created_at": "2026-02-17 18:11:22",
+      "created_at": "2026-02-17 18:53:17",
       "price_m2": 24.8
     },
     {
@@ -2003,7 +2398,7 @@
       "latitude": 49.62155,
       "longitude": 6.16217,
       "distance_km": 3.1,
-      "created_at": "2026-02-17 18:11:12",
+      "created_at": "2026-02-17 18:53:07",
       "price_m2": 28.3
     },
     {
@@ -2018,7 +2413,7 @@
       "latitude": 49.655,
       "longitude": 6.08,
       "distance_km": 7.3,
-      "created_at": "2026-02-17 18:10:54",
+      "created_at": "2026-02-17 18:52:56",
       "price_m2": 24.0
     },
     {
@@ -2033,7 +2428,7 @@
       "latitude": 49.62252,
       "longitude": 6.16897,
       "distance_km": 3.5,
-      "created_at": "2026-02-17 18:10:44",
+      "created_at": "2026-02-17 18:52:46",
       "price_m2": 27.1
     },
     {
@@ -2048,7 +2443,7 @@
       "latitude": 49.5983656,
       "longitude": 6.11858,
       "distance_km": 1.1,
-      "created_at": "2026-02-17 18:10:34",
+      "created_at": "2026-02-17 18:52:36",
       "price_m2": 30.3
     },
     {
@@ -2063,7 +2458,7 @@
       "latitude": 49.545,
       "longitude": 6.15,
       "distance_km": 6.2,
-      "created_at": "2026-02-17 18:10:21",
+      "created_at": "2026-02-17 18:52:24",
       "price_m2": 23.2
     },
     {
@@ -2078,7 +2473,7 @@
       "latitude": 49.771065,
       "longitude": 5.9816771,
       "distance_km": 22.0,
-      "created_at": "2026-02-17 18:10:10",
+      "created_at": "2026-02-17 18:52:13",
       "price_m2": 25.9
     },
     {
@@ -2093,7 +2488,7 @@
       "latitude": 49.5686532,
       "longitude": 6.0650651,
       "distance_km": 6.1,
-      "created_at": "2026-02-17 18:10:00",
+      "created_at": "2026-02-17 18:52:03",
       "price_m2": 16.7
     },
     {
@@ -2108,7 +2503,7 @@
       "latitude": 49.5045503,
       "longitude": 5.9435467,
       "distance_km": 17.4,
-      "created_at": "2026-02-17 18:09:50",
+      "created_at": "2026-02-17 18:51:53",
       "price_m2": 24.2
     },
     {
@@ -2123,7 +2518,7 @@
       "latitude": 49.5872157,
       "longitude": 6.1061192,
       "distance_km": 2.5,
-      "created_at": "2026-02-17 18:09:40",
+      "created_at": "2026-02-17 18:51:43",
       "price_m2": 27.8
     },
     {
@@ -2138,7 +2533,7 @@
       "latitude": 49.6315323,
       "longitude": 6.117433699999999,
       "distance_km": 3.7,
-      "created_at": "2026-02-17 18:09:29",
+      "created_at": "2026-02-17 18:51:33",
       "price_m2": 21.6
     },
     {
@@ -2153,7 +2548,7 @@
       "latitude": 49.6040151,
       "longitude": 6.1370979,
       "distance_km": 0.5,
-      "created_at": "2026-02-17 18:09:19",
+      "created_at": "2026-02-17 18:51:23",
       "price_m2": 33.1
     },
     {
@@ -2168,7 +2563,7 @@
       "latitude": 49.6024772,
       "longitude": 6.0732987,
       "distance_km": 4.4,
-      "created_at": "2026-02-17 18:09:09",
+      "created_at": "2026-02-17 18:51:12",
       "price_m2": 25.8
     },
     {
@@ -2183,7 +2578,7 @@
       "latitude": 49.52075,
       "longitude": 5.8999095,
       "distance_km": 19.1,
-      "created_at": "2026-02-17 18:08:59",
+      "created_at": "2026-02-17 18:51:02",
       "price_m2": 24.1
     },
     {
@@ -2198,7 +2593,7 @@
       "latitude": 49.5923442,
       "longitude": 6.1441177,
       "distance_km": 1.1,
-      "created_at": "2026-02-17 18:08:48",
+      "created_at": "2026-02-17 18:50:52",
       "price_m2": 28.4
     },
     {
@@ -2213,23 +2608,8 @@
       "latitude": 49.599092,
       "longitude": 6.132617,
       "distance_km": 0.2,
-      "created_at": "2026-02-17 18:08:38",
+      "created_at": "2026-02-17 18:50:42",
       "price_m2": 15.0
-    },
-    {
-      "listing_id": "athome_8940704",
-      "site": "Athome.lu",
-      "title": "+352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Estate Invest vous prop",
-      "city": "Luxembourg-Centre ville",
-      "price": 2500,
-      "rooms": 2,
-      "surface": 110,
-      "url": "https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8940704.html",
-      "latitude": 49.6124883,
-      "longitude": 6.126248899999999,
-      "distance_km": 1.5,
-      "created_at": "2026-02-17 18:08:28",
-      "price_m2": 22.7
     },
     {
       "listing_id": "athome_8221893",
@@ -2243,7 +2623,7 @@
       "latitude": 49.4964624,
       "longitude": 5.9753139,
       "distance_km": 16.2,
-      "created_at": "2026-02-17 18:08:17",
+      "created_at": "2026-02-17 18:50:32",
       "price_m2": 19.4
     },
     {
@@ -2258,8 +2638,23 @@
       "latitude": 49.6278694,
       "longitude": 6.153422,
       "distance_km": 3.4,
-      "created_at": "2026-02-17 18:08:07",
+      "created_at": "2026-02-17 18:50:21",
       "price_m2": 30.0
+    },
+    {
+      "listing_id": "athome_8940704",
+      "site": "Athome.lu",
+      "title": "+352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Estate Invest vous prop",
+      "city": "Luxembourg-Centre ville",
+      "price": 2500,
+      "rooms": 2,
+      "surface": 110,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8940704.html",
+      "latitude": 49.6124883,
+      "longitude": 6.126248899999999,
+      "distance_km": 1.5,
+      "created_at": "2026-02-17 18:50:11",
+      "price_m2": 22.7
     },
     {
       "listing_id": "nextimmo_5697",
@@ -2273,7 +2668,7 @@
       "latitude": 49.53,
       "longitude": 5.89,
       "distance_km": 19.3,
-      "created_at": "2026-02-17 18:07:57",
+      "created_at": "2026-02-17 18:50:01",
       "price_m2": 21.9
     },
     {
@@ -2288,7 +2683,7 @@
       "latitude": 49.50449,
       "longitude": 5.9419,
       "distance_km": 17.5,
-      "created_at": "2026-02-17 18:07:47",
+      "created_at": "2026-02-17 18:49:51",
       "price_m2": 25.6
     },
     {
@@ -2303,7 +2698,7 @@
       "latitude": 49.6020642,
       "longitude": 6.099047,
       "distance_km": 2.5,
-      "created_at": "2026-02-17 18:07:37",
+      "created_at": "2026-02-17 18:49:41",
       "price_m2": 29.1
     },
     {
@@ -2318,7 +2713,7 @@
       "latitude": 49.6212192,
       "longitude": 6.0527055,
       "distance_km": 6.3,
-      "created_at": "2026-02-17 18:07:26",
+      "created_at": "2026-02-17 18:49:31",
       "price_m2": 29.1
     },
     {
@@ -2333,7 +2728,7 @@
       "latitude": 49.6391127,
       "longitude": 6.1376927,
       "distance_km": 4.4,
-      "created_at": "2026-02-17 18:07:16",
+      "created_at": "2026-02-17 18:49:20",
       "price_m2": 22.3
     },
     {
@@ -2348,7 +2743,7 @@
       "latitude": 49.6106372,
       "longitude": 6.1089059,
       "distance_km": 2.2,
-      "created_at": "2026-02-17 18:07:06",
+      "created_at": "2026-02-17 18:49:10",
       "price_m2": null
     },
     {
@@ -2363,7 +2758,7 @@
       "latitude": 49.81318510000001,
       "longitude": 6.420023,
       "distance_km": 31.4,
-      "created_at": "2026-02-17 18:06:55",
+      "created_at": "2026-02-17 18:49:00",
       "price_m2": null
     },
     {
@@ -2378,7 +2773,7 @@
       "latitude": 49.7133,
       "longitude": 6.25612,
       "distance_km": 15.4,
-      "created_at": "2026-02-17 18:06:45",
+      "created_at": "2026-02-17 18:48:50",
       "price_m2": 25.3
     },
     {
@@ -2393,7 +2788,7 @@
       "latitude": 49.6207211,
       "longitude": 6.052904900000001,
       "distance_km": 6.3,
-      "created_at": "2026-02-17 18:06:35",
+      "created_at": "2026-02-17 18:48:40",
       "price_m2": 29.4
     },
     {
@@ -2408,7 +2803,7 @@
       "latitude": 49.545017,
       "longitude": 6.3674222,
       "distance_km": 17.9,
-      "created_at": "2026-02-17 18:06:24",
+      "created_at": "2026-02-17 18:48:29",
       "price_m2": 19.2
     },
     {
@@ -2423,7 +2818,7 @@
       "latitude": 49.6687138,
       "longitude": 6.1321495,
       "distance_km": 7.6,
-      "created_at": "2026-02-17 18:06:14",
+      "created_at": "2026-02-17 18:48:19",
       "price_m2": 30.1
     },
     {
@@ -2438,7 +2833,7 @@
       "latitude": 49.555,
       "longitude": 5.85,
       "distance_km": 21.1,
-      "created_at": "2026-02-17 18:06:03",
+      "created_at": "2026-02-17 18:48:09",
       "price_m2": 18.7
     },
     {
@@ -2453,7 +2848,7 @@
       "latitude": 49.6863684,
       "longitude": 5.9151653,
       "distance_km": 18.5,
-      "created_at": "2026-02-17 18:05:53",
+      "created_at": "2026-02-17 18:47:59",
       "price_m2": 22.9
     },
     {
@@ -2468,7 +2863,7 @@
       "latitude": 49.5596561,
       "longitude": 5.8651621,
       "distance_km": 19.9,
-      "created_at": "2026-02-17 18:05:43",
+      "created_at": "2026-02-17 18:47:49",
       "price_m2": 23.9
     },
     {
@@ -2483,7 +2878,7 @@
       "latitude": 49.7373735,
       "longitude": 6.0202389,
       "distance_km": 17.3,
-      "created_at": "2026-02-17 18:05:32",
+      "created_at": "2026-02-17 18:47:39",
       "price_m2": 14.0
     },
     {
@@ -2498,7 +2893,7 @@
       "latitude": 49.6060922,
       "longitude": 6.1154686,
       "distance_km": 1.5,
-      "created_at": "2026-02-17 18:05:22",
+      "created_at": "2026-02-17 18:47:28",
       "price_m2": 30.0
     },
     {
@@ -2513,7 +2908,7 @@
       "latitude": 49.55,
       "longitude": 5.84,
       "distance_km": 21.9,
-      "created_at": "2026-02-17 18:05:12",
+      "created_at": "2026-02-17 18:47:18",
       "price_m2": 18.8
     },
     {
@@ -2528,8 +2923,38 @@
       "latitude": 49.6285462,
       "longitude": 6.1525617,
       "distance_km": 3.4,
-      "created_at": "2026-02-17 18:05:01",
+      "created_at": "2026-02-17 18:47:08",
       "price_m2": 35.0
+    },
+    {
+      "listing_id": "athome_8726729",
+      "site": "Athome.lu",
+      "title": "L'offre est sans commission pour le locataire !!! \n\nAppartement modern",
+      "city": "Perl",
+      "price": 2000,
+      "rooms": 4,
+      "surface": 120,
+      "url": "https://www.athome.lu/location/appartement/perl/id-8726729.html",
+      "latitude": 49.47774580000001,
+      "longitude": 6.3818646,
+      "distance_km": 22.5,
+      "created_at": "2026-02-17 18:46:58",
+      "price_m2": 16.7
+    },
+    {
+      "listing_id": "athome_8831762",
+      "site": "Athome.lu",
+      "title": "Wohnung zur Miete ? Perl (Deutschland)\nDiese helle Wohnung befindet si",
+      "city": "Perl",
+      "price": 1750,
+      "rooms": 4,
+      "surface": 110,
+      "url": "https://www.athome.lu/location/appartement/perl/id-8831762.html",
+      "latitude": 49.4778083,
+      "longitude": 6.3823749,
+      "distance_km": 22.5,
+      "created_at": "2026-02-17 18:46:48",
+      "price_m2": 15.9
     },
     {
       "listing_id": "athome_8971722",
@@ -2543,7 +2968,7 @@
       "latitude": 49.6118458,
       "longitude": 6.126972500000001,
       "distance_km": 1.4,
-      "created_at": "2026-02-17 18:04:51",
+      "created_at": "2026-02-17 18:46:37",
       "price_m2": 25.3
     },
     {
@@ -2558,8 +2983,23 @@
       "latitude": 49.5854461,
       "longitude": 6.224731299999999,
       "distance_km": 6.7,
-      "created_at": "2026-02-17 18:04:46",
+      "created_at": "2026-02-17 18:46:27",
       "price_m2": 29.3
+    },
+    {
+      "listing_id": "athome_8957695",
+      "site": "Athome.lu",
+      "title": "Triplex Arlon",
+      "city": "Arlon",
+      "price": 1850,
+      "rooms": 3,
+      "surface": 150,
+      "url": "https://www.athome.lu/location/triplex/arlon/id-8957695.html",
+      "latitude": 49.68841190000001,
+      "longitude": 5.8166288,
+      "distance_km": 24.9,
+      "created_at": "2026-02-17 18:46:21",
+      "price_m2": 12.3
     }
   ]
 }
