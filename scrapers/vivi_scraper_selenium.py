@@ -45,32 +45,48 @@ class ViviScraperSelenium:
             driver = webdriver.Firefox(options=options)
             driver.set_page_load_timeout(20)
 
-            # Scraper appartements ET maisons
+            import time
+            MAX_PAGES = 3
+            seen_ids = set()
+
+            # Scraper appartements ET maisons avec pagination
             for search_url in self.search_urls:
-                try:
-                    logger.info(f"Chargement {search_url}")
-                    driver.get(search_url)
+                for page_num in range(1, MAX_PAGES + 1):
+                    try:
+                        page_url = f"{search_url}?page={page_num}" if page_num > 1 else search_url
+                        logger.info(f"Chargement {page_url}")
+                        driver.get(page_url)
 
-                    # Attendre chargement JavaScript
-                    import time
-                    time.sleep(8)
+                        # Attendre chargement JavaScript
+                        time.sleep(8)
 
-                    # Extraire cartes annonces
-                    cards = driver.find_elements(By.CLASS_NAME, 'vivi-property')
-                    logger.info(f"  Annonces trouvées: {len(cards)}")
+                        # Extraire cartes annonces
+                        cards = driver.find_elements(By.CLASS_NAME, 'vivi-property')
+                        logger.info(f"  Page {page_num}: {len(cards)} annonces")
 
-                    for card in cards[:15]:  # Limiter à 15 par type
-                        try:
-                            listing = self._extract_listing(card)
-                            if listing and self._matches_criteria(listing):
-                                listings.append(listing)
-                        except Exception as e:
-                            logger.debug(f"  Erreur extraction: {e}")
-                            continue
+                        if not cards:
+                            break
 
-                except Exception as e:
-                    logger.warning(f"  Erreur URL {search_url}: {e}")
-                    continue
+                        new_count = 0
+                        for card in cards:
+                            try:
+                                listing = self._extract_listing(card)
+                                if listing and self._matches_criteria(listing):
+                                    lid = listing['listing_id']
+                                    if lid not in seen_ids:
+                                        seen_ids.add(lid)
+                                        listings.append(listing)
+                                        new_count += 1
+                            except Exception as e:
+                                logger.debug(f"  Erreur extraction: {e}")
+                                continue
+
+                        if new_count == 0:
+                            break
+
+                    except Exception as e:
+                        logger.warning(f"  Erreur page {page_num} {search_url}: {e}")
+                        break
 
             logger.info(f"✅ {len(listings)} annonces après filtrage")
             return listings

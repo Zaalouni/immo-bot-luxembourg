@@ -47,28 +47,35 @@ class NewimmoScraperReal(SeleniumScraperBase):
             all_links = set()
             combined_source = ''
 
+            MAX_PAGES = 3
             for search_url in self.search_urls:
-                try:
-                    logger.info(f"🟡 {self.site_name}: Chargement {search_url}")
-                    driver.get(search_url)
-                    time.sleep(8)
-                    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    time.sleep(3)
+                type_label = search_url.rstrip('/').split('/')[-1]
+                for page_num in range(1, MAX_PAGES + 1):
+                    try:
+                        page_url = f"{search_url}?page={page_num}" if page_num > 1 else search_url
+                        logger.info(f"🟡 {self.site_name}: Chargement {page_url}")
+                        driver.get(page_url)
+                        time.sleep(8)
+                        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                        time.sleep(3)
 
-                    page_source = driver.page_source
-                    combined_source += '\n' + page_source
+                        page_source = driver.page_source
+                        combined_source += '\n' + page_source
 
-                    # Pattern: /fr/louer/TYPE/VILLE/ID-TYPE-VILLE/
-                    links = re.findall(
-                        r'href="(/fr/louer/(?:appartement|maison|studio|appartement-meuble|duplex|penthouse)/[^/]+/\d+-[^"]+)"',
-                        page_source
-                    )
-                    new_links = set(links) - all_links
-                    all_links.update(links)
-                    logger.info(f"  {search_url.split('/')[-2]}: {len(new_links)} nouvelles annonces")
-                except Exception as e:
-                    logger.debug(f"Erreur {search_url}: {e}")
-                    continue
+                        # Pattern: /fr/louer/TYPE/VILLE/ID-TYPE-VILLE/
+                        links = re.findall(
+                            r'href="(/fr/louer/(?:appartement|maison|studio|appartement-meuble|duplex|penthouse)/[^/]+/\d+-[^"]+)"',
+                            page_source
+                        )
+                        new_links = set(links) - all_links
+                        all_links.update(links)
+                        logger.info(f"  {type_label} page {page_num}: {len(new_links)} nouvelles annonces")
+
+                        if len(new_links) == 0:
+                            break
+                    except Exception as e:
+                        logger.debug(f"Erreur {search_url} page {page_num}: {e}")
+                        break
 
             logger.info(f"🔍 {self.site_name}: {len(all_links)} annonces uniques total")
 

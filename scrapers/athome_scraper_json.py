@@ -5,6 +5,7 @@
 # Methode : extrait window.__INITIAL_STATE__ du HTML, parse le JSON, extrait
 #           les annonces depuis data['search']['list']
 # Multi-URL : scrape /location/appartement/ ET /location/maison/
+# Pagination : URLs filtrees (prix, chambres) + pages 1..MAX_PAGES
 # Robustesse : _safe_str() gere les champs dict/list/None dans le JSON Athome
 #              (immotype, price, city, description peuvent etre des dicts)
 # Fallbacks JSON : si parse echoue → extraction directe du tableau "list"
@@ -16,19 +17,23 @@
 import requests
 import re
 import json
+import time
 import logging
-from config import MAX_PRICE, MIN_ROOMS
+from config import MAX_PRICE, MIN_PRICE, MIN_ROOMS, MAX_ROOMS
 from utils import haversine_distance
 
 logger = logging.getLogger(__name__)
 
+MAX_PAGES = 12
+
 class AthomeScraperJSON:
     def __init__(self):
         self.base_url = "https://www.athome.lu"
-        # Chercher appartements ET maisons separement pour plus de resultats
+        # URLs filtrees par prix et chambres pour reduire les resultats
+        filter_params = f"?price_min={MIN_PRICE}&price_max={MAX_PRICE}&bedrooms_min={MIN_ROOMS}&bedrooms_max={MAX_ROOMS}"
         self.search_urls = [
-            f"{self.base_url}/location/appartement/",
-            f"{self.base_url}/location/maison/",
+            f"{self.base_url}/location/appartement/{filter_params}",
+            f"{self.base_url}/location/maison/{filter_params}",
         ]
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
@@ -95,25 +100,39 @@ class AthomeScraperJSON:
             return []
 
     def scrape(self):
-        """Scraper Athome.lu — appartements + maisons, limite 30 par type"""
+        """Scraper Athome.lu — appartements + maisons, avec pagination"""
         try:
-            logger.info("Scraping Athome.lu via JSON (appartements + maisons)")
+            logger.info("Scraping Athome.lu via JSON (appartements + maisons, pagination)")
             all_items = []
             seen_ids = set()
 
             for search_url in self.search_urls:
-                items = self._parse_page(search_url)
-                logger.info(f"  {search_url.split('/')[-2]}: {len(items)} annonces brutes")
-                for item in items:
-                    item_id = item.get('id')
-                    if item_id and item_id not in seen_ids:
-                        seen_ids.add(item_id)
-                        all_items.append(item)
+                type_label = search_url.split('?')[0].rstrip('/').split('/')[-1]
+                for page_num in range(1, MAX_PAGES + 1):
+                    page_url = f"{search_url}&page={page_num}"
+                    items = self._parse_page(page_url)
+                    logger.info(f"  {type_label} page {page_num}: {len(items)} annonces")
+
+                    if not items:
+                        break
+
+                    new_count = 0
+                    for item in items:
+                        item_id = item.get('id')
+                        if item_id and item_id not in seen_ids:
+                            seen_ids.add(item_id)
+                            all_items.append(item)
+                            new_count += 1
+
+                    if new_count == 0:
+                        break
+
+                    time.sleep(1)
 
             logger.info(f"Total brut (dedupliqué): {len(all_items)}")
 
             listings = []
-            for item in all_items[:30]:
+            for item in all_items:
                 try:
                     listing = self._extract_listing(item)
                     if listing and self._matches_criteria(listing):

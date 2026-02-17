@@ -4,6 +4,7 @@
 # =============================================================================
 # Methode : requete directe sur l'API REST Nextimmo (JSON)
 # Multi-type : type=1 (appartements) + type=2 (maisons), dedup interne seen_ids
+# Pagination : pages 1..MAX_PAGES par type de bien
 # Fallback : _scrape_html() si l'API retourne 0 resultats ou erreur HTTP
 # GPS : extraction lat/lng depuis JSON + calcul distance Haversine
 # Images : extraction depuis champs JSON (image, photo, thumbnail)
@@ -12,6 +13,7 @@
 # Instance globale : nextimmo_scraper
 # =============================================================================
 import requests
+import time
 import logging
 from config import USER_AGENT, MAX_PRICE, MIN_ROOMS
 
@@ -45,36 +47,50 @@ class NextimmoScraper:
                 (2, 'maisons'),
             ]
 
+            MAX_PAGES = 10
+
             for prop_type, label in property_types:
-                try:
-                    params = {
-                        'country': 1,       # Luxembourg
-                        'type': prop_type,
-                        'category': 2,      # Rent
-                        'page': 1,
-                    }
+                for page_num in range(1, MAX_PAGES + 1):
+                    try:
+                        params = {
+                            'country': 1,       # Luxembourg
+                            'type': prop_type,
+                            'category': 2,      # Rent
+                            'page': page_num,
+                        }
 
-                    response = requests.get(self.api_url, params=params, headers=self.headers, timeout=15)
+                        response = requests.get(self.api_url, params=params, headers=self.headers, timeout=15)
 
-                    if response.status_code != 200:
-                        continue
+                        if response.status_code != 200:
+                            break
 
-                    data = response.json()
-                    items = data.get('data', [])
-                    logger.info(f"   {label}: {len(items)} brutes")
+                        data = response.json()
+                        items = data.get('data', [])
+                        logger.info(f"   {label} page {page_num}: {len(items)} brutes")
 
-                    for item in items[:20]:
-                        try:
-                            listing = self._extract_from_json(item)
-                            if listing and listing['listing_id'] not in seen_ids:
-                                if self._matches_criteria(listing):
-                                    listings.append(listing)
-                                    seen_ids.add(listing['listing_id'])
-                        except Exception as e:
-                            logger.debug(f"Erreur extraction: {e}")
-                            continue
-                except Exception as e:
-                    logger.debug(f"Erreur type {label}: {e}")
+                        if not items:
+                            break
+
+                        new_count = 0
+                        for item in items:
+                            try:
+                                listing = self._extract_from_json(item)
+                                if listing and listing['listing_id'] not in seen_ids:
+                                    if self._matches_criteria(listing):
+                                        listings.append(listing)
+                                        seen_ids.add(listing['listing_id'])
+                                        new_count += 1
+                            except Exception as e:
+                                logger.debug(f"Erreur extraction: {e}")
+                                continue
+
+                        if new_count == 0 and len(items) < 20:
+                            break
+
+                        time.sleep(1)
+                    except Exception as e:
+                        logger.debug(f"Erreur type {label} page {page_num}: {e}")
+                        break
 
             if not listings:
                 logger.warning("API retourne 0 résultats, fallback HTML...")
@@ -212,7 +228,7 @@ class NextimmoScraper:
             logger.info(f"   📊 __NEXT_DATA__ contient {len(items)} annonces")
 
             listings = []
-            for item in items[:20]:
+            for item in items:
                 try:
                     listing = self._extract_from_json(item)
                     if listing and self._matches_criteria(listing):

@@ -3,13 +3,14 @@
 # =============================================================================
 # Methode : requete HTTP GET sur la page de recherche, extraction des annonces
 #           par regex sur le HTML (prix, URL, ID, titre)
+# Pagination : pages 1..MAX_PAGES, accumule HTML pour images
 # Images : extraction des data-src images associees aux IDs d'annonces
 # Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
-# Limite : 20 annonces max par cycle
 # Instance globale : immotop_scraper_real
 # =============================================================================
 import requests
 import re
+import time
 import logging
 from config import MAX_PRICE, MIN_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
 
@@ -24,38 +25,64 @@ class ImmotopScraperReal:
     
     def scrape(self):
         try:
-            url = f"{self.base_url}/location-maisons-appartements/luxembourg-pays/?criterio=rilevanza"
-            response = requests.get(url, headers=self.headers, timeout=15)
-            
-            if response.status_code != 200:
-                logger.error(f"HTTP {response.status_code}")
-                return []
-            
-            html = response.text
-            
-            # Pattern : prix + URL + titre
-            pattern = r'<span>€?\s*([\d\s\u202f]+)/mois</span>.*?<a href="(https://www\.immotop\.lu/annonces/(\d+)/)"[^>]*title="([^"]+)"'
-            matches = re.findall(pattern, html, re.DOTALL)
-            
-            logger.info(f"Annonces trouvées: {len(matches)}")
+            MAX_PAGES = 5
+            base_search = f"{self.base_url}/location-maisons-appartements/luxembourg-pays/?criterio=rilevanza"
 
-            # Extraire images par ID d'annonce
+            all_matches = []
+            seen_ids = set()
+            combined_html = ''
+
+            for page_num in range(1, MAX_PAGES + 1):
+                url = f"{base_search}&page={page_num}" if page_num > 1 else base_search
+                response = requests.get(url, headers=self.headers, timeout=15)
+
+                if response.status_code != 200:
+                    break
+
+                html = response.text
+                combined_html += '\n' + html
+
+                # Pattern : prix + URL + titre
+                pattern = r'<span>€?\s*([\d\s\u202f]+)/mois</span>.*?<a href="(https://www\.immotop\.lu/annonces/(\d+)/)"[^>]*title="([^"]+)"'
+                matches = re.findall(pattern, html, re.DOTALL)
+                logger.info(f"  Page {page_num}: {len(matches)} annonces")
+
+                if not matches:
+                    break
+
+                new_count = 0
+                for m in matches:
+                    id_val = m[2]
+                    if id_val not in seen_ids:
+                        seen_ids.add(id_val)
+                        all_matches.append(m)
+                        new_count += 1
+
+                if new_count == 0:
+                    break
+
+                if page_num < MAX_PAGES:
+                    time.sleep(1)
+
+            logger.info(f"Annonces totales: {len(all_matches)}")
+
+            # Extraire images par ID d'annonce depuis tout le HTML accumule
             image_map = {}
-            img_matches = re.findall(r'data-src="(https://[^"]*immotop[^"]*\.(?:jpg|jpeg|png|webp)[^"]*)"[^>]*?(?:annonces/(\d+)|data-id="(\d+))', html, re.IGNORECASE)
+            img_matches = re.findall(r'data-src="(https://[^"]*immotop[^"]*\.(?:jpg|jpeg|png|webp)[^"]*)"[^>]*?(?:annonces/(\d+)|data-id="(\d+))', combined_html, re.IGNORECASE)
             if not img_matches:
                 # Fallback: chercher img src proche des liens
-                img_matches2 = re.findall(r'<img[^>]+src="(https://[^"]+\.(?:jpg|jpeg|png|webp)[^"]*)"[^>]*>.*?annonces/(\d+)/', html, re.DOTALL)
-                for img_url, img_id in img_matches2[:30]:
+                img_matches2 = re.findall(r'<img[^>]+src="(https://[^"]+\.(?:jpg|jpeg|png|webp)[^"]*)"[^>]*>.*?annonces/(\d+)/', combined_html, re.DOTALL)
+                for img_url, img_id in img_matches2:
                     if img_id not in image_map:
                         image_map[img_id] = img_url
 
-            for img_url, id1, id2 in img_matches[:30]:
+            for img_url, id1, id2 in img_matches:
                 img_id = id1 or id2
                 if img_id and img_id not in image_map:
                     image_map[img_id] = img_url
 
             listings = []
-            for price_text, url_annonce, id_val, title in matches[:20]:
+            for price_text, url_annonce, id_val, title in all_matches:
                 # Nettoyer prix (enlever espaces normaux + insécables)
                 price_clean = price_text.replace(' ', '').replace('\u202f', '').replace(',', '')
                 

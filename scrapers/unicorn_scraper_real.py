@@ -52,24 +52,31 @@ class UnicornScraperReal(SeleniumScraperBase):
             all_links = set()
             all_sources = []
 
+            MAX_PAGES = 2
             for search_url in self.search_urls:
-                try:
-                    logger.info(f"🟡 {self.site_name}: Chargement {search_url}")
-                    driver.get(search_url)
-                    time.sleep(8)
-                    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    time.sleep(3)
+                type_label = search_url.split('/')[-1]
+                for page_num in range(1, MAX_PAGES + 1):
+                    try:
+                        page_url = f"{search_url}?page={page_num}" if page_num > 1 else search_url
+                        logger.info(f"🟡 {self.site_name}: Chargement {page_url}")
+                        driver.get(page_url)
+                        time.sleep(8)
+                        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                        time.sleep(3)
 
-                    page_source = driver.page_source
-                    all_sources.append(page_source)
+                        page_source = driver.page_source
+                        all_sources.append(page_source)
 
-                    links = set(re.findall(r'href="(/detail-\d+-location-[^"]+)"', page_source))
-                    new_links = links - all_links
-                    all_links.update(links)
-                    logger.info(f"  {search_url.split('/')[-1]}: {len(new_links)} nouvelles annonces")
-                except Exception as e:
-                    logger.debug(f"Erreur {search_url}: {e}")
-                    continue
+                        links = set(re.findall(r'href="(/detail-\d+-location-[^"]+)"', page_source))
+                        new_links = links - all_links
+                        all_links.update(links)
+                        logger.info(f"  {type_label} page {page_num}: {len(new_links)} nouvelles annonces")
+
+                        if len(new_links) == 0:
+                            break
+                    except Exception as e:
+                        logger.debug(f"Erreur {search_url} page {page_num}: {e}")
+                        break
 
             logger.info(f"🔍 {self.site_name}: {len(all_links)} annonces uniques total")
 
