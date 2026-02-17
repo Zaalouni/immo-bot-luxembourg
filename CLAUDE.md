@@ -14,15 +14,15 @@ Bot Python qui scrape 7 sites immobiliers luxembourgeois, filtre les annonces de
 | scrapers/ | 7 scrapers actifs + 2 desactives + 1 template Selenium |
 
 ## Scrapers actifs (7/9)
-| Scraper | Site | Methode | Statut |
-|---------|------|---------|--------|
-| athome_scraper_json.py | Athome.lu | JSON __INITIAL_STATE__, multi-URL | Stable |
-| immotop_scraper_real.py | Immotop.lu | HTML regex | Stable |
-| luxhome_scraper.py | Luxhome.lu | JSON/Regex + GPS | Stable |
-| vivi_scraper_selenium.py | VIVI.lu | Selenium | Stable |
-| nextimmo_scraper.py | Nextimmo.lu | API JSON + fallback HTML | Stable |
-| newimmo_scraper_real.py | Newimmo.lu | Selenium + page_source regex /fr/louer/ | Fixe v2.4 |
-| unicorn_scraper_real.py | Unicorn.lu | Selenium + data-id card extraction | Fixe v2.4 |
+| Scraper | Site | Methode | Pages | Statut |
+|---------|------|---------|-------|--------|
+| athome_scraper_json.py | Athome.lu | JSON __INITIAL_STATE__, URLs filtrees | 12 pages | Pagination v2.6 |
+| immotop_scraper_real.py | Immotop.lu | HTML regex | 5 pages | Pagination v2.6 |
+| luxhome_scraper.py | Luxhome.lu | JSON/Regex + GPS | 1 page (tout) | Stable |
+| vivi_scraper_selenium.py | VIVI.lu | Selenium | 3 pages | Pagination v2.6 |
+| nextimmo_scraper.py | Nextimmo.lu | API JSON + fallback HTML | 10 pages | Pagination v2.6 |
+| newimmo_scraper_real.py | Newimmo.lu | Selenium + page_source regex /fr/louer/ | 3 pages | Pagination v2.6 |
+| unicorn_scraper_real.py | Unicorn.lu | Selenium + data-id card extraction | 2 pages | Pagination v2.6 |
 
 ## Scrapers desactives (2/9) — Cloudflare/CAPTCHA
 | Scraper | Site | Raison |
@@ -34,9 +34,9 @@ Bot Python qui scrape 7 sites immobiliers luxembourgeois, filtre les annonces de
 Chaque scraper expose `.scrape()` → `list[dict]` avec cles : listing_id, site, title, city, price, rooms, surface, url, image_url, latitude, longitude, distance_km, time_ago, full_text
 
 ## Etat actuel
-- **Version** : v2.4 (2026-02-15)
+- **Version** : v2.6 (2026-02-17)
 - **Statut** : fonctionnel, en production, 7/9 scrapers actifs
-- **Derniere action** : fix Newimmo (page_source regex), fix Unicorn (data-id), Wortimmo+Immoweb infixables
+- **Derniere action** : pagination tous scrapers (v2.6), URLs filtrees Athome, +309 annonces captees
 
 ## Localisation (v2.3+)
 - utils.py contient LUXEMBOURG_CITIES (~130 villes → lat/lng)

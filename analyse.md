@@ -87,7 +87,42 @@
 | requirements.txt | 9 packages (feedparser, schedule inutilises) | 6 packages utiles uniquement |
 | Securite .env | Non verifie | Confirme : jamais commite dans l'historique git |
 
-## Problemes connus (apres v2.2)
+### v2.5 (16 fevrier 2026) — Fix scrapers + rejet villes frontalieres
+- Fix scrapers individuels
+- Rejet des villes frontalieres (hors Luxembourg)
+
+### v2.6 (17 fevrier 2026) — Pagination tous scrapers
+
+#### Probleme
+Les scrapers ne chargeaient que la page 1 des resultats. Athome par exemple : 20 annonces sur 4841 disponibles. Des annonces valides (ex: id 8992149, Leudelange, 2000€) etaient perdues.
+
+#### Solution : pagination + URLs filtrees
+| Scraper | Avant | Apres | Gain | Methode |
+|---------|-------|-------|------|---------|
+| Athome | 40 | 266 | +226 | URLs filtrees (prix/chambres) + 12 pages |
+| Nextimmo | 40 | 123 | +83 | API page param + 10 pages |
+| Immotop | 25 | 25 | +0 | 5 pages (1 seule page de resultats) |
+| Luxhome | 58 | 58 | +0 | Tout sur 1 page, pas de changement |
+| VIVI | ~15 | ~15 | +0 | Pagination URL ignoree (JS scroll) |
+| Newimmo | ~10 | ~10 | +0 | Pagination URL ignoree (JS scroll) |
+| Unicorn | ~5 | ~5 | +0 | Pagination URL ignoree (JS scroll) |
+
+#### Changements par fichier
+| Fichier | Modification |
+|---------|-------------|
+| athome_scraper_json.py | URLs `?price_min=&price_max=&bedrooms_min=&bedrooms_max=` + boucle 12 pages + supprime [:30] |
+| nextimmo_scraper.py | Boucle page 1..10 par type + supprime [:20] API et HTML |
+| immotop_scraper_real.py | Boucle &page=1..5 + supprime [:20] + HTML accumule pour images |
+| vivi_scraper_selenium.py | Boucle ?page=1..3 + supprime [:15] + dedup seen_ids |
+| newimmo_scraper_real.py | Boucle ?page=1..3, break si 0 nouveaux liens |
+| unicorn_scraper_real.py | Boucle ?page=1..2, conservateur (CAPTCHA) |
+
+#### Notes
+- Scrapers Selenium (VIVI, Newimmo, Unicorn) : `?page=N` ne change pas le contenu (rendu JS). La pagination break immediatement sur 0 nouvelles annonces → pas de requetes inutiles.
+- Delai `time.sleep(1)` entre pages HTTP pour eviter le rate limiting.
+- Tous les scrapers : break si page vide OU 0 nouveaux IDs.
+
+## Problemes connus (apres v2.6)
 
 ### Importants
 1. **Pas d'async** — Les 9 scrapers tournent sequentiellement. Avec les delais (5s entre scrapers + 8-10s Selenium), un cycle complet prend ~2-3 minutes minimum.
