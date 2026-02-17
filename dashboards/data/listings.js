@@ -1,6 +1,96 @@
-// Genere le 17/02/2026 20:16
-// 168 annonces depuis listings.db
+// Genere le 17/02/2026 20:38
+// 174 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "newimmo_127171",
+    "site": "Newimmo.lu",
+    "title": "Appartement - Bertrange",
+    "city": "Bertrange",
+    "price": 1500,
+    "rooms": 0,
+    "surface": 0,
+    "url": "https://www.newimmo.lu/fr/louer/appartement/bertrange/127171-appartement-bertrange/",
+    "latitude": 49.61,
+    "longitude": 6.05,
+    "distance_km": 6.2,
+    "created_at": "2026-02-17 19:24:19",
+    "price_m2": null
+  },
+  {
+    "listing_id": "athome_8871303",
+    "site": "Athome.lu",
+    "title": "A Louer ? Superbe Appartement Moderne et Lumineux ? 2 Chambres ? Bertr",
+    "city": "Bertrange",
+    "price": 2400,
+    "rooms": 6,
+    "surface": 86,
+    "url": "https://www.athome.lu/location/appartement/bertrange/id-8871303.html",
+    "latitude": 49.6106248,
+    "longitude": 6.0502349,
+    "distance_km": 6.2,
+    "created_at": "2026-02-17 19:24:09",
+    "price_m2": 27.9
+  },
+  {
+    "listing_id": "athome_8861525",
+    "site": "Athome.lu",
+    "title": "+++ LOUE +++ LOUE +++ LOUE +++ \r\nIdéalement situé à deux pas du centre",
+    "city": "Mondorf-Les-Bains",
+    "price": 2100,
+    "rooms": 6,
+    "surface": 82,
+    "url": "https://www.athome.lu/location/appartement/mondorf-les-bains/id-8861525.html",
+    "latitude": 49.5082903,
+    "longitude": 6.2729871,
+    "distance_km": 14.3,
+    "created_at": "2026-02-17 19:23:59",
+    "price_m2": 25.6
+  },
+  {
+    "listing_id": "athome_8976792",
+    "site": "Athome.lu",
+    "title": "Contact Direct : 691 744 110 - Sylvain LEMOINE\n\nIl y a des appartement",
+    "city": "Strassen",
+    "price": 2600,
+    "rooms": 6,
+    "surface": 94,
+    "url": "https://www.athome.lu/location/appartement/strassen/id-8976792.html",
+    "latitude": 49.62125950000001,
+    "longitude": 6.0646648,
+    "distance_km": 5.5,
+    "created_at": "2026-02-17 19:23:49",
+    "price_m2": 27.7
+  },
+  {
+    "listing_id": "athome_8971727",
+    "site": "Athome.lu",
+    "title": "appartement lumineux sis au 2e étage d’une résidence située à proximit",
+    "city": "Luxembourg-Belair",
+    "price": 2650,
+    "rooms": 6,
+    "surface": 126,
+    "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-8971727.html",
+    "latitude": 49.6112239,
+    "longitude": 6.1161102,
+    "distance_km": 1.8,
+    "created_at": "2026-02-17 19:23:38",
+    "price_m2": 21.0
+  },
+  {
+    "listing_id": "athome_8983034",
+    "site": "Athome.lu",
+    "title": "Spacieux appartement sis au rez-de-chaussée, dans une Résidence très s",
+    "city": "Rollingen",
+    "price": 2150,
+    "rooms": 6,
+    "surface": 100,
+    "url": "https://www.athome.lu/location/appartement/rollingen/id-8983034.html",
+    "latitude": 49.7402205,
+    "longitude": 6.1137785,
+    "distance_km": 15.7,
+    "created_at": "2026-02-17 19:23:33",
+    "price_m2": 21.5
+  },
   {
     "listing_id": "nextimmo_4268",
     "site": "Nextimmo.lu",

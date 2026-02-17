@@ -1,20 +1,30 @@
-// Genere le 17/02/2026 20:16
+// Genere le 17/02/2026 20:38
 const STATS = {
-  "total": 168,
-  "avg_price": 2305,
-  "min_price": 1650,
+  "total": 174,
+  "avg_price": 2303,
+  "min_price": 1500,
   "max_price": 2800,
-  "avg_surface": 109,
-  "cities": 91,
+  "avg_surface": 108,
+  "cities": 93,
   "sites": {
+    "Newimmo.lu": 3,
+    "Athome.lu": 113,
     "Nextimmo.lu": 40,
-    "Newimmo.lu": 2,
     "VIVI.lu": 4,
     "Luxhome.lu": 10,
-    "Immotop.lu": 4,
-    "Athome.lu": 108
+    "Immotop.lu": 4
   },
   "by_city": [
+    {
+      "city": "Luxembourg-Belair",
+      "count": 7,
+      "avg_price": 2453
+    },
+    {
+      "city": "Bertrange",
+      "count": 6,
+      "avg_price": 2198
+    },
     {
       "city": "Luxembourg-Limpertsberg",
       "count": 6,
@@ -26,24 +36,14 @@ const STATS = {
       "avg_price": 2433
     },
     {
-      "city": "Luxembourg-Belair",
-      "count": 6,
-      "avg_price": 2420
-    },
-    {
       "city": "Luxembourg-Centre ville",
       "count": 6,
       "avg_price": 2633
     },
     {
       "city": "Strassen",
-      "count": 4,
-      "avg_price": 2557
-    },
-    {
-      "city": "Bertrange",
-      "count": 4,
-      "avg_price": 2322
+      "count": 5,
+      "avg_price": 2566
     },
     {
       "city": "Luxembourg-Bonnevoie",
@@ -209,6 +209,16 @@ const STATS = {
       "city": "Luxembourg-Weimershof",
       "count": 2,
       "avg_price": 2575
+    },
+    {
+      "city": "Mondorf-Les-Bains",
+      "count": 1,
+      "avg_price": 2100
+    },
+    {
+      "city": "Rollingen",
+      "count": 1,
+      "avg_price": 2150
     },
     {
       "city": "Fischbach",
@@ -473,16 +483,16 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 33,
-    "2000 - 2500": 76,
-    "> 2500": 59
+    "1500 - 2000": 34,
+    "2000 - 2500": 79,
+    "> 2500": 61
   }
 };
 const SITE_COLORS = {
-  "Nextimmo.lu": "#FF6384",
-  "Newimmo.lu": "#36A2EB",
-  "VIVI.lu": "#FFCE56",
-  "Luxhome.lu": "#4BC0C0",
-  "Immotop.lu": "#9966FF",
-  "Athome.lu": "#FF9F40"
+  "Newimmo.lu": "#FF6384",
+  "Athome.lu": "#36A2EB",
+  "Nextimmo.lu": "#FFCE56",
+  "VIVI.lu": "#4BC0C0",
+  "Luxhome.lu": "#9966FF",
+  "Immotop.lu": "#FF9F40"
 };
