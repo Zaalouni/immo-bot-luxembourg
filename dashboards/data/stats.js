@@ -1,4 +1,4 @@
-// Genere le 18/02/2026 22:19
+// Genere le 18/02/2026 22:57
 const STATS = {
   "total": 70,
   "avg_price": 2169,
@@ -7,11 +7,11 @@ const STATS = {
   "avg_surface": 92,
   "cities": 47,
   "sites": {
-    "Nextimmo.lu": 21,
+    "Nextimmo.lu": 12,
     "Newimmo.lu": 3,
-    "VIVI.lu": 3,
+    "VIVI.lu": 1,
     "Luxhome.lu": 5,
-    "Athome.lu": 38
+    "Athome.lu": 49
   },
   "by_city": [
     {
@@ -115,14 +115,14 @@ const STATS = {
       "avg_price": 2000
     },
     {
-      "city": "Luxembourg Neudorf",
-      "count": 1,
-      "avg_price": 2000
-    },
-    {
       "city": "Luxembourg",
       "count": 1,
       "avg_price": 1900
+    },
+    {
+      "city": "Luxembourg Neudorf",
+      "count": 1,
+      "avg_price": 2000
     },
     {
       "city": "Bissen",
