@@ -1,23 +1,39 @@
-// Genere le 19/02/2026 18:34
+// Genere le 19/02/2026 18:41
 const STATS = {
-  "total": 70,
-  "avg_price": 2169,
+  "total": 79,
+  "avg_price": 2151,
   "min_price": 1500,
   "max_price": 2400,
   "avg_surface": 92,
-  "cities": 47,
+  "cities": 51,
   "sites": {
-    "Nextimmo.lu": 12,
+    "Nextimmo.lu": 13,
+    "VIVI.lu": 4,
+    "Immotop.lu": 1,
+    "Athome.lu": 53,
     "Newimmo.lu": 3,
-    "VIVI.lu": 1,
-    "Luxhome.lu": 5,
-    "Athome.lu": 49
+    "Luxhome.lu": 5
   },
   "by_city": [
+    {
+      "city": "Luxembourg-Belair",
+      "count": 5,
+      "avg_price": 2235
+    },
     {
       "city": "Bertrange",
       "count": 5,
       "avg_price": 2138
+    },
+    {
+      "city": "Luxembourg-Kirchberg",
+      "count": 4,
+      "avg_price": 2275
+    },
+    {
+      "city": "Senningerberg",
+      "count": 3,
+      "avg_price": 2196
     },
     {
       "city": "Luxembourg-Hollerich",
@@ -25,19 +41,14 @@ const STATS = {
       "avg_price": 2216
     },
     {
-      "city": "Luxembourg-Belair",
-      "count": 3,
-      "avg_price": 2241
-    },
-    {
       "city": "Luxembourg-Bonnevoie",
       "count": 3,
       "avg_price": 2216
     },
     {
-      "city": "Luxembourg-Kirchberg",
-      "count": 3,
-      "avg_price": 2316
+      "city": "Reuler",
+      "count": 2,
+      "avg_price": 1850
     },
     {
       "city": "Hautcharage",
@@ -70,11 +81,6 @@ const STATS = {
       "avg_price": 2100
     },
     {
-      "city": "Senningerberg",
-      "count": 2,
-      "avg_price": 2320
-    },
-    {
       "city": "Roeser",
       "count": 2,
       "avg_price": 2275
@@ -83,6 +89,21 @@ const STATS = {
       "city": "Bridel",
       "count": 2,
       "avg_price": 2250
+    },
+    {
+      "city": "Olm",
+      "count": 1,
+      "avg_price": 2300
+    },
+    {
+      "city": "Weiswampach",
+      "count": 1,
+      "avg_price": 1500
+    },
+    {
+      "city": "Sanem",
+      "count": 1,
+      "avg_price": 2050
     },
     {
       "city": "Emerange",
@@ -252,15 +273,16 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 13,
-    "2000 - 2500": 57,
+    "1500 - 2000": 16,
+    "2000 - 2500": 63,
     "> 2500": 0
   }
 };
 const SITE_COLORS = {
   "Nextimmo.lu": "#FF6384",
-  "Newimmo.lu": "#36A2EB",
-  "VIVI.lu": "#FFCE56",
-  "Luxhome.lu": "#4BC0C0",
-  "Athome.lu": "#9966FF"
+  "VIVI.lu": "#36A2EB",
+  "Immotop.lu": "#FFCE56",
+  "Athome.lu": "#4BC0C0",
+  "Newimmo.lu": "#9966FF",
+  "Luxhome.lu": "#FF9F40"
 };

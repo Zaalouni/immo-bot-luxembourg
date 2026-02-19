@@ -1,25 +1,41 @@
 {
   "date": "2026-02-19",
-  "generated_at": "19/02/2026 18:34",
+  "generated_at": "19/02/2026 18:41",
   "stats": {
-    "total": 70,
-    "avg_price": 2169,
+    "total": 79,
+    "avg_price": 2151,
     "min_price": 1500,
     "max_price": 2400,
     "avg_surface": 92,
-    "cities": 47,
+    "cities": 51,
     "sites": {
-      "Nextimmo.lu": 12,
+      "Nextimmo.lu": 13,
+      "VIVI.lu": 4,
+      "Immotop.lu": 1,
+      "Athome.lu": 53,
       "Newimmo.lu": 3,
-      "VIVI.lu": 1,
-      "Luxhome.lu": 5,
-      "Athome.lu": 49
+      "Luxhome.lu": 5
     },
     "by_city": [
+      {
+        "city": "Luxembourg-Belair",
+        "count": 5,
+        "avg_price": 2235
+      },
       {
         "city": "Bertrange",
         "count": 5,
         "avg_price": 2138
+      },
+      {
+        "city": "Luxembourg-Kirchberg",
+        "count": 4,
+        "avg_price": 2275
+      },
+      {
+        "city": "Senningerberg",
+        "count": 3,
+        "avg_price": 2196
       },
       {
         "city": "Luxembourg-Hollerich",
@@ -27,19 +43,14 @@
         "avg_price": 2216
       },
       {
-        "city": "Luxembourg-Belair",
-        "count": 3,
-        "avg_price": 2241
-      },
-      {
         "city": "Luxembourg-Bonnevoie",
         "count": 3,
         "avg_price": 2216
       },
       {
-        "city": "Luxembourg-Kirchberg",
-        "count": 3,
-        "avg_price": 2316
+        "city": "Reuler",
+        "count": 2,
+        "avg_price": 1850
       },
       {
         "city": "Hautcharage",
@@ -72,11 +83,6 @@
         "avg_price": 2100
       },
       {
-        "city": "Senningerberg",
-        "count": 2,
-        "avg_price": 2320
-      },
-      {
         "city": "Roeser",
         "count": 2,
         "avg_price": 2275
@@ -85,6 +91,21 @@
         "city": "Bridel",
         "count": 2,
         "avg_price": 2250
+      },
+      {
+        "city": "Olm",
+        "count": 1,
+        "avg_price": 2300
+      },
+      {
+        "city": "Weiswampach",
+        "count": 1,
+        "avg_price": 1500
+      },
+      {
+        "city": "Sanem",
+        "count": 1,
+        "avg_price": 2050
       },
       {
         "city": "Emerange",
@@ -254,12 +275,174 @@
     ],
     "by_price_range": {
       "< 1500": 0,
-      "1500 - 2000": 13,
-      "2000 - 2500": 57,
+      "1500 - 2000": 16,
+      "2000 - 2500": 63,
       "> 2500": 0
     }
   },
   "listings": [
+    {
+      "listing_id": "nextimmo_86750963",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Olm",
+      "city": "Olm",
+      "price": 2300,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://nextimmo.lu/en/details/86750963",
+      "latitude": 49.65509,
+      "longitude": 5.99296,
+      "distance_km": 11.9,
+      "created_at": "2026-02-19 17:40:50",
+      "published_at": "2026-02-17 16:59:30",
+      "price_m2": 28.8,
+      "display_date": "2026-02-17",
+      "display_date_fr": "17/02"
+    },
+    {
+      "listing_id": "vivi_202433",
+      "site": "VIVI.lu",
+      "title": "Appartement 2 chambres à louer",
+      "city": "Reuler",
+      "price": 1600,
+      "rooms": 2,
+      "surface": 102,
+      "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-2-chambres-a-louer/202433",
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-19 17:40:37",
+      "published_at": null,
+      "price_m2": 15.7,
+      "display_date": "2026-02-19",
+      "display_date_fr": "19/02"
+    },
+    {
+      "listing_id": "vivi_210717",
+      "site": "VIVI.lu",
+      "title": "Appartement 3 chambres à louer",
+      "city": "Reuler",
+      "price": 2100,
+      "rooms": 3,
+      "surface": 135,
+      "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-3-chambres-a-louer/210717",
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-19 17:40:25",
+      "published_at": null,
+      "price_m2": 15.6,
+      "display_date": "2026-02-19",
+      "display_date_fr": "19/02"
+    },
+    {
+      "listing_id": "vivi_211525",
+      "site": "VIVI.lu",
+      "title": "Appartement 2 chambres à louer",
+      "city": "Weiswampach",
+      "price": 1500,
+      "rooms": 2,
+      "surface": 88,
+      "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/weiswampach/appartement-2-chambres-a-louer/211525",
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-19 17:40:12",
+      "published_at": null,
+      "price_m2": 17.0,
+      "display_date": "2026-02-19",
+      "display_date_fr": "19/02"
+    },
+    {
+      "listing_id": "immotop_1872303",
+      "site": "Immotop.lu",
+      "title": "Appartement 2 chambres 2, Rue Jean-Jacques Rousseau, Belval Sud-Lycée,",
+      "city": "Sanem",
+      "price": 2050,
+      "rooms": 2,
+      "surface": 0,
+      "url": "https://www.immotop.lu/annonces/1872303/",
+      "latitude": 49.55,
+      "longitude": 5.98,
+      "distance_km": 12.4,
+      "created_at": "2026-02-19 17:40:02",
+      "published_at": null,
+      "price_m2": null,
+      "display_date": "2026-02-19",
+      "display_date_fr": "19/02"
+    },
+    {
+      "listing_id": "athome_8994928",
+      "site": "Athome.lu",
+      "title": "Bel appartement à louer au deuxième étage dans une petite Résidence.\n\n",
+      "city": "Luxembourg-Belair",
+      "price": 2200,
+      "rooms": 2,
+      "surface": 90,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-8994928.html",
+      "latitude": 49.6073607,
+      "longitude": 6.1155111,
+      "distance_km": 1.6,
+      "created_at": "2026-02-19 17:39:52",
+      "published_at": null,
+      "price_m2": 24.4,
+      "display_date": "2026-02-19",
+      "display_date_fr": "19/02"
+    },
+    {
+      "listing_id": "athome_8994956",
+      "site": "Athome.lu",
+      "title": "Appartement (118) de 2 chambres à coucher, idéalement situé proche de ",
+      "city": "Luxembourg-Kirchberg",
+      "price": 2150,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-8994956.html",
+      "latitude": 49.63224160000001,
+      "longitude": 6.1632138,
+      "distance_km": 4.1,
+      "created_at": "2026-02-19 17:39:42",
+      "published_at": null,
+      "price_m2": 26.9,
+      "display_date": "2026-02-19",
+      "display_date_fr": "19/02"
+    },
+    {
+      "listing_id": "athome_7981264",
+      "site": "Athome.lu",
+      "title": "Senningerberg - Proximité immédiate aéroport & Kirchberg\r\n\r\nA louer ap",
+      "city": "Senningerberg",
+      "price": 1950,
+      "rooms": 2,
+      "surface": 90,
+      "url": "https://www.athome.lu/location/appartement/senningerberg/id-7981264.html",
+      "latitude": 49.6508207,
+      "longitude": 6.2352602,
+      "distance_km": 9.2,
+      "created_at": "2026-02-19 17:39:31",
+      "published_at": null,
+      "price_m2": 21.7,
+      "display_date": "2026-02-19",
+      "display_date_fr": "19/02"
+    },
+    {
+      "listing_id": "athome_8994521",
+      "site": "Athome.lu",
+      "title": "appartement lumineux sis au rez-de-chaussée surélevé d’un petit immeub",
+      "city": "Luxembourg-Belair",
+      "price": 2250,
+      "rooms": 5,
+      "surface": 90,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-8994521.html",
+      "latitude": 49.6078954,
+      "longitude": 6.1070622,
+      "distance_km": 2.1,
+      "created_at": "2026-02-19 17:39:26",
+      "published_at": null,
+      "price_m2": 25.0,
+      "display_date": "2026-02-19",
+      "display_date_fr": "19/02"
+    },
     {
       "listing_id": "nextimmo_86002754",
       "site": "Nextimmo.lu",
