@@ -86,10 +86,10 @@
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <h1>ImmoLux Dashboard</h1>
-            <small>Mis a jour le 19/02/2026 20:01 — 79 annonces</small>
+            <small>Mis a jour le 19/02/2026 20:16 — 19 annonces</small>
         </div>
         <div>
-            <span class="listing-count">51 villes | 6 sites</span>
+            <span class="listing-count">14 villes | 3 sites</span>
         </div>
     </div>
 </div>
@@ -100,13 +100,13 @@
     <div class="row g-2 mb-3">
         <div class="col-4 col-md-2">
             <div class="stat-card">
-                <div class="stat-value">79</div>
+                <div class="stat-value">19</div>
                 <div class="stat-label">Annonces</div>
             </div>
         </div>
         <div class="col-4 col-md-2">
             <div class="stat-card">
-                <div class="stat-value">2151&euro;</div>
+                <div class="stat-value">2099&euro;</div>
                 <div class="stat-label">Prix moy.</div>
             </div>
         </div>
@@ -118,19 +118,19 @@
         </div>
         <div class="col-4 col-md-2">
             <div class="stat-card">
-                <div class="stat-value">2400&euro;</div>
+                <div class="stat-value">2800&euro;</div>
                 <div class="stat-label">Max</div>
             </div>
         </div>
         <div class="col-4 col-md-2">
             <div class="stat-card">
-                <div class="stat-value">92m&sup2;</div>
+                <div class="stat-value">75m&sup2;</div>
                 <div class="stat-label">Surface</div>
             </div>
         </div>
         <div class="col-4 col-md-2">
             <div class="stat-card">
-                <div class="stat-value">51</div>
+                <div class="stat-value">14</div>
                 <div class="stat-label">Villes</div>
             </div>
         </div>
@@ -139,7 +139,7 @@
     <!-- Par site -->
     <div class="filter-section mb-2">
         <strong>Sites :</strong>
-        <span class="site-badge ms-1" style="background:#FF6384">Nextimmo.lu (13)</span> <span class="site-badge ms-1" style="background:#36A2EB">VIVI.lu (4)</span> <span class="site-badge ms-1" style="background:#FFCE56">Immotop.lu (1)</span> <span class="site-badge ms-1" style="background:#4BC0C0">Athome.lu (53)</span> <span class="site-badge ms-1" style="background:#9966FF">Newimmo.lu (3)</span> <span class="site-badge ms-1" style="background:#FF9F40">Luxhome.lu (5)</span>
+        <span class="site-badge ms-1" style="background:#FF6384">Immotop.lu (4)</span> <span class="site-badge ms-1" style="background:#36A2EB">VIVI.lu (5)</span> <span class="site-badge ms-1" style="background:#FFCE56">Luxhome.lu (10)</span>
     </div>
 
     <!-- Onglets -->
@@ -275,9 +275,12 @@ function applyFilters() {
 
     let cutoffStr = '';
     if (days > 0) {
-        const cutoff = new Date();
-        cutoff.setDate(cutoff.getDate() - days);
-        cutoffStr = cutoff.toISOString().split('T')[0];
+        // Calcul local (pas UTC) pour eviter decalage timezone
+        const now = new Date();
+        const cutoff = new Date(now.getFullYear(), now.getMonth(), now.getDate() - days + 1);
+        cutoffStr = cutoff.getFullYear() + '-' +
+            String(cutoff.getMonth() + 1).padStart(2, '0') + '-' +
+            String(cutoff.getDate()).padStart(2, '0');
     }
 
     filtered = LISTINGS.filter(l => {
@@ -285,7 +288,11 @@ function applyFilters() {
         if (l.price < pmin || l.price > pmax) return false;
         if (site && l.site !== site) return false;
         if (smin && (!l.surface || l.surface < smin)) return false;
-        if (cutoffStr && l.display_date && l.display_date < cutoffStr) return false;
+        if (cutoffStr) {
+            // Pas de date connue → exclure si filtre actif
+            if (!l.display_date) return false;
+            if (l.display_date < cutoffStr) return false;
+        }
         return true;
     });
     sortAndRender();
