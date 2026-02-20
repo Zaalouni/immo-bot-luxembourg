@@ -4,7 +4,7 @@
 # =============================================================================
 # Point d'entree du projet. Contient la classe ImmoBot qui :
 #   1. Charge les 9 scrapers au demarrage (imports dynamiques try/except)
-#   2. Execute des cycles de scraping sequentiels (check_new_listings)
+#   2. Execute des cycles de scraping PARALLELES (ThreadPoolExecutor)
 #   3. Deduplique les annonces cross-sites (prix + ville + surface)
 #   4. Filtre selon les criteres config.py (prix, rooms, surface, distance, mots exclus)
 #   5. Stocke en SQLite et envoie les notifications Telegram
@@ -13,6 +13,11 @@
 #   python main.py          → mode continu (boucle toutes les CHECK_INTERVAL secondes)
 #   python main.py --once   → mode test (1 seul cycle)
 #
+# Parallelisme : MAX_CONCURRENT_SCRAPERS workers simultanes
+#   - Scrapers HTTP (Athome, Immotop, Luxhome, Nextimmo, Sigelux) : tres legers
+#   - Scrapers Selenium (VIVI, Newimmo, Unicorn, Remax) : ~300 Mo RAM chacun
+#   - Recommande : 4 workers (RAM OK sur 4 Go), 3 si serveur limite
+#
 # Voir architecture.md pour le flux de donnees complet.
 # =============================================================================
 import logging
@@ -20,7 +25,13 @@ import logging.handlers
 import time
 import sys
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
+
+# Nombre max de scrapers en parallele
+# 4 = bon equilibre perf/RAM (4 Firefox simultanes ~ 1.2 Go)
+# Reduire a 3 si le serveur a moins de 3 Go de RAM libre
+MAX_CONCURRENT_SCRAPERS = 4
 
 # Rotation des logs : max 5 Mo par fichier, garde 3 fichiers anciens
 logging.basicConfig(
@@ -158,7 +169,22 @@ class ImmoBot:
         self.cycle_count = 0
         self.scraper_failures = {}  # Compteur échecs consécutifs par site
 
-        logger.info(f"🤖 Bot initialisé avec {len(self.scrapers)} sites")
+        logger.info(f"🤖 Bot initialisé avec {len(self.scrapers)} sites (parallele max={MAX_CONCURRENT_SCRAPERS})")
+
+    def _scrape_one(self, scraper_name, scraper):
+        """Executer un scraper dans un thread — isole pour ThreadPoolExecutor."""
+        t0 = time.time()
+        try:
+            logger.info(f"▶️  {scraper_name} [debut]")
+            listings = scraper.scrape()
+            elapsed = round(time.time() - t0, 1)
+            valid = [l for l in (listings or []) if l is not None]
+            logger.info(f"✅ {scraper_name}: {len(valid)} annonces en {elapsed}s")
+            return scraper_name, valid, None
+        except Exception as e:
+            elapsed = round(time.time() - t0, 1)
+            logger.error(f"❌ {scraper_name}: {str(e)[:100]} ({elapsed}s)")
+            return scraper_name, [], str(e)
 
     def check_new_listings(self):
         self.cycle_count += 1
@@ -174,38 +200,37 @@ class ImmoBot:
         all_listings = []
         stats_per_site = {}
 
-        for idx, (scraper_name, scraper) in enumerate(self.scrapers):
-            try:
-                # Délai 5s entre scrapers (évite blocage)
-                if idx > 0:
-                    time.sleep(5)
+        # ── Scraping parallele ────────────────────────────────────────────────
+        t_scrape = time.time()
+        logger.info(f"🚀 Lancement {len(self.scrapers)} scrapers ({MAX_CONCURRENT_SCRAPERS} en parallele max)")
 
-                logger.info(f"▶️ {scraper_name}")
-                listings = scraper.scrape()
-
-                if listings is None:
-                    logger.info(f"   📭 Aucun résultat")
+        with ThreadPoolExecutor(max_workers=MAX_CONCURRENT_SCRAPERS) as executor:
+            futures = {
+                executor.submit(self._scrape_one, name, scraper): name
+                for name, scraper in self.scrapers
+            }
+            for future in as_completed(futures):
+                scraper_name, valid_listings, error = future.result()
+                if error:
                     stats_per_site[scraper_name] = 0
-                    continue
+                    self.scraper_failures[scraper_name] = (
+                        self.scraper_failures.get(scraper_name, 0) + 1
+                    )
+                    if self.scraper_failures[scraper_name] == 3:
+                        try:
+                            notifier.send_message(
+                                f"🚨 <b>ALERTE:</b> {scraper_name} a échoué 3 fois consécutives!",
+                                parse_mode='HTML'
+                            )
+                        except Exception:
+                            pass
+                else:
+                    all_listings.extend(valid_listings)
+                    stats_per_site[scraper_name] = len(valid_listings)
+                    self.scraper_failures[scraper_name] = 0
 
-                valid_listings = [l for l in listings if l is not None]
-                all_listings.extend(valid_listings)
-                stats_per_site[scraper_name] = len(valid_listings)
-                self.scraper_failures[scraper_name] = 0  # Reset compteur
-
-                logger.info(f"   📊 {len(valid_listings)} annonces")
-
-            except Exception as e:
-                logger.error(f"   ❌ {scraper_name}: {str(e)[:100]}")
-                stats_per_site[scraper_name] = 0
-                # Compter les échecs consécutifs
-                self.scraper_failures[scraper_name] = self.scraper_failures.get(scraper_name, 0) + 1
-                if self.scraper_failures[scraper_name] == 3:
-                    try:
-                        notifier.send_message(f"🚨 <b>ALERTE:</b> {scraper_name} a échoué 3 fois consécutives!", parse_mode='HTML')
-                    except Exception:
-                        pass
-                continue
+        elapsed_scrape = round(time.time() - t_scrape, 1)
+        logger.info(f"⏱️  Scraping parallele termine en {elapsed_scrape}s ({len(all_listings)} annonces brutes)")
 
         # Enrichissement GPS : geocoder les annonces sans coordonnees
         from utils import enrich_listing_gps
