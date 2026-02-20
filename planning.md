@@ -8,6 +8,9 @@
 
 | ID  | Action                                      | Version | Date       | Statut |
 |-----|---------------------------------------------|---------|------------|--------|
+| A14 | Scraper Remax.lu (Selenium React, 5 ann.)   | v2.7    | 2026-02-20 | DONE   |
+| A15 | auto_contact_remax.py (--url direct + DB)   | v2.7    | 2026-02-20 | DONE   |
+| A16 | auto_contact_athome.py (login + contact)    | v2.7    | 2026-02-20 | DONE   |
 | A01 | Scrapers HTTP : requests.Session()          | v2.5    | 2026-02-15 | DONE   |
 | A02 | Pagination tous scrapers (+309 annonces)    | v2.6    | 2026-02-17 | DONE   |
 | A03 | URLs filtrees Athome (annonces only)        | v2.6    | 2026-02-17 | DONE   |
@@ -61,17 +64,18 @@
 
 ---
 
-## Scrapers actifs (7/9)
+## Scrapers actifs (8/10)
 
-| Scraper          | Site          | Methode              | Pages | Contact auto |
-|------------------|---------------|----------------------|-------|--------------|
-| athome_scraper_json.py    | Athome.lu  | JSON __INITIAL_STATE__ | 12  | A analyser   |
-| immotop_scraper_real.py   | Immotop.lu | HTML regex           | 5     | A analyser   |
-| luxhome_scraper.py        | Luxhome.lu | JSON/Regex + GPS     | 1     | A analyser   |
-| vivi_scraper_selenium.py  | VIVI.lu    | Selenium             | 3     | A analyser   |
-| nextimmo_scraper.py       | Nextimmo.lu| API JSON             | 10    | ACTIF v2.7   |
-| newimmo_scraper_real.py   | Newimmo.lu | Selenium             | 3     | A analyser   |
-| unicorn_scraper_real.py   | Unicorn.lu | Selenium             | 2     | A analyser   |
+| Scraper                   | Site        | Methode                | Pages | Contact auto         |
+|---------------------------|-------------|------------------------|-------|----------------------|
+| athome_scraper_json.py    | Athome.lu   | JSON __INITIAL_STATE__ | 12    | ACTIF v2.7           |
+| immotop_scraper_real.py   | Immotop.lu  | HTML regex             | 5     | Pas de formulaire    |
+| luxhome_scraper.py        | Luxhome.lu  | JSON/Regex + GPS       | 1     | Pas de formulaire    |
+| vivi_scraper_selenium.py  | VIVI.lu     | Selenium               | 3     | reCAPTCHA — skip     |
+| nextimmo_scraper.py       | Nextimmo.lu | API JSON               | 10    | ACTIF v2.7           |
+| newimmo_scraper_real.py   | Newimmo.lu  | Selenium               | 3     | Pas de formulaire    |
+| unicorn_scraper_real.py   | Unicorn.lu  | Selenium               | 2     | Pas de formulaire    |
+| remax_scraper.py          | Remax.lu    | Selenium React         | 5     | ACTIF v2.7           |
 
 ## Scrapers desactives (2/9)
 
@@ -87,9 +91,11 @@
 ```
 Contact auto multi-sites :
   Nextimmo.lu  → ACTIF (v2.7)
-  VIVI.lu      → apres recon
-  Luxhome.lu   → apres recon
-  Immotop.lu   → apres recon
-  Newimmo.lu   → apres recon
-  Athome.lu    → apres recon (probablement protege)
+  Athome.lu    → ACTIF (v2.7) — login ATHOME_EMAIL + ATHOME_PASSWORD
+  Remax.lu     → ACTIF (v2.7) — direct + --url pour URLs manuelles
+  VIVI.lu      → reCAPTCHA — impossible
+  Newimmo.lu   → pas de formulaire de contact visible
+  Luxhome.lu   → pas de formulaire de contact visible
+  Immotop.lu   → pas de formulaire de contact visible
+  Unicorn.lu   → pas de formulaire de contact visible
 ```
