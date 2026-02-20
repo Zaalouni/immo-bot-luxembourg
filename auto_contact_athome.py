@@ -346,15 +346,25 @@ def contact_listing(driver, listing, dry_run=False):
 
         # 2. Verifier si le modal de login apparait (non connecte)
         try:
-            login_modal = driver.find_element(By.CSS_SELECTOR, "input[type='password']")
-            logger.warning("   Session expiree, reconnexion...")
-            print(f"     Session expiree, reconnexion...")
-            wait2 = WebDriverWait(driver, 10)
-            _fill_login_form(driver, wait2)
-            time.sleep(2)
-            # Recliquer sur Contacter
-            contact_btn.click()
+            driver.find_element(By.CSS_SELECTOR, "input[type='password']")
+            # Login requis : remplir email + password dans le modal
+            logger.info("   Login requis via modal...")
+            print(f"     Login requis, connexion...")
+            _fill_login_form(driver, WebDriverWait(driver, 10))
             time.sleep(3)
+            # Re-trouver le bouton Contacter (stale element apres login)
+            try:
+                new_btn = WebDriverWait(driver, 8).until(
+                    EC.element_to_be_clickable(
+                        (By.CSS_SELECTOR, "button.detail-page__contact-agency-button")
+                    )
+                )
+                driver.execute_script("arguments[0].scrollIntoView(true);", new_btn)
+                time.sleep(0.5)
+                new_btn.click()
+                time.sleep(3)
+            except Exception:
+                pass  # Le modal a peut-etre deja transition vers le formulaire
         except NoSuchElementException:
             pass  # Deja connecte, formulaire contact direct
 
@@ -534,10 +544,8 @@ def cmd_send(selection, dry_run=False):
     try:
         if not dry_run:
             driver = webdriver.Firefox(options=options)
-            # Connexion unique en debut de session
-            if not login_athome(driver):
-                print("Connexion Athome impossible. Verifier ATHOME_EMAIL/ATHOME_PASSWORD dans .env")
-                return
+            # Pas de pre-login : la connexion se fait directement dans le modal
+            # de la premiere annonce (plus fiable que le login via homepage)
 
         for i, listing in enumerate(selected, 1):
             print(f"  ({i}/{total})", end=' ')

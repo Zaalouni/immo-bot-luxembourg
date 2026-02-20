@@ -153,6 +153,16 @@ def find_form_field(form, selectors):
     return None
 
 
+def fill_input_js(driver, field, value):
+    """Remplir un input MUI React : JS scroll + click pour eviter les intercepteurs"""
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", field)
+    time.sleep(0.3)
+    driver.execute_script("arguments[0].click();", field)
+    time.sleep(0.2)
+    field.clear()
+    field.send_keys(value)
+
+
 def find_remax_form(driver):
     """Trouver le formulaire RE/MAX (contient firstName + comments)"""
     for form in driver.find_elements(By.TAG_NAME, 'form'):
@@ -195,7 +205,7 @@ def contact_listing(driver, listing, dry_run=False):
         # Accepter cookies (CookieBot)
         for text in ['Allow all', 'Allow All', 'Accepter']:
             try:
-                btn = WebDriverWait(driver, 3).until(
+                btn = WebDriverWait(driver, 4).until(
                     EC.element_to_be_clickable(
                         (By.XPATH, f"//button[contains(text(), '{text}')]")
                     )
@@ -205,6 +215,14 @@ def contact_listing(driver, listing, dry_run=False):
                 break
             except TimeoutException:
                 continue
+
+        # Attendre que la banniere cookies disparaisse completement
+        try:
+            WebDriverWait(driver, 6).until(
+                EC.invisibility_of_element_located((By.ID, 'CybotCookiebotDialog'))
+            )
+        except TimeoutException:
+            time.sleep(2)
 
         # Attendre que le formulaire soit charge (React/MUI)
         try:
@@ -225,36 +243,31 @@ def contact_listing(driver, listing, dry_run=False):
             save_screenshot(driver, listing_id)
             return False
 
-        # Remplir les champs
+        # Remplir les champs (fill_input_js evite les intercepteurs MUI React)
         field = find_form_field(form, ["input[name='firstName']"])
         if field:
-            field.clear()
-            field.send_keys(CONTACT_FIRSTNAME)
+            fill_input_js(driver, field, CONTACT_FIRSTNAME)
 
         field = find_form_field(form, ["input[name='lastName']"])
         if field:
-            field.clear()
-            field.send_keys(CONTACT_LASTNAME)
+            fill_input_js(driver, field, CONTACT_LASTNAME)
 
         if CONTACT_PHONE:
             field = find_form_field(form, ["input[name='phone']", "input[type='tel']"])
             if field:
-                field.clear()
-                field.send_keys(CONTACT_PHONE)
+                fill_input_js(driver, field, CONTACT_PHONE)
 
         # Email : RE/MAX utilise id='contactmeemail'
         field = find_form_field(form, [
             "input[id='contactmeemail']", "input[name='email']", "input[type='email']"
         ])
         if field:
-            field.clear()
-            field.send_keys(CONTACT_EMAIL)
+            fill_input_js(driver, field, CONTACT_EMAIL)
 
         # Message dans textarea[name='comments']
         textarea = find_form_field(form, ["textarea[name='comments']", "textarea"])
         if textarea:
-            textarea.clear()
-            textarea.send_keys(CONTACT_MESSAGE)
+            fill_input_js(driver, textarea, CONTACT_MESSAGE)
 
         # Soumettre : bouton "Envoyer message"
         submit = find_form_field(form, ["button[type='submit']"])
