@@ -86,10 +86,10 @@
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <h1>ImmoLux Dashboard</h1>
-            <small>Mis a jour le 20/02/2026 10:25 — 47 annonces</small>
+            <small>Mis a jour le 20/02/2026 12:49 — 70 annonces</small>
         </div>
         <div>
-            <span class="listing-count">33 villes | 7 sites</span>
+            <span class="listing-count">44 villes | 6 sites</span>
         </div>
     </div>
 </div>
@@ -100,13 +100,13 @@
     <div class="row g-2 mb-3">
         <div class="col-4 col-md-2">
             <div class="stat-card">
-                <div class="stat-value">47</div>
+                <div class="stat-value">70</div>
                 <div class="stat-label">Annonces</div>
             </div>
         </div>
         <div class="col-4 col-md-2">
             <div class="stat-card">
-                <div class="stat-value">2062&euro;</div>
+                <div class="stat-value">2144&euro;</div>
                 <div class="stat-label">Prix moy.</div>
             </div>
         </div>
@@ -118,19 +118,19 @@
         </div>
         <div class="col-4 col-md-2">
             <div class="stat-card">
-                <div class="stat-value">2300&euro;</div>
+                <div class="stat-value">2400&euro;</div>
                 <div class="stat-label">Max</div>
             </div>
         </div>
         <div class="col-4 col-md-2">
             <div class="stat-card">
-                <div class="stat-value">90m&sup2;</div>
+                <div class="stat-value">92m&sup2;</div>
                 <div class="stat-label">Surface</div>
             </div>
         </div>
         <div class="col-4 col-md-2">
             <div class="stat-card">
-                <div class="stat-value">33</div>
+                <div class="stat-value">44</div>
                 <div class="stat-label">Villes</div>
             </div>
         </div>
@@ -139,7 +139,7 @@
     <!-- Par site -->
     <div class="filter-section mb-2">
         <strong>Sites :</strong>
-        <span class="site-badge ms-1" style="background:#FF6384">Nextimmo.lu (12)</span> <span class="site-badge ms-1" style="background:#36A2EB">Newimmo.lu (3)</span> <span class="site-badge ms-1" style="background:#FFCE56">VIVI.lu (6)</span> <span class="site-badge ms-1" style="background:#4BC0C0">Immotop.lu (1)</span> <span class="site-badge ms-1" style="background:#9966FF">Athome.lu (22)</span> <span class="site-badge ms-1" style="background:#FF9F40">Sigelux.lu (2)</span> <span class="site-badge ms-1" style="background:#2ECC71">Rockenbrod.lu (1)</span>
+        <span class="site-badge ms-1" style="background:#FF6384">Remax.lu (3)</span> <span class="site-badge ms-1" style="background:#36A2EB">Nextimmo.lu (8)</span> <span class="site-badge ms-1" style="background:#FFCE56">Newimmo.lu (3)</span> <span class="site-badge ms-1" style="background:#4BC0C0">VIVI.lu (5)</span> <span class="site-badge ms-1" style="background:#9966FF">Immotop.lu (2)</span> <span class="site-badge ms-1" style="background:#FF9F40">Athome.lu (49)</span>
     </div>
 
     <!-- Onglets -->
@@ -184,16 +184,6 @@
                         <label class="form-label form-label-sm mb-0">m&sup2; min</label>
                         <input type="number" id="f-smin" class="form-control form-control-sm" placeholder="0">
                     </div>
-                    <div class="col-6 col-md-2">
-                        <label class="form-label form-label-sm mb-0">Recence</label>
-                        <select id="f-days" class="form-select form-select-sm">
-                            <option value="0">Toutes dates</option>
-                            <option value="1">Aujourd'hui</option>
-                            <option value="3">3 derniers jours</option>
-                            <option value="7">7 derniers jours</option>
-                            <option value="30">30 derniers jours</option>
-                        </select>
-                    </div>
                     <div class="col-3 col-md-1">
                         <button class="btn btn-sm btn-outline-secondary w-100" onclick="resetFilters()">Reset</button>
                     </div>
@@ -215,7 +205,6 @@
                                 <th data-col="surface">m&sup2; <span class="sort-arrow">&#9650;</span></th>
                                 <th data-col="price_m2">&euro;/m&sup2; <span class="sort-arrow">&#9650;</span></th>
                                 <th data-col="distance_km">Dist. <span class="sort-arrow">&#9650;</span></th>
-                                <th data-col="display_date">Date <span class="sort-arrow">&#9650;</span></th>
                                 <th>Titre</th>
                             </tr>
                         </thead>
@@ -271,28 +260,12 @@ function applyFilters() {
     const pmax = parseInt(document.getElementById('f-pmax').value) || 999999;
     const site = document.getElementById('f-site').value;
     const smin = parseInt(document.getElementById('f-smin').value) || 0;
-    const days = parseInt(document.getElementById('f-days').value) || 0;
-
-    let cutoffStr = '';
-    if (days > 0) {
-        // Calcul local (pas UTC) pour eviter decalage timezone
-        const now = new Date();
-        const cutoff = new Date(now.getFullYear(), now.getMonth(), now.getDate() - days + 1);
-        cutoffStr = cutoff.getFullYear() + '-' +
-            String(cutoff.getMonth() + 1).padStart(2, '0') + '-' +
-            String(cutoff.getDate()).padStart(2, '0');
-    }
 
     filtered = LISTINGS.filter(l => {
         if (city && l.city !== city) return false;
         if (l.price < pmin || l.price > pmax) return false;
         if (site && l.site !== site) return false;
         if (smin && (!l.surface || l.surface < smin)) return false;
-        if (cutoffStr) {
-            // Pas de date connue → exclure si filtre actif
-            if (!l.display_date) return false;
-            if (l.display_date < cutoffStr) return false;
-        }
         return true;
     });
     sortAndRender();
@@ -325,14 +298,13 @@ function renderTable() {
             <td>${l.surface || '—'}</td>
             <td>${l.price_m2 ? l.price_m2 + '&euro;' : '—'}</td>
             <td>${l.distance_km != null ? l.distance_km + ' km' : '—'}</td>
-            <td>${l.display_date_fr || '—'}</td>
             <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 50)}</a></td>
         </tr>
     `).join('');
 }
 
 function resetFilters() {
-    ['f-city','f-pmin','f-pmax','f-site','f-smin','f-days'].forEach(id => document.getElementById(id).value = '');
+    ['f-city','f-pmin','f-pmax','f-site','f-smin'].forEach(id => document.getElementById(id).value = '');
     applyFilters();
 }
 
@@ -349,7 +321,7 @@ document.querySelectorAll('#main-table th[data-col]').forEach(th => {
 });
 
 // Filtres en temps reel
-['f-city', 'f-site', 'f-days'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
+['f-city', 'f-site'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
 ['f-pmin', 'f-pmax', 'f-smin'].forEach(id => document.getElementById(id).addEventListener('input', applyFilters));
 
 function initFilters() {
