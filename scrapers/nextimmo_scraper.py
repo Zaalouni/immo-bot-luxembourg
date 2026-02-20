@@ -244,36 +244,7 @@ class NextimmoScraper:
             return []
 
     def _matches_criteria(self, listing):
-        """Vérifier critères complets"""
-        try:
-            from config import MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS, MAX_DISTANCE
-
-            price = listing.get('price', 0)
-            if price <= 0 or price < MIN_PRICE or price > MAX_PRICE:
-                return False
-
-            rooms = listing.get('rooms', 0) or 0
-            if rooms > 0 and (rooms < MIN_ROOMS or rooms > MAX_ROOMS):
-                return False
-
-            surface = listing.get('surface', 0) or 0
-            if surface > 0 and surface < MIN_SURFACE:
-                return False
-
-            title = str(listing.get('title', '')).lower()
-            if any(w.strip().lower() in title for w in EXCLUDED_WORDS if w.strip()):
-                return False
-
-            distance_km = listing.get('distance_km')
-            if distance_km is not None:
-                try:
-                    if float(distance_km) > MAX_DISTANCE:
-                        return False
-                except (ValueError, TypeError):
-                    pass
-
-            return True
-        except Exception:
-            return False
+        from filters import matches_criteria
+        return matches_criteria(listing)
 
 nextimmo_scraper = NextimmoScraper()

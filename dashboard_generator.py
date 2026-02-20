@@ -1,674 +1,429 @@
+#!/usr/bin/env python3
 # =============================================================================
-# dashboard_generator.py — Generateur de dashboard HTML statique
+# dashboard_generator.py — Generateur de dashboard HTML pour immo-bot
 # =============================================================================
-# Lit listings.db, exporte les donnees en fichiers JS/JSON, genere le dashboard.
-#
 # Usage : python dashboard_generator.py
-# Output :
-#   dashboards/data/listings.js           — donnees annonces (variable JS)
-#   dashboards/data/stats.js              — statistiques (variable JS)
-#   dashboards/data/listings.json         — JSON pur (reutilisable)
-#   dashboards/data/history/YYYY-MM-DD.json — archive JSON du jour
-#   dashboards/index.html                 — dashboard PWA
-#   dashboards/manifest.json              — manifest PWA
-#   dashboards/archives/YYYY-MM-DD.html   — archive HTML du jour
-#
-# Zero dependance externe (stdlib Python uniquement)
-# Compatible PWA / smartphone — Bootstrap 5 + Leaflet.js via CDN
+# Output: dashboards/index.html  (standalone, ouvre dans navigateur)
+#         dashboards/archives/YYYY-MM-DD.html
+#         dashboards/data/listings.json
 # =============================================================================
-
-import sqlite3
-import json
-import os
-import shutil
+import sqlite3, json, os, sys
 from datetime import datetime
+from pathlib import Path
+
+DB_PATH = 'listings.db'
+OUT_DIR = Path('dashboards')
+ARCHIVES_DIR = OUT_DIR / 'archives'
+DATA_DIR = OUT_DIR / 'data'
 
 
-def read_listings(db_path='listings.db'):
-    """Lire toutes les annonces depuis la base SQLite"""
-    conn = sqlite3.connect(db_path)
+def load_listings():
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-
-    cursor.execute('''
-        SELECT listing_id, site, title, city, price, rooms, surface,
-               url, latitude, longitude, distance_km, created_at
-        FROM listings
-        ORDER BY id DESC
-    ''')
-
-    listings = []
-    for row in cursor.fetchall():
-        listing = dict(row)
-        if listing['price'] and listing['surface'] and listing['surface'] > 0:
-            listing['price_m2'] = round(listing['price'] / listing['surface'], 1)
-        else:
-            listing['price_m2'] = None
-        listings.append(listing)
-
+    c = conn.cursor()
+    c.execute('''SELECT id, listing_id, site, title, city, price, rooms, surface,
+                        url, latitude, longitude, distance_km, created_at, notified
+                 FROM listings ORDER BY created_at DESC''')
+    rows = [dict(r) for r in c.fetchall()]
     conn.close()
-    return listings
+    return rows
 
 
 def calc_stats(listings):
-    """Calculer les statistiques globales"""
     if not listings:
-        return {
-            'total': 0, 'avg_price': 0, 'min_price': 0, 'max_price': 0,
-            'avg_surface': 0, 'cities': 0, 'sites': {},
-            'by_city': [], 'by_price_range': {}
-        }
-
-    prices = [l['price'] for l in listings if l['price'] and l['price'] > 0]
-    surfaces = [l['surface'] for l in listings if l['surface'] and l['surface'] > 0]
-    sites = {}
-    cities = {}
-
+        return {}
+    prices   = [l['price']       for l in listings if l.get('price')       and l['price']   > 0]
+    surfaces = [l['surface']     for l in listings if l.get('surface')     and l['surface'] > 0]
+    dists    = [l['distance_km'] for l in listings if l.get('distance_km') is not None]
+    by_site  = {}
     for l in listings:
-        site = l['site'] or 'Inconnu'
-        sites[site] = sites.get(site, 0) + 1
-
-        city = l['city'] or 'N/A'
-        if city != 'N/A':
-            if city not in cities:
-                cities[city] = {'count': 0, 'prices': []}
-            cities[city]['count'] += 1
-            if l['price'] and l['price'] > 0:
-                cities[city]['prices'].append(l['price'])
-
-    by_city = []
-    for city, data in sorted(cities.items(), key=lambda x: x[1]['count'], reverse=True):
-        avg = int(sum(data['prices']) / len(data['prices'])) if data['prices'] else 0
-        by_city.append({'city': city, 'count': data['count'], 'avg_price': avg})
-
-    ranges = {'< 1500': 0, '1500 - 2000': 0, '2000 - 2500': 0, '> 2500': 0}
-    for p in prices:
-        if p < 1500:
-            ranges['< 1500'] += 1
-        elif p < 2000:
-            ranges['1500 - 2000'] += 1
-        elif p < 2500:
-            ranges['2000 - 2500'] += 1
-        else:
-            ranges['> 2500'] += 1
-
+        s = l.get('site', '?')
+        by_site[s] = by_site.get(s, 0) + 1
+    pm2 = [round(l['price'] / l['surface'], 1) for l in listings
+           if l.get('price') and l.get('surface') and l['price'] > 0 and l['surface'] > 0]
     return {
-        'total': len(listings),
-        'avg_price': int(sum(prices) / len(prices)) if prices else 0,
-        'min_price': min(prices) if prices else 0,
-        'max_price': max(prices) if prices else 0,
-        'avg_surface': int(sum(surfaces) / len(surfaces)) if surfaces else 0,
-        'cities': len(cities),
-        'sites': sites,
-        'by_city': by_city,
-        'by_price_range': ranges
+        'total':        len(listings),
+        'notified':     sum(1 for l in listings if l.get('notified')),
+        'avg_price':    round(sum(prices) / len(prices))    if prices   else 0,
+        'min_price':    min(prices)                         if prices   else 0,
+        'max_price':    max(prices)                         if prices   else 0,
+        'avg_surface':  round(sum(surfaces) / len(surfaces)) if surfaces else 0,
+        'avg_distance': round(sum(dists) / len(dists), 1)  if dists    else None,
+        'by_site':      by_site,
+        'avg_prix_m2':  round(sum(pm2) / len(pm2), 1)      if pm2      else 0,
     }
 
 
-def export_data(listings, stats, data_dir):
-    """Exporter les donnees en fichiers JS + JSON + archive quotidienne"""
-    os.makedirs(data_dir, exist_ok=True)
-    os.makedirs(os.path.join(data_dir, 'history'), exist_ok=True)
-    now_str = datetime.now().strftime("%d/%m/%Y %H:%M")
-    today = datetime.now().strftime('%Y-%m-%d')
+def generate_html(listings, stats, generated_at):
+    listings_json = json.dumps(listings, ensure_ascii=False, default=str)
 
-    # listings.js
-    listings_json = json.dumps(listings, ensure_ascii=False, indent=2, default=str)
-    with open(os.path.join(data_dir, 'listings.js'), 'w', encoding='utf-8') as f:
-        f.write(f'// Genere le {now_str}\n')
-        f.write(f'// {len(listings)} annonces depuis listings.db\n')
-        f.write(f'const LISTINGS = {listings_json};\n')
+    sites    = sorted(set(l.get('site', '')  for l in listings if l.get('site')))
+    cities   = sorted(set(l.get('city', '')  for l in listings if l.get('city')),
+                      key=lambda x: x.lower())
 
-    # stats.js
-    colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#2ECC71', '#E74C3C', '#3498DB']
-    site_colors = {}
-    for i, site in enumerate(stats['sites'].keys()):
-        site_colors[site] = colors[i % len(colors)]
+    sites_options  = '\n'.join(f'<option value="{s}">{s}</option>' for s in sites)
+    cities_options = '\n'.join(f'<option value="{c}">{c}</option>' for c in cities)
 
-    stats_json = json.dumps(stats, ensure_ascii=False, indent=2)
-    colors_json = json.dumps(site_colors, ensure_ascii=False, indent=2)
-    with open(os.path.join(data_dir, 'stats.js'), 'w', encoding='utf-8') as f:
-        f.write(f'// Genere le {now_str}\n')
-        f.write(f'const STATS = {stats_json};\n')
-        f.write(f'const SITE_COLORS = {colors_json};\n')
+    by_site_badges = ' '.join(
+        f'<span class="badge bg-secondary me-1">{site}: {count}</span>'
+        for site, count in sorted(stats.get('by_site', {}).items())
+    )
 
-    # listings.json (reutilisable)
-    with open(os.path.join(data_dir, 'listings.json'), 'w', encoding='utf-8') as f:
-        json.dump(listings, f, ensure_ascii=False, indent=2, default=str)
+    avg_dist_str = (f"{stats['avg_distance']} km" if stats.get('avg_distance') is not None else 'N/A')
 
-    # Archive JSON du jour (historique)
-    history_path = os.path.join(data_dir, 'history', f'{today}.json')
-    with open(history_path, 'w', encoding='utf-8') as f:
-        json.dump({
-            'date': today,
-            'generated_at': now_str,
-            'stats': stats,
-            'listings': listings
-        }, f, ensure_ascii=False, indent=2, default=str)
-
-    return site_colors
-
-
-def generate_manifest(dashboards_dir):
-    """Generer le manifest PWA"""
-    manifest = {
-        "name": "Immo Luxembourg Dashboard",
-        "short_name": "ImmoLux",
-        "description": "Dashboard immobilier Luxembourg - annonces de location",
-        "start_url": "./index.html",
-        "display": "standalone",
-        "background_color": "#f0f2f5",
-        "theme_color": "#667eea",
-        "icons": [
-            {
-                "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>",
-                "sizes": "any",
-                "type": "image/svg+xml"
-            }
-        ]
-    }
-    with open(os.path.join(dashboards_dir, 'manifest.json'), 'w', encoding='utf-8') as f:
-        json.dump(manifest, f, ensure_ascii=False, indent=2)
-
-
-def generate_html(stats, site_colors):
-    """Generer le HTML du dashboard PWA"""
-    now = datetime.now().strftime('%d/%m/%Y %H:%M')
-    colors = list(site_colors.values())
-
-    html = f'''<!DOCTYPE html>
+    return f'''<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#667eea">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
-    <title>ImmoLux Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
-    <style>
-        :root {{ --primary: #667eea; --primary-dark: #5a6fd6; }}
-        * {{ -webkit-tap-highlight-color: transparent; }}
-        body {{ background: #f0f2f5; font-family: 'Segoe UI', sans-serif; padding-bottom: 2rem; }}
-
-        .header {{
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; padding: 1.2rem 1rem; margin-bottom: 1rem;
-            position: sticky; top: 0; z-index: 1000;
-        }}
-        .header h1 {{ font-size: 1.4rem; margin: 0; }}
-        .header small {{ opacity: 0.8; font-size: 0.75rem; }}
-
-        .stat-card {{
-            background: white; border-radius: 12px; padding: 0.8rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center;
-        }}
-        .stat-value {{ font-size: 1.5rem; font-weight: 700; color: var(--primary); }}
-        .stat-label {{ font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }}
-
-        .card {{ border: none; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }}
-        .card-header {{ background: white; border-bottom: 2px solid #f0f2f5; font-weight: 600; }}
-
-        .nav-tabs {{ position: sticky; top: 60px; z-index: 999; background: #f0f2f5; padding-top: 0.5rem; }}
-        .nav-tabs .nav-link {{ color: #666; font-weight: 500; font-size: 0.9rem; }}
-        .nav-tabs .nav-link.active {{ color: var(--primary); border-color: var(--primary); }}
-
-        .site-badge {{
-            display: inline-block; padding: 2px 8px; border-radius: 12px;
-            color: white; font-size: 0.7rem; font-weight: 600;
-        }}
-
-        .table {{ font-size: 0.8rem; }}
-        .table th {{ cursor: pointer; user-select: none; white-space: nowrap; font-size: 0.75rem; }}
-        .table th:hover {{ background: #e9ecef; }}
-        .table td {{ vertical-align: middle; }}
-        .sort-arrow {{ opacity: 0.3; margin-left: 2px; }}
-        .sort-arrow.active {{ opacity: 1; }}
-
-        .filter-section {{ background: white; border-radius: 12px; padding: 0.8rem 1rem; margin-bottom: 0.8rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08); }}
-
-        .city-group {{ background: white; border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08); }}
-        .city-group h5 {{ color: var(--primary); margin-bottom: 0.6rem; font-size: 1rem; }}
-
-        .price-range-section {{ background: white; border-radius: 12px; padding: 1rem; margin-bottom: 0.8rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08); }}
-        .price-range-section h5 {{ margin-bottom: 0.6rem; font-size: 1rem; }}
-        .price-badge {{ font-size: 0.8rem; padding: 3px 10px; border-radius: 8px; }}
-
-        #map {{ height: 350px; border-radius: 12px; }}
-
-        a {{ color: var(--primary); text-decoration: none; }}
-        a:hover {{ text-decoration: underline; }}
-        .listing-count {{ font-size: 0.8rem; color: #888; }}
-
-        /* Mobile */
-        @media (max-width: 768px) {{
-            .header h1 {{ font-size: 1.1rem; }}
-            .stat-value {{ font-size: 1.2rem; }}
-            .stat-label {{ font-size: 0.6rem; }}
-            .table {{ font-size: 0.7rem; }}
-            .container-fluid {{ padding-left: 0.5rem; padding-right: 0.5rem; }}
-            #map {{ height: 280px; }}
-        }}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Immo Bot Luxembourg — Dashboard</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+<style>
+  body {{ background:#f8f9fa; font-size:.9rem; }}
+  .stat-card {{ border-radius:12px; border:none; box-shadow:0 2px 8px rgba(0,0,0,.08); }}
+  .stat-val  {{ font-size:1.8rem; font-weight:700; line-height:1; }}
+  .stat-label {{ font-size:.75rem; color:#6c757d; text-transform:uppercase; letter-spacing:.05em; }}
+  #map {{ height:380px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,.08); }}
+  .filter-card, .table-container {{ border-radius:12px; border:none; box-shadow:0 2px 8px rgba(0,0,0,.08); background:white; }}
+  .badge-site {{ font-size:.7rem; padding:.25em .5em; }}
+  #compare-btn {{ display:none; }}
+  a.al {{ text-decoration:none; color:#0d6efd; }}
+  a.al:hover {{ text-decoration:underline; }}
+  .pm2 {{ font-size:.75rem; color:#6c757d; }}
+  th {{ white-space:nowrap; }}
+</style>
 </head>
 <body>
 
-<!-- Header -->
-<div class="header">
-    <div class="d-flex justify-content-between align-items-center">
-        <div>
-            <h1>ImmoLux Dashboard</h1>
-            <small>Mis a jour le {now} — {stats['total']} annonces</small>
-        </div>
-        <div>
-            <span class="listing-count">{stats['cities']} villes | {len(stats['sites'])} sites</span>
-        </div>
-    </div>
+<nav class="navbar navbar-dark bg-dark mb-4">
+  <div class="container-fluid">
+    <span class="navbar-brand fw-bold">🏠 Immo Bot Luxembourg</span>
+    <span class="text-secondary small">Mis à jour : {generated_at}</span>
+  </div>
+</nav>
+
+<div class="container-fluid px-4">
+
+<!-- STATS -->
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-2"><div class="card stat-card h-100"><div class="card-body text-center">
+    <div class="stat-val text-primary">{stats.get('total',0)}</div><div class="stat-label">Annonces</div>
+  </div></div></div>
+  <div class="col-6 col-md-2"><div class="card stat-card h-100"><div class="card-body text-center">
+    <div class="stat-val text-success">{stats.get('avg_price',0):,}€</div><div class="stat-label">Prix moyen</div>
+  </div></div></div>
+  <div class="col-6 col-md-2"><div class="card stat-card h-100"><div class="card-body text-center">
+    <div class="stat-val text-info">{stats.get('avg_surface',0)} m²</div><div class="stat-label">Surface moy.</div>
+  </div></div></div>
+  <div class="col-6 col-md-2"><div class="card stat-card h-100"><div class="card-body text-center">
+    <div class="stat-val text-warning">{stats.get('avg_prix_m2',0)}€</div><div class="stat-label">€/m² moyen</div>
+  </div></div></div>
+  <div class="col-6 col-md-2"><div class="card stat-card h-100"><div class="card-body text-center">
+    <div class="stat-val text-danger">{stats.get('min_price',0):,}€</div><div class="stat-label">Prix min</div>
+  </div></div></div>
+  <div class="col-6 col-md-2"><div class="card stat-card h-100"><div class="card-body text-center">
+    <div class="stat-val">{stats.get('max_price',0):,}€</div><div class="stat-label">Prix max</div>
+  </div></div></div>
 </div>
 
-<div class="container-fluid px-3">
-
-    <!-- Stats -->
-    <div class="row g-2 mb-3">
-        <div class="col-4 col-md-2">
-            <div class="stat-card">
-                <div class="stat-value">{stats['total']}</div>
-                <div class="stat-label">Annonces</div>
-            </div>
-        </div>
-        <div class="col-4 col-md-2">
-            <div class="stat-card">
-                <div class="stat-value">{stats['avg_price']}&euro;</div>
-                <div class="stat-label">Prix moy.</div>
-            </div>
-        </div>
-        <div class="col-4 col-md-2">
-            <div class="stat-card">
-                <div class="stat-value">{stats['min_price']}&euro;</div>
-                <div class="stat-label">Min</div>
-            </div>
-        </div>
-        <div class="col-4 col-md-2">
-            <div class="stat-card">
-                <div class="stat-value">{stats['max_price']}&euro;</div>
-                <div class="stat-label">Max</div>
-            </div>
-        </div>
-        <div class="col-4 col-md-2">
-            <div class="stat-card">
-                <div class="stat-value">{stats['avg_surface']}m&sup2;</div>
-                <div class="stat-label">Surface</div>
-            </div>
-        </div>
-        <div class="col-4 col-md-2">
-            <div class="stat-card">
-                <div class="stat-value">{stats['cities']}</div>
-                <div class="stat-label">Villes</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Par site -->
-    <div class="filter-section mb-2">
-        <strong>Sites :</strong>
-        ''' + ' '.join(
-            f'<span class="site-badge ms-1" style="background:{colors[i % len(colors)]}">'
-            f'{site} ({count})</span>'
-            for i, (site, count) in enumerate(stats['sites'].items())
-        ) + '''
-    </div>
-
-    <!-- Onglets -->
-    <ul class="nav nav-tabs mb-2" role="tablist">
-        <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-table">Tableau</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-city">Par ville</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-price">Par prix</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-map">Carte</button>
-        </li>
-    </ul>
-
-    <div class="tab-content">
-
-        <!-- TAB: Tableau -->
-        <div class="tab-pane fade show active" id="tab-table">
-            <div class="filter-section">
-                <div class="row g-2 align-items-end">
-                    <div class="col-6 col-md-3">
-                        <label class="form-label form-label-sm mb-0">Ville</label>
-                        <select id="f-city" class="form-select form-select-sm"><option value="">Toutes</option></select>
-                    </div>
-                    <div class="col-3 col-md-2">
-                        <label class="form-label form-label-sm mb-0">Prix min</label>
-                        <input type="number" id="f-pmin" class="form-control form-control-sm" placeholder="0">
-                    </div>
-                    <div class="col-3 col-md-2">
-                        <label class="form-label form-label-sm mb-0">Prix max</label>
-                        <input type="number" id="f-pmax" class="form-control form-control-sm" placeholder="9999">
-                    </div>
-                    <div class="col-6 col-md-2">
-                        <label class="form-label form-label-sm mb-0">Site</label>
-                        <select id="f-site" class="form-select form-select-sm"><option value="">Tous</option></select>
-                    </div>
-                    <div class="col-3 col-md-2">
-                        <label class="form-label form-label-sm mb-0">m&sup2; min</label>
-                        <input type="number" id="f-smin" class="form-control form-control-sm" placeholder="0">
-                    </div>
-                    <div class="col-3 col-md-1">
-                        <button class="btn btn-sm btn-outline-secondary w-100" onclick="resetFilters()">Reset</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-2">
-                <div class="card-header d-flex justify-content-between py-2">
-                    <span>Annonces</span>
-                    <span id="table-count" class="listing-count"></span>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0" id="main-table">
-                        <thead>
-                            <tr>
-                                <th data-col="site">Site <span class="sort-arrow">&#9650;</span></th>
-                                <th data-col="city">Ville <span class="sort-arrow">&#9650;</span></th>
-                                <th data-col="price">Prix <span class="sort-arrow">&#9650;</span></th>
-                                <th data-col="rooms">Ch. <span class="sort-arrow">&#9650;</span></th>
-                                <th data-col="surface">m&sup2; <span class="sort-arrow">&#9650;</span></th>
-                                <th data-col="price_m2">&euro;/m&sup2; <span class="sort-arrow">&#9650;</span></th>
-                                <th data-col="distance_km">Dist. <span class="sort-arrow">&#9650;</span></th>
-                                <th>Titre</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: Par ville -->
-        <div class="tab-pane fade" id="tab-city">
-            <div id="city-container"></div>
-        </div>
-
-        <!-- TAB: Par prix -->
-        <div class="tab-pane fade" id="tab-price">
-            <div id="price-container"></div>
-        </div>
-
-        <!-- TAB: Carte -->
-        <div class="tab-pane fade" id="tab-map">
-            <div class="card">
-                <div class="card-body p-0">
-                    <div id="map"></div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+<div class="card filter-card mb-3 p-2">
+  <span class="text-muted small me-2">Sites :</span>{by_site_badges}
+  <span class="ms-3 text-muted small">Notifiées : <strong>{stats.get('notified',0)}</strong></span>
+  <span class="ms-3 text-muted small">Distance moy. : <strong>{avg_dist_str}</strong></span>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- FILTRES -->
+<div class="card filter-card mb-4">
+  <div class="card-header fw-semibold py-2">🔍 Filtres</div>
+  <div class="card-body">
+    <div class="row g-2 align-items-end">
+      <div class="col-12 col-md-2">
+        <label class="form-label mb-1 small">Site</label>
+        <select id="f-site" class="form-select form-select-sm" multiple size="3">
+          {sites_options}
+        </select>
+      </div>
+      <div class="col-12 col-md-2">
+        <label class="form-label mb-1 small">Ville</label>
+        <select id="f-city" class="form-select form-select-sm" multiple size="3">
+          {cities_options}
+        </select>
+      </div>
+      <div class="col-6 col-md-1">
+        <label class="form-label mb-1 small">Prix min €</label>
+        <input id="f-pmin" type="number" class="form-control form-control-sm" placeholder="1000" step="100">
+      </div>
+      <div class="col-6 col-md-1">
+        <label class="form-label mb-1 small">Prix max €</label>
+        <input id="f-pmax" type="number" class="form-control form-control-sm" placeholder="3000" step="100">
+      </div>
+      <div class="col-6 col-md-1">
+        <label class="form-label mb-1 small">Surface min m²</label>
+        <input id="f-smin" type="number" class="form-control form-control-sm" placeholder="0">
+      </div>
+      <div class="col-6 col-md-1">
+        <label class="form-label mb-1 small">Pièces</label>
+        <select id="f-rooms" class="form-select form-select-sm">
+          <option value="">Toutes</option>
+          <option value="1">1</option><option value="2">2</option>
+          <option value="3">3</option><option value="4">4+</option>
+        </select>
+      </div>
+      <div class="col-6 col-md-1">
+        <label class="form-label mb-1 small">Dist. max km</label>
+        <input id="f-dmax" type="number" class="form-control form-control-sm" placeholder="15">
+      </div>
+      <div class="col-6 col-md-1">
+        <label class="form-label mb-1 small">Notifié</label>
+        <select id="f-notif" class="form-select form-select-sm">
+          <option value="">Tous</option>
+          <option value="1">Oui</option><option value="0">Non</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-2 d-flex gap-2">
+        <button class="btn btn-primary btn-sm w-100" onclick="applyFilters()">Appliquer</button>
+        <button class="btn btn-outline-secondary btn-sm w-100" onclick="resetFilters()">Reset</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mb-3">
+  <button id="compare-btn" class="btn btn-warning btn-sm" onclick="openCompare()">
+    ⚖️ Comparer (<span id="cmp-cnt">0</span> sélectionnées)
+  </button>
+</div>
+
+<!-- TABLEAU -->
+<div class="table-container mb-4" style="overflow-x:auto">
+  <table id="tbl" class="table table-hover table-sm table-bordered mb-0" style="width:100%">
+    <thead class="table-dark">
+      <tr>
+        <th><input type="checkbox" id="chk-all" onchange="toggleAll(this)"></th>
+        <th>Site</th><th>Ville</th><th>Prix €</th><th>m²</th><th>€/m²</th>
+        <th>Pièces</th><th>Distance</th><th>Titre</th><th>Date</th><th>✉️</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<!-- CARTE -->
+<div class="card filter-card mb-5">
+  <div class="card-header fw-semibold py-2">🗺️ Carte des annonces géolocalisées</div>
+  <div class="card-body p-2"><div id="map"></div></div>
+</div>
+
+</div>
+
+<!-- MODAL COMPARATEUR -->
+<div class="modal fade" id="cmp-modal" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">⚖️ Comparateur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="cmp-body"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="data/listings.js"></script>
-<script src="data/stats.js"></script>
 <script>
+const ALL = {listings_json};
+let filtered = [...ALL];
+let cmpSet = new Set();
+let dt, mapObj, mapMarkers = [];
 
-// --- Utilitaires ---
-function fmt(n) { return n ? n.toString().replace(/\\B(?=(\\d{3})+(?!\\d))/g, ' ') : '\u2014'; }
-function badge(site) {
-    const bg = SITE_COLORS[site] || '#888';
-    return `<span class="site-badge" style="background:${bg}">${site}</span>`;
-}
+const SITE_COLORS = {{
+  'Athome.lu':'bg-primary','Immotop.lu':'bg-success','Luxhome.lu':'bg-info text-dark',
+  'VIVI.lu':'bg-warning text-dark','Nextimmo.lu':'bg-secondary','Newimmo.lu':'bg-danger',
+  'Unicorn.lu':'bg-dark','Wortimmo.lu':'bg-primary'
+}};
 
-// --- Tableau triable ---
-let sortCol = 'price';
-let sortAsc = true;
-let filtered = [...LISTINGS];
+window.addEventListener('DOMContentLoaded', () => {{ render(filtered); initMap(); }});
 
-function applyFilters() {
-    const city = document.getElementById('f-city').value;
-    const pmin = parseInt(document.getElementById('f-pmin').value) || 0;
-    const pmax = parseInt(document.getElementById('f-pmax').value) || 999999;
-    const site = document.getElementById('f-site').value;
-    const smin = parseInt(document.getElementById('f-smin').value) || 0;
+function fmt(n) {{ return n != null ? Number(n).toLocaleString('fr-FR') : '—'; }}
+function trunc(s,n) {{ return s && s.length>n ? s.slice(0,n)+'…' : (s||'—'); }}
+function dBadge(d) {{
+  if(d==null) return 'bg-secondary';
+  return d<2?'bg-success':d<5?'bg-primary':d<10?'bg-warning text-dark':'bg-danger';
+}}
+function dColor(d) {{
+  if(d==null) return '#6c757d';
+  return d<2?'#198754':d<5?'#0d6efd':d<10?'#ffc107':'#dc3545';
+}}
 
-    filtered = LISTINGS.filter(l => {
-        if (city && l.city !== city) return false;
-        if (l.price < pmin || l.price > pmax) return false;
-        if (site && l.site !== site) return false;
-        if (smin && (!l.surface || l.surface < smin)) return false;
-        return true;
-    });
-    sortAndRender();
-}
+function render(data) {{
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  data.forEach(l => {{
+    const pm2 = (l.price>0&&l.surface>0) ? Math.round(l.price/l.surface*10)/10 : '';
+    const dist = l.distance_km!=null
+      ? `<span class="badge ${{dBadge(l.distance_km)}}">${{l.distance_km.toFixed(1)}} km</span>`
+      : '<span class="text-muted small">—</span>';
+    const site = l.site||'—';
+    const sc = SITE_COLORS[site]||'bg-secondary';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="checkbox" class="cchk" value="${{l.id}}" onchange="togCmp(${{l.id}},this)"></td>
+      <td><span class="badge ${{sc}} badge-site">${{site}}</span></td>
+      <td>${{l.city||'—'}}</td>
+      <td class="fw-bold">${{l.price?fmt(l.price)+' €':'—'}}</td>
+      <td>${{l.surface||'—'}}</td>
+      <td class="pm2">${{pm2?pm2+' €':'—'}}</td>
+      <td>${{l.rooms||'—'}}</td>
+      <td>${{dist}}</td>
+      <td><a class="al" href="${{l.url}}" target="_blank" title="${{l.title}}">${{trunc(l.title,55)}}</a></td>
+      <td class="text-muted small">${{l.created_at?l.created_at.slice(0,10):'—'}}</td>
+      <td class="text-center">${{l.notified?'✅':''}}</td>`;
+    tbody.appendChild(tr);
+  }});
+  if(dt) {{ dt.destroy(); }}
+  dt = $('#tbl').DataTable({{
+    paging:true, pageLength:25, ordering:true, order:[[3,'asc']], searching:true,
+    language:{{ url:'https://cdn.datatables.net/plug-ins/1.13.8/i18n/fr-FR.json' }},
+    columnDefs:[{{ orderable:false, targets:[0,8] }}]
+  }});
+  document.getElementById('chk-all').checked = false;
+  updateMap(data);
+}}
 
-function sortAndRender() {
-    filtered.sort((a, b) => {
-        let va = a[sortCol], vb = b[sortCol];
-        if (va == null) va = sortAsc ? Infinity : -Infinity;
-        if (vb == null) vb = sortAsc ? Infinity : -Infinity;
-        if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
-        return sortAsc ? va - vb : vb - va;
-    });
-    renderTable();
-}
+function applyFilters() {{
+  const sites  = [...document.getElementById('f-site').selectedOptions].map(o=>o.value).filter(v=>v);
+  const cities = [...document.getElementById('f-city').selectedOptions].map(o=>o.value).filter(v=>v);
+  const pmin   = parseFloat(document.getElementById('f-pmin').value)||0;
+  const pmax   = parseFloat(document.getElementById('f-pmax').value)||Infinity;
+  const smin   = parseFloat(document.getElementById('f-smin').value)||0;
+  const rooms  = document.getElementById('f-rooms').value;
+  const dmax   = parseFloat(document.getElementById('f-dmax').value)||Infinity;
+  const notif  = document.getElementById('f-notif').value;
+  filtered = ALL.filter(l => {{
+    if(sites.length  && !sites.includes(l.site))  return false;
+    if(cities.length && !cities.includes(l.city)) return false;
+    if(l.price<pmin || l.price>pmax) return false;
+    if(smin>0 && l.surface>0 && l.surface<smin) return false;
+    if(rooms) {{ if(rooms==='4'){{if(l.rooms<4)return false;}} else{{if(l.rooms&&l.rooms!=+rooms)return false;}} }}
+    if(dmax<Infinity && l.distance_km!=null && l.distance_km>dmax) return false;
+    if(notif==='1' && !l.notified) return false;
+    if(notif==='0' && l.notified)  return false;
+    return true;
+  }});
+  render(filtered);
+}}
 
-function renderTable() {
-    const tbody = document.getElementById('table-body');
-    document.getElementById('table-count').textContent = filtered.length + ' / ' + LISTINGS.length;
-    if (!filtered.length) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-3">Aucune annonce</td></tr>';
-        return;
-    }
-    tbody.innerHTML = filtered.map(l => `
-        <tr>
-            <td>${badge(l.site)}</td>
-            <td>${l.city || '\u2014'}</td>
-            <td><strong>${fmt(l.price)}&euro;</strong></td>
-            <td>${l.rooms || '\u2014'}</td>
-            <td>${l.surface || '\u2014'}</td>
-            <td>${l.price_m2 ? l.price_m2 + '&euro;' : '\u2014'}</td>
-            <td>${l.distance_km != null ? l.distance_km + ' km' : '\u2014'}</td>
-            <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 50)}</a></td>
-        </tr>
-    `).join('');
-}
+function resetFilters() {{
+  ['f-site','f-city'].forEach(id=>{{ document.getElementById(id).selectedIndex=-1; }});
+  ['f-pmin','f-pmax','f-smin','f-dmax'].forEach(id=>{{ document.getElementById(id).value=''; }});
+  document.getElementById('f-rooms').value='';
+  document.getElementById('f-notif').value='';
+  filtered=[...ALL]; render(filtered);
+}}
 
-function resetFilters() {
-    ['f-city','f-pmin','f-pmax','f-site','f-smin'].forEach(id => document.getElementById(id).value = '');
-    applyFilters();
-}
+function initMap() {{
+  mapObj = L.map('map').setView([49.6116,6.1319],11);
+  L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png',
+    {{attribution:'© OpenStreetMap'}}).addTo(mapObj);
+  updateMap(ALL);
+}}
 
-// Tri au clic
-document.querySelectorAll('#main-table th[data-col]').forEach(th => {
-    th.addEventListener('click', () => {
-        const col = th.dataset.col;
-        if (sortCol === col) { sortAsc = !sortAsc; } else { sortCol = col; sortAsc = true; }
-        document.querySelectorAll('.sort-arrow').forEach(a => a.classList.remove('active'));
-        th.querySelector('.sort-arrow').classList.add('active');
-        th.querySelector('.sort-arrow').innerHTML = sortAsc ? '&#9650;' : '&#9660;';
-        sortAndRender();
-    });
-});
+function updateMap(data) {{
+  mapMarkers.forEach(m=>mapObj.removeLayer(m)); mapMarkers=[];
+  data.forEach(l => {{
+    if(!l.latitude||!l.longitude) return;
+    const col = dColor(l.distance_km);
+    const icon = L.divIcon({{
+      html:`<div style="background:${{col}};width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 3px #0005"></div>`,
+      iconSize:[12,12],iconAnchor:[6,6],className:''
+    }});
+    const m = L.marker([l.latitude,l.longitude],{{icon}}).bindPopup(
+      `<b>${{l.city||''}}</b><br>
+       ${{l.price?fmt(l.price)+' €':''}}
+       ${{l.surface?'· '+l.surface+' m²':''}}
+       ${{l.rooms?'· '+l.rooms+' ch':''}}<br>
+       ${{l.distance_km!=null?l.distance_km.toFixed(1)+' km':''}}<br>
+       <a href="${{l.url}}" target="_blank">Voir l'annonce</a>`
+    ).addTo(mapObj);
+    mapMarkers.push(m);
+  }});
+}}
 
-// Filtres en temps reel
-['f-city', 'f-site'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
-['f-pmin', 'f-pmax', 'f-smin'].forEach(id => document.getElementById(id).addEventListener('input', applyFilters));
-
-function initFilters() {
-    const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
-    const sites = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
-    const citySelect = document.getElementById('f-city');
-    cities.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; citySelect.appendChild(o); });
-    const siteSelect = document.getElementById('f-site');
-    sites.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; siteSelect.appendChild(o); });
-}
-
-// --- Vue par ville ---
-function renderCityView() {
-    const container = document.getElementById('city-container');
-    const groups = {};
-    LISTINGS.forEach(l => { const c = l.city || 'N/A'; if (!groups[c]) groups[c] = []; groups[c].push(l); });
-    const sorted = Object.entries(groups).sort((a, b) => b[1].length - a[1].length);
-
-    container.innerHTML = sorted.map(([city, items]) => {
-        const prices = items.filter(l => l.price > 0).map(l => l.price);
-        const avg = prices.length ? Math.round(prices.reduce((a,b) => a+b, 0) / prices.length) : 0;
-        const mn = prices.length ? Math.min(...prices) : 0;
-        const mx = prices.length ? Math.max(...prices) : 0;
-        const rows = items.sort((a,b) => (a.price||0) - (b.price||0)).map(l => `
-            <tr>
-                <td>${badge(l.site)}</td>
-                <td><strong>${fmt(l.price)}&euro;</strong></td>
-                <td>${l.rooms || '\u2014'} ch.</td>
-                <td>${l.surface || '\u2014'} m&sup2;</td>
-                <td>${l.price_m2 ? l.price_m2 + ' &euro;/m&sup2;' : '\u2014'}</td>
-                <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 45)}</a></td>
-            </tr>
-        `).join('');
-        return `
-            <div class="city-group">
-                <h5>${city} <span class="listing-count">(${items.length} ann. | moy. ${fmt(avg)}&euro; | ${fmt(mn)}&euro; - ${fmt(mx)}&euro;)</span></h5>
-                <div class="table-responsive">
-                <table class="table table-sm table-hover mb-0">
-                    <thead><tr><th>Site</th><th>Prix</th><th>Ch.</th><th>m&sup2;</th><th>&euro;/m&sup2;</th><th>Titre</th></tr></thead>
-                    <tbody>${rows}</tbody>
-                </table>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-// --- Vue par prix ---
-function renderPriceView() {
-    const container = document.getElementById('price-container');
-    const ranges = [
-        { label: 'Moins de 1 500 &euro;', min: 0, max: 1499, color: '#2ECC71' },
-        { label: '1 500 - 2 000 &euro;', min: 1500, max: 1999, color: '#36A2EB' },
-        { label: '2 000 - 2 500 &euro;', min: 2000, max: 2499, color: '#FFCE56' },
-        { label: 'Plus de 2 500 &euro;', min: 2500, max: 999999, color: '#FF6384' }
-    ];
-    container.innerHTML = ranges.map(r => {
-        const items = LISTINGS.filter(l => l.price >= r.min && l.price <= r.max).sort((a,b) => (a.price||0) - (b.price||0));
-        if (!items.length) return '';
-        const rows = items.map(l => `
-            <tr>
-                <td>${badge(l.site)}</td>
-                <td>${l.city || '\u2014'}</td>
-                <td><strong>${fmt(l.price)}&euro;</strong></td>
-                <td>${l.rooms || '\u2014'} ch.</td>
-                <td>${l.surface || '\u2014'} m&sup2;</td>
-                <td>${l.price_m2 ? l.price_m2 + ' &euro;/m&sup2;' : '\u2014'}</td>
-                <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 45)}</a></td>
-            </tr>
-        `).join('');
-        return `
-            <div class="price-range-section">
-                <h5><span class="price-badge" style="background:${r.color};color:white">${r.label}</span>
-                    <span class="listing-count ms-2">${items.length} annonces</span></h5>
-                <div class="table-responsive">
-                <table class="table table-sm table-hover mb-0">
-                    <thead><tr><th>Site</th><th>Ville</th><th>Prix</th><th>Ch.</th><th>m&sup2;</th><th>&euro;/m&sup2;</th><th>Titre</th></tr></thead>
-                    <tbody>${rows}</tbody>
-                </table>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-// --- Carte Leaflet (lazy load quand onglet actif) ---
-let mapInit = false;
-document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', () => {
-    if (mapInit) return;
-    mapInit = true;
-    const withGPS = LISTINGS.filter(l => l.latitude && l.longitude);
-    if (!withGPS.length) {
-        document.getElementById('map').innerHTML = '<p class="text-center text-muted py-5">Aucune annonce avec coordonnees GPS</p>';
-        return;
-    }
-    const map = L.map('map').setView([49.6116, 6.1319], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
-    withGPS.forEach(l => {
-        const color = SITE_COLORS[l.site] || '#888';
-        L.circleMarker([l.latitude, l.longitude], {
-            radius: 7, fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
-        }).addTo(map).bindPopup(`
-            <strong>${l.city || '\u2014'}</strong><br>
-            ${fmt(l.price)}&euro; | ${l.rooms || '?'} ch. | ${l.surface || '?'} m&sup2;<br>
-            <a href="${l.url}" target="_blank">Voir l'annonce</a>
-        `);
-    });
-    map.fitBounds(withGPS.map(l => [l.latitude, l.longitude]), { padding: [30, 30] });
-});
-
-// --- Init ---
-initFilters();
-applyFilters();
-renderCityView();
-renderPriceView();
+function togCmp(id,chk) {{
+  chk.checked ? cmpSet.add(id) : cmpSet.delete(id);
+  const btn=document.getElementById('compare-btn');
+  document.getElementById('cmp-cnt').textContent=cmpSet.size;
+  btn.style.display=cmpSet.size>=2?'inline-block':'none';
+}}
+function toggleAll(chk) {{
+  document.querySelectorAll('.cchk').forEach(c=>{{
+    c.checked=chk.checked; chk.checked?cmpSet.add(+c.value):cmpSet.delete(+c.value);
+  }});
+  document.getElementById('cmp-cnt').textContent=cmpSet.size;
+  document.getElementById('compare-btn').style.display=cmpSet.size>=2?'inline-block':'none';
+}}
+function openCompare() {{
+  const sel=ALL.filter(l=>cmpSet.has(l.id));
+  if(sel.length<2) return;
+  const fields=[
+    ['Site',l=>l.site||'—'],['Ville',l=>l.city||'—'],
+    ['Prix',l=>l.price?fmt(l.price)+' €':'—'],
+    ['Surface',l=>l.surface?l.surface+' m²':'—'],
+    ['€/m²',l=>(l.price&&l.surface)?Math.round(l.price/l.surface*10)/10+' €':'—'],
+    ['Pièces',l=>l.rooms||'—'],
+    ['Distance',l=>l.distance_km!=null?l.distance_km.toFixed(1)+' km':'—'],
+    ['Notifié',l=>l.notified?'✅':'❌'],
+    ['Date',l=>l.created_at?l.created_at.slice(0,10):'—'],
+    ['Lien',l=>`<a href="${{l.url}}" target="_blank">Voir</a>`],
+  ];
+  let html='<table class="table table-sm table-bordered"><thead class="table-dark"><tr><th>Critère</th>';
+  sel.forEach(l=>{{html+=`<th>${{trunc(l.title,30)}}</th>`;}});
+  html+='</tr></thead><tbody>';
+  fields.forEach(([lbl,fn])=>{{
+    html+=`<tr><td class="fw-semibold">${{lbl}}</td>`;
+    sel.forEach(l=>{{html+=`<td>${{fn(l)}}</td>`;}});
+    html+='</tr>';
+  }});
+  html+='</tbody></table>';
+  document.getElementById('cmp-body').innerHTML=html;
+  new bootstrap.Modal(document.getElementById('cmp-modal')).show();
+}}
 </script>
 </body>
 </html>'''
 
-    return html
-
 
 def main():
-    """Point d'entree principal"""
-    print("Lecture de listings.db...")
-    listings = read_listings()
+    if not os.path.exists(DB_PATH):
+        print(f"Erreur: {DB_PATH} introuvable"); sys.exit(1)
+    OUT_DIR.mkdir(exist_ok=True)
+    ARCHIVES_DIR.mkdir(exist_ok=True)
+    DATA_DIR.mkdir(exist_ok=True)
 
-    if not listings:
-        print("Aucune annonce trouvee dans la base.")
-        return
-
+    listings = load_listings()
     stats = calc_stats(listings)
-    today = datetime.now().strftime('%Y-%m-%d')
-    dashboards_dir = 'dashboards'
-    data_dir = os.path.join(dashboards_dir, 'data')
-    print(f"  {stats['total']} annonces, {stats['cities']} villes, {len(stats['sites'])} sites")
+    generated_at = datetime.now().strftime('%d/%m/%Y %H:%M')
 
-    # Creer les dossiers
-    os.makedirs(os.path.join(dashboards_dir, 'archives'), exist_ok=True)
+    html = generate_html(listings, stats, generated_at)
 
-    # Etape 1 : exporter donnees JS + JSON + archive quotidienne
-    site_colors = export_data(listings, stats, data_dir)
-    print(f"  -> {data_dir}/listings.js")
-    print(f"  -> {data_dir}/stats.js")
-    print(f"  -> {data_dir}/listings.json")
-    print(f"  -> {data_dir}/history/{today}.json")
+    index_path = OUT_DIR / 'index.html'
+    index_path.write_text(html, encoding='utf-8')
 
-    # Etape 2 : manifest PWA
-    generate_manifest(dashboards_dir)
-    print(f"  -> {dashboards_dir}/manifest.json")
+    archive_name = datetime.now().strftime('%Y-%m-%d') + '.html'
+    (ARCHIVES_DIR / archive_name).write_text(html, encoding='utf-8')
 
-    # Etape 3 : HTML dashboard
-    html = generate_html(stats, site_colors)
-    index_path = os.path.join(dashboards_dir, 'index.html')
-    with open(index_path, 'w', encoding='utf-8') as f:
-        f.write(html)
-    print(f"  -> {index_path}")
+    (DATA_DIR / 'listings.json').write_text(
+        json.dumps(listings, ensure_ascii=False, indent=2, default=str), encoding='utf-8'
+    )
 
-    # Etape 4 : archive HTML du jour
-    archive_path = os.path.join(dashboards_dir, 'archives', f'{today}.html')
-    shutil.copy2(index_path, archive_path)
-    print(f"  -> {archive_path}")
-
-    print(f"\nDashboard genere avec succes !")
-    print(f"Ouvrir : {os.path.abspath(index_path)}")
+    print(f"Dashboard genere : {len(listings)} annonces")
+    print(f"  {index_path.resolve()}")
 
 
 if __name__ == '__main__':
