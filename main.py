@@ -164,6 +164,22 @@ try:
     except ImportError as e:
         logger.warning(f"⚠️ Sigelux.lu: {e}")
 
+    # ImmoStar.lu
+    try:
+        from scrapers.immostar_scraper import immostar_scraper
+        scrapers_config.append(('⭐ ImmoStar.lu', immostar_scraper))
+        logger.info("✅ ImmoStar.lu")
+    except ImportError as e:
+        logger.warning(f"⚠️ ImmoStar.lu: {e}")
+
+    # Apropos.lu — desactive : pagination cassee, overlap Immotop, peu d'annonces budget
+    # try:
+    #     from scrapers.apropos_scraper import apropos_scraper
+    #     scrapers_config.append(('📋 Apropos.lu', apropos_scraper))
+    #     logger.info("✅ Apropos.lu")
+    # except ImportError as e:
+    #     logger.warning(f"⚠️ Apropos.lu: {e}")
+
 except ImportError as e:
     logger.error(f"❌ Erreur importation: {e}")
     sys.exit(1)
