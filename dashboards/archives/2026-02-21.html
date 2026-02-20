@@ -74,7 +74,7 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
 
 <nav class="top-nav">
   <a href="#" class="brand">🏠 Immo Bot Luxembourg</a>
-  <span class="upd">Mis à jour : 21/02/2026 00:03</span>
+  <span class="upd">Mis à jour : 21/02/2026 00:16</span>
   <a href="map.html" class="map-btn">🗺️ Carte (66)</a>
 </nav>
 
@@ -127,11 +127,17 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
   </div>
 </div>
 
+<!-- ── SITES INFO-BAR ── -->
+<div class="card mb-3 px-3 py-2" style="font-size:.8rem">
+  <span class="text-secondary me-2" style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em">Sites actifs :</span>
+  <span class="sb" style="background:#3b82f6">Athome.lu 39</span> <span class="sb" style="background:#10b981">ImmoStar.lu 1</span> <span class="sb" style="background:#f59e0b">Immotop.lu 7</span> <span class="sb" style="background:#ef4444">Luxhome.lu 10</span> <span class="sb" style="background:#8b5cf6">Nextimmo.lu 17</span> <span class="sb" style="background:#ec4899">Sigelux.lu 1</span> <span class="sb" style="background:#06b6d4">VIVI.lu 5</span>
+</div>
+
 <!-- ── GRAPHIQUES ── -->
 <div class="row g-3 mb-3">
   <div class="col-md-4">
     <div class="card h-100">
-      <div class="card-header">Répartition par site</div>
+      <div class="card-header">Répartition par ville</div>
       <div class="card-body d-flex align-items-center justify-content-center" style="min-height:230px">
         <canvas id="cSites"></canvas>
       </div>
@@ -139,9 +145,14 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
   </div>
   <div class="col-md-4">
     <div class="card h-100">
-      <div class="card-header">Top 10 villes</div>
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <span>Top 10 villes</span>
+        <span style="font-size:.65rem;font-weight:400;color:#94a3b8;text-transform:none;letter-spacing:0">
+          Cliquer pour filtrer
+        </span>
+      </div>
       <div class="card-body d-flex align-items-center" style="min-height:230px">
-        <canvas id="cCities"></canvas>
+        <canvas id="cCities" style="cursor:pointer"></canvas>
       </div>
     </div>
   </div>
@@ -446,27 +457,28 @@ function openCompare() {
 window.addEventListener('DOMContentLoaded', () => {
   render(ALL);
 
-  // Donut — sites
+  // Donut — répartition par ville (top 8)
   new Chart(document.getElementById('cSites'), {
     type: 'doughnut',
     data: {
-      labels: ["Athome.lu", "Nextimmo.lu", "ImmoStar.lu", "Sigelux.lu", "Immotop.lu", "VIVI.lu", "Luxhome.lu"],
-      datasets: [{ data: [39, 17, 1, 1, 7, 5, 10], backgroundColor: ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899", "#06b6d4"],
+      labels: ["Luxembourg", "Bertrange", "Luxembourg-Belair", "Esch-sur-Alzette", "Luxembourg-Hollerich", "Luxembourg-Bonnevoie", "Senningerberg", "Hesperange"],
+      datasets: [{ data: [5, 4, 4, 3, 3, 3, 3, 2], backgroundColor: ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899", "#06b6d4", "#84cc16"],
         borderWidth: 2, borderColor: '#f1f5f9' }]
     },
     options: {
       responsive: true,
       plugins: {
-        legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12, padding: 10 } }
+        legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12, padding: 8 } }
       }
     }
   });
 
-  // Barre horizontale — top villes
+  // Barre horizontale — top 10 villes (clic → filtre tableau)
+  const CHART_CITIES = ["Luxembourg-Kirchberg", "Bridel", "Hesperange", "Senningerberg", "Luxembourg-Bonnevoie", "Luxembourg-Hollerich", "Esch-sur-Alzette", "Luxembourg-Belair", "Bertrange", "Luxembourg"];
   new Chart(document.getElementById('cCities'), {
     type: 'bar',
     data: {
-      labels: ["Luxembourg-Kirchberg", "Bridel", "Hesperange", "Senningerberg", "Luxembourg-Bonnevoie", "Luxembourg-Hollerich", "Esch-sur-Alzette", "Luxembourg-Belair", "Bertrange", "Luxembourg"],
+      labels: CHART_CITIES,
       datasets: [{
         data: [2, 2, 2, 3, 3, 3, 3, 4, 4, 5],
         backgroundColor: '#3b82f6bb',
@@ -477,6 +489,23 @@ window.addEventListener('DOMContentLoaded', () => {
     options: {
       indexAxis: 'y', responsive: true,
       plugins: { legend: { display: false } },
+      onHover: (e, el) => {
+        e.native.target.style.cursor = el.length ? 'pointer' : 'default';
+      },
+      onClick: (e, el) => {
+        if (!el.length) return;
+        const city = CHART_CITIES[el[0].index];
+        const sel  = document.getElementById('f-city');
+        if (sel.value === city) {
+          sel.value = '';
+          resetFilters();
+        } else {
+          sel.value = city;
+          applyFilters();
+        }
+        // Scroll doux vers le tableau
+        document.querySelector('.card.mb-4').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      },
       scales: {
         x: { beginAtZero: true, ticks: { font: { size: 10 } } },
         y: { ticks: { font: { size: 10 } } }

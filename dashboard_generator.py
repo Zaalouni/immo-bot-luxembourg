@@ -139,11 +139,21 @@ def generate_index_html(listings, stats, generated_at):
 
     # Données graphiques
     by_site = stats.get('by_site', {})
-    site_labels   = json.dumps(list(by_site.keys()), ensure_ascii=False)
-    site_data     = json.dumps(list(by_site.values()))
-    chart_colors  = json.dumps(CHART_COLORS[:len(by_site)])
+    # Badges site pour info-bar (remplace le donut site)
+    by_site_badges = ' '.join(
+        f'<span class="sb" style="background:{CHART_COLORS[i % len(CHART_COLORS)]}">{s} {n}</span>'
+        for i, (s, n) in enumerate(sorted(by_site.items()))
+    )
 
     city_counts = Counter(l.get('city', '') for l in listings if l.get('city'))
+
+    # Donut : top 8 villes (proportions)
+    top8_donut   = city_counts.most_common(8)
+    donut_labels = json.dumps([c[0] for c in top8_donut], ensure_ascii=False)
+    donut_data   = json.dumps([c[1] for c in top8_donut])
+    donut_colors = json.dumps(CHART_COLORS[:len(top8_donut)])
+
+    # Barre horizontale : top 10 villes (cliquable → filtre tableau)
     top10 = list(reversed(city_counts.most_common(10)))
     city_labels = json.dumps([c[0] for c in top10], ensure_ascii=False)
     city_data   = json.dumps([c[1] for c in top10])
@@ -303,11 +313,17 @@ table.dataTable tbody td {{ vertical-align: middle; padding: .45rem .6rem; }}
   </div>
 </div>
 
+<!-- ── SITES INFO-BAR ── -->
+<div class="card mb-3 px-3 py-2" style="font-size:.8rem">
+  <span class="text-secondary me-2" style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em">Sites actifs :</span>
+  {by_site_badges}
+</div>
+
 <!-- ── GRAPHIQUES ── -->
 <div class="row g-3 mb-3">
   <div class="col-md-4">
     <div class="card h-100">
-      <div class="card-header">Répartition par site</div>
+      <div class="card-header">Répartition par ville</div>
       <div class="card-body d-flex align-items-center justify-content-center" style="min-height:230px">
         <canvas id="cSites"></canvas>
       </div>
@@ -315,9 +331,14 @@ table.dataTable tbody td {{ vertical-align: middle; padding: .45rem .6rem; }}
   </div>
   <div class="col-md-4">
     <div class="card h-100">
-      <div class="card-header">Top 10 villes</div>
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <span>Top 10 villes</span>
+        <span style="font-size:.65rem;font-weight:400;color:#94a3b8;text-transform:none;letter-spacing:0">
+          Cliquer pour filtrer
+        </span>
+      </div>
       <div class="card-body d-flex align-items-center" style="min-height:230px">
-        <canvas id="cCities"></canvas>
+        <canvas id="cCities" style="cursor:pointer"></canvas>
       </div>
     </div>
   </div>
@@ -564,27 +585,28 @@ function openCompare() {{
 window.addEventListener('DOMContentLoaded', () => {{
   render(ALL);
 
-  // Donut — sites
+  // Donut — répartition par ville (top 8)
   new Chart(document.getElementById('cSites'), {{
     type: 'doughnut',
     data: {{
-      labels: {site_labels},
-      datasets: [{{ data: {site_data}, backgroundColor: {chart_colors},
+      labels: {donut_labels},
+      datasets: [{{ data: {donut_data}, backgroundColor: {donut_colors},
         borderWidth: 2, borderColor: '#f1f5f9' }}]
     }},
     options: {{
       responsive: true,
       plugins: {{
-        legend: {{ position: 'bottom', labels: {{ font: {{ size: 11 }}, boxWidth: 12, padding: 10 }} }}
+        legend: {{ position: 'bottom', labels: {{ font: {{ size: 11 }}, boxWidth: 12, padding: 8 }} }}
       }}
     }}
   }});
 
-  // Barre horizontale — top villes
+  // Barre horizontale — top 10 villes (clic → filtre tableau)
+  const CHART_CITIES = {city_labels};
   new Chart(document.getElementById('cCities'), {{
     type: 'bar',
     data: {{
-      labels: {city_labels},
+      labels: CHART_CITIES,
       datasets: [{{
         data: {city_data},
         backgroundColor: '#3b82f6bb',
@@ -595,6 +617,23 @@ window.addEventListener('DOMContentLoaded', () => {{
     options: {{
       indexAxis: 'y', responsive: true,
       plugins: {{ legend: {{ display: false }} }},
+      onHover: (e, el) => {{
+        e.native.target.style.cursor = el.length ? 'pointer' : 'default';
+      }},
+      onClick: (e, el) => {{
+        if (!el.length) return;
+        const city = CHART_CITIES[el[0].index];
+        const sel  = document.getElementById('f-city');
+        if (sel.value === city) {{
+          sel.value = '';
+          resetFilters();
+        }} else {{
+          sel.value = city;
+          applyFilters();
+        }}
+        // Scroll doux vers le tableau
+        document.querySelector('.card.mb-4').scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+      }},
       scales: {{
         x: {{ beginAtZero: true, ticks: {{ font: {{ size: 10 }} }} }},
         y: {{ ticks: {{ font: {{ size: 10 }} }} }}
@@ -642,6 +681,9 @@ def generate_map_html(listings, generated_at):
 
     sites      = sorted(set(l.get('site', '') for l in geo if l.get('site')))
     sites_opts = '\n'.join(f'<option value="{s}">{s}</option>' for s in sites)
+
+    cities      = sorted(set(l.get('city', '') for l in geo if l.get('city')), key=str.lower)
+    cities_opts = '\n'.join(f'<option value="{c}">{c}</option>' for c in cities)
 
     return f'''<!DOCTYPE html>
 <html lang="fr">
@@ -740,6 +782,11 @@ html, body {{ margin: 0; padding: 0; height: 100%; overflow: hidden;
 
     <!-- Filtres -->
     <div style="border-top:1px solid #f1f5f9;padding-top:.6rem;margin-bottom:.6rem">
+      <div class="filter-lbl">Ville</div>
+      <select id="f-city" class="form-select form-select-sm mb-2">
+        <option value="">Toutes les villes</option>
+        {cities_opts}
+      </select>
       <div class="filter-lbl">Site</div>
       <select id="f-site" class="form-select form-select-sm mb-2">
         <option value="">Tous les sites</option>
@@ -862,9 +909,11 @@ function buildMap(data) {{
 }}
 
 function applyFilters() {{
+  const city = document.getElementById('f-city').value;
   const site = document.getElementById('f-site').value;
   const dist = parseFloat(document.getElementById('f-dist').value) || Infinity;
   const d = GEO.filter(l => {{
+    if (city && l.city !== city) return false;
     if (site && l.site !== site) return false;
     if (dist < Infinity && l.distance_km != null && l.distance_km > dist) return false;
     return true;
@@ -873,6 +922,7 @@ function applyFilters() {{
 }}
 
 function resetFilters() {{
+  document.getElementById('f-city').value = '';
   document.getElementById('f-site').value = '';
   document.getElementById('f-dist').value = '';
   buildMap(GEO);
