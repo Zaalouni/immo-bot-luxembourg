@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Immo Bot LU — Carte</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+<link href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" rel="stylesheet">
+<link href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" rel="stylesheet">
+<style>
+html, body { margin: 0; padding: 0; height: 100%; overflow: hidden;
+  font-family: "Segoe UI", system-ui, sans-serif; }
+#map { height: calc(100vh - 52px); width: 100%; }
+
+.top-nav { background: #0f172a; height: 52px; display: flex; align-items: center;
+  padding: 0 1.25rem; gap: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.back-btn { color: #94a3b8; text-decoration: none; font-size: .82rem;
+  display: flex; align-items: center; gap: .3rem; transition: color .15s; }
+.back-btn:hover { color: #fff; }
+.nav-title { color: #fff; font-weight: 700; }
+.nav-upd { color: #475569; font-size: .75rem; margin-left: auto; }
+
+#panel {
+  position: fixed; top: 62px; right: 12px; z-index: 1000;
+  width: 230px;
+  background: rgba(255,255,255,.96);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+#panel .ph {
+  background: #0f172a; color: #fff;
+  padding: .6rem .85rem; font-weight: 700; font-size: .82rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+#panel .ph .badge-geo {
+  background: #3b82f6; color: #fff; border-radius: 20px;
+  padding: .1em .6em; font-size: .75rem; font-weight: 700;
+}
+#panel .pb { padding: .75rem .85rem; }
+.filter-lbl {
+  font-size: .65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .07em; color: #94a3b8; margin-bottom: .2rem;
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+  border: 1px solid rgba(0,0,0,.1); flex-shrink: 0; }
+.legend-row { display: flex; align-items: center; gap: .4rem;
+  font-size: .75rem; color: #475569; padding: .1rem 0; }
+
+/* Stats rapides */
+.qs { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; margin-bottom: .6rem; }
+.qs-item { background: #f8fafc; border-radius: 6px; padding: .35rem .5rem; text-align: center; }
+.qs-val { font-size: .95rem; font-weight: 800; color: #0f172a; }
+.qs-lbl { font-size: .6rem; text-transform: uppercase; letter-spacing: .05em; color: #94a3b8; }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a href="index.html" class="back-btn">← Dashboard</a>
+  <span class="nav-title">🗺️ Carte des annonces</span>
+  <span class="nav-upd">Mis à jour : 21/02/2026 00:03</span>
+</nav>
+
+<div id="map"></div>
+
+<div id="panel">
+  <div class="ph">
+    <span>Annonces géolocalisées</span>
+    <span class="badge-geo" id="geo-count">66</span>
+  </div>
+  <div class="pb">
+
+    <!-- Stats rapides -->
+    <div class="qs" id="qs">
+      <div class="qs-item">
+        <div class="qs-val" id="qs-min">—</div>
+        <div class="qs-lbl">Prix min</div>
+      </div>
+      <div class="qs-item">
+        <div class="qs-val" id="qs-max">—</div>
+        <div class="qs-lbl">Prix max</div>
+      </div>
+      <div class="qs-item">
+        <div class="qs-val" id="qs-avg">—</div>
+        <div class="qs-lbl">Prix moy.</div>
+      </div>
+      <div class="qs-item">
+        <div class="qs-val" id="qs-cnt">—</div>
+        <div class="qs-lbl">Visibles</div>
+      </div>
+    </div>
+
+    <!-- Filtres -->
+    <div style="border-top:1px solid #f1f5f9;padding-top:.6rem;margin-bottom:.6rem">
+      <div class="filter-lbl">Site</div>
+      <select id="f-site" class="form-select form-select-sm mb-2">
+        <option value="">Tous les sites</option>
+        <option value="Athome.lu">Athome.lu</option>
+<option value="Immotop.lu">Immotop.lu</option>
+<option value="Luxhome.lu">Luxhome.lu</option>
+<option value="Nextimmo.lu">Nextimmo.lu</option>
+<option value="Sigelux.lu">Sigelux.lu</option>
+      </select>
+      <div class="filter-lbl">Distance max</div>
+      <select id="f-dist" class="form-select form-select-sm mb-2">
+        <option value="">Toutes distances</option>
+        <option value="2">&lt; 2 km</option>
+        <option value="5">&lt; 5 km</option>
+        <option value="10">&lt; 10 km</option>
+      </select>
+      <div class="d-flex gap-2">
+        <button class="btn btn-sm w-100 fw-semibold"
+                style="background:#3b82f6;color:#fff;font-size:.78rem"
+                onclick="applyFilters()">Appliquer</button>
+        <button class="btn btn-sm btn-outline-secondary w-100"
+                style="font-size:.78rem"
+                onclick="resetFilters()">Reset</button>
+      </div>
+    </div>
+
+    <!-- Légende -->
+    <div style="border-top:1px solid #f1f5f9;padding-top:.6rem">
+      <div class="filter-lbl mb-1">Légende — distance</div>
+      <div class="legend-row"><span class="dot" style="background:#10b981"></span>&lt; 2 km du centre</div>
+      <div class="legend-row"><span class="dot" style="background:#3b82f6"></span>2 – 5 km</div>
+      <div class="legend-row"><span class="dot" style="background:#f59e0b"></span>5 – 10 km</div>
+      <div class="legend-row"><span class="dot" style="background:#ef4444"></span>&gt; 10 km</div>
+      <div class="legend-row"><span class="dot" style="background:#94a3b8"></span>Distance inconnue</div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script>
+const GEO = [{"id": 80, "listing_id": "athome_8919578", "site": "Athome.lu", "title": "L’appartement rénové en 2024 fait +/− 100 m2 et il est situé au rez-de", "city": "Niederanven", "price": 2000, "rooms": 2, "surface": 0, "url": "https://www.athome.lu/location/appartement/niederanven/id-8919578.html", "latitude": 49.6524374, "longitude": 6.257763100000001, "distance_km": 10.6, "created_at": "2026-02-20 20:50:35", "notified": 1}, {"id": 79, "listing_id": "athome_8995712", "site": "Athome.lu", "title": "***Appartement entièrement meublé !***  \nSitué dans le quartier recher", "city": "Luxembourg-Weimerskirch", "price": 2100, "rooms": 2, "surface": 88, "url": "https://www.athome.lu/location/appartement/luxembourg-weimerskirch/id-8995712.html", "latitude": 49.6254273, "longitude": 6.135935, "distance_km": 2.8, "created_at": "2026-02-20 20:50:24", "notified": 1}, {"id": 78, "listing_id": "athome_8980537", "site": "Athome.lu", "title": "Bel appartement à 2 chambres à louer au rez-de-chaussée de la résidenc", "city": "Alzingen", "price": 2350, "rooms": 2, "surface": 80, "url": "https://www.athome.lu/location/appartement/alzingen/id-8980537.html", "latitude": 49.5712572, "longitude": 6.1637244, "distance_km": 3.8, "created_at": "2026-02-20 20:50:13", "notified": 1}, {"id": 77, "listing_id": "athome_8985065", "site": "Athome.lu", "title": "MANSO IMMO vous propose à la location charmant appartement semi meublé", "city": "Bereldange", "price": 2100, "rooms": 2, "surface": 90, "url": "https://www.athome.lu/location/appartement/bereldange/id-8985065.html", "latitude": 49.6548632, "longitude": 6.1272733, "distance_km": 6.1, "created_at": "2026-02-20 20:50:02", "notified": 1}, {"id": 76, "listing_id": "athome_8727519", "site": "Athome.lu", "title": "Appartement de haut standing, complètement rénové, situé au 2ème étage", "city": "Esch-sur-Alzette", "price": 2100, "rooms": 2, "surface": 91, "url": "https://www.athome.lu/location/appartement/esch-sur-alzette/id-8727519.html", "latitude": 49.502401, "longitude": 5.9721782, "distance_km": 15.9, "created_at": "2026-02-20 20:49:51", "notified": 1}, {"id": 75, "listing_id": "athome_8981863", "site": "Athome.lu", "title": "Bel appartement comprenant un hall d'entrée desservant un living avec ", "city": "Hassel", "price": 1850, "rooms": 2, "surface": 86, "url": "https://www.athome.lu/location/appartement/hassel/id-8981863.html", "latitude": 49.55093489999999, "longitude": 6.2076007, "distance_km": 7.6, "created_at": "2026-02-20 20:49:41", "notified": 1}, {"id": 74, "listing_id": "athome_8952053", "site": "Athome.lu", "title": "HomePass est ravis de vous présenter ce magnifique appartement, idéale", "city": "Bertrange", "price": 2290, "rooms": 2, "surface": 80, "url": "https://www.athome.lu/location/appartement/bertrange/id-8952053.html", "latitude": 49.6084908, "longitude": 6.066778999999999, "distance_km": 4.9, "created_at": "2026-02-20 20:49:30", "notified": 1}, {"id": 73, "listing_id": "athome_8958134", "site": "Athome.lu", "title": "Luxembourg-Belair - Boulevard Pierre Dupong\n\nAppartement 2 chambres av", "city": "Luxembourg-Hollerich", "price": 2100, "rooms": 2, "surface": 80, "url": "https://www.athome.lu/location/appartement/luxembourg-hollerich/id-8958134.html", "latitude": 49.6023272, "longitude": 6.1137845, "distance_km": 1.5, "created_at": "2026-02-20 20:49:19", "notified": 1}, {"id": 72, "listing_id": "athome_8793493", "site": "Athome.lu", "title": "*** LOUÉ ***\r\n\r\nDRP Group vous propose à la location un très joli appa", "city": "Steinsel", "price": 2250, "rooms": 2, "surface": 85, "url": "https://www.athome.lu/location/appartement/steinsel/id-8793493.html", "latitude": 49.6750699, "longitude": 6.1377211, "distance_km": 8.4, "created_at": "2026-02-20 20:49:08", "notified": 1}, {"id": 71, "listing_id": "athome_8919659", "site": "Athome.lu", "title": "DALPA vous propose en location, ce lumineux appartement avec 2 chambre", "city": "Hesperange", "price": 2400, "rooms": 2, "surface": 85, "url": "https://www.athome.lu/location/appartement/hesperange/id-8919659.html", "latitude": 49.5731206, "longitude": 6.161307000000001, "distance_km": 3.6, "created_at": "2026-02-20 20:48:57", "notified": 1}, {"id": 70, "listing_id": "athome_8871260", "site": "Athome.lu", "title": "(English follows)\n\nÀ louer Duplex lumineux avec terrasse privative\nApp", "city": "Luxembourg-Bonnevoie", "price": 2250, "rooms": 2, "surface": 95, "url": "https://www.athome.lu/location/duplex/luxembourg-bonnevoie/id-8871260.html", "latitude": 49.59625699999999, "longitude": 6.1366508, "distance_km": 0.5, "created_at": "2026-02-20 20:48:46", "notified": 1}, {"id": 69, "listing_id": "athome_8983182", "site": "Athome.lu", "title": "Bel appartement meublé de +/-82 m², situé au 4? étage avec ascenseur, ", "city": "Luxembourg-Bonnevoie", "price": 2100, "rooms": 4, "surface": 82, "url": "https://www.athome.lu/location/appartement/luxembourg-bonnevoie/id-8983182.html", "latitude": 49.6123327, "longitude": 6.125843199999999, "distance_km": 1.5, "created_at": "2026-02-20 20:48:36", "notified": 1}, {"id": 68, "listing_id": "athome_8952070", "site": "Athome.lu", "title": "Adresse : 14, rue Charles Darwin – L-1433 Luxembourg\r\nSituation : en f", "city": "Luxembourg-Gasperich - Cloche d'or", "price": 2250, "rooms": 2, "surface": 82, "url": "https://www.athome.lu/location/appartement/luxembourg-gasperich---cloche-dor/id-8952070.html", "latitude": 49.5849, "longitude": 6.12475, "distance_km": 1.8, "created_at": "2026-02-20 20:48:25", "notified": 1}, {"id": 67, "listing_id": "athome_8994928", "site": "Athome.lu", "title": "Bel appartement à louer au deuxième étage dans une petite Résidence.\n\n", "city": "Luxembourg-Belair", "price": 2200, "rooms": 2, "surface": 90, "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-8994928.html", "latitude": 49.6073607, "longitude": 6.1155111, "distance_km": 1.6, "created_at": "2026-02-20 20:48:14", "notified": 1}, {"id": 66, "listing_id": "athome_7786123", "site": "Athome.lu", "title": "Démarrez votre nouvelle vie à Luxembourg avec ce confortable apparteme", "city": "Luxembourg-Gare", "price": 2390, "rooms": 3, "surface": 90, "url": "https://www.athome.lu/location/appartement/luxembourg-gare/id-7786123.html", "latitude": 49.599092, "longitude": 6.132617, "distance_km": 0.2, "created_at": "2026-02-20 20:48:03", "notified": 1}, {"id": 65, "listing_id": "athome_8812008", "site": "Athome.lu", "title": "Appartement 2 chambres entièrement rénové ? Luxembourg-Merl\n\nAdresse :", "city": "Luxembourg-Centre ville", "price": 2400, "rooms": 2, "surface": 80, "url": "https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8812008.html", "latitude": 49.6123327, "longitude": 6.1258432, "distance_km": 1.5, "created_at": "2026-02-20 20:47:53", "notified": 1}, {"id": 64, "listing_id": "athome_8995927", "site": "Athome.lu", "title": "Appartement moderne (047) de 2 chambres à coucher, idéalement situé pr", "city": "Luxembourg-Cessange", "price": 2375, "rooms": 2, "surface": 83, "url": "https://www.athome.lu/location/appartement/luxembourg-cessange/id-8995927.html", "latitude": 49.5889204, "longitude": 6.0994732, "distance_km": 2.8, "created_at": "2026-02-20 20:47:42", "notified": 1}, {"id": 63, "listing_id": "athome_8619057", "site": "Athome.lu", "title": "Démarrez votre nouvelle vie à Luxembourg avec ce charmant appartement ", "city": "Senningerberg", "price": 2340, "rooms": 2, "surface": 88, "url": "https://www.athome.lu/location/appartement/senningerberg/id-8619057.html", "latitude": 49.6450986, "longitude": 6.2223386, "distance_km": 8.1, "created_at": "2026-02-20 20:47:31", "notified": 1}, {"id": 62, "listing_id": "athome_8456918", "site": "Athome.lu", "title": "MT Real Estate Invest Sarl vous propose un superbe appartement à louer", "city": "Luxembourg-Hollerich", "price": 2400, "rooms": 2, "surface": 80, "url": "https://www.athome.lu/location/appartement/luxembourg-hollerich/id-8456918.html", "latitude": 49.6022613, "longitude": 6.117406099999999, "distance_km": 1.2, "created_at": "2026-02-20 20:47:20", "notified": 1}, {"id": 61, "listing_id": "athome_8971769", "site": "Athome.lu", "title": "APPARTEMENT DUPLEX SPACIEUX A LOUER\nGrand Rue, L-3394 Roeser\n1er étage", "city": "Roeser", "price": 2300, "rooms": 2, "surface": 94, "url": "https://www.athome.lu/location/appartement/roeser/id-8971769.html", "latitude": 49.5398355, "longitude": 6.1444186, "distance_km": 6.7, "created_at": "2026-02-20 20:47:09", "notified": 1}, {"id": 60, "listing_id": "athome_8986750", "site": "Athome.lu", "title": "******** À louer ? Bel appartement 2 chambres à Bertrange ********\n\nSi", "city": "Bertrange", "price": 2200, "rooms": 5, "surface": 108, "url": "https://www.athome.lu/location/duplex/bertrange/id-8986750.html", "latitude": 49.6106248, "longitude": 6.0502349, "distance_km": 6.2, "created_at": "2026-02-20 20:46:58", "notified": 1}, {"id": 59, "listing_id": "athome_8871303", "site": "Athome.lu", "title": "A Louer - Superbe Appartement Moderne et Lumineux - 2 Chambres - Bertr", "city": "Bertrange", "price": 2400, "rooms": 6, "surface": 86, "url": "https://www.athome.lu/location/appartement/bertrange/id-8871303.html", "latitude": 49.6106248, "longitude": 6.0502349, "distance_km": 6.2, "created_at": "2026-02-20 20:46:48", "notified": 1}, {"id": 58, "listing_id": "athome_1719537", "site": "Athome.lu", "title": "Appartement, meublé, accès facile, proche des institutions européennes", "city": "Senningerberg", "price": 2300, "rooms": 2, "surface": 100, "url": "https://www.athome.lu/location/appartement/senningerberg/id-1719537.html", "latitude": 49.64983, "longitude": 6.22619, "distance_km": 8.6, "created_at": "2026-02-20 20:46:37", "notified": 1}, {"id": 57, "listing_id": "athome_7981264", "site": "Athome.lu", "title": "Senningerberg - Proximité immédiate aéroport & Kirchberg\r\n\r\nA louer ap", "city": "Senningerberg", "price": 1950, "rooms": 2, "surface": 90, "url": "https://www.athome.lu/location/appartement/senningerberg/id-7981264.html", "latitude": 49.6508207, "longitude": 6.2352602, "distance_km": 9.2, "created_at": "2026-02-20 20:46:26", "notified": 1}, {"id": 56, "listing_id": "athome_8899869", "site": "Athome.lu", "title": "Superbe duplex de 98,78 m² situé à Garnich, Luxembourg, est une opport", "city": "Garnich", "price": 2400, "rooms": 2, "surface": 98, "url": "https://www.athome.lu/location/duplex/garnich/id-8899869.html", "latitude": 49.6174427, "longitude": 5.9512695, "distance_km": 13.3, "created_at": "2026-02-20 20:46:16", "notified": 1}, {"id": 55, "listing_id": "athome_8971656", "site": "Athome.lu", "title": "Appartement de haut standing lumineux avec jardin privatif sis au rez-", "city": "Bridel", "price": 2100, "rooms": 3, "surface": 85, "url": "https://www.athome.lu/location/appartement/bridel/id-8971656.html", "latitude": 49.6576485, "longitude": 6.0817229, "distance_km": 7.4, "created_at": "2026-02-20 20:46:05", "notified": 1}, {"id": 54, "listing_id": "athome_8086234", "site": "Athome.lu", "title": "Many Many vous propose cet appartement de 98 m², situé au 2ème étage d", "city": "Belval", "price": 2375, "rooms": 2, "surface": 98, "url": "https://www.athome.lu/location/appartement/belval/id-8086234.html", "latitude": 49.5045503, "longitude": 5.9435467, "distance_km": 17.4, "created_at": "2026-02-20 20:45:54", "notified": 1}, {"id": 53, "listing_id": "athome_8976000", "site": "Athome.lu", "title": "A louer, superbe appartement de 89 m2 avec 2 chambres à coucher, parti", "city": "Bertrange", "price": 2300, "rooms": 2, "surface": 89, "url": "https://www.athome.lu/location/appartement/bertrange/id-8976000.html", "latitude": 49.6024772, "longitude": 6.0732987, "distance_km": 4.4, "created_at": "2026-02-20 20:45:44", "notified": 1}, {"id": 52, "listing_id": "athome_8114963", "site": "Athome.lu", "title": "Many Many vous propose ce bel appartement rez-de-Jardin de 81 m² situé", "city": "Luxembourg-Bonnevoie", "price": 2300, "rooms": 2, "surface": 81, "url": "https://www.athome.lu/location/appartement/luxembourg-bonnevoie/id-8114963.html", "latitude": 49.5923442, "longitude": 6.1441177, "distance_km": 1.1, "created_at": "2026-02-20 20:45:33", "notified": 1}, {"id": 51, "listing_id": "athome_8221893", "site": "Athome.lu", "title": "++++COUP DE COEUR! FULLY FURNISHED COLOCATION POSSIBLE AVAILABLE 15.06", "city": "Esch-sur-Alzette", "price": 1750, "rooms": 2, "surface": 90, "url": "https://www.athome.lu/location/appartement/esch-sur-alzette/id-8221893.html", "latitude": 49.4964624, "longitude": 5.9753139, "distance_km": 16.2, "created_at": "2026-02-20 20:45:22", "notified": 1}, {"id": 50, "listing_id": "athome_7744189", "site": "Athome.lu", "title": "+++EUREKA REAL ESTATE vous présente en exclusivité à la location un ma", "city": "Luxembourg-Kirchberg", "price": 2400, "rooms": 2, "surface": 80, "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7744189.html", "latitude": 49.6278694, "longitude": 6.153422, "distance_km": 3.4, "created_at": "2026-02-20 20:45:12", "notified": 1}, {"id": 49, "listing_id": "athome_8994521", "site": "Athome.lu", "title": "appartement lumineux sis au rez-de-chaussée surélevé d’un petit immeub", "city": "Luxembourg-Belair", "price": 2250, "rooms": 5, "surface": 90, "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-8994521.html", "latitude": 49.6078954, "longitude": 6.1070622, "distance_km": 2.1, "created_at": "2026-02-20 20:45:01", "notified": 1}, {"id": 48, "listing_id": "athome_8983034", "site": "Athome.lu", "title": "Spacieux appartement sis au rez-de-chaussée, dans une Résidence très s", "city": "Rollingen", "price": 2150, "rooms": 6, "surface": 100, "url": "https://www.athome.lu/location/appartement/rollingen/id-8983034.html", "latitude": 49.7402205, "longitude": 6.1137785, "distance_km": 15.7, "created_at": "2026-02-20 20:44:50", "notified": 1}, {"id": 47, "listing_id": "athome_8982958", "site": "Athome.lu", "title": "Spacieux triplex en situation calme à Brouch, offrant des espaces géné", "city": "Brouch (Mersch)", "price": 2400, "rooms": 3, "surface": 172, "url": "https://www.athome.lu/location/duplex/brouch-(mersch)/id-8982958.html", "latitude": 49.7373735, "longitude": 6.0202389, "distance_km": 17.3, "created_at": "2026-02-20 20:44:39", "notified": 1}, {"id": 46, "listing_id": "athome_8971722", "site": "Athome.lu", "title": "Lien vers visite virtuelle : https://tour.giraffe360.com/0b04f7ad1b0a4", "city": "Luxembourg-Centre Ville", "price": 2350, "rooms": 2, "surface": 93, "url": "https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8971722.html", "latitude": 49.6118458, "longitude": 6.126972500000001, "distance_km": 1.4, "created_at": "2026-02-20 20:44:29", "notified": 1}, {"id": 45, "listing_id": "athome_8958851", "site": "Athome.lu", "title": "Situé dans le paisible village de Contern, dans une résidence avec asc", "city": "Contern", "price": 2400, "rooms": 2, "surface": 82, "url": "https://www.athome.lu/location/appartement/contern/id-8958851.html", "latitude": 49.5854461, "longitude": 6.224731299999999, "distance_km": 6.7, "created_at": "2026-02-20 20:44:18", "notified": 1}, {"id": 44, "listing_id": "nextimmo_86002754", "site": "Nextimmo.lu", "title": "Appartement Emerange", "city": "Emerange", "price": 2400, "rooms": 4, "surface": 123, "url": "https://nextimmo.lu/en/details/86002754", "latitude": 49.48752, "longitude": 6.29127, "distance_km": 16.9, "created_at": "2026-02-20 20:44:07", "notified": 1}, {"id": 43, "listing_id": "nextimmo_5710", "site": "Nextimmo.lu", "title": "Appartement Luxembourg-Hamm", "city": "Luxembourg-Hamm", "price": 1890, "rooms": 2, "surface": 81, "url": "https://nextimmo.lu/en/details/5710", "latitude": 49.6116, "longitude": 6.1319, "distance_km": 1.3, "created_at": "2026-02-20 20:43:56", "notified": 1}, {"id": 42, "listing_id": "nextimmo_85075359", "site": "Nextimmo.lu", "title": "Appartement Wellenstein", "city": "Wellenstein", "price": 1800, "rooms": 2, "surface": 110, "url": "https://nextimmo.lu/en/details/85075359", "latitude": 49.52284, "longitude": 6.34504, "distance_km": 17.5, "created_at": "2026-02-20 20:43:45", "notified": 1}, {"id": 41, "listing_id": "nextimmo_1699665", "site": "Nextimmo.lu", "title": "Appartement Hautcharage", "city": "Hautcharage", "price": 1980, "rooms": 2, "surface": 128, "url": "https://nextimmo.lu/en/details/1699665", "latitude": 49.5771, "longitude": 5.90988, "distance_km": 16.4, "created_at": "2026-02-20 20:43:34", "notified": 1}, {"id": 40, "listing_id": "nextimmo_4271", "site": "Nextimmo.lu", "title": "Appartement Junglinster", "city": "Junglinster", "price": 1950, "rooms": 2, "surface": 100, "url": "https://nextimmo.lu/en/details/4271", "latitude": 49.71, "longitude": 6.25, "distance_km": 14.8, "created_at": "2026-02-20 20:43:22", "notified": 1}, {"id": 39, "listing_id": "nextimmo_1858861", "site": "Nextimmo.lu", "title": "Appartement Hautcharage", "city": "Hautcharage", "price": 1850, "rooms": 2, "surface": 92, "url": "https://nextimmo.lu/en/details/1858861", "latitude": 49.5771, "longitude": 5.90988, "distance_km": 16.4, "created_at": "2026-02-20 20:43:11", "notified": 1}, {"id": 38, "listing_id": "nextimmo_86694422", "site": "Nextimmo.lu", "title": "Appartement Dudelange", "city": "Dudelange", "price": 2400, "rooms": 3, "surface": 92, "url": "https://nextimmo.lu/en/details/86694422", "latitude": 49.48081, "longitude": 6.07795, "distance_km": 13.9, "created_at": "2026-02-20 20:43:00", "notified": 1}, {"id": 37, "listing_id": "nextimmo_86346261", "site": "Nextimmo.lu", "title": "Appartement Filsdorf", "city": "Filsdorf", "price": 2350, "rooms": 3, "surface": 114, "url": "https://nextimmo.lu/en/details/86346261", "latitude": 49.53025, "longitude": 6.24472, "distance_km": 11.1, "created_at": "2026-02-20 20:42:49", "notified": 1}, {"id": 36, "listing_id": "nextimmo_86720793", "site": "Nextimmo.lu", "title": "Appartement Belvaux", "city": "Belvaux", "price": 2050, "rooms": 5, "surface": 80, "url": "https://nextimmo.lu/en/details/86720793", "latitude": 49.50449, "longitude": 5.9419, "distance_km": 17.5, "created_at": "2026-02-20 20:42:38", "notified": 1}, {"id": 35, "listing_id": "athome_8985078", "site": "Athome.lu", "title": "Disponibilité : 01.03.2026\r\n\r\nConditions de location\r\n* Appartement no", "city": "Bridel", "price": 2400, "rooms": 2, "surface": 83, "url": "https://www.athome.lu/location/appartement/bridel/id-8985078.html", "latitude": 49.6588916, "longitude": 6.0814179, "distance_km": 7.6, "created_at": "2026-02-20 20:42:28", "notified": 1}, {"id": 34, "listing_id": "nextimmo_85399933", "site": "Nextimmo.lu", "title": "Appartement Luxembourg-Kirchberg", "city": "Luxembourg-Kirchberg", "price": 2350, "rooms": 2, "surface": 87, "url": "https://nextimmo.lu/en/details/85399933", "latitude": 49.62508, "longitude": 6.14274, "distance_km": 2.9, "created_at": "2026-02-20 20:42:17", "notified": 1}, {"id": 33, "listing_id": "nextimmo_86748114", "site": "Nextimmo.lu", "title": "Appartement Luxembourg-Hollerich", "city": "Luxembourg-Hollerich", "price": 2150, "rooms": 2, "surface": 85, "url": "https://nextimmo.lu/en/details/86748114", "latitude": 49.60034, "longitude": 6.12105, "distance_km": 0.9, "created_at": "2026-02-20 20:42:06", "notified": 1}, {"id": 32, "listing_id": "nextimmo_4280", "site": "Nextimmo.lu", "title": "Appartement Gonderange", "city": "Gonderange", "price": 2200, "rooms": 2, "surface": 95, "url": "https://nextimmo.lu/en/details/4280", "latitude": 49.69, "longitude": 6.25, "distance_km": 13.0, "created_at": "2026-02-20 20:41:55", "notified": 1}, {"id": 31, "listing_id": "nextimmo_83177499", "site": "Nextimmo.lu", "title": "Appartement Luxembourg-Belair", "city": "Luxembourg-Belair", "price": 2100, "rooms": 2, "surface": 80, "url": "https://nextimmo.lu/en/details/83177499", "latitude": 49.60751, "longitude": 6.10969, "distance_km": 2.0, "created_at": "2026-02-20 20:41:45", "notified": 1}, {"id": 30, "listing_id": "nextimmo_85400498", "site": "Nextimmo.lu", "title": "Appartement Sprinkange", "city": "Sprinkange", "price": 2100, "rooms": 2, "surface": 90, "url": "https://nextimmo.lu/en/details/85400498", "latitude": 49.58421, "longitude": 5.96409, "distance_km": 12.4, "created_at": "2026-02-20 20:41:34", "notified": 1}, {"id": 29, "listing_id": "nextimmo_86750963", "site": "Nextimmo.lu", "title": "Appartement Olm", "city": "Olm", "price": 2300, "rooms": 2, "surface": 80, "url": "https://nextimmo.lu/en/details/86750963", "latitude": 49.65509, "longitude": 5.99296, "distance_km": 11.9, "created_at": "2026-02-20 20:41:23", "notified": 1}, {"id": 28, "listing_id": "nextimmo_8995617", "site": "Nextimmo.lu", "title": "Appartement Luxembourg-Belair", "city": "Luxembourg-Belair", "price": 2400, "rooms": 2, "surface": 95, "url": "https://nextimmo.lu/en/details/8995617", "latitude": 49.6097283, "longitude": 6.1092036, "distance_km": 2.1, "created_at": "2026-02-20 20:41:12", "notified": 1}, {"id": 27, "listing_id": "nextimmo_1876275", "site": "Nextimmo.lu", "title": "Appartement Luxembourg-Pfaffenthal", "city": "Luxembourg-Pfaffenthal", "price": 2100, "rooms": 2, "surface": 88, "url": "https://nextimmo.lu/en/details/1876275", "latitude": 49.6158, "longitude": 6.13289, "distance_km": 1.8, "created_at": "2026-02-20 20:41:01", "notified": 1}, {"id": 25, "listing_id": "sigelux_8958134", "site": "Sigelux.lu", "title": "Appartement                                                    à Luxembourg-Holl", "city": "Luxembourg", "price": 2100, "rooms": 2, "surface": 80, "url": "https://www.sigelux.lu/location/appartement/luxembourg/8958134", "latitude": 49.6116, "longitude": 6.1319, "distance_km": 1.3, "created_at": "2026-02-20 20:40:38", "notified": 1}, {"id": 24, "listing_id": "athome_8963275", "site": "Athome.lu", "title": "Alain Grossklos Tél. : +352 691 265 450 vous propose à la location ce ", "city": "Belvaux", "price": 2150, "rooms": 2, "surface": 105, "url": "https://www.athome.lu/location/appartement/belvaux/id-8963275.html", "latitude": 49.5085182, "longitude": 5.9368383, "distance_km": 17.5, "created_at": "2026-02-20 20:40:27", "notified": 1}, {"id": 23, "listing_id": "immotop_1847365", "site": "Immotop.lu", "title": "Appartement 2 chambres rez-de-chaussée, Gare, Luxembourg", "city": "Luxembourg", "price": 2000, "rooms": 2, "surface": 0, "url": "https://www.immotop.lu/annonces/1847365/", "latitude": 49.6116, "longitude": 6.1319, "distance_km": 1.3, "created_at": "2026-02-20 20:40:16", "notified": 1}, {"id": 22, "listing_id": "immotop_1872303", "site": "Immotop.lu", "title": "Appartement 2 chambres 2, Rue Jean-Jacques Rousseau, Belval Sud-Lycée,", "city": "Sanem", "price": 2050, "rooms": 2, "surface": 0, "url": "https://www.immotop.lu/annonces/1872303/", "latitude": 49.55, "longitude": 5.98, "distance_km": 12.4, "created_at": "2026-02-20 20:40:05", "notified": 1}, {"id": 21, "listing_id": "immotop_1875939", "site": "Immotop.lu", "title": "Appartement 2 chambres rue Antoine Meyer, Hollerich, Luxembourg", "city": "Luxembourg", "price": 2200, "rooms": 2, "surface": 0, "url": "https://www.immotop.lu/annonces/1875939/", "latitude": 49.6116, "longitude": 6.1319, "distance_km": 1.3, "created_at": "2026-02-20 20:39:54", "notified": 1}, {"id": 20, "listing_id": "athome_7547610", "site": "Athome.lu", "title": "Très bel DUPLEX au 2e et 3e étage de 114,50 m2, très bien situé à prox", "city": "Mamer", "price": 2000, "rooms": 2, "surface": 114, "url": "https://www.athome.lu/location/appartement/mamer/id-7547610.html", "latitude": 49.6263719, "longitude": 6.0204001, "distance_km": 8.7, "created_at": "2026-02-20 20:39:49", "notified": 1}, {"id": 8, "listing_id": "luxhome_13449", "site": "Luxhome.lu", "title": "Magnifique appartement 2 chambres meublé à Strassen", "city": "Strassen", "price": 2230, "rooms": 2, "surface": null, "url": "https://www.luxhome.lu/bien/location-appartement-2-chambres-meuble-a-strassen-a-2230e-m/", "latitude": 49.611158923224, "longitude": 6.1296986792347, "distance_km": 1.3, "created_at": "2026-02-11 06:28:07", "notified": 1}, {"id": 7, "listing_id": "luxhome_16340", "site": "Luxhome.lu", "title": "Superbe appartement 2 Chambres à Cessange", "city": "Cessange", "price": 2350, "rooms": 2, "surface": null, "url": "https://www.luxhome.lu/bien/superbe-appartement-2-chambres-luxembourg-cessange/", "latitude": 49.61115892322423, "longitude": 6.12969867923474, "distance_km": 1.3, "created_at": "2026-02-11 06:28:05", "notified": 1}, {"id": 6, "listing_id": "luxhome_16714", "site": "Luxhome.lu", "title": "LOUE LOUE Appartement 2 CH à louer Cessange", "city": "Cessange", "price": 2400, "rooms": 2, "surface": null, "url": "https://www.luxhome.lu/bien/appartement-1-ou-ch-a-louer-luxembourg-cessange/", "latitude": 49.60897266860193, "longitude": 6.12419061173447, "distance_km": 1.2, "created_at": "2026-02-11 06:28:04", "notified": 1}, {"id": 5, "listing_id": "luxhome_21089", "site": "Luxhome.lu", "title": "Appartement meublé avec 2 chambres au champs du Soleil à Steinfort", "city": "", "price": 2000, "rooms": 2, "surface": null, "url": "https://www.luxhome.lu/bien/appartement-2-chambres-a-louer/", "latitude": 49.6591416079615, "longitude": 5.919087763935368, "distance_km": 16.8, "created_at": "2026-02-11 06:28:02", "notified": 1}, {"id": 4, "listing_id": "luxhome_21542", "site": "Luxhome.lu", "title": "Appartement de haut standing avec 3 chambres", "city": "", "price": 2500, "rooms": 3, "surface": null, "url": "https://www.luxhome.lu/bien/appartement-de-haut-standing-avec-3-chambres/", "latitude": 49.665401, "longitude": 5.9169789, "distance_km": 17.3, "created_at": "2026-02-11 06:28:00", "notified": 1}, {"id": 3, "listing_id": "luxhome_25369", "site": "Luxhome.lu", "title": "2 chambres appartement Hollerich Lot 14", "city": "Hollerich", "price": 2450, "rooms": 2, "surface": null, "url": "https://www.luxhome.lu/bien/appartement-2-chambres-hollerich-lot-14/", "latitude": 49.5990604, "longitude": 6.122144, "distance_km": 0.9, "created_at": "2026-02-11 06:27:58", "notified": 0}];
+let mapObj, clusterGroup;
+
+function fmt(n) { return n != null ? Number(n).toLocaleString('fr-FR') : '—'; }
+function trunc(s,n) { return s && s.length > n ? s.slice(0,n) + '…' : (s || '—'); }
+function dCol(d) {
+  if (d == null) return '#94a3b8';
+  return d < 2 ? '#10b981' : d < 5 ? '#3b82f6' : d < 10 ? '#f59e0b' : '#ef4444';
+}
+
+function updateStats(data) {
+  const prices = data.map(l => l.price).filter(p => p > 0);
+  const avg = prices.length ? Math.round(prices.reduce((a,b) => a+b,0) / prices.length) : null;
+  document.getElementById('qs-min').textContent  = prices.length ? fmt(Math.min(...prices)) + ' €' : '—';
+  document.getElementById('qs-max').textContent  = prices.length ? fmt(Math.max(...prices)) + ' €' : '—';
+  document.getElementById('qs-avg').textContent  = avg ? fmt(avg) + ' €' : '—';
+  document.getElementById('qs-cnt').textContent  = data.length;
+  document.getElementById('geo-count').textContent = data.length;
+}
+
+function buildMap(data) {
+  if (clusterGroup) { mapObj.removeLayer(clusterGroup); }
+  clusterGroup = L.markerClusterGroup({
+    maxClusterRadius: 40,
+    iconCreateFunction: cluster => {
+      const n = cluster.getChildCount();
+      const sz = n < 10 ? 32 : n < 50 ? 40 : 48;
+      return L.divIcon({
+        html: `<div style="background:#3b82f6;color:#fff;border-radius:50%;
+          width:${sz}px;height:${sz}px;display:flex;align-items:center;
+          justify-content:center;font-weight:800;font-size:.8rem;
+          box-shadow:0 2px 8px rgba(0,0,0,.35);border:2px solid #fff;">${n}</div>`,
+        iconSize: [sz,sz], iconAnchor: [sz/2,sz/2], className: ''
+      });
+    }
+  });
+
+  const bounds = [];
+  data.forEach(l => {
+    const col = dCol(l.distance_km);
+    const pm2 = (l.price > 0 && l.surface > 0) ? Math.round(l.price / l.surface) : null;
+    const icon = L.divIcon({
+      html: `<div style="background:${col};width:14px;height:14px;border-radius:50%;
+        border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4)"></div>`,
+      iconSize: [14,14], iconAnchor: [7,7], className: ''
+    });
+    const popup = `
+      <div style="min-width:210px;font-size:.85rem;font-family:'Segoe UI',sans-serif">
+        <div style="font-weight:700;color:#0f172a;margin-bottom:2px;font-size:.95rem">${l.city || ''}</div>
+        <div style="font-size:1.15rem;color:#3b82f6;font-weight:800;margin-bottom:4px">
+          ${l.price ? fmt(l.price) + ' €' : '—'}
+        </div>
+        <div style="font-size:.78rem;color:#64748b;margin-bottom:6px">
+          ${l.surface ? l.surface + ' m²' : ''}
+          ${l.rooms ? ' · ' + l.rooms + ' ch.' : ''}
+          ${pm2 ? ' · ' + pm2 + ' €/m²' : ''}
+        </div>
+        ${l.distance_km != null
+          ? `<div style="font-size:.75rem;color:#94a3b8;margin-bottom:4px">${l.distance_km.toFixed(1)} km du centre</div>`
+          : ''}
+        <div style="font-size:.78rem;color:#475569;margin-bottom:8px">${trunc(l.title, 60)}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:.68rem;color:#94a3b8">${l.site || ''}</span>
+          <a href="${l.url}" target="_blank"
+             style="background:#3b82f6;color:#fff;text-decoration:none;border-radius:6px;
+                    padding:4px 12px;font-size:.78rem;font-weight:700">
+            Voir →
+          </a>
+        </div>
+      </div>`;
+    bounds.push([l.latitude, l.longitude]);
+    L.marker([l.latitude, l.longitude], {icon})
+      .bindPopup(popup, {maxWidth: 260, className: ''})
+      .addTo(clusterGroup);
+  });
+
+  clusterGroup.addTo(mapObj);
+  if (bounds.length > 0) {
+    try { mapObj.fitBounds(bounds, {padding: [30,30], maxZoom: 13}); } catch(e) {}
+  }
+  updateStats(data);
+}
+
+function applyFilters() {
+  const site = document.getElementById('f-site').value;
+  const dist = parseFloat(document.getElementById('f-dist').value) || Infinity;
+  const d = GEO.filter(l => {
+    if (site && l.site !== site) return false;
+    if (dist < Infinity && l.distance_km != null && l.distance_km > dist) return false;
+    return true;
+  });
+  buildMap(d);
+}
+
+function resetFilters() {
+  document.getElementById('f-site').value = '';
+  document.getElementById('f-dist').value = '';
+  buildMap(GEO);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  mapObj = L.map('map').setView([49.6116, 6.1319], 11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors', maxZoom: 19
+  }).addTo(mapObj);
+  buildMap(GEO);
+});
+</script>
+</body>
+</html>
