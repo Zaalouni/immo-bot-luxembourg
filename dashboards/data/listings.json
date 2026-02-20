@@ -1,6 +1,6 @@
 [
   {
-    "id": 69,
+    "id": 70,
     "listing_id": "remax_280221016-160",
     "site": "Remax.lu",
     "title": "Appartement à louer — Bertrange",
@@ -12,11 +12,11 @@
     "latitude": 49.61,
     "longitude": 6.05,
     "distance_km": 6.2,
-    "created_at": "2026-02-20 20:07:50",
+    "created_at": "2026-02-20 21:14:37",
     "notified": 1
   },
   {
-    "id": 68,
+    "id": 69,
     "listing_id": "remax_280221031-193",
     "site": "Remax.lu",
     "title": "Appartement à louer — Mamer",
@@ -28,91 +28,27 @@
     "latitude": 49.627,
     "longitude": 6.023,
     "distance_km": 8.6,
-    "created_at": "2026-02-20 20:07:39",
+    "created_at": "2026-02-20 21:14:27",
+    "notified": 1
+  },
+  {
+    "id": 68,
+    "listing_id": "immostar_212349",
+    "site": "ImmoStar.lu",
+    "title": "INDIVIDUAL HOUSE FOR RENT IN METTLACH",
+    "city": "Mettlach",
+    "price": 1800,
+    "rooms": 0,
+    "surface": 140,
+    "url": "https://www.immostar.lu/rent/individual-house/mettlach/212349",
+    "latitude": null,
+    "longitude": null,
+    "distance_km": null,
+    "created_at": "2026-02-20 21:14:16",
     "notified": 1
   },
   {
     "id": 67,
-    "listing_id": "vivi_202433",
-    "site": "VIVI.lu",
-    "title": "Appartement 2 chambres à louer",
-    "city": "Reuler",
-    "price": 1600,
-    "rooms": 2,
-    "surface": 102,
-    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-2-chambres-a-louer/202433",
-    "latitude": null,
-    "longitude": null,
-    "distance_km": null,
-    "created_at": "2026-02-20 20:07:28",
-    "notified": 1
-  },
-  {
-    "id": 66,
-    "listing_id": "vivi_210717",
-    "site": "VIVI.lu",
-    "title": "Appartement 3 chambres à louer",
-    "city": "Reuler",
-    "price": 2100,
-    "rooms": 3,
-    "surface": 135,
-    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-3-chambres-a-louer/210717",
-    "latitude": null,
-    "longitude": null,
-    "distance_km": null,
-    "created_at": "2026-02-20 20:07:18",
-    "notified": 1
-  },
-  {
-    "id": 65,
-    "listing_id": "vivi_211525",
-    "site": "VIVI.lu",
-    "title": "Appartement 2 chambres à louer",
-    "city": "Weiswampach",
-    "price": 1500,
-    "rooms": 2,
-    "surface": 88,
-    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/weiswampach/appartement-2-chambres-a-louer/211525",
-    "latitude": null,
-    "longitude": null,
-    "distance_km": null,
-    "created_at": "2026-02-20 20:07:07",
-    "notified": 1
-  },
-  {
-    "id": 64,
-    "listing_id": "vivi_210570",
-    "site": "VIVI.lu",
-    "title": "Appartement 2 chambres à louer",
-    "city": "Bissen",
-    "price": 2000,
-    "rooms": 2,
-    "surface": 81,
-    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/bissen/appartement-2-chambres-a-louer/210570",
-    "latitude": null,
-    "longitude": null,
-    "distance_km": null,
-    "created_at": "2026-02-20 20:06:57",
-    "notified": 1
-  },
-  {
-    "id": 63,
-    "listing_id": "remax_280351001-7",
-    "site": "Remax.lu",
-    "title": "Appartement à louer — Luxembourg",
-    "city": "Luxembourg",
-    "price": 2100,
-    "rooms": 2,
-    "surface": 1260,
-    "url": "https://www.remax.lu/fr-lu/mandats-de-vente/appartement/a-louer/luxembourg/rue-auguste-charles-2-1260/280351001-7",
-    "latitude": 49.6116,
-    "longitude": 6.1319,
-    "distance_km": 1.3,
-    "created_at": "2026-02-20 20:06:46",
-    "notified": 1
-  },
-  {
-    "id": 62,
     "listing_id": "nextimmo_86002754",
     "site": "Nextimmo.lu",
     "title": "Appartement Emerange",
@@ -124,11 +60,11 @@
     "latitude": 49.48752,
     "longitude": 6.29127,
     "distance_km": 16.9,
-    "created_at": "2026-02-20 20:06:36",
+    "created_at": "2026-02-20 21:14:05",
     "notified": 1
   },
   {
-    "id": 61,
+    "id": 66,
     "listing_id": "nextimmo_5710",
     "site": "Nextimmo.lu",
     "title": "Appartement Luxembourg-Hamm",
@@ -140,11 +76,11 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-20 20:06:26",
+    "created_at": "2026-02-20 21:13:55",
     "notified": 1
   },
   {
-    "id": 60,
+    "id": 65,
     "listing_id": "nextimmo_85075359",
     "site": "Nextimmo.lu",
     "title": "Appartement Wellenstein",
@@ -156,11 +92,11 @@
     "latitude": 49.52284,
     "longitude": 6.34504,
     "distance_km": 17.5,
-    "created_at": "2026-02-20 20:06:15",
+    "created_at": "2026-02-20 21:13:45",
     "notified": 1
   },
   {
-    "id": 59,
+    "id": 64,
     "listing_id": "nextimmo_86748114",
     "site": "Nextimmo.lu",
     "title": "Appartement Luxembourg-Hollerich",
@@ -172,11 +108,11 @@
     "latitude": 49.60034,
     "longitude": 6.12105,
     "distance_km": 0.9,
-    "created_at": "2026-02-20 20:06:05",
+    "created_at": "2026-02-20 21:13:35",
     "notified": 1
   },
   {
-    "id": 58,
+    "id": 63,
     "listing_id": "nextimmo_83177499",
     "site": "Nextimmo.lu",
     "title": "Appartement Luxembourg-Belair",
@@ -188,11 +124,11 @@
     "latitude": 49.60751,
     "longitude": 6.10969,
     "distance_km": 2.0,
-    "created_at": "2026-02-20 20:05:55",
+    "created_at": "2026-02-20 21:13:24",
     "notified": 1
   },
   {
-    "id": 57,
+    "id": 62,
     "listing_id": "nextimmo_86750963",
     "site": "Nextimmo.lu",
     "title": "Appartement Olm",
@@ -204,11 +140,11 @@
     "latitude": 49.65509,
     "longitude": 5.99296,
     "distance_km": 11.9,
-    "created_at": "2026-02-20 20:05:44",
+    "created_at": "2026-02-20 21:13:14",
     "notified": 1
   },
   {
-    "id": 56,
+    "id": 61,
     "listing_id": "nextimmo_1876275",
     "site": "Nextimmo.lu",
     "title": "Appartement Luxembourg-Pfaffenthal",
@@ -220,27 +156,27 @@
     "latitude": 49.6158,
     "longitude": 6.13289,
     "distance_km": 1.8,
-    "created_at": "2026-02-20 20:05:34",
+    "created_at": "2026-02-20 21:13:03",
     "notified": 1
   },
   {
-    "id": 55,
-    "listing_id": "newimmo_127084",
-    "site": "Newimmo.lu",
-    "title": "Appartement - Luxembourg Neudorf",
-    "city": "Luxembourg Neudorf",
-    "price": 2000,
-    "rooms": 0,
-    "surface": 0,
-    "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-neudorf/127084-appartement-luxembourg-neudorf/",
+    "id": 60,
+    "listing_id": "remax_280351001-7",
+    "site": "Remax.lu",
+    "title": "Appartement à louer — Luxembourg",
+    "city": "Luxembourg",
+    "price": 2100,
+    "rooms": 2,
+    "surface": 1260,
+    "url": "https://www.remax.lu/fr-lu/mandats-de-vente/appartement/a-louer/luxembourg/rue-auguste-charles-2-1260/280351001-7",
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-20 20:05:23",
+    "created_at": "2026-02-20 21:12:53",
     "notified": 1
   },
   {
-    "id": 54,
+    "id": 59,
     "listing_id": "newimmo_127231",
     "site": "Newimmo.lu",
     "title": "Appartement - Luxembourg",
@@ -252,11 +188,11 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-20 20:05:13",
+    "created_at": "2026-02-20 21:12:43",
     "notified": 1
   },
   {
-    "id": 53,
+    "id": 58,
     "listing_id": "newimmo_127171",
     "site": "Newimmo.lu",
     "title": "Appartement - Bertrange",
@@ -268,7 +204,87 @@
     "latitude": 49.61,
     "longitude": 6.05,
     "distance_km": 6.2,
-    "created_at": "2026-02-20 20:05:02",
+    "created_at": "2026-02-20 21:12:32",
+    "notified": 1
+  },
+  {
+    "id": 57,
+    "listing_id": "newimmo_127084",
+    "site": "Newimmo.lu",
+    "title": "Appartement - Luxembourg Neudorf",
+    "city": "Luxembourg Neudorf",
+    "price": 2000,
+    "rooms": 0,
+    "surface": 0,
+    "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-neudorf/127084-appartement-luxembourg-neudorf/",
+    "latitude": 49.6116,
+    "longitude": 6.1319,
+    "distance_km": 1.3,
+    "created_at": "2026-02-20 21:12:22",
+    "notified": 1
+  },
+  {
+    "id": 56,
+    "listing_id": "vivi_202433",
+    "site": "VIVI.lu",
+    "title": "Appartement 2 chambres à louer",
+    "city": "Reuler",
+    "price": 1600,
+    "rooms": 2,
+    "surface": 102,
+    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-2-chambres-a-louer/202433",
+    "latitude": null,
+    "longitude": null,
+    "distance_km": null,
+    "created_at": "2026-02-20 21:12:12",
+    "notified": 1
+  },
+  {
+    "id": 55,
+    "listing_id": "vivi_210717",
+    "site": "VIVI.lu",
+    "title": "Appartement 3 chambres à louer",
+    "city": "Reuler",
+    "price": 2100,
+    "rooms": 3,
+    "surface": 135,
+    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-3-chambres-a-louer/210717",
+    "latitude": null,
+    "longitude": null,
+    "distance_km": null,
+    "created_at": "2026-02-20 21:12:01",
+    "notified": 1
+  },
+  {
+    "id": 54,
+    "listing_id": "vivi_211525",
+    "site": "VIVI.lu",
+    "title": "Appartement 2 chambres à louer",
+    "city": "Weiswampach",
+    "price": 1500,
+    "rooms": 2,
+    "surface": 88,
+    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/weiswampach/appartement-2-chambres-a-louer/211525",
+    "latitude": null,
+    "longitude": null,
+    "distance_km": null,
+    "created_at": "2026-02-20 21:11:51",
+    "notified": 1
+  },
+  {
+    "id": 53,
+    "listing_id": "vivi_210570",
+    "site": "VIVI.lu",
+    "title": "Appartement 2 chambres à louer",
+    "city": "Bissen",
+    "price": 2000,
+    "rooms": 2,
+    "surface": 81,
+    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/bissen/appartement-2-chambres-a-louer/210570",
+    "latitude": null,
+    "longitude": null,
+    "distance_km": null,
+    "created_at": "2026-02-20 21:11:40",
     "notified": 1
   },
   {
@@ -284,7 +300,7 @@
     "latitude": 49.6524374,
     "longitude": 6.257763100000001,
     "distance_km": 10.6,
-    "created_at": "2026-02-20 20:04:52",
+    "created_at": "2026-02-20 21:11:30",
     "notified": 1
   },
   {
@@ -300,7 +316,7 @@
     "latitude": 49.7120944,
     "longitude": 6.2524317,
     "distance_km": 15.1,
-    "created_at": "2026-02-20 20:04:42",
+    "created_at": "2026-02-20 21:11:20",
     "notified": 1
   },
   {
@@ -316,7 +332,7 @@
     "latitude": 49.5756404,
     "longitude": 5.9086336,
     "distance_km": 16.5,
-    "created_at": "2026-02-20 20:04:31",
+    "created_at": "2026-02-20 21:11:10",
     "notified": 1
   },
   {
@@ -332,7 +348,7 @@
     "latitude": 49.5341099,
     "longitude": 6.2474705,
     "distance_km": 11.0,
-    "created_at": "2026-02-20 20:04:21",
+    "created_at": "2026-02-20 21:10:59",
     "notified": 1
   },
   {
@@ -348,7 +364,7 @@
     "latitude": 49.6254273,
     "longitude": 6.135935,
     "distance_km": 2.8,
-    "created_at": "2026-02-20 20:04:10",
+    "created_at": "2026-02-20 21:10:49",
     "notified": 1
   },
   {
@@ -364,7 +380,7 @@
     "latitude": 49.5756404,
     "longitude": 5.9086336,
     "distance_km": 16.5,
-    "created_at": "2026-02-20 20:04:00",
+    "created_at": "2026-02-20 21:10:38",
     "notified": 1
   },
   {
@@ -380,7 +396,7 @@
     "latitude": 49.5712572,
     "longitude": 6.1637244,
     "distance_km": 3.8,
-    "created_at": "2026-02-20 20:03:50",
+    "created_at": "2026-02-20 21:10:28",
     "notified": 1
   },
   {
@@ -396,7 +412,7 @@
     "latitude": 49.6548632,
     "longitude": 6.1272733,
     "distance_km": 6.1,
-    "created_at": "2026-02-20 20:03:39",
+    "created_at": "2026-02-20 21:10:18",
     "notified": 1
   },
   {
@@ -412,7 +428,7 @@
     "latitude": 49.6938934,
     "longitude": 6.2498095,
     "distance_km": 13.4,
-    "created_at": "2026-02-20 20:03:29",
+    "created_at": "2026-02-20 21:10:08",
     "notified": 1
   },
   {
@@ -428,7 +444,7 @@
     "latitude": 49.502401,
     "longitude": 5.9721782,
     "distance_km": 15.9,
-    "created_at": "2026-02-20 20:03:18",
+    "created_at": "2026-02-20 21:09:57",
     "notified": 1
   },
   {
@@ -444,7 +460,7 @@
     "latitude": 49.55093489999999,
     "longitude": 6.2076007,
     "distance_km": 7.6,
-    "created_at": "2026-02-20 20:03:08",
+    "created_at": "2026-02-20 21:09:47",
     "notified": 1
   },
   {
@@ -460,7 +476,7 @@
     "latitude": 49.4800596,
     "longitude": 6.083069999999999,
     "distance_km": 13.8,
-    "created_at": "2026-02-20 20:02:58",
+    "created_at": "2026-02-20 21:09:37",
     "notified": 1
   },
   {
@@ -476,7 +492,7 @@
     "latitude": 49.6097283,
     "longitude": 6.1092036,
     "distance_km": 2.1,
-    "created_at": "2026-02-20 20:02:47",
+    "created_at": "2026-02-20 21:09:26",
     "notified": 1
   },
   {
@@ -492,7 +508,7 @@
     "latitude": 49.6084908,
     "longitude": 6.066778999999999,
     "distance_km": 4.9,
-    "created_at": "2026-02-20 20:02:37",
+    "created_at": "2026-02-20 21:09:16",
     "notified": 1
   },
   {
@@ -508,7 +524,7 @@
     "latitude": 49.6023272,
     "longitude": 6.1137845,
     "distance_km": 1.5,
-    "created_at": "2026-02-20 20:02:27",
+    "created_at": "2026-02-20 21:09:06",
     "notified": 1
   },
   {
@@ -524,7 +540,7 @@
     "latitude": 49.5085182,
     "longitude": 5.9368383,
     "distance_km": 17.5,
-    "created_at": "2026-02-20 20:02:16",
+    "created_at": "2026-02-20 21:08:55",
     "notified": 1
   },
   {
@@ -540,7 +556,7 @@
     "latitude": 49.6750699,
     "longitude": 6.1377211,
     "distance_km": 8.4,
-    "created_at": "2026-02-20 20:02:06",
+    "created_at": "2026-02-20 21:08:45",
     "notified": 1
   },
   {
@@ -556,7 +572,7 @@
     "latitude": 49.5731206,
     "longitude": 6.161307000000001,
     "distance_km": 3.6,
-    "created_at": "2026-02-20 20:01:55",
+    "created_at": "2026-02-20 21:08:35",
     "notified": 1
   },
   {
@@ -572,7 +588,7 @@
     "latitude": 49.59625699999999,
     "longitude": 6.1366508,
     "distance_km": 0.5,
-    "created_at": "2026-02-20 20:01:45",
+    "created_at": "2026-02-20 21:08:24",
     "notified": 1
   },
   {
@@ -588,7 +604,7 @@
     "latitude": 49.6123327,
     "longitude": 6.125843199999999,
     "distance_km": 1.5,
-    "created_at": "2026-02-20 20:01:35",
+    "created_at": "2026-02-20 21:08:14",
     "notified": 1
   },
   {
@@ -604,7 +620,7 @@
     "latitude": 49.5849,
     "longitude": 6.12475,
     "distance_km": 1.8,
-    "created_at": "2026-02-20 20:01:24",
+    "created_at": "2026-02-20 21:08:04",
     "notified": 1
   },
   {
@@ -620,7 +636,7 @@
     "latitude": 49.6073607,
     "longitude": 6.1155111,
     "distance_km": 1.6,
-    "created_at": "2026-02-20 20:01:14",
+    "created_at": "2026-02-20 21:07:53",
     "notified": 1
   },
   {
@@ -636,7 +652,7 @@
     "latitude": 49.599092,
     "longitude": 6.132617,
     "distance_km": 0.2,
-    "created_at": "2026-02-20 20:01:03",
+    "created_at": "2026-02-20 21:07:43",
     "notified": 1
   },
   {
@@ -652,7 +668,7 @@
     "latitude": 49.6123327,
     "longitude": 6.1258432,
     "distance_km": 1.5,
-    "created_at": "2026-02-20 20:00:53",
+    "created_at": "2026-02-20 21:07:33",
     "notified": 1
   },
   {
@@ -668,7 +684,7 @@
     "latitude": 49.5889204,
     "longitude": 6.0994732,
     "distance_km": 2.8,
-    "created_at": "2026-02-20 20:00:43",
+    "created_at": "2026-02-20 21:07:22",
     "notified": 1
   },
   {
@@ -684,7 +700,7 @@
     "latitude": 49.6450986,
     "longitude": 6.2223386,
     "distance_km": 8.1,
-    "created_at": "2026-02-20 20:00:33",
+    "created_at": "2026-02-20 21:07:12",
     "notified": 1
   },
   {
@@ -700,7 +716,7 @@
     "latitude": 49.6022613,
     "longitude": 6.117406099999999,
     "distance_km": 1.2,
-    "created_at": "2026-02-20 20:00:22",
+    "created_at": "2026-02-20 21:07:02",
     "notified": 1
   },
   {
@@ -716,7 +732,7 @@
     "latitude": 49.5398355,
     "longitude": 6.1444186,
     "distance_km": 6.7,
-    "created_at": "2026-02-20 20:00:12",
+    "created_at": "2026-02-20 21:06:52",
     "notified": 1
   },
   {
@@ -732,7 +748,7 @@
     "latitude": 49.6106248,
     "longitude": 6.0502349,
     "distance_km": 6.2,
-    "created_at": "2026-02-20 20:00:01",
+    "created_at": "2026-02-20 21:06:41",
     "notified": 1
   },
   {
@@ -748,7 +764,7 @@
     "latitude": 49.6106248,
     "longitude": 6.0502349,
     "distance_km": 6.2,
-    "created_at": "2026-02-20 19:59:51",
+    "created_at": "2026-02-20 21:06:31",
     "notified": 1
   },
   {
@@ -764,7 +780,7 @@
     "latitude": 49.64983,
     "longitude": 6.22619,
     "distance_km": 8.6,
-    "created_at": "2026-02-20 19:59:40",
+    "created_at": "2026-02-20 21:06:21",
     "notified": 1
   },
   {
@@ -780,7 +796,7 @@
     "latitude": 49.6508207,
     "longitude": 6.2352602,
     "distance_km": 9.2,
-    "created_at": "2026-02-20 19:59:30",
+    "created_at": "2026-02-20 21:06:10",
     "notified": 1
   },
   {
@@ -796,7 +812,7 @@
     "latitude": 49.5842339,
     "longitude": 5.9640686,
     "distance_km": 12.4,
-    "created_at": "2026-02-20 19:59:20",
+    "created_at": "2026-02-20 21:06:00",
     "notified": 1
   },
   {
@@ -812,7 +828,7 @@
     "latitude": 49.6174427,
     "longitude": 5.9512695,
     "distance_km": 13.3,
-    "created_at": "2026-02-20 19:59:09",
+    "created_at": "2026-02-20 21:05:50",
     "notified": 1
   },
   {
@@ -828,7 +844,7 @@
     "latitude": 49.6251297,
     "longitude": 6.1426854,
     "distance_km": 2.9,
-    "created_at": "2026-02-20 19:58:59",
+    "created_at": "2026-02-20 21:05:39",
     "notified": 1
   },
   {
@@ -844,7 +860,7 @@
     "latitude": 49.6576485,
     "longitude": 6.0817229,
     "distance_km": 7.4,
-    "created_at": "2026-02-20 19:58:49",
+    "created_at": "2026-02-20 21:05:29",
     "notified": 1
   },
   {
@@ -860,7 +876,7 @@
     "latitude": 49.655,
     "longitude": 6.08,
     "distance_km": 7.3,
-    "created_at": "2026-02-20 19:58:38",
+    "created_at": "2026-02-20 21:05:19",
     "notified": 1
   },
   {
@@ -876,7 +892,7 @@
     "latitude": 49.5045503,
     "longitude": 5.9435467,
     "distance_km": 17.4,
-    "created_at": "2026-02-20 19:58:28",
+    "created_at": "2026-02-20 21:05:08",
     "notified": 1
   },
   {
@@ -892,7 +908,7 @@
     "latitude": 49.6024772,
     "longitude": 6.0732987,
     "distance_km": 4.4,
-    "created_at": "2026-02-20 19:58:18",
+    "created_at": "2026-02-20 21:04:58",
     "notified": 1
   },
   {
@@ -908,7 +924,7 @@
     "latitude": 49.5923442,
     "longitude": 6.1441177,
     "distance_km": 1.1,
-    "created_at": "2026-02-20 19:58:07",
+    "created_at": "2026-02-20 21:04:48",
     "notified": 1
   },
   {
@@ -924,23 +940,23 @@
     "latitude": 49.4964624,
     "longitude": 5.9753139,
     "distance_km": 16.2,
-    "created_at": "2026-02-20 19:57:57",
+    "created_at": "2026-02-20 21:04:37",
     "notified": 1
   },
   {
     "id": 11,
-    "listing_id": "athome_7980446",
+    "listing_id": "athome_7744189",
     "site": "Athome.lu",
-    "title": "+++SHORT TERM COURT SEJOUR FULLY FURNISHED+++EUREKA REAL ESTATE vous p",
+    "title": "+++EUREKA REAL ESTATE vous présente en exclusivité à la location un ma",
     "city": "Luxembourg-Kirchberg",
     "price": 2400,
     "rooms": 2,
     "surface": 80,
-    "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7980446.html",
+    "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7744189.html",
     "latitude": 49.6278694,
     "longitude": 6.153422,
     "distance_km": 3.4,
-    "created_at": "2026-02-20 19:57:47",
+    "created_at": "2026-02-20 21:04:27",
     "notified": 1
   },
   {
@@ -956,7 +972,7 @@
     "latitude": 49.5044913,
     "longitude": 5.9418997,
     "distance_km": 17.5,
-    "created_at": "2026-02-20 19:57:36",
+    "created_at": "2026-02-20 21:04:17",
     "notified": 1
   },
   {
@@ -972,7 +988,7 @@
     "latitude": 49.6078954,
     "longitude": 6.1070622,
     "distance_km": 2.1,
-    "created_at": "2026-02-20 19:57:26",
+    "created_at": "2026-02-20 21:04:06",
     "notified": 1
   },
   {
@@ -988,7 +1004,7 @@
     "latitude": 49.7402205,
     "longitude": 6.1137785,
     "distance_km": 15.7,
-    "created_at": "2026-02-20 19:57:16",
+    "created_at": "2026-02-20 21:03:56",
     "notified": 1
   },
   {
@@ -1004,7 +1020,7 @@
     "latitude": 49.7373735,
     "longitude": 6.0202389,
     "distance_km": 17.3,
-    "created_at": "2026-02-20 19:57:05",
+    "created_at": "2026-02-20 21:03:46",
     "notified": 1
   },
   {
@@ -1020,7 +1036,7 @@
     "latitude": 49.6118458,
     "longitude": 6.126972500000001,
     "distance_km": 1.4,
-    "created_at": "2026-02-20 19:56:55",
+    "created_at": "2026-02-20 21:03:35",
     "notified": 1
   },
   {
@@ -1036,7 +1052,7 @@
     "latitude": 49.5854461,
     "longitude": 6.224731299999999,
     "distance_km": 6.7,
-    "created_at": "2026-02-20 19:56:45",
+    "created_at": "2026-02-20 21:03:25",
     "notified": 1
   },
   {
@@ -1052,7 +1068,7 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-20 19:56:34",
+    "created_at": "2026-02-20 21:03:14",
     "notified": 1
   },
   {
@@ -1068,7 +1084,7 @@
     "latitude": 49.55,
     "longitude": 5.98,
     "distance_km": 12.4,
-    "created_at": "2026-02-20 19:56:24",
+    "created_at": "2026-02-20 21:03:04",
     "notified": 1
   },
   {
@@ -1084,23 +1100,23 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-20 19:56:13",
+    "created_at": "2026-02-20 21:02:54",
     "notified": 1
   },
   {
     "id": 1,
-    "listing_id": "nextimmo_86702812",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Mamer",
+    "listing_id": "vivi_212177",
+    "site": "VIVI.lu",
+    "title": "Appartement 2 chambres à louer",
     "city": "Mamer",
     "price": 2000,
     "rooms": 2,
     "surface": 81,
-    "url": "https://nextimmo.lu/en/details/86702812",
-    "latitude": 49.62391,
-    "longitude": 6.01063,
-    "distance_km": 9.3,
-    "created_at": "2026-02-20 19:56:08",
+    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/mamer/appartement-2-chambres-a-louer/212177",
+    "latitude": 49.627,
+    "longitude": 6.023,
+    "distance_km": 8.6,
+    "created_at": "2026-02-20 21:02:49",
     "notified": 1
   }
 ]
