@@ -140,6 +140,14 @@ try:
     except ImportError as e:
         logger.warning(f"⚠️ Remax.lu: {e}")
 
+    # Sigelux.lu
+    try:
+        from scrapers.sigelux_scraper import sigelux_scraper
+        scrapers_config.append(('🏠 Sigelux.lu', sigelux_scraper))
+        logger.info("✅ Sigelux.lu")
+    except ImportError as e:
+        logger.warning(f"⚠️ Sigelux.lu: {e}")
+
 except ImportError as e:
     logger.error(f"❌ Erreur importation: {e}")
     sys.exit(1)
