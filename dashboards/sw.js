@@ -1,5 +1,5 @@
-const CACHE = 'immo-bot-202602202214';
-const ASSETS = ['./index.html', './icon.svg'];
+const CACHE = 'immo-bot-202602210010';
+const ASSETS = ['./index.html', './map.html', './icon.svg'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
@@ -15,7 +15,6 @@ self.addEventListener('activate', e => {
   self.clients.claim();
 });
 
-/* Network-first : donnees toujours fraiches, fallback cache si offline */
 self.addEventListener('fetch', e => {
   e.respondWith(
     fetch(e.request).then(resp => {
