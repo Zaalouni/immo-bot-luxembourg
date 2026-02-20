@@ -1,50 +1,54 @@
 [
   {
+    "id": 68,
     "listing_id": "remax_280221016-160",
     "site": "Remax.lu",
-    "title": "Bertrange – 2 chambres, rénové, libre de suite",
+    "title": "Appartement à louer — Bertrange",
     "city": "Bertrange",
     "price": 1950,
     "rooms": 2,
     "surface": 98,
     "url": "https://www.remax.lu/fr-lu/mandats-de-vente/appartement/a-louer/bertrange/280221016-160",
-    "latitude": 49.604838,
-    "longitude": 6.0749686,
-    "distance_km": 4.3,
-    "created_at": "2026-02-20 13:27:18",
-    "price_m2": 19.9
+    "latitude": 49.61,
+    "longitude": 6.05,
+    "distance_km": 6.2,
+    "created_at": "2026-02-20 16:17:07",
+    "notified": 1
   },
   {
-    "listing_id": "remax_280171009-198",
+    "id": 67,
+    "listing_id": "remax_280351001-7",
     "site": "Remax.lu",
-    "title": "Très beau duplex deux chambres à Dudelange",
-    "city": "Dudelange",
-    "price": 1800,
+    "title": "Appartement à louer — Luxembourg",
+    "city": "Luxembourg",
+    "price": 2100,
     "rooms": 2,
-    "surface": 115,
-    "url": "https://www.remax.lu/fr-lu/mandats-de-vente/duplex/a-louer/dudelange/280171009-198",
-    "latitude": 49.4712798,
-    "longitude": 6.0841976,
-    "distance_km": 14.8,
-    "created_at": "2026-02-20 13:27:08",
-    "price_m2": 15.7
+    "surface": 1260,
+    "url": "https://www.remax.lu/fr-lu/mandats-de-vente/appartement/a-louer/luxembourg/rue-auguste-charles-2-1260/280351001-7",
+    "latitude": 49.6116,
+    "longitude": 6.1319,
+    "distance_km": 1.3,
+    "created_at": "2026-02-20 16:16:57",
+    "notified": 1
   },
   {
+    "id": 66,
     "listing_id": "remax_280221031-193",
     "site": "Remax.lu",
-    "title": "Appartement - 2 ch. - 80m2 - Mamer avec jardin",
+    "title": "Appartement à louer — Mamer",
     "city": "Mamer",
     "price": 2150,
     "rooms": 2,
     "surface": 80,
     "url": "https://www.remax.lu/fr-lu/mandats-de-vente/appartement/a-louer/mamer/mamer-8-rue-marie-jeanne-birkel-8241/280221031-193",
-    "latitude": 49.623945,
-    "longitude": 6.010572,
-    "distance_km": 9.3,
-    "created_at": "2026-02-20 13:26:58",
-    "price_m2": 26.9
+    "latitude": 49.627,
+    "longitude": 6.023,
+    "distance_km": 8.6,
+    "created_at": "2026-02-20 16:16:47",
+    "notified": 1
   },
   {
+    "id": 65,
     "listing_id": "nextimmo_86002754",
     "site": "Nextimmo.lu",
     "title": "Appartement Emerange",
@@ -56,10 +60,11 @@
     "latitude": 49.48752,
     "longitude": 6.29127,
     "distance_km": 16.9,
-    "created_at": "2026-02-20 13:26:47",
-    "price_m2": 19.5
+    "created_at": "2026-02-20 16:16:37",
+    "notified": 1
   },
   {
+    "id": 64,
     "listing_id": "nextimmo_5710",
     "site": "Nextimmo.lu",
     "title": "Appartement Luxembourg-Hamm",
@@ -71,10 +76,11 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-20 13:26:37",
-    "price_m2": 23.3
+    "created_at": "2026-02-20 16:16:26",
+    "notified": 1
   },
   {
+    "id": 63,
     "listing_id": "nextimmo_85075359",
     "site": "Nextimmo.lu",
     "title": "Appartement Wellenstein",
@@ -86,10 +92,11 @@
     "latitude": 49.52284,
     "longitude": 6.34504,
     "distance_km": 17.5,
-    "created_at": "2026-02-20 13:26:27",
-    "price_m2": 16.4
+    "created_at": "2026-02-20 16:16:16",
+    "notified": 1
   },
   {
+    "id": 62,
     "listing_id": "nextimmo_86748114",
     "site": "Nextimmo.lu",
     "title": "Appartement Luxembourg-Hollerich",
@@ -101,10 +108,11 @@
     "latitude": 49.60034,
     "longitude": 6.12105,
     "distance_km": 0.9,
-    "created_at": "2026-02-20 13:26:17",
-    "price_m2": 25.3
+    "created_at": "2026-02-20 16:16:06",
+    "notified": 1
   },
   {
+    "id": 61,
     "listing_id": "nextimmo_83177499",
     "site": "Nextimmo.lu",
     "title": "Appartement Luxembourg-Belair",
@@ -116,10 +124,11 @@
     "latitude": 49.60751,
     "longitude": 6.10969,
     "distance_km": 2.0,
-    "created_at": "2026-02-20 13:26:07",
-    "price_m2": 26.2
+    "created_at": "2026-02-20 16:15:56",
+    "notified": 1
   },
   {
+    "id": 60,
     "listing_id": "nextimmo_86750963",
     "site": "Nextimmo.lu",
     "title": "Appartement Olm",
@@ -131,10 +140,11 @@
     "latitude": 49.65509,
     "longitude": 5.99296,
     "distance_km": 11.9,
-    "created_at": "2026-02-20 13:25:57",
-    "price_m2": 28.8
+    "created_at": "2026-02-20 16:15:46",
+    "notified": 1
   },
   {
+    "id": 59,
     "listing_id": "nextimmo_1876275",
     "site": "Nextimmo.lu",
     "title": "Appartement Luxembourg-Pfaffenthal",
@@ -146,70 +156,11 @@
     "latitude": 49.6158,
     "longitude": 6.13289,
     "distance_km": 1.8,
-    "created_at": "2026-02-20 13:25:46",
-    "price_m2": 23.9
+    "created_at": "2026-02-20 16:15:35",
+    "notified": 1
   },
   {
-    "listing_id": "wortimmo_506483",
-    "site": "Wortimmo.lu",
-    "title": "Appartement 2ch 88m² Luxembourg Pfaffenthall",
-    "city": "Luxembourg Pfaffenthall",
-    "price": 2100,
-    "rooms": 2,
-    "surface": 88,
-    "url": "https://www.wortimmo.lu/fr/location-appartement-centre-luxembourg-pfaffenthall-id_506483",
-    "latitude": 49.6116,
-    "longitude": 6.1319,
-    "distance_km": 1.3,
-    "created_at": "2026-02-20 13:25:33",
-    "price_m2": 23.9
-  },
-  {
-    "listing_id": "wortimmo_488122",
-    "site": "Wortimmo.lu",
-    "title": "Appartement 2ch 87m² Luxembourg Cents",
-    "city": "Luxembourg Cents",
-    "price": 2300,
-    "rooms": 2,
-    "surface": 87,
-    "url": "https://www.wortimmo.lu/fr/location-appartement-centre-luxembourg-cents-id_488122",
-    "latitude": 49.6116,
-    "longitude": 6.1319,
-    "distance_km": 1.3,
-    "created_at": "2026-02-20 13:25:23",
-    "price_m2": 26.4
-  },
-  {
-    "listing_id": "wortimmo_398179",
-    "site": "Wortimmo.lu",
-    "title": "Appartement 2ch 105m² Frisange",
-    "city": "Frisange",
-    "price": 2000,
-    "rooms": 2,
-    "surface": 105,
-    "url": "https://www.wortimmo.lu/fr/location-appartement-sud-frisange-id_398179",
-    "latitude": 49.51,
-    "longitude": 6.19,
-    "distance_km": 10.8,
-    "created_at": "2026-02-20 13:25:12",
-    "price_m2": 19.0
-  },
-  {
-    "listing_id": "newimmo_127231",
-    "site": "Newimmo.lu",
-    "title": "Appartement - Luxembourg",
-    "city": "Luxembourg",
-    "price": 1900,
-    "rooms": 0,
-    "surface": 0,
-    "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg/127231-appartement-luxembourg/",
-    "latitude": 49.6116,
-    "longitude": 6.1319,
-    "distance_km": 1.3,
-    "created_at": "2026-02-20 13:25:02",
-    "price_m2": null
-  },
-  {
+    "id": 58,
     "listing_id": "newimmo_127084",
     "site": "Newimmo.lu",
     "title": "Appartement - Luxembourg Neudorf",
@@ -221,10 +172,11 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-20 13:24:52",
-    "price_m2": null
+    "created_at": "2026-02-20 16:15:25",
+    "notified": 1
   },
   {
+    "id": 57,
     "listing_id": "newimmo_127171",
     "site": "Newimmo.lu",
     "title": "Appartement - Bertrange",
@@ -236,10 +188,27 @@
     "latitude": 49.61,
     "longitude": 6.05,
     "distance_km": 6.2,
-    "created_at": "2026-02-20 13:24:41",
-    "price_m2": null
+    "created_at": "2026-02-20 16:15:15",
+    "notified": 1
   },
   {
+    "id": 56,
+    "listing_id": "newimmo_127231",
+    "site": "Newimmo.lu",
+    "title": "Appartement - Luxembourg",
+    "city": "Luxembourg",
+    "price": 1900,
+    "rooms": 0,
+    "surface": 0,
+    "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg/127231-appartement-luxembourg/",
+    "latitude": 49.6116,
+    "longitude": 6.1319,
+    "distance_km": 1.3,
+    "created_at": "2026-02-20 16:15:05",
+    "notified": 1
+  },
+  {
+    "id": 55,
     "listing_id": "vivi_202433",
     "site": "VIVI.lu",
     "title": "Appartement 2 chambres à louer",
@@ -251,10 +220,11 @@
     "latitude": null,
     "longitude": null,
     "distance_km": null,
-    "created_at": "2026-02-20 13:24:29",
-    "price_m2": 15.7
+    "created_at": "2026-02-20 16:14:52",
+    "notified": 1
   },
   {
+    "id": 54,
     "listing_id": "vivi_210717",
     "site": "VIVI.lu",
     "title": "Appartement 3 chambres à louer",
@@ -266,10 +236,11 @@
     "latitude": null,
     "longitude": null,
     "distance_km": null,
-    "created_at": "2026-02-20 13:24:16",
-    "price_m2": 15.6
+    "created_at": "2026-02-20 16:14:40",
+    "notified": 1
   },
   {
+    "id": 53,
     "listing_id": "vivi_211525",
     "site": "VIVI.lu",
     "title": "Appartement 2 chambres à louer",
@@ -281,10 +252,11 @@
     "latitude": null,
     "longitude": null,
     "distance_km": null,
-    "created_at": "2026-02-20 13:24:04",
-    "price_m2": 17.0
+    "created_at": "2026-02-20 16:14:27",
+    "notified": 1
   },
   {
+    "id": 52,
     "listing_id": "vivi_210570",
     "site": "VIVI.lu",
     "title": "Appartement 2 chambres à louer",
@@ -296,10 +268,11 @@
     "latitude": null,
     "longitude": null,
     "distance_km": null,
-    "created_at": "2026-02-20 13:23:51",
-    "price_m2": 24.7
+    "created_at": "2026-02-20 16:14:15",
+    "notified": 1
   },
   {
+    "id": 51,
     "listing_id": "immotop_1847365",
     "site": "Immotop.lu",
     "title": "Appartement 2 chambres rez-de-chaussée, Gare, Luxembourg",
@@ -311,10 +284,11 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-20 13:23:41",
-    "price_m2": null
+    "created_at": "2026-02-20 16:14:05",
+    "notified": 1
   },
   {
+    "id": 50,
     "listing_id": "immotop_1872303",
     "site": "Immotop.lu",
     "title": "Appartement 2 chambres 2, Rue Jean-Jacques Rousseau, Belval Sud-Lycée,",
@@ -326,10 +300,11 @@
     "latitude": 49.55,
     "longitude": 5.98,
     "distance_km": 12.4,
-    "created_at": "2026-02-20 13:23:31",
-    "price_m2": null
+    "created_at": "2026-02-20 16:13:54",
+    "notified": 1
   },
   {
+    "id": 49,
     "listing_id": "athome_8919578",
     "site": "Athome.lu",
     "title": "L’appartement rénové en 2024 fait +/− 100 m2 et il est situé au rez-de",
@@ -341,55 +316,59 @@
     "latitude": 49.6524374,
     "longitude": 6.257763100000001,
     "distance_km": 10.6,
-    "created_at": "2026-02-20 13:23:21",
-    "price_m2": null
+    "created_at": "2026-02-20 16:13:44",
+    "notified": 1
   },
   {
-    "listing_id": "nextimmo_4271",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Junglinster",
+    "id": 48,
+    "listing_id": "athome_8919970",
+    "site": "Athome.lu",
+    "title": "Abrigo propose en location un appartement spacieux et lumineux de 100 ",
     "city": "Junglinster",
     "price": 1950,
-    "rooms": 2,
+    "rooms": 5,
     "surface": 100,
-    "url": "https://nextimmo.lu/en/details/4271",
-    "latitude": 49.71,
-    "longitude": 6.25,
-    "distance_km": 14.8,
-    "created_at": "2026-02-20 13:23:11",
-    "price_m2": 19.5
+    "url": "https://www.athome.lu/location/appartement/junglinster/id-8919970.html",
+    "latitude": 49.7120944,
+    "longitude": 6.2524317,
+    "distance_km": 15.1,
+    "created_at": "2026-02-20 16:13:34",
+    "notified": 1
   },
   {
-    "listing_id": "nextimmo_1699665",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Hautcharage",
+    "id": 47,
+    "listing_id": "athome_8600103",
+    "site": "Athome.lu",
+    "title": "L'agence immobilière MaraMax s.àr.l vous propose en location ce spacie",
     "city": "Hautcharage",
     "price": 1980,
     "rooms": 2,
     "surface": 128,
-    "url": "https://nextimmo.lu/en/details/1699665",
-    "latitude": 49.5771,
-    "longitude": 5.90988,
-    "distance_km": 16.4,
-    "created_at": "2026-02-20 13:23:00",
-    "price_m2": 15.5
+    "url": "https://www.athome.lu/location/duplex/hautcharage/id-8600103.html",
+    "latitude": 49.5756404,
+    "longitude": 5.9086336,
+    "distance_km": 16.5,
+    "created_at": "2026-02-20 16:13:24",
+    "notified": 1
   },
   {
-    "listing_id": "nextimmo_86346261",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Filsdorf",
+    "id": 46,
+    "listing_id": "athome_8802259",
+    "site": "Athome.lu",
+    "title": "TOP : \r\n\r\n+++ APPARTEMENT AU 1re ETAGE +++\r\n\r\n*** Nous aimerions faire",
     "city": "Filsdorf",
     "price": 2350,
     "rooms": 3,
     "surface": 114,
-    "url": "https://nextimmo.lu/en/details/86346261",
-    "latitude": 49.53025,
-    "longitude": 6.24472,
-    "distance_km": 11.1,
-    "created_at": "2026-02-20 13:22:50",
-    "price_m2": 20.6
+    "url": "https://www.athome.lu/location/appartement/filsdorf/id-8802259.html",
+    "latitude": 49.5341099,
+    "longitude": 6.2474705,
+    "distance_km": 11.0,
+    "created_at": "2026-02-20 16:13:14",
+    "notified": 1
   },
   {
+    "id": 45,
     "listing_id": "athome_8995712",
     "site": "Athome.lu",
     "title": "***Appartement entièrement meublé !***  \nSitué dans le quartier recher",
@@ -401,25 +380,27 @@
     "latitude": 49.6254273,
     "longitude": 6.135935,
     "distance_km": 2.8,
-    "created_at": "2026-02-20 13:22:40",
-    "price_m2": 23.9
+    "created_at": "2026-02-20 16:13:03",
+    "notified": 1
   },
   {
-    "listing_id": "nextimmo_1858861",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Hautcharage",
+    "id": 44,
+    "listing_id": "athome_8951940",
+    "site": "Athome.lu",
+    "title": "L'agence immobilière MaraMax s.àr.l vous propose en location ce spacie",
     "city": "Hautcharage",
     "price": 1850,
     "rooms": 2,
     "surface": 92,
-    "url": "https://nextimmo.lu/en/details/1858861",
-    "latitude": 49.5771,
-    "longitude": 5.90988,
-    "distance_km": 16.4,
-    "created_at": "2026-02-20 13:22:30",
-    "price_m2": 20.1
+    "url": "https://www.athome.lu/location/appartement/hautcharage/id-8951940.html",
+    "latitude": 49.5756404,
+    "longitude": 5.9086336,
+    "distance_km": 16.5,
+    "created_at": "2026-02-20 16:12:53",
+    "notified": 1
   },
   {
+    "id": 43,
     "listing_id": "athome_8980537",
     "site": "Athome.lu",
     "title": "Bel appartement à 2 chambres à louer au rez-de-chaussée de la résidenc",
@@ -431,40 +412,43 @@
     "latitude": 49.5712572,
     "longitude": 6.1637244,
     "distance_km": 3.8,
-    "created_at": "2026-02-20 13:22:19",
-    "price_m2": 29.4
+    "created_at": "2026-02-20 16:12:43",
+    "notified": 1
   },
   {
-    "listing_id": "vivi_211885",
-    "site": "VIVI.lu",
-    "title": "Appartement 2 chambres à louer",
+    "id": 42,
+    "listing_id": "athome_8985065",
+    "site": "Athome.lu",
+    "title": "MANSO IMMO vous propose à la location charmant appartement semi meublé",
     "city": "Bereldange",
     "price": 2100,
     "rooms": 2,
     "surface": 90,
-    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/bereldange/appartement-2-chambres-a-louer/211885",
-    "latitude": 49.665,
-    "longitude": 6.125,
-    "distance_km": 7.3,
-    "created_at": "2026-02-20 13:22:07",
-    "price_m2": 23.3
+    "url": "https://www.athome.lu/location/appartement/bereldange/id-8985065.html",
+    "latitude": 49.6548632,
+    "longitude": 6.1272733,
+    "distance_km": 6.1,
+    "created_at": "2026-02-20 16:12:33",
+    "notified": 1
   },
   {
-    "listing_id": "nextimmo_4280",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Gonderange",
+    "id": 41,
+    "listing_id": "athome_8990475",
+    "site": "Athome.lu",
+    "title": "Abrigo vous propose la location et la première occupation d'un apparte",
     "city": "Gonderange",
     "price": 2200,
     "rooms": 2,
     "surface": 95,
-    "url": "https://nextimmo.lu/en/details/4280",
-    "latitude": 49.69,
-    "longitude": 6.25,
-    "distance_km": 13.0,
-    "created_at": "2026-02-20 13:21:57",
-    "price_m2": 23.2
+    "url": "https://www.athome.lu/location/appartement/gonderange/id-8990475.html",
+    "latitude": 49.6938934,
+    "longitude": 6.2498095,
+    "distance_km": 13.4,
+    "created_at": "2026-02-20 16:12:23",
+    "notified": 1
   },
   {
+    "id": 40,
     "listing_id": "athome_8727519",
     "site": "Athome.lu",
     "title": "Appartement de haut standing, complètement rénové, situé au 2ème étage",
@@ -476,10 +460,11 @@
     "latitude": 49.502401,
     "longitude": 5.9721782,
     "distance_km": 15.9,
-    "created_at": "2026-02-20 13:21:47",
-    "price_m2": 23.1
+    "created_at": "2026-02-20 16:12:12",
+    "notified": 1
   },
   {
+    "id": 39,
     "listing_id": "athome_8981863",
     "site": "Athome.lu",
     "title": "Bel appartement comprenant un hall d'entrée desservant un living avec ",
@@ -491,40 +476,43 @@
     "latitude": 49.55093489999999,
     "longitude": 6.2076007,
     "distance_km": 7.6,
-    "created_at": "2026-02-20 13:21:37",
-    "price_m2": 21.5
+    "created_at": "2026-02-20 16:12:02",
+    "notified": 1
   },
   {
-    "listing_id": "nextimmo_86694422",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Dudelange",
+    "id": 38,
+    "listing_id": "athome_8962425",
+    "site": "Athome.lu",
+    "title": "APPARTEMENT A LOUER AU 2E ETAGE: \r\n\r\nAPPARTEMENT 3 CHAMBRES A COUCHER ",
     "city": "Dudelange",
     "price": 2400,
     "rooms": 3,
     "surface": 92,
-    "url": "https://nextimmo.lu/en/details/86694422",
-    "latitude": 49.48081,
-    "longitude": 6.07795,
-    "distance_km": 13.9,
-    "created_at": "2026-02-20 13:21:26",
-    "price_m2": 26.1
+    "url": "https://www.athome.lu/location/appartement/dudelange/id-8962425.html",
+    "latitude": 49.4800596,
+    "longitude": 6.083069999999999,
+    "distance_km": 13.8,
+    "created_at": "2026-02-20 16:11:52",
+    "notified": 1
   },
   {
-    "listing_id": "nextimmo_8995617",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Luxembourg-Belair",
+    "id": 37,
+    "listing_id": "athome_8995617",
+    "site": "Athome.lu",
+    "title": "Situated in a quiet street in the sought-after neighborhood of Belair,",
     "city": "Luxembourg-Belair",
     "price": 2400,
     "rooms": 2,
     "surface": 95,
-    "url": "https://nextimmo.lu/en/details/8995617",
+    "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-8995617.html",
     "latitude": 49.6097283,
     "longitude": 6.1092036,
     "distance_km": 2.1,
-    "created_at": "2026-02-20 13:21:16",
-    "price_m2": 25.3
+    "created_at": "2026-02-20 16:11:42",
+    "notified": 1
   },
   {
+    "id": 36,
     "listing_id": "athome_8952053",
     "site": "Athome.lu",
     "title": "HomePass est ravis de vous présenter ce magnifique appartement, idéale",
@@ -536,10 +524,11 @@
     "latitude": 49.6084908,
     "longitude": 6.066778999999999,
     "distance_km": 4.9,
-    "created_at": "2026-02-20 13:21:06",
-    "price_m2": 28.6
+    "created_at": "2026-02-20 16:11:32",
+    "notified": 1
   },
   {
+    "id": 35,
     "listing_id": "athome_8958134",
     "site": "Athome.lu",
     "title": "Luxembourg-Belair - Boulevard Pierre Dupong\n\nAppartement 2 chambres av",
@@ -551,10 +540,11 @@
     "latitude": 49.6023272,
     "longitude": 6.1137845,
     "distance_km": 1.5,
-    "created_at": "2026-02-20 13:20:55",
-    "price_m2": 26.2
+    "created_at": "2026-02-20 16:11:21",
+    "notified": 1
   },
   {
+    "id": 34,
     "listing_id": "athome_8963275",
     "site": "Athome.lu",
     "title": "Alain Grossklos Tél. : +352 691 265 450 vous propose à la location ce ",
@@ -566,10 +556,11 @@
     "latitude": 49.5085182,
     "longitude": 5.9368383,
     "distance_km": 17.5,
-    "created_at": "2026-02-20 13:20:45",
-    "price_m2": 20.5
+    "created_at": "2026-02-20 16:11:11",
+    "notified": 1
   },
   {
+    "id": 33,
     "listing_id": "athome_8793493",
     "site": "Athome.lu",
     "title": "*** LOUÉ ***\r\n\r\nDRP Group vous propose à la location un très joli appa",
@@ -581,10 +572,11 @@
     "latitude": 49.6750699,
     "longitude": 6.1377211,
     "distance_km": 8.4,
-    "created_at": "2026-02-20 13:20:35",
-    "price_m2": 26.5
+    "created_at": "2026-02-20 16:11:01",
+    "notified": 1
   },
   {
+    "id": 32,
     "listing_id": "athome_8919659",
     "site": "Athome.lu",
     "title": "DALPA vous propose en location, ce lumineux appartement avec 2 chambre",
@@ -596,10 +588,11 @@
     "latitude": 49.5731206,
     "longitude": 6.161307000000001,
     "distance_km": 3.6,
-    "created_at": "2026-02-20 13:20:25",
-    "price_m2": 28.2
+    "created_at": "2026-02-20 16:10:51",
+    "notified": 1
   },
   {
+    "id": 31,
     "listing_id": "athome_8871260",
     "site": "Athome.lu",
     "title": "(English follows)\n\nÀ louer Duplex lumineux avec terrasse privative\nApp",
@@ -611,10 +604,11 @@
     "latitude": 49.59625699999999,
     "longitude": 6.1366508,
     "distance_km": 0.5,
-    "created_at": "2026-02-20 13:20:15",
-    "price_m2": 23.7
+    "created_at": "2026-02-20 16:10:41",
+    "notified": 1
   },
   {
+    "id": 30,
     "listing_id": "athome_8983182",
     "site": "Athome.lu",
     "title": "Bel appartement meublé de +/-82 m², situé au 4? étage avec ascenseur, ",
@@ -626,10 +620,11 @@
     "latitude": 49.6123327,
     "longitude": 6.125843199999999,
     "distance_km": 1.5,
-    "created_at": "2026-02-20 13:20:05",
-    "price_m2": 25.6
+    "created_at": "2026-02-20 16:10:30",
+    "notified": 1
   },
   {
+    "id": 29,
     "listing_id": "athome_8952070",
     "site": "Athome.lu",
     "title": "Adresse : 14, rue Charles Darwin – L-1433 Luxembourg\r\nSituation : en f",
@@ -641,10 +636,11 @@
     "latitude": 49.5849,
     "longitude": 6.12475,
     "distance_km": 1.8,
-    "created_at": "2026-02-20 13:19:54",
-    "price_m2": 27.4
+    "created_at": "2026-02-20 16:10:20",
+    "notified": 1
   },
   {
+    "id": 28,
     "listing_id": "athome_8994928",
     "site": "Athome.lu",
     "title": "Bel appartement à louer au deuxième étage dans une petite Résidence.\n\n",
@@ -656,25 +652,11 @@
     "latitude": 49.6073607,
     "longitude": 6.1155111,
     "distance_km": 1.6,
-    "created_at": "2026-02-20 13:19:44",
-    "price_m2": 24.4
+    "created_at": "2026-02-20 16:10:10",
+    "notified": 1
   },
   {
-    "listing_id": "athome_8995857",
-    "site": "Athome.lu",
-    "title": "Appartement (008) de 2 chambres à coucher, idéalement situé proche de ",
-    "city": "Luxembourg-Centre ville",
-    "price": 1800,
-    "rooms": 2,
-    "surface": 105,
-    "url": "https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8995857.html",
-    "latitude": 49.6038215,
-    "longitude": 6.1253636,
-    "distance_km": 0.8,
-    "created_at": "2026-02-20 13:19:34",
-    "price_m2": 17.1
-  },
-  {
+    "id": 27,
     "listing_id": "athome_7786123",
     "site": "Athome.lu",
     "title": "Démarrez votre nouvelle vie à Luxembourg avec ce confortable apparteme",
@@ -686,10 +668,11 @@
     "latitude": 49.599092,
     "longitude": 6.132617,
     "distance_km": 0.2,
-    "created_at": "2026-02-20 13:19:23",
-    "price_m2": 26.6
+    "created_at": "2026-02-20 16:10:00",
+    "notified": 1
   },
   {
+    "id": 26,
     "listing_id": "athome_8812008",
     "site": "Athome.lu",
     "title": "Appartement 2 chambres entièrement rénové ? Luxembourg-Merl\n\nAdresse :",
@@ -701,10 +684,27 @@
     "latitude": 49.6123327,
     "longitude": 6.1258432,
     "distance_km": 1.5,
-    "created_at": "2026-02-20 13:19:13",
-    "price_m2": 30.0
+    "created_at": "2026-02-20 16:09:50",
+    "notified": 1
   },
   {
+    "id": 25,
+    "listing_id": "athome_8995927",
+    "site": "Athome.lu",
+    "title": "Appartement moderne (047) de 2 chambres à coucher, idéalement situé pr",
+    "city": "Luxembourg-Cessange",
+    "price": 2375,
+    "rooms": 2,
+    "surface": 83,
+    "url": "https://www.athome.lu/location/appartement/luxembourg-cessange/id-8995927.html",
+    "latitude": 49.5889204,
+    "longitude": 6.0994732,
+    "distance_km": 2.8,
+    "created_at": "2026-02-20 16:09:39",
+    "notified": 1
+  },
+  {
+    "id": 24,
     "listing_id": "athome_8619057",
     "site": "Athome.lu",
     "title": "Démarrez votre nouvelle vie à Luxembourg avec ce charmant appartement ",
@@ -716,10 +716,11 @@
     "latitude": 49.6450986,
     "longitude": 6.2223386,
     "distance_km": 8.1,
-    "created_at": "2026-02-20 13:19:03",
-    "price_m2": 26.6
+    "created_at": "2026-02-20 16:09:29",
+    "notified": 1
   },
   {
+    "id": 23,
     "listing_id": "athome_8456918",
     "site": "Athome.lu",
     "title": "MT Real Estate Invest Sarl vous propose un superbe appartement à louer",
@@ -731,10 +732,11 @@
     "latitude": 49.6022613,
     "longitude": 6.117406099999999,
     "distance_km": 1.2,
-    "created_at": "2026-02-20 13:18:53",
-    "price_m2": 30.0
+    "created_at": "2026-02-20 16:09:19",
+    "notified": 1
   },
   {
+    "id": 22,
     "listing_id": "athome_8971769",
     "site": "Athome.lu",
     "title": "APPARTEMENT DUPLEX SPACIEUX A LOUER\nGrand Rue, L-3394 Roeser\n1er étage",
@@ -746,10 +748,11 @@
     "latitude": 49.5398355,
     "longitude": 6.1444186,
     "distance_km": 6.7,
-    "created_at": "2026-02-20 13:18:43",
-    "price_m2": 24.5
+    "created_at": "2026-02-20 16:09:08",
+    "notified": 1
   },
   {
+    "id": 21,
     "listing_id": "athome_8986750",
     "site": "Athome.lu",
     "title": "******** À louer ? Bel appartement 2 chambres à Bertrange ********\n\nSi",
@@ -761,13 +764,14 @@
     "latitude": 49.6106248,
     "longitude": 6.0502349,
     "distance_km": 6.2,
-    "created_at": "2026-02-20 13:18:32",
-    "price_m2": 20.4
+    "created_at": "2026-02-20 16:08:58",
+    "notified": 1
   },
   {
+    "id": 20,
     "listing_id": "athome_8871303",
     "site": "Athome.lu",
-    "title": "A Louer ? Superbe Appartement Moderne et Lumineux ? 2 Chambres ? Bertr",
+    "title": "A Louer - Superbe Appartement Moderne et Lumineux - 2 Chambres - Bertr",
     "city": "Bertrange",
     "price": 2400,
     "rooms": 6,
@@ -776,10 +780,11 @@
     "latitude": 49.6106248,
     "longitude": 6.0502349,
     "distance_km": 6.2,
-    "created_at": "2026-02-20 13:18:22",
-    "price_m2": 27.9
+    "created_at": "2026-02-20 16:08:44",
+    "notified": 1
   },
   {
+    "id": 19,
     "listing_id": "athome_1719537",
     "site": "Athome.lu",
     "title": "Appartement, meublé, accès facile, proche des institutions européennes",
@@ -791,10 +796,11 @@
     "latitude": 49.64983,
     "longitude": 6.22619,
     "distance_km": 8.6,
-    "created_at": "2026-02-20 13:18:12",
-    "price_m2": 23.0
+    "created_at": "2026-02-20 16:08:34",
+    "notified": 1
   },
   {
+    "id": 18,
     "listing_id": "athome_7981264",
     "site": "Athome.lu",
     "title": "Senningerberg - Proximité immédiate aéroport & Kirchberg\r\n\r\nA louer ap",
@@ -806,40 +812,27 @@
     "latitude": 49.6508207,
     "longitude": 6.2352602,
     "distance_km": 9.2,
-    "created_at": "2026-02-20 13:18:02",
-    "price_m2": 21.7
+    "created_at": "2026-02-20 16:08:24",
+    "notified": 1
   },
   {
-    "listing_id": "athome_8861525",
+    "id": 17,
+    "listing_id": "athome_8992071",
     "site": "Athome.lu",
-    "title": "+++ LOUE +++ LOUE +++ LOUE +++ \r\nIdéalement situé à deux pas du centre",
-    "city": "Mondorf-Les-Bains",
-    "price": 2100,
-    "rooms": 6,
-    "surface": 82,
-    "url": "https://www.athome.lu/location/appartement/mondorf-les-bains/id-8861525.html",
-    "latitude": 49.5082903,
-    "longitude": 6.2729871,
-    "distance_km": 14.3,
-    "created_at": "2026-02-20 13:17:52",
-    "price_m2": 25.6
-  },
-  {
-    "listing_id": "nextimmo_85400498",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Sprinkange",
+    "title": "A louer lumineux appartement deux chambres à Sprinkange.\r\n\r\nCet appart",
     "city": "Sprinkange",
     "price": 2100,
     "rooms": 2,
     "surface": 90,
-    "url": "https://nextimmo.lu/en/details/85400498",
-    "latitude": 49.58421,
-    "longitude": 5.96409,
+    "url": "https://www.athome.lu/location/appartement/sprinkange/id-8992071.html",
+    "latitude": 49.5842339,
+    "longitude": 5.9640686,
     "distance_km": 12.4,
-    "created_at": "2026-02-20 13:17:41",
-    "price_m2": 23.3
+    "created_at": "2026-02-20 16:08:14",
+    "notified": 1
   },
   {
+    "id": 16,
     "listing_id": "athome_8899869",
     "site": "Athome.lu",
     "title": "Superbe duplex de 98,78 m² situé à Garnich, Luxembourg, est une opport",
@@ -851,25 +844,27 @@
     "latitude": 49.6174427,
     "longitude": 5.9512695,
     "distance_km": 13.3,
-    "created_at": "2026-02-20 13:17:31",
-    "price_m2": 24.5
+    "created_at": "2026-02-20 16:08:03",
+    "notified": 1
   },
   {
-    "listing_id": "nextimmo_85399933",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Luxembourg-Kirchberg",
+    "id": 15,
+    "listing_id": "athome_8939499",
+    "site": "Athome.lu",
+    "title": "A louer bel appartement deux chambres à Luxembourg-Kirchberg. \r\n\r\nCet ",
     "city": "Luxembourg-Kirchberg",
     "price": 2350,
     "rooms": 2,
     "surface": 87,
-    "url": "https://nextimmo.lu/en/details/85399933",
-    "latitude": 49.62508,
-    "longitude": 6.14274,
+    "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-8939499.html",
+    "latitude": 49.6251297,
+    "longitude": 6.1426854,
     "distance_km": 2.9,
-    "created_at": "2026-02-20 13:17:21",
-    "price_m2": 27.0
+    "created_at": "2026-02-20 16:07:53",
+    "notified": 1
   },
   {
+    "id": 14,
     "listing_id": "athome_8971656",
     "site": "Athome.lu",
     "title": "Appartement de haut standing lumineux avec jardin privatif sis au rez-",
@@ -881,10 +876,11 @@
     "latitude": 49.6576485,
     "longitude": 6.0817229,
     "distance_km": 7.4,
-    "created_at": "2026-02-20 13:17:11",
-    "price_m2": 24.7
+    "created_at": "2026-02-20 16:07:43",
+    "notified": 1
   },
   {
+    "id": 13,
     "listing_id": "nextimmo_12392",
     "site": "Nextimmo.lu",
     "title": "Appartement Bridel",
@@ -896,10 +892,11 @@
     "latitude": 49.655,
     "longitude": 6.08,
     "distance_km": 7.3,
-    "created_at": "2026-02-20 13:17:01",
-    "price_m2": 24.0
+    "created_at": "2026-02-20 16:07:33",
+    "notified": 1
   },
   {
+    "id": 12,
     "listing_id": "athome_8086234",
     "site": "Athome.lu",
     "title": "Many Many vous propose cet appartement de 98 m², situé au 2ème étage d",
@@ -911,25 +908,11 @@
     "latitude": 49.5045503,
     "longitude": 5.9435467,
     "distance_km": 17.4,
-    "created_at": "2026-02-20 13:16:50",
-    "price_m2": 24.2
+    "created_at": "2026-02-20 16:07:23",
+    "notified": 1
   },
   {
-    "listing_id": "athome_8980740",
-    "site": "Athome.lu",
-    "title": "Appartement sis au 3ème étage d’une résidence au Kirchberg\r\n\r\nLe bien ",
-    "city": "Luxembourg-Kirchberg",
-    "price": 2200,
-    "rooms": 2,
-    "surface": 87,
-    "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-8980740.html",
-    "latitude": 49.63783429999999,
-    "longitude": 6.164271299999999,
-    "distance_km": 4.7,
-    "created_at": "2026-02-20 13:16:40",
-    "price_m2": 25.3
-  },
-  {
+    "id": 11,
     "listing_id": "athome_8976000",
     "site": "Athome.lu",
     "title": "A louer, superbe appartement de 89 m2 avec 2 chambres à coucher, parti",
@@ -941,10 +924,11 @@
     "latitude": 49.6024772,
     "longitude": 6.0732987,
     "distance_km": 4.4,
-    "created_at": "2026-02-20 13:16:30",
-    "price_m2": 25.8
+    "created_at": "2026-02-20 16:07:12",
+    "notified": 1
   },
   {
+    "id": 10,
     "listing_id": "athome_8114963",
     "site": "Athome.lu",
     "title": "Many Many vous propose ce bel appartement rez-de-Jardin de 81 m² situé",
@@ -956,10 +940,11 @@
     "latitude": 49.5923442,
     "longitude": 6.1441177,
     "distance_km": 1.1,
-    "created_at": "2026-02-20 13:16:20",
-    "price_m2": 28.4
+    "created_at": "2026-02-20 16:07:02",
+    "notified": 1
   },
   {
+    "id": 9,
     "listing_id": "athome_8221893",
     "site": "Athome.lu",
     "title": "++++COUP DE COEUR! FULLY FURNISHED COLOCATION POSSIBLE AVAILABLE 15.06",
@@ -971,40 +956,43 @@
     "latitude": 49.4964624,
     "longitude": 5.9753139,
     "distance_km": 16.2,
-    "created_at": "2026-02-20 13:16:10",
-    "price_m2": 19.4
+    "created_at": "2026-02-20 16:06:52",
+    "notified": 1
   },
   {
-    "listing_id": "athome_7744189",
+    "id": 8,
+    "listing_id": "athome_7980446",
     "site": "Athome.lu",
-    "title": "+++EUREKA REAL ESTATE vous présente en exclusivité à la location un ma",
+    "title": "+++SHORT TERM COURT SEJOUR FULLY FURNISHED+++EUREKA REAL ESTATE vous p",
     "city": "Luxembourg-Kirchberg",
     "price": 2400,
     "rooms": 2,
     "surface": 80,
-    "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7744189.html",
+    "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7980446.html",
     "latitude": 49.6278694,
     "longitude": 6.153422,
     "distance_km": 3.4,
-    "created_at": "2026-02-20 13:15:59",
-    "price_m2": 30.0
+    "created_at": "2026-02-20 16:06:42",
+    "notified": 1
   },
   {
-    "listing_id": "nextimmo_86720793",
-    "site": "Nextimmo.lu",
-    "title": "Appartement Belvaux",
+    "id": 7,
+    "listing_id": "athome_8984620",
+    "site": "Athome.lu",
+    "title": "Groupe Iris Immobilier S.A. est ravi de vous proposer ce bel apparteme",
     "city": "Belvaux",
     "price": 2050,
     "rooms": 5,
     "surface": 80,
-    "url": "https://nextimmo.lu/en/details/86720793",
-    "latitude": 49.50449,
-    "longitude": 5.9419,
+    "url": "https://www.athome.lu/location/appartement/belvaux/id-8984620.html",
+    "latitude": 49.5044913,
+    "longitude": 5.9418997,
     "distance_km": 17.5,
-    "created_at": "2026-02-20 13:15:49",
-    "price_m2": 25.6
+    "created_at": "2026-02-20 16:06:31",
+    "notified": 1
   },
   {
+    "id": 6,
     "listing_id": "athome_8994521",
     "site": "Athome.lu",
     "title": "appartement lumineux sis au rez-de-chaussée surélevé d’un petit immeub",
@@ -1016,10 +1004,11 @@
     "latitude": 49.6078954,
     "longitude": 6.1070622,
     "distance_km": 2.1,
-    "created_at": "2026-02-20 13:15:39",
-    "price_m2": 25.0
+    "created_at": "2026-02-20 16:06:21",
+    "notified": 1
   },
   {
+    "id": 5,
     "listing_id": "vivi_212177",
     "site": "VIVI.lu",
     "title": "Appartement 2 chambres à louer",
@@ -1031,25 +1020,11 @@
     "latitude": 49.627,
     "longitude": 6.023,
     "distance_km": 8.6,
-    "created_at": "2026-02-20 13:15:26",
-    "price_m2": 24.7
+    "created_at": "2026-02-20 16:06:08",
+    "notified": 1
   },
   {
-    "listing_id": "athome_8982958",
-    "site": "Athome.lu",
-    "title": "Spacieux triplex en situation calme à Brouch, offrant des espaces géné",
-    "city": "Brouch (Mersch)",
-    "price": 2400,
-    "rooms": 3,
-    "surface": 172,
-    "url": "https://www.athome.lu/location/duplex/brouch-(mersch)/id-8982958.html",
-    "latitude": 49.7373735,
-    "longitude": 6.0202389,
-    "distance_km": 17.3,
-    "created_at": "2026-02-20 13:15:16",
-    "price_m2": 14.0
-  },
-  {
+    "id": 4,
     "listing_id": "athome_8983034",
     "site": "Athome.lu",
     "title": "Spacieux appartement sis au rez-de-chaussée, dans une Résidence très s",
@@ -1061,10 +1036,27 @@
     "latitude": 49.7402205,
     "longitude": 6.1137785,
     "distance_km": 15.7,
-    "created_at": "2026-02-20 13:15:06",
-    "price_m2": 21.5
+    "created_at": "2026-02-20 16:05:58",
+    "notified": 1
   },
   {
+    "id": 3,
+    "listing_id": "athome_8982958",
+    "site": "Athome.lu",
+    "title": "Spacieux triplex en situation calme à Brouch, offrant des espaces géné",
+    "city": "Brouch (Mersch)",
+    "price": 2400,
+    "rooms": 3,
+    "surface": 172,
+    "url": "https://www.athome.lu/location/duplex/brouch-(mersch)/id-8982958.html",
+    "latitude": 49.7373735,
+    "longitude": 6.0202389,
+    "distance_km": 17.3,
+    "created_at": "2026-02-20 16:05:48",
+    "notified": 1
+  },
+  {
+    "id": 2,
     "listing_id": "athome_8971722",
     "site": "Athome.lu",
     "title": "Lien vers visite virtuelle : https://tour.giraffe360.com/0b04f7ad1b0a4",
@@ -1076,10 +1068,11 @@
     "latitude": 49.6118458,
     "longitude": 6.126972500000001,
     "distance_km": 1.4,
-    "created_at": "2026-02-20 13:14:56",
-    "price_m2": 25.3
+    "created_at": "2026-02-20 16:05:38",
+    "notified": 1
   },
   {
+    "id": 1,
     "listing_id": "athome_8958851",
     "site": "Athome.lu",
     "title": "Situé dans le paisible village de Contern, dans une résidence avec asc",
@@ -1091,7 +1084,7 @@
     "latitude": 49.5854461,
     "longitude": 6.224731299999999,
     "distance_km": 6.7,
-    "created_at": "2026-02-20 13:14:50",
-    "price_m2": 29.3
+    "created_at": "2026-02-20 16:05:33",
+    "notified": 1
   }
 ]
