@@ -339,9 +339,8 @@ def contact_listing(driver, listing, dry_run=False):
             save_screenshot(driver, listing_id)
             return False
 
-        driver.execute_script("arguments[0].scrollIntoView(true);", contact_btn)
-        time.sleep(0.5)
-        contact_btn.click()
+        # JS click direct (scrollIntoView bloque sur Athome — conteneur overflow)
+        driver.execute_script("arguments[0].click();", contact_btn)
         time.sleep(3)
 
         # 2. Verifier si le modal de login apparait (non connecte)
@@ -359,9 +358,7 @@ def contact_listing(driver, listing, dry_run=False):
                         (By.CSS_SELECTOR, "button.detail-page__contact-agency-button")
                     )
                 )
-                driver.execute_script("arguments[0].scrollIntoView(true);", new_btn)
-                time.sleep(0.5)
-                new_btn.click()
+                driver.execute_script("arguments[0].click();", new_btn)
                 time.sleep(3)
             except Exception:
                 pass  # Le modal a peut-etre deja transition vers le formulaire
