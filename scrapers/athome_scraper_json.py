@@ -38,6 +38,8 @@ class AthomeScraperJSON:
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         }
+        self.session = requests.Session()
+        self.session.headers.update(self.headers)
         # Mapping types immobiliers
         self.type_map = {
             'apartment': 'appartement',
@@ -51,7 +53,7 @@ class AthomeScraperJSON:
     def _parse_page(self, url):
         """Parser une page Athome et retourner la liste d'items JSON"""
         try:
-            response = requests.get(url, headers=self.headers, timeout=15)
+            response = self.session.get(url, timeout=15)
             if response.status_code != 200:
                 logger.warning(f"HTTP {response.status_code} pour {url}")
                 return []
