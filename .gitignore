@@ -29,8 +29,12 @@ scrapers.sauv/
 main.py.123
 main.py.1801
 
-# === Scripts diagnostic (oneshot, pas dans le repo) ===
+# === Scripts diagnostic et reconnaissance (local uniquement) ===
 diagnostic_*.py
+debug_*.py
+recon_contact.py
+recon_output/
+contact_screenshots/
 
 # === Fichiers debug/data temporaires ===
 photolog.txt
