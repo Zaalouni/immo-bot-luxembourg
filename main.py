@@ -132,6 +132,14 @@ try:
     except ImportError as e:
         logger.warning(f"⚠️ Nextimmo.lu: {e}")
 
+    # Remax.lu
+    try:
+        from scrapers.remax_scraper import remax_scraper
+        scrapers_config.append(('🏘️ Remax.lu', remax_scraper))
+        logger.info("✅ Remax.lu")
+    except ImportError as e:
+        logger.warning(f"⚠️ Remax.lu: {e}")
+
 except ImportError as e:
     logger.error(f"❌ Erreur importation: {e}")
     sys.exit(1)
