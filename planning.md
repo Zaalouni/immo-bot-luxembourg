@@ -1,182 +1,95 @@
-# 📊 DASHBOARD IMMO LUXEMBOURG - BRIEF CLAUDE CODE
+# Planning Immo-Bot Luxembourg
 
-## 🎯 MISSION SIMPLE
-Créer **1 script** `dashboard_generator.py` qui génère un **Dashboard HTML interactif** en <5 secondes à partir de `listings.db` SQLite.
-
-**Bot scraping reste intact** (main.py, scrapers inchangés).
+## Version actuelle : v2.7 (2026-02-20)
 
 ---
 
-## 📋 CONTEXTE
-- **Données existantes**: listings.db (Athome, Immotop, Century21)
-- **Colonnes**: listing_id, title, price, rooms, surface, city, url, score
-- **Objectif**: Utilisateur exécute `python dashboard_generator.py` → fichier HTML créé
+## Actions terminees
+
+| ID  | Action                                      | Version | Date       | Statut |
+|-----|---------------------------------------------|---------|------------|--------|
+| A01 | Scrapers HTTP : requests.Session()          | v2.5    | 2026-02-15 | DONE   |
+| A02 | Pagination tous scrapers (+309 annonces)    | v2.6    | 2026-02-17 | DONE   |
+| A03 | URLs filtrees Athome (annonces only)        | v2.6    | 2026-02-17 | DONE   |
+| A04 | Fix images Athome (CDN media.items[].uri)   | v2.6    | 2026-02-17 | DONE   |
+| A05 | Fix images VIVI (lazy load + data-src)      | v2.6    | 2026-02-17 | DONE   |
+| A06 | Notifier : log WARNING si sendPhoto echoue | v2.6    | 2026-02-17 | DONE   |
+| A07 | Dashboard HTML (Bootstrap+Leaflet+DataTables)| v2.6   | 2026-02-17 | DONE   |
+| A08 | Filtrage centralise (filters.py)            | v2.6    | 2026-02-17 | DONE   |
+| A09 | Tests pytest (38 tests utils/db/filters)    | v2.6    | 2026-02-17 | DONE   |
+| A10 | Desactiver SothebysRealty (Cloudflare)      | v2.6    | 2026-02-19 | DONE   |
+| A11 | auto_contact.py v2.7 (WebDriverWait, dry-run, screenshots, form selector) | v2.7 | 2026-02-20 | DONE |
+| A12 | AUTO_CONTACT.md (guide utilisation)         | v2.7    | 2026-02-20 | DONE   |
+| A13 | recon_contact.py (reconnaissance formulaires) | v2.7  | 2026-02-20 | DONE   |
 
 ---
 
-## 🚀 FLUX UTILISATEUR (3 étapes)
-```
-$ python dashboard_generator.py
-✅ Dashboard généré! 42 annonces
-$ open dashboards/index.html  (ou double-click)
-→ Voir tableau interactif, filtres, carte, comparateur
-```
+## Actions en cours
 
----
+| ID  | Action                                             | Priorite | Statut     |
+|-----|----------------------------------------------------|----------|------------|
+| B01 | Multi-site contact (VIVI, Luxhome, Immotop, Athome) | HAUTE   | EN ATTENTE recon |
 
-## 📁 STRUCTURE
-```
-immo-bot-luxembourg/
-├── main.py, database.py, config.py (INCHANGÉS)
-├── listings.db (INCHANGÉ)
-│
-├── [NOUVEAU] dashboard_generator.py ← À créer
-├── [NOUVEAU] templates/dashboard.html ← Template Jinja2
-│
-└── [NOUVEAU] dashboards/ (créé auto)
-    ├── index.html ← Dashboard live
-    ├── archives/2025-02-16.html ← Snapshot
-    └── data/listings.json ← Données
-```
+### B01 — Multi-site contact : etapes
 
----
-
-## 🔧 4 ÉTAPES DU SCRIPT
-
-| Étape | Quoi | Détails |
-|-------|------|---------|
-| 1 | **Lire** | Ouvrir listings.db → exporter en JSON (42 annonces) |
-| 2 | **Calculer** | Stats: total, prix moyen/ville, annonces/site |
-| 3 | **Générer** | Load template Jinja2 + insérer données JSON + stats |
-| 4 | **Écrire** | Créer: index.html + archive jour + data/listings.json |
-
----
-
-## 🎨 DASHBOARD: 5 COMPOSANTS
-
-### 1️⃣ **Tableau** (CRITIQUE)
 ```
-Ville | Prix | m² | €/m² | Score | Site | Action
-Belair | 1950€ | 82 | 23.78 | 8.5 | Immotop | [Voir]
-...
-→ Interactif: tri click, checkboxes, lien URLs
-```
+1. [USER]  Lancer recon_contact.py sur 1 annonce par site
+           python recon_contact.py https://www.vivi.lu/annonce/XXX
+           python recon_contact.py https://www.luxhome.lu/annonces/XXX
+           python recon_contact.py https://www.immotop.lu/annonces/XXX
+           python recon_contact.py https://www.newimmo.lu/annonces/XXX
+           python recon_contact.py https://www.athome.lu/annonces/XXX
 
-### 2️⃣ **Filtres** (CRITIQUE)
-```
-Ville [multiselect]
-Prix [range €1000-3000]
-Surface [range m²]
-[Appliquer] → Tableau update JavaScript
-```
+2. [USER]  Envoyer les recon.txt a Claude
 
-### 3️⃣ **Stats Header**
-```
-42 annonces | Moy 1938€ | Athome 12 | Immotop 18 | ...
-```
+3. [CLAUDE] Analyser : boutons, champs formulaire, CAPTCHA
 
-### 4️⃣ **Carte** (BONUS)
-```
-Leaflet.js pins clusters
-Click pin → popup (prix, surface)
-```
+4. [CLAUDE] Classer sites par faisabilite (simple → difficile)
 
-### 5️⃣ **Comparateur** (BONUS)
-```
-Cocher 2-3 annonces → [Comparer]
-Modal tableau côte-à-côte
+5. [CLAUDE] Etendre auto_contact.py pour couvrir les sites faisables
 ```
 
 ---
 
-## ⚙️ TECHNOS
+## Actions planifiees
 
-**Python**: sqlite3, json, jinja2, datetime  
-**HTML**: Bootstrap 5 (CDN), Leaflet.js (CDN), JavaScript vanilla  
-**Avantage**: Fichier standalone, fonctionne offline, pas serveur web
-
----
-
-## 💡 CLÉS ARCHITECTURE
-
-✅ HTML standalone (ouvre file:// navigateur)  
-✅ Données JSON embedées dans `<script>`  
-✅ Filtres/tri côté JavaScript (pas API)  
-✅ Archive auto YYYY-MM-DD  
-✅ Zéro modification au bot
+| ID  | Action                                          | Priorite | Version cible |
+|-----|-------------------------------------------------|----------|---------------|
+| C01 | Nouveaux scrapers (remplacer Wortimmo/Immoweb)  | Moyenne  | v3.1          |
+| C02 | Scrapers async (execution parallele)            | Basse    | v3.0          |
+| C03 | Retry auto sur erreurs reseau scrapers          | Basse    | v3.0          |
 
 ---
 
-## 📊 PRIORITÉS
+## Scrapers actifs (7/9)
 
-| Priorité | Composant | Effort |
-|----------|-----------|--------|
-| 1 | Tableau + Tri | 🟢 Bas |
-| 2 | Filtres | 🟢 Bas |
-| 3 | Stats | 🟢 Bas |
-| 4 | Carte | 🟡 Moyen |
-| 5 | Comparateur | 🟡 Moyen |
+| Scraper          | Site          | Methode              | Pages | Contact auto |
+|------------------|---------------|----------------------|-------|--------------|
+| athome_scraper_json.py    | Athome.lu  | JSON __INITIAL_STATE__ | 12  | A analyser   |
+| immotop_scraper_real.py   | Immotop.lu | HTML regex           | 5     | A analyser   |
+| luxhome_scraper.py        | Luxhome.lu | JSON/Regex + GPS     | 1     | A analyser   |
+| vivi_scraper_selenium.py  | VIVI.lu    | Selenium             | 3     | A analyser   |
+| nextimmo_scraper.py       | Nextimmo.lu| API JSON             | 10    | ACTIF v2.7   |
+| newimmo_scraper_real.py   | Newimmo.lu | Selenium             | 3     | A analyser   |
+| unicorn_scraper_real.py   | Unicorn.lu | Selenium             | 2     | A analyser   |
 
-**MVP = 1-3** (30min, 95% valeur)
+## Scrapers desactives (2/9)
 
----
-
-## ✅ CRITÈRES SUCCÈS
-
-- ✅ Script <5sec exécution
-- ✅ HTML sans erreurs (fichier standalone)
-- ✅ Tableau affiche toutes annonces
-- ✅ Filtres fonctionnent (JavaScript)
-- ✅ Archive créée YYYY-MM-DD
-- ✅ Bot inchangé
+| Scraper              | Site          | Raison                        |
+|----------------------|---------------|-------------------------------|
+| wortimmo_scraper.py  | Wortimmo.lu   | Cloudflare (prix non lisibles)|
+| immoweb_scraper.py   | Immoweb.be    | CAPTCHA bloque page 1         |
 
 ---
 
-## 🚨 CONTRAINTES
+## Objectif court terme
 
-❌ **Pas de**: Flask, FastAPI, serveur web, BD additionnelle, React/Vue  
-✅ **Oui**: HTML simple, JavaScript vanilla, CDN externes, offline
-
----
-
-## 📱 EXEMPLE USAGE
-
-**Jour 1**:
-```bash
-python dashboard_generator.py
-✅ dashboards/index.html créé
-open dashboards/index.html → voir 42 annonces
 ```
-
-**Jour 2** (5 nouvelles annonces scrapées):
-```bash
-python main.py  # scraping normal
-python dashboard_generator.py  # regénère
-open dashboards/index.html → 47 annonces à jour
+Contact auto multi-sites :
+  Nextimmo.lu  → ACTIF (v2.7)
+  VIVI.lu      → apres recon
+  Luxhome.lu   → apres recon
+  Immotop.lu   → apres recon
+  Newimmo.lu   → apres recon
+  Athome.lu    → apres recon (probablement protege)
 ```
-
----
-
-## 🎯 INSTRUCTIONS CLAUDE CODE
-```
-Crée: dashboard_generator.py
-
-INPUT:  listings.db (SQLite), templates/dashboard.html (Jinja2)
-OUTPUT: dashboards/index.html, dashboards/archives/YYYY-MM-DD.html
-
-LOGIC:
-  [1] Read listings.db → JSON
-  [2] Calc stats (total, avg price, by site/city)
-  [3] Render Jinja2 template (remplace {{listings_json}}, {{stats}})
-  [4] Write files + print success
-
-PRIORITÉ: Tableau + Filtres + Stats
-BONUS: Carte Leaflet + Comparateur
-
-Pas de modification à main.py/database.py/config.py
-HTML standalone, fonctionne offline
-```
-
----
-
-**Envoyez ce fichier à Claude Code avec instruction simple ci-dessus** ✅
