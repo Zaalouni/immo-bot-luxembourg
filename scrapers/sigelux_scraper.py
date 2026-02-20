@@ -16,9 +16,9 @@
 import re
 import time
 import logging
-import requests
 from bs4 import BeautifulSoup
 from config import MAX_PRICE, MIN_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
+from scrapers.utils_retry import make_session
 
 logger = logging.getLogger(__name__)
 
@@ -33,11 +33,11 @@ class SigeluxScraper:
     def __init__(self):
         self.base_url = "https://www.sigelux.lu"
         self.site_name = "Sigelux.lu"
-        self.headers = {
+        self.session = make_session(headers={
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
                           '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept-Language': 'fr-LU,fr;q=0.9,en;q=0.8',
-        }
+        })
 
     def scrape(self):
         """Scrape toutes les annonces de location Sigelux.lu"""
@@ -53,7 +53,7 @@ class SigeluxScraper:
                     url = f"{self.base_url}/locations/currentPage/{page_num}"
 
                 logger.info(f"[Sigelux] Page {page_num}: {url}")
-                resp = requests.get(url, headers=self.headers, timeout=15)
+                resp = self.session.get(url, timeout=15)
 
                 if resp.status_code != 200:
                     logger.warning(f"  HTTP {resp.status_code}, arret pagination")

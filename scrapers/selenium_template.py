@@ -34,13 +34,16 @@ class SeleniumScraperBase:
 
     def setup_driver(self):
         """Configurer le driver Selenium (Firefox, fallback Chrome)"""
+        PAGE_LOAD_TIMEOUT = 30  # secondes max pour charger une page
         # Firefox en priorité
         try:
             options = Options()
             options.add_argument('--headless')
             options.add_argument('--no-sandbox')
             options.add_argument('--disable-dev-shm-usage')
-            return webdriver.Firefox(options=options)
+            driver = webdriver.Firefox(options=options)
+            driver.set_page_load_timeout(PAGE_LOAD_TIMEOUT)
+            return driver
         except Exception as e:
             logger.warning(f"Firefox indisponible ({e}), tentative Chrome...")
         # Fallback Chrome
@@ -50,7 +53,9 @@ class SeleniumScraperBase:
             chrome_opts.add_argument('--headless')
             chrome_opts.add_argument('--no-sandbox')
             chrome_opts.add_argument('--disable-dev-shm-usage')
-            return webdriver.Chrome(options=chrome_opts)
+            driver = webdriver.Chrome(options=chrome_opts)
+            driver.set_page_load_timeout(PAGE_LOAD_TIMEOUT)
+            return driver
         except Exception as e2:
             logger.error(f"Aucun navigateur disponible: {e2}")
             raise

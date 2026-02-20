@@ -14,13 +14,13 @@
 #            EXCLUDED_WORDS, MAX_DISTANCE (GPS Haversine)
 # Instance globale : athome_scraper_json
 # =============================================================================
-import requests
 import re
 import json
 import time
 import logging
 from config import MAX_PRICE, MIN_PRICE, MIN_ROOMS, MAX_ROOMS
 from utils import haversine_distance
+from scrapers.utils_retry import make_session
 
 logger = logging.getLogger(__name__)
 
@@ -35,11 +35,9 @@ class AthomeScraperJSON:
             f"{self.base_url}/location/appartement/{filter_params}",
             f"{self.base_url}/location/maison/{filter_params}",
         ]
-        self.headers = {
+        self.session = make_session(headers={
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        }
-        self.session = requests.Session()
-        self.session.headers.update(self.headers)
+        })
         # Mapping types immobiliers
         self.type_map = {
             'apartment': 'appartement',

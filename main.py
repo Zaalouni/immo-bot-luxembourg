@@ -33,6 +33,11 @@ from datetime import datetime
 # Reduire a 3 si le serveur a moins de 3 Go de RAM libre
 MAX_CONCURRENT_SCRAPERS = 4
 
+# Stabilite : retry automatique si un scraper leve une exception
+# (erreur inattendue non geree dans le scraper lui-meme)
+SCRAPER_RETRIES = 2          # nombre max de tentatives par scraper
+SCRAPER_RETRY_DELAY = 10     # secondes entre deux tentatives
+
 # Rotation des logs : max 5 Mo par fichier, garde 3 fichiers anciens
 logging.basicConfig(
     level=logging.INFO,
@@ -172,19 +177,28 @@ class ImmoBot:
         logger.info(f"🤖 Bot initialisé avec {len(self.scrapers)} sites (parallele max={MAX_CONCURRENT_SCRAPERS})")
 
     def _scrape_one(self, scraper_name, scraper):
-        """Executer un scraper dans un thread — isole pour ThreadPoolExecutor."""
+        """Executer un scraper dans un thread — avec retry automatique sur exception."""
         t0 = time.time()
-        try:
-            logger.info(f"▶️  {scraper_name} [debut]")
-            listings = scraper.scrape()
-            elapsed = round(time.time() - t0, 1)
-            valid = [l for l in (listings or []) if l is not None]
-            logger.info(f"✅ {scraper_name}: {len(valid)} annonces en {elapsed}s")
-            return scraper_name, valid, None
-        except Exception as e:
-            elapsed = round(time.time() - t0, 1)
-            logger.error(f"❌ {scraper_name}: {str(e)[:100]} ({elapsed}s)")
-            return scraper_name, [], str(e)
+        last_error = None
+
+        for attempt in range(1, SCRAPER_RETRIES + 1):
+            try:
+                if attempt > 1:
+                    logger.info(f"🔄 {scraper_name}: tentative {attempt}/{SCRAPER_RETRIES} (attente {SCRAPER_RETRY_DELAY}s)")
+                    time.sleep(SCRAPER_RETRY_DELAY)
+                logger.info(f"▶️  {scraper_name} [debut]")
+                listings = scraper.scrape()
+                elapsed = round(time.time() - t0, 1)
+                valid = [l for l in (listings or []) if l is not None]
+                logger.info(f"✅ {scraper_name}: {len(valid)} annonces en {elapsed}s")
+                return scraper_name, valid, None
+            except Exception as e:
+                elapsed = round(time.time() - t0, 1)
+                last_error = str(e)
+                logger.warning(f"⚠️ {scraper_name}: echec tentative {attempt}/{SCRAPER_RETRIES} ({elapsed}s): {str(e)[:80]}")
+
+        logger.error(f"❌ {scraper_name}: abandonne apres {SCRAPER_RETRIES} tentatives")
+        return scraper_name, [], last_error
 
     def check_new_listings(self):
         self.cycle_count += 1

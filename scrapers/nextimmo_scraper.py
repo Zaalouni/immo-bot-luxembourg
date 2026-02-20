@@ -12,10 +12,10 @@
 #            EXCLUDED_WORDS, MAX_DISTANCE
 # Instance globale : nextimmo_scraper
 # =============================================================================
-import requests
 import time
 import logging
 from config import USER_AGENT, MAX_PRICE, MIN_ROOMS
+from scrapers.utils_retry import make_session
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +32,7 @@ class NextimmoScraper:
             'Accept': 'application/json',
             'Referer': 'https://nextimmo.lu/en/rent/apartment/luxembourg-country',
         }
+        self.session = make_session(headers=self.headers)
 
     def scrape(self):
         """Scraper via API JSON — appartements + maisons"""
@@ -59,7 +60,7 @@ class NextimmoScraper:
                             'page': page_num,
                         }
 
-                        response = requests.get(self.api_url, params=params, headers=self.headers, timeout=15)
+                        response = self.session.get(self.api_url, params=params, timeout=15)
 
                         if response.status_code != 200:
                             break
@@ -195,10 +196,7 @@ class NextimmoScraper:
 
         try:
             url = f"{self.base_url}/en/rent/apartment/luxembourg-country"
-            response = requests.get(url, headers={
-                'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html',
-            }, timeout=15)
+            response = self.session.get(url, timeout=15)
 
             if response.status_code != 200:
                 logger.warning(f"HTML fallback HTTP {response.status_code}")

@@ -8,20 +8,20 @@
 # Filtrage : MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
 # Instance globale : immotop_scraper_real
 # =============================================================================
-import requests
 import re
 import time
 import logging
 from config import MAX_PRICE, MIN_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
+from scrapers.utils_retry import make_session
 
 logger = logging.getLogger(__name__)
 
 class ImmotopScraperReal:
     def __init__(self):
         self.base_url = "https://www.immotop.lu"
-        self.headers = {
+        self.session = make_session(headers={
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        }
+        })
     
     def scrape(self):
         try:
@@ -34,7 +34,7 @@ class ImmotopScraperReal:
 
             for page_num in range(1, MAX_PAGES + 1):
                 url = f"{base_search}&page={page_num}" if page_num > 1 else base_search
-                response = requests.get(url, headers=self.headers, timeout=15)
+                response = self.session.get(url, timeout=15)
 
                 if response.status_code != 200:
                     break
