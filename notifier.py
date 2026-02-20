@@ -294,7 +294,7 @@ class TelegramNotifier:
                         break
                     else:
                         error_desc = response.json().get('description', '')
-                        logger.debug(f"sendPhoto erreur: {error_desc}")
+                        logger.warning(f"sendPhoto echec (chat {chat_id}, tentative {attempt+1}): {error_desc} | url={photo_url[:80]}")
                         if attempt < retry_count - 1:
                             time.sleep(2)
                 except Exception as e:

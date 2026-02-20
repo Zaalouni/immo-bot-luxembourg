@@ -60,6 +60,11 @@ class ViviScraperSelenium:
                         # Attendre chargement JavaScript
                         time.sleep(8)
 
+                        # Scroll pour declencher le lazy loading des images
+                        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                        time.sleep(2)
+                        driver.execute_script("window.scrollTo(0, 0);")
+
                         # Extraire cartes annonces
                         cards = driver.find_elements(By.CLASS_NAME, 'vivi-property')
                         logger.info(f"  Page {page_num}: {len(cards)} annonces")
@@ -148,11 +153,19 @@ class ViviScraperSelenium:
         if surface_match:
             surface = int(surface_match.group(1))
 
-        # Image
+        # Image — preferer data-src (lazy loading), filtrer les placeholders base64
         image_url = None
         try:
-            img_elem = card.find_element(By.CSS_SELECTOR, 'img')
-            image_url = img_elem.get_attribute('src') or img_elem.get_attribute('data-src')
+            imgs = card.find_elements(By.CSS_SELECTOR, 'img')
+            for img_elem in imgs:
+                data_src = img_elem.get_attribute('data-src') or ''
+                src = img_elem.get_attribute('src') or ''
+                if data_src.startswith('http'):
+                    image_url = data_src
+                    break
+                elif src.startswith('http') and not src.startswith('data:'):
+                    image_url = src
+                    break
         except Exception:
             pass
 

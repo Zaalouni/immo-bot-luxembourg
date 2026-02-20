@@ -259,24 +259,36 @@ class AthomeScraperJSON:
             description = str(description[0]) if description else ''
         title = str(description)[:70] if description else f"{type_fr.title()} {city}"
 
-        # Image — chercher dans photos/images/pictures
+        # Image — format actuel Athome: media.items[].uri (chemin relatif)
+        # Base CDN : https://i1.static.athome.eu/images/annonces2/image_
         image_url = None
-        photos = item.get('photos') or item.get('images') or item.get('pictures') or []
-        if isinstance(photos, list) and photos:
-            first = photos[0]
-            if isinstance(first, dict):
-                image_url = first.get('url') or first.get('src') or first.get('thumb')
-            elif isinstance(first, str):
-                image_url = first
-        elif isinstance(photos, dict):
-            image_url = photos.get('url') or photos.get('src') or photos.get('thumb')
-        # Fallback: mainPhoto
+        ATHOME_CDN = 'https://i1.static.athome.eu/images/annonces2/image_'
+        media = item.get('media', {})
+        if isinstance(media, dict):
+            media_items = media.get('items', [])
+            if isinstance(media_items, list) and media_items:
+                # Preferer la photo cover, sinon la premiere
+                cover = next((m for m in media_items if isinstance(m, dict) and m.get('cover')), media_items[0])
+                uri = cover.get('uri', '') if isinstance(cover, dict) else ''
+                if uri:
+                    image_url = f"{ATHOME_CDN}{uri}"
+        # Fallback anciens champs (photos/images/pictures/mainPhoto)
         if not image_url:
-            main_photo = item.get('mainPhoto') or item.get('photo') or item.get('thumbnail')
-            if isinstance(main_photo, dict):
-                image_url = main_photo.get('url') or main_photo.get('src')
-            elif isinstance(main_photo, str):
-                image_url = main_photo
+            photos = item.get('photos') or item.get('images') or item.get('pictures') or []
+            if isinstance(photos, list) and photos:
+                first = photos[0]
+                if isinstance(first, dict):
+                    image_url = first.get('url') or first.get('src') or first.get('thumb')
+                elif isinstance(first, str):
+                    image_url = first
+            elif isinstance(photos, dict):
+                image_url = photos.get('url') or photos.get('src') or photos.get('thumb')
+            if not image_url:
+                main_photo = item.get('mainPhoto') or item.get('photo') or item.get('thumbnail')
+                if isinstance(main_photo, dict):
+                    image_url = main_photo.get('url') or main_photo.get('src')
+                elif isinstance(main_photo, str):
+                    image_url = main_photo
 
         return {
             'listing_id': f'athome_{id_val}',
