@@ -1,40 +1,25 @@
-// Genere le 20/02/2026 09:08
+// Genere le 20/02/2026 10:01
 const STATS = {
-  "total": 86,
-  "avg_price": 2153,
+  "total": 47,
+  "avg_price": 2062,
   "min_price": 1500,
-  "max_price": 2800,
-  "avg_surface": 88,
-  "cities": 57,
+  "max_price": 2300,
+  "avg_surface": 90,
+  "cities": 33,
   "sites": {
-    "Nextimmo.lu": 8,
+    "Nextimmo.lu": 12,
     "Newimmo.lu": 3,
-    "VIVI.lu": 7,
-    "Rockenbrod.lu": 1,
-    "Luxhome.lu": 11,
-    "Immotop.lu": 5,
-    "Athome.lu": 51
+    "VIVI.lu": 6,
+    "Immotop.lu": 1,
+    "Athome.lu": 22,
+    "Sigelux.lu": 2,
+    "Rockenbrod.lu": 1
   },
   "by_city": [
     {
       "city": "Bertrange",
-      "count": 5,
-      "avg_price": 2138
-    },
-    {
-      "city": "Luxembourg-Kirchberg",
       "count": 4,
-      "avg_price": 2275
-    },
-    {
-      "city": "Luxembourg",
-      "count": 3,
-      "avg_price": 1702
-    },
-    {
-      "city": "Luxembourg-Hollerich",
-      "count": 3,
-      "avg_price": 2216
+      "avg_price": 2072
     },
     {
       "city": "Luxembourg-Belair",
@@ -42,44 +27,14 @@ const STATS = {
       "avg_price": 2183
     },
     {
-      "city": "Esch-sur-Alzette",
-      "count": 3,
-      "avg_price": 1885
-    },
-    {
       "city": "Luxembourg-Bonnevoie",
       "count": 3,
       "avg_price": 2216
     },
     {
-      "city": "Senningerberg",
-      "count": 3,
-      "avg_price": 2196
-    },
-    {
-      "city": "Hautcharage",
+      "city": "Luxembourg-Hollerich",
       "count": 2,
-      "avg_price": 1915
-    },
-    {
-      "city": "Belvaux",
-      "count": 2,
-      "avg_price": 2100
-    },
-    {
-      "city": "Hesperange",
-      "count": 2,
-      "avg_price": 2600
-    },
-    {
-      "city": "Roeser",
-      "count": 2,
-      "avg_price": 2275
-    },
-    {
-      "city": "Bridel",
-      "count": 2,
-      "avg_price": 2250
+      "avg_price": 2125
     },
     {
       "city": "Reuler",
@@ -87,14 +42,29 @@ const STATS = {
       "avg_price": 1850
     },
     {
-      "city": "Cessange",
+      "city": "Hautcharage",
       "count": 2,
-      "avg_price": 2375
+      "avg_price": 1915
     },
     {
-      "city": "Emerange",
-      "count": 1,
-      "avg_price": 2400
+      "city": "Esch-sur-Alzette",
+      "count": 2,
+      "avg_price": 1925
+    },
+    {
+      "city": "Belvaux",
+      "count": 2,
+      "avg_price": 2100
+    },
+    {
+      "city": "Luxembourg-Kirchberg",
+      "count": 2,
+      "avg_price": 2175
+    },
+    {
+      "city": "Senningerberg",
+      "count": 2,
+      "avg_price": 2125
     },
     {
       "city": "Luxembourg-Hamm",
@@ -107,9 +77,14 @@ const STATS = {
       "avg_price": 1800
     },
     {
-      "city": "Luxembourg-Limpertsberg",
+      "city": "Olm",
       "count": 1,
       "avg_price": 2300
+    },
+    {
+      "city": "Luxembourg",
+      "count": 1,
+      "avg_price": 1900
     },
     {
       "city": "Luxembourg Neudorf",
@@ -117,19 +92,14 @@ const STATS = {
       "avg_price": 2000
     },
     {
-      "city": "Olm",
+      "city": "Weiswampach",
       "count": 1,
-      "avg_price": 2300
+      "avg_price": 1500
     },
     {
       "city": "Bissen",
       "count": 1,
-      "avg_price": 2100
-    },
-    {
-      "city": "Belair",
-      "count": 1,
-      "avg_price": 2375
+      "avg_price": 2000
     },
     {
       "city": "Sanem",
@@ -152,19 +122,9 @@ const STATS = {
       "avg_price": 2250
     },
     {
-      "city": "Filsdorf",
-      "count": 1,
-      "avg_price": 2350
-    },
-    {
       "city": "Luxembourg-Cessange",
       "count": 1,
       "avg_price": 2000
-    },
-    {
-      "city": "Alzingen",
-      "count": 1,
-      "avg_price": 2350
     },
     {
       "city": "Bereldange",
@@ -182,11 +142,6 @@ const STATS = {
       "avg_price": 1850
     },
     {
-      "city": "Dudelange",
-      "count": 1,
-      "avg_price": 2400
-    },
-    {
       "city": "Steinsel",
       "count": 1,
       "avg_price": 2250
@@ -197,19 +152,9 @@ const STATS = {
       "avg_price": 2250
     },
     {
-      "city": "Luxembourg-Gare",
+      "city": "Roeser",
       "count": 1,
-      "avg_price": 2390
-    },
-    {
-      "city": "Luxembourg-Centre ville",
-      "count": 1,
-      "avg_price": 2400
-    },
-    {
-      "city": "Bettembourg",
-      "count": 1,
-      "avg_price": 1650
+      "avg_price": 2300
     },
     {
       "city": "Mondorf-Les-Bains",
@@ -222,14 +167,9 @@ const STATS = {
       "avg_price": 2100
     },
     {
-      "city": "Garnich",
+      "city": "Bridel",
       "count": 1,
-      "avg_price": 2400
-    },
-    {
-      "city": "Belval",
-      "count": 1,
-      "avg_price": 2375
+      "avg_price": 2100
     },
     {
       "city": "Mamer",
@@ -237,84 +177,24 @@ const STATS = {
       "avg_price": 2000
     },
     {
-      "city": "Brouch (Mersch)",
-      "count": 1,
-      "avg_price": 2400
-    },
-    {
       "city": "Rollingen",
       "count": 1,
       "avg_price": 2150
-    },
-    {
-      "city": "Luxembourg-Centre Ville",
-      "count": 1,
-      "avg_price": 2350
-    },
-    {
-      "city": "Contern",
-      "count": 1,
-      "avg_price": 2400
-    },
-    {
-      "city": "Steinfort",
-      "count": 1,
-      "avg_price": 1900
-    },
-    {
-      "city": "Mertert",
-      "count": 1,
-      "avg_price": 1550
-    },
-    {
-      "city": "Kirchberg",
-      "count": 1,
-      "avg_price": 2200
-    },
-    {
-      "city": "Gasperich",
-      "count": 1,
-      "avg_price": 2650
-    },
-    {
-      "city": "Weiswampach",
-      "count": 1,
-      "avg_price": 1500
-    },
-    {
-      "city": "Merl",
-      "count": 1,
-      "avg_price": 2398
-    },
-    {
-      "city": "Differdange",
-      "count": 1,
-      "avg_price": 2248
-    },
-    {
-      "city": "Strassen",
-      "count": 1,
-      "avg_price": 2230
-    },
-    {
-      "city": "Hollerich",
-      "count": 1,
-      "avg_price": 2450
     }
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 19,
-    "2000 - 2500": 64,
-    "> 2500": 3
+    "1500 - 2000": 12,
+    "2000 - 2500": 35,
+    "> 2500": 0
   }
 };
 const SITE_COLORS = {
   "Nextimmo.lu": "#FF6384",
   "Newimmo.lu": "#36A2EB",
   "VIVI.lu": "#FFCE56",
-  "Rockenbrod.lu": "#4BC0C0",
-  "Luxhome.lu": "#9966FF",
-  "Immotop.lu": "#FF9F40",
-  "Athome.lu": "#2ECC71"
+  "Immotop.lu": "#4BC0C0",
+  "Athome.lu": "#9966FF",
+  "Sigelux.lu": "#FF9F40",
+  "Rockenbrod.lu": "#2ECC71"
 };
