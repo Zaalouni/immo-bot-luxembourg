@@ -268,26 +268,69 @@ class TelegramNotifier:
             fallback_msg = f"🏠 Nouvelle annonce {listing.get('site', '')}: {listing.get('title', '')} - {listing.get('url', '#')}"
             return self.send_message(fallback_msg)
 
+    def _download_image(self, photo_url):
+        """Telecharger l'image localement pour contourner les blocages CDN.
+        Retourne les bytes si succes, None sinon."""
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+                'Accept-Language': 'fr-FR,fr;q=0.9',
+                'Referer': '/'.join(photo_url.split('/')[:3]) + '/',
+            }
+            r = requests.get(photo_url, headers=headers, timeout=20, stream=True)
+            if r.status_code == 200:
+                content = r.content
+                if len(content) > 3000:  # Au moins 3 ko = image valide
+                    return content
+            logger.debug(f"Telechargement image echec: HTTP {r.status_code} — {photo_url[:80]}")
+        except Exception as e:
+            logger.debug(f"Erreur telechargement image: {e}")
+        return None
+
     def send_photo(self, photo_url, caption, parse_mode='HTML', silent=False, retry_count=2):
-        """Envoyer une photo avec légende à tous les chats"""
+        """Envoyer une photo avec legende a tous les chats.
+        Priorite : upload direct (telecharge cote serveur) > URL directe Telegram."""
         success_count = 0
 
-        # Telegram limite caption à 1024 caractères
+        # Telegram limite caption a 1024 caracteres
         if len(caption) > 1024:
             caption = caption[:1020] + '...'
+
+        # Telecharger l'image une seule fois pour tous les chats
+        img_bytes = self._download_image(photo_url)
+        if img_bytes:
+            logger.debug(f"Image telechargee ({len(img_bytes)//1024} ko) — upload direct")
+        else:
+            logger.debug(f"Image non telechargeable, tentative URL directe Telegram")
 
         for chat_id in self.chat_ids:
             for attempt in range(retry_count):
                 try:
-                    url = f"{self.base_url}/sendPhoto"
-                    data = {
-                        "chat_id": chat_id,
-                        "photo": photo_url,
-                        "caption": caption,
-                        "parse_mode": parse_mode,
-                        "disable_notification": silent
-                    }
-                    response = requests.post(url, json=data, timeout=15)
+                    api_url = f"{self.base_url}/sendPhoto"
+
+                    if img_bytes:
+                        # Upload direct via multipart — contourne les CDNs qui bloquent Telegram
+                        response = requests.post(
+                            api_url,
+                            data={
+                                "chat_id": chat_id,
+                                "caption": caption,
+                                "parse_mode": parse_mode,
+                                "disable_notification": str(silent).lower(),
+                            },
+                            files={"photo": ("image.jpg", img_bytes, "image/jpeg")},
+                            timeout=30
+                        )
+                    else:
+                        # Fallback : passer l'URL directement a Telegram
+                        response = requests.post(api_url, json={
+                            "chat_id": chat_id,
+                            "photo": photo_url,
+                            "caption": caption,
+                            "parse_mode": parse_mode,
+                            "disable_notification": silent,
+                        }, timeout=15)
 
                     if response.status_code == 200:
                         success_count += 1
@@ -297,6 +340,7 @@ class TelegramNotifier:
                         logger.warning(f"sendPhoto echec (chat {chat_id}, tentative {attempt+1}): {error_desc} | url={photo_url[:80]}")
                         if attempt < retry_count - 1:
                             time.sleep(2)
+
                 except Exception as e:
                     logger.debug(f"sendPhoto exception: {e}")
                     break

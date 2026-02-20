@@ -42,6 +42,7 @@ class Database:
                     rooms INTEGER,
                     surface INTEGER,
                     url TEXT UNIQUE NOT NULL,
+                    image_url TEXT,
                     latitude REAL,
                     longitude REAL,
                     distance_km REAL,
@@ -49,6 +50,14 @@ class Database:
                     notified BOOLEAN DEFAULT 0
                 )
             ''')
+
+            # Migration : ajouter image_url si absente (DB existante)
+            self.cursor.execute("PRAGMA table_info(listings)")
+            existing_cols = [r[1] for r in self.cursor.fetchall()]
+            if 'image_url' not in existing_cols:
+                self.cursor.execute("ALTER TABLE listings ADD COLUMN image_url TEXT")
+                self.conn.commit()
+                logger.info("Migration DB : colonne image_url ajoutee")
 
             # Index pour performances
             self.cursor.execute('''
@@ -91,8 +100,8 @@ class Database:
         try:
             self.cursor.execute('''
                 INSERT INTO listings
-                (listing_id, site, title, city, price, rooms, surface, url, latitude, longitude, distance_km)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (listing_id, site, title, city, price, rooms, surface, url, image_url, latitude, longitude, distance_km)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
                 listing_data.get('listing_id', ''),
                 listing_data.get('site', 'Inconnu'),
@@ -102,6 +111,7 @@ class Database:
                 listing_data.get('rooms', 0),
                 listing_data.get('surface', 0),
                 listing_data.get('url', '#'),
+                listing_data.get('image_url'),
                 listing_data.get('latitude'),
                 listing_data.get('longitude'),
                 listing_data.get('distance_km')

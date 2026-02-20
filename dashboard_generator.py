@@ -3,7 +3,10 @@
 # dashboard_generator.py — Generateur de dashboard HTML pour immo-bot
 # =============================================================================
 # Usage : python dashboard_generator.py
-# Output: dashboards/index.html  (standalone, ouvre dans navigateur)
+# Output: dashboards/index.html   (PWA standalone)
+#         dashboards/manifest.json
+#         dashboards/sw.js
+#         dashboards/icon.svg
 #         dashboards/archives/YYYY-MM-DD.html
 #         dashboards/data/listings.json
 # =============================================================================
@@ -13,6 +16,68 @@ from pathlib import Path
 
 DB_PATH = 'listings.db'
 OUT_DIR = Path('dashboards')
+
+# ─── Ressources PWA ───────────────────────────────────────────────────────────
+
+ICON_SVG = '''\
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="38" fill="#212529"/>
+  <polygon points="96,30 160,92 140,92 140,158 52,158 52,92 32,92" fill="#ffffff"/>
+  <rect x="62" y="92" width="68" height="66" fill="#212529"/>
+  <rect x="66" y="96" width="60" height="58" fill="#0d6efd" opacity=".25"/>
+  <rect x="74" y="118" width="26" height="40" fill="#ffffff" rx="3"/>
+  <rect x="68" y="98" width="20" height="16" fill="#ffffff" rx="2"/>
+  <rect x="104" y="98" width="20" height="16" fill="#ffffff" rx="2"/>
+</svg>'''
+
+
+def generate_manifest():
+    return json.dumps({
+        "name": "Immo Bot Luxembourg",
+        "short_name": "ImmoBotLU",
+        "description": "Dashboard annonces immobilieres Luxembourg",
+        "start_url": "./index.html",
+        "display": "standalone",
+        "background_color": "#f8f9fa",
+        "theme_color": "#212529",
+        "orientation": "any",
+        "categories": ["finance", "lifestyle"],
+        "icons": [
+            {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+        ]
+    }, indent=2, ensure_ascii=False)
+
+
+def generate_sw(cache_ver):
+    return f"""\
+const CACHE = 'immo-bot-{cache_ver}';
+const ASSETS = ['./index.html', './icon.svg'];
+
+self.addEventListener('install', e => {{
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
+  self.skipWaiting();
+}});
+
+self.addEventListener('activate', e => {{
+  e.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
+}});
+
+/* Network-first : donnees toujours fraiches, fallback cache si offline */
+self.addEventListener('fetch', e => {{
+  e.respondWith(
+    fetch(e.request).then(resp => {{
+      const clone = resp.clone();
+      caches.open(CACHE).then(c => c.put(e.request, clone));
+      return resp;
+    }}).catch(() => caches.match(e.request))
+  );
+}});
+"""
 ARCHIVES_DIR = OUT_DIR / 'archives'
 DATA_DIR = OUT_DIR / 'data'
 
@@ -70,22 +135,34 @@ def generate_html(listings, stats, generated_at):
     )
 
     avg_dist_str = (f"{stats['avg_distance']} km" if stats.get('avg_distance') is not None else 'N/A')
+    geo_count = sum(1 for l in listings if l.get('latitude') and l.get('longitude'))
 
     return f'''<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Immo Bot Luxembourg — Dashboard</title>
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#212529">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Immo Bot LU">
+<link rel="apple-touch-icon" href="icon.svg">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+<link href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" rel="stylesheet">
+<link href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" rel="stylesheet">
 <style>
   body {{ background:#f8f9fa; font-size:.9rem; }}
   .stat-card {{ border-radius:12px; border:none; box-shadow:0 2px 8px rgba(0,0,0,.08); }}
   .stat-val  {{ font-size:1.8rem; font-weight:700; line-height:1; }}
   .stat-label {{ font-size:.75rem; color:#6c757d; text-transform:uppercase; letter-spacing:.05em; }}
-  #map {{ height:380px; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,.08); }}
+  #map {{ height:520px; border-radius:0 0 12px 12px; }}
+  .map-card {{ border-radius:12px; border:none; box-shadow:0 2px 12px rgba(0,0,0,.12); overflow:hidden; }}
   .filter-card, .table-container {{ border-radius:12px; border:none; box-shadow:0 2px 8px rgba(0,0,0,.08); background:white; }}
   .badge-site {{ font-size:.7rem; padding:.25em .5em; }}
   #compare-btn {{ display:none; }}
@@ -93,11 +170,20 @@ def generate_html(listings, stats, generated_at):
   a.al:hover {{ text-decoration:underline; }}
   .pm2 {{ font-size:.75rem; color:#6c757d; }}
   th {{ white-space:nowrap; }}
+  .map-header {{ background:#212529; color:#fff; padding:.55rem 1rem; font-weight:600; font-size:.95rem;
+    display:flex; align-items:center; justify-content:space-between; border-radius:12px 12px 0 0; }}
+  .map-legend {{ display:flex; gap:10px; font-size:.75rem; color:#ccc; align-items:center; }}
+  .dot {{ width:10px; height:10px; border-radius:50%; display:inline-block; border:1px solid #fff5; }}
+  .map-info {{ position:absolute; bottom:10px; left:10px; z-index:1000;
+    background:rgba(255,255,255,.92); border-radius:8px; padding:4px 10px;
+    font-size:.78rem; box-shadow:0 1px 5px rgba(0,0,0,.2); }}
+  .price-pill {{ display:inline-block; background:#0d6efd; color:#fff; border-radius:10px;
+    padding:1px 7px; font-size:.7rem; font-weight:600; white-space:nowrap; }}
 </style>
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-dark bg-dark mb-3">
   <div class="container-fluid">
     <span class="navbar-brand fw-bold">🏠 Immo Bot Luxembourg</span>
     <span class="text-secondary small">Mis à jour : {generated_at}</span>
@@ -107,7 +193,7 @@ def generate_html(listings, stats, generated_at):
 <div class="container-fluid px-4">
 
 <!-- STATS -->
-<div class="row g-3 mb-4">
+<div class="row g-3 mb-3">
   <div class="col-6 col-md-2"><div class="card stat-card h-100"><div class="card-body text-center">
     <div class="stat-val text-primary">{stats.get('total',0)}</div><div class="stat-label">Annonces</div>
   </div></div></div>
@@ -132,23 +218,41 @@ def generate_html(listings, stats, generated_at):
   <span class="text-muted small me-2">Sites :</span>{by_site_badges}
   <span class="ms-3 text-muted small">Notifiées : <strong>{stats.get('notified',0)}</strong></span>
   <span class="ms-3 text-muted small">Distance moy. : <strong>{avg_dist_str}</strong></span>
+  <span class="ms-3 text-muted small">Géolocalisées : <strong>{geo_count}</strong></span>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CARTE — affichée EN PREMIER, grande, avec clusters
+═══════════════════════════════════════════════════════ -->
+<div class="map-card mb-4" style="position:relative">
+  <div class="map-header">
+    <span>🗺️ Carte des annonces géolocalisées &nbsp;<span id="map-count" class="badge bg-primary">{geo_count}</span></span>
+    <div class="map-legend">
+      <span><span class="dot" style="background:#198754"></span> &lt; 2 km</span>
+      <span><span class="dot" style="background:#0d6efd"></span> &lt; 5 km</span>
+      <span><span class="dot" style="background:#ffc107"></span> &lt; 10 km</span>
+      <span><span class="dot" style="background:#dc3545"></span> 10+ km</span>
+      <span><span class="dot" style="background:#6c757d"></span> N/A</span>
+    </div>
+  </div>
+  <div id="map"></div>
 </div>
 
 <!-- FILTRES -->
-<div class="card filter-card mb-4">
-  <div class="card-header fw-semibold py-2">🔍 Filtres</div>
-  <div class="card-body">
+<div class="card filter-card mb-3">
+  <div class="card-header fw-semibold py-2">🔍 Filtres — liste &amp; carte</div>
+  <div class="card-body py-2">
     <div class="row g-2 align-items-end">
-      <div class="col-12 col-md-2">
-        <label class="form-label mb-1 small">Site</label>
-        <select id="f-site" class="form-select form-select-sm" multiple size="3">
-          {sites_options}
-        </select>
-      </div>
       <div class="col-12 col-md-2">
         <label class="form-label mb-1 small">Ville</label>
         <select id="f-city" class="form-select form-select-sm" multiple size="3">
           {cities_options}
+        </select>
+      </div>
+      <div class="col-12 col-md-2">
+        <label class="form-label mb-1 small">Site</label>
+        <select id="f-site" class="form-select form-select-sm" multiple size="3">
+          {sites_options}
         </select>
       </div>
       <div class="col-6 col-md-1">
@@ -190,14 +294,15 @@ def generate_html(listings, stats, generated_at):
   </div>
 </div>
 
-<div class="mb-3">
+<div class="mb-3 d-flex align-items-center gap-3">
+  <span class="text-muted small" id="result-count"></span>
   <button id="compare-btn" class="btn btn-warning btn-sm" onclick="openCompare()">
     ⚖️ Comparer (<span id="cmp-cnt">0</span> sélectionnées)
   </button>
 </div>
 
 <!-- TABLEAU -->
-<div class="table-container mb-4" style="overflow-x:auto">
+<div class="table-container mb-5" style="overflow-x:auto">
   <table id="tbl" class="table table-hover table-sm table-bordered mb-0" style="width:100%">
     <thead class="table-dark">
       <tr>
@@ -208,12 +313,6 @@ def generate_html(listings, stats, generated_at):
     </thead>
     <tbody id="tbody"></tbody>
   </table>
-</div>
-
-<!-- CARTE -->
-<div class="card filter-card mb-5">
-  <div class="card-header fw-semibold py-2">🗺️ Carte des annonces géolocalisées</div>
-  <div class="card-body p-2"><div id="map"></div></div>
 </div>
 
 </div>
@@ -236,19 +335,20 @@ def generate_html(listings, stats, generated_at):
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
 const ALL = {listings_json};
 let filtered = [...ALL];
 let cmpSet = new Set();
-let dt, mapObj, mapMarkers = [];
+let dt, mapObj, clusterGroup = null;
 
 const SITE_COLORS = {{
   'Athome.lu':'bg-primary','Immotop.lu':'bg-success','Luxhome.lu':'bg-info text-dark',
   'VIVI.lu':'bg-warning text-dark','Nextimmo.lu':'bg-secondary','Newimmo.lu':'bg-danger',
-  'Unicorn.lu':'bg-dark','Wortimmo.lu':'bg-primary'
+  'Unicorn.lu':'bg-dark','Remax.lu':'bg-success'
 }};
 
-window.addEventListener('DOMContentLoaded', () => {{ render(filtered); initMap(); }});
+window.addEventListener('DOMContentLoaded', () => {{ initMap(); render(ALL); }});
 
 function fmt(n) {{ return n != null ? Number(n).toLocaleString('fr-FR') : '—'; }}
 function trunc(s,n) {{ return s && s.length>n ? s.slice(0,n)+'…' : (s||'—'); }}
@@ -293,6 +393,8 @@ function render(data) {{
     columnDefs:[{{ orderable:false, targets:[0,8] }}]
   }});
   document.getElementById('chk-all').checked = false;
+  const rc = document.getElementById('result-count');
+  if(rc) rc.textContent = `${{data.length}} annonce${{data.length>1?'s':''}} affichée${{data.length>1?'s':''}}`;
   updateMap(data);
 }}
 
@@ -330,29 +432,66 @@ function resetFilters() {{
 function initMap() {{
   mapObj = L.map('map').setView([49.6116,6.1319],11);
   L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png',
-    {{attribution:'© OpenStreetMap'}}).addTo(mapObj);
+    {{attribution:'© OpenStreetMap contributors', maxZoom:19}}).addTo(mapObj);
   updateMap(ALL);
 }}
 
 function updateMap(data) {{
-  mapMarkers.forEach(m=>mapObj.removeLayer(m)); mapMarkers=[];
-  data.forEach(l => {{
-    if(!l.latitude||!l.longitude) return;
-    const col = dColor(l.distance_km);
-    const icon = L.divIcon({{
-      html:`<div style="background:${{col}};width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 3px #0005"></div>`,
-      iconSize:[12,12],iconAnchor:[6,6],className:''
-    }});
-    const m = L.marker([l.latitude,l.longitude],{{icon}}).bindPopup(
-      `<b>${{l.city||''}}</b><br>
-       ${{l.price?fmt(l.price)+' €':''}}
-       ${{l.surface?'· '+l.surface+' m²':''}}
-       ${{l.rooms?'· '+l.rooms+' ch':''}}<br>
-       ${{l.distance_km!=null?l.distance_km.toFixed(1)+' km':''}}<br>
-       <a href="${{l.url}}" target="_blank">Voir l'annonce</a>`
-    ).addTo(mapObj);
-    mapMarkers.push(m);
+  if(clusterGroup) {{ mapObj.removeLayer(clusterGroup); }}
+  clusterGroup = L.markerClusterGroup({{
+    maxClusterRadius: 40,
+    iconCreateFunction: function(cluster) {{
+      const n = cluster.getChildCount();
+      const sz = n < 10 ? 32 : n < 50 ? 40 : 48;
+      return L.divIcon({{
+        html: `<div style="background:#0d6efd;color:#fff;border-radius:50%;width:${{sz}}px;height:${{sz}}px;
+          display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;
+          box-shadow:0 2px 6px rgba(0,0,0,.35);border:2px solid #fff;">${{n}}</div>`,
+        iconSize: [sz, sz], iconAnchor: [sz/2, sz/2], className: ''
+      }});
+    }}
   }});
+
+  let geoCount = 0;
+  const bounds = [];
+  data.forEach(l => {{
+    if(!l.latitude || !l.longitude) return;
+    geoCount++;
+    bounds.push([l.latitude, l.longitude]);
+    const col  = dColor(l.distance_km);
+    const pm2  = (l.price>0&&l.surface>0) ? Math.round(l.price/l.surface) : null;
+    const icon = L.divIcon({{
+      html: `<div style="background:${{col}};width:14px;height:14px;border-radius:50%;
+        border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);"></div>`,
+      iconSize:[14,14], iconAnchor:[7,7], className:''
+    }});
+    const popup = `
+      <div style="min-width:200px;font-size:.85rem">
+        <div style="font-weight:700;margin-bottom:4px">${{l.city||''}}</div>
+        <div style="font-size:1rem;color:#0d6efd;font-weight:600">${{l.price?fmt(l.price)+' €':'—'}}</div>
+        <div class="text-muted" style="font-size:.78rem">
+          ${{l.surface?l.surface+' m²':''}}
+          ${{l.rooms?'· '+l.rooms+' ch':''}}
+          ${{pm2?'· '+pm2+' €/m²':''}}
+        </div>
+        ${{l.distance_km!=null?'<div style="font-size:.78rem;color:#666">'+l.distance_km.toFixed(1)+' km du centre</div>':''}}
+        <div style="margin-top:6px;font-size:.78rem;color:#555">${{trunc(l.title,60)}}</div>
+        <div style="margin-top:6px"><a href="${{l.url}}" target="_blank" class="btn btn-sm btn-outline-primary py-0 px-2">Voir l'annonce →</a></div>
+        <div style="font-size:.72rem;color:#999;margin-top:4px">${{l.site||''}}</div>
+      </div>`;
+    L.marker([l.latitude, l.longitude], {{icon}}).bindPopup(popup).addTo(clusterGroup);
+  }});
+
+  clusterGroup.addTo(mapObj);
+
+  // Adapter le zoom pour afficher tous les markers
+  if(bounds.length > 0) {{
+    try {{ mapObj.fitBounds(bounds, {{padding:[30,30], maxZoom:13}}); }} catch(e) {{}}
+  }}
+
+  // Compteur sur la carte
+  const mc = document.getElementById('map-count');
+  if(mc) mc.textContent = geoCount;
 }}
 
 function togCmp(id,chk) {{
@@ -395,6 +534,13 @@ function openCompare() {{
   new bootstrap.Modal(document.getElementById('cmp-modal')).show();
 }}
 </script>
+<script>
+if ('serviceWorker' in navigator) {{
+  navigator.serviceWorker.register('./sw.js')
+    .then(() => console.log('PWA: Service Worker actif'))
+    .catch(e  => console.warn('PWA: SW non enregistre', e));
+}}
+</script>
 </body>
 </html>'''
 
@@ -408,14 +554,21 @@ def main():
 
     listings = load_listings()
     stats = calc_stats(listings)
-    generated_at = datetime.now().strftime('%d/%m/%Y %H:%M')
+    now = datetime.now()
+    generated_at = now.strftime('%d/%m/%Y %H:%M')
+    cache_ver    = now.strftime('%Y%m%d%H%M')
 
     html = generate_html(listings, stats, generated_at)
 
     index_path = OUT_DIR / 'index.html'
     index_path.write_text(html, encoding='utf-8')
 
-    archive_name = datetime.now().strftime('%Y-%m-%d') + '.html'
+    # Fichiers PWA
+    (OUT_DIR / 'manifest.json').write_text(generate_manifest(), encoding='utf-8')
+    (OUT_DIR / 'sw.js').write_text(generate_sw(cache_ver), encoding='utf-8')
+    (OUT_DIR / 'icon.svg').write_text(ICON_SVG, encoding='utf-8')
+
+    archive_name = now.strftime('%Y-%m-%d') + '.html'
     (ARCHIVES_DIR / archive_name).write_text(html, encoding='utf-8')
 
     (DATA_DIR / 'listings.json').write_text(
@@ -424,6 +577,7 @@ def main():
 
     print(f"Dashboard genere : {len(listings)} annonces")
     print(f"  {index_path.resolve()}")
+    print(f"  PWA : manifest.json + sw.js + icon.svg")
 
 
 if __name__ == '__main__':

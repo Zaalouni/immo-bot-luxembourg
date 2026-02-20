@@ -153,21 +153,8 @@ class ViviScraperSelenium:
         if surface_match:
             surface = int(surface_match.group(1))
 
-        # Image — preferer data-src (lazy loading), filtrer les placeholders base64
-        image_url = None
-        try:
-            imgs = card.find_elements(By.CSS_SELECTOR, 'img')
-            for img_elem in imgs:
-                data_src = img_elem.get_attribute('data-src') or ''
-                src = img_elem.get_attribute('src') or ''
-                if data_src.startswith('http'):
-                    image_url = data_src
-                    break
-                elif src.startswith('http') and not src.startswith('data:'):
-                    image_url = src
-                    break
-        except Exception:
-            pass
+        # Image — plusieurs strategies pour le lazy loading VIVI
+        image_url = self._extract_image(card)
 
         # Ville (extraire depuis URL)
         city = self._extract_city(url)
@@ -185,6 +172,27 @@ class ViviScraperSelenium:
             'full_text': text,
             'time_ago': 'Récemment'
         }
+
+    def _extract_image(self, card):
+        """Extraire l'URL image — VIVI stocke la photo en background-image CSS (pas dans <img>)"""
+        try:
+            # Priorite 1 : background-image CSS — c'est la photo principale sur VIVI
+            for el in card.find_elements(By.CSS_SELECTOR, '[style*="background-image"]'):
+                style = el.get_attribute('style') or ''
+                m = re.search(r'url\(["\']?(https?://[^"\')\s]+)["\']?\)', style)
+                if m:
+                    return m.group(1)
+            # Priorite 2 : <img> src — mais ignorer les icones SVG et les badges
+            for img in card.find_elements(By.CSS_SELECTOR, 'img'):
+                for attr in ['data-src', 'data-lazy-src', 'data-original', 'src']:
+                    val = img.get_attribute(attr) or ''
+                    if (val.startswith('http') and not val.startswith('data:')
+                            and not val.endswith('.svg') and len(val) > 20
+                            and 'icon' not in val and 'badge' not in val):
+                        return val
+        except Exception:
+            pass
+        return None
 
     def _extract_city(self, url):
         """Extraire ville depuis URL"""

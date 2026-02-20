@@ -128,17 +128,46 @@ class RemaxScraper(SeleniumScraperBase):
 
         return rooms, surface
 
-    def _extract_image(self, card_element):
-        """Extraire l'URL de l'image principale de la carte"""
+    def _extract_image_from_ancestors(self, driver, link):
+        """Chercher l'image dans les ancetres du <a> — sur Remax React l'image
+        est dans un div parent/frere du lien, pas a l'interieur du <a>."""
         try:
-            for sel in ['img[src]', 'img[data-src]']:
+            # Remonter jusqu'a 4 niveaux dans le DOM
+            for xpath in ['..', '../..', '../../..', '../../../..']:
                 try:
-                    img = card_element.find_element(By.CSS_SELECTOR, sel)
-                    src = img.get_attribute('data-src') or img.get_attribute('src') or ''
-                    if src.startswith('http') and not src.startswith('data:'):
-                        return src
-                except NoSuchElementException:
+                    ancestor = link.find_element(By.XPATH, xpath)
+                    # background-image CSS
+                    for el in ancestor.find_elements(By.CSS_SELECTOR, '[style*="background-image"]'):
+                        style = el.get_attribute('style') or ''
+                        m = re.search(r'url\(["\']?(https?://[^"\')\s]+)["\']?\)', style)
+                        if m and 'placeholder' not in m.group(1) and 'data:' not in m.group(1):
+                            return m.group(1)
+                    # <img> dans l'ancetre
+                    for img in ancestor.find_elements(By.CSS_SELECTOR, 'img'):
+                        for attr in ['data-src', 'data-lazy-src', 'src']:
+                            val = img.get_attribute(attr) or ''
+                            if (val.startswith('http') and not val.startswith('data:')
+                                    and not val.endswith('.svg') and 'placeholder' not in val):
+                                return val
+                except Exception:
                     continue
+        except Exception:
+            pass
+        return None
+
+    def _extract_image(self, card_element):
+        """Fallback : chercher image directement dans l'element (utilise si pas de driver disponible)"""
+        try:
+            for img in card_element.find_elements(By.CSS_SELECTOR, 'img'):
+                for attr in ['data-src', 'data-lazy-src', 'src']:
+                    val = img.get_attribute(attr) or ''
+                    if val.startswith('http') and not val.startswith('data:') and not val.endswith('.svg'):
+                        return val
+            for el in card_element.find_elements(By.CSS_SELECTOR, '[style*="background-image"]'):
+                style = el.get_attribute('style') or ''
+                m = re.search(r'url\(["\']?(https?://[^"\')\s]+)["\']?\)', style)
+                if m:
+                    return m.group(1)
         except Exception:
             pass
         return None
@@ -211,7 +240,7 @@ class RemaxScraper(SeleniumScraperBase):
                     city             = self._parse_city_from_url(href)
                     listing_id       = self._parse_listing_id(href)
                     rooms, surface   = self._extract_rooms_surface(link)
-                    image_url        = self._extract_image(link)
+                    image_url        = self._extract_image_from_ancestors(driver, link)
                     title_type       = prop_type.capitalize()
                     title            = f"{title_type} à louer — {city}"
 

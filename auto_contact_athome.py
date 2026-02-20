@@ -224,12 +224,22 @@ def login_athome(driver):
         return False
 
 
+def _js_fill(driver, field, value):
+    """Remplir un champ via JS — contourne le probleme scrollIntoView + send_keys"""
+    driver.execute_script("""
+        arguments[0].value = arguments[1];
+        arguments[0].dispatchEvent(new Event('input',  {bubbles: true}));
+        arguments[0].dispatchEvent(new Event('change', {bubbles: true}));
+    """, field, value)
+
+
 def _fill_login_form(driver, wait):
     """Remplir le formulaire email/password (modal ou page)"""
-    # Attendre le champ email
-    wait.until(EC.presence_of_element_located(
+    # Attendre que le champ email soit visible et interactif (pas juste present)
+    wait.until(EC.visibility_of_element_located(
         (By.CSS_SELECTOR, "input[type='email'], input[name='email']")
     ))
+    time.sleep(0.5)
 
     # Chercher dans tous les formulaires
     forms = driver.find_elements(By.TAG_NAME, 'form')
@@ -270,23 +280,23 @@ def _fill_login_form(driver, wait):
     ])
     pwd_field = login_form.find_element(By.CSS_SELECTOR, "input[type='password']")
 
+    # Remplir via JS — send_keys() echoue car le modal est dans un conteneur overflow
     if email_field:
-        driver.execute_script("arguments[0].click();", email_field)
+        _js_fill(driver, email_field, ATHOME_EMAIL)
         time.sleep(0.2)
-        email_field.clear()
-        email_field.send_keys(ATHOME_EMAIL)
 
-    driver.execute_script("arguments[0].click();", pwd_field)
+    _js_fill(driver, pwd_field, ATHOME_PASSWORD)
     time.sleep(0.2)
-    pwd_field.clear()
-    pwd_field.send_keys(ATHOME_PASSWORD)
 
     # Soumettre
     try:
         submit = login_form.find_element(By.CSS_SELECTOR, "button[type='submit']")
         driver.execute_script("arguments[0].click();", submit)
     except NoSuchElementException:
-        pwd_field.send_keys('\n')
+        driver.execute_script(
+            "arguments[0].dispatchEvent(new KeyboardEvent('keydown', {key:'Enter', bubbles:true}));",
+            pwd_field
+        )
 
     time.sleep(3)
 
