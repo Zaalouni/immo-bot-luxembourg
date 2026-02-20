@@ -271,16 +271,20 @@ def _fill_login_form(driver, wait):
     pwd_field = login_form.find_element(By.CSS_SELECTOR, "input[type='password']")
 
     if email_field:
+        driver.execute_script("arguments[0].click();", email_field)
+        time.sleep(0.2)
         email_field.clear()
         email_field.send_keys(ATHOME_EMAIL)
 
+    driver.execute_script("arguments[0].click();", pwd_field)
+    time.sleep(0.2)
     pwd_field.clear()
     pwd_field.send_keys(ATHOME_PASSWORD)
 
     # Soumettre
     try:
         submit = login_form.find_element(By.CSS_SELECTOR, "button[type='submit']")
-        submit.click()
+        driver.execute_script("arguments[0].click();", submit)
     except NoSuchElementException:
         pwd_field.send_keys('\n')
 
