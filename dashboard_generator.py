@@ -137,6 +137,44 @@ def _fmt(n):
 def generate_index_html(listings, stats, generated_at):
     listings_json = json.dumps(listings, ensure_ascii=False, default=str)
 
+    # Table qualité par site (D07)
+    def _qual_row(site_name, lst, color):
+        n       = len(lst)
+        no_img  = sum(1 for l in lst if not l.get('image_url'))
+        no_surf = sum(1 for l in lst if not l.get('surface'))
+        no_gps  = sum(1 for l in lst if not l.get('latitude'))
+        ok = lambda bad: '✅' if bad == 0 else f'<span style="color:#ef4444">⚠️ {bad}</span>'
+        return (f'<tr><td><span class="sb" style="background:{color}">{site_name}</span></td>'
+                f'<td class="text-center">{n}</td>'
+                f'<td class="text-center">{ok(no_img)}</td>'
+                f'<td class="text-center">{ok(no_surf)}</td>'
+                f'<td class="text-center">{ok(no_gps)}</td></tr>')
+
+    site_groups = {}
+    for l in listings:
+        s = l.get('site', '?')
+        site_groups.setdefault(s, []).append(l)
+
+    qual_rows = ''.join(
+        _qual_row(s, lst, CHART_COLORS[i % len(CHART_COLORS)])
+        for i, (s, lst) in enumerate(sorted(site_groups.items()))
+    )
+    qual_table = f'''
+<div class="card mb-3">
+  <div class="card-header">Qualité des données par site</div>
+  <div class="card-body p-0">
+    <table class="table table-sm mb-0" style="font-size:.78rem">
+      <thead style="background:#1e293b;color:#94a3b8">
+        <tr><th>Site</th><th class="text-center">N</th>
+            <th class="text-center">Images</th>
+            <th class="text-center">Surface</th>
+            <th class="text-center">GPS</th></tr>
+      </thead>
+      <tbody>{qual_rows}</tbody>
+    </table>
+  </div>
+</div>'''
+
     # Données graphiques
     by_site = stats.get('by_site', {})
     # Badges site pour info-bar (remplace le donut site)
@@ -168,9 +206,14 @@ def generate_index_html(listings, stats, generated_at):
         else:          pr[4] += 1
     price_data = json.dumps(pr)
 
-    # Options filtres
-    sites  = sorted(set(l.get('site', '')  for l in listings if l.get('site')))
-    cities = sorted(set(l.get('city', '')  for l in listings if l.get('city')), key=str.lower)
+    # Options filtres — villes normalisées (dedup insensible à la casse)
+    sites  = sorted(set(l.get('site', '') for l in listings if l.get('site')))
+    _city_map = {}  # lowercase → forme canonique (première vue)
+    for l in listings:
+        c = (l.get('city') or '').strip()
+        if c and c.lower() not in _city_map:
+            _city_map[c.lower()] = c
+    cities = sorted(_city_map.values(), key=str.lower)
     sites_opts  = '\n'.join(f'<option value="{s}">{s}</option>' for s in sites)
     cities_opts = '\n'.join(f'<option value="{c}">{c}</option>' for c in cities)
 
@@ -318,6 +361,9 @@ table.dataTable tbody td {{ vertical-align: middle; padding: .45rem .6rem; }}
   <span class="text-secondary me-2" style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em">Sites actifs :</span>
   {by_site_badges}
 </div>
+
+<!-- ── QUALITE DONNEES ── -->
+{qual_table}
 
 <!-- ── GRAPHIQUES ── -->
 <div class="row g-3 mb-3">

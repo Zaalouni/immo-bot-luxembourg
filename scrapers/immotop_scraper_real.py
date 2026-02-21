@@ -118,7 +118,15 @@ class ImmotopScraperReal:
                 # Ville (dernier élément après virgule)
                 parts = title.split(',')
                 city = parts[-1].strip() if len(parts) > 1 else 'Luxembourg'
-                
+
+                # GPS depuis nom de ville
+                from utils import geocode_city, haversine_distance
+                from config import REFERENCE_LAT, REFERENCE_LNG
+                lat, lng = geocode_city(city)
+                distance_km = None
+                if lat and lng:
+                    distance_km = haversine_distance(REFERENCE_LAT, REFERENCE_LNG, lat, lng)
+
                 listing = {
                     'listing_id': f'immotop_{id_val}',
                     'site': 'Immotop.lu',
@@ -129,6 +137,9 @@ class ImmotopScraperReal:
                     'surface': surface,
                     'url': url_annonce,
                     'image_url': image_map.get(id_val),
+                    'latitude': lat,
+                    'longitude': lng,
+                    'distance_km': distance_km,
                     'time_ago': 'Récemment'
                 }
                 listings.append(listing)

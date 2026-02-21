@@ -153,10 +153,15 @@ class NextimmoScraper:
             if thumbs and isinstance(thumbs, list):
                 image_url = thumbs[0]
 
-        # Titre
-        title = item.get('title', '') or f"Appartement {city}"
-        if not title or title == '':
-            title = f"Appartement {room_count}ch {surface}m² {city}" if room_count > 0 else f"Appartement {city}"
+        # Titre — enrichi avec surface/chambres si générique ou vide
+        title = item.get('title', '') or ''
+        if not title.strip() or len(title.strip()) < 10:
+            parts = []
+            if room_count > 0: parts.append(f"{room_count} ch.")
+            if surface > 0:    parts.append(f"{surface} m²")
+            if price > 0:      parts.append(f"{price} €")
+            details = ' · '.join(parts)
+            title = f"Appt {city}" + (f" — {details}" if details else '')
 
         # URL
         url = f"{self.base_url}/en/details/{prop_id}"
