@@ -24,7 +24,7 @@
 import re
 import time
 import logging
-from typing import List, Dict
+from typing import List, Dict, Optional
 from bs4 import BeautifulSoup
 from scrapers.selenium_template import SeleniumScraperBase
 from utils import haversine_distance, geocode_city
@@ -79,7 +79,7 @@ class NexviaScraper(SeleniumScraperBase):
                 pass
         return 0
 
-    def parse_nexvia_image(self, card) -> str | None:
+    def parse_nexvia_image(self, card) -> Optional[str]:
         """Extrait image depuis data-lazyLoadedStyle (background-image CSS)"""
         header = card.find('div', class_=lambda c: c and 'listings-item-header' in c)
         if not header:

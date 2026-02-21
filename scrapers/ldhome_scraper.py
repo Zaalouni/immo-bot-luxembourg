@@ -18,7 +18,7 @@
 # =============================================================================
 import re
 import logging
-from typing import List, Dict
+from typing import List, Dict, Optional
 from bs4 import BeautifulSoup
 from scrapers.utils_retry import make_session
 from utils import haversine_distance, geocode_city
@@ -97,7 +97,7 @@ class LDHomeScraper:
             return parts[0].strip()
         return ''
 
-    def parse_image(self, card) -> str | None:
+    def parse_image(self, card) -> Optional[str]:
         """Extrait l'image depuis data-src (lazy-load)"""
         img = card.find('img', attrs={'data-src': True})
         if img:

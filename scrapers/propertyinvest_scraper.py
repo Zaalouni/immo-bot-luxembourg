@@ -30,7 +30,7 @@
 # =============================================================================
 import re
 import logging
-from typing import List, Dict
+from typing import List, Dict, Optional
 from bs4 import BeautifulSoup
 from scrapers.utils_retry import make_session
 from utils import haversine_distance, geocode_city
@@ -78,7 +78,7 @@ class PropertyInvestScraper:
             return m.group(1).strip()
         return ''
 
-    def parse_image(self, card) -> str | None:
+    def parse_image(self, card) -> Optional[str]:
         """Extrait l'image depuis le premier slide Alpine.js"""
         # Les images sont dans des div avec x-show="currentSlide == 1"
         # On cherche le premier <img> dans la zone de l'image du carousel
