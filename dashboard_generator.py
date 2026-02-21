@@ -93,7 +93,8 @@ def load_listings():
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
     c.execute('''SELECT id, listing_id, site, title, city, price, rooms, surface,
-                        url, image_url, latitude, longitude, distance_km, created_at, notified
+                        url, image_url, latitude, longitude, distance_km, created_at, notified,
+                        available_from
                  FROM listings ORDER BY created_at DESC''')
     rows = [dict(r) for r in c.fetchall()]
     conn.close()
@@ -467,6 +468,7 @@ table.dataTable tbody td {{ vertical-align: middle; padding: .45rem .6rem; }}
         <th>Dist.</th>
         <th>Titre</th>
         <th>Date</th>
+        <th>Dispo</th>
         <th>✉</th>
       </tr>
     </thead>
@@ -541,6 +543,7 @@ function render(data) {{
       <td>${{dist}}</td>
       <td><a class="al" href="${{l.url}}" target="_blank" title="${{l.title}}">${{trunc(l.title, 55)}}</a></td>
       <td style="color:#94a3b8;font-size:.72rem">${{l.created_at ? l.created_at.slice(0,10) : '—'}}</td>
+      <td style="color:#10b981;font-size:.72rem">${{l.available_from || ''}}</td>
       <td style="text-align:center">${{l.notified ? '✅' : ''}}</td>`;
     tb.appendChild(row);
   }});

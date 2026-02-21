@@ -178,6 +178,13 @@ class NextimmoScraper:
             except Exception:
                 pass
 
+        # Date de disponibilite (depuis description ou titre)
+        description_text = item.get('description', '') or item.get('desc', '') or ''
+        if isinstance(description_text, dict):
+            description_text = str(description_text.get('value', '') or description_text.get('text', '') or '')
+        from utils import extract_available_from
+        available_from = extract_available_from(str(description_text) + ' ' + str(title))
+
         return {
             'listing_id': f'nextimmo_{prop_id}',
             'site': self.site_name,
@@ -191,6 +198,7 @@ class NextimmoScraper:
             'latitude': lat,
             'longitude': lng,
             'distance_km': distance_km,
+            'available_from': available_from,
             'time_ago': 'Récemment'
         }
 

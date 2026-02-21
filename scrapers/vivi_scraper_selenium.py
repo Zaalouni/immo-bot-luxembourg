@@ -160,12 +160,15 @@ class ViviScraperSelenium:
         city = self._extract_city(url)
 
         # GPS depuis nom de ville
-        from utils import geocode_city, haversine_distance
+        from utils import geocode_city, haversine_distance, extract_available_from
         from config import REFERENCE_LAT, REFERENCE_LNG
         lat, lng = geocode_city(city)
         distance_km = None
         if lat and lng:
             distance_km = haversine_distance(REFERENCE_LAT, REFERENCE_LNG, lat, lng)
+
+        # Date de disponibilite
+        available_from = extract_available_from(text)
 
         return {
             'listing_id': f'vivi_{data_id}',
@@ -180,6 +183,7 @@ class ViviScraperSelenium:
             'latitude': lat,
             'longitude': lng,
             'distance_km': distance_km,
+            'available_from': available_from,
             'full_text': text,
             'time_ago': 'Récemment'
         }

@@ -216,9 +216,13 @@ class TelegramNotifier:
                 prix_m2 = round(price / surface, 1)
                 prix_m2_str = f" ({prix_m2}€/m²)"
 
+            # Date de disponibilite
+            available_from = listing.get('available_from')
+            available_str = f"\n📅 <b>Disponible:</b> {self._escape_html(available_from)}" if available_from else ""
+
             message += f"""💰 <b>Prix:</b> {price_formatted}/mois{prix_m2_str}
 🛏️ <b>Chambres:</b> {rooms_str}
-📏 <b>Surface:</b> {surface_str}
+📏 <b>Surface:</b> {surface_str}{available_str}
 
 🔗 <a href="{url}">Voir l'annonce</a>
 """

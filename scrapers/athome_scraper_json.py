@@ -259,6 +259,10 @@ class AthomeScraperJSON:
             description = str(description[0]) if description else ''
         title = str(description)[:70] if description else f"{type_fr.title()} {city}"
 
+        # Date de disponibilite
+        from utils import extract_available_from
+        available_from = extract_available_from(str(description))
+
         # Image — format actuel Athome: media.items[].uri (chemin relatif)
         # Base CDN : https://i1.static.athome.eu/images/annonces2/image_
         image_url = None
@@ -303,6 +307,7 @@ class AthomeScraperJSON:
             'latitude': lat,
             'longitude': lng,
             'distance_km': distance_km,
+            'available_from': available_from,
             'time_ago': 'Récemment'
         }
 

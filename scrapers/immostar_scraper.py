@@ -143,21 +143,26 @@ class ImmostarScraper:
             if image_url and not image_url.startswith('http'):
                 image_url = None
 
+            # Date de disponibilite
+            from utils import extract_available_from
+            available_from = extract_available_from(desc_text)
+
             listing = {
-                'listing_id': f'immostar_{listing_id}',
-                'site':       self.site_name,
-                'title':      title[:80],
-                'city':       city,
-                'price':      price,
-                'rooms':      rooms,
-                'surface':    surface,
-                'url':        f"{self.base_url}{data_url}",
-                'image_url':  image_url,
-                'latitude':   lat,
-                'longitude':  lng,
-                'distance_km': distance_km,
-                'time_ago':   'Recemment',
-                'full_text':  desc_text[:500],
+                'listing_id':   f'immostar_{listing_id}',
+                'site':         self.site_name,
+                'title':        title[:80],
+                'city':         city,
+                'price':        price,
+                'rooms':        rooms,
+                'surface':      surface,
+                'url':          f"{self.base_url}{data_url}",
+                'image_url':    image_url,
+                'latitude':     lat,
+                'longitude':    lng,
+                'distance_km':  distance_km,
+                'available_from': available_from,
+                'time_ago':     'Recemment',
+                'full_text':    desc_text[:500],
             }
 
             if matches_criteria(listing):

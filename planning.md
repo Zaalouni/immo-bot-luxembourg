@@ -1,6 +1,6 @@
 # Planning Immo-Bot Luxembourg
 
-## Version actuelle : v3.0 (2026-02-20)
+## Version actuelle : v3.2 (2026-02-21)
 
 ---
 
@@ -63,6 +63,8 @@
 | D05 | Fix Nextimmo : enrichir titre depuis description    | MOYENNE  | v3.1    | DONE 2026-02-21 |
 | D06 | Normaliser villes (casse uniforme ex: Centre Ville) | BASSE    | v3.1    | DONE 2026-02-21 |
 | D07 | Dashboard : indicateurs qualite par site            | MOYENNE  | v3.1    | DONE 2026-02-21 |
+| D08 | available_from : extraction date dispo tous scrapers | HAUTE   | v3.2    | DONE 2026-02-21 |
+| D09 | Fix Newimmo/Unicorn : prix greedy regex → specifique | HAUTE   | v3.2    | DONE 2026-02-21 |
 | C02 | Retry auto sur erreurs reseau scrapers              | BASSE    | v3.2    | A FAIRE |
 | C03 | Tests automatises (pytest scrapers live)            | BASSE    | v3.2    | A FAIRE |
 

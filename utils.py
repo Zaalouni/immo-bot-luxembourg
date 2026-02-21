@@ -305,6 +305,66 @@ def haversine_distance(lat1, lng1, lat2, lng2):
         logger.debug(f"Erreur calcul distance: {e}")
         return None
 
+_MONTH_MAP = {
+    'janvier': '01', 'fevrier': '02', 'mars': '03', 'avril': '04',
+    'mai': '05', 'juin': '06', 'juillet': '07', 'aout': '08',
+    'septembre': '09', 'octobre': '10', 'novembre': '11', 'decembre': '12'
+}
+
+def extract_available_from(text):
+    """
+    Extraire la date de disponibilite depuis le texte d'une annonce.
+    Retourne : 'Immediatement', 'DD/MM/YYYY', ou None si non trouve.
+    """
+    import re
+    from datetime import datetime as _dt
+    if not text:
+        return None
+    # Normaliser : minuscules + supprimer accents
+    t = unicodedata.normalize('NFD', str(text).lower())
+    t = ''.join(c for c in t if unicodedata.category(c) != 'Mn')
+
+    # Disponible immédiatement / de suite
+    if re.search(r'(disponible?|libre)\s*(immediatement|de suite|des maintenant|maintenant)\b', t):
+        return 'Immediatement'
+    if re.search(r'immediatement\s*disponible?', t):
+        return 'Immediatement'
+
+    # Date numérique : DD.MM.YYYY / DD/MM/YYYY / DD-MM-YYYY
+    date_ctx = [
+        r'disponibilite?\s*[:\-]?\s*(\d{1,2}[./\-]\d{1,2}[./\-]\d{2,4})',
+        r'disponible?\s*(?:le|a partir\s*du?|des\s*le|:)?\s*(\d{1,2}[./\-]\d{1,2}[./\-]\d{2,4})',
+        r'libre\s*(?:le|a partir\s*du?|des\s*le)?\s*(\d{1,2}[./\-]\d{1,2}[./\-]\d{2,4})',
+        r'a\s*partir\s*(?:du|de)\s*(\d{1,2}[./\-]\d{1,2}[./\-]\d{2,4})',
+        r'des\s*le\s*(\d{1,2}[./\-]\d{1,2}[./\-]\d{2,4})',
+        r'location\s*(?:le|:)?\s*(\d{1,2}[./\-]\d{1,2}[./\-]\d{2,4})',
+    ]
+    for pat in date_ctx:
+        m = re.search(pat, t)
+        if m:
+            parts = re.split(r'[./\-]', m.group(1))
+            if len(parts) == 3:
+                d, mo, y = parts
+                if len(y) == 2:
+                    y = '20' + y
+                return f'{d.zfill(2)}/{mo.zfill(2)}/{y}'
+
+    # Date avec mois en lettres : "1er mars 2026" / "mars 2026"
+    months = '|'.join(_MONTH_MAP.keys())
+    m = re.search(
+        rf'(?:disponible?|libre|a partir\s*(?:du|de)|des\s*le|disponibilite?\s*:?)'
+        rf'[\s:]*(?:le\s*)?(\d{{1,2}})\s*(?:er|eme)?\s*({months})\s*(\d{{4}})?',
+        t
+    )
+    if m:
+        day   = m.group(1).zfill(2)
+        month = _MONTH_MAP[m.group(2)]
+        year  = m.group(3) or str(_dt.now().year)
+        return f'{day}/{month}/{year}'
+
+    return None
+
+
 def format_distance(distance_km):
     """Formate distance pour affichage"""
     if distance_km is None:

@@ -127,6 +127,10 @@ class ImmotopScraperReal:
                 if lat and lng:
                     distance_km = haversine_distance(REFERENCE_LAT, REFERENCE_LNG, lat, lng)
 
+                # Date de disponibilite (depuis le titre uniquement, pas de description)
+                from utils import extract_available_from
+                available_from = extract_available_from(title)
+
                 listing = {
                     'listing_id': f'immotop_{id_val}',
                     'site': 'Immotop.lu',
@@ -140,6 +144,7 @@ class ImmotopScraperReal:
                     'latitude': lat,
                     'longitude': lng,
                     'distance_km': distance_km,
+                    'available_from': available_from,
                     'time_ago': 'Récemment'
                 }
                 listings.append(listing)

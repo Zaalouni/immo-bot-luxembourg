@@ -51,13 +51,14 @@ class Database:
                 )
             ''')
 
-            # Migration : ajouter image_url si absente (DB existante)
+            # Migrations : ajouter colonnes absentes (DB existante)
             self.cursor.execute("PRAGMA table_info(listings)")
             existing_cols = [r[1] for r in self.cursor.fetchall()]
-            if 'image_url' not in existing_cols:
-                self.cursor.execute("ALTER TABLE listings ADD COLUMN image_url TEXT")
-                self.conn.commit()
-                logger.info("Migration DB : colonne image_url ajoutee")
+            for col, typedef in [('image_url', 'TEXT'), ('available_from', 'TEXT')]:
+                if col not in existing_cols:
+                    self.cursor.execute(f"ALTER TABLE listings ADD COLUMN {col} {typedef}")
+                    self.conn.commit()
+                    logger.info(f"Migration DB : colonne {col} ajoutee")
 
             # Index pour performances
             self.cursor.execute('''
@@ -100,8 +101,9 @@ class Database:
         try:
             self.cursor.execute('''
                 INSERT INTO listings
-                (listing_id, site, title, city, price, rooms, surface, url, image_url, latitude, longitude, distance_km)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (listing_id, site, title, city, price, rooms, surface, url, image_url,
+                 latitude, longitude, distance_km, available_from)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
                 listing_data.get('listing_id', ''),
                 listing_data.get('site', 'Inconnu'),
@@ -114,7 +116,8 @@ class Database:
                 listing_data.get('image_url'),
                 listing_data.get('latitude'),
                 listing_data.get('longitude'),
-                listing_data.get('distance_km')
+                listing_data.get('distance_km'),
+                listing_data.get('available_from')
             ))
             self.conn.commit()
 

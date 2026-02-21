@@ -143,19 +143,24 @@ class SigeluxScraper:
 
             image_url = self._extract_image(container)
 
+            # Date de disponibilite
+            from utils import extract_available_from
+            available_from = extract_available_from(container_text)
+
             seen_ids.add(listing_id)
             page_listings.append({
-                'listing_id': f'sigelux_{listing_id}',
-                'site':       self.site_name,
-                'title':      title[:80],
-                'city':       city,
-                'price':      price,
-                'rooms':      rooms,
-                'surface':    surface,
-                'url':        f"{self.base_url}{href}",
-                'image_url':  image_url,
-                'time_ago':   'Recemment',
-                'full_text':  container_text[:500],
+                'listing_id':   f'sigelux_{listing_id}',
+                'site':         self.site_name,
+                'title':        title[:80],
+                'city':         city,
+                'price':        price,
+                'rooms':        rooms,
+                'surface':      surface,
+                'url':          f"{self.base_url}{href}",
+                'image_url':    image_url,
+                'available_from': available_from,
+                'time_ago':     'Recemment',
+                'full_text':    container_text[:500],
             })
 
         return page_listings

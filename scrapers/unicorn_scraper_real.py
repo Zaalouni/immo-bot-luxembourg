@@ -149,16 +149,19 @@ class UnicornScraperReal(SeleniumScraperBase):
         if not text or '€' not in text:
             return None
 
-        # Prix — "1 600€" ou "1 250 €" (prendre le 1er, ignorer charges)
+        # Prix — "1 600€" ou "1 250 €" ou "1600 €"
+        # Regex specifique pour eviter de capturer des IDs/references
         price = 0
-        price_match = re.search(r'([\d\s\.]+)\s*€', text)
-        if price_match:
-            price_str = price_match.group(1).strip().replace(' ', '').replace('.', '')
+        for m in re.finditer(r'(?<!\d)(\d{1,2}[\s\u202f\xa0]\d{3}|\d{3,5})(?!\d)\s*€', text):
+            val_str = re.sub(r'[\s\u202f\xa0]', '', m.group(1))
             try:
-                price = int(price_str)
+                val = int(val_str)
+                if 300 <= val <= 20000:
+                    price = val
+                    break
             except ValueError:
-                pass
-        if price <= 0 or price > 100000:
+                continue
+        if price <= 0:
             return None
 
         # Chambres
@@ -208,6 +211,10 @@ class UnicornScraperReal(SeleniumScraperBase):
         if any(w.strip().lower() in title_lower for w in EXCLUDED_WORDS if w.strip()):
             return None
 
+        # Date de disponibilite
+        from utils import extract_available_from
+        available_from = extract_available_from(text)
+
         return {
             'listing_id': f'unicorn_{listing_id}',
             'site': 'Unicorn.lu',
@@ -218,6 +225,7 @@ class UnicornScraperReal(SeleniumScraperBase):
             'surface': surface,
             'url': full_url,
             'image_url': image_url,
+            'available_from': available_from,
             'time_ago': 'Récemment'
         }
 

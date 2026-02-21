@@ -244,21 +244,27 @@ class RemaxScraper(SeleniumScraperBase):
                     title_type       = prop_type.capitalize()
                     title            = f"{title_type} à louer — {city}"
 
+                    # Date de disponibilite
+                    from utils import extract_available_from
+                    full_text = link.text[:500]
+                    available_from = extract_available_from(full_text)
+
                     listing = {
-                        'listing_id':  listing_id,
-                        'site':        'Remax.lu',
-                        'title':       title,
-                        'city':        city,
-                        'price':       price,
-                        'rooms':       rooms,
-                        'surface':     surface,
-                        'url':         href,
-                        'image_url':   image_url,
-                        'latitude':    None,
-                        'longitude':   None,
-                        'distance_km': None,
-                        'time_ago':    'Recemment',
-                        'full_text':   link.text[:500],
+                        'listing_id':   listing_id,
+                        'site':         'Remax.lu',
+                        'title':        title,
+                        'city':         city,
+                        'price':        price,
+                        'rooms':        rooms,
+                        'surface':      surface,
+                        'url':          href,
+                        'image_url':    image_url,
+                        'latitude':     None,
+                        'longitude':    None,
+                        'distance_km':  None,
+                        'available_from': available_from,
+                        'time_ago':     'Recemment',
+                        'full_text':    full_text,
                     }
 
                     if matches_criteria(listing):
