@@ -19,6 +19,21 @@ import unicodedata
 logger = logging.getLogger(__name__)
 
 # =============================================================================
+# Villes etrangeres a rejeter explicitement (Belgique, France, Allemagne)
+# Ces villes apparaissent parfois sur des sites qui listent aussi hors Luxembourg
+# =============================================================================
+NON_LUXEMBOURG_CITIES = {
+    # Belgique — province du Luxembourg belge
+    'arlon', 'aarlen', 'aubange', 'virton', 'martelange', 'bastogne',
+    'florenville', 'neufchateau', 'libramont', 'bertrix', 'etalle',
+    # France — Lorraine (Moselle, Meurthe-et-Moselle)
+    'metz', 'thionville', 'longwy', 'longlaville', 'villerupt',
+    'mont-saint-martin', 'audun-le-tiche', 'volmerange-les-mines',
+    # Allemagne — Rhénanie-Palatinat
+    'trier', 'treve', 'treves', 'konz', 'saarburg', 'perl',
+}
+
+# =============================================================================
 # Dictionnaire GPS des villes/localites du Luxembourg
 # Source : coordonnees approximatives centre-ville
 # Couvre les communes, quartiers de Luxembourg-Ville et localites courantes

@@ -390,6 +390,13 @@ class ImmoBot:
                 logger.debug(f"Rejeté mot exclu dans: {check_text[:50]}")
                 return False
 
+            # Villes etrangeres — rejeter explicitement (Belgique, France, Allemagne)
+            from utils import NON_LUXEMBOURG_CITIES
+            city_lower = (listing.get('city') or '').lower().strip()
+            if city_lower and city_lower in NON_LUXEMBOURG_CITIES:
+                logger.debug(f"Rejeté ville etrangere='{city_lower}': {listing.get('listing_id')}")
+                return False
+
             # Distance GPS (si disponible apres enrichissement)
             distance_km = listing.get('distance_km')
             if distance_km is not None:
