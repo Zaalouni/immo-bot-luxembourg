@@ -575,7 +575,7 @@ function render(data) {{
 
 function applyFilters() {{
   const site  = document.getElementById('f-site').value;
-  const city  = document.getElementById('f-city').value;
+  const city  = document.getElementById('f-city').value.toLowerCase().trim();
   const pmin  = parseFloat(document.getElementById('f-pmin').value) || 0;
   const pmax  = parseFloat(document.getElementById('f-pmax').value) || Infinity;
   const smin  = parseFloat(document.getElementById('f-smin').value) || 0;
@@ -583,8 +583,8 @@ function applyFilters() {{
   const dist  = parseFloat(document.getElementById('f-dist').value) || Infinity;
   const dispo = document.getElementById('f-dispo').checked;
   filtered = ALL.filter(l => {{
-    if (site && l.site !== site)   return false;
-    if (city && l.city !== city)   return false;
+    if (site && l.site !== site) return false;
+    if (city && (l.city || '').toLowerCase().trim() !== city) return false;
     if (l.price < pmin || l.price > pmax) return false;
     if (smin > 0 && l.surface > 0 && l.surface < smin) return false;
     if (rooms) {{
@@ -691,11 +691,14 @@ window.addEventListener('DOMContentLoaded', () => {{
         if (!el.length) return;
         const city = CHART_CITIES[el[0].index];
         const sel  = document.getElementById('f-city');
-        if (sel.value === city) {{
+        const cityLow = city.toLowerCase().trim();
+        // Trouver l'option dont la valeur correspond (insensible a la casse)
+        const matchOpt = Array.from(sel.options).find(o => o.value.toLowerCase().trim() === cityLow);
+        if (matchOpt && sel.value === matchOpt.value) {{
           sel.value = '';
           resetFilters();
         }} else {{
-          sel.value = city;
+          if (matchOpt) sel.value = matchOpt.value;
           applyFilters();
         }}
         // Scroll doux vers le tableau
