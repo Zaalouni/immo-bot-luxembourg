@@ -17,13 +17,19 @@ import re
 from typing import List, Dict
 import logging
 from utils import haversine_distance
+from scrapers.utils_retry import make_session
 
 logger = logging.getLogger(__name__)
+
 class LuxhomeScraper:
     def __init__(self):
         self.name = "Luxhome.lu"
         self.base_url = "https://www.luxhome.lu"
         self.search_url = f"{self.base_url}/recherche/?status%5B%5D=location"
+        self.session = make_session(headers={
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                          '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        })
 
     def decode_text(self, text: str) -> str:
         """Décode caractères Unicode + HTML entities"""
@@ -63,11 +69,7 @@ class LuxhomeScraper:
 
             logger.info(f"Scraping {self.search_url}")
 
-            response = requests.get(
-                self.search_url,
-                headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'},
-                timeout=15
-            )
+            response = self.session.get(self.search_url, timeout=15)
             response.raise_for_status()
             html = response.text
 
@@ -170,20 +172,27 @@ class LuxhomeScraper:
                         thumb = self.base_url + thumb
                     image_url = thumb
 
-                # Construction objet standardisé
+                # Date de disponibilite
+                from utils import extract_available_from
+                available_from = extract_available_from(titre)
+
+                # Construction objet standardise
                 listing = {
-                    'listing_id': f"luxhome_{id_str}",
-                    'site': self.name,
-                    'title': titre,
-                    'price': prix,
-                    'rooms': chambres if chambres > 0 else 0,
-                    'surface': surface if surface > 0 else 0,
-                    'city': localisation,
-                    'url': url,
-                    'image_url': image_url,
-                    'latitude': lat,
-                    'longitude': lng,
-                    'distance_km': distance_km
+                    'listing_id':     f"luxhome_{id_str}",
+                    'site':           self.name,
+                    'title':          titre,
+                    'price':          prix,
+                    'rooms':          chambres if chambres > 0 else 0,
+                    'surface':        surface if surface > 0 else 0,
+                    'city':           localisation,
+                    'url':            url,
+                    'image_url':      image_url,
+                    'latitude':       lat,
+                    'longitude':      lng,
+                    'distance_km':    distance_km,
+                    'available_from': available_from,
+                    'time_ago':       'Recemment',
+                    'full_text':      titre,
                 }
 
 
