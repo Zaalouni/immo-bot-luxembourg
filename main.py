@@ -168,6 +168,30 @@ try:
     except ImportError as e:
         logger.warning(f"⚠️ ImmoStar.lu: {e}")
 
+    # LDHome.lu (HTTP + BeautifulSoup, ~140 annonces, 14 pages)
+    try:
+        from scrapers.ldhome_scraper import ldhome_scraper
+        scrapers_config.append(('🏡 LDHome.lu', ldhome_scraper))
+        logger.info("✅ LDHome.lu (BS4)")
+    except ImportError as e:
+        logger.warning(f"⚠️ LDHome.lu: {e}")
+
+    # Nexvia.lu (Selenium scroll infini, lazy-load)
+    try:
+        from scrapers.nexvia_scraper import nexvia_scraper
+        scrapers_config.append(('🏢 Nexvia.lu', nexvia_scraper))
+        logger.info("✅ Nexvia.lu (Selenium)")
+    except ImportError as e:
+        logger.warning(f"⚠️ Nexvia.lu: {e}")
+
+    # PropertyInvest.lu (HTTP + BeautifulSoup, ~5-10 annonces, page unique)
+    try:
+        from scrapers.propertyinvest_scraper import propertyinvest_scraper
+        scrapers_config.append(('🏡 PropertyInvest.lu', propertyinvest_scraper))
+        logger.info("✅ PropertyInvest.lu (BS4)")
+    except ImportError as e:
+        logger.warning(f"⚠️ PropertyInvest.lu: {e}")
+
     # Apropos.lu — desactive : pagination cassee, overlap Immotop, peu d'annonces budget
     # try:
     #     from scrapers.apropos_scraper import apropos_scraper

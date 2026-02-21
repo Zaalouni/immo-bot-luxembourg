@@ -1,6 +1,6 @@
 # Planning Immo-Bot Luxembourg
 
-## Version actuelle : v3.2 (2026-02-21)
+## Version actuelle : v3.3 (2026-02-21)
 
 ---
 
@@ -26,27 +26,32 @@
 | D09 | Fix Newimmo/Unicorn : prix greedy regex → specifique| HAUTE    | v3.2    | DONE 2026-02-21 |
 | D10 | Fix geocode_city : retour tuple (None,None) toujours| HAUTE    | v3.2    | DONE 2026-02-21 |
 | D11 | main.py : option --no-notify (test sans Telegram)   | MOYENNE  | v3.2    | DONE 2026-02-21 |
-| C02 | Retry auto sur erreurs reseau scrapers              | BASSE    | v3.3    | A FAIRE |
-| C03 | Tests automatises (pytest scrapers live)            | BASSE    | v3.3    | A FAIRE |
+| C01 | Nouveaux scrapers LDHome.lu + Nexvia.lu             | HAUTE    | v3.3    | DONE 2026-02-21 |
+| C02 | Retry auto sur erreurs reseau scrapers              | BASSE    | v3.4    | A FAIRE |
+| C03 | Tests automatises (pytest scrapers live)            | BASSE    | v3.4    | A FAIRE |
 
 > Bot tourne sur serveur Linux. Ne pas lancer localement.
 
 ---
 
-## Scrapers actifs (9/11)
+## Scrapers actifs (12/15)
 
-| Scraper                   | Site        | Methode       | Pages | Images | Contact auto    |
-|---------------------------|-------------|---------------|-------|--------|-----------------|
-| athome_scraper_json.py    | Athome.lu   | JSON          | 12    | CDN OK | auto_contact_athome.py |
-| immotop_scraper_real.py   | Immotop.lu  | HTML regex    | 5     | ?      | —               |
-| vivi_scraper_selenium.py  | VIVI.lu     | Selenium      | 3     | bg-CSS | reCAPTCHA skip  |
-| nextimmo_scraper.py       | Nextimmo.lu | API JSON      | 10    | OK     | auto_contact.py |
-| newimmo_scraper_real.py   | Newimmo.lu  | Selenium      | 3     | ?      | —               |
-| unicorn_scraper_real.py   | Unicorn.lu  | Selenium      | 2     | ?      | —               |
-| remax_scraper.py          | Remax.lu    | Selenium React| 5     | DOM OK | auto_contact_remax.py |
-| sigelux_scraper.py        | Sigelux.lu  | HTTP+BS4      | 5     | CDN OK | —               |
+| Scraper                   | Site        | Methode           | Pages        | Images | Contact auto    |
+|---------------------------|-------------|-------------------|--------------|--------|-----------------|
+| athome_scraper_json.py    | Athome.lu   | JSON              | 12           | CDN OK | auto_contact_athome.py |
+| immotop_scraper_real.py   | Immotop.lu  | HTML regex        | 5            | ?      | —               |
+| vivi_scraper_selenium.py  | VIVI.lu     | Selenium          | 3            | bg-CSS | reCAPTCHA skip  |
+| nextimmo_scraper.py       | Nextimmo.lu | API JSON          | 10           | OK     | auto_contact.py |
+| newimmo_scraper_real.py   | Newimmo.lu  | Selenium          | 3            | ?      | —               |
+| unicorn_scraper_real.py   | Unicorn.lu  | Selenium          | 2            | ?      | —               |
+| remax_scraper.py          | Remax.lu    | Selenium React    | 5            | DOM OK | auto_contact_remax.py |
+| sigelux_scraper.py        | Sigelux.lu  | HTTP+BS4          | 5            | CDN OK | auto_contact_sigelux.py |
+| immostar_scraper.py       | ImmoStar.lu | HTTP+BS4          | 5            | OK     | —               |
+| ldhome_scraper.py         | LDHome.lu   | HTTP+BS4          | 14           | data-src OK | —          |
+| nexvia_scraper.py         | Nexvia.lu   | Selenium scroll   | infini lazy  | bg-CSS | —               |
+| propertyinvest_scraper.py | PropertyInvest.lu | HTTP+BS4    | 1 (page unique) | img OK | —           |
 
-## Scrapers desactives (3/11)
+## Scrapers desactives (3/14)
 
 | Scraper              | Site        | Raison                         |
 |----------------------|-------------|--------------------------------|
