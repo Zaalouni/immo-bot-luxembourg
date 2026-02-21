@@ -209,6 +209,8 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
 <option value="Belvaux">Belvaux</option>
 <option value="Bereldange">Bereldange</option>
 <option value="Bertrange">Bertrange</option>
+<option value="Bettembourg">Bettembourg</option>
+<option value="Bissen">Bissen</option>
 <option value="Bridel">Bridel</option>
 <option value="Brouch (Mersch)">Brouch (Mersch)</option>
 <option value="Cessange">Cessange</option>
@@ -223,6 +225,7 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
 <option value="Gonderange">Gonderange</option>
 <option value="Hassel">Hassel</option>
 <option value="Hautcharage">Hautcharage</option>
+<option value="Helmsange">Helmsange</option>
 <option value="Hesperange">Hesperange</option>
 <option value="Hollerich">Hollerich</option>
 <option value="Junglinster">Junglinster</option>
@@ -232,18 +235,23 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
 <option value="Luxembourg-Bonnevoie">Luxembourg-Bonnevoie</option>
 <option value="Luxembourg-Centre ville">Luxembourg-Centre ville</option>
 <option value="Luxembourg-Cessange">Luxembourg-Cessange</option>
+<option value="Luxembourg-Eich">Luxembourg-Eich</option>
 <option value="Luxembourg-Gare">Luxembourg-Gare</option>
 <option value="Luxembourg-Gasperich - Cloche d'or">Luxembourg-Gasperich - Cloche d'or</option>
 <option value="Luxembourg-Hamm">Luxembourg-Hamm</option>
 <option value="Luxembourg-Hollerich">Luxembourg-Hollerich</option>
 <option value="Luxembourg-Kirchberg">Luxembourg-Kirchberg</option>
 <option value="Luxembourg-Pfaffenthal">Luxembourg-Pfaffenthal</option>
+<option value="Luxembourg-Weimershof">Luxembourg-Weimershof</option>
 <option value="Luxembourg-Weimerskirch">Luxembourg-Weimerskirch</option>
 <option value="Mamer">Mamer</option>
 <option value="Merl">Merl</option>
 <option value="Mertert">Mertert</option>
 <option value="Mettlach">Mettlach</option>
 <option value="Niederanven">Niederanven</option>
+<option value="Niederfeulen">Niederfeulen</option>
+<option value="Oberanven">Oberanven</option>
+<option value="Oberfeulen">Oberfeulen</option>
 <option value="Olm">Olm</option>
 <option value="Reuler">Reuler</option>
 <option value="Roeser">Roeser</option>
@@ -309,6 +317,7 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
         <th>Dist.</th>
         <th>Titre</th>
         <th>Date</th>
+        <th>Dispo</th>
         <th>✉</th>
       </tr>
     </thead>
@@ -383,6 +392,7 @@ function render(data) {
       <td>${dist}</td>
       <td><a class="al" href="${l.url}" target="_blank" title="${l.title}">${trunc(l.title, 55)}</a></td>
       <td style="color:#94a3b8;font-size:.72rem">${l.created_at ? l.created_at.slice(0,10) : '—'}</td>
+      <td style="color:#10b981;font-size:.72rem">${l.available_from || ''}</td>
       <td style="text-align:center">${l.notified ? '✅' : ''}</td>`;
     tb.appendChild(row);
   });
