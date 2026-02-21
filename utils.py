@@ -210,14 +210,14 @@ def geocode_city(city_name):
     Cherche d'abord le nom exact, puis un match partiel.
 
     Returns:
-        tuple (lat, lng) ou None si ville inconnue
+        tuple (lat, lng) — toujours un tuple, (None, None) si ville inconnue
     """
     if not city_name:
-        return None
+        return (None, None)
 
     normalized = _normalize_for_lookup(city_name)
     if not normalized:
-        return None
+        return (None, None)
 
     # 1. Match exact
     if normalized in LUXEMBOURG_CITIES:
@@ -234,7 +234,7 @@ def geocode_city(city_name):
             return coords
 
     logger.debug(f"Ville non trouvee dans le dico: '{city_name}' (normalise: '{normalized}')")
-    return None
+    return (None, None)
 
 
 def enrich_listing_gps(listing):
@@ -254,9 +254,8 @@ def enrich_listing_gps(listing):
     # Si pas de GPS, essayer le geocodage par ville
     if not lat or not lng:
         city = listing.get('city', '')
-        coords = geocode_city(city)
-        if coords:
-            lat, lng = coords
+        lat, lng = geocode_city(city)
+        if lat is not None and lng is not None:
             listing['latitude'] = lat
             listing['longitude'] = lng
             listing['gps_source'] = 'geocode'  # marquer la source
