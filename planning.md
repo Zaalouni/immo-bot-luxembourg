@@ -35,13 +35,35 @@
 
 ---
 
-## Actions planifiees
+## Priorites v3.1 (2026-02-21) — Stabilite + Qualite donnees
 
-| ID  | Action                                          | Priorite | Version cible |
-|-----|-------------------------------------------------|----------|---------------|
-| C01 | Nouveaux scrapers (remplacer Wortimmo/Immoweb)  | Moyenne  | v3.1          |
-| C02 | Retry auto sur erreurs reseau scrapers          | Basse    | v3.1          |
-| C03 | Tests automatises (pytest scrapers live)        | Basse    | v3.1          |
+> Objectif : scrapers existants fiables, donnees correctes, dashboard utile.
+> PAS de nouveaux scrapers. Classe energetique : non prioritaire (image sur Athome).
+
+### Qualite donnees — problemes identifies (audit 2026-02-21)
+
+| Probleme | Site | Impact | Priorite |
+|----------|------|--------|----------|
+| Annonce hors LU (Mettlach=Allemagne) | ImmoStar.lu | Faux positif critique | HAUTE |
+| VIVI : 0 GPS sur toutes les annonces | VIVI.lu | Filtrage distance impossible | HAUTE |
+| Luxhome : 0 image, 0 surface sur 60% | Luxhome.lu | Qualite notification faible | HAUTE |
+| Immotop : 0 GPS + prix hors budget (2800€) | Immotop.lu | Annonces hors criteres notifiees | HAUTE |
+| Nextimmo : titres generiques "Appartement Olm" | Nextimmo.lu | Notification peu informative | MOYENNE |
+| Villes doublons : "Centre Ville" vs "Centre ville" | Athome/Nextimmo | Dashboard double-compte | BASSE |
+
+### Actions planifiees
+
+| ID  | Action                                              | Priorite | Version |
+|-----|-----------------------------------------------------|----------|---------|
+| D01 | Fix ImmoStar : rejeter villes hors Luxembourg       | HAUTE    | v3.1    |
+| D02 | Fix VIVI : GPS depuis nom de ville (geocode_city)   | HAUTE    | v3.1    |
+| D03 | Fix Luxhome : extraire surface + images             | HAUTE    | v3.1    |
+| D04 | Fix Immotop : GPS + respecter MAX_PRICE             | HAUTE    | v3.1    |
+| D05 | Fix Nextimmo : enrichir titre depuis description    | MOYENNE  | v3.1    |
+| D06 | Normaliser villes (casse uniforme)                  | BASSE    | v3.1    |
+| D07 | Dashboard : indicateurs qualite par site            | MOYENNE  | v3.1    |
+| C02 | Retry auto sur erreurs reseau scrapers              | BASSE    | v3.2    |
+| C03 | Tests automatises (pytest scrapers live)            | BASSE    | v3.2    |
 
 ---
 

@@ -2,8 +2,21 @@
 
 ## Debut de session — lire dans cet ordre
 1. MEMORY.md (deja charge) — version, etat, patterns
-2. planning.md — taches en cours
+2. planning.md — taches prioritaires D01..D07
 3. architecture.md — si besoin schema DB/flux
+
+## Objectif principal
+Trouver les BONNES annonces avec des donnees CORRECTES.
+PAS de nouveaux scrapers. Priorite : stabilite + qualite donnees + dashboard.
+
+## Problemes qualite connus (audit 2026-02-21)
+| Site | Probleme critique |
+|------|------------------|
+| ImmoStar.lu | Scrape hors Luxembourg (ex: Mettlach=Allemagne) |
+| VIVI.lu | GPS manquant → filtrage distance impossible |
+| Luxhome.lu | Images et surface absentes sur 60% des annonces |
+| Immotop.lu | GPS manquant + annonces hors budget passent |
+| Nextimmo.lu | Titres generiques ("Appartement Olm") |
 
 ## Regles
 - dashboard_generator.py = SOURCE de map.html et index.html → ne jamais editer ces HTML directement
