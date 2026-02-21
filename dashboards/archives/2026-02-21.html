@@ -74,7 +74,7 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
 
 <nav class="top-nav">
   <a href="#" class="brand">🏠 Immo Bot Luxembourg</a>
-  <span class="upd">Mis à jour : 21/02/2026 22:49</span>
+  <span class="upd">Mis à jour : 21/02/2026 22:56</span>
   <a href="map.html" class="map-btn">🗺️ Carte (73)</a>
 </nav>
 
@@ -377,6 +377,9 @@ function dCol(d)   {
 }
 
 function render(data) {
+  // Detruire DataTables AVANT de modifier le DOM (sinon destroy() restaure l'ancien tbody)
+  if (dt) { dt.destroy(); dt = null; }
+
   const tb = document.getElementById('tbody');
   tb.innerHTML = '';
   data.forEach(l => {
@@ -402,7 +405,6 @@ function render(data) {
     tb.appendChild(row);
   });
 
-  if (dt) dt.destroy();
   dt = $('#tbl').DataTable({
     paging: true, pageLength: 25, ordering: true, order: [[3,'asc']], searching: true,
     language: { url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/fr-FR.json' },
