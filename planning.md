@@ -53,17 +53,20 @@
 
 ### Actions planifiees
 
-| ID  | Action                                              | Priorite | Version |
-|-----|-----------------------------------------------------|----------|---------|
-| D01 | Fix ImmoStar : rejeter villes hors Luxembourg       | HAUTE    | v3.1    |
-| D02 | Fix VIVI : GPS depuis nom de ville (geocode_city)   | HAUTE    | v3.1    |
-| D03 | Fix Luxhome : extraire surface + images             | HAUTE    | v3.1    |
-| D04 | Fix Immotop : GPS + respecter MAX_PRICE             | HAUTE    | v3.1    |
-| D05 | Fix Nextimmo : enrichir titre depuis description    | MOYENNE  | v3.1    |
-| D06 | Normaliser villes (casse uniforme)                  | BASSE    | v3.1    |
-| D07 | Dashboard : indicateurs qualite par site            | MOYENNE  | v3.1    |
-| C02 | Retry auto sur erreurs reseau scrapers              | BASSE    | v3.2    |
-| C03 | Tests automatises (pytest scrapers live)            | BASSE    | v3.2    |
+| ID  | Action                                              | Priorite | Version | Statut |
+|-----|-----------------------------------------------------|----------|---------|--------|
+| D00 | Fix dashboard_generator : image_url dans SELECT     | HAUTE    | v3.1    | DONE 2026-02-21 |
+| D01 | Fix ImmoStar : rejeter villes hors Luxembourg       | HAUTE    | v3.1    | DONE 2026-02-21 |
+| D02 | Fix VIVI : GPS depuis nom de ville (geocode_city)   | HAUTE    | v3.1    | DONE 2026-02-21 |
+| D03 | Fix Luxhome : extraire surface + images             | HAUTE    | v3.1    | A FAIRE |
+| D04 | Fix Immotop : GPS manquant sur certaines annonces   | HAUTE    | v3.1    | A FAIRE |
+| D05 | Fix Nextimmo : enrichir titre depuis description    | MOYENNE  | v3.1    | A FAIRE |
+| D06 | Normaliser villes (casse uniforme ex: Centre Ville) | BASSE    | v3.1    | A FAIRE |
+| D07 | Dashboard : indicateurs qualite par site            | MOYENNE  | v3.1    | A FAIRE |
+| C02 | Retry auto sur erreurs reseau scrapers              | BASSE    | v3.2    | A FAIRE |
+| C03 | Tests automatises (pytest scrapers live)            | BASSE    | v3.2    | A FAIRE |
+
+> Bot tourne sur serveur Linux. Ne pas lancer localement.
 
 ---
 
