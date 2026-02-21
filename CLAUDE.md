@@ -1,5 +1,13 @@
 # Immo-Bot Luxembourg — Contexte rapide pour IA
 
+## IMPORTANT — A lire en debut de session
+1. Lire MEMORY.md (charge auto dans system prompt) — etat reel du projet, version courante
+2. Lire planning.md — actions en cours, statuts, versions
+3. Lire architecture.md — flux donnees, schema DB si besoin
+4. Ne PAS explorer le code a l'aveugle : tout est documente dans ces fichiers
+5. dashboard_generator.py est la SOURCE des fichiers HTML — ne jamais modifier map.html ou index.html directement, ils sont ecrases a chaque cycle
+6. Commits : toujours cibler uniquement les fichiers modifies dans la session (git add <fichier> explicite)
+
 ## Quoi
 Bot Python qui scrape 7 sites immobiliers luxembourgeois, filtre les annonces de location, deduplique cross-sites, stocke en SQLite et notifie via Telegram (photos + Google Maps).
 
