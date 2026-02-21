@@ -536,6 +536,9 @@ function dCol(d)   {{
 }}
 
 function render(data) {{
+  // Detruire DataTables AVANT de modifier le DOM (sinon destroy() restaure l'ancien tbody)
+  if (dt) {{ dt.destroy(); dt = null; }}
+
   const tb = document.getElementById('tbody');
   tb.innerHTML = '';
   data.forEach(l => {{
@@ -561,7 +564,6 @@ function render(data) {{
     tb.appendChild(row);
   }});
 
-  if (dt) dt.destroy();
   dt = $('#tbl').DataTable({{
     paging: true, pageLength: 25, ordering: true, order: [[3,'asc']], searching: true,
     language: {{ url: 'https://cdn.datatables.net/plug-ins/1.13.8/i18n/fr-FR.json' }},
