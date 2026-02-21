@@ -34,12 +34,19 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden;
   background: #0f172a; color: #fff;
   padding: .6rem .85rem; font-weight: 700; font-size: .82rem;
   display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; user-select: none;
 }
 #panel .ph .badge-geo {
   background: #3b82f6; color: #fff; border-radius: 20px;
   padding: .1em .6em; font-size: .75rem; font-weight: 700;
 }
+#panel .ph .toggle-icon {
+  font-size: .75rem; color: #94a3b8; transition: transform .2s;
+  margin-left: .5rem;
+}
+#panel.collapsed .ph .toggle-icon { transform: rotate(180deg); }
 #panel .pb { padding: .75rem .85rem; }
+#panel.collapsed .pb { display: none; }
 .filter-lbl {
   font-size: .65rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: .07em; color: #94a3b8; margin-bottom: .2rem;
@@ -67,9 +74,12 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden;
 <div id="map"></div>
 
 <div id="panel">
-  <div class="ph">
+  <div class="ph" onclick="togglePanel()">
     <span>Annonces géolocalisées</span>
-    <span class="badge-geo" id="geo-count">66</span>
+    <div style="display:flex;align-items:center;gap:.4rem">
+      <span class="badge-geo" id="geo-count">66</span>
+      <span class="toggle-icon">▲</span>
+    </div>
   </div>
   <div class="pb">
 
@@ -288,7 +298,15 @@ function resetFilters() {
   buildMap(GEO);
 }
 
+function togglePanel() {
+  document.getElementById('panel').classList.toggle('collapsed');
+}
+
 window.addEventListener('DOMContentLoaded', () => {
+  // Replié par défaut sur mobile (écran < 640px)
+  if (window.innerWidth < 640) {
+    document.getElementById('panel').classList.add('collapsed');
+  }
   mapObj = L.map('map').setView([49.6116, 6.1319], 11);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors', maxZoom: 19
