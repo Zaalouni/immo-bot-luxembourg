@@ -100,7 +100,7 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
   <div class="col-6 col-md-2">
     <div class="kpi" style="--c:#06b6d4">
       <span class="ico">⬇️</span>
-      <div class="val">1 200 €</div>
+      <div class="val">1 400 €</div>
       <div class="lbl">Prix min</div>
     </div>
   </div>
@@ -205,9 +205,6 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
         <select id="f-city" class="form-select form-select-sm" onchange="applyFilters()">
           <option value="">Toutes</option>
           <option value="Alzingen">Alzingen</option>
-<option value="Arlon">Arlon</option>
-<option value="Athus">Athus</option>
-<option value="Aubange">Aubange</option>
 <option value="Belval">Belval</option>
 <option value="Belvaux">Belvaux</option>
 <option value="Bereldange">Bereldange</option>
@@ -225,7 +222,6 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
 <option value="Garnich">Garnich</option>
 <option value="Gasperich">Gasperich</option>
 <option value="Gonderange">Gonderange</option>
-<option value="Grevenmacher">Grevenmacher</option>
 <option value="Hassel">Hassel</option>
 <option value="Hautcharage">Hautcharage</option>
 <option value="Hesperange">Hesperange</option>
@@ -252,11 +248,9 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
 <option value="Oberkorn">Oberkorn</option>
 <option value="Olm">Olm</option>
 <option value="Reuler">Reuler</option>
-<option value="Rodange">Rodange</option>
 <option value="Roeser">Roeser</option>
 <option value="Rollingen">Rollingen</option>
 <option value="Sanem">Sanem</option>
-<option value="Schengen">Schengen</option>
 <option value="Senningerberg">Senningerberg</option>
 <option value="Sprinkange">Sprinkange</option>
 <option value="Steinfort">Steinfort</option>
@@ -264,7 +258,6 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
 <option value="Strassen">Strassen</option>
 <option value="Weiswampach">Weiswampach</option>
 <option value="Wellenstein">Wellenstein</option>
-<option value="Weydig">Weydig</option>
         </select>
       </div>
       <div class="col-3 col-md-1">
@@ -425,7 +418,7 @@ function render(data) {
 
 function applyFilters() {
   const site  = document.getElementById('f-site').value;
-  const city  = document.getElementById('f-city').value;
+  const city  = document.getElementById('f-city').value.toLowerCase().trim();
   const pmin  = parseFloat(document.getElementById('f-pmin').value) || 0;
   const pmax  = parseFloat(document.getElementById('f-pmax').value) || Infinity;
   const smin  = parseFloat(document.getElementById('f-smin').value) || 0;
@@ -433,8 +426,8 @@ function applyFilters() {
   const dist  = parseFloat(document.getElementById('f-dist').value) || Infinity;
   const dispo = document.getElementById('f-dispo').checked;
   filtered = ALL.filter(l => {
-    if (site && l.site !== site)   return false;
-    if (city && l.city !== city)   return false;
+    if (site && l.site !== site) return false;
+    if (city && (l.city || '').toLowerCase().trim() !== city) return false;
     if (l.price < pmin || l.price > pmax) return false;
     if (smin > 0 && l.surface > 0 && l.surface < smin) return false;
     if (rooms) {
@@ -541,11 +534,14 @@ window.addEventListener('DOMContentLoaded', () => {
         if (!el.length) return;
         const city = CHART_CITIES[el[0].index];
         const sel  = document.getElementById('f-city');
-        if (sel.value === city) {
+        const cityLow = city.toLowerCase().trim();
+        // Trouver l'option dont la valeur correspond (insensible a la casse)
+        const matchOpt = Array.from(sel.options).find(o => o.value.toLowerCase().trim() === cityLow);
+        if (matchOpt && sel.value === matchOpt.value) {
           sel.value = '';
           resetFilters();
         } else {
-          sel.value = city;
+          if (matchOpt) sel.value = matchOpt.value;
           applyFilters();
         }
         // Scroll doux vers le tableau
