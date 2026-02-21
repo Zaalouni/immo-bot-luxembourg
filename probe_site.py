@@ -26,21 +26,30 @@ from urllib3.util.retry import Retry
 # ─── Sites candidats a tester ────────────────────────────────────────────────
 
 SITES_CANDIDATS = [
-    # Portails
-    ("Logic-Immo.lu",      "https://www.logic-immo.lu/location-immobilier/luxembourg.htm"),
-    ("Properstar.lu",      "https://www.properstar.com/luxembourg/rent/apartment"),
-    ("Lux-Residence.com",  "https://www.lux-residence.com/location"),
-    # Agences
-    ("ERA.lu",             "https://www.era.lu/fr/listings?transactionType=rent"),
-    ("Engel-Voelkers.lu",  "https://www.engelvoelkers.com/lu/en/search/?q=&startIndex=0&businessArea=residential&weDo=tolet&subTypeName=&country=Luxembourg"),
-    ("Bo-Immo.lu",         "https://www.bo-immo.lu/fr/a-louer"),
-    ("LaCasa.lu",          "https://www.lacasa.lu/fr/annonces/location"),
-    ("Immo365.lu",         "https://www.immo365.lu/location"),
-    ("EasyFlat.lu",        "https://www.easyflat.lu/en/apartments"),
-    # Deja evalues — ne pas retester
-    # Century21.lu    → COMPLEXE (JS, authentification)
+    # ── Agences locales LU — candidats prioritaires ──────────────────────────
+    ("Nexvia.lu",          "https://www.nexvia.lu/rent"),
+    ("Property.lu",        "https://www.property.lu/en/agency"),
+    ("Immocity.lu",        "https://immocity.lu/for-rent-long-term-luxembourg"),
+    ("Arch-Immo.lu",       "https://www.arch-immo.lu/rentals"),
+    ("LDHome.lu",          "https://www.ldhome.lu/en/property/rental/apartment"),
+    ("MATImmo.lu",         "https://www.matimmo.lu/en"),
+    ("PropertyInvest.lu",  "https://www.propertyinvest.lu/en/rent"),
+    ("Immmo.lu",           "https://www.immmo.lu/en"),
+    ("Home-Key.com",       "https://www.home-key.com"),
+    ("ElleRealEstate.lu",  "https://www.ellerealestate.lu"),
+    ("Lux-Residence.com",  "https://www.lux-residence.com/fr/location/appartement/luxembourg"),
+    # ── Deja testes ──────────────────────────────────────────────────────────
+    # Logic-Immo.lu   → HORS LIGNE
+    # Properstar.lu   → CAPTCHA bloque
+    # ERA.lu          → 403 bloque
+    # Bo-Immo.lu      → HORS LIGNE
+    # LaCasa.lu       → HORS LIGNE
+    # Immo365.lu      → HORS LIGNE
+    # EasyFlat.lu     → HORS LIGNE
+    # Century21.lu    → JS complexe
     # VIVI.lu         → deja scrape
     # Athome.lu       → deja scrape
+    # Sothebysrealty  → Cloudflare
 ]
 
 # ─── Headers navigateur realiste ─────────────────────────────────────────────
