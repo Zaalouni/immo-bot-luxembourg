@@ -74,7 +74,7 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
 
 <nav class="top-nav">
   <a href="#" class="brand">🏠 Immo Bot Luxembourg</a>
-  <span class="upd">Mis à jour : 21/02/2026 13:21</span>
+  <span class="upd">Mis à jour : 21/02/2026 13:55</span>
   <a href="map.html" class="map-btn">🗺️ Carte (102)</a>
 </nav>
 
@@ -189,7 +189,7 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
     <div class="row g-2 align-items-end">
       <div class="col-6 col-md-2">
         <div class="filter-lbl">Site</div>
-        <select id="f-site" class="form-select form-select-sm">
+        <select id="f-site" class="form-select form-select-sm" onchange="applyFilters()">
           <option value="">Tous</option>
           <option value="Athome.lu">Athome.lu</option>
 <option value="Immotop.lu">Immotop.lu</option>
@@ -201,7 +201,7 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
       </div>
       <div class="col-6 col-md-2">
         <div class="filter-lbl">Ville</div>
-        <select id="f-city" class="form-select form-select-sm">
+        <select id="f-city" class="form-select form-select-sm" onchange="applyFilters()">
           <option value="">Toutes</option>
           <option value="Alzingen">Alzingen</option>
 <option value="Arlon">Arlon</option>
@@ -285,7 +285,7 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
       </div>
       <div class="col-3 col-md-1">
         <div class="filter-lbl">Pièces</div>
-        <select id="f-rooms" class="form-select form-select-sm">
+        <select id="f-rooms" class="form-select form-select-sm" onchange="applyFilters()">
           <option value="">Toutes</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -293,9 +293,22 @@ table.dataTable tbody td { vertical-align: middle; padding: .45rem .6rem; }
           <option value="4">4+</option>
         </select>
       </div>
+      <div class="col-3 col-md-1">
+        <div class="filter-lbl">Distance max</div>
+        <select id="f-dist" class="form-select form-select-sm" onchange="applyFilters()">
+          <option value="">Toutes</option>
+          <option value="2">&lt; 2 km</option>
+          <option value="5">&lt; 5 km</option>
+          <option value="10">&lt; 10 km</option>
+        </select>
+      </div>
+      <div class="col-auto d-flex align-items-end pb-1">
+        <div class="form-check mb-0">
+          <input class="form-check-input" type="checkbox" id="f-dispo" onchange="applyFilters()">
+          <label class="form-check-label" for="f-dispo" style="font-size:.72rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em">Dispo seul.</label>
+        </div>
+      </div>
       <div class="col-12 col-md-auto d-flex gap-2">
-        <button class="btn btn-sm" style="background:#3b82f6;color:#fff;font-weight:600"
-                onclick="applyFilters()">Filtrer</button>
         <button class="btn btn-sm btn-outline-secondary" onclick="resetFilters()">Reset</button>
       </div>
       <div class="col-12 col-md-auto ms-auto d-flex align-items-center gap-2">
@@ -421,6 +434,8 @@ function applyFilters() {
   const pmax  = parseFloat(document.getElementById('f-pmax').value) || Infinity;
   const smin  = parseFloat(document.getElementById('f-smin').value) || 0;
   const rooms = document.getElementById('f-rooms').value;
+  const dist  = parseFloat(document.getElementById('f-dist').value) || Infinity;
+  const dispo = document.getElementById('f-dispo').checked;
   filtered = ALL.filter(l => {
     if (site && l.site !== site)   return false;
     if (city && l.city !== city)   return false;
@@ -430,14 +445,17 @@ function applyFilters() {
       if (rooms === '4') { if (l.rooms < 4) return false; }
       else               { if (l.rooms && l.rooms != +rooms) return false; }
     }
+    if (dist < Infinity && (l.distance_km == null || l.distance_km > dist)) return false;
+    if (dispo && !l.available_from) return false;
     return true;
   });
   render(filtered);
 }
 
 function resetFilters() {
-  ['f-site','f-city','f-rooms'].forEach(id => document.getElementById(id).value = '');
+  ['f-site','f-city','f-rooms','f-dist'].forEach(id => document.getElementById(id).value = '');
   ['f-pmin','f-pmax','f-smin'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-dispo').checked = false;
   filtered = [...ALL];
   render(filtered);
 }

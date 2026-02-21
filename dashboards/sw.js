@@ -1,4 +1,4 @@
-const CACHE = 'immo-bot-202602211321';
+const CACHE = 'immo-bot-202602211355';
 const ASSETS = ['./index.html', './map.html', './icon.svg'];
 
 self.addEventListener('install', e => {
