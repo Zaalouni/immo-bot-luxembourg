@@ -89,20 +89,8 @@ try:
     except ImportError as e:
         logger.warning(f"⚠️ Immotop.lu: {e}")
 
-    # Luxhome.lu (JSON/Regex - version principale)
-    try:
-        from scrapers.luxhome_scraper import luxhome_scraper
-        scrapers_config.append(('🏠 Luxhome.lu', luxhome_scraper))
-        logger.info("✅ Luxhome.lu (JSON/Regex)")
-    except ImportError as e:
-        logger.warning(f"⚠️ Luxhome.lu: {e}")
-        # Fallback vers version Selenium uniquement si la principale échoue
-        try:
-            from scrapers.luxhome_scraper_final import luxhome_scraper_final
-            scrapers_config.append(('🏠 Luxhome.lu', luxhome_scraper_final))
-            logger.info("✅ Luxhome.lu (Selenium fallback)")
-        except ImportError as e2:
-            logger.warning(f"⚠️ Luxhome.lu fallback: {e2}")
+    # Luxhome.lu — DESACTIVE : site hors ligne
+    # logger.info("⏸️ Luxhome.lu desactive (site hors ligne)")
 
     # VIVI.lu (Selenium)
     try:

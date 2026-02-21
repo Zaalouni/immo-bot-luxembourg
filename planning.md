@@ -39,7 +39,6 @@
 |---------------------------|-------------|---------------|-------|--------|-----------------|
 | athome_scraper_json.py    | Athome.lu   | JSON          | 12    | CDN OK | auto_contact_athome.py |
 | immotop_scraper_real.py   | Immotop.lu  | HTML regex    | 5     | ?      | —               |
-| luxhome_scraper.py        | Luxhome.lu  | JSON/Regex    | 1     | ?      | —               |
 | vivi_scraper_selenium.py  | VIVI.lu     | Selenium      | 3     | bg-CSS | reCAPTCHA skip  |
 | nextimmo_scraper.py       | Nextimmo.lu | API JSON      | 10    | OK     | auto_contact.py |
 | newimmo_scraper_real.py   | Newimmo.lu  | Selenium      | 3     | ?      | —               |
@@ -47,10 +46,11 @@
 | remax_scraper.py          | Remax.lu    | Selenium React| 5     | DOM OK | auto_contact_remax.py |
 | sigelux_scraper.py        | Sigelux.lu  | HTTP+BS4      | 5     | CDN OK | —               |
 
-## Scrapers desactives (2/11)
+## Scrapers desactives (3/11)
 
 | Scraper              | Site        | Raison                         |
 |----------------------|-------------|--------------------------------|
+| luxhome_scraper.py   | Luxhome.lu  | Site hors ligne                |
 | wortimmo_scraper.py  | Wortimmo.lu | Cloudflare (prix non lisibles) |
 | immoweb_scraper.py   | Immoweb.be  | CAPTCHA bloque page 1          |
 
