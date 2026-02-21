@@ -120,7 +120,16 @@ class ImmostarScraper:
 
             surface = self._extract_surface(desc_text)
             rooms   = self._extract_rooms(desc_text)
-            city    = city_slug.replace('-', ' ').title()
+            city = city_slug.replace('-', ' ').title()
+
+            # GPS depuis nom de ville — si ville inconnue (hors Luxembourg) → rejeter
+            from utils import geocode_city, haversine_distance
+            from config import REFERENCE_LAT, REFERENCE_LNG
+            lat, lng = geocode_city(city)
+            if lat is None:
+                logger.debug(f"  Ville '{city}' inconnue (hors Luxembourg) → ignorée")
+                continue
+            distance_km = haversine_distance(REFERENCE_LAT, REFERENCE_LNG, lat, lng)
 
             # Image : <source type="image/jpeg" srcset="url"> prioritaire
             image_url = None
@@ -144,6 +153,9 @@ class ImmostarScraper:
                 'surface':    surface,
                 'url':        f"{self.base_url}{data_url}",
                 'image_url':  image_url,
+                'latitude':   lat,
+                'longitude':  lng,
+                'distance_km': distance_km,
                 'time_ago':   'Recemment',
                 'full_text':  desc_text[:500],
             }

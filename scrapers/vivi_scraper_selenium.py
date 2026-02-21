@@ -159,6 +159,14 @@ class ViviScraperSelenium:
         # Ville (extraire depuis URL)
         city = self._extract_city(url)
 
+        # GPS depuis nom de ville
+        from utils import geocode_city, haversine_distance
+        from config import REFERENCE_LAT, REFERENCE_LNG
+        lat, lng = geocode_city(city)
+        distance_km = None
+        if lat and lng:
+            distance_km = haversine_distance(REFERENCE_LAT, REFERENCE_LNG, lat, lng)
+
         return {
             'listing_id': f'vivi_{data_id}',
             'site': self.site_name,
@@ -169,6 +177,9 @@ class ViviScraperSelenium:
             'surface': surface,
             'url': url,
             'image_url': image_url,
+            'latitude': lat,
+            'longitude': lng,
+            'distance_km': distance_km,
             'full_text': text,
             'time_ago': 'Récemment'
         }

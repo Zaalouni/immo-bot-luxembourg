@@ -93,7 +93,7 @@ def load_listings():
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
     c.execute('''SELECT id, listing_id, site, title, city, price, rooms, surface,
-                        url, latitude, longitude, distance_km, created_at, notified
+                        url, image_url, latitude, longitude, distance_km, created_at, notified
                  FROM listings ORDER BY created_at DESC''')
     rows = [dict(r) for r in c.fetchall()]
     conn.close()
