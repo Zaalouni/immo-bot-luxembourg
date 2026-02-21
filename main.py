@@ -10,8 +10,10 @@
 #   5. Stocke en SQLite et envoie les notifications Telegram
 #
 # Modes d'execution :
-#   python main.py          → mode continu (boucle toutes les CHECK_INTERVAL secondes)
-#   python main.py --once   → mode test (1 seul cycle)
+#   python main.py               → mode continu (boucle toutes les CHECK_INTERVAL secondes)
+#   python main.py --once        → mode test (1 seul cycle)
+#   python main.py --no-notify   → desactiver les notifications Telegram (test local)
+#   python main.py --once --no-notify → test sans notification
 #
 # Parallelisme : MAX_CONCURRENT_SCRAPERS workers simultanes
 #   - Scrapers HTTP (Athome, Immotop, Luxhome, Nextimmo, Sigelux) : tres legers
@@ -191,11 +193,14 @@ except ImportError as e:
     sys.exit(1)
 
 class ImmoBot:
-    def __init__(self):
+    def __init__(self, no_notify=False):
         self.scrapers = scrapers_config
         self.cycle_count = 0
         self.scraper_failures = {}  # Compteur échecs consécutifs par site
+        self.no_notify = no_notify  # Si True : aucune notification Telegram envoyee
 
+        if no_notify:
+            logger.info("🔕 Mode --no-notify actif : notifications Telegram desactivees")
         logger.info(f"🤖 Bot initialisé avec {len(self.scrapers)} sites (parallele max={MAX_CONCURRENT_SCRAPERS})")
 
     def _scrape_one(self, scraper_name, scraper):
@@ -252,7 +257,7 @@ class ImmoBot:
                     self.scraper_failures[scraper_name] = (
                         self.scraper_failures.get(scraper_name, 0) + 1
                     )
-                    if self.scraper_failures[scraper_name] == 3:
+                    if self.scraper_failures[scraper_name] == 3 and not self.no_notify:
                         try:
                             notifier.send_message(
                                 f"🚨 <b>ALERTE:</b> {scraper_name} a échoué 3 fois consécutives!",
@@ -305,15 +310,21 @@ class ImmoBot:
                             logger.info(f"   📝 {listing['title'][:50]}...")
                             logger.info(f"   💰 {listing['price']}€ | 🛏️ {listing['rooms']} | 📍 {listing['city']}")
 
-                            # Envoyer notification (avec délai 5s entre envois)
-                            if new_count > 0:
-                                time.sleep(5)
-                            if notifier.send_listing(listing):
+                            if self.no_notify:
+                                # Mode test : stocker sans notifier
                                 db.mark_as_notified(listing['listing_id'])
                                 new_count += 1
-                                logger.info(f"   📤 Notification envoyée")
+                                logger.info(f"   🔕 Notification ignoree (--no-notify)")
                             else:
-                                logger.warning(f"   ⚠️ Échec notification")
+                                # Envoyer notification (avec délai 5s entre envois)
+                                if new_count > 0:
+                                    time.sleep(5)
+                                if notifier.send_listing(listing):
+                                    db.mark_as_notified(listing['listing_id'])
+                                    new_count += 1
+                                    logger.info(f"   📤 Notification envoyée")
+                                else:
+                                    logger.warning(f"   ⚠️ Échec notification")
             except Exception as e:
                 logger.error(f"   ❌ Erreur traitement annonce: {str(e)[:80]}")
                 continue
@@ -500,20 +511,21 @@ class ImmoBot:
 
         from config import MIN_PRICE, MIN_SURFACE, MAX_DISTANCE
 
-        # Message de démarrage formaté HTML
-        notifier.send_startup_message({
-            'sites_count': len(self.scrapers)
-        })
+        if not self.no_notify:
+            notifier.send_startup_message({
+                'sites_count': len(self.scrapers)
+            })
 
         while True:
             try:
                 self.check_new_listings()
             except Exception as e:
                 logger.error(f"❌ Erreur cycle: {e}")
-                try:
-                    notifier.send_error_message(str(e))
-                except Exception:
-                    pass
+                if not self.no_notify:
+                    try:
+                        notifier.send_error_message(str(e))
+                    except Exception:
+                        pass
 
             try:
                 wait_min = CHECK_INTERVAL // 60
@@ -521,22 +533,24 @@ class ImmoBot:
                 time.sleep(CHECK_INTERVAL)
             except KeyboardInterrupt:
                 logger.info("\n⏹️ Arrêt manuel")
-                stats = db.get_stats()
-                notifier.send_shutdown_message({
-                    'total': stats.get('total', 0),
-                    'new': stats.get('new', 0),
-                    'sites': len(self.scrapers)
-                })
+                if not self.no_notify:
+                    stats = db.get_stats()
+                    notifier.send_shutdown_message({
+                        'total': stats.get('total', 0),
+                        'new': stats.get('new', 0),
+                        'sites': len(self.scrapers)
+                    })
                 db.close()
                 break
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--once', action='store_true', help='Test unique')
+    parser.add_argument('--once', action='store_true', help='Test unique (1 seul cycle)')
+    parser.add_argument('--no-notify', action='store_true', help='Desactiver les notifications Telegram (mode test)')
 
     args = parser.parse_args()
 
-    bot = ImmoBot()
+    bot = ImmoBot(no_notify=args.no_notify)
 
     if args.once:
         bot.run_once()
