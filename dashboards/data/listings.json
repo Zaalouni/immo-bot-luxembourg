@@ -13,10 +13,11 @@
     "latitude": 49.61,
     "longitude": 6.05,
     "distance_km": 6.2,
-    "created_at": "2026-02-22 14:28:21",
+    "created_at": "2026-02-22 14:44:54",
     "notified": 1,
     "available_from": null,
-    "contact_email": null
+    "contact_email": null,
+    "energy_class": null
   },
   {
     "id": 75,
@@ -32,10 +33,11 @@
     "latitude": 49.627,
     "longitude": 6.023,
     "distance_km": 8.6,
-    "created_at": "2026-02-22 14:28:21",
+    "created_at": "2026-02-22 14:44:54",
     "notified": 1,
     "available_from": null,
-    "contact_email": null
+    "contact_email": null,
+    "energy_class": null
   },
   {
     "id": 74,
@@ -51,10 +53,11 @@
     "latitude": 49.62,
     "longitude": 6.07,
     "distance_km": 5.1,
-    "created_at": "2026-02-22 14:28:21",
+    "created_at": "2026-02-22 14:44:54",
     "notified": 1,
     "available_from": null,
-    "contact_email": "erag@arkivn.yh"
+    "contact_email": "erag@arkivn.yh",
+    "energy_class": null
   },
   {
     "id": 73,
@@ -70,10 +73,11 @@
     "latitude": null,
     "longitude": null,
     "distance_km": null,
-    "created_at": "2026-02-22 14:28:21",
+    "created_at": "2026-02-22 14:44:53",
     "notified": 1,
     "available_from": null,
-    "contact_email": "erag@arkivn.yh"
+    "contact_email": "erag@arkivn.yh",
+    "energy_class": null
   },
   {
     "id": 72,
@@ -89,146 +93,14 @@
     "latitude": 49.665,
     "longitude": 6.125,
     "distance_km": 7.3,
-    "created_at": "2026-02-22 14:28:20",
+    "created_at": "2026-02-22 14:44:52",
     "notified": 1,
     "available_from": null,
-    "contact_email": "b.michaux@propertyinvest.lu"
+    "contact_email": "b.michaux@propertyinvest.lu",
+    "energy_class": null
   },
   {
     "id": 71,
-    "listing_id": "nextimmo_86002754",
-    "site": "Nextimmo.lu",
-    "title": "Appt Emerange — 4 ch. · 123 m² · 2400 €",
-    "city": "Emerange",
-    "price": 2400,
-    "rooms": 4,
-    "surface": 123,
-    "url": "https://nextimmo.lu/en/details/86002754",
-    "image_url": "https://storage.nextimmo.lu/images/thumb/1a676a824e07534a673df21c44800f0c/a3642eeee19122409bf8cdaa36ed06e5.jpg",
-    "latitude": 49.48752,
-    "longitude": 6.29127,
-    "distance_km": 16.9,
-    "created_at": "2026-02-22 14:28:19",
-    "notified": 1,
-    "available_from": null,
-    "contact_email": "hello@nextimmo.lu"
-  },
-  {
-    "id": 70,
-    "listing_id": "nextimmo_5710",
-    "site": "Nextimmo.lu",
-    "title": "Appt Luxembourg-Hamm — 2 ch. · 81 m² · 1890 €",
-    "city": "Luxembourg-Hamm",
-    "price": 1890,
-    "rooms": 2,
-    "surface": 81,
-    "url": "https://nextimmo.lu/en/details/5710",
-    "image_url": "https://storage.nextimmo.lu/images/thumb/1a9d3955e57bfd1102cd0d2b4ef2ffb6/04e683b869f0098ac556c0f3377d6a25.jpg",
-    "latitude": 49.6116,
-    "longitude": 6.1319,
-    "distance_km": 1.3,
-    "created_at": "2026-02-22 14:28:19",
-    "notified": 1,
-    "available_from": null,
-    "contact_email": "contact@actuel.lu"
-  },
-  {
-    "id": 69,
-    "listing_id": "nextimmo_85075359",
-    "site": "Nextimmo.lu",
-    "title": "Appt Wellenstein — 2 ch. · 110 m² · 1800 €",
-    "city": "Wellenstein",
-    "price": 1800,
-    "rooms": 2,
-    "surface": 110,
-    "url": "https://nextimmo.lu/en/details/85075359",
-    "image_url": "https://storage.nextimmo.lu/images/thumb/d27d00358c00ee301e43587053469c7c/63fa362088141937d6f1452765014977.jpg",
-    "latitude": 49.52284,
-    "longitude": 6.34504,
-    "distance_km": 17.5,
-    "created_at": "2026-02-22 14:28:19",
-    "notified": 1,
-    "available_from": null,
-    "contact_email": "christelle.nicolay@immom2.com"
-  },
-  {
-    "id": 68,
-    "listing_id": "nextimmo_86748114",
-    "site": "Nextimmo.lu",
-    "title": "Appt Luxembourg-Hollerich — 2 ch. · 85 m² · 2150 €",
-    "city": "Luxembourg-Hollerich",
-    "price": 2150,
-    "rooms": 2,
-    "surface": 85,
-    "url": "https://nextimmo.lu/en/details/86748114",
-    "image_url": "https://storage.nextimmo.lu/images/thumb/7ce6385f1f8020c1c25ab9ce083c9c57/074430dcda0bedfa58f482715391be39.jpg",
-    "latitude": 49.60034,
-    "longitude": 6.12105,
-    "distance_km": 0.9,
-    "created_at": "2026-02-22 14:28:18",
-    "notified": 1,
-    "available_from": null,
-    "contact_email": "contact@b-immobilier.lu"
-  },
-  {
-    "id": 67,
-    "listing_id": "nextimmo_83177499",
-    "site": "Nextimmo.lu",
-    "title": "Appt Luxembourg-Belair — 2 ch. · 80 m² · 2100 €",
-    "city": "Luxembourg-Belair",
-    "price": 2100,
-    "rooms": 2,
-    "surface": 80,
-    "url": "https://nextimmo.lu/en/details/83177499",
-    "image_url": "https://storage.nextimmo.lu/images/thumb/21ada46a6d82b8f22cb30182a23de5e0/52a4a948b4bf7d0d7334864888194e09.jpg",
-    "latitude": 49.60751,
-    "longitude": 6.10969,
-    "distance_km": 2.0,
-    "created_at": "2026-02-22 14:28:18",
-    "notified": 1,
-    "available_from": null,
-    "contact_email": "contact@b-immobilier.lu"
-  },
-  {
-    "id": 66,
-    "listing_id": "nextimmo_86750963",
-    "site": "Nextimmo.lu",
-    "title": "Appt Olm — 2 ch. · 80 m² · 2300 €",
-    "city": "Olm",
-    "price": 2300,
-    "rooms": 2,
-    "surface": 80,
-    "url": "https://nextimmo.lu/en/details/86750963",
-    "image_url": "https://storage.nextimmo.lu/images/thumb/b6898aacbdecfc78ff0620f13cf45392/87d136ddb4ae11f84d2fa795793ad3a0.jpg",
-    "latitude": 49.65509,
-    "longitude": 5.99296,
-    "distance_km": 11.9,
-    "created_at": "2026-02-22 14:28:18",
-    "notified": 1,
-    "available_from": null,
-    "contact_email": "hello@nextimmo.lu"
-  },
-  {
-    "id": 65,
-    "listing_id": "nextimmo_1876275",
-    "site": "Nextimmo.lu",
-    "title": "Appt Luxembourg-Pfaffenthal — 2 ch. · 88 m² · 2100 €",
-    "city": "Luxembourg-Pfaffenthal",
-    "price": 2100,
-    "rooms": 2,
-    "surface": 88,
-    "url": "https://nextimmo.lu/en/details/1876275",
-    "image_url": "https://storage.nextimmo.lu/images/thumb/e36624904245d189a675727193a29217/fda4b79c0451428197e96d54df2fa7f1.jpg",
-    "latitude": 49.6158,
-    "longitude": 6.13289,
-    "distance_km": 1.8,
-    "created_at": "2026-02-22 14:28:18",
-    "notified": 1,
-    "available_from": null,
-    "contact_email": "amelie@nextimmo.lu"
-  },
-  {
-    "id": 64,
     "listing_id": "remax_280351001-7",
     "site": "Remax.lu",
     "title": "Appartement à louer — Luxembourg",
@@ -241,10 +113,151 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-22 14:28:18",
+    "created_at": "2026-02-22 14:44:52",
     "notified": 1,
     "available_from": null,
-    "contact_email": null
+    "contact_email": null,
+    "energy_class": null
+  },
+  {
+    "id": 70,
+    "listing_id": "nextimmo_86002754",
+    "site": "Nextimmo.lu",
+    "title": "Appt Emerange — 4 ch. · 123 m² · 2400 €",
+    "city": "Emerange",
+    "price": 2400,
+    "rooms": 4,
+    "surface": 123,
+    "url": "https://nextimmo.lu/en/details/86002754",
+    "image_url": "https://storage.nextimmo.lu/images/thumb/1a676a824e07534a673df21c44800f0c/a3642eeee19122409bf8cdaa36ed06e5.jpg",
+    "latitude": 49.48752,
+    "longitude": 6.29127,
+    "distance_km": 16.9,
+    "created_at": "2026-02-22 14:44:51",
+    "notified": 1,
+    "available_from": null,
+    "contact_email": "hello@nextimmo.lu",
+    "energy_class": null
+  },
+  {
+    "id": 69,
+    "listing_id": "nextimmo_5710",
+    "site": "Nextimmo.lu",
+    "title": "Appt Luxembourg-Hamm — 2 ch. · 81 m² · 1890 €",
+    "city": "Luxembourg-Hamm",
+    "price": 1890,
+    "rooms": 2,
+    "surface": 81,
+    "url": "https://nextimmo.lu/en/details/5710",
+    "image_url": "https://storage.nextimmo.lu/images/thumb/1a9d3955e57bfd1102cd0d2b4ef2ffb6/04e683b869f0098ac556c0f3377d6a25.jpg",
+    "latitude": 49.6116,
+    "longitude": 6.1319,
+    "distance_km": 1.3,
+    "created_at": "2026-02-22 14:44:51",
+    "notified": 1,
+    "available_from": null,
+    "contact_email": "contact@actuel.lu",
+    "energy_class": null
+  },
+  {
+    "id": 68,
+    "listing_id": "nextimmo_85075359",
+    "site": "Nextimmo.lu",
+    "title": "Appt Wellenstein — 2 ch. · 110 m² · 1800 €",
+    "city": "Wellenstein",
+    "price": 1800,
+    "rooms": 2,
+    "surface": 110,
+    "url": "https://nextimmo.lu/en/details/85075359",
+    "image_url": "https://storage.nextimmo.lu/images/thumb/d27d00358c00ee301e43587053469c7c/63fa362088141937d6f1452765014977.jpg",
+    "latitude": 49.52284,
+    "longitude": 6.34504,
+    "distance_km": 17.5,
+    "created_at": "2026-02-22 14:44:50",
+    "notified": 1,
+    "available_from": null,
+    "contact_email": "christelle.nicolay@immom2.com",
+    "energy_class": null
+  },
+  {
+    "id": 67,
+    "listing_id": "nextimmo_86748114",
+    "site": "Nextimmo.lu",
+    "title": "Appt Luxembourg-Hollerich — 2 ch. · 85 m² · 2150 €",
+    "city": "Luxembourg-Hollerich",
+    "price": 2150,
+    "rooms": 2,
+    "surface": 85,
+    "url": "https://nextimmo.lu/en/details/86748114",
+    "image_url": "https://storage.nextimmo.lu/images/thumb/7ce6385f1f8020c1c25ab9ce083c9c57/074430dcda0bedfa58f482715391be39.jpg",
+    "latitude": 49.60034,
+    "longitude": 6.12105,
+    "distance_km": 0.9,
+    "created_at": "2026-02-22 14:44:50",
+    "notified": 1,
+    "available_from": null,
+    "contact_email": "contact@b-immobilier.lu",
+    "energy_class": null
+  },
+  {
+    "id": 66,
+    "listing_id": "nextimmo_83177499",
+    "site": "Nextimmo.lu",
+    "title": "Appt Luxembourg-Belair — 2 ch. · 80 m² · 2100 €",
+    "city": "Luxembourg-Belair",
+    "price": 2100,
+    "rooms": 2,
+    "surface": 80,
+    "url": "https://nextimmo.lu/en/details/83177499",
+    "image_url": "https://storage.nextimmo.lu/images/thumb/21ada46a6d82b8f22cb30182a23de5e0/52a4a948b4bf7d0d7334864888194e09.jpg",
+    "latitude": 49.60751,
+    "longitude": 6.10969,
+    "distance_km": 2.0,
+    "created_at": "2026-02-22 14:44:50",
+    "notified": 1,
+    "available_from": null,
+    "contact_email": "contact@b-immobilier.lu",
+    "energy_class": null
+  },
+  {
+    "id": 65,
+    "listing_id": "nextimmo_86750963",
+    "site": "Nextimmo.lu",
+    "title": "Appt Olm — 2 ch. · 80 m² · 2300 €",
+    "city": "Olm",
+    "price": 2300,
+    "rooms": 2,
+    "surface": 80,
+    "url": "https://nextimmo.lu/en/details/86750963",
+    "image_url": "https://storage.nextimmo.lu/images/thumb/b6898aacbdecfc78ff0620f13cf45392/87d136ddb4ae11f84d2fa795793ad3a0.jpg",
+    "latitude": 49.65509,
+    "longitude": 5.99296,
+    "distance_km": 11.9,
+    "created_at": "2026-02-22 14:44:50",
+    "notified": 1,
+    "available_from": null,
+    "contact_email": "hello@nextimmo.lu",
+    "energy_class": null
+  },
+  {
+    "id": 64,
+    "listing_id": "nextimmo_1876275",
+    "site": "Nextimmo.lu",
+    "title": "Appt Luxembourg-Pfaffenthal — 2 ch. · 88 m² · 2100 €",
+    "city": "Luxembourg-Pfaffenthal",
+    "price": 2100,
+    "rooms": 2,
+    "surface": 88,
+    "url": "https://nextimmo.lu/en/details/1876275",
+    "image_url": "https://storage.nextimmo.lu/images/thumb/e36624904245d189a675727193a29217/fda4b79c0451428197e96d54df2fa7f1.jpg",
+    "latitude": 49.6158,
+    "longitude": 6.13289,
+    "distance_km": 1.8,
+    "created_at": "2026-02-22 14:44:50",
+    "notified": 1,
+    "available_from": null,
+    "contact_email": "amelie@nextimmo.lu",
+    "energy_class": null
   },
   {
     "id": 63,
@@ -260,10 +273,11 @@
     "latitude": null,
     "longitude": null,
     "distance_km": null,
-    "created_at": "2026-02-22 14:28:17",
+    "created_at": "2026-02-22 14:44:49",
     "notified": 1,
     "available_from": null,
-    "contact_email": "rent@nexvia.lu"
+    "contact_email": "rent@nexvia.lu",
+    "energy_class": null
   },
   {
     "id": 62,
@@ -279,10 +293,11 @@
     "latitude": 49.61,
     "longitude": 6.05,
     "distance_km": 6.2,
-    "created_at": "2026-02-22 14:28:16",
+    "created_at": "2026-02-22 14:44:48",
     "notified": 1,
     "available_from": null,
-    "contact_email": "gare@newimmo.lu"
+    "contact_email": "gare@newimmo.lu",
+    "energy_class": null
   },
   {
     "id": 61,
@@ -298,10 +313,11 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-22 14:28:15",
+    "created_at": "2026-02-22 14:44:47",
     "notified": 1,
     "available_from": null,
-    "contact_email": "gare@newimmo.lu"
+    "contact_email": "gare@newimmo.lu",
+    "energy_class": null
   },
   {
     "id": 60,
@@ -317,10 +333,11 @@
     "latitude": 49.6524374,
     "longitude": 6.257763100000001,
     "distance_km": 10.6,
-    "created_at": "2026-02-22 14:28:15",
+    "created_at": "2026-02-22 14:44:47",
     "notified": 1,
     "available_from": null,
-    "contact_email": "mvdimmo@pt.lu"
+    "contact_email": "mvdimmo@pt.lu",
+    "energy_class": null
   },
   {
     "id": 59,
@@ -336,10 +353,11 @@
     "latitude": 49.7120944,
     "longitude": 6.2524317,
     "distance_km": 15.1,
-    "created_at": "2026-02-22 14:28:14",
+    "created_at": "2026-02-22 14:44:46",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@abrigo.lu"
+    "contact_email": "info@abrigo.lu",
+    "energy_class": null
   },
   {
     "id": 58,
@@ -355,10 +373,11 @@
     "latitude": 49.5756404,
     "longitude": 5.9086336,
     "distance_km": 16.5,
-    "created_at": "2026-02-22 14:28:14",
+    "created_at": "2026-02-22 14:44:46",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@maramax.lu"
+    "contact_email": "info@maramax.lu",
+    "energy_class": null
   },
   {
     "id": 57,
@@ -374,10 +393,11 @@
     "latitude": 49.5341099,
     "longitude": 6.2474705,
     "distance_km": 11.0,
-    "created_at": "2026-02-22 14:28:13",
+    "created_at": "2026-02-22 14:44:45",
     "notified": 1,
     "available_from": null,
-    "contact_email": "luxembourg@karrenbrock.immo"
+    "contact_email": "luxembourg@karrenbrock.immo",
+    "energy_class": null
   },
   {
     "id": 56,
@@ -393,10 +413,11 @@
     "latitude": 49.6254273,
     "longitude": 6.135935,
     "distance_km": 2.8,
-    "created_at": "2026-02-22 14:28:13",
+    "created_at": "2026-02-22 14:44:44",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@maramax.lu"
+    "contact_email": "info@maramax.lu",
+    "energy_class": null
   },
   {
     "id": 55,
@@ -412,10 +433,11 @@
     "latitude": 49.5756404,
     "longitude": 5.9086336,
     "distance_km": 16.5,
-    "created_at": "2026-02-22 14:28:12",
+    "created_at": "2026-02-22 14:44:44",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@maramax.lu"
+    "contact_email": "info@maramax.lu",
+    "energy_class": null
   },
   {
     "id": 54,
@@ -431,10 +453,11 @@
     "latitude": 49.5712572,
     "longitude": 6.1637244,
     "distance_km": 3.8,
-    "created_at": "2026-02-22 14:28:12",
+    "created_at": "2026-02-22 14:44:43",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@rlc.lu"
+    "contact_email": "info@rlc.lu",
+    "energy_class": null
   },
   {
     "id": 53,
@@ -450,10 +473,11 @@
     "latitude": 49.6548632,
     "longitude": 6.1272733,
     "distance_km": 6.1,
-    "created_at": "2026-02-22 14:28:11",
+    "created_at": "2026-02-22 14:44:43",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@mansoimmo.lu"
+    "contact_email": "info@mansoimmo.lu",
+    "energy_class": null
   },
   {
     "id": 52,
@@ -469,10 +493,11 @@
     "latitude": 49.6938934,
     "longitude": 6.2498095,
     "distance_km": 13.4,
-    "created_at": "2026-02-22 14:28:11",
+    "created_at": "2026-02-22 14:44:43",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@abrigo.lu"
+    "contact_email": "info@abrigo.lu",
+    "energy_class": null
   },
   {
     "id": 51,
@@ -488,10 +513,11 @@
     "latitude": 49.502401,
     "longitude": 5.9721782,
     "distance_km": 15.9,
-    "created_at": "2026-02-22 14:28:11",
+    "created_at": "2026-02-22 14:44:42",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@elliot.lu"
+    "contact_email": "info@elliot.lu",
+    "energy_class": null
   },
   {
     "id": 50,
@@ -507,10 +533,11 @@
     "latitude": 49.55093489999999,
     "longitude": 6.2076007,
     "distance_km": 7.6,
-    "created_at": "2026-02-22 14:28:10",
+    "created_at": "2026-02-22 14:44:42",
     "notified": 1,
     "available_from": null,
-    "contact_email": "immo@immogestionfrank.lu"
+    "contact_email": "immo@immogestionfrank.lu",
+    "energy_class": null
   },
   {
     "id": 49,
@@ -526,10 +553,11 @@
     "latitude": 49.4800596,
     "longitude": 6.083069999999999,
     "distance_km": 13.8,
-    "created_at": "2026-02-22 14:28:10",
+    "created_at": "2026-02-22 14:44:41",
     "notified": 1,
     "available_from": "Immediatement",
-    "contact_email": "info@uelzecht.lu"
+    "contact_email": "info@uelzecht.lu",
+    "energy_class": null
   },
   {
     "id": 48,
@@ -545,10 +573,11 @@
     "latitude": 49.6097283,
     "longitude": 6.1092036,
     "distance_km": 2.1,
-    "created_at": "2026-02-22 14:28:09",
+    "created_at": "2026-02-22 14:44:41",
     "notified": 1,
     "available_from": null,
-    "contact_email": "contact@kloeimmobilier.lu"
+    "contact_email": "contact@kloeimmobilier.lu",
+    "energy_class": null
   },
   {
     "id": 47,
@@ -564,10 +593,11 @@
     "latitude": 49.6084908,
     "longitude": 6.066778999999999,
     "distance_km": 4.9,
-    "created_at": "2026-02-22 14:28:09",
+    "created_at": "2026-02-22 14:44:40",
     "notified": 1,
     "available_from": null,
-    "contact_email": "hello@home-pass.lu"
+    "contact_email": "hello@home-pass.lu",
+    "energy_class": null
   },
   {
     "id": 46,
@@ -583,10 +613,11 @@
     "latitude": 49.6023272,
     "longitude": 6.1137845,
     "distance_km": 1.5,
-    "created_at": "2026-02-22 14:28:08",
+    "created_at": "2026-02-22 14:44:40",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@sigelux.lu"
+    "contact_email": "info@sigelux.lu",
+    "energy_class": null
   },
   {
     "id": 45,
@@ -602,10 +633,11 @@
     "latitude": 49.5085182,
     "longitude": 5.9368383,
     "distance_km": 17.5,
-    "created_at": "2026-02-22 14:28:08",
+    "created_at": "2026-02-22 14:44:40",
     "notified": 1,
     "available_from": null,
-    "contact_email": "gestion@sigelux.lu"
+    "contact_email": "gestion@sigelux.lu",
+    "energy_class": null
   },
   {
     "id": 44,
@@ -621,10 +653,11 @@
     "latitude": 49.6750699,
     "longitude": 6.1377211,
     "distance_km": 8.4,
-    "created_at": "2026-02-22 14:28:07",
+    "created_at": "2026-02-22 14:44:39",
     "notified": 1,
     "available_from": "31/12/2026",
-    "contact_email": "m.schuman@drp-group.lu"
+    "contact_email": "m.schuman@drp-group.lu",
+    "energy_class": null
   },
   {
     "id": 43,
@@ -640,10 +673,11 @@
     "latitude": 49.5731206,
     "longitude": 6.161307000000001,
     "distance_km": 3.6,
-    "created_at": "2026-02-22 14:28:07",
+    "created_at": "2026-02-22 14:44:39",
     "notified": 1,
     "available_from": "15/02/2026",
-    "contact_email": "info@dalpa.lu"
+    "contact_email": "info@dalpa.lu",
+    "energy_class": null
   },
   {
     "id": 42,
@@ -659,10 +693,11 @@
     "latitude": 49.59625699999999,
     "longitude": 6.1366508,
     "distance_km": 0.5,
-    "created_at": "2026-02-22 14:28:07",
+    "created_at": "2026-02-22 14:44:38",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@domicilium.lu"
+    "contact_email": "info@domicilium.lu",
+    "energy_class": null
   },
   {
     "id": 41,
@@ -678,10 +713,11 @@
     "latitude": 49.5640337,
     "longitude": 6.1617104,
     "distance_km": 4.5,
-    "created_at": "2026-02-22 14:28:06",
+    "created_at": "2026-02-22 14:44:38",
     "notified": 1,
     "available_from": null,
-    "contact_email": "hondsbreck8@gmail.com"
+    "contact_email": "hondsbreck8@gmail.com",
+    "energy_class": null
   },
   {
     "id": 40,
@@ -697,10 +733,11 @@
     "latitude": 49.6123327,
     "longitude": 6.125843199999999,
     "distance_km": 1.5,
-    "created_at": "2026-02-22 14:28:06",
+    "created_at": "2026-02-22 14:44:37",
     "notified": 1,
     "available_from": null,
-    "contact_email": "authentic@remax.lu"
+    "contact_email": "authentic@remax.lu",
+    "energy_class": null
   },
   {
     "id": 39,
@@ -716,10 +753,11 @@
     "latitude": 49.5849,
     "longitude": 6.12475,
     "distance_km": 1.8,
-    "created_at": "2026-02-22 14:28:05",
+    "created_at": "2026-02-22 14:44:36",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@solaia.lu"
+    "contact_email": "info@solaia.lu",
+    "energy_class": null
   },
   {
     "id": 38,
@@ -735,10 +773,11 @@
     "latitude": 49.6073607,
     "longitude": 6.1155111,
     "distance_km": 1.6,
-    "created_at": "2026-02-22 14:28:04",
+    "created_at": "2026-02-22 14:44:36",
     "notified": 1,
     "available_from": "01/05/2026",
-    "contact_email": "spaces@pt.lu"
+    "contact_email": "spaces@pt.lu",
+    "energy_class": null
   },
   {
     "id": 37,
@@ -754,10 +793,11 @@
     "latitude": 49.599092,
     "longitude": 6.132617,
     "distance_km": 0.2,
-    "created_at": "2026-02-22 14:28:04",
+    "created_at": "2026-02-22 14:44:35",
     "notified": 1,
     "available_from": null,
-    "contact_email": "sales-lux@theblueground.com"
+    "contact_email": "sales-lux@theblueground.com",
+    "energy_class": null
   },
   {
     "id": 36,
@@ -773,10 +813,11 @@
     "latitude": 49.6123327,
     "longitude": 6.1258432,
     "distance_km": 1.5,
-    "created_at": "2026-02-22 14:28:03",
+    "created_at": "2026-02-22 14:44:34",
     "notified": 1,
     "available_from": null,
-    "contact_email": "bernard@mtinvest.lu"
+    "contact_email": "bernard@mtinvest.lu",
+    "energy_class": null
   },
   {
     "id": 35,
@@ -792,10 +833,11 @@
     "latitude": 49.5889204,
     "longitude": 6.0994732,
     "distance_km": 2.8,
-    "created_at": "2026-02-22 14:28:02",
+    "created_at": "2026-02-22 14:44:34",
     "notified": 1,
     "available_from": null,
-    "contact_email": "agency@floor.lu"
+    "contact_email": "agency@floor.lu",
+    "energy_class": null
   },
   {
     "id": 34,
@@ -811,10 +853,11 @@
     "latitude": 49.6450986,
     "longitude": 6.2223386,
     "distance_km": 8.1,
-    "created_at": "2026-02-22 14:28:02",
+    "created_at": "2026-02-22 14:44:33",
     "notified": 1,
     "available_from": null,
-    "contact_email": "sales-lux@theblueground.com"
+    "contact_email": "sales-lux@theblueground.com",
+    "energy_class": null
   },
   {
     "id": 33,
@@ -830,10 +873,11 @@
     "latitude": 49.6022613,
     "longitude": 6.117406099999999,
     "distance_km": 1.2,
-    "created_at": "2026-02-22 14:28:01",
+    "created_at": "2026-02-22 14:44:33",
     "notified": 1,
     "available_from": null,
-    "contact_email": "jorge@mtinvest.lu"
+    "contact_email": "jorge@mtinvest.lu",
+    "energy_class": null
   },
   {
     "id": 32,
@@ -849,10 +893,11 @@
     "latitude": 49.5398355,
     "longitude": 6.1444186,
     "distance_km": 6.7,
-    "created_at": "2026-02-22 14:28:01",
+    "created_at": "2026-02-22 14:44:32",
     "notified": 1,
     "available_from": null,
-    "contact_email": "claudinewelbes@apropos.lu"
+    "contact_email": "claudinewelbes@apropos.lu",
+    "energy_class": null
   },
   {
     "id": 31,
@@ -868,10 +913,11 @@
     "latitude": 49.5176244,
     "longitude": 6.0948163,
     "distance_km": 9.6,
-    "created_at": "2026-02-22 14:28:00",
+    "created_at": "2026-02-22 14:44:32",
     "notified": 1,
     "available_from": null,
-    "contact_email": "logilux@logilux.lu"
+    "contact_email": "logilux@logilux.lu",
+    "energy_class": null
   },
   {
     "id": 30,
@@ -887,10 +933,11 @@
     "latitude": 49.6106248,
     "longitude": 6.0502349,
     "distance_km": 6.2,
-    "created_at": "2026-02-22 14:28:00",
+    "created_at": "2026-02-22 14:44:31",
     "notified": 1,
     "available_from": "Immediatement",
-    "contact_email": "contact@ddgroup.lu"
+    "contact_email": "contact@ddgroup.lu",
+    "energy_class": null
   },
   {
     "id": 29,
@@ -906,10 +953,11 @@
     "latitude": 49.6106248,
     "longitude": 6.0502349,
     "distance_km": 6.2,
-    "created_at": "2026-02-22 14:27:59",
+    "created_at": "2026-02-22 14:44:31",
     "notified": 1,
     "available_from": "Immediatement",
-    "contact_email": "contact@ddgroup.lu"
+    "contact_email": "contact@ddgroup.lu",
+    "energy_class": null
   },
   {
     "id": 28,
@@ -925,10 +973,11 @@
     "latitude": 49.4801198,
     "longitude": 6.0821581,
     "distance_km": 13.8,
-    "created_at": "2026-02-22 14:27:59",
+    "created_at": "2026-02-22 14:44:31",
     "notified": 1,
     "available_from": null,
-    "contact_email": "sabine.laubacher@gmail.com"
+    "contact_email": "sabine.laubacher@gmail.com",
+    "energy_class": null
   },
   {
     "id": 27,
@@ -944,10 +993,11 @@
     "latitude": 49.64983,
     "longitude": 6.22619,
     "distance_km": 8.6,
-    "created_at": "2026-02-22 14:27:58",
+    "created_at": "2026-02-22 14:44:30",
     "notified": 1,
     "available_from": null,
-    "contact_email": "athome@rockenbrod.lu"
+    "contact_email": "athome@rockenbrod.lu",
+    "energy_class": null
   },
   {
     "id": 26,
@@ -963,10 +1013,11 @@
     "latitude": 49.6508207,
     "longitude": 6.2352602,
     "distance_km": 9.2,
-    "created_at": "2026-02-22 14:27:58",
+    "created_at": "2026-02-22 14:44:30",
     "notified": 1,
     "available_from": null,
-    "contact_email": "gb@home-in.lu"
+    "contact_email": "gb@home-in.lu",
+    "energy_class": null
   },
   {
     "id": 25,
@@ -982,10 +1033,11 @@
     "latitude": 49.5842339,
     "longitude": 5.9640686,
     "distance_km": 12.4,
-    "created_at": "2026-02-22 14:27:57",
+    "created_at": "2026-02-22 14:44:29",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@property.lu"
+    "contact_email": "info@property.lu",
+    "energy_class": null
   },
   {
     "id": 24,
@@ -1001,10 +1053,11 @@
     "latitude": 49.6174427,
     "longitude": 5.9512695,
     "distance_km": 13.3,
-    "created_at": "2026-02-22 14:27:57",
+    "created_at": "2026-02-22 14:44:29",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@home-in.lu"
+    "contact_email": "info@home-in.lu",
+    "energy_class": null
   },
   {
     "id": 23,
@@ -1020,10 +1073,11 @@
     "latitude": 49.6251297,
     "longitude": 6.1426854,
     "distance_km": 2.9,
-    "created_at": "2026-02-22 14:27:56",
+    "created_at": "2026-02-22 14:44:29",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@property.lu"
+    "contact_email": "info@property.lu",
+    "energy_class": null
   },
   {
     "id": 22,
@@ -1039,10 +1093,11 @@
     "latitude": 49.6576485,
     "longitude": 6.0817229,
     "distance_km": 7.4,
-    "created_at": "2026-02-22 14:27:56",
+    "created_at": "2026-02-22 14:44:28",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@agence-feitler.lu"
+    "contact_email": "info@agence-feitler.lu",
+    "energy_class": null
   },
   {
     "id": 21,
@@ -1058,10 +1113,11 @@
     "latitude": 49.655,
     "longitude": 6.08,
     "distance_km": 7.3,
-    "created_at": "2026-02-22 14:27:55",
+    "created_at": "2026-02-22 14:44:28",
     "notified": 1,
     "available_from": null,
-    "contact_email": "hello@nextimmo.lu"
+    "contact_email": "hello@nextimmo.lu",
+    "energy_class": null
   },
   {
     "id": 20,
@@ -1077,10 +1133,11 @@
     "latitude": 49.5045503,
     "longitude": 5.9435467,
     "distance_km": 17.4,
-    "created_at": "2026-02-22 14:27:55",
+    "created_at": "2026-02-22 14:44:27",
     "notified": 1,
     "available_from": null,
-    "contact_email": "residential@inowai.com"
+    "contact_email": "residential@inowai.com",
+    "energy_class": null
   },
   {
     "id": 19,
@@ -1096,10 +1153,11 @@
     "latitude": 49.6315323,
     "longitude": 6.117433699999999,
     "distance_km": 3.7,
-    "created_at": "2026-02-22 14:27:54",
+    "created_at": "2026-02-22 14:44:27",
     "notified": 1,
     "available_from": null,
-    "contact_email": "msepulchre@inowai.com"
+    "contact_email": "msepulchre@inowai.com",
+    "energy_class": null
   },
   {
     "id": 18,
@@ -1115,10 +1173,11 @@
     "latitude": 49.6024772,
     "longitude": 6.0732987,
     "distance_km": 4.4,
-    "created_at": "2026-02-22 14:27:53",
+    "created_at": "2026-02-22 14:44:26",
     "notified": 1,
     "available_from": null,
-    "contact_email": "hello@beckimmo.lu"
+    "contact_email": "hello@beckimmo.lu",
+    "energy_class": null
   },
   {
     "id": 17,
@@ -1134,10 +1193,11 @@
     "latitude": 49.52075,
     "longitude": 5.8999095,
     "distance_km": 19.1,
-    "created_at": "2026-02-22 14:27:53",
+    "created_at": "2026-02-22 14:44:26",
     "notified": 1,
     "available_from": null,
-    "contact_email": "emir@panere.eu"
+    "contact_email": "emir@panere.eu",
+    "energy_class": null
   },
   {
     "id": 16,
@@ -1153,10 +1213,11 @@
     "latitude": 49.5923442,
     "longitude": 6.1441177,
     "distance_km": 1.1,
-    "created_at": "2026-02-22 14:27:52",
+    "created_at": "2026-02-22 14:44:25",
     "notified": 1,
     "available_from": null,
-    "contact_email": "residential@inowai.com"
+    "contact_email": "residential@inowai.com",
+    "energy_class": null
   },
   {
     "id": 15,
@@ -1172,29 +1233,31 @@
     "latitude": 49.4964624,
     "longitude": 5.9753139,
     "distance_km": 16.2,
-    "created_at": "2026-02-22 14:27:52",
+    "created_at": "2026-02-22 14:44:25",
     "notified": 1,
     "available_from": "15/06/2026",
-    "contact_email": "stephane.avzaradel@gmail.com"
+    "contact_email": "stephane.avzaradel@gmail.com",
+    "energy_class": null
   },
   {
     "id": 14,
-    "listing_id": "athome_7980446",
+    "listing_id": "athome_7744189",
     "site": "Athome.lu",
-    "title": "+++SHORT TERM COURT SEJOUR FULLY FURNISHED+++EUREKA REAL ESTATE vous p",
+    "title": "+++EUREKA REAL ESTATE vous présente en exclusivité à la location un ma",
     "city": "Luxembourg-Kirchberg",
     "price": 2400,
     "rooms": 2,
     "surface": 80,
-    "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7980446.html",
-    "image_url": "https://i1.static.athome.eu/images/annonces2/image_/e9/5c/97/c5fa1dd49494595330b46cf71d89d8d5_1.jpg",
+    "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7744189.html",
+    "image_url": "https://i1.static.athome.eu/images/annonces2/image_/db/a2/67/3158f8ae46313b226eba3a701ae8d244_1.jpg",
     "latitude": 49.6278694,
     "longitude": 6.153422,
     "distance_km": 3.4,
-    "created_at": "2026-02-22 14:27:51",
+    "created_at": "2026-02-22 14:44:24",
     "notified": 1,
     "available_from": null,
-    "contact_email": "stephane.avzaradel@gmail.com"
+    "contact_email": "stephane.avzaradel@gmail.com",
+    "energy_class": null
   },
   {
     "id": 13,
@@ -1210,10 +1273,11 @@
     "latitude": 49.5178739,
     "longitude": 5.9017648,
     "distance_km": 19.1,
-    "created_at": "2026-02-22 14:27:51",
+    "created_at": "2026-02-22 14:44:24",
     "notified": 1,
     "available_from": null,
-    "contact_email": "actuel@pt.lu"
+    "contact_email": "actuel@pt.lu",
+    "energy_class": null
   },
   {
     "id": 12,
@@ -1229,10 +1293,11 @@
     "latitude": 49.5044913,
     "longitude": 5.9418997,
     "distance_km": 17.5,
-    "created_at": "2026-02-22 14:27:50",
+    "created_at": "2026-02-22 14:44:24",
     "notified": 1,
     "available_from": null,
-    "contact_email": "contact@groupeiris.lu"
+    "contact_email": "contact@groupeiris.lu",
+    "energy_class": null
   },
   {
     "id": 11,
@@ -1248,10 +1313,11 @@
     "latitude": 49.6078954,
     "longitude": 6.1070622,
     "distance_km": 2.1,
-    "created_at": "2026-02-22 14:27:50",
+    "created_at": "2026-02-22 14:44:23",
     "notified": 1,
     "available_from": null,
-    "contact_email": "mka@mka.lu"
+    "contact_email": "mka@mka.lu",
+    "energy_class": null
   },
   {
     "id": 10,
@@ -1267,10 +1333,11 @@
     "latitude": 49.6863684,
     "longitude": 5.9151653,
     "distance_km": 18.5,
-    "created_at": "2026-02-22 14:27:49",
+    "created_at": "2026-02-22 14:44:23",
     "notified": 1,
     "available_from": "01/05/2026",
-    "contact_email": "info@immo-grober.lu"
+    "contact_email": "info@immo-grober.lu",
+    "energy_class": null
   },
   {
     "id": 9,
@@ -1286,10 +1353,11 @@
     "latitude": 49.7402205,
     "longitude": 6.1137785,
     "distance_km": 15.7,
-    "created_at": "2026-02-22 14:27:49",
+    "created_at": "2026-02-22 14:44:22",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@confiance.lu"
+    "contact_email": "info@confiance.lu",
+    "energy_class": null
   },
   {
     "id": 8,
@@ -1305,10 +1373,11 @@
     "latitude": 49.7373735,
     "longitude": 6.0202389,
     "distance_km": 17.3,
-    "created_at": "2026-02-22 14:27:48",
+    "created_at": "2026-02-22 14:44:22",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@confiance.lu"
+    "contact_email": "info@confiance.lu",
+    "energy_class": null
   },
   {
     "id": 7,
@@ -1324,10 +1393,11 @@
     "latitude": 49.5596561,
     "longitude": 5.8651621,
     "distance_km": 19.9,
-    "created_at": "2026-02-22 14:27:47",
+    "created_at": "2026-02-22 14:44:21",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@confiance.lu"
+    "contact_email": "info@confiance.lu",
+    "energy_class": null
   },
   {
     "id": 6,
@@ -1343,10 +1413,11 @@
     "latitude": 49.6118458,
     "longitude": 6.126972500000001,
     "distance_km": 1.4,
-    "created_at": "2026-02-22 14:27:47",
+    "created_at": "2026-02-22 14:44:21",
     "notified": 1,
     "available_from": "Immediatement",
-    "contact_email": "info@vanmaurits.lu"
+    "contact_email": "info@vanmaurits.lu",
+    "energy_class": null
   },
   {
     "id": 5,
@@ -1362,10 +1433,11 @@
     "latitude": 49.5854461,
     "longitude": 6.224731299999999,
     "distance_km": 6.7,
-    "created_at": "2026-02-22 14:27:46",
+    "created_at": "2026-02-22 14:44:20",
     "notified": 1,
     "available_from": null,
-    "contact_email": "info@vanmaurits.lu"
+    "contact_email": "info@vanmaurits.lu",
+    "energy_class": null
   },
   {
     "id": 4,
@@ -1381,10 +1453,11 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-22 14:27:46",
+    "created_at": "2026-02-22 14:44:20",
     "notified": 1,
     "available_from": null,
-    "contact_email": "keano.engels@newimmo.lu"
+    "contact_email": "keano.engels@newimmo.lu",
+    "energy_class": null
   },
   {
     "id": 3,
@@ -1400,10 +1473,11 @@
     "latitude": 49.55,
     "longitude": 5.98,
     "distance_km": 12.4,
-    "created_at": "2026-02-22 14:27:45",
+    "created_at": "2026-02-22 14:44:20",
     "notified": 1,
     "available_from": null,
-    "contact_email": "hc@groupeiris.lu"
+    "contact_email": "hc@groupeiris.lu",
+    "energy_class": null
   },
   {
     "id": 2,
@@ -1419,10 +1493,11 @@
     "latitude": 49.6116,
     "longitude": 6.1319,
     "distance_km": 1.3,
-    "created_at": "2026-02-22 14:27:45",
+    "created_at": "2026-02-22 14:44:19",
     "notified": 1,
     "available_from": null,
-    "contact_email": null
+    "contact_email": null,
+    "energy_class": null
   },
   {
     "id": 1,
@@ -1438,9 +1513,10 @@
     "latitude": 49.627,
     "longitude": 6.023,
     "distance_km": 8.6,
-    "created_at": "2026-02-22 14:27:44",
+    "created_at": "2026-02-22 14:44:19",
     "notified": 1,
     "available_from": null,
-    "contact_email": "goncalves@sigo.lu"
+    "contact_email": "goncalves@sigo.lu",
+    "energy_class": null
   }
 ]
