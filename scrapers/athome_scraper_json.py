@@ -19,8 +19,9 @@ import re
 import json
 import time
 import logging
-from config import MAX_PRICE, MIN_PRICE, MIN_ROOMS, MAX_ROOMS
-from utils import haversine_distance
+import random
+from config import MAX_PRICE, MIN_PRICE, MIN_ROOMS, MAX_ROOMS, USER_AGENTS
+from utils import haversine_distance, validate_listing_data
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +52,9 @@ class AthomeScraperJSON:
     def _parse_page(self, url):
         """Parser une page Athome et retourner la liste d'items JSON"""
         try:
-            response = requests.get(url, headers=self.headers, timeout=15)
+            # Rotation User-Agent pour éviter détection bot
+            headers = {'User-Agent': random.choice(USER_AGENTS)}
+            response = requests.get(url, headers=headers, timeout=15)
             if response.status_code != 200:
                 logger.warning(f"HTTP {response.status_code} pour {url}")
                 return []
@@ -79,8 +82,8 @@ class AthomeScraperJSON:
                     list_match = re.search(r'"list"\s*:\s*(\[.*?\])\s*,\s*"(?:total|count|pagination)', json_clean, re.DOTALL)
                     if list_match:
                         return json.loads(list_match.group(1))
-                except Exception:
-                    pass
+                except (json.JSONDecodeError, ValueError) as parse_err:
+                    logger.debug(f"Fallback list extraction échouée: {parse_err}")
                 # Dernier recours: tronquer et compléter
                 try:
                     json_truncated = json_clean[:e.pos]
@@ -88,7 +91,8 @@ class AthomeScraperJSON:
                     open_brackets = json_truncated.count('[') - json_truncated.count(']')
                     json_fixed = json_truncated + (']' * max(0, open_brackets)) + ('}' * max(0, open_braces))
                     data = json.loads(json_fixed)
-                except Exception:
+                except (json.JSONDecodeError, ValueError) as trunc_err:
+                    logger.debug(f"Truncate JSON échoué: {trunc_err}")
                     return []
 
             if 'search' in data and 'list' in data['search']:
@@ -136,7 +140,12 @@ class AthomeScraperJSON:
                 try:
                     listing = self._extract_listing(item)
                     if listing and self._matches_criteria(listing):
-                        listings.append(listing)
+                        # Valider les données avant insertion
+                        try:
+                            validated = validate_listing_data(listing)
+                            listings.append(validated)
+                        except (ValueError, KeyError) as ve:
+                            logger.debug(f"Validation échouée pour {listing.get('listing_id')}: {ve}")
                 except Exception as e:
                     logger.debug(f"Erreur extraction: {e}")
                     continue

@@ -17,6 +17,7 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from config import MAX_PRICE, MIN_ROOMS
+from utils import validate_listing_data
 
 logger = logging.getLogger(__name__)
 
@@ -75,7 +76,12 @@ class ViviScraperSelenium:
                                     lid = listing['listing_id']
                                     if lid not in seen_ids:
                                         seen_ids.add(lid)
-                                        listings.append(listing)
+                                        # Valider avant ajout
+                                        try:
+                                            validated = validate_listing_data(listing)
+                                            listings.append(validated)
+                                        except (ValueError, KeyError) as ve:
+                                            logger.debug(f"Validation échouée: {ve}")
                                         new_count += 1
                             except Exception as e:
                                 logger.debug(f"  Erreur extraction: {e}")

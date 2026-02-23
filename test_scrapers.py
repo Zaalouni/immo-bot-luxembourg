@@ -64,8 +64,7 @@ def test_scraper(name, scraper):
 
     except Exception as e:
         print(f"  ❌ ERREUR: {e}")
-        import traceback
-        traceback.print_exc()
+        logger.exception(f"Test échoué: {e}")
         return -1
 
 

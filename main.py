@@ -20,6 +20,7 @@ import logging.handlers
 import time
 import sys
 import argparse
+import random
 from datetime import datetime
 
 # Rotation des logs : max 5 Mo par fichier, garde 3 fichiers anciens
@@ -39,7 +40,7 @@ logger = logging.getLogger(__name__)
 
 # Imports locaux
 try:
-    from config import CHECK_INTERVAL, MAX_PRICE, MIN_ROOMS, CITIES
+    from config import CHECK_INTERVAL, MAX_PRICE, MIN_ROOMS, CITIES, JITTER_PERCENT
     from database import db
     from notifier import notifier
 
@@ -160,9 +161,10 @@ class ImmoBot:
 
         for idx, (scraper_name, scraper) in enumerate(self.scrapers):
             try:
-                # Délai 5s entre scrapers (évite blocage)
+                # Délai aléatoire entre scrapers (évite détection bot)
                 if idx > 0:
-                    time.sleep(5)
+                    delay = random.uniform(3, 8)
+                    time.sleep(delay)
 
                 logger.info(f"▶️ {scraper_name}")
                 listings = scraper.scrape()
@@ -228,9 +230,10 @@ class ImmoBot:
                             logger.info(f"   📝 {listing['title'][:50]}...")
                             logger.info(f"   💰 {listing['price']}€ | 🛏️ {listing['rooms']} | 📍 {listing['city']}")
 
-                            # Envoyer notification (avec délai 5s entre envois)
+                            # Envoyer notification (avec délai aléatoire entre envois)
                             if new_count > 0:
-                                time.sleep(5)
+                                delay = random.uniform(3, 7)
+                                time.sleep(delay)
                             if notifier.send_listing(listing):
                                 db.mark_as_notified(listing['listing_id'])
                                 new_count += 1
@@ -439,9 +442,12 @@ class ImmoBot:
                     pass
 
             try:
-                wait_min = CHECK_INTERVAL // 60
-                logger.info(f"\n⏳ Prochain cycle dans {wait_min} minutes...")
-                time.sleep(CHECK_INTERVAL)
+                # Ajouter jitter au CHECK_INTERVAL pour éviter pattern détectable
+                jitter_range = CHECK_INTERVAL * JITTER_PERCENT / 100
+                sleep_time = CHECK_INTERVAL + random.uniform(-jitter_range, jitter_range)
+                wait_min = int(sleep_time) // 60
+                logger.info(f"\n⏳ Prochain cycle dans {wait_min} minutes ({int(sleep_time)}s)...")
+                time.sleep(sleep_time)
             except KeyboardInterrupt:
                 logger.info("\n⏹️ Arrêt manuel")
                 stats = db.get_stats()

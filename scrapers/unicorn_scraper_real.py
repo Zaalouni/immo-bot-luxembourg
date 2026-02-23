@@ -17,6 +17,7 @@ import logging
 import re
 from scrapers.selenium_template import SeleniumScraperBase
 from selenium.webdriver.common.by import By
+from utils import validate_listing_data
 
 logger = logging.getLogger(__name__)
 
@@ -91,7 +92,12 @@ class UnicornScraperReal(SeleniumScraperBase):
                 try:
                     listing = self._extract_from_source(combined_source, link_path)
                     if listing:
-                        listings.append(listing)
+                        # Valider avant ajout
+                        try:
+                            validated = validate_listing_data(listing)
+                            listings.append(validated)
+                        except (ValueError, KeyError) as ve:
+                            logger.debug(f"Validation échouée: {ve}")
                 except Exception as e:
                     logger.debug(f"Erreur extraction: {e}")
                     continue

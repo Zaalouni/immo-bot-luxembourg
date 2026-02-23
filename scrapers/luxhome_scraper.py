@@ -14,9 +14,11 @@
 # =============================================================================
 import requests
 import re
+import random
 from typing import List, Dict
 import logging
-from utils import haversine_distance
+from config import USER_AGENTS
+from utils import haversine_distance, validate_listing_data
 
 logger = logging.getLogger(__name__)
 class LuxhomeScraper:
@@ -65,14 +67,20 @@ class LuxhomeScraper:
 
             response = requests.get(
                 self.search_url,
-                headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'},
+                headers={'User-Agent': random.choice(USER_AGENTS)},
                 timeout=15
             )
             response.raise_for_status()
             html = response.text
 
+            # Security: Limite taille réponse pour éviter ReDoS
+            if len(html) > 10_000_000:  # 10MB max
+                logger.warning(f"Response trop volumineux ({len(html)/1e6:.1f}MB)")
+                return []
+
             # Pattern regex validé par script test (61 annonces extraites)
-            pattern = r'\{\s*"title":"([^"]+)",\s*"propertyType":"([^"]+)",\s*"price":"([^"]+)",\s*"url":"([^"]+)",\s*"id":(\d+),\s*"lat":"([^"]+)",\s*"lng":"([^"]+)",\s*"thumb":"([^"]+)",'
+            # Bounded: [^"]+ → [^"]{1,500} pour éviter ReDoS
+            pattern = r'\{\s*"title":"([^"]{1,500})",\s*"propertyType":"([^"]{1,200})",\s*"price":"([^"]{1,100})",\s*"url":"([^"]{1,500})",\s*"id":(\d+),\s*"lat":"([^"]{1,50})",\s*"lng":"([^"]{1,50})",\s*"thumb":"([^"]{1,500})",'
 
             matches = re.findall(pattern, html, re.DOTALL)
             logger.info(f"Annonces brutes trouvées: {len(matches)}")
@@ -186,9 +194,12 @@ class LuxhomeScraper:
                     'distance_km': distance_km
                 }
 
-
-
-                listings.append(listing)
+                # Valider avant ajout
+                try:
+                    validated = validate_listing_data(listing)
+                    listings.append(validated)
+                except (ValueError, KeyError) as ve:
+                    logger.debug(f"Validation échouée: {ve}")
 
             logger.info(f"✅ {len(listings)} annonces après filtrage")
             return listings

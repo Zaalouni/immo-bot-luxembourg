@@ -15,7 +15,9 @@
 import requests
 import time
 import logging
-from config import USER_AGENT, MAX_PRICE, MIN_ROOMS
+import random
+from config import USER_AGENT, MAX_PRICE, MIN_ROOMS, USER_AGENTS
+from utils import validate_listing_data
 
 logger = logging.getLogger(__name__)
 
@@ -27,8 +29,11 @@ class NextimmoScraper:
         # API JSON directe (country=1=Luxembourg, type=1=apartment, category=2=rent)
         self.api_url = 'https://nextimmo.lu/api/v2/properties'
         self.site_name = 'Nextimmo.lu'
-        self.headers = {
-            'User-Agent': USER_AGENT,
+
+    def _get_headers(self):
+        """Retourner headers avec User-Agent rotatif"""
+        return {
+            'User-Agent': random.choice(USER_AGENTS),
             'Accept': 'application/json',
             'Referer': 'https://nextimmo.lu/en/rent/apartment/luxembourg-country',
         }
@@ -59,7 +64,7 @@ class NextimmoScraper:
                             'page': page_num,
                         }
 
-                        response = requests.get(self.api_url, params=params, headers=self.headers, timeout=15)
+                        response = requests.get(self.api_url, params=params, headers=self._get_headers(), timeout=15)
 
                         if response.status_code != 200:
                             break
@@ -77,9 +82,14 @@ class NextimmoScraper:
                                 listing = self._extract_from_json(item)
                                 if listing and listing['listing_id'] not in seen_ids:
                                     if self._matches_criteria(listing):
-                                        listings.append(listing)
-                                        seen_ids.add(listing['listing_id'])
-                                        new_count += 1
+                                        # Valider avant ajout
+                                        try:
+                                            validated = validate_listing_data(listing)
+                                            listings.append(validated)
+                                            seen_ids.add(validated['listing_id'])
+                                            new_count += 1
+                                        except (ValueError, KeyError) as ve:
+                                            logger.debug(f"Validation échouée: {ve}")
                             except Exception as e:
                                 logger.debug(f"Erreur extraction: {e}")
                                 continue
@@ -196,7 +206,7 @@ class NextimmoScraper:
         try:
             url = f"{self.base_url}/en/rent/apartment/luxembourg-country"
             response = requests.get(url, headers={
-                'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36',
+                'User-Agent': random.choice(USER_AGENTS),
                 'Accept': 'text/html',
             }, timeout=15)
 
@@ -232,7 +242,12 @@ class NextimmoScraper:
                 try:
                     listing = self._extract_from_json(item)
                     if listing and self._matches_criteria(listing):
-                        listings.append(listing)
+                        # Valider avant ajout
+                        try:
+                            validated = validate_listing_data(listing)
+                            listings.append(validated)
+                        except (ValueError, KeyError) as ve:
+                            logger.debug(f"Validation échouée: {ve}")
                 except Exception:
                     continue
 
