@@ -328,3 +328,204 @@ def get_distance_emoji(distance_km):
         return "🟠"  # Moyen
     else:
         return "🔴"  # Loin
+
+
+# =============================================================================
+# Validation & Sanitization (v2.7 Security)
+# =============================================================================
+
+def log_security_event(event_type, details='', severity='INFO'):
+    """
+    Log des événements de sécurité pour audit et détection d'anomalies.
+
+    Args:
+        event_type (str): Type d'événement (ex: 'validation_error', 'suspicious_data')
+        details (str): Détails additionnels (tronqués à 200 chars)
+        severity (str): Niveau de sévérité ('INFO', 'WARNING', 'CRITICAL')
+    """
+    truncated_details = str(details)[:200] if details else ''
+    log_level = getattr(logging, severity.upper(), logging.INFO)
+    logger.log(log_level, f"[SECURITY] {event_type}: {truncated_details}")
+
+
+def validate_url(url):
+    """
+    Valide et nettoie une URL.
+
+    Args:
+        url (str): L'URL à valider
+
+    Returns:
+        str: L'URL validée/nettoyée
+
+    Raises:
+        ValueError: Si l'URL est invalide
+    """
+    if not url:
+        raise ValueError("URL vide")
+
+    url = str(url).strip()
+
+    # Max length check
+    if len(url) > 2000:
+        raise ValueError(f"URL trop longue ({len(url)} > 2000)")
+
+    # Schema check - only http/https allowed
+    if not (url.startswith('http://') or url.startswith('https://')):
+        raise ValueError(f"URL doit commencer par http:// ou https://")
+
+    # Reject dangerous schemes encoded
+    dangerous_schemes = ['data:', 'javascript:', 'file:', 'ftp:']
+    url_lower = url.lower()
+    for scheme in dangerous_schemes:
+        if scheme in url_lower:
+            raise ValueError(f"Schéma dangereux détecté: {scheme}")
+
+    return url
+
+
+def validate_listing_data(listing):
+    """
+    Valide et nettoie les données d'une annonce avant insertion en base.
+
+    Args:
+        listing (dict): Les données de l'annonce
+
+    Returns:
+        dict: Les données validées/nettoyées
+
+    Raises:
+        ValueError: Si les données sont invalides
+        KeyError: Si champs requis manquent
+    """
+    if not isinstance(listing, dict):
+        raise ValueError("Listing doit être un dictionnaire")
+
+    # Champs requis
+    required_fields = ['listing_id', 'site', 'title', 'city', 'price', 'rooms', 'surface', 'url']
+    missing = [f for f in required_fields if f not in listing]
+    if missing:
+        raise KeyError(f"Champs requis manquants: {missing}")
+
+    # Copie pour éviter modification de l'original
+    validated = listing.copy()
+
+    # Validate listing_id (string, non vide)
+    listing_id = str(validated.get('listing_id', '')).strip()
+    if not listing_id:
+        raise ValueError("listing_id vide")
+    if len(listing_id) > 100:
+        raise ValueError(f"listing_id trop long ({len(listing_id)} > 100)")
+    validated['listing_id'] = listing_id
+
+    # Validate site (string, non vide)
+    site = str(validated.get('site', 'Inconnu')).strip()
+    if not site:
+        raise ValueError("site vide")
+    if len(site) > 50:
+        raise ValueError(f"site trop long ({len(site)} > 50)")
+    validated['site'] = site
+
+    # Validate title (string, non vide, max 300 chars)
+    title = str(validated.get('title', 'Sans titre')).strip()
+    if not title:
+        raise ValueError("title vide")
+    if len(title) > 300:
+        title = title[:300]  # Truncate plutôt que rejeter
+    # Remove control characters
+    title = ''.join(c for c in title if ord(c) >= 32 or c in '\t\n')
+    validated['title'] = title
+
+    # Validate city (string, non vide, max 100 chars)
+    city = str(validated.get('city', 'N/A')).strip()
+    if not city:
+        raise ValueError("city vide")
+    if len(city) > 100:
+        city = city[:100]
+    # Normalize city name
+    city = _normalize_for_lookup(city)
+    if not city:
+        raise ValueError("city vide après normalisation")
+    validated['city'] = city
+
+    # Validate price (numeric, positif)
+    try:
+        price = float(validated.get('price', 0))
+        if price < 0:
+            raise ValueError("price négatif")
+        validated['price'] = int(price)
+    except (ValueError, TypeError):
+        raise ValueError(f"price invalide: {validated.get('price')}")
+
+    # Validate rooms (numeric, >= 0)
+    try:
+        rooms = int(validated.get('rooms', 0))
+        if rooms < 0:
+            raise ValueError("rooms négatif")
+        validated['rooms'] = rooms
+    except (ValueError, TypeError):
+        raise ValueError(f"rooms invalide: {validated.get('rooms')}")
+
+    # Validate surface (numeric, >= 0)
+    try:
+        surface = float(validated.get('surface', 0))
+        if surface < 0:
+            raise ValueError("surface négatif")
+        validated['surface'] = int(surface)
+    except (ValueError, TypeError):
+        raise ValueError(f"surface invalide: {validated.get('surface')}")
+
+    # Validate URL
+    url = str(validated.get('url', '')).strip()
+    if not url:
+        raise ValueError("url vide")
+    validated['url'] = validate_url(url)
+
+    # Optional fields with defaults
+    # latitude/longitude (float or None)
+    lat = validated.get('latitude')
+    lng = validated.get('longitude')
+    if lat is not None:
+        try:
+            validated['latitude'] = float(lat)
+        except (ValueError, TypeError):
+            validated['latitude'] = None
+    if lng is not None:
+        try:
+            validated['longitude'] = float(lng)
+        except (ValueError, TypeError):
+            validated['longitude'] = None
+
+    # distance_km (float or None)
+    dist = validated.get('distance_km')
+    if dist is not None:
+        try:
+            validated['distance_km'] = float(dist)
+        except (ValueError, TypeError):
+            validated['distance_km'] = None
+
+    # image_url (string, max 2000)
+    img_url = validated.get('image_url')
+    if img_url:
+        img_url = str(img_url).strip()
+        if len(img_url) > 2000:
+            img_url = img_url[:2000]
+        validated['image_url'] = img_url
+
+    # time_ago (string, max 50)
+    time_ago = validated.get('time_ago')
+    if time_ago:
+        time_ago = str(time_ago).strip()
+        if len(time_ago) > 50:
+            time_ago = time_ago[:50]
+        validated['time_ago'] = time_ago
+
+    # full_text (string, max 5000)
+    full_text = validated.get('full_text')
+    if full_text:
+        full_text = str(full_text).strip()
+        if len(full_text) > 5000:
+            full_text = full_text[:5000]
+        validated['full_text'] = full_text
+
+    return validated

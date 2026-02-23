@@ -14,6 +14,7 @@
 import sqlite3
 import logging
 from datetime import datetime
+from utils import validate_listing_data
 
 logger = logging.getLogger(__name__)
 
@@ -87,31 +88,37 @@ class Database:
             return False
 
     def add_listing(self, listing_data):
-        """Ajouter une nouvelle annonce"""
+        """Ajouter une nouvelle annonce avec validation"""
         try:
+            # Valider et nettoyer les données avant insertion
+            validated_data = validate_listing_data(listing_data)
+
             self.cursor.execute('''
                 INSERT INTO listings
                 (listing_id, site, title, city, price, rooms, surface, url, latitude, longitude, distance_km)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
-                listing_data.get('listing_id', ''),
-                listing_data.get('site', 'Inconnu'),
-                listing_data.get('title', 'Sans titre'),
-                listing_data.get('city', 'N/A'),
-                listing_data.get('price', 0),
-                listing_data.get('rooms', 0),
-                listing_data.get('surface', 0),
-                listing_data.get('url', '#'),
-                listing_data.get('latitude'),
-                listing_data.get('longitude'),
-                listing_data.get('distance_km')
+                validated_data.get('listing_id', ''),
+                validated_data.get('site', 'Inconnu'),
+                validated_data.get('title', 'Sans titre'),
+                validated_data.get('city', 'N/A'),
+                validated_data.get('price', 0),
+                validated_data.get('rooms', 0),
+                validated_data.get('surface', 0),
+                validated_data.get('url', '#'),
+                validated_data.get('latitude'),
+                validated_data.get('longitude'),
+                validated_data.get('distance_km')
             ))
             self.conn.commit()
 
-            listing_id = listing_data.get('listing_id', 'N/A')
+            listing_id = validated_data.get('listing_id', 'N/A')
             logger.info(f"✅ Annonce ajoutée: {listing_id}")
             return True
 
+        except (ValueError, KeyError) as e:
+            logger.warning(f"⚠️  Validation échouée: {e}")
+            return False
         except sqlite3.IntegrityError:
             # Annonce déjà existante
             return False

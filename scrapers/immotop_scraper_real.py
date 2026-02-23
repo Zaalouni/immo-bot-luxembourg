@@ -12,7 +12,9 @@ import requests
 import re
 import time
 import logging
-from config import MAX_PRICE, MIN_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS
+import random
+from config import MAX_PRICE, MIN_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS, USER_AGENTS
+from utils import validate_listing_data
 
 logger = logging.getLogger(__name__)
 
@@ -34,16 +36,28 @@ class ImmotopScraperReal:
 
             for page_num in range(1, MAX_PAGES + 1):
                 url = f"{base_search}&page={page_num}" if page_num > 1 else base_search
-                response = requests.get(url, headers=self.headers, timeout=15)
+                # Rotation User-Agent
+                headers = {
+                    'User-Agent': random.choice(USER_AGENTS),
+                    'Referer': self.base_url,
+                }
+                response = requests.get(url, headers=headers, timeout=15)
 
                 if response.status_code != 200:
                     break
 
                 html = response.text
+
+                # Security: Limite taille réponse pour éviter ReDoS
+                if len(html) > 10_000_000:  # 10MB max
+                    logger.warning(f"Response trop volumineux ({len(html)/1e6:.1f}MB), skip page")
+                    break
+
                 combined_html += '\n' + html
 
-                # Pattern : prix + URL + titre
-                pattern = r'<span>€?\s*([\d\s\u202f]+)/mois</span>.*?<a href="(https://www\.immotop\.lu/annonces/(\d+)/)"[^>]*title="([^"]+)"'
+                # Pattern : prix + URL + titre (bounded regex pour éviter ReDoS)
+                # title="([^"]{1,500})" limite la capture à 500 chars
+                pattern = r'<span>€?\s*([\d\s\u202f]+)/mois</span>.*?<a href="(https://www\.immotop\.lu/annonces/(\d+)/)"[^>]*title="([^"]{1,500})"'
                 matches = re.findall(pattern, html, re.DOTALL)
                 logger.info(f"  Page {page_num}: {len(matches)} annonces")
 
@@ -131,15 +145,18 @@ class ImmotopScraperReal:
                     'image_url': image_map.get(id_val),
                     'time_ago': 'Récemment'
                 }
-                listings.append(listing)
+                # Valider avant ajout
+                try:
+                    validated = validate_listing_data(listing)
+                    listings.append(validated)
+                except (ValueError, KeyError) as ve:
+                    logger.debug(f"Validation échouée: {ve}")
             
             logger.info(f"✅ {len(listings)} annonces après filtrage")
             return listings
             
         except Exception as e:
             logger.error(f"❌ Scraping: {e}")
-            import traceback
-            traceback.print_exc()
             return []
 
 immotop_scraper_real = ImmotopScraperReal()
