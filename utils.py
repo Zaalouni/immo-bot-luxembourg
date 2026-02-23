@@ -330,6 +330,47 @@ def get_distance_emoji(distance_km):
         return "🔴"  # Loin
 
 
+def validate_listing_gps(listing):
+    """
+    Validate listing GPS coordinates are within Luxembourg bounds.
+    Removes invalid coordinates and logs warning.
+
+    Args:
+        listing (dict): Listing with optional latitude/longitude
+
+    Returns:
+        dict: Listing with validated GPS (invalid coords removed)
+    """
+    LUXEMBOURG_LAT_MIN = 49.3
+    LUXEMBOURG_LAT_MAX = 50.2
+    LUXEMBOURG_LNG_MIN = 5.7
+    LUXEMBOURG_LNG_MAX = 6.6
+
+    lat = listing.get('latitude')
+    lng = listing.get('longitude')
+
+    if lat is not None and lng is not None:
+        try:
+            lat_val = float(lat)
+            lng_val = float(lng)
+
+            # Check bounds
+            if not (LUXEMBOURG_LAT_MIN <= lat_val <= LUXEMBOURG_LAT_MAX and
+                    LUXEMBOURG_LNG_MIN <= lng_val <= LUXEMBOURG_LNG_MAX):
+                logger.warning(f"GPS hors limites pour {listing.get('listing_id')}: ({lat_val}, {lng_val})")
+                listing['latitude'] = None
+                listing['longitude'] = None
+                listing['distance_km'] = None
+
+        except (ValueError, TypeError):
+            logger.debug(f"GPS invalide pour {listing.get('listing_id')}")
+            listing['latitude'] = None
+            listing['longitude'] = None
+            listing['distance_km'] = None
+
+    return listing
+
+
 # =============================================================================
 # Validation & Sanitization (v2.7 Security)
 # =============================================================================
@@ -346,6 +387,42 @@ def log_security_event(event_type, details='', severity='INFO'):
     truncated_details = str(details)[:200] if details else ''
     log_level = getattr(logging, severity.upper(), logging.INFO)
     logger.log(log_level, f"[SECURITY] {event_type}: {truncated_details}")
+
+
+def redact_secrets(text):
+    """
+    Redact sensitive information from log strings.
+    Masks tokens, chat IDs, and other secrets with generic placeholders.
+
+    Args:
+        text (str): The text to sanitize
+
+    Returns:
+        str: Text with secrets redacted
+    """
+    if not isinstance(text, str):
+        return str(text)
+
+    redacted = text
+    # Mask Telegram tokens (bot123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11 format)
+    redacted = __import__('re').sub(
+        r'\d+:[A-Za-z0-9_-]{35,}',
+        '[TELEGRAM_TOKEN_REDACTED]',
+        redacted
+    )
+    # Mask chat IDs (long numeric strings)
+    redacted = __import__('re').sub(
+        r'-?\d{8,}',
+        '[ID_REDACTED]',
+        redacted
+    )
+    # Mask API URLs with tokens
+    redacted = __import__('re').sub(
+        r'bot[A-Za-z0-9_-]{35,}/',
+        'bot[REDACTED]/',
+        redacted
+    )
+    return redacted
 
 
 def validate_url(url):
@@ -527,5 +604,8 @@ def validate_listing_data(listing):
         if len(full_text) > 5000:
             full_text = full_text[:5000]
         validated['full_text'] = full_text
+
+    # Validate GPS coordinates are within Luxembourg bounds
+    validated = validate_listing_gps(validated)
 
     return validated

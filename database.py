@@ -13,6 +13,7 @@
 # =============================================================================
 import sqlite3
 import logging
+import os
 from datetime import datetime
 from utils import validate_listing_data
 
@@ -70,6 +71,14 @@ class Database:
 
             self.conn.commit()
             logger.info("✅ Base de données initialisée")
+
+            # Set restrictive file permissions (0o600) for security
+            try:
+                if os.path.exists(self.db_path):
+                    os.chmod(self.db_path, 0o600)
+                    logger.debug("🔒 Permissions de sécurité appliquées à la base de données")
+            except OSError as perm_error:
+                logger.warning(f"⚠️ Impossible de définir les permissions: {perm_error}")
 
         except sqlite3.Error as e:
             logger.error(f"❌ Erreur initialisation DB: {e}")

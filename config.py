@@ -47,6 +47,19 @@ try:
     MIN_ROOMS = int(os.getenv('MIN_ROOMS', '2'))
     MAX_ROOMS = int(os.getenv('MAX_ROOMS', '3'))
     MIN_SURFACE = int(os.getenv('MIN_SURFACE', '70'))
+
+    # Validate numeric ranges
+    if MIN_PRICE < 0 or MAX_PRICE < 0:
+        raise ValueError("Prix ne peut pas être négatif")
+    if MIN_PRICE > MAX_PRICE:
+        raise ValueError(f"MIN_PRICE ({MIN_PRICE}) > MAX_PRICE ({MAX_PRICE})")
+    if MIN_ROOMS < 0 or MAX_ROOMS < 0:
+        raise ValueError("Chambres ne peut pas être négatif")
+    if MIN_ROOMS > MAX_ROOMS:
+        raise ValueError(f"MIN_ROOMS ({MIN_ROOMS}) > MAX_ROOMS ({MAX_ROOMS})")
+    if MIN_SURFACE < 0:
+        raise ValueError("Surface ne peut pas être négatif")
+
     _excluded_raw = os.getenv('EXCLUDED_WORDS', 'parking,garage,cave')
     EXCLUDED_WORDS = [w.strip() for w in _excluded_raw.split(',') if w.strip()]
     CITIES = [city.strip() for city in os.getenv('CITIES', 'Luxembourg').split(',') if city.strip()]
@@ -56,17 +69,46 @@ except ValueError as e:
     sys.exit(1)
 
 # ===== CONFIGURATION DISTANCE GPS =====
+# Luxembourg bounds: roughly 49.3°N-50.2°N, 5.7°E-6.6°E
+LUXEMBOURG_LAT_MIN = 49.3
+LUXEMBOURG_LAT_MAX = 50.2
+LUXEMBOURG_LNG_MIN = 5.7
+LUXEMBOURG_LNG_MAX = 6.6
+
+def _validate_gps_coords(lat, lng):
+    """Validate GPS coordinates are within Luxembourg bounds"""
+    try:
+        lat_val = float(lat)
+        lng_val = float(lng)
+        if not (LUXEMBOURG_LAT_MIN <= lat_val <= LUXEMBOURG_LAT_MAX):
+            return False, f"Latitude hors limites: {lat_val} (attendu {LUXEMBOURG_LAT_MIN}-{LUXEMBOURG_LAT_MAX})"
+        if not (LUXEMBOURG_LNG_MIN <= lng_val <= LUXEMBOURG_LNG_MAX):
+            return False, f"Longitude hors limites: {lng_val} (attendu {LUXEMBOURG_LNG_MIN}-{LUXEMBOURG_LNG_MAX})"
+        return True, None
+    except ValueError as e:
+        return False, f"Coordonnées GPS invalides: {e}"
+
 try:
     REFERENCE_LAT = float(os.getenv('REFERENCE_LAT', '49.6000'))
     REFERENCE_LNG = float(os.getenv('REFERENCE_LNG', '6.1342'))
+
+    # Validate reference coordinates
+    is_valid, error_msg = _validate_gps_coords(REFERENCE_LAT, REFERENCE_LNG)
+    if not is_valid:
+        print(f"⚠️ Avertissement GPS: {error_msg}")
+
     REFERENCE_NAME = os.getenv('REFERENCE_NAME', 'Luxembourg Gare')
     MAX_DISTANCE = float(os.getenv('MAX_DISTANCE', '15'))
+
+    if MAX_DISTANCE < 0:
+        raise ValueError("MAX_DISTANCE ne peut pas être négatif")
+
     # Filtre villes acceptees (fallback si geocodage echoue)
     # Si vide → pas de filtre par ville (seulement distance GPS)
     _accepted_raw = os.getenv('ACCEPTED_CITIES', '')
     ACCEPTED_CITIES = [c.strip().lower() for c in _accepted_raw.split(',') if c.strip()]
-except ValueError:
-    print("⚠️ Erreur GPS, valeurs par défaut utilisées")
+except ValueError as e:
+    print(f"⚠️ Erreur GPS, valeurs par défaut utilisées: {e}")
     REFERENCE_LAT = 49.6000
     REFERENCE_LNG = 6.1342
     REFERENCE_NAME = "Luxembourg Gare"
@@ -96,8 +138,8 @@ JITTER_PERCENT = int(os.getenv('JITTER_PERCENT', '20'))  # 20% par défaut
 # ===== VÉRIFICATION =====
 if __name__ == "__main__":
     print("✅ Configuration chargée")
-    print(f"🤖 Bot token: {TELEGRAM_BOT_TOKEN[:15]}...")
-    print(f"👥 Chat ID(s): {TELEGRAM_CHAT_ID}")
+    print("🤖 Bot token: [CONFIGURED]")
+    print(f"👥 Chat ID(s): {'[REDACTED]' if TELEGRAM_CHAT_ID else 'N/A'}")
     print(f"💰 Prix: {MIN_PRICE}-{MAX_PRICE}€")
     print(f"🛏️ Chambres: {MIN_ROOMS}-{MAX_ROOMS}")
     print(f"📐 Surface: ≥{MIN_SURFACE}m²")

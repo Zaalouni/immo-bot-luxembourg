@@ -41,7 +41,7 @@ class ImmotopScraperReal:
                     'User-Agent': random.choice(USER_AGENTS),
                     'Referer': self.base_url,
                 }
-                response = requests.get(url, headers=headers, timeout=15)
+                response = requests.get(url, headers=headers, timeout=15, verify=True)
 
                 if response.status_code != 200:
                     break
