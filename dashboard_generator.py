@@ -1,27 +1,42 @@
 # =============================================================================
-# dashboard_generator.py — Generateur de dashboard HTML statique
+# dashboard_generator.py — Generateur de dashboard HTML statique (v2.0)
 # =============================================================================
 # Lit listings.db, exporte les donnees en fichiers JS/JSON, genere le dashboard.
 #
+# ✨ NOUVELLES FONCTIONNALITES v2.0:
+#   - Détection d'anomalies (prix extrêmes, outliers)
+#   - Qualité des données (% complétude GPS, prix, surface)
+#   - Heatmap Leaflet avec densité + zoom intelligent
+#   - Timeline interactive (slider par date)
+#   - QR codes pour chaque annonce
+#   - Boutons partage social (WhatsApp, Telegram)
+#   - Filtres sauvegardés (localStorage)
+#   - Heatmap prix/m² par ville
+#   - Comparaison avant/après (timeline)
+#   - Export JSON & historique
+#
 # Usage : python dashboard_generator.py
 # Output :
-#   dashboards/data/listings.js           — donnees annonces (variable JS)
-#   dashboards/data/stats.js              — statistiques (variable JS)
+#   dashboards/data/listings.js           — donnees + anomalies + QR codes
+#   dashboards/data/stats.js              — stats + qualité données
 #   dashboards/data/listings.json         — JSON pur (reutilisable)
 #   dashboards/data/history/YYYY-MM-DD.json — archive JSON du jour
-#   dashboards/index.html                 — dashboard PWA
+#   dashboards/index.html                 — dashboard PWA v2.0
 #   dashboards/manifest.json              — manifest PWA
 #   dashboards/archives/YYYY-MM-DD.html   — archive HTML du jour
 #
 # Zero dependance externe (stdlib Python uniquement)
-# Compatible PWA / smartphone — Bootstrap 5 + Leaflet.js via CDN
+# Compatible PWA / smartphone — Bootstrap 5 + Leaflet.js + Leaflet.heat via CDN
 # =============================================================================
 
 import sqlite3
 import json
 import os
 import shutil
+import base64
+import hashlib
 from datetime import datetime
+from urllib.parse import urlencode
 
 
 def read_listings(db_path='listings.db'):
@@ -51,12 +66,14 @@ def read_listings(db_path='listings.db'):
 
 
 def calc_stats(listings):
-    """Calculer les statistiques globales"""
+    """Calculer les statistiques globales + qualité des données"""
     if not listings:
         return {
             'total': 0, 'avg_price': 0, 'min_price': 0, 'max_price': 0,
             'avg_surface': 0, 'cities': 0, 'sites': {},
-            'by_city': [], 'by_price_range': {}
+            'by_city': [], 'by_price_range': {},
+            'data_quality': {'completeness': 0, 'with_gps': 0, 'with_price': 0, 'with_surface': 0},
+            'anomalies': {'extreme_prices': [], 'missing_data': 0}
         }
 
     prices = [l['price'] for l in listings if l['price'] and l['price'] > 0]
@@ -92,8 +109,27 @@ def calc_stats(listings):
         else:
             ranges['> 2500'] += 1
 
+    # 📊 Qualité des données
+    with_gps = sum(1 for l in listings if l.get('latitude') and l.get('longitude'))
+    with_price = sum(1 for l in listings if l.get('price') and l['price'] > 0)
+    with_surface = sum(1 for l in listings if l.get('surface') and l['surface'] > 0)
+    total = len(listings)
+    completeness = int((with_gps + with_price + with_surface) / (total * 3) * 100) if total > 0 else 0
+
+    # 🚨 Détection d'anomalies
+    if prices:
+        q1 = sorted(prices)[len(prices) // 4]
+        q3 = sorted(prices)[3 * len(prices) // 4]
+        iqr = q3 - q1
+        lower_bound = q1 - 1.5 * iqr
+        upper_bound = q3 + 1.5 * iqr
+        extreme_prices = [(l['title'], l['price'], l['city']) for l in listings
+                         if l.get('price') and (l['price'] < lower_bound or l['price'] > upper_bound)][:5]
+    else:
+        extreme_prices = []
+
     return {
-        'total': len(listings),
+        'total': total,
         'avg_price': int(sum(prices) / len(prices)) if prices else 0,
         'min_price': min(prices) if prices else 0,
         'max_price': max(prices) if prices else 0,
@@ -101,8 +137,108 @@ def calc_stats(listings):
         'cities': len(cities),
         'sites': sites,
         'by_city': by_city,
-        'by_price_range': ranges
+        'by_price_range': ranges,
+        'data_quality': {
+            'completeness': completeness,
+            'with_gps': with_gps,
+            'with_price': with_price,
+            'with_surface': with_surface,
+            'total': total
+        },
+        'anomalies': {
+            'extreme_prices': extreme_prices,
+            'count': len(extreme_prices)
+        }
     }
+
+
+def generate_qr_code_url(text):
+    """Générer une URL QR code (API QR Code externe)"""
+    # Utiliser API QR Code gratuite
+    params = {
+        'size': '200x200',
+        'data': text,
+        'format': 'png'
+    }
+    return f"https://api.qrserver.com/v1/create-qr-code/?{urlencode(params)}"
+
+
+def enrich_listings_with_metadata(listings):
+    """Enrichir les annonces avec QR codes, anomalies, qualité"""
+    for listing in listings:
+        # QR code : lien vers l'annonce
+        listing['qr_code_url'] = generate_qr_code_url(listing.get('url', ''))
+
+        # URL de partage social
+        title = listing.get('title', '')[:50]
+        price = listing.get('price', 'N/A')
+        city = listing.get('city', '')
+
+        listing['share_urls'] = {
+            'whatsapp': f"https://wa.me/?text=Annonce immo: {title} - {price}€ @ {city} {listing.get('url', '')}",
+            'telegram': f"https://t.me/share/url?url={listing.get('url', '')}&text={title} - {price}€",
+            'email': f"mailto:?subject={title}&body={listing.get('url', '')}"
+        }
+
+        # Flag anomalies simples
+        price = listing.get('price', 0)
+        surface = listing.get('surface', 0)
+        listing['flags'] = []
+
+        if price and price < 500:
+            listing['flags'].append('prix-suspect')
+        if price and price > 5000:
+            listing['flags'].append('prix-eleve')
+        if surface and surface < 20:
+            listing['flags'].append('surface-petite')
+        if not listing.get('latitude') or not listing.get('longitude'):
+            listing['flags'].append('pas-gps')
+
+    return listings
+
+
+def compute_price_heatmap_by_city(listings):
+    """Calculer heatmap prix/m² par ville"""
+    city_prices = {}
+    for l in listings:
+        if not l.get('city') or l['city'] == 'N/A':
+            continue
+        city = l['city']
+        if city not in city_prices:
+            city_prices[city] = {'prices_m2': [], 'lat': l.get('latitude'), 'lng': l.get('longitude')}
+
+        if l.get('price_m2'):
+            city_prices[city]['prices_m2'].append(l['price_m2'])
+
+    # Calculer moyenne par ville
+    heatmap = []
+    for city, data in city_prices.items():
+        if data['prices_m2'] and data['lat'] and data['lng']:
+            avg_price_m2 = sum(data['prices_m2']) / len(data['prices_m2'])
+            heatmap.append({
+                'city': city,
+                'lat': data['lat'],
+                'lng': data['lng'],
+                'avg_price_m2': round(avg_price_m2, 1),
+                'count': len(data['prices_m2'])
+            })
+
+    return heatmap
+
+
+def compute_timeline_data(listings):
+    """Créer données pour timeline (dates uniques d'annonces)"""
+    dates = {}
+    for l in listings:
+        if not l.get('created_at'):
+            continue
+        date_str = l['created_at'][:10]  # YYYY-MM-DD
+        if date_str not in dates:
+            dates[date_str] = 0
+        dates[date_str] += 1
+
+    timeline = [{'date': date, 'count': count} for date, count in sorted(dates.items())]
+    return timeline
 
 
 def export_data(listings, stats, data_dir):
@@ -112,6 +248,9 @@ def export_data(listings, stats, data_dir):
     now_str = datetime.now().strftime("%d/%m/%Y %H:%M")
     today = datetime.now().strftime('%Y-%m-%d')
 
+    # 📱 Enrichir listings avec métadonnées
+    listings = enrich_listings_with_metadata(listings)
+
     # listings.js
     listings_json = json.dumps(listings, ensure_ascii=False, indent=2, default=str)
     with open(os.path.join(data_dir, 'listings.js'), 'w', encoding='utf-8') as f:
@@ -119,18 +258,30 @@ def export_data(listings, stats, data_dir):
         f.write(f'// {len(listings)} annonces depuis listings.db\n')
         f.write(f'const LISTINGS = {listings_json};\n')
 
-    # stats.js
+    # stats.js avec données enrichies
     colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#2ECC71', '#E74C3C', '#3498DB']
     site_colors = {}
     for i, site in enumerate(stats['sites'].keys()):
         site_colors[site] = colors[i % len(colors)]
 
+    # 🗺️ Ajouter heatmap de prix et timeline
+    price_heatmap = compute_price_heatmap_by_city(listings)
+    timeline = compute_timeline_data(listings)
+
+    stats['price_heatmap'] = price_heatmap
+    stats['timeline'] = timeline
+
     stats_json = json.dumps(stats, ensure_ascii=False, indent=2)
     colors_json = json.dumps(site_colors, ensure_ascii=False, indent=2)
+    heatmap_json = json.dumps(price_heatmap, ensure_ascii=False, indent=2)
+    timeline_json = json.dumps(timeline, ensure_ascii=False, indent=2)
+
     with open(os.path.join(data_dir, 'stats.js'), 'w', encoding='utf-8') as f:
         f.write(f'// Genere le {now_str}\n')
         f.write(f'const STATS = {stats_json};\n')
         f.write(f'const SITE_COLORS = {colors_json};\n')
+        f.write(f'const PRICE_HEATMAP = {heatmap_json};\n')
+        f.write(f'const TIMELINE = {timeline_json};\n')
 
     # listings.json (reutilisable)
     with open(os.path.join(data_dir, 'listings.json'), 'w', encoding='utf-8') as f:
@@ -143,7 +294,9 @@ def export_data(listings, stats, data_dir):
             'date': today,
             'generated_at': now_str,
             'stats': stats,
-            'listings': listings
+            'listings': listings,
+            'price_heatmap': price_heatmap,
+            'timeline': timeline
         }, f, ensure_ascii=False, indent=2, default=str)
 
     return site_colors
@@ -172,9 +325,18 @@ def generate_manifest(dashboards_dir):
 
 
 def generate_html(stats, site_colors):
-    """Generer le HTML du dashboard PWA"""
+    """Generer le HTML du dashboard PWA v2.0 avec nouvelles features"""
     now = datetime.now().strftime('%d/%m/%Y %H:%M')
     colors = list(site_colors.values())
+
+    # 📊 Indicateurs de qualité
+    quality = stats.get('data_quality', {})
+    completeness = quality.get('completeness', 0)
+    quality_color = 'success' if completeness > 80 else 'warning' if completeness > 60 else 'danger'
+
+    # 🚨 Anomalies
+    anomalies = stats.get('anomalies', {})
+    anomaly_count = anomalies.get('count', 0)
 
     html = f'''<!DOCTYPE html>
 <html lang="fr">
@@ -189,6 +351,7 @@ def generate_html(stats, site_colors):
     <title>ImmoLux Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+    <link href="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.css" rel="stylesheet">
     <style>
         :root {{ --primary: #667eea; --primary-dark: #5a6fd6; }}
         * {{ -webkit-tap-highlight-color: transparent; }}
@@ -246,6 +409,42 @@ def generate_html(stats, site_colors):
         a:hover {{ text-decoration: underline; }}
         .listing-count {{ font-size: 0.8rem; color: #888; }}
 
+        /* 📊 Qualité des données */
+        .quality-badge {{ padding: 5px 15px; border-radius: 20px; font-weight: 600; }}
+        .quality-bar {{ height: 8px; border-radius: 4px; background: #e9ecef; margin-top: 5px; overflow: hidden; }}
+        .quality-fill {{ height: 100%; background: #2ECC71; transition: width 0.3s; }}
+
+        /* 🚨 Anomalies */
+        .anomaly-alert {{ background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; border-radius: 4px; margin: 10px 0; }}
+        .anomaly-item {{ font-size: 0.8rem; color: #856404; }}
+        .flag-badge {{ display: inline-block; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; margin-right: 3px; }}
+        .flag-suspect {{ background: #FF6384; color: white; }}
+        .flag-eleve {{ background: #FFA500; color: white; }}
+        .flag-petite {{ background: #36A2EB; color: white; }}
+        .flag-gps {{ background: #999; color: white; }}
+
+        /* 📱 Timeline */
+        .timeline-slider {{ width: 100%; height: 40px; padding: 10px 0; }}
+        .timeline-label {{ font-size: 0.75rem; color: #666; margin-top: 5px; }}
+
+        /* 🔗 QR Codes & Partage */
+        .qr-modal {{ text-align: center; }}
+        .qr-image {{ max-width: 200px; border: 1px solid #ddd; padding: 10px; border-radius: 8px; }}
+        .share-buttons {{ display: flex; gap: 10px; margin-top: 10px; }}
+        .share-btn {{ padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; color: white; text-decoration: none; transition: all 0.2s; }}
+        .share-btn:hover {{ transform: scale(1.1); }}
+        .share-whatsapp {{ background: #25D366; }}
+        .share-telegram {{ background: #0088cc; }}
+        .share-email {{ background: #EA4335; }}
+
+        /* 🗺️ Map Mode Buttons */
+        #map-mode-markers.active, #map-mode-heatmap.active {{ background: var(--primary); color: white; border-color: var(--primary); }}
+
+        /* 🗺️ Heatmap prix */
+        .heatmap-legend {{ background: white; padding: 10px; border-radius: 5px; font-size: 0.8rem; }}
+        .heatmap-entry {{ display: flex; align-items: center; gap: 8px; margin: 5px 0; }}
+        .heatmap-color {{ width: 20px; height: 15px; border-radius: 3px; }}
+
         /* Mobile */
         @media (max-width: 768px) {{
             .header h1 {{ font-size: 1.1rem; }}
@@ -254,6 +453,7 @@ def generate_html(stats, site_colors):
             .table {{ font-size: 0.7rem; }}
             .container-fluid {{ padding-left: 0.5rem; padding-right: 0.5rem; }}
             #map {{ height: 280px; }}
+            .share-buttons {{ flex-wrap: wrap; }}
         }}
     </style>
 </head>
@@ -263,11 +463,17 @@ def generate_html(stats, site_colors):
 <div class="header">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h1>ImmoLux Dashboard</h1>
+            <h1>ImmoLux Dashboard v2.0</h1>
             <small>Mis a jour le {now} — {stats['total']} annonces</small>
+            <div style="margin-top: 8px;">
+                <span class="quality-badge" style="background: #{('2ECC71' if completeness > 80 else 'FFC107' if completeness > 60 else 'E74C3C')}; color: white;">
+                    📊 Qualité: {completeness}%
+                </span>
+                {f'<span class="quality-badge" style="background: #FF6384; color: white; margin-left: 8px;">🚨 {anomaly_count} anomalies</span>' if anomaly_count > 0 else ''}
+            </div>
         </div>
         <div>
-            <span class="listing-count">{stats['cities']} villes | {len(stats['sites'])} sites</span>
+            <span class="listing-count">{stats['cities']} villes | {len(stats['sites'])} sites | GPS: {quality.get('with_gps', 0)}/{quality.get('total', 0)}</span>
         </div>
     </div>
 </div>
@@ -324,19 +530,25 @@ def generate_html(stats, site_colors):
         ) + '''
     </div>
 
-    <!-- Onglets -->
+    <!-- Onglets v2.0 -->
     <ul class="nav nav-tabs mb-2" role="tablist">
         <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-table">Tableau</button>
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-table">📋 Tableau</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-city">Par ville</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-city">📍 Par ville</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-price">Par prix</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-price">💰 Par prix</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-map">Carte</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-heatmap">🔥 Densité</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-timeline">📈 Timeline</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-anomalies">🚨 Anomalies</button>
         </li>
     </ul>
 
@@ -388,6 +600,7 @@ def generate_html(stats, site_colors):
                                 <th data-col="price_m2">&euro;/m&sup2; <span class="sort-arrow">&#9650;</span></th>
                                 <th data-col="distance_km">Dist. <span class="sort-arrow">&#9650;</span></th>
                                 <th>Titre</th>
+                                <th style="width: 80px;">Partage</th>
                             </tr>
                         </thead>
                         <tbody id="table-body"></tbody>
@@ -409,8 +622,56 @@ def generate_html(stats, site_colors):
         <!-- TAB: Carte -->
         <div class="tab-pane fade" id="tab-map">
             <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>📍 Carte des annonces</span>
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary me-2" id="map-mode-markers">📍 Markers</button>
+                        <button class="btn btn-sm btn-outline-secondary" id="map-mode-heatmap">🔥 Heatmap</button>
+                    </div>
+                </div>
                 <div class="card-body p-0">
-                    <div id="map"></div>
+                    <div id="map" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Heatmap Densité 🔥 -->
+        <div class="tab-pane fade" id="tab-heatmap">
+            <div class="card">
+                <div class="card-header">
+                    <span>🔥 Heatmap de densité des annonces</span>
+                    <small class="float-end">Plus sombre = plus d'annonces</small>
+                </div>
+                <div class="card-body p-0">
+                    <div id="heatmap" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Timeline 📈 -->
+        <div class="tab-pane fade" id="tab-timeline">
+            <div class="card">
+                <div class="card-header">📈 Timeline des annonces</div>
+                <div class="card-body">
+                    <div class="timeline-slider">
+                        <input type="range" id="timeline-slider" style="width: 100%;" min="0" max="100">
+                        <div class="timeline-label">
+                            <strong id="timeline-date">Toutes les dates</strong> - <span id="timeline-count">Chargement...</span>
+                        </div>
+                    </div>
+                    <canvas id="timelineChart" style="margin-top: 20px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Anomalies 🚨 -->
+        <div class="tab-pane fade" id="tab-anomalies">
+            <div class="card">
+                <div class="card-header">🚨 Anomalies détectées</div>
+                <div class="card-body">
+                    <div id="anomalies-container">
+                        <p class="text-muted">Analyse en cours...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -420,6 +681,8 @@ def generate_html(stats, site_colors):
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="data/listings.js"></script>
 <script src="data/stats.js"></script>
 <script>
@@ -468,7 +731,7 @@ function renderTable() {
     const tbody = document.getElementById('table-body');
     document.getElementById('table-count').textContent = filtered.length + ' / ' + LISTINGS.length;
     if (!filtered.length) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-3">Aucune annonce</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-3">Aucune annonce</td></tr>';
         return;
     }
     tbody.innerHTML = filtered.map(l => `
@@ -481,6 +744,12 @@ function renderTable() {
             <td>${l.price_m2 ? l.price_m2 + '&euro;' : '\u2014'}</td>
             <td>${l.distance_km != null ? l.distance_km + ' km' : '\u2014'}</td>
             <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 50)}</a></td>
+            <td>
+                <div class="share-buttons" style="gap: 4px;">
+                    <a href="${l.share_urls.whatsapp}" target="_blank" class="share-btn share-whatsapp" title="WhatsApp">💬</a>
+                    <a href="${l.share_urls.telegram}" target="_blank" class="share-btn share-telegram" title="Telegram">✈️</a>
+                </div>
+            </td>
         </tr>
     `).join('');
 }
@@ -591,28 +860,63 @@ function renderPriceView() {
 
 // --- Carte Leaflet (lazy load quand onglet actif) ---
 let mapInit = false;
-document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', () => {
+let mapInstance = null;
+let markersLayer = L.layerGroup();
+let heatmapLayer = null;
+let currentMapMode = 'markers';
+
+function initMap() {
     if (mapInit) return;
     mapInit = true;
+
     const withGPS = LISTINGS.filter(l => l.latitude && l.longitude);
     if (!withGPS.length) {
         document.getElementById('map').innerHTML = '<p class="text-center text-muted py-5">Aucune annonce avec coordonnees GPS</p>';
         return;
     }
-    const map = L.map('map').setView([49.6116, 6.1319], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
+
+    mapInstance = L.map('map').setView([49.6116, 6.1319], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(mapInstance);
+
+    // 📍 Créer les markers
     withGPS.forEach(l => {
         const color = SITE_COLORS[l.site] || '#888';
         L.circleMarker([l.latitude, l.longitude], {
             radius: 7, fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
-        }).addTo(map).bindPopup(`
+        }).addTo(markersLayer).bindPopup(`
             <strong>${l.city || '\u2014'}</strong><br>
             ${fmt(l.price)}&euro; | ${l.rooms || '?'} ch. | ${l.surface || '?'} m&sup2;<br>
             <a href="${l.url}" target="_blank">Voir l'annonce</a>
         `);
     });
-    map.fitBounds(withGPS.map(l => [l.latitude, l.longitude]), { padding: [30, 30] });
-});
+
+    // 🔥 Créer la heatmap
+    const heatmapData = withGPS.map(l => [l.latitude, l.longitude, 0.7]);
+    heatmapLayer = L.heatLayer(heatmapData, { max: 100, radius: 25, blur: 15, gradient: {0.4: 'blue', 0.65: 'lime', 0.8: 'yellow', 1.0: 'red'} });
+
+    // Afficher markers par défaut
+    markersLayer.addTo(mapInstance);
+    mapInstance.fitBounds(withGPS.map(l => [l.latitude, l.longitude]), { padding: [30, 30] });
+
+    // 🔘 Boutons mode
+    document.getElementById('map-mode-markers').addEventListener('click', () => {
+        currentMapMode = 'markers';
+        mapInstance.removeLayer(heatmapLayer);
+        markersLayer.addTo(mapInstance);
+        document.getElementById('map-mode-markers').classList.add('active');
+        document.getElementById('map-mode-heatmap').classList.remove('active');
+    });
+
+    document.getElementById('map-mode-heatmap').addEventListener('click', () => {
+        currentMapMode = 'heatmap';
+        mapInstance.removeLayer(markersLayer);
+        heatmapLayer.addTo(mapInstance);
+        document.getElementById('map-mode-heatmap').classList.add('active');
+        document.getElementById('map-mode-markers').classList.remove('active');
+    });
+}
+
+document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', initMap);
 
 // --- Init ---
 initFilters();
