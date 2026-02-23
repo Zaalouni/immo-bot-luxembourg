@@ -134,17 +134,17 @@ Tous les scrapers suivent le meme contrat :
 
 ### Scrapers actifs
 
-| Fichier | Site | Methode scraping | Particularites |
-|---------|------|------------------|----------------|
-| `athome_scraper_json.py` | Athome.lu | JSON `__INITIAL_STATE__` | Multi-URL (appart+maison), _safe_str() pour dicts imbriques, fallback regex si JSON casse |
-| `immotop_scraper_real.py` | Immotop.lu | HTML regex | Extraction images par data-src, regex prix/chambres/surface |
-| `luxhome_scraper.py` | Luxhome.lu | JSON + regex | Calcul distance GPS, extraction thumbnails, types etendus |
-| `vivi_scraper_selenium.py` | VIVI.lu | Selenium (Firefox) | Scroll + extraction cartes, images, full_text |
-| `newimmo_scraper_real.py` | Newimmo.lu | Selenium (herite SeleniumScraperBase) | Surface decimale (52.00 m2), filtrage titre+texte |
-| `unicorn_scraper_real.py` | Unicorn.lu | Selenium + regex page_source | Override scrape(), multi-URL, extraction contexte HTML autour des liens |
-| `wortimmo_scraper.py` | Wortimmo.lu | Selenium + 3 methodes cascade | 1) JSON embarque 2) Liens HTML 3) Elements avec prix. Recherche recursive dans JSON |
-| `immoweb_scraper.py` | Immoweb.be | Selenium | Luxembourg section du site belge |
-| `nextimmo_scraper.py` | Nextimmo.lu | API JSON + fallback HTML | Multi-type (appart+maison), dedup interne seen_ids |
+| Fichier | Capacites |
+|---------|-----------|
+| `scraper_1.py` | Multi-URL (appart+maison), gestion robuste des donnees, fallback alternatif |
+| `scraper_2.py` | Extraction images, parsing prix/chambres/surface |
+| `scraper_3.py` | Calcul distance GPS, extraction donnees completes, types etendus |
+| `scraper_4.py` | Contenu dynamique, scroll, extraction donnees |
+| `scraper_5.py` | Parsing structure complexe, filtrage titre+texte |
+| `scraper_6.py` | Multi-URL, extraction contexte enrichi |
+| `scraper_7.py` | Multiples approches d'extraction, recherche robuste |
+| `scraper_8.py` | Contenu dynamique avance |
+| `scraper_9.py` | API + fallback alternatif, dedup interne |
 
 ### Fichiers support scrapers
 
@@ -156,10 +156,7 @@ Tous les scrapers suivent le meme contrat :
 
 ### Scrapers non utilises (legacy)
 
-Ces fichiers sont presents dans `scrapers/` mais ne sont pas importes par `main.py` :
-- `athome_scraper_simple.py`, `athome_scraper_real.py` — anciennes versions Athome
-- `luxhome_scraper_simple.py`, `luxhome_scraper_stealth.py`, `luxhome_scraper_real.py`, `luxhome_scraper_final.py` — anciennes versions Luxhome
-- `vivi_scraper_real.py` — ancienne version VIVI
+Ces fichiers sont presents dans `scrapers/` mais ne sont pas importes par `main.py` (versions anterieures et approches experimentales).
 
 ## Flux de donnees detaille
 

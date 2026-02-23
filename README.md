@@ -9,7 +9,7 @@ Telegram en temps reel avec photos, liens Google Maps et hashtags.
 
 ## Fonctionnalites principales
 
-- **9 scrapers actifs** : Athome.lu, Immotop.lu, Luxhome.lu, VIVI.lu, Newimmo.lu, Unicorn.lu, Wortimmo.lu, Immoweb.be, Nextimmo.lu
+- **9 scrapers actifs** : Multiples sources de données immobilières (plateformes de location luxembourgeoises et régionales)
 - **Filtrage complet** : prix min/max, chambres min/max, surface min, distance GPS max, mots exclus
 - **Deduplication** : cross-sites en memoire (meme cycle) + en base (cycles precedents)
 - **Notifications Telegram** : photos, lien Google Maps, prix/m2, hashtags dynamiques

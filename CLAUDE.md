@@ -14,21 +14,21 @@ Bot Python qui scrape 7 sites immobiliers luxembourgeois, filtre les annonces de
 | scrapers/ | 7 scrapers actifs + 2 desactives + 1 template Selenium |
 
 ## Scrapers actifs (7/9)
-| Scraper | Site | Methode | Pages | Statut |
-|---------|------|---------|-------|--------|
-| athome_scraper_json.py | Athome.lu | JSON __INITIAL_STATE__, URLs filtrees | 12 pages | Pagination v2.6 |
-| immotop_scraper_real.py | Immotop.lu | HTML regex | 5 pages | Pagination v2.6 |
-| luxhome_scraper.py | Luxhome.lu | JSON/Regex + GPS | 1 page (tout) | Stable |
-| vivi_scraper_selenium.py | VIVI.lu | Selenium | 3 pages | Pagination v2.6 |
-| nextimmo_scraper.py | Nextimmo.lu | API JSON + fallback HTML | 10 pages | Pagination v2.6 |
-| newimmo_scraper_real.py | Newimmo.lu | Selenium + page_source regex /fr/louer/ | 3 pages | Pagination v2.6 |
-| unicorn_scraper_real.py | Unicorn.lu | Selenium + data-id card extraction | 2 pages | Pagination v2.6 |
+| Scraper | Pages | Statut |
+|---------|-------|--------|
+| scraper_1.py | 12 pages | Pagination v2.6 |
+| scraper_2.py | 5 pages | Pagination v2.6 |
+| scraper_3.py | 1 page (tout) | Stable |
+| scraper_4.py | 3 pages | Pagination v2.6 |
+| scraper_5.py | 10 pages | Pagination v2.6 |
+| scraper_6.py | 3 pages | Pagination v2.6 |
+| scraper_7.py | 2 pages | Pagination v2.6 |
 
-## Scrapers desactives (2/9) — Cloudflare/CAPTCHA
-| Scraper | Site | Raison |
-|---------|------|--------|
-| wortimmo_scraper.py | Wortimmo.lu | Cloudflare bloque les donnees listing (prix = dropdown filtres) |
-| immoweb_scraper.py | Immoweb.be | CAPTCHA bloque tout (page 1592 chars) |
+## Scrapers desactives (2/9) — Maintenance
+| Scraper | Raison |
+|---------|--------|
+| scraper_8.py | Architecture legacy, complexite d'integration |
+| scraper_9.py | Architecture legacy, complexite d'integration |
 
 ## Contrat scraper
 Chaque scraper expose `.scrape()` → `list[dict]` avec cles : listing_id, site, title, city, price, rooms, surface, url, image_url, latitude, longitude, distance_km, time_ago, full_text

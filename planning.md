@@ -8,7 +8,7 @@ Créer **1 script** `dashboard_generator.py` qui génère un **Dashboard HTML in
 ---
 
 ## 📋 CONTEXTE
-- **Données existantes**: listings.db (Athome, Immotop, Century21)
+- **Données existantes**: listings.db (multiples sources immobilières)
 - **Colonnes**: listing_id, title, price, rooms, surface, city, url, score
 - **Objectif**: Utilisateur exécute `python dashboard_generator.py` → fichier HTML créé
 
@@ -56,8 +56,8 @@ immo-bot-luxembourg/
 
 ### 1️⃣ **Tableau** (CRITIQUE)
 ```
-Ville | Prix | m² | €/m² | Score | Site | Action
-Belair | 1950€ | 82 | 23.78 | 8.5 | Immotop | [Voir]
+Ville | Prix | m² | €/m² | Score | Source | Action
+Belair | 1950€ | 82 | 23.78 | 8.5 | Source 1 | [Voir]
 ...
 → Interactif: tri click, checkboxes, lien URLs
 ```
@@ -72,7 +72,7 @@ Surface [range m²]
 
 ### 3️⃣ **Stats Header**
 ```
-42 annonces | Moy 1938€ | Athome 12 | Immotop 18 | ...
+42 annonces | Moy 1938€ | Source 1: 12 | Source 2: 18 | ...
 ```
 
 ### 4️⃣ **Carte** (BONUS)

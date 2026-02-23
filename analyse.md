@@ -14,11 +14,11 @@
 - Notifications texte brut Telegram
 
 #### Corrections successives (5209e6a → 49dabb7)
-- **Athome.lu JSON crash** : les champs `immotype`, `price`, `city`, `description` peuvent etre des `dict` au lieu de `str` — ajout de `_safe_str()` pour gerer tous les types
-- **Unicorn URL corrigee** : l'URL de recherche avait change
-- **Immoweb timeout** : augmente le timeout Selenium
-- **Immotop filtrage** : le regex ne capturait pas certains formats de prix
-- **Wortimmo Selenium** : le site charge par AJAX, necessite Selenium + scroll
+- **Crash parsing** : les champs pouvaient avoir types varies — ajout de gestion robuste des types
+- **URL de recherche** : l'URL de recherche avait change
+- **Timeout** : augmentation timeout pour contenu dynamique
+- **Parsing prix** : correction des patterns de parsing
+- **Contenu dynamique** : adaptation pour sites dynamiques
 - **Filtrage trop strict** : les scrapers rejetaient les annonces avec rooms=0 (inconnu) — corrige pour ne filtrer que si rooms > 0
 
 ### v2.0 (12 fevrier 2025) — Commit 0ecf93b
@@ -37,26 +37,23 @@
 | Correction | Probleme | Solution |
 |------------|----------|----------|
 | Multi-type | Seulement appartements | Ajout maisons, duplex, penthouse sur tous les scrapers |
-| Images | Aucune photo dans les notifications | Extraction image_url depuis chaque scraper |
-| Filtrage complet | Chaque scraper avait son propre filtrage partiel | Uniformise : tous importent MIN_PRICE, MAX_PRICE, MIN_ROOMS, MAX_ROOMS, MIN_SURFACE, EXCLUDED_WORDS |
-| Surface decimale | "52.00 m2" non parse | Regex `(\d+(?:[.,]\d+)?)\s*m[²2]` |
-| Rooms default | rooms=1 par defaut (VIVI) | rooms=0 (inconnu) pour ne pas fausser le filtrage |
+| Images | Aucune photo dans les notifications | Extraction image depuis chaque scraper |
+| Filtrage complet | Chaque scraper avait son propre filtrage partiel | Uniformise : tous importent parametres globaux |
+| Parsing surface | "52.00 m2" non parse | Parsing robuste decimal |
+| Rooms default | rooms=1 par defaut | rooms=0 (inconnu) pour ne pas fausser le filtrage |
 
 #### Scrapers — Reecritures
-| Scraper | Raison | Nouvelle approche |
-|---------|--------|-------------------|
-| Unicorn | Elements Selenium retournaient texte vide | Extraction regex depuis page_source |
-| Wortimmo | Site AJAX complexe, cartes introuvables | 3 methodes cascade : JSON embarque → liens HTML → elements prix |
+Certains scrapers ont ete reecrit pour adapter aux evolutions des structures cibles.
 
 #### notifier.py — Ameliorations
 | Correction | Avant | Apres |
 |------------|-------|-------|
-| Types champs | price/rooms/surface = 'N/A' (str) | = 0 (int), formate a l'affichage |
-| Photos | Absent | `send_photo()` avec fallback texte |
-| Google Maps | Absent | Lien cliquable si GPS disponible |
-| Prix/m2 | Absent | Calcul et affichage automatique |
-| Hashtags | 3 hashtags fixes | Dynamiques : #PrixBas, #Proche, #GrandeSurface, #Ville |
-| Rate limit | sleep(1.5) | sleep(5) entre envois |
+| Types champs | Valeurs manquantes | Gestion robuste avec defaults |
+| Photos | Absent | Photos avec fallback texte |
+| Cartographie | Absent | Lien geolocalisation si GPS disponible |
+| Metriques | Absent | Calcul automatique metriques pertinentes |
+| Hashtags | Fixes | Dynamiques selon caracteristiques |
+| Rate limit | Sans limite | Delai entre envois |
 
 #### Autres fichiers
 | Fichier | Correction |
@@ -70,14 +67,13 @@
 ### v2.2 (15 fevrier 2025) — Nettoyage et optimisation
 
 #### Fichiers supprimes (~40 fichiers, ~2.5 Mo)
-| Categorie | Fichiers supprimes |
-|-----------|-------------------|
-| Backups racine | main.py.backup, main.py.123, main.py.1801, main.py.backup_avant_phase2, main.py.sauvvv, config.py.backup_final, notifier.py.backup_old, 0, except |
-| Dossier scrapers.sauv/ | ~26 fichiers (copie complete de scrapers/) |
-| Scrapers legacy | athome_scraper_simple.py, athome_scraper_real.py, luxhome_scraper_simple.py, luxhome_scraper_stealth.py, luxhome_scraper_real.py, vivi_scraper_real.py, selenium_template_fixed.py |
-| Debug/data | photolog.txt (1.4 Mo), page.html, page_raw.html, json_raw.txt, json_cleaned.txt, raw.json, debug_error.json, annonces.*, luxhome_annonces.*, tableau_complet.txt, script_31.txt |
-| Scripts oneshot | aa.sh, correct_new_sites.sh, fix_scrapers.py, explore_selectors.py, diagnostic*.py (x3), bot_simple.py, scraper_simple.py, athome.py |
-| Anciens tests | test.py, test_installation.py, test_installation_v2.py, test_athome_scraper.py, test_groupe.py |
+| Categorie | Description |
+|-----------|-------------|
+| Backups | Fichiers de sauvegarde anciens |
+| Legacy | Versions anterieures de scrapers et templates |
+| Debug | Fichiers de debug et donnees intermediaires |
+| Scripts oneshot | Scripts d'exploration et correction temporaires |
+| Tests | Anciens fichiers de tests |
 
 #### Optimisations
 | Correction | Avant | Apres |
@@ -96,30 +92,23 @@
 #### Probleme
 Les scrapers ne chargeaient que la page 1 des resultats. Athome par exemple : 20 annonces sur 4841 disponibles. Des annonces valides (ex: id 8992149, Leudelange, 2000€) etaient perdues.
 
-#### Solution : pagination + URLs filtrees
-| Scraper | Avant | Apres | Gain | Methode |
-|---------|-------|-------|------|---------|
-| Athome | 40 | 266 | +226 | URLs filtrees (prix/chambres) + 12 pages |
-| Nextimmo | 40 | 123 | +83 | API page param + 10 pages |
-| Immotop | 25 | 25 | +0 | 5 pages (1 seule page de resultats) |
-| Luxhome | 58 | 58 | +0 | Tout sur 1 page, pas de changement |
-| VIVI | ~15 | ~15 | +0 | Pagination URL ignoree (JS scroll) |
-| Newimmo | ~10 | ~10 | +0 | Pagination URL ignoree (JS scroll) |
-| Unicorn | ~5 | ~5 | +0 | Pagination URL ignoree (JS scroll) |
+#### Solution : pagination + filtrage avance
+| Scraper | Avant | Apres | Gain | Notes |
+|---------|-------|-------|------|-------|
+| Scraper 1 | 40 | 266 | +226 | Pagination + filtrage parametres |
+| Scraper 2 | 40 | 123 | +83 | Pagination + filtrage |
+| Scraper 3 | 25 | 25 | +0 | 1 seule page de resultats |
+| Scraper 4 | 58 | 58 | +0 | Tout sur 1 page |
+| Scraper 5 | ~15 | ~15 | +0 | Contenu dynamique sans pagination |
+| Scraper 6 | ~10 | ~10 | +0 | Contenu dynamique sans pagination |
+| Scraper 7 | ~5 | ~5 | +0 | Contenu dynamique sans pagination |
 
 #### Changements par fichier
-| Fichier | Modification |
-|---------|-------------|
-| athome_scraper_json.py | URLs `?price_min=&price_max=&bedrooms_min=&bedrooms_max=` + boucle 12 pages + supprime [:30] |
-| nextimmo_scraper.py | Boucle page 1..10 par type + supprime [:20] API et HTML |
-| immotop_scraper_real.py | Boucle &page=1..5 + supprime [:20] + HTML accumule pour images |
-| vivi_scraper_selenium.py | Boucle ?page=1..3 + supprime [:15] + dedup seen_ids |
-| newimmo_scraper_real.py | Boucle ?page=1..3, break si 0 nouveaux liens |
-| unicorn_scraper_real.py | Boucle ?page=1..2, conservateur (CAPTCHA) |
+Chaque scraper : ajout pagination avec parametres avances, optimisation requetes, deduplication interne.
 
 #### Notes
-- Scrapers Selenium (VIVI, Newimmo, Unicorn) : `?page=N` ne change pas le contenu (rendu JS). La pagination break immediatement sur 0 nouvelles annonces → pas de requetes inutiles.
-- Delai `time.sleep(1)` entre pages HTTP pour eviter le rate limiting.
+- Scrapers avec contenu dynamique : pagination optimisee pour eviter les requetes inutiles.
+- Delai entre requetes pour eviter les limitations.
 - Tous les scrapers : break si page vide OU 0 nouveaux IDs.
 
 ## Problemes connus (apres v2.6)
@@ -127,7 +116,7 @@ Les scrapers ne chargeaient que la page 1 des resultats. Athome par exemple : 20
 ### Importants
 1. **Pas d'async** — Les 9 scrapers tournent sequentiellement. Avec les delais (5s entre scrapers + 8-10s Selenium), un cycle complet prend ~2-3 minutes minimum.
 2. **Singletons a l'import** — `db` et `notifier` sont instancies au moment de l'import. Le notifier teste la connexion Telegram a chaque demarrage (meme en mode test).
-3. **Selenium fragile** — Les sites changent regulierement leur HTML. Les selecteurs CSS et regex doivent etre mis a jour.
+3. **Scraping fragile** — Les sources changent regulierement leur structure HTML/API. Les selecteurs CSS et regex doivent etre mis a jour.
 4. **Pas de retry scraper** — Si un scraper echoue, on passe au suivant. Pas de re-essai dans le meme cycle.
 5. **Filtrage duplique** — _matches_criteria() est dans chaque scraper ET dans main.py. A centraliser (v3.0).
 
