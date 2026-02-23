@@ -64,7 +64,7 @@ class NextimmoScraper:
                             'page': page_num,
                         }
 
-                        response = requests.get(self.api_url, params=params, headers=self._get_headers(), timeout=15)
+                        response = requests.get(self.api_url, params=params, headers=self._get_headers(), timeout=15, verify=True)
 
                         if response.status_code != 200:
                             break
@@ -208,7 +208,7 @@ class NextimmoScraper:
             response = requests.get(url, headers={
                 'User-Agent': random.choice(USER_AGENTS),
                 'Accept': 'text/html',
-            }, timeout=15)
+            }, timeout=15, verify=True)
 
             if response.status_code != 200:
                 logger.warning(f"HTML fallback HTTP {response.status_code}")

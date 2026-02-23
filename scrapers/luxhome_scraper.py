@@ -68,7 +68,8 @@ class LuxhomeScraper:
             response = requests.get(
                 self.search_url,
                 headers={'User-Agent': random.choice(USER_AGENTS)},
-                timeout=15
+                timeout=15,
+                verify=True
             )
             response.raise_for_status()
             html = response.text

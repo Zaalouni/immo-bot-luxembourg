@@ -15,6 +15,7 @@ import logging
 import requests
 import time
 from config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+from utils import redact_secrets
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +38,7 @@ class TelegramNotifier:
         self.chat_ids = [str(cid) for cid in self.chat_ids]
 
         logger.info(f"✅ Notifier initialisé pour {len(self.chat_ids)} destinataire(s)")
-        logger.info(f"   IDs: {', '.join([f'{cid[:10]}...' if len(cid) > 10 else cid for cid in self.chat_ids])}")
+        logger.info(f"   IDs: {len(self.chat_ids)} chat(s) configuré(s) [REDACTED]")
 
         # Tester la connexion
         self.test_connection()
@@ -46,7 +47,7 @@ class TelegramNotifier:
         """Tester la connexion au bot et aux chats"""
         try:
             # Test 1: Le bot existe-t-il ?
-            response = requests.get(f"{self.base_url}/getMe", timeout=10)
+            response = requests.get(f"{self.base_url}/getMe", timeout=10, verify=True)
             if response.status_code == 200:
                 bot_info = response.json()['result']
                 logger.info(f"🤖 Bot: @{bot_info.get('username', 'N/A')} ({bot_info.get('first_name', 'N/A')})")
@@ -61,7 +62,8 @@ class TelegramNotifier:
                     chat_response = requests.post(
                         f"{self.base_url}/getChat",
                         json={"chat_id": chat_id},
-                        timeout=10
+                        timeout=10,
+                        verify=True
                     )
 
                     if chat_response.status_code == 200:
@@ -85,7 +87,7 @@ class TelegramNotifier:
                 return False
 
         except Exception as e:
-            logger.error(f"❌ Erreur test connexion: {e}")
+            logger.error(f"❌ Erreur test connexion: {redact_secrets(str(e))}")
             return False
 
     def send_message(self, text, parse_mode='HTML', silent=False, retry_count=3):
@@ -105,7 +107,7 @@ class TelegramNotifier:
                         "disable_notification": silent
                     }
 
-                    response = requests.post(url, json=data, timeout=10)
+                    response = requests.post(url, json=data, timeout=10, verify=True)
 
                     if response.status_code == 200:
                         success_count += 1
@@ -133,12 +135,12 @@ class TelegramNotifier:
                                 time.sleep(1)
 
                 except requests.exceptions.Timeout:
-                    logger.warning(f"   ⚠️  Chat {chat_id}: timeout (tentative {attempt+1}/{retry_count})")
+                    logger.warning(f"   ⚠️  Timeout Telegram (tentative {attempt+1}/{retry_count})")
                     if attempt < retry_count - 1:
                         time.sleep(2)
 
                 except Exception as e:
-                    logger.error(f"   ❌ Chat {chat_id}: exception - {e}")
+                    logger.error(f"   ❌ Erreur Telegram: {redact_secrets(str(e))}")
                     break
 
         # Résumé
@@ -287,7 +289,7 @@ class TelegramNotifier:
                         "parse_mode": parse_mode,
                         "disable_notification": silent
                     }
-                    response = requests.post(url, json=data, timeout=15)
+                    response = requests.post(url, json=data, timeout=15, verify=True)
 
                     if response.status_code == 200:
                         success_count += 1

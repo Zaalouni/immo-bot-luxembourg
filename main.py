@@ -43,6 +43,7 @@ try:
     from config import CHECK_INTERVAL, MAX_PRICE, MIN_ROOMS, CITIES, JITTER_PERCENT
     from database import db
     from notifier import notifier
+    from utils import redact_secrets
 
     scrapers_config = []
 
@@ -182,7 +183,7 @@ class ImmoBot:
                 logger.info(f"   📊 {len(valid_listings)} annonces")
 
             except Exception as e:
-                logger.error(f"   ❌ {scraper_name}: {str(e)[:100]}")
+                logger.error(f"   ❌ {scraper_name}: {redact_secrets(str(e)[:100])}")
                 stats_per_site[scraper_name] = 0
                 # Compter les échecs consécutifs
                 self.scraper_failures[scraper_name] = self.scraper_failures.get(scraper_name, 0) + 1
@@ -241,7 +242,7 @@ class ImmoBot:
                             else:
                                 logger.warning(f"   ⚠️ Échec notification")
             except Exception as e:
-                logger.error(f"   ❌ Erreur traitement annonce: {str(e)[:80]}")
+                logger.error(f"   ❌ Erreur traitement annonce: {redact_secrets(str(e)[:80])}")
                 continue
 
         # Résumé

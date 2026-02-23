@@ -54,7 +54,7 @@ class AthomeScraperJSON:
         try:
             # Rotation User-Agent pour éviter détection bot
             headers = {'User-Agent': random.choice(USER_AGENTS)}
-            response = requests.get(url, headers=headers, timeout=15)
+            response = requests.get(url, headers=headers, timeout=15, verify=True)
             if response.status_code != 200:
                 logger.warning(f"HTTP {response.status_code} pour {url}")
                 return []
