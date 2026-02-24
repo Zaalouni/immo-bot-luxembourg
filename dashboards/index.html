@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#667eea">
@@ -123,7 +124,7 @@
     <div class="d-flex justify-content-between align-items-center mb-2">
         <div>
             <h1>ImmoLux Dashboard v2.0</h1>
-            <small>Mis a jour le 24/02/2026 23:41 — 130 annonces</small>
+            <small>Mis a jour le 24/02/2026 23:47 — 130 annonces</small>
         </div>
         <div style="display: flex; gap: 1rem; align-items: center;">
             <a href="index.html" style="color: white; text-decoration: none; font-weight: 500;">📊 Dashboard</a>
@@ -666,6 +667,64 @@ function setupMapListener() {
     }
 }
 setupMapListener();
+
+// --- Heatmap Tab ---
+let heatmapTabInstance = null;
+let heatmapTabInitialized = false;
+
+function initHeatmapTab() {
+    if (heatmapTabInitialized || !LISTINGS || LISTINGS.length === 0) return;
+
+    const heatmapContainer = document.getElementById('heatmap');
+    if (!heatmapContainer) {
+        console.warn('[initHeatmapTab] Container not found');
+        return;
+    }
+
+    console.log('[initHeatmapTab] Initializing heatmap...');
+
+    // Créer la carte
+    heatmapTabInstance = L.map('heatmap').setView([49.6116, 6.1319], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(heatmapTabInstance);
+
+    // Créer heatmap data
+    const withGPS = LISTINGS.filter(l => l.latitude && l.longitude);
+    if (withGPS.length === 0) {
+        console.warn('[initHeatmapTab] Pas de données GPS');
+        heatmapContainer.innerHTML = '<p class="text-center text-muted py-5">Aucune annonce avec coordonnées GPS</p>';
+        return;
+    }
+
+    const heatmapData = withGPS.map(l => [l.latitude, l.longitude, 0.8]);
+    const heatmapLayer = L.heatLayer(heatmapData, {
+        max: 100,
+        radius: 30,
+        blur: 20,
+        gradient: {0.2: 'blue', 0.4: 'lime', 0.6: 'yellow', 0.8: 'orange', 1.0: 'red'}
+    });
+    heatmapLayer.addTo(heatmapTabInstance);
+
+    // Zoom sur enveloppe
+    const bounds = L.latLngBounds(withGPS.map(l => [l.latitude, l.longitude]));
+    heatmapTabInstance.fitBounds(bounds, {padding: [30, 30]});
+
+    heatmapTabInitialized = true;
+    console.log('[initHeatmapTab] ✅ Heatmap initialized with', withGPS.length, 'points');
+}
+
+// Setup onglet heatmap
+function setupHeatmapTab() {
+    const heatmapBtn = document.querySelector('[data-bs-target="#tab-heatmap"]');
+    if (heatmapBtn) {
+        heatmapBtn.addEventListener('shown.bs.tab', initHeatmapTab);
+        console.log('[setupHeatmapTab] ✅ Setup done');
+    } else {
+        console.warn('[setupHeatmapTab] Button not found');
+    }
+}
+setupHeatmapTab();
 
 // --- Graphiques Chart.js ---
 function initCharts() {
