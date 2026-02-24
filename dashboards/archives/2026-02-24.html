@@ -124,7 +124,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <h1>ImmoLux Dashboard v2.0</h1>
-            <small>Mis a jour le 24/02/2026 22:53 — 126 annonces</small>
+            <small>Mis a jour le 24/02/2026 23:03 — 126 annonces</small>
             <div style="margin-top: 8px;">
                 <span class="quality-badge" style="background: #2ECC71; color: white;">
                     📊 Qualité: 96%
@@ -620,43 +620,43 @@ function updateMap() {{
 document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', initMap);
 
 // --- Graphiques Chart.js ---
-function initCharts() {{
+function initCharts() {
     // Graphique PAR SITE
-    if (STATS && STATS.sites && Object.keys(STATS.sites).length > 0) {{
-        try {{
-            const sites = Object.entries(STATS.sites).map(([name, count]) => ({{ site: name, count }})).sort((a,b) => b.count - a.count);
-            const siteChart = new Chart(document.getElementById('siteChart'), {{
+    if (STATS && STATS.sites && Object.keys(STATS.sites).length > 0) {
+        try {
+            const sites = Object.entries(STATS.sites).map(([name, count]) => ({ site: name, count })).sort((a,b) => b.count - a.count);
+            const siteChart = new Chart(document.getElementById('siteChart'), {
                 type: 'doughnut',
-                data: {{
+                data: {
                     labels: sites.map(s => s.site),
-                    datasets: [{{
+                    datasets: [{
                         data: sites.map(s => s.count),
                         backgroundColor: sites.map(s => SITE_COLORS[s.site] || '#999')
-                    }}]
-                }},
-                options: {{ responsive: true, plugins: {{ legend: {{ position: 'bottom' }} }} }}
-            }});
-        }} catch (e) {{ console.error('Erreur graphique sites:', e); }}
-    }}
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+            });
+        } catch (e) { console.error('Erreur graphique sites:', e); }
+    }
 
     // Graphique PAR VILLE
-    if (STATS && STATS.by_city && STATS.by_city.length > 0) {{
-        try {{
-            const cityChart = new Chart(document.getElementById('cityChart'), {{
+    if (STATS && STATS.by_city && STATS.by_city.length > 0) {
+        try {
+            const cityChart = new Chart(document.getElementById('cityChart'), {
                 type: 'bar',
-                data: {{
+                data: {
                     labels: STATS.by_city.map(c => c.city),
-                    datasets: [{{
+                    datasets: [{
                         label: 'Annonces',
                         data: STATS.by_city.map(c => c.count),
                         backgroundColor: '#667eea'
-                    }}]
-                }},
-                options: {{ responsive: true, scales: {{ y: {{ beginAtZero: true }} }} }}
-            }});
-        }} catch (e) {{ console.error('Erreur graphique villes:', e); }}
-    }}
-}}
+                    }]
+                },
+                options: { responsive: true, scales: { y: { beginAtZero: true } } }
+            });
+        } catch (e) { console.error('Erreur graphique villes:', e); }
+    }
+}
 
 // --- Init ---
 initFilters();
