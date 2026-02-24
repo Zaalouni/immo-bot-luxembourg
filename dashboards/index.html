@@ -124,7 +124,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <h1>ImmoLux Dashboard v2.0</h1>
-            <small>Mis a jour le 24/02/2026 22:37 — 126 annonces</small>
+            <small>Mis a jour le 24/02/2026 22:53 — 126 annonces</small>
             <div style="margin-top: 8px;">
                 <span class="quality-badge" style="background: #2ECC71; color: white;">
                     📊 Qualité: 96%
@@ -192,7 +192,10 @@
             <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-table">📋 Tableau</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-city">📍 Par ville</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-site">📊 Sites</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-city">📍 Villes</button>
         </li>
         <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-price">💰 Par prix</button>
@@ -267,7 +270,23 @@
 
         <!-- TAB: Par ville -->
         <div class="tab-pane fade" id="tab-city">
+            <div class="card mb-3">
+                <div class="card-header">📊 Graphique par ville</div>
+                <div class="card-body">
+                    <canvas id="cityChart" height="80"></canvas>
+                </div>
+            </div>
             <div id="city-container"></div>
+        </div>
+
+        <!-- TAB: Par site -->
+        <div class="tab-pane fade" id="tab-site">
+            <div class="card mb-3">
+                <div class="card-header">📊 Répartition par site</div>
+                <div class="card-body">
+                    <canvas id="siteChart" height="80"></canvas>
+                </div>
+            </div>
         </div>
 
         <!-- TAB: Par prix -->
@@ -600,11 +619,51 @@ function updateMap() {{
 
 document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', initMap);
 
+// --- Graphiques Chart.js ---
+function initCharts() {{
+    // Graphique PAR SITE
+    if (STATS && STATS.sites && Object.keys(STATS.sites).length > 0) {{
+        try {{
+            const sites = Object.entries(STATS.sites).map(([name, count]) => ({{ site: name, count }})).sort((a,b) => b.count - a.count);
+            const siteChart = new Chart(document.getElementById('siteChart'), {{
+                type: 'doughnut',
+                data: {{
+                    labels: sites.map(s => s.site),
+                    datasets: [{{
+                        data: sites.map(s => s.count),
+                        backgroundColor: sites.map(s => SITE_COLORS[s.site] || '#999')
+                    }}]
+                }},
+                options: {{ responsive: true, plugins: {{ legend: {{ position: 'bottom' }} }} }}
+            }});
+        }} catch (e) {{ console.error('Erreur graphique sites:', e); }}
+    }}
+
+    // Graphique PAR VILLE
+    if (STATS && STATS.by_city && STATS.by_city.length > 0) {{
+        try {{
+            const cityChart = new Chart(document.getElementById('cityChart'), {{
+                type: 'bar',
+                data: {{
+                    labels: STATS.by_city.map(c => c.city),
+                    datasets: [{{
+                        label: 'Annonces',
+                        data: STATS.by_city.map(c => c.count),
+                        backgroundColor: '#667eea'
+                    }}]
+                }},
+                options: {{ responsive: true, scales: {{ y: {{ beginAtZero: true }} }} }}
+            }});
+        }} catch (e) {{ console.error('Erreur graphique villes:', e); }}
+    }}
+}}
+
 // --- Init ---
 initFilters();
 applyFilters();
 renderCityView();
 renderPriceView();
+initCharts();
 </script>
 </body>
 </html>
