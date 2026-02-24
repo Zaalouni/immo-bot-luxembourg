@@ -1,12 +1,13 @@
-// Genere le 24/02/2026 23:08
+// Genere le 24/02/2026 23:10
 const STATS = {
-  "total": 126,
-  "avg_price": 2086,
+  "total": 129,
+  "avg_price": 2085,
   "min_price": 1300,
   "max_price": 2500,
   "avg_surface": 105,
-  "cities": 74,
+  "cities": 76,
   "sites": {
+    "SothebysRealty.lu": 3,
     "Nextimmo.lu": 24,
     "Newimmo.lu": 5,
     "VIVI.lu": 6,
@@ -90,6 +91,11 @@ const STATS = {
       "avg_price": 2416
     },
     {
+      "city": "luxembourg",
+      "count": 2,
+      "avg_price": 1700
+    },
+    {
       "city": "bettembourg",
       "count": 2,
       "avg_price": 2475
@@ -158,6 +164,16 @@ const STATS = {
       "city": "luxembourg bonnevoie",
       "count": 2,
       "avg_price": 2275
+    },
+    {
+      "city": "schieren&nbsp;",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "strassen&nbsp;",
+      "count": 1,
+      "avg_price": 2150
     },
     {
       "city": "mondorf les bains",
@@ -253,11 +269,6 @@ const STATS = {
       "city": "luxembourg pfaffenthal",
       "count": 1,
       "avg_price": 2200
-    },
-    {
-      "city": "luxembourg",
-      "count": 1,
-      "avg_price": 1900
     },
     {
       "city": "luxembourg neudorf",
@@ -387,16 +398,16 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 13,
-    "1500 - 2000": 31,
-    "2000 - 2500": 68,
-    "> 2500": 14
+    "1500 - 2000": 32,
+    "2000 - 2500": 69,
+    "> 2500": 15
   },
   "data_quality": {
-    "completeness": 96,
-    "with_gps": 120,
-    "with_price": 126,
+    "completeness": 95,
+    "with_gps": 122,
+    "with_price": 129,
     "with_surface": 118,
-    "total": 126
+    "total": 129
   },
   "anomalies": {
     "extreme_prices": [],
@@ -883,16 +894,17 @@ const STATS = {
   "timeline": [
     {
       "date": "2026-02-24",
-      "count": 126
+      "count": 129
     }
   ]
 };
 const SITE_COLORS = {
-  "Nextimmo.lu": "#FF6384",
-  "Newimmo.lu": "#36A2EB",
-  "VIVI.lu": "#FFCE56",
-  "Immotop.lu": "#4BC0C0",
-  "Athome.lu": "#9966FF"
+  "SothebysRealty.lu": "#FF6384",
+  "Nextimmo.lu": "#36A2EB",
+  "Newimmo.lu": "#FFCE56",
+  "VIVI.lu": "#4BC0C0",
+  "Immotop.lu": "#9966FF",
+  "Athome.lu": "#FF9F40"
 };
 const PRICE_HEATMAP = [
   {
@@ -1375,6 +1387,6 @@ const PRICE_HEATMAP = [
 const TIMELINE = [
   {
     "date": "2026-02-24",
-    "count": 126
+    "count": 129
   }
 ];
