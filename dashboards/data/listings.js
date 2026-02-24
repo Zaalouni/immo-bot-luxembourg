@@ -1,6 +1,52 @@
-// Genere le 24/02/2026 23:53
-// 130 annonces depuis listings.db
+// Genere le 25/02/2026 00:27
+// 132 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "immotop_1856543",
+    "site": "Immotop.lu",
+    "title": "Appartement 2 chambres neuf, quatrième étage, Bertrange",
+    "city": "bertrange",
+    "price": 2500,
+    "rooms": 2,
+    "surface": 0,
+    "url": "https://www.immotop.lu/annonces/1856543/",
+    "image_url": "https://pic.immotop.lu/image/148535273/xxs-c.jpg",
+    "latitude": 49.61,
+    "longitude": 6.05,
+    "distance_km": 6.2,
+    "created_at": "2026-02-24 23:27:22",
+    "price_m2": null,
+    "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.immotop.lu%2Fannonces%2F1856543%2F&format=png",
+    "share_urls": {
+      "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 2 chambres neuf, quatrième étage, Bert - 2500€ @ bertrange https://www.immotop.lu/annonces/1856543/",
+      "telegram": "https://t.me/share/url?url=https://www.immotop.lu/annonces/1856543/&text=Appartement 2 chambres neuf, quatrième étage, Bert - 2500€",
+      "email": "mailto:?subject=Appartement 2 chambres neuf, quatrième étage, Bert&body=https://www.immotop.lu/annonces/1856543/"
+    },
+    "flags": []
+  },
+  {
+    "listing_id": "nextimmo_17212",
+    "site": "Nextimmo.lu",
+    "title": "Appartement Bridel",
+    "city": "bridel",
+    "price": 2400,
+    "rooms": 2,
+    "surface": 83,
+    "url": "https://nextimmo.lu/en/details/17212",
+    "image_url": "https://storage.nextimmo.lu/images/thumb/7817f1d460337bb860c382686de09e0d/5cd613b1151f110cd4ef71047e558569.jpg",
+    "latitude": 49.65897,
+    "longitude": 6.08135,
+    "distance_km": 7.6,
+    "created_at": "2026-02-24 23:27:17",
+    "price_m2": 28.9,
+    "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F17212&format=png",
+    "share_urls": {
+      "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Bridel - 2400€ @ bridel https://nextimmo.lu/en/details/17212",
+      "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/17212&text=Appartement Bridel - 2400€",
+      "email": "mailto:?subject=Appartement Bridel&body=https://nextimmo.lu/en/details/17212"
+    },
+    "flags": []
+  },
   {
     "listing_id": "sothebys_1586",
     "site": "SothebysRealty.lu",

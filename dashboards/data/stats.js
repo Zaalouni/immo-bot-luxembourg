@@ -1,17 +1,17 @@
-// Genere le 24/02/2026 23:53
+// Genere le 25/02/2026 00:27
 const STATS = {
-  "total": 130,
-  "avg_price": 2080,
+  "total": 132,
+  "avg_price": 2086,
   "min_price": 1300,
   "max_price": 2500,
   "avg_surface": 105,
   "cities": 77,
   "sites": {
+    "Immotop.lu": 4,
+    "Nextimmo.lu": 25,
     "SothebysRealty.lu": 4,
-    "Nextimmo.lu": 24,
     "Newimmo.lu": 5,
     "VIVI.lu": 6,
-    "Immotop.lu": 3,
     "Athome.lu": 88
   },
   "by_city": [
@@ -27,8 +27,13 @@ const STATS = {
     },
     {
       "city": "bertrange",
+      "count": 5,
+      "avg_price": 2180
+    },
+    {
+      "city": "bridel",
       "count": 4,
-      "avg_price": 2100
+      "avg_price": 2187
     },
     {
       "city": "perl",
@@ -54,11 +59,6 @@ const STATS = {
       "city": "esch sur alzette",
       "count": 3,
       "avg_price": 2016
-    },
-    {
-      "city": "bridel",
-      "count": 3,
-      "avg_price": 2116
     },
     {
       "city": "senningerberg",
@@ -404,21 +404,35 @@ const STATS = {
   "by_price_range": {
     "< 1500": 14,
     "1500 - 2000": 32,
-    "2000 - 2500": 69,
-    "> 2500": 15
+    "2000 - 2500": 70,
+    "> 2500": 16
   },
   "data_quality": {
-    "completeness": 95,
-    "with_gps": 123,
-    "with_price": 130,
-    "with_surface": 118,
-    "total": 130
+    "completeness": 94,
+    "with_gps": 125,
+    "with_price": 132,
+    "with_surface": 119,
+    "total": 132
   },
   "anomalies": {
     "extreme_prices": [],
     "count": 0
   },
   "price_heatmap": [
+    {
+      "city": "bertrange",
+      "lat": 49.61,
+      "lng": 6.05,
+      "avg_price_m2": 24.7,
+      "count": 3
+    },
+    {
+      "city": "bridel",
+      "lat": 49.65897,
+      "lng": 6.08135,
+      "avg_price_m2": 25.2,
+      "count": 4
+    },
     {
       "city": "mondorf les bains",
       "lat": 49.50185,
@@ -452,13 +466,6 @@ const STATS = {
       "lat": 49.54524,
       "lng": 5.83908,
       "avg_price_m2": 20.6,
-      "count": 3
-    },
-    {
-      "city": "bertrange",
-      "lat": 49.61,
-      "lng": 6.05,
-      "avg_price_m2": 24.7,
       "count": 3
     },
     {
@@ -579,13 +586,6 @@ const STATS = {
       "lng": 6.4402066,
       "avg_price_m2": 20.9,
       "count": 2
-    },
-    {
-      "city": "bridel",
-      "lat": 49.6567235,
-      "lng": 6.0823886,
-      "avg_price_m2": 23.9,
-      "count": 3
     },
     {
       "city": "dudelange",
@@ -899,19 +899,33 @@ const STATS = {
   "timeline": [
     {
       "date": "2026-02-24",
-      "count": 130
+      "count": 132
     }
   ]
 };
 const SITE_COLORS = {
-  "SothebysRealty.lu": "#FF6384",
+  "Immotop.lu": "#FF6384",
   "Nextimmo.lu": "#36A2EB",
-  "Newimmo.lu": "#FFCE56",
-  "VIVI.lu": "#4BC0C0",
-  "Immotop.lu": "#9966FF",
+  "SothebysRealty.lu": "#FFCE56",
+  "Newimmo.lu": "#4BC0C0",
+  "VIVI.lu": "#9966FF",
   "Athome.lu": "#FF9F40"
 };
 const PRICE_HEATMAP = [
+  {
+    "city": "bertrange",
+    "lat": 49.61,
+    "lng": 6.05,
+    "avg_price_m2": 24.7,
+    "count": 3
+  },
+  {
+    "city": "bridel",
+    "lat": 49.65897,
+    "lng": 6.08135,
+    "avg_price_m2": 25.2,
+    "count": 4
+  },
   {
     "city": "mondorf les bains",
     "lat": 49.50185,
@@ -945,13 +959,6 @@ const PRICE_HEATMAP = [
     "lat": 49.54524,
     "lng": 5.83908,
     "avg_price_m2": 20.6,
-    "count": 3
-  },
-  {
-    "city": "bertrange",
-    "lat": 49.61,
-    "lng": 6.05,
-    "avg_price_m2": 24.7,
     "count": 3
   },
   {
@@ -1072,13 +1079,6 @@ const PRICE_HEATMAP = [
     "lng": 6.4402066,
     "avg_price_m2": 20.9,
     "count": 2
-  },
-  {
-    "city": "bridel",
-    "lat": 49.6567235,
-    "lng": 6.0823886,
-    "avg_price_m2": 23.9,
-    "count": 3
   },
   {
     "city": "dudelange",
@@ -1392,6 +1392,6 @@ const PRICE_HEATMAP = [
 const TIMELINE = [
   {
     "date": "2026-02-24",
-    "count": 130
+    "count": 132
   }
 ];
