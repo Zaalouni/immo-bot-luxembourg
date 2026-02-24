@@ -1,13 +1,13 @@
-// Genere le 24/02/2026 23:10
+// Genere le 24/02/2026 23:19
 const STATS = {
-  "total": 129,
-  "avg_price": 2085,
+  "total": 130,
+  "avg_price": 2080,
   "min_price": 1300,
   "max_price": 2500,
   "avg_surface": 105,
-  "cities": 76,
+  "cities": 77,
   "sites": {
-    "SothebysRealty.lu": 3,
+    "SothebysRealty.lu": 4,
     "Nextimmo.lu": 24,
     "Newimmo.lu": 5,
     "VIVI.lu": 6,
@@ -164,6 +164,11 @@ const STATS = {
       "city": "luxembourg bonnevoie",
       "count": 2,
       "avg_price": 2275
+    },
+    {
+      "city": "bivange&nbsp;",
+      "count": 1,
+      "avg_price": 1400
     },
     {
       "city": "schieren&nbsp;",
@@ -397,17 +402,17 @@ const STATS = {
     }
   ],
   "by_price_range": {
-    "< 1500": 13,
+    "< 1500": 14,
     "1500 - 2000": 32,
     "2000 - 2500": 69,
     "> 2500": 15
   },
   "data_quality": {
     "completeness": 95,
-    "with_gps": 122,
-    "with_price": 129,
+    "with_gps": 123,
+    "with_price": 130,
     "with_surface": 118,
-    "total": 129
+    "total": 130
   },
   "anomalies": {
     "extreme_prices": [],
@@ -894,7 +899,7 @@ const STATS = {
   "timeline": [
     {
       "date": "2026-02-24",
-      "count": 129
+      "count": 130
     }
   ]
 };
@@ -1387,6 +1392,6 @@ const PRICE_HEATMAP = [
 const TIMELINE = [
   {
     "date": "2026-02-24",
-    "count": 129
+    "count": 130
   }
 ];

@@ -1,6 +1,28 @@
-// Genere le 24/02/2026 23:10
-// 129 annonces depuis listings.db
+// Genere le 24/02/2026 23:19
+// 130 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "sothebys_1586",
+    "site": "SothebysRealty.lu",
+    "title": "Appartement — Bivange&nbsp;",
+    "city": "bivange&nbsp;",
+    "price": 1400,
+    "rooms": 0,
+    "surface": 0,
+    "url": "https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange",
+    "latitude": 49.55,
+    "longitude": 6.11,
+    "distance_km": 5.8,
+    "created_at": "2026-02-24 22:10:24",
+    "price_m2": null,
+    "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsothebysrealty.lu%2Ffra%2Frentals%2F1586_appartement-a-bivange&format=png",
+    "share_urls": {
+      "whatsapp": "https://wa.me/?text=Annonce immo: Appartement — Bivange&nbsp; - 1400€ @ bivange&nbsp; https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange",
+      "telegram": "https://t.me/share/url?url=https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange&text=Appartement — Bivange&nbsp; - 1400€",
+      "email": "mailto:?subject=Appartement — Bivange&nbsp;&body=https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange"
+    },
+    "flags": []
+  },
   {
     "listing_id": "sothebys_1767",
     "site": "SothebysRealty.lu",

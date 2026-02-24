@@ -1,15 +1,15 @@
 {
   "date": "2026-02-24",
-  "generated_at": "24/02/2026 23:10",
+  "generated_at": "24/02/2026 23:19",
   "stats": {
-    "total": 129,
-    "avg_price": 2085,
+    "total": 130,
+    "avg_price": 2080,
     "min_price": 1300,
     "max_price": 2500,
     "avg_surface": 105,
-    "cities": 76,
+    "cities": 77,
     "sites": {
-      "SothebysRealty.lu": 3,
+      "SothebysRealty.lu": 4,
       "Nextimmo.lu": 24,
       "Newimmo.lu": 5,
       "VIVI.lu": 6,
@@ -166,6 +166,11 @@
         "city": "luxembourg bonnevoie",
         "count": 2,
         "avg_price": 2275
+      },
+      {
+        "city": "bivange&nbsp;",
+        "count": 1,
+        "avg_price": 1400
       },
       {
         "city": "schieren&nbsp;",
@@ -399,17 +404,17 @@
       }
     ],
     "by_price_range": {
-      "< 1500": 13,
+      "< 1500": 14,
       "1500 - 2000": 32,
       "2000 - 2500": 69,
       "> 2500": 15
     },
     "data_quality": {
       "completeness": 95,
-      "with_gps": 122,
-      "with_price": 129,
+      "with_gps": 123,
+      "with_price": 130,
       "with_surface": 118,
-      "total": 129
+      "total": 130
     },
     "anomalies": {
       "extreme_prices": [],
@@ -896,11 +901,33 @@
     "timeline": [
       {
         "date": "2026-02-24",
-        "count": 129
+        "count": 130
       }
     ]
   },
   "listings": [
+    {
+      "listing_id": "sothebys_1586",
+      "site": "SothebysRealty.lu",
+      "title": "Appartement — Bivange&nbsp;",
+      "city": "bivange&nbsp;",
+      "price": 1400,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange",
+      "latitude": 49.55,
+      "longitude": 6.11,
+      "distance_km": 5.8,
+      "created_at": "2026-02-24 22:10:24",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsothebysrealty.lu%2Ffra%2Frentals%2F1586_appartement-a-bivange&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement — Bivange&nbsp; - 1400€ @ bivange&nbsp; https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange",
+        "telegram": "https://t.me/share/url?url=https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange&text=Appartement — Bivange&nbsp; - 1400€",
+        "email": "mailto:?subject=Appartement — Bivange&nbsp;&body=https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange"
+      },
+      "flags": []
+    },
     {
       "listing_id": "sothebys_1767",
       "site": "SothebysRealty.lu",
@@ -4235,7 +4262,7 @@
   "timeline": [
     {
       "date": "2026-02-24",
-      "count": 129
+      "count": 130
     }
   ]
 }
