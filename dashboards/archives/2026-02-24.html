@@ -124,7 +124,7 @@
     <div class="d-flex justify-content-between align-items-center mb-2">
         <div>
             <h1>ImmoLux Dashboard v2.0</h1>
-            <small>Mis a jour le 24/02/2026 23:47 — 130 annonces</small>
+            <small>Mis a jour le 24/02/2026 23:53 — 130 annonces</small>
         </div>
         <div style="display: flex; gap: 1rem; align-items: center;">
             <a href="index.html" style="color: white; text-decoration: none; font-weight: 500;">📊 Dashboard</a>
@@ -630,7 +630,7 @@ function updateMap() {
             radius: 7, fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
         }).addTo(markersLayer).bindPopup(`
             <strong>${l.city || '—'}</strong><br>
-            {{fmt(l.price)}}&euro; | {{l.rooms || '?'}} ch. | {{l.surface || '?'}} m&sup2;<br>
+            ${fmt(l.price)}&euro; | ${l.rooms || '?'} ch. | ${l.surface || '?'} m&sup2;<br>
             <a href="${l.url}" target="_blank">Voir l'annonce</a>
         `);
     });
@@ -765,6 +765,111 @@ function initCharts() {
     }
 }
 
+// --- Timeline ---
+function initTimeline() {
+    if (!LISTINGS || LISTINGS.length === 0) return;
+
+    // Grouper par date
+    const byDate = {};
+    LISTINGS.forEach(l => {
+        const date = l.created_at ? l.created_at.split(' ')[0] : 'N/A';
+        if (!byDate[date]) byDate[date] = [];
+        byDate[date].push(l);
+    });
+
+    const dates = Object.keys(byDate).sort();
+    const counts = dates.map(d => byDate[d].length);
+
+    // Graphique timeline
+    const timelineCanvas = document.getElementById('timelineChart');
+    if (timelineCanvas) {
+        try {
+            new Chart(timelineCanvas, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Annonces ajoutées',
+                        data: counts,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'top' } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+            console.log('[initTimeline] ✅ Timeline chart created');
+        } catch (e) {
+            console.error('[initTimeline] Error:', e);
+        }
+    }
+}
+
+// --- Anomalies ---
+function initAnomalies() {
+    if (!LISTINGS || LISTINGS.length === 0) return;
+
+    const container = document.getElementById('anomalies-container');
+    let html = '';
+
+    // Annonces sans image
+    const noImage = LISTINGS.filter(l => !l.image_url);
+    html += `<div class="card mb-3"><div class="card-header">📸 Sans image (${noImage.length})</div><div class="card-body">`;
+    if (noImage.length > 0) {
+        html += '<ul style="font-size: 0.9rem; max-height: 200px; overflow-y: auto;">';
+        noImage.slice(0, 10).forEach(l => {
+            html += `<li>${l.site} - ${l.title.substring(0, 50)} (${l.city})</li>`;
+        });
+        if (noImage.length > 10) html += `<li><em>... et ${noImage.length - 10} autres</em></li>`;
+        html += '</ul>';
+    } else {
+        html += '<p class="text-success">✅ Toutes les annonces ont une image</p>';
+    }
+    html += '</div></div>';
+
+    // Annonces sans GPS
+    const noGPS = LISTINGS.filter(l => !l.latitude || !l.longitude);
+    html += `<div class="card mb-3"><div class="card-header">🗺️ Sans GPS (${noGPS.length})</div><div class="card-body">`;
+    if (noGPS.length > 0) {
+        html += '<ul style="font-size: 0.9rem; max-height: 200px; overflow-y: auto;">';
+        noGPS.slice(0, 10).forEach(l => {
+            html += `<li>${l.site} - ${l.title.substring(0, 50)} (${l.city})</li>`;
+        });
+        if (noGPS.length > 10) html += `<li><em>... et ${noGPS.length - 10} autres</em></li>`;
+        html += '</ul>';
+    } else {
+        html += '<p class="text-success">✅ Toutes les annonces ont des coordonnées GPS</p>';
+    }
+    html += '</div></div>';
+
+    // Données incomplètes
+    const incomplete = LISTINGS.filter(l => !l.price || !l.rooms || !l.surface);
+    html += `<div class="card mb-3"><div class="card-header">⚠️ Données incomplètes (${incomplete.length})</div><div class="card-body">`;
+    if (incomplete.length > 0) {
+        html += '<ul style="font-size: 0.9rem; max-height: 200px; overflow-y: auto;">';
+        incomplete.slice(0, 10).forEach(l => {
+            const missing = [];
+            if (!l.price) missing.push('prix');
+            if (!l.rooms) missing.push('chambres');
+            if (!l.surface) missing.push('surface');
+            html += `<li>${l.site} - manque: ${missing.join(', ')}</li>`;
+        });
+        if (incomplete.length > 10) html += `<li><em>... et ${incomplete.length - 10} autres</em></li>`;
+        html += '</ul>';
+    } else {
+        html += '<p class="text-success">✅ Toutes les annonces sont complètes</p>';
+    }
+    html += '</div></div>';
+
+    container.innerHTML = html;
+    console.log('[initAnomalies] ✅ Anomalies initialized');
+}
+
 // --- Fonction attendre LISTINGS et initialiser ---
 function waitForDataAndInit() {
     console.log('[waitForDataAndInit] Vérification LISTINGS...');
@@ -824,6 +929,14 @@ function waitForDataAndInit() {
         console.log('[waitForDataAndInit] Appel renderPriceView()...');
         renderPriceView();
         console.log('[waitForDataAndInit] ✅ renderPriceView() OK');
+
+        console.log('[waitForDataAndInit] Appel initTimeline()...');
+        initTimeline();
+        console.log('[waitForDataAndInit] ✅ initTimeline() OK');
+
+        console.log('[waitForDataAndInit] Appel initAnomalies()...');
+        initAnomalies();
+        console.log('[waitForDataAndInit] ✅ initAnomalies() OK');
 
         console.log('[waitForDataAndInit] Appel initCharts()...');
         initCharts();
