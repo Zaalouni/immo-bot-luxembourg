@@ -123,7 +123,7 @@
     <div class="d-flex justify-content-between align-items-center mb-2">
         <div>
             <h1>ImmoLux Dashboard v2.0</h1>
-            <small>Mis a jour le 24/02/2026 23:28 — 130 annonces</small>
+            <small>Mis a jour le 24/02/2026 23:32 — 130 annonces</small>
         </div>
         <div style="display: flex; gap: 1rem; align-items: center;">
             <a href="index.html" style="color: white; text-decoration: none; font-weight: 500;">📊 Dashboard</a>
@@ -664,44 +664,52 @@ function initCharts() {
     }
 }
 
-// --- Init ---
-document.addEventListener('DOMContentLoaded', function() {
+// --- Fonction attendre LISTINGS et initialiser ---
+function waitForDataAndInit() {
+    // Attendre que LISTINGS soit chargé
+    if (typeof LISTINGS === 'undefined' || !LISTINGS || LISTINGS.length === 0) {
+        console.warn('⏳ LISTINGS pas encore chargé, nouvel essai dans 100ms...');
+        setTimeout(waitForDataAndInit, 100);
+        return;
+    }
+
+    console.log('✅ LISTINGS chargé:', LISTINGS.length, 'annonces');
+
     try {
-        console.log('⏳ Initialisation tableau...', typeof LISTINGS !== 'undefined' ? LISTINGS.length + ' annonces' : 'LISTINGS undefined');
+        // Initialiser les données de base
+        filtered = [...LISTINGS];
 
-        if (typeof LISTINGS === 'undefined' || !LISTINGS || LISTINGS.length === 0) {
-            console.error('❌ LISTINGS non chargé:', LISTINGS);
-            const tb = document.getElementById('table-body');
-            if (tb) tb.innerHTML = '<tr><td colspan="9" class="alert alert-danger m-3">Erreur: données non chargées</td></tr>';
-        } else {
-            // Initialiser les données de base
-            filtered = [...LISTINGS];
-            console.log('✅ Filtered:', filtered.length, 'annonces');
-
-            // Initialiser les dropdowns et afficher
+        // Remplir le tableau
+        const tbody = document.getElementById('table-body');
+        if (tbody && LISTINGS.length > 0) {
+            console.log('🔄 Remplissage tableau avec', filtered.length, 'annonces...');
+            sortCol = 'price';
+            sortAsc = true;
             initFilters();
-            console.log('✅ Filtres initialisés');
-
             applyFilters();
-            console.log('✅ Filtres appliqués');
-
-            renderCityView();
-            console.log('✅ Vue par ville rendue');
-
-            renderPriceView();
-            console.log('✅ Vue par prix rendue');
-
-            initCharts();
-            console.log('✅ Graphiques initialisés');
-
-            console.log('🎉 Dashboard initialisé avec', LISTINGS.length, 'annonces');
+            console.log('✅ Tableau rempli');
         }
+
+        // Rendre les vues
+        console.log('🔄 Rendu vues...');
+        renderCityView();
+        renderPriceView();
+        initCharts();
+
+        console.log('🎉 Dashboard initialisé complètement avec', LISTINGS.length, 'annonces');
     } catch (e) {
-        console.error('❌ Erreur initialisation:', e.message, e.stack);
+        console.error('❌ Erreur initialisation:', e);
         const tb = document.getElementById('table-body');
         if (tb) tb.innerHTML = '<tr><td colspan="9" class="alert alert-danger m-3">Erreur: ' + e.message + '</td></tr>';
     }
-});
+}
+
+// Lancer l'initialisation quand le document est prêt
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForDataAndInit);
+} else {
+    waitForDataAndInit();
+}
 </script>
 </body>
 </html>

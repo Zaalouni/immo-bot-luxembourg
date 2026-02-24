@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
+    <title>Galerie Photos - ImmoLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root { --primary: #667eea; }
+        body { background: #f0f2f5; padding-bottom: 2rem; }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 1.2rem 1rem; margin-bottom: 1rem;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .header h1 { font-size: 1.4rem; margin: 0; }
+        .nav-links { display: flex; gap: 1rem; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; padding: 1rem; }
+        .gallery-item {
+            background: white; border-radius: 12px; overflow: hidden; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s;
+        }
+        .gallery-item:hover { transform: scale(1.05); }
+        .gallery-img { width: 100%; height: 200px; object-fit: cover; background: #e9ecef; }
+        .gallery-img.no-image { display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+
+        .gallery-info { padding: 1rem; }
+        .gallery-title { font-weight: 600; color: #333; margin: 0 0 0.5rem 0; font-size: 0.9rem; }
+        .gallery-meta { font-size: 0.8rem; color: #666; margin: 0.3rem 0; }
+        .site-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; color: white; font-size: 0.7rem; font-weight: 600; }
+        .price-tag { font-weight: 700; color: var(--primary); font-size: 1.1rem; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; }
+        .modal.show { display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: white; border-radius: 12px; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; }
+        .modal-image { width: 100%; height: 100%; object-fit: cover; }
+        .modal-info { padding: 1.5rem; overflow-y: auto; }
+        .modal-close { position: absolute; top: 10px; right: 20px; color: white; font-size: 2rem; cursor: pointer; }
+        .modal-price { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 0.5rem 0; }
+        .modal-link { display: inline-block; margin-top: 1rem; padding: 0.7rem 1.5rem; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; }
+        .modal-link:hover { background: #5a6fd6; text-decoration: none; }
+
+        .filters { background: white; padding: 1rem; margin: 1rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .filters label { font-weight: 600; margin-right: 0.5rem; }
+        .filters select { padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; }
+
+        .pagination-controls { text-align: center; padding: 1rem; }
+        .pagination-controls button, .pagination-controls a { padding: 0.5rem 1rem; margin: 0 0.2rem; background: white; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; }
+        .pagination-controls button:hover, .pagination-controls a:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        .pagination-controls button.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .modal-content { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .header h1 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>🖼️ Galerie Photos</h1>
+        <div class="nav-links">
+            <a href="index.html">📊 Dashboard</a>
+            <a href="map.html">🗺️ Carte</a>
+            <a href="photos.html">🖼️ Photos</a>
+        </div>
+    </div>
+</div>
+
+<!-- Filtres -->
+<div class="filters">
+    <label>Ville:</label>
+    <select id="filter-city" onchange="filterGallery()">
+        <option value="">Toutes les villes</option>
+    </select>
+
+    <label style="margin-left: 1rem;">Site:</label>
+    <select id="filter-site" onchange="filterGallery()">
+        <option value="">Tous les sites</option>
+    </select>
+
+    <button onclick="filterGallery()" style="margin-left: 1rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer;">🔍 Filtrer</button>
+</div>
+
+<!-- Galerie -->
+<div id="gallery-container" class="gallery-grid"></div>
+
+<!-- Pagination -->
+<div class="pagination-controls">
+    <button onclick="previousPage()">← Précédent</button>
+    <span id="page-info" style="margin: 0 1rem; font-weight: 600;"></span>
+    <button onclick="nextPage()">Suivant →</button>
+</div>
+
+<!-- Modal Lightbox -->
+<div id="lightbox" class="modal">
+    <div style="position: relative;">
+        <span class="modal-close" onclick="closeLightbox()">×</span>
+        <div class="modal-content">
+            <img id="modal-image" class="modal-image" src="" alt="">
+            <div class="modal-info">
+                <p id="modal-title" class="modal-title" style="font-weight: 600; margin: 0 0 0.5rem 0;"></p>
+                <p id="modal-city" style="color: #666; font-size: 0.9rem; margin: 0.3rem 0;"></p>
+                <p id="modal-site" style="margin: 0.3rem 0;"><span id="modal-site-badge" class="site-badge"></span></p>
+                <p class="modal-price" id="modal-price"></p>
+                <p style="color: #666; font-size: 0.85rem;">
+                    <strong>Rooms:</strong> <span id="modal-rooms">-</span> |
+                    <strong>Surface:</strong> <span id="modal-surface">-</span> m² |
+                    <strong>€/m²:</strong> <span id="modal-price-m2">-</span>
+                </p>
+                <p style="color: #666; font-size: 0.85rem;">
+                    <strong>Distance:</strong> <span id="modal-distance">-</span> |
+                    <strong>Ajout:</strong> <span id="modal-date">-</span>
+                </p>
+                <a id="modal-link" class="modal-link" href="#" target="_blank">👁️ Voir l'annonce</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="data/listings.js"></script>
+<script src="data/stats.js"></script>
+<script>
+const ITEMS_PER_PAGE = 20;
+let currentPage = 1;
+let filtered = [];
+const SITE_COLORS_MAP = (typeof SITE_COLORS !== 'undefined') ? SITE_COLORS : {};
+
+function init() {
+    console.log('🖼️ Initialisation galerie, LISTINGS:', LISTINGS ? LISTINGS.length : 0);
+
+    if (typeof LISTINGS === 'undefined' || !LISTINGS) {
+        console.error('❌ LISTINGS non disponible');
+        return;
+    }
+
+    // Remplir les filtres
+    const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
+    const sites = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
+
+    const citySelect = document.getElementById('filter-city');
+    cities.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = c;
+        citySelect.appendChild(opt);
+    });
+
+    const siteSelect = document.getElementById('filter-site');
+    sites.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        opt.textContent = s;
+        siteSelect.appendChild(opt);
+    });
+
+    filterGallery();
+}
+
+function filterGallery() {
+    const city = document.getElementById('filter-city').value;
+    const site = document.getElementById('filter-site').value;
+
+    filtered = LISTINGS.filter(l => {
+        if (city && l.city !== city) return false;
+        if (site && l.site !== site) return false;
+        return true;
+    });
+
+    currentPage = 1;
+    renderGallery();
+}
+
+function renderGallery() {
+    const container = document.getElementById('gallery-container');
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    const page = filtered.slice(start, end);
+
+    container.innerHTML = page.map(l => {
+        const bg = SITE_COLORS_MAP[l.site] || '#888';
+        return `
+            <div class="gallery-item" onclick="openLightbox(${filtered.indexOf(l)})">
+                <img src="${l.image_url || ''}" alt="" class="gallery-img ${!l.image_url ? 'no-image' : ''}"
+                     onerror="this.classList.add('no-image'); this.textContent='🖼️';">
+                <div class="gallery-info">
+                    <p class="gallery-title">${(l.title || 'Voir').substring(0, 50)}</p>
+                    <p class="gallery-meta">${l.city || '—'}</p>
+                    <p class="gallery-meta"><span class="site-badge" style="background: ${bg};">${l.site}</span></p>
+                    <p class="price-tag">${l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—'}</p>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    document.getElementById('page-info').textContent = `Page ${currentPage} / ${totalPages} (${filtered.length} annonces)`;
+}
+
+function openLightbox(index) {
+    const l = filtered[index];
+    document.getElementById('modal-image').src = l.image_url || '';
+    document.getElementById('modal-title').textContent = l.title || '—';
+    document.getElementById('modal-city').textContent = l.city || '—';
+    document.getElementById('modal-site-badge').textContent = l.site || '—';
+    document.getElementById('modal-site-badge').style.background = SITE_COLORS_MAP[l.site] || '#888';
+    document.getElementById('modal-price').textContent = l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—';
+    document.getElementById('modal-rooms').textContent = l.rooms || '—';
+    document.getElementById('modal-surface').textContent = l.surface || '—';
+    document.getElementById('modal-price-m2').textContent = l.price_m2 || '—';
+    document.getElementById('modal-distance').textContent = l.distance_km ? l.distance_km + ' km' : '—';
+    document.getElementById('modal-date').textContent = l.created_at ? l.created_at.split(' ')[0] : '—';
+    document.getElementById('modal-link').href = l.url;
+    document.getElementById('lightbox').classList.add('show');
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('show');
+}
+
+function nextPage() {
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderGallery();
+        window.scrollTo(0, 0);
+    }
+}
+
+function previousPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        renderGallery();
+        window.scrollTo(0, 0);
+    }
+}
+
+// Attendre que LISTINGS soit chargé puis initialiser
+function waitForPhotosInit() {
+    if (typeof LISTINGS === 'undefined' || !LISTINGS) {
+        console.warn('⏳ Photos: LISTINGS pas encore chargé');
+        setTimeout(waitForPhotosInit, 100);
+        return;
+    }
+    console.log('✅ Photos: LISTINGS chargé, initialisation...');
+    init();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForPhotosInit);
+} else {
+    waitForPhotosInit();
+}
+</script>
+</body>
+</html>
