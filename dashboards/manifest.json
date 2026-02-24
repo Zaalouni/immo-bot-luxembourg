@@ -1,22 +1,16 @@
 {
-  "name": "Immo Bot Luxembourg",
-  "short_name": "ImmoBotLU",
-  "description": "Dashboard annonces immobilieres Luxembourg",
+  "name": "Immo Luxembourg Dashboard",
+  "short_name": "ImmoLux",
+  "description": "Dashboard immobilier Luxembourg - annonces de location",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#f1f5f9",
-  "theme_color": "#0f172a",
-  "orientation": "any",
-  "categories": [
-    "finance",
-    "lifestyle"
-  ],
+  "background_color": "#f0f2f5",
+  "theme_color": "#667eea",
   "icons": [
     {
-      "src": "icon.svg",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>",
       "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "type": "image/svg+xml"
     }
   ]
 }
