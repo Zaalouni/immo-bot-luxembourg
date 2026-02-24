@@ -124,7 +124,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <h1>ImmoLux Dashboard v2.0</h1>
-            <small>Mis a jour le 24/02/2026 23:03 — 126 annonces</small>
+            <small>Mis a jour le 24/02/2026 23:08 — 126 annonces</small>
             <div style="margin-top: 8px;">
                 <span class="quality-badge" style="background: #2ECC71; color: white;">
                     📊 Qualité: 96%
@@ -363,176 +363,176 @@
 <script>
 
 // --- Utilitaires ---
-function fmt(n) {{ return n ? n.toString().replace(/\B(?=(\d{{3}})+(?!\d))/g, ' ') : '—'; }}
-function badge(site) {{
+function fmt(n) { return n ? n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '—'; }
+function badge(site) {
     const bg = SITE_COLORS[site] || '#888';
-    return `<span class="site-badge" style="background:${{bg}}">${{site}}</span>`;
-}}
+    return `<span class="site-badge" style="background:${bg}">${site}</span>`;
+}
 
 // --- Tableau triable ---
 let sortCol = 'price';
 let sortAsc = true;
 let filtered = [...LISTINGS];
 
-function applyFilters() {{
+function applyFilters() {
     const city = document.getElementById('f-city').value;
     const pmin = parseInt(document.getElementById('f-pmin').value) || 0;
     const pmax = parseInt(document.getElementById('f-pmax').value) || 999999;
     const site = document.getElementById('f-site').value;
     const smin = parseInt(document.getElementById('f-smin').value) || 0;
 
-    filtered = LISTINGS.filter(l => {{
+    filtered = LISTINGS.filter(l => {
         if (city && l.city !== city) return false;
         if (l.price < pmin || l.price > pmax) return false;
         if (site && l.site !== site) return false;
         if (smin && (!l.surface || l.surface < smin)) return false;
         return true;
-    }});
+    });
     sortAndRender();
     updateMap();
-}}
+}
 
-function sortAndRender() {{
-    filtered.sort((a, b) => {{
+function sortAndRender() {
+    filtered.sort((a, b) => {
         let va = a[sortCol], vb = b[sortCol];
         if (va == null) va = sortAsc ? Infinity : -Infinity;
         if (vb == null) vb = sortAsc ? Infinity : -Infinity;
         if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
         return sortAsc ? va - vb : vb - va;
-    }});
+    });
     renderTable();
-}}
+}
 
-function renderTable() {{
+function renderTable() {
     const tbody = document.getElementById('table-body');
     document.getElementById('table-count').textContent = filtered.length + ' / ' + LISTINGS.length;
-    if (!filtered.length) {{
+    if (!filtered.length) {
         tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-3">Aucune annonce</td></tr>';
         return;
-    }}
+    }
     tbody.innerHTML = filtered.map(l => `
         <tr>
-            <td>${{badge(l.site)}}</td>
-            <td>${{l.city || '—'}}</td>
-            <td><strong>${{fmt(l.price)}}&euro;</strong></td>
-            <td>${{l.rooms || '—'}}</td>
-            <td>${{l.surface || '—'}}</td>
-            <td>${{l.price_m2 ? l.price_m2 + '&euro;' : '—'}}</td>
-            <td>${{l.distance_km != null ? l.distance_km + ' km' : '—'}}</td>
-            <td><a href="${{l.url}}" target="_blank">${{(l.title || 'Voir').substring(0, 50)}}</a></td>
+            <td>${badge(l.site)}</td>
+            <td>${l.city || '—'}</td>
+            <td><strong>${fmt(l.price)}&euro;</strong></td>
+            <td>${l.rooms || '—'}</td>
+            <td>${l.surface || '—'}</td>
+            <td>${l.price_m2 ? l.price_m2 + '&euro;' : '—'}</td>
+            <td>${l.distance_km != null ? l.distance_km + ' km' : '—'}</td>
+            <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 50)}</a></td>
             <td>
                 <div class="share-buttons" style="gap: 4px;">
-                    <a href="${{l.share_urls.whatsapp}}" target="_blank" class="share-btn share-whatsapp" title="WhatsApp">💬</a>
-                    <a href="${{l.share_urls.telegram}}" target="_blank" class="share-btn share-telegram" title="Telegram">✈️</a>
+                    <a href="${l.share_urls.whatsapp}" target="_blank" class="share-btn share-whatsapp" title="WhatsApp">💬</a>
+                    <a href="${l.share_urls.telegram}" target="_blank" class="share-btn share-telegram" title="Telegram">✈️</a>
                 </div>
             </td>
         </tr>
     `).join('');
-}}
+}
 
-function resetFilters() {{
+function resetFilters() {
     ['f-city','f-pmin','f-pmax','f-site','f-smin'].forEach(id => document.getElementById(id).value = '');
     applyFilters();
-}}
+}
 
 // Tri au clic
-document.querySelectorAll('#main-table th[data-col]').forEach(th => {{
-    th.addEventListener('click', () => {{
+document.querySelectorAll('#main-table th[data-col]').forEach(th => {
+    th.addEventListener('click', () => {
         const col = th.dataset.col;
-        if (sortCol === col) {{ sortAsc = !sortAsc; }} else {{ sortCol = col; sortAsc = true; }}
+        if (sortCol === col) { sortAsc = !sortAsc; } else { sortCol = col; sortAsc = true; }
         document.querySelectorAll('.sort-arrow').forEach(a => a.classList.remove('active'));
         th.querySelector('.sort-arrow').classList.add('active');
         th.querySelector('.sort-arrow').innerHTML = sortAsc ? '&#9650;' : '&#9660;';
         sortAndRender();
-    }});
-}});
+    });
+});
 
 // Filtres en temps reel
 ['f-city', 'f-site'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
 ['f-pmin', 'f-pmax', 'f-smin'].forEach(id => document.getElementById(id).addEventListener('input', applyFilters));
 
-function initFilters() {{
+function initFilters() {
     const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
     const sites = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
     const citySelect = document.getElementById('f-city');
-    cities.forEach(c => {{ const o = document.createElement('option'); o.value = c; o.textContent = c; citySelect.appendChild(o); }});
+    cities.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; citySelect.appendChild(o); });
     const siteSelect = document.getElementById('f-site');
-    sites.forEach(s => {{ const o = document.createElement('option'); o.value = s; o.textContent = s; siteSelect.appendChild(o); }});
-}}
+    sites.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; siteSelect.appendChild(o); });
+}
 
 // --- Vue par ville ---
-function renderCityView() {{
+function renderCityView() {
     const container = document.getElementById('city-container');
-    const groups = {{}};
-    LISTINGS.forEach(l => {{ const c = l.city || 'N/A'; if (!groups[c]) groups[c] = []; groups[c].push(l); }});
+    const groups = {};
+    LISTINGS.forEach(l => { const c = l.city || 'N/A'; if (!groups[c]) groups[c] = []; groups[c].push(l); });
     const sorted = Object.entries(groups).sort((a, b) => b[1].length - a[1].length);
 
-    container.innerHTML = sorted.map(([city, items]) => {{
+    container.innerHTML = sorted.map(([city, items]) => {
         const prices = items.filter(l => l.price > 0).map(l => l.price);
         const avg = prices.length ? Math.round(prices.reduce((a,b) => a+b, 0) / prices.length) : 0;
         const mn = prices.length ? Math.min(...prices) : 0;
         const mx = prices.length ? Math.max(...prices) : 0;
         const rows = items.sort((a,b) => (a.price||0) - (b.price||0)).map(l => `
             <tr>
-                <td>${{badge(l.site)}}</td>
-                <td><strong>${{fmt(l.price)}}&euro;</strong></td>
-                <td>${{l.rooms || '—'}} ch.</td>
-                <td>${{l.surface || '—'}} m&sup2;</td>
-                <td>${{l.price_m2 ? l.price_m2 + ' &euro;/m&sup2;' : '—'}}</td>
-                <td><a href="${{l.url}}" target="_blank">${{(l.title || 'Voir').substring(0, 45)}}</a></td>
+                <td>${badge(l.site)}</td>
+                <td><strong>${fmt(l.price)}&euro;</strong></td>
+                <td>${l.rooms || '—'} ch.</td>
+                <td>${l.surface || '—'} m&sup2;</td>
+                <td>${l.price_m2 ? l.price_m2 + ' &euro;/m&sup2;' : '—'}</td>
+                <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 45)}</a></td>
             </tr>
         `).join('');
         return `
             <div class="city-group">
-                <h5>${{city}} <span class="listing-count">({{items.length}} ann. | moy. {{fmt(avg)}}&euro; | {{fmt(mn)}}&euro; - {{fmt(mx)}}&euro;)</span></h5>
+                <h5>${city} <span class="listing-count">({items.length} ann. | moy. {fmt(avg)}&euro; | {fmt(mn)}&euro; - {fmt(mx)}&euro;)</span></h5>
                 <div class="table-responsive">
                 <table class="table table-sm table-hover mb-0">
                     <thead><tr><th>Site</th><th>Prix</th><th>Ch.</th><th>m&sup2;</th><th>&euro;/m&sup2;</th><th>Titre</th></tr></thead>
-                    <tbody>${{rows}}</tbody>
+                    <tbody>${rows}</tbody>
                 </table>
                 </div>
             </div>
         `;
-    }}).join('');
-}}
+    }).join('');
+}
 
 // --- Vue par prix ---
-function renderPriceView() {{
+function renderPriceView() {
     const container = document.getElementById('price-container');
     const ranges = [
-        {{ label: 'Moins de 1 500 &euro;', min: 0, max: 1499, color: '#2ECC71' }},
-        {{ label: '1 500 - 2 000 &euro;', min: 1500, max: 1999, color: '#36A2EB' }},
-        {{ label: '2 000 - 2 500 &euro;', min: 2000, max: 2499, color: '#FFCE56' }},
-        {{ label: 'Plus de 2 500 &euro;', min: 2500, max: 999999, color: '#FF6384' }}
+        { label: 'Moins de 1 500 &euro;', min: 0, max: 1499, color: '#2ECC71' },
+        { label: '1 500 - 2 000 &euro;', min: 1500, max: 1999, color: '#36A2EB' },
+        { label: '2 000 - 2 500 &euro;', min: 2000, max: 2499, color: '#FFCE56' },
+        { label: 'Plus de 2 500 &euro;', min: 2500, max: 999999, color: '#FF6384' }
     ];
-    container.innerHTML = ranges.map(r => {{
+    container.innerHTML = ranges.map(r => {
         const items = LISTINGS.filter(l => l.price >= r.min && l.price <= r.max).sort((a,b) => (a.price||0) - (b.price||0));
         if (!items.length) return '';
         const rows = items.map(l => `
             <tr>
-                <td>${{badge(l.site)}}</td>
-                <td>${{l.city || '—'}}</td>
-                <td><strong>${{fmt(l.price)}}&euro;</strong></td>
-                <td>${{l.rooms || '—'}} ch.</td>
-                <td>${{l.surface || '—'}} m&sup2;</td>
-                <td>${{l.price_m2 ? l.price_m2 + ' &euro;/m&sup2;' : '—'}}</td>
-                <td><a href="${{l.url}}" target="_blank">${{(l.title || 'Voir').substring(0, 45)}}</a></td>
+                <td>${badge(l.site)}</td>
+                <td>${l.city || '—'}</td>
+                <td><strong>${fmt(l.price)}&euro;</strong></td>
+                <td>${l.rooms || '—'} ch.</td>
+                <td>${l.surface || '—'} m&sup2;</td>
+                <td>${l.price_m2 ? l.price_m2 + ' &euro;/m&sup2;' : '—'}</td>
+                <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 45)}</a></td>
             </tr>
         `).join('');
         return `
             <div class="price-range-section">
-                <h5><span class="price-badge" style="background:${{r.color}};color:white">${{r.label}}</span>
-                    <span class="listing-count ms-2">${{items.length}} annonces</span></h5>
+                <h5><span class="price-badge" style="background:${r.color};color:white">${r.label}</span>
+                    <span class="listing-count ms-2">${items.length} annonces</span></h5>
                 <div class="table-responsive">
                 <table class="table table-sm table-hover mb-0">
                     <thead><tr><th>Site</th><th>Ville</th><th>Prix</th><th>Ch.</th><th>m&sup2;</th><th>&euro;/m&sup2;</th><th>Titre</th></tr></thead>
-                    <tbody>${{rows}}</tbody>
+                    <tbody>${rows}</tbody>
                 </table>
                 </div>
             </div>
         `;
-    }}).join('');
-}}
+    }).join('');
+}
 
 // --- Carte Leaflet (lazy load quand onglet actif) ---
 let mapInit = false;
@@ -541,81 +541,81 @@ let markersLayer = L.layerGroup();
 let heatmapLayer = null;
 let currentMapMode = 'markers';
 
-function initMap() {{
+function initMap() {
     if (mapInit) return;
     mapInit = true;
 
     // Initialiser la carte une fois
     mapInstance = L.map('map').setView([49.6116, 6.1319], 10);
-    L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{ attribution: '&copy; OpenStreetMap' }}).addTo(mapInstance);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(mapInstance);
 
     // 🔘 Boutons mode
-    document.getElementById('map-mode-markers').addEventListener('click', () => {{
+    document.getElementById('map-mode-markers').addEventListener('click', () => {
         currentMapMode = 'markers';
         mapInstance.removeLayer(heatmapLayer);
         if (markersLayer.getLayers().length > 0) markersLayer.addTo(mapInstance);
         document.getElementById('map-mode-markers').classList.add('active');
         document.getElementById('map-mode-heatmap').classList.remove('active');
-    }});
+    });
 
-    document.getElementById('map-mode-heatmap').addEventListener('click', () => {{
+    document.getElementById('map-mode-heatmap').addEventListener('click', () => {
         currentMapMode = 'heatmap';
         mapInstance.removeLayer(markersLayer);
         if (heatmapLayer) heatmapLayer.addTo(mapInstance);
         document.getElementById('map-mode-heatmap').classList.add('active');
         document.getElementById('map-mode-markers').classList.remove('active');
-    }});
+    });
 
     // Mettre à jour avec les données filtrées
     updateMap();
-}}
+}
 
-function updateMap() {{
+function updateMap() {
     if (!mapInstance) return;
 
     // Utiliser 'filtered' (données filtrées) au lieu de 'LISTINGS'
     const withGPS = filtered.filter(l => l.latitude && l.longitude);
 
-    if (!withGPS.length) {{
+    if (!withGPS.length) {
         document.getElementById('map').innerHTML = '<p class="text-center text-muted py-5">Aucune annonce avec coordonnees GPS</p>';
         return;
-    }}
+    }
 
     // Vider les couches précédentes
     markersLayer.clearLayers();
 
     // 📍 Créer les markers avec données filtrées
-    withGPS.forEach(l => {{
+    withGPS.forEach(l => {
         const color = SITE_COLORS[l.site] || '#888';
-        L.circleMarker([l.latitude, l.longitude], {{
+        L.circleMarker([l.latitude, l.longitude], {
             radius: 7, fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
-        }}).addTo(markersLayer).bindPopup(`
-            <strong>${{l.city || '—'}}</strong><br>
-            {{{{fmt(l.price)}}}}&euro; | {{{{l.rooms || '?'}}}} ch. | {{{{l.surface || '?'}}}} m&sup2;<br>
-            <a href="${{l.url}}" target="_blank">Voir l'annonce</a>
+        }).addTo(markersLayer).bindPopup(`
+            <strong>${l.city || '—'}</strong><br>
+            {{fmt(l.price)}}&euro; | {{l.rooms || '?'}} ch. | {{l.surface || '?'}} m&sup2;<br>
+            <a href="${l.url}" target="_blank">Voir l'annonce</a>
         `);
-    }});
+    });
 
     // 🔥 Créer la heatmap avec données filtrées
     const heatmapData = withGPS.map(l => [l.latitude, l.longitude, 0.7]);
     if (heatmapLayer) mapInstance.removeLayer(heatmapLayer);
-    heatmapLayer = L.heatLayer(heatmapData, {{ max: 100, radius: 25, blur: 15, gradient: {{0.4: 'blue', 0.65: 'lime', 0.8: 'yellow', 1.0: 'red'}} }});
+    heatmapLayer = L.heatLayer(heatmapData, { max: 100, radius: 25, blur: 15, gradient: {0.4: 'blue', 0.65: 'lime', 0.8: 'yellow', 1.0: 'red'} });
 
     // Afficher selon le mode courant
-    if (currentMapMode === 'markers') {{
+    if (currentMapMode === 'markers') {
         if (heatmapLayer && mapInstance.hasLayer(heatmapLayer)) mapInstance.removeLayer(heatmapLayer);
         if (markersLayer.getLayers().length > 0) markersLayer.addTo(mapInstance);
-    }} else {{
+    } else {
         if (markersLayer && mapInstance.hasLayer(markersLayer)) mapInstance.removeLayer(markersLayer);
         if (heatmapLayer) heatmapLayer.addTo(mapInstance);
-    }}
+    }
 
     // Ajuster la vue à tous les markers visibles
-    if (withGPS.length > 0) {{
+    if (withGPS.length > 0) {
         const bounds = L.latLngBounds(withGPS.map(l => [l.latitude, l.longitude]));
-        mapInstance.fitBounds(bounds, {{ padding: [30, 30] }});
-    }}
-}}
+        mapInstance.fitBounds(bounds, { padding: [30, 30] });
+    }
+}
 
 document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', initMap);
 
