@@ -123,7 +123,7 @@
     <div class="d-flex justify-content-between align-items-center mb-2">
         <div>
             <h1>ImmoLux Dashboard v2.0</h1>
-            <small>Mis a jour le 24/02/2026 23:32 — 130 annonces</small>
+            <small>Mis a jour le 24/02/2026 23:35 — 130 annonces</small>
         </div>
         <div style="display: flex; gap: 1rem; align-items: center;">
             <a href="index.html" style="color: white; text-decoration: none; font-weight: 500;">📊 Dashboard</a>
@@ -378,7 +378,7 @@ function badge(site) {
 // --- Tableau triable ---
 let sortCol = 'price';
 let sortAsc = true;
-let filtered = [...LISTINGS];
+let filtered = []; // Sera rempli par waitForDataAndInit() quand LISTINGS sera chargé
 
 function applyFilters() {
     const city = document.getElementById('f-city').value;
