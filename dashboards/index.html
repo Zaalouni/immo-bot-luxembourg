@@ -123,7 +123,7 @@
     <div class="d-flex justify-content-between align-items-center mb-2">
         <div>
             <h1>ImmoLux Dashboard v2.0</h1>
-            <small>Mis a jour le 24/02/2026 23:35 — 130 annonces</small>
+            <small>Mis a jour le 24/02/2026 23:41 — 130 annonces</small>
         </div>
         <div style="display: flex; gap: 1rem; align-items: center;">
             <a href="index.html" style="color: white; text-decoration: none; font-weight: 500;">📊 Dashboard</a>
@@ -205,6 +205,9 @@
         </li>
         <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-price">💰 Par prix</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-map">🗺️ Carte</button>
         </li>
         <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-heatmap">🔥 Densité</button>
@@ -441,21 +444,50 @@ function resetFilters() {
     applyFilters();
 }
 
-// Tri au clic
-document.querySelectorAll('#main-table th[data-col]').forEach(th => {
-    th.addEventListener('click', () => {
-        const col = th.dataset.col;
-        if (sortCol === col) { sortAsc = !sortAsc; } else { sortCol = col; sortAsc = true; }
-        document.querySelectorAll('.sort-arrow').forEach(a => a.classList.remove('active'));
-        th.querySelector('.sort-arrow').classList.add('active');
-        th.querySelector('.sort-arrow').innerHTML = sortAsc ? '&#9650;' : '&#9660;';
-        sortAndRender();
-    });
-});
+// Tri au clic - enveloppé dans vérification de DOM
+function setupTableListeners() {
+    const tables = document.querySelectorAll('#main-table th[data-col]');
+    if (tables.length === 0) {
+        console.warn('[setupTableListeners] Table headers non trouvés');
+        setTimeout(setupTableListeners, 100);
+        return;
+    }
 
-// Filtres en temps reel
-['f-city', 'f-site'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
-['f-pmin', 'f-pmax', 'f-smin'].forEach(id => document.getElementById(id).addEventListener('input', applyFilters));
+    tables.forEach(th => {
+        th.addEventListener('click', () => {
+            const col = th.dataset.col;
+            if (sortCol === col) { sortAsc = !sortAsc; } else { sortCol = col; sortAsc = true; }
+            document.querySelectorAll('.sort-arrow').forEach(a => a.classList.remove('active'));
+            th.querySelector('.sort-arrow').classList.add('active');
+            th.querySelector('.sort-arrow').innerHTML = sortAsc ? '&#9650;' : '&#9660;';
+            sortAndRender();
+        });
+    });
+    console.log('[setupTableListeners] ✅ Table listeners setup');
+}
+
+// Filtres en temps reel - enveloppé dans vérification de DOM
+function setupFilterListeners() {
+    const cities = document.getElementById('f-city');
+    if (!cities) {
+        console.warn('[setupFilterListeners] Filter elements non trouvés');
+        setTimeout(setupFilterListeners, 100);
+        return;
+    }
+
+    ['f-city', 'f-site'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('change', applyFilters);
+    });
+    ['f-pmin', 'f-pmax', 'f-smin'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', applyFilters);
+    });
+    console.log('[setupFilterListeners] ✅ Filter listeners setup');
+}
+
+setupTableListeners();
+setupFilterListeners();
 
 function initFilters() {
     const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
@@ -623,7 +655,17 @@ function updateMap() {
     }
 }
 
-document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', initMap);
+// Setup map tab listener avec protection
+function setupMapListener() {
+    const mapBtn = document.querySelector('[data-bs-target="#tab-map"]');
+    if (mapBtn) {
+        mapBtn.addEventListener('shown.bs.tab', initMap);
+        console.log('[setupMapListener] ✅ Map listener setup');
+    } else {
+        console.warn('[setupMapListener] Map button not found');
+    }
+}
+setupMapListener();
 
 // --- Graphiques Chart.js ---
 function initCharts() {
@@ -666,48 +708,87 @@ function initCharts() {
 
 // --- Fonction attendre LISTINGS et initialiser ---
 function waitForDataAndInit() {
+    console.log('[waitForDataAndInit] Vérification LISTINGS...');
+
     // Attendre que LISTINGS soit chargé
-    if (typeof LISTINGS === 'undefined' || !LISTINGS || LISTINGS.length === 0) {
-        console.warn('⏳ LISTINGS pas encore chargé, nouvel essai dans 100ms...');
+    if (typeof LISTINGS === 'undefined') {
+        console.warn('[waitForDataAndInit] LISTINGS undefined, retry...');
+        setTimeout(waitForDataAndInit, 100);
+        return;
+    }
+
+    if (!LISTINGS) {
+        console.warn('[waitForDataAndInit] LISTINGS is null/falsy, retry...');
+        setTimeout(waitForDataAndInit, 100);
+        return;
+    }
+
+    if (LISTINGS.length === 0) {
+        console.warn('[waitForDataAndInit] LISTINGS is empty, retry...');
         setTimeout(waitForDataAndInit, 100);
         return;
     }
 
     console.log('✅ LISTINGS chargé:', LISTINGS.length, 'annonces');
+    console.log('[waitForDataAndInit] Premier listing:', LISTINGS[0]);
 
     try {
         // Initialiser les données de base
+        console.log('[waitForDataAndInit] Copie LISTINGS -> filtered');
         filtered = [...LISTINGS];
+        console.log('[waitForDataAndInit] filtered maintenant a', filtered.length, 'annonces');
 
         // Remplir le tableau
         const tbody = document.getElementById('table-body');
-        if (tbody && LISTINGS.length > 0) {
-            console.log('🔄 Remplissage tableau avec', filtered.length, 'annonces...');
-            sortCol = 'price';
-            sortAsc = true;
+        console.log('[waitForDataAndInit] tbody element:', tbody);
+
+        if (!tbody) {
+            console.error('❌ tbody element non trouvé!');
+            return;
+        }
+
+        if (LISTINGS.length > 0) {
+            console.log('[waitForDataAndInit] Appel initFilters()...');
             initFilters();
+            console.log('[waitForDataAndInit] ✅ initFilters() OK');
+
+            console.log('[waitForDataAndInit] Appel applyFilters()...');
             applyFilters();
-            console.log('✅ Tableau rempli');
+            console.log('[waitForDataAndInit] ✅ applyFilters() OK, filtered a', filtered.length, 'annonces');
         }
 
         // Rendre les vues
-        console.log('🔄 Rendu vues...');
+        console.log('[waitForDataAndInit] Appel renderCityView()...');
         renderCityView();
+        console.log('[waitForDataAndInit] ✅ renderCityView() OK');
+
+        console.log('[waitForDataAndInit] Appel renderPriceView()...');
         renderPriceView();
+        console.log('[waitForDataAndInit] ✅ renderPriceView() OK');
+
+        console.log('[waitForDataAndInit] Appel initCharts()...');
         initCharts();
+        console.log('[waitForDataAndInit] ✅ initCharts() OK');
 
         console.log('🎉 Dashboard initialisé complètement avec', LISTINGS.length, 'annonces');
     } catch (e) {
-        console.error('❌ Erreur initialisation:', e);
+        console.error('❌ Erreur initialisation:', e.message);
+        console.error('Stack:', e.stack);
         const tb = document.getElementById('table-body');
-        if (tb) tb.innerHTML = '<tr><td colspan="9" class="alert alert-danger m-3">Erreur: ' + e.message + '</td></tr>';
+        if (tb) tb.innerHTML = '<tr><td colspan="9" class="alert alert-danger m-3">Erreur: ' + e.message + '<br/>' + e.stack + '</td></tr>';
     }
 }
 
 // Lancer l'initialisation quand le document est prêt
+console.log('[Init] document.readyState:', document.readyState);
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', waitForDataAndInit);
+    console.log('[Init] En attente de DOMContentLoaded...');
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('[DOMContentLoaded] Appel waitForDataAndInit()');
+        waitForDataAndInit();
+    });
 } else {
+    console.log('[Init] Document déjà chargé, appel waitForDataAndInit() immédiatement');
     waitForDataAndInit();
 }
 </script>
