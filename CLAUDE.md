@@ -57,3 +57,49 @@ Chaque scraper expose `.scrape()` → `list[dict]` avec cles : listing_id, site,
 - architecture.md : flux complet, schema DB, roles fichiers
 - analyse.md : historique corrections, problemes, metriques
 - planning.md : toutes les actions avec statut/date/version
+
+---
+
+## Scripts autorisés — Diagnostic & Execution
+
+Tu peux me demander d'exécuter ces types de scripts pour:
+- **Scripts diagnostic** — Valider état du bot (scrapers, DB, Telegram)
+- **Scripts analyse logs** — Examiner performances, erreurs, patterns
+- **Commandes git/npm/pip** — Dépendances, versioning, commits
+
+## Workflow Immo-Bot Avec Claude Code
+
+### 1️⃣ Session Start (A FAIRE À CHAQUE FOIS)
+**Lis automatiquement tout contexte disponible:**
+- Ce fichier (CLAUDE.md)
+- analyse.md, architecture.md, planning.md
+- Utilise ces infos pour comprendre état + historique
+
+### 2️⃣ Proposer → Exécuter → Analyser
+1. **Propose** un script diagnostic (lisible, expliqué)
+2. **Toi**: Tu l'exécutes, colle l'output
+3. **Moi**: J'analyse output → propse corrections/actions
+
+### 3️⃣ Règles Exécution
+✅ **AUTO-APPROVE**: git status, git log, tests scrapers, diagnostics
+❌ **DEMANDE CONFIRMATION**: git push, modifications code, DB cleanup
+❌ **JAMAIS SANS DEMANDER**: rm -rf, git reset --hard, destructive ops
+
+### 4️⃣ Fichiers Contexte Auto
+Au démarrage, j'interroge automatiquement:
+```
+/home/user/immo-bot-luxembourg/
+├── CLAUDE.md              ← Ce fichier
+├── README.md              ← État générale
+├── analyse.md             ← Historique + problèmes
+├── architecture.md        ← Flux technique complet
+├── planning.md            ← Toutes actions (statut/date/version)
+└── docs/*.md              ← Si existe
+```
+
+**Impact:** Je propose actions mieux ciblées, exploite historique de corrections, évite regressions
+
+### 5️⃣ Communication Recommandée
+- **Vous démarrez session**: "Bonjour, lis contexte et résume état"
+- **Vous demandez action**: "Corrige le scraper Athome" (je lis analyse.md + architecture.md en background)
+- **Vous partagez logs**: "Voici output du diagnostic" (je relis CLAUDE.md + analyse.md pour interpréter)
