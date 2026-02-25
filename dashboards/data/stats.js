@@ -1,20 +1,25 @@
-// Genere le 25/02/2026 18:35
+// Genere le 25/02/2026 19:06
 const STATS = {
-  "total": 132,
-  "avg_price": 2086,
+  "total": 143,
+  "avg_price": 2096,
   "min_price": 1300,
   "max_price": 2500,
-  "avg_surface": 105,
+  "avg_surface": 104,
   "cities": 77,
   "sites": {
+    "SothebysRealty.lu": 5,
+    "VIVI.lu": 8,
+    "Athome.lu": 96,
     "Immotop.lu": 4,
     "Nextimmo.lu": 25,
-    "SothebysRealty.lu": 4,
-    "Newimmo.lu": 5,
-    "VIVI.lu": 6,
-    "Athome.lu": 88
+    "Newimmo.lu": 5
   },
   "by_city": [
+    {
+      "city": "bertrange",
+      "count": 6,
+      "avg_price": 2233
+    },
     {
       "city": "arlon",
       "count": 6,
@@ -26,9 +31,34 @@ const STATS = {
       "avg_price": 2304
     },
     {
-      "city": "bertrange",
+      "city": "esch sur alzette",
       "count": 5,
-      "avg_price": 2180
+      "avg_price": 2100
+    },
+    {
+      "city": "luxembourg",
+      "count": 4,
+      "avg_price": 1792
+    },
+    {
+      "city": "luxembourg limpertsberg",
+      "count": 4,
+      "avg_price": 1999
+    },
+    {
+      "city": "mamer",
+      "count": 4,
+      "avg_price": 2300
+    },
+    {
+      "city": "luxembourg hollerich",
+      "count": 4,
+      "avg_price": 2237
+    },
+    {
+      "city": "luxembourg centre ville",
+      "count": 4,
+      "avg_price": 2437
     },
     {
       "city": "bridel",
@@ -51,29 +81,9 @@ const STATS = {
       "avg_price": 1666
     },
     {
-      "city": "mamer",
-      "count": 3,
-      "avg_price": 2300
-    },
-    {
-      "city": "esch sur alzette",
-      "count": 3,
-      "avg_price": 2016
-    },
-    {
       "city": "senningerberg",
       "count": 3,
       "avg_price": 2196
-    },
-    {
-      "city": "luxembourg hollerich",
-      "count": 3,
-      "avg_price": 2216
-    },
-    {
-      "city": "luxembourg limpertsberg",
-      "count": 3,
-      "avg_price": 1866
     },
     {
       "city": "luxembourg gare",
@@ -86,14 +96,14 @@ const STATS = {
       "avg_price": 2316
     },
     {
-      "city": "luxembourg centre ville",
-      "count": 3,
-      "avg_price": 2416
+      "city": "schouweiler",
+      "count": 2,
+      "avg_price": 2145
     },
     {
-      "city": "luxembourg",
+      "city": "steinsel",
       "count": 2,
-      "avg_price": 1700
+      "avg_price": 2275
     },
     {
       "city": "bettembourg",
@@ -236,11 +246,6 @@ const STATS = {
       "avg_price": 1800
     },
     {
-      "city": "steinsel",
-      "count": 1,
-      "avg_price": 2250
-    },
-    {
       "city": "thil",
       "count": 1,
       "avg_price": 1340
@@ -366,11 +371,6 @@ const STATS = {
       "avg_price": 2500
     },
     {
-      "city": "schouweiler",
-      "count": 1,
-      "avg_price": 2390
-    },
-    {
       "city": "eischen",
       "count": 1,
       "avg_price": 1600
@@ -403,16 +403,16 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 14,
-    "1500 - 2000": 32,
-    "2000 - 2500": 70,
-    "> 2500": 16
+    "1500 - 2000": 35,
+    "2000 - 2500": 75,
+    "> 2500": 19
   },
   "data_quality": {
-    "completeness": 94,
-    "with_gps": 125,
-    "with_price": 132,
-    "with_surface": 119,
-    "total": 132
+    "completeness": 95,
+    "with_gps": 136,
+    "with_price": 143,
+    "with_surface": 129,
+    "total": 143
   },
   "anomalies": {
     "extreme_prices": [],
@@ -420,11 +420,67 @@ const STATS = {
   },
   "price_heatmap": [
     {
+      "city": "luxembourg",
+      "lat": 49.6116,
+      "lng": 6.1319,
+      "avg_price_m2": 22.2,
+      "count": 1
+    },
+    {
       "city": "bertrange",
       "lat": 49.61,
       "lng": 6.05,
-      "avg_price_m2": 24.7,
+      "avg_price_m2": 25.4,
+      "count": 4
+    },
+    {
+      "city": "luxembourg limpertsberg",
+      "lat": 49.62369109999999,
+      "lng": 6.121335699999999,
+      "avg_price_m2": 19.2,
       "count": 3
+    },
+    {
+      "city": "esch sur alzette",
+      "lat": 49.5020092,
+      "lng": 5.9451393,
+      "avg_price_m2": 23.8,
+      "count": 5
+    },
+    {
+      "city": "schouweiler",
+      "lat": 49.5814957,
+      "lng": 5.9588682,
+      "avg_price_m2": 20.9,
+      "count": 2
+    },
+    {
+      "city": "mamer",
+      "lat": 49.630503,
+      "lng": 6.013457700000001,
+      "avg_price_m2": 23.6,
+      "count": 4
+    },
+    {
+      "city": "luxembourg hollerich",
+      "lat": 49.6024497,
+      "lng": 6.114397299999999,
+      "avg_price_m2": 26.1,
+      "count": 4
+    },
+    {
+      "city": "steinsel",
+      "lat": 49.6750699,
+      "lng": 6.137721099999999,
+      "avg_price_m2": 23.1,
+      "count": 2
+    },
+    {
+      "city": "luxembourg centre ville",
+      "lat": 49.6124883,
+      "lng": 6.126248899999999,
+      "avg_price_m2": 26.4,
+      "count": 4
     },
     {
       "city": "bridel",
@@ -539,13 +595,6 @@ const STATS = {
       "count": 2
     },
     {
-      "city": "mamer",
-      "lat": 49.6270927,
-      "lng": 6.0146129,
-      "avg_price_m2": 24.6,
-      "count": 3
-    },
-    {
       "city": "junglinster",
       "lat": 49.71,
       "lng": 6.25,
@@ -565,13 +614,6 @@ const STATS = {
       "lng": 6.25,
       "avg_price_m2": 23.2,
       "count": 1
-    },
-    {
-      "city": "esch sur alzette",
-      "lat": 49.502401,
-      "lng": 5.9721782,
-      "avg_price_m2": 22.0,
-      "count": 3
     },
     {
       "city": "hassel",
@@ -606,13 +648,6 @@ const STATS = {
       "lat": 49.5031753,
       "lng": 6.000680099999999,
       "avg_price_m2": 18.0,
-      "count": 1
-    },
-    {
-      "city": "steinsel",
-      "lat": 49.6750699,
-      "lng": 6.1377211,
-      "avg_price_m2": 26.5,
       "count": 1
     },
     {
@@ -679,13 +714,6 @@ const STATS = {
       "count": 1
     },
     {
-      "city": "luxembourg hollerich",
-      "lat": 49.60034,
-      "lng": 6.12105,
-      "avg_price_m2": 27.2,
-      "count": 3
-    },
-    {
       "city": "luxembourg belair",
       "lat": 49.60751,
       "lng": 6.10969,
@@ -698,13 +726,6 @@ const STATS = {
       "lng": 6.13289,
       "avg_price_m2": 25.0,
       "count": 1
-    },
-    {
-      "city": "luxembourg limpertsberg",
-      "lat": 49.6116,
-      "lng": 6.1319,
-      "avg_price_m2": 16.5,
-      "count": 2
     },
     {
       "city": "luxembourg gare",
@@ -754,13 +775,6 @@ const STATS = {
       "lng": 6.12475,
       "avg_price_m2": 27.4,
       "count": 1
-    },
-    {
-      "city": "luxembourg centre ville",
-      "lat": 49.6123327,
-      "lng": 6.1258432,
-      "avg_price_m2": 26.0,
-      "count": 3
     },
     {
       "city": "luxembourg eich",
@@ -847,13 +861,6 @@ const STATS = {
       "count": 1
     },
     {
-      "city": "schouweiler",
-      "lat": 49.5820512,
-      "lng": 5.955324099999999,
-      "avg_price_m2": 21.9,
-      "count": 1
-    },
-    {
       "city": "eischen",
       "lat": 49.6799401,
       "lng": 5.8782811,
@@ -900,24 +907,84 @@ const STATS = {
     {
       "date": "2026-02-24",
       "count": 132
+    },
+    {
+      "date": "2026-02-25",
+      "count": 11
     }
   ]
 };
 const SITE_COLORS = {
-  "Immotop.lu": "#FF6384",
-  "Nextimmo.lu": "#36A2EB",
-  "SothebysRealty.lu": "#FFCE56",
-  "Newimmo.lu": "#4BC0C0",
-  "VIVI.lu": "#9966FF",
-  "Athome.lu": "#FF9F40"
+  "SothebysRealty.lu": "#FF6384",
+  "VIVI.lu": "#36A2EB",
+  "Athome.lu": "#FFCE56",
+  "Immotop.lu": "#4BC0C0",
+  "Nextimmo.lu": "#9966FF",
+  "Newimmo.lu": "#FF9F40"
 };
 const PRICE_HEATMAP = [
+  {
+    "city": "luxembourg",
+    "lat": 49.6116,
+    "lng": 6.1319,
+    "avg_price_m2": 22.2,
+    "count": 1
+  },
   {
     "city": "bertrange",
     "lat": 49.61,
     "lng": 6.05,
-    "avg_price_m2": 24.7,
+    "avg_price_m2": 25.4,
+    "count": 4
+  },
+  {
+    "city": "luxembourg limpertsberg",
+    "lat": 49.62369109999999,
+    "lng": 6.121335699999999,
+    "avg_price_m2": 19.2,
     "count": 3
+  },
+  {
+    "city": "esch sur alzette",
+    "lat": 49.5020092,
+    "lng": 5.9451393,
+    "avg_price_m2": 23.8,
+    "count": 5
+  },
+  {
+    "city": "schouweiler",
+    "lat": 49.5814957,
+    "lng": 5.9588682,
+    "avg_price_m2": 20.9,
+    "count": 2
+  },
+  {
+    "city": "mamer",
+    "lat": 49.630503,
+    "lng": 6.013457700000001,
+    "avg_price_m2": 23.6,
+    "count": 4
+  },
+  {
+    "city": "luxembourg hollerich",
+    "lat": 49.6024497,
+    "lng": 6.114397299999999,
+    "avg_price_m2": 26.1,
+    "count": 4
+  },
+  {
+    "city": "steinsel",
+    "lat": 49.6750699,
+    "lng": 6.137721099999999,
+    "avg_price_m2": 23.1,
+    "count": 2
+  },
+  {
+    "city": "luxembourg centre ville",
+    "lat": 49.6124883,
+    "lng": 6.126248899999999,
+    "avg_price_m2": 26.4,
+    "count": 4
   },
   {
     "city": "bridel",
@@ -1032,13 +1099,6 @@ const PRICE_HEATMAP = [
     "count": 2
   },
   {
-    "city": "mamer",
-    "lat": 49.6270927,
-    "lng": 6.0146129,
-    "avg_price_m2": 24.6,
-    "count": 3
-  },
-  {
     "city": "junglinster",
     "lat": 49.71,
     "lng": 6.25,
@@ -1058,13 +1118,6 @@ const PRICE_HEATMAP = [
     "lng": 6.25,
     "avg_price_m2": 23.2,
     "count": 1
-  },
-  {
-    "city": "esch sur alzette",
-    "lat": 49.502401,
-    "lng": 5.9721782,
-    "avg_price_m2": 22.0,
-    "count": 3
   },
   {
     "city": "hassel",
@@ -1099,13 +1152,6 @@ const PRICE_HEATMAP = [
     "lat": 49.5031753,
     "lng": 6.000680099999999,
     "avg_price_m2": 18.0,
-    "count": 1
-  },
-  {
-    "city": "steinsel",
-    "lat": 49.6750699,
-    "lng": 6.1377211,
-    "avg_price_m2": 26.5,
     "count": 1
   },
   {
@@ -1172,13 +1218,6 @@ const PRICE_HEATMAP = [
     "count": 1
   },
   {
-    "city": "luxembourg hollerich",
-    "lat": 49.60034,
-    "lng": 6.12105,
-    "avg_price_m2": 27.2,
-    "count": 3
-  },
-  {
     "city": "luxembourg belair",
     "lat": 49.60751,
     "lng": 6.10969,
@@ -1191,13 +1230,6 @@ const PRICE_HEATMAP = [
     "lng": 6.13289,
     "avg_price_m2": 25.0,
     "count": 1
-  },
-  {
-    "city": "luxembourg limpertsberg",
-    "lat": 49.6116,
-    "lng": 6.1319,
-    "avg_price_m2": 16.5,
-    "count": 2
   },
   {
     "city": "luxembourg gare",
@@ -1247,13 +1279,6 @@ const PRICE_HEATMAP = [
     "lng": 6.12475,
     "avg_price_m2": 27.4,
     "count": 1
-  },
-  {
-    "city": "luxembourg centre ville",
-    "lat": 49.6123327,
-    "lng": 6.1258432,
-    "avg_price_m2": 26.0,
-    "count": 3
   },
   {
     "city": "luxembourg eich",
@@ -1340,13 +1365,6 @@ const PRICE_HEATMAP = [
     "count": 1
   },
   {
-    "city": "schouweiler",
-    "lat": 49.5820512,
-    "lng": 5.955324099999999,
-    "avg_price_m2": 21.9,
-    "count": 1
-  },
-  {
     "city": "eischen",
     "lat": 49.6799401,
     "lng": 5.8782811,
@@ -1393,5 +1411,9 @@ const TIMELINE = [
   {
     "date": "2026-02-24",
     "count": 132
+  },
+  {
+    "date": "2026-02-25",
+    "count": 11
   }
 ];
