@@ -124,7 +124,7 @@
     <div class="d-flex justify-content-between align-items-center mb-2">
         <div>
             <h1>ImmoLux Dashboard v2.0</h1>
-            <small>Mis a jour le 25/02/2026 00:27 — 132 annonces</small>
+            <small>Mis a jour le 25/02/2026 18:35 — 132 annonces</small>
         </div>
         <div style="display: flex; gap: 1rem; align-items: center;">
             <a href="index.html" style="color: white; text-decoration: none; font-weight: 500;">📊 Dashboard</a>
@@ -523,7 +523,7 @@ function renderCityView() {
         `).join('');
         return `
             <div class="city-group">
-                <h5>${city} <span class="listing-count">({items.length} ann. | moy. {fmt(avg)}&euro; | {fmt(mn)}&euro; - {fmt(mx)}&euro;)</span></h5>
+                <h5>${city} <span class="listing-count">(${items.length} ann. | moy. ${fmt(avg)}&euro; | ${fmt(mn)}&euro; - ${fmt(mx)}&euro;)</span></h5>
                 <div class="table-responsive">
                 <table class="table table-sm table-hover mb-0">
                     <thead><tr><th>Site</th><th>Prix</th><th>Ch.</th><th>m&sup2;</th><th>&euro;/m&sup2;</th><th>Titre</th></tr></thead>
