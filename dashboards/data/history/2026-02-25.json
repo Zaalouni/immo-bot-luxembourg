@@ -1,22 +1,27 @@
 {
   "date": "2026-02-25",
-  "generated_at": "25/02/2026 19:52",
+  "generated_at": "25/02/2026 20:01",
   "stats": {
-    "total": 143,
-    "avg_price": 2096,
+    "total": 146,
+    "avg_price": 2091,
     "min_price": 1300,
     "max_price": 2500,
     "avg_surface": 104,
     "cities": 77,
     "sites": {
-      "SothebysRealty.lu": 5,
+      "SothebysRealty.lu": 7,
+      "Athome.lu": 97,
       "VIVI.lu": 8,
-      "Athome.lu": 96,
       "Immotop.lu": 4,
       "Nextimmo.lu": 25,
       "Newimmo.lu": 5
     },
     "by_city": [
+      {
+        "city": "luxembourg",
+        "count": 6,
+        "avg_price": 1753
+      },
       {
         "city": "bertrange",
         "count": 6,
@@ -33,14 +38,14 @@
         "avg_price": 2304
       },
       {
+        "city": "luxembourg hollerich",
+        "count": 5,
+        "avg_price": 2240
+      },
+      {
         "city": "esch sur alzette",
         "count": 5,
         "avg_price": 2100
-      },
-      {
-        "city": "luxembourg",
-        "count": 4,
-        "avg_price": 1792
       },
       {
         "city": "luxembourg limpertsberg",
@@ -51,11 +56,6 @@
         "city": "mamer",
         "count": 4,
         "avg_price": 2300
-      },
-      {
-        "city": "luxembourg hollerich",
-        "count": 4,
-        "avg_price": 2237
       },
       {
         "city": "luxembourg centre ville",
@@ -404,17 +404,17 @@
       }
     ],
     "by_price_range": {
-      "< 1500": 14,
-      "1500 - 2000": 35,
-      "2000 - 2500": 75,
+      "< 1500": 15,
+      "1500 - 2000": 36,
+      "2000 - 2500": 76,
       "> 2500": 19
     },
     "data_quality": {
-      "completeness": 95,
-      "with_gps": 136,
-      "with_price": 143,
-      "with_surface": 129,
-      "total": 143
+      "completeness": 94,
+      "with_gps": 139,
+      "with_price": 146,
+      "with_surface": 130,
+      "total": 146
     },
     "anomalies": {
       "extreme_prices": [],
@@ -427,6 +427,13 @@
         "lng": 6.1319,
         "avg_price_m2": 22.2,
         "count": 1
+      },
+      {
+        "city": "luxembourg hollerich",
+        "lat": 49.6031294,
+        "lng": 6.114701999999999,
+        "avg_price_m2": 26.5,
+        "count": 5
       },
       {
         "city": "bertrange",
@@ -461,13 +468,6 @@
         "lat": 49.630503,
         "lng": 6.013457700000001,
         "avg_price_m2": 23.6,
-        "count": 4
-      },
-      {
-        "city": "luxembourg hollerich",
-        "lat": 49.6024497,
-        "lng": 6.114397299999999,
-        "avg_price_m2": 26.1,
         "count": 4
       },
       {
@@ -912,11 +912,80 @@
       },
       {
         "date": "2026-02-25",
-        "count": 11
+        "count": 14
       }
     ]
   },
   "listings": [
+    {
+      "listing_id": "sothebys_459",
+      "site": "SothebysRealty.lu",
+      "title": "Appartement — Luxembourg",
+      "city": "luxembourg",
+      "price": 1950,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://sothebysrealty.lu/fra/rentals/459_maison-de-ville-a-luxembourg-belair",
+      "image_url": "https://sothebysrealty.lu/asset/22483/1200/650",
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-02-25 19:01:00",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsothebysrealty.lu%2Ffra%2Frentals%2F459_maison-de-ville-a-luxembourg-belair&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement — Luxembourg - 1950€ @ luxembourg https://sothebysrealty.lu/fra/rentals/459_maison-de-ville-a-luxembourg-belair",
+        "telegram": "https://t.me/share/url?url=https://sothebysrealty.lu/fra/rentals/459_maison-de-ville-a-luxembourg-belair&text=Appartement — Luxembourg - 1950€",
+        "email": "mailto:?subject=Appartement — Luxembourg&body=https://sothebysrealty.lu/fra/rentals/459_maison-de-ville-a-luxembourg-belair"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "sothebys_1972",
+      "site": "SothebysRealty.lu",
+      "title": "Appartement — Luxembourg",
+      "city": "luxembourg",
+      "price": 1400,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://sothebysrealty.lu/fra/rentals/1972_appartement-a-luxembourg-belair",
+      "image_url": "https://sothebysrealty.lu/asset/72231/1200/650",
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-02-25 19:00:51",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsothebysrealty.lu%2Ffra%2Frentals%2F1972_appartement-a-luxembourg-belair&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement — Luxembourg - 1400€ @ luxembourg https://sothebysrealty.lu/fra/rentals/1972_appartement-a-luxembourg-belair",
+        "telegram": "https://t.me/share/url?url=https://sothebysrealty.lu/fra/rentals/1972_appartement-a-luxembourg-belair&text=Appartement — Luxembourg - 1400€",
+        "email": "mailto:?subject=Appartement — Luxembourg&body=https://sothebysrealty.lu/fra/rentals/1972_appartement-a-luxembourg-belair"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_9003558",
+      "site": "Athome.lu",
+      "title": "Appartement de 80m2 au 2. étage situé au 34, rue de la Toison d'Or\n\nL'",
+      "city": "luxembourg hollerich",
+      "price": 2250,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-hollerich/id-9003558.html",
+      "image_url": "https://i1.static.athome.eu/images/annonces2/image_/62/26/98/cc026351c2000e877862c5562e9be01a1ef68148.jpg",
+      "latitude": 49.6031294,
+      "longitude": 6.114701999999999,
+      "distance_km": 1.4,
+      "created_at": "2026-02-25 19:00:45",
+      "price_m2": 28.1,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-hollerich%2Fid-9003558.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement de 80m2 au 2. étage situé au 34, rue d - 2250€ @ luxembourg hollerich https://www.athome.lu/location/appartement/luxembourg-hollerich/id-9003558.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-hollerich/id-9003558.html&text=Appartement de 80m2 au 2. étage situé au 34, rue d - 2250€",
+        "email": "mailto:?subject=Appartement de 80m2 au 2. étage situé au 34, rue d&body=https://www.athome.lu/location/appartement/luxembourg-hollerich/id-9003558.html"
+      },
+      "flags": []
+    },
     {
       "listing_id": "sothebys_2016",
       "site": "SothebysRealty.lu",
@@ -4230,6 +4299,13 @@
       "count": 1
     },
     {
+      "city": "luxembourg hollerich",
+      "lat": 49.6031294,
+      "lng": 6.114701999999999,
+      "avg_price_m2": 26.5,
+      "count": 5
+    },
+    {
       "city": "bertrange",
       "lat": 49.61,
       "lng": 6.05,
@@ -4262,13 +4338,6 @@
       "lat": 49.630503,
       "lng": 6.013457700000001,
       "avg_price_m2": 23.6,
-      "count": 4
-    },
-    {
-      "city": "luxembourg hollerich",
-      "lat": 49.6024497,
-      "lng": 6.114397299999999,
-      "avg_price_m2": 26.1,
       "count": 4
     },
     {
@@ -4713,7 +4782,7 @@
     },
     {
       "date": "2026-02-25",
-      "count": 11
+      "count": 14
     }
   ]
 }

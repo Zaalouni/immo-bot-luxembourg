@@ -1,20 +1,25 @@
-// Genere le 25/02/2026 19:52
+// Genere le 25/02/2026 20:01
 const STATS = {
-  "total": 143,
-  "avg_price": 2096,
+  "total": 146,
+  "avg_price": 2091,
   "min_price": 1300,
   "max_price": 2500,
   "avg_surface": 104,
   "cities": 77,
   "sites": {
-    "SothebysRealty.lu": 5,
+    "SothebysRealty.lu": 7,
+    "Athome.lu": 97,
     "VIVI.lu": 8,
-    "Athome.lu": 96,
     "Immotop.lu": 4,
     "Nextimmo.lu": 25,
     "Newimmo.lu": 5
   },
   "by_city": [
+    {
+      "city": "luxembourg",
+      "count": 6,
+      "avg_price": 1753
+    },
     {
       "city": "bertrange",
       "count": 6,
@@ -31,14 +36,14 @@ const STATS = {
       "avg_price": 2304
     },
     {
+      "city": "luxembourg hollerich",
+      "count": 5,
+      "avg_price": 2240
+    },
+    {
       "city": "esch sur alzette",
       "count": 5,
       "avg_price": 2100
-    },
-    {
-      "city": "luxembourg",
-      "count": 4,
-      "avg_price": 1792
     },
     {
       "city": "luxembourg limpertsberg",
@@ -49,11 +54,6 @@ const STATS = {
       "city": "mamer",
       "count": 4,
       "avg_price": 2300
-    },
-    {
-      "city": "luxembourg hollerich",
-      "count": 4,
-      "avg_price": 2237
     },
     {
       "city": "luxembourg centre ville",
@@ -402,17 +402,17 @@ const STATS = {
     }
   ],
   "by_price_range": {
-    "< 1500": 14,
-    "1500 - 2000": 35,
-    "2000 - 2500": 75,
+    "< 1500": 15,
+    "1500 - 2000": 36,
+    "2000 - 2500": 76,
     "> 2500": 19
   },
   "data_quality": {
-    "completeness": 95,
-    "with_gps": 136,
-    "with_price": 143,
-    "with_surface": 129,
-    "total": 143
+    "completeness": 94,
+    "with_gps": 139,
+    "with_price": 146,
+    "with_surface": 130,
+    "total": 146
   },
   "anomalies": {
     "extreme_prices": [],
@@ -425,6 +425,13 @@ const STATS = {
       "lng": 6.1319,
       "avg_price_m2": 22.2,
       "count": 1
+    },
+    {
+      "city": "luxembourg hollerich",
+      "lat": 49.6031294,
+      "lng": 6.114701999999999,
+      "avg_price_m2": 26.5,
+      "count": 5
     },
     {
       "city": "bertrange",
@@ -459,13 +466,6 @@ const STATS = {
       "lat": 49.630503,
       "lng": 6.013457700000001,
       "avg_price_m2": 23.6,
-      "count": 4
-    },
-    {
-      "city": "luxembourg hollerich",
-      "lat": 49.6024497,
-      "lng": 6.114397299999999,
-      "avg_price_m2": 26.1,
       "count": 4
     },
     {
@@ -910,14 +910,14 @@ const STATS = {
     },
     {
       "date": "2026-02-25",
-      "count": 11
+      "count": 14
     }
   ]
 };
 const SITE_COLORS = {
   "SothebysRealty.lu": "#FF6384",
-  "VIVI.lu": "#36A2EB",
-  "Athome.lu": "#FFCE56",
+  "Athome.lu": "#36A2EB",
+  "VIVI.lu": "#FFCE56",
   "Immotop.lu": "#4BC0C0",
   "Nextimmo.lu": "#9966FF",
   "Newimmo.lu": "#FF9F40"
@@ -929,6 +929,13 @@ const PRICE_HEATMAP = [
     "lng": 6.1319,
     "avg_price_m2": 22.2,
     "count": 1
+  },
+  {
+    "city": "luxembourg hollerich",
+    "lat": 49.6031294,
+    "lng": 6.114701999999999,
+    "avg_price_m2": 26.5,
+    "count": 5
   },
   {
     "city": "bertrange",
@@ -963,13 +970,6 @@ const PRICE_HEATMAP = [
     "lat": 49.630503,
     "lng": 6.013457700000001,
     "avg_price_m2": 23.6,
-    "count": 4
-  },
-  {
-    "city": "luxembourg hollerich",
-    "lat": 49.6024497,
-    "lng": 6.114397299999999,
-    "avg_price_m2": 26.1,
     "count": 4
   },
   {
@@ -1414,6 +1414,6 @@ const TIMELINE = [
   },
   {
     "date": "2026-02-25",
-    "count": 11
+    "count": 14
   }
 ];

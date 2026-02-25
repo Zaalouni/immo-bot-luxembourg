@@ -1,6 +1,75 @@
-// Genere le 25/02/2026 19:52
-// 143 annonces depuis listings.db
+// Genere le 25/02/2026 20:01
+// 146 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "sothebys_459",
+    "site": "SothebysRealty.lu",
+    "title": "Appartement — Luxembourg",
+    "city": "luxembourg",
+    "price": 1950,
+    "rooms": 0,
+    "surface": 0,
+    "url": "https://sothebysrealty.lu/fra/rentals/459_maison-de-ville-a-luxembourg-belair",
+    "image_url": "https://sothebysrealty.lu/asset/22483/1200/650",
+    "latitude": 49.6116,
+    "longitude": 6.1319,
+    "distance_km": 1.3,
+    "created_at": "2026-02-25 19:01:00",
+    "price_m2": null,
+    "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsothebysrealty.lu%2Ffra%2Frentals%2F459_maison-de-ville-a-luxembourg-belair&format=png",
+    "share_urls": {
+      "whatsapp": "https://wa.me/?text=Annonce immo: Appartement — Luxembourg - 1950€ @ luxembourg https://sothebysrealty.lu/fra/rentals/459_maison-de-ville-a-luxembourg-belair",
+      "telegram": "https://t.me/share/url?url=https://sothebysrealty.lu/fra/rentals/459_maison-de-ville-a-luxembourg-belair&text=Appartement — Luxembourg - 1950€",
+      "email": "mailto:?subject=Appartement — Luxembourg&body=https://sothebysrealty.lu/fra/rentals/459_maison-de-ville-a-luxembourg-belair"
+    },
+    "flags": []
+  },
+  {
+    "listing_id": "sothebys_1972",
+    "site": "SothebysRealty.lu",
+    "title": "Appartement — Luxembourg",
+    "city": "luxembourg",
+    "price": 1400,
+    "rooms": 0,
+    "surface": 0,
+    "url": "https://sothebysrealty.lu/fra/rentals/1972_appartement-a-luxembourg-belair",
+    "image_url": "https://sothebysrealty.lu/asset/72231/1200/650",
+    "latitude": 49.6116,
+    "longitude": 6.1319,
+    "distance_km": 1.3,
+    "created_at": "2026-02-25 19:00:51",
+    "price_m2": null,
+    "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsothebysrealty.lu%2Ffra%2Frentals%2F1972_appartement-a-luxembourg-belair&format=png",
+    "share_urls": {
+      "whatsapp": "https://wa.me/?text=Annonce immo: Appartement — Luxembourg - 1400€ @ luxembourg https://sothebysrealty.lu/fra/rentals/1972_appartement-a-luxembourg-belair",
+      "telegram": "https://t.me/share/url?url=https://sothebysrealty.lu/fra/rentals/1972_appartement-a-luxembourg-belair&text=Appartement — Luxembourg - 1400€",
+      "email": "mailto:?subject=Appartement — Luxembourg&body=https://sothebysrealty.lu/fra/rentals/1972_appartement-a-luxembourg-belair"
+    },
+    "flags": []
+  },
+  {
+    "listing_id": "athome_9003558",
+    "site": "Athome.lu",
+    "title": "Appartement de 80m2 au 2. étage situé au 34, rue de la Toison d'Or\n\nL'",
+    "city": "luxembourg hollerich",
+    "price": 2250,
+    "rooms": 2,
+    "surface": 80,
+    "url": "https://www.athome.lu/location/appartement/luxembourg-hollerich/id-9003558.html",
+    "image_url": "https://i1.static.athome.eu/images/annonces2/image_/62/26/98/cc026351c2000e877862c5562e9be01a1ef68148.jpg",
+    "latitude": 49.6031294,
+    "longitude": 6.114701999999999,
+    "distance_km": 1.4,
+    "created_at": "2026-02-25 19:00:45",
+    "price_m2": 28.1,
+    "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-hollerich%2Fid-9003558.html&format=png",
+    "share_urls": {
+      "whatsapp": "https://wa.me/?text=Annonce immo: Appartement de 80m2 au 2. étage situé au 34, rue d - 2250€ @ luxembourg hollerich https://www.athome.lu/location/appartement/luxembourg-hollerich/id-9003558.html",
+      "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-hollerich/id-9003558.html&text=Appartement de 80m2 au 2. étage situé au 34, rue d - 2250€",
+      "email": "mailto:?subject=Appartement de 80m2 au 2. étage situé au 34, rue d&body=https://www.athome.lu/location/appartement/luxembourg-hollerich/id-9003558.html"
+    },
+    "flags": []
+  },
   {
     "listing_id": "sothebys_2016",
     "site": "SothebysRealty.lu",
