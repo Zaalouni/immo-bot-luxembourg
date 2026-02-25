@@ -103,3 +103,85 @@ Au démarrage, j'interroge automatiquement:
 - **Vous démarrez session**: "Bonjour, lis contexte et résume état"
 - **Vous demandez action**: "Corrige le scraper Athome" (je lis analyse.md + architecture.md en background)
 - **Vous partagez logs**: "Voici output du diagnostic" (je relis CLAUDE.md + analyse.md pour interpréter)
+
+---
+
+## Scripts Diagnostic Recommandés
+
+### Dashboard Health Check
+```bash
+# Valider fichiers + structure
+ls -lah dashboards/index.html dashboards/data/
+file dashboards/index.html | head -20
+wc -l dashboards/data/listings.js
+
+# Tester génération
+python dashboard_generator.py
+
+# Vérifier erreurs HTML
+grep -i "error\|undefined\|null" dashboards/index.html | head -5
+```
+
+### Bot Status
+```bash
+# Scrapers
+python test_scrapers.py 2>&1 | tail -30
+
+# Database
+sqlite3 listings.db "SELECT COUNT(*) as total, COUNT(DISTINCT site) as sites FROM listings;"
+
+# Logs (si existe)
+tail -50 *.log
+```
+
+### Git Status
+```bash
+git status
+git log --oneline -10
+git diff HEAD~1
+```
+
+### Performance Baseline (Async ready)
+```bash
+# Timing scraping actuel
+time python -c "from main import ImmoBot; bot = ImmoBot(); bot.check_new_listings()"
+```
+
+---
+
+## Processus Correction & Optimisation
+
+### Avant chaque correction majeure:
+1. Lancer diagnostic (voir scripts ci-dessus)
+2. Noter baseline (temps, erreurs, counts)
+3. Appliquer correction
+4. Re-lancer diagnostic
+5. Comparer avant/après
+6. Documenter dans analyse.md
+
+### Après correction/optimisation:
+Toujours actualiser:
+- **analyse.md** — Ajouter entrée v[X.Y] avec ce qui a changé
+- **CLAUDE.md** — Si change état/version/architecture
+- **Commit message** — Inclure metrics (ex: "+309 listings", "2-3min → 30sec async")
+
+### Exemple commit après correction dashboard:
+```
+dashboard: fix html syntax + add chart.js
+
+- Remove legacy dashboard.py + templates/
+- Fix template accolades/Jinja2 formatting
+- Add Chart.js initialization (doughnut + bar)
+- Add Timeline interactive slider
+- All 132 listings now render without errors
+
+Before: 8/8 tabs, 5/8 incomplete
+After:  8/8 tabs, 3/8 incomplete (Heatmap, Anomalies)
+
+Metrics:
+- Generation time: <5 sec
+- HTML size: 2.3 MB
+- GPS coverage: 94.7%
+
+Tested: python dashboard_generator.py → no errors
+```
