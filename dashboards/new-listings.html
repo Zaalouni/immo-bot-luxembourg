@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annonces avec Anomalies - ImmoLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root { --primary: #667eea; --primary-dark: #5a6fd6; }
+        body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; padding-bottom: 2rem; }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 1.2rem 1rem; margin-bottom: 1rem;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .header h1 { font-size: 1.4rem; margin: 0; }
+        .header small { opacity: 0.8; font-size: 0.75rem; }
+
+        .stat-card {
+            background: white; border-radius: 12px; padding: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center;
+        }
+        .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+        .listing-card {
+            background: white; border-radius: 12px; padding: 1rem;
+            margin-bottom: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid #ccc;
+        }
+        .listing-card.good-deal { border-left-color: #28a745; }
+        .listing-card.high-price { border-left-color: #dc3545; }
+
+        .badge-anomaly {
+            display: inline-block; padding: 4px 8px; border-radius: 4px;
+            font-size: 0.75rem; font-weight: 600; margin-right: 0.5rem;
+        }
+        .badge-good { background: #d4edda; color: #155724; }
+        .badge-high { background: #f8d7da; color: #721c24; }
+
+        .nav-link { color: white; opacity: 0.8; text-decoration: none; margin: 0 1rem; }
+        .nav-link:hover { opacity: 1; }
+        .nav-link.active { opacity: 1; border-bottom: 2px solid white; }
+
+        .city-stats {
+            background: #f8f9fa; padding: 0.8rem; border-radius: 8px;
+            margin-top: 0.5rem; font-size: 0.85rem;
+        }
+        .city-stats strong { color: var(--primary); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 Anomalies Prix - ImmoLux</h1>
+        <small id="lastUpdate"></small>
+        <div style="margin-top: 0.8rem;">
+            <a href="index.html" class="nav-link">📊 Dashboard</a>
+            <a href="new-listings.html" class="nav-link active">🎯 Anomalies</a>
+            <a href="map-advanced.html" class="nav-link">🗺️ Carte+</a>
+            <a href="nearby.html" class="nav-link">📍 Autour de moi</a>
+        </div>
+    </div>
+
+    <div class="container-fluid p-3">
+        <!-- Statistiques -->
+        <div class="row g-2 mb-3">
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalCount">0</div>
+                    <div class="stat-label">Total Annonces</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-value" id="goodDealsCount">0</div>
+                    <div class="stat-label">Bon Affaires</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-value" id="highPriceCount">0</div>
+                    <div class="stat-label">Prix Hauts</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-value" id="avgPrice">0€</div>
+                    <div class="stat-label">Prix Moyen</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtres -->
+        <div class="row g-2 mb-3">
+            <div class="col-md-6">
+                <select id="filterCity" class="form-select">
+                    <option value="">Toutes les villes</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <select id="filterAnomaly" class="form-select">
+                    <option value="">Toutes les anomalies</option>
+                    <option value="GOOD_DEAL">Bon Affaire (< 0.7x median)</option>
+                    <option value="HIGH">Prix Haut (> 2.5x median)</option>
+                    <option value="NONE">Prix Normal</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Liste annonces -->
+        <div id="listings" class="row g-2">
+            <div class="col-12 text-center p-4">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Chargement...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data/new-listings.json" type="application/json"></script>
+    <script src="data/anomalies.js"></script>
+    <script src="data/market-stats.js"></script>
+    <script>
+        // Mock LISTINGS from listings.js (loaded via fetch)
+        let NEW_LISTINGS_DATA = null;
+        let LISTINGS = [];
+        let filtered = [];
+
+        async function loadData() {
+            try {
+                const response = await fetch('data/new-listings.json');
+                NEW_LISTINGS_DATA = await response.json();
+
+                // Charger listings complets
+                const listingsResp = await fetch('data/listings.json');
+                LISTINGS = await listingsResp.json();
+
+                initUI();
+            } catch (e) {
+                console.error('Erreur chargement données:', e);
+                document.getElementById('listings').innerHTML = '<div class="col-12 text-danger">Erreur chargement données</div>';
+            }
+        }
+
+        function initUI() {
+            // Afficher date mise à jour
+            const now = new Date(NEW_LISTINGS_DATA.generated_at);
+            document.getElementById('lastUpdate').textContent = `Mise à jour: ${now.toLocaleString('fr-FR')}`;
+
+            // Stats
+            document.getElementById('totalCount').textContent = NEW_LISTINGS_DATA.total;
+            document.getElementById('goodDealsCount').textContent = NEW_LISTINGS_DATA.good_deals_count;
+            document.getElementById('highPriceCount').textContent = NEW_LISTINGS_DATA.high_price_count;
+            document.getElementById('avgPrice').textContent =
+                NEW_LISTINGS_DATA.market_stats && Object.values(NEW_LISTINGS_DATA.market_stats).length > 0
+                    ? Math.round(Object.values(NEW_LISTINGS_DATA.market_stats).reduce((sum, s) => sum + s.avg_price, 0) / Object.values(NEW_LISTINGS_DATA.market_stats).length) + '€'
+                    : '0€';
+
+            // Villes
+            const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
+            const citySelect = document.getElementById('filterCity');
+            cities.forEach(city => {
+                const opt = document.createElement('option');
+                opt.value = city;
+                opt.textContent = city;
+                citySelect.appendChild(opt);
+            });
+
+            // Event listeners
+            document.getElementById('filterCity').addEventListener('change', applyFilters);
+            document.getElementById('filterAnomaly').addEventListener('change', applyFilters);
+
+            // Affichage initial
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const filterCity = document.getElementById('filterCity').value;
+            const filterAnomaly = document.getElementById('filterAnomaly').value;
+
+            filtered = LISTINGS.filter(l => {
+                const matchCity = !filterCity || l.city === filterCity;
+                const anomaly = ANOMALIES[l.listing_id] || null;
+                let matchAnomaly = true;
+
+                if (filterAnomaly === 'GOOD_DEAL') {
+                    matchAnomaly = anomaly === 'GOOD_DEAL';
+                } else if (filterAnomaly === 'HIGH') {
+                    matchAnomaly = anomaly === 'HIGH';
+                } else if (filterAnomaly === 'NONE') {
+                    matchAnomaly = !anomaly;
+                }
+
+                return matchCity && matchAnomaly;
+            });
+
+            renderListings();
+        }
+
+        function renderListings() {
+            const container = document.getElementById('listings');
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center text-muted p-4">Aucune annonce ne correspond aux filtres</div>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(l => {
+                const anomaly = ANOMALIES[l.listing_id];
+                const stats = MARKET_STATS[l.city] || {};
+                const anomalyClass = anomaly === 'GOOD_DEAL' ? 'good-deal' : anomaly === 'HIGH' ? 'high-price' : '';
+                const badgeClass = anomaly === 'GOOD_DEAL' ? 'badge-good' : anomaly === 'HIGH' ? 'badge-high' : '';
+                const badgeText = anomaly === 'GOOD_DEAL' ? '✅ Bon Affaire' : anomaly === 'HIGH' ? '⚠️ Prix Haut' : '⭕ Normal';
+
+                const priceM2 = l.surface > 0 ? Math.round(l.price / l.surface) : 0;
+                const cityAvgM2 = stats.avg_price_m2 || 0;
+                const comparison = cityAvgM2 > 0 ? Math.round((priceM2 - cityAvgM2) / cityAvgM2 * 100) : 0;
+                const comparisonColor = comparison > 10 ? '#dc3545' : comparison < -10 ? '#28a745' : '#666';
+
+                return `
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="listing-card ${anomalyClass}">
+                            ${l.image_url ? `<img src="${l.image_url}" alt="" style="width:100%; height:150px; object-fit:cover; border-radius:8px; margin-bottom:0.8rem;">` : '<div style="width:100%; height:150px; background:#ddd; border-radius:8px; margin-bottom:0.8rem; display:flex; align-items:center; justify-content:center; color:#999;">Pas d\'image</div>'}
+
+                            <h6>${l.title}</h6>
+
+                            <div class="d-flex gap-2 mb-2">
+                                <span class="badge bg-primary">${l.city}</span>
+                                ${anomaly ? `<span class="badge-anomaly ${badgeClass}">${badgeText}</span>` : ''}
+                            </div>
+
+                            <div class="mb-2">
+                                <strong style="font-size:1.2rem; color:var(--primary);">${l.price}€</strong>
+                                <small style="color:#888; display:block;">
+                                    ${l.surface}m² → ${priceM2}€/m²
+                                    ${comparison !== 0 ? `<span style="color:${comparisonColor};">(${comparison > 0 ? '+' : ''}${comparison}% vs ville)</span>` : ''}
+                                </small>
+                            </div>
+
+                            ${l.rooms > 0 ? `<small>📍 ${l.rooms} chambre${l.rooms > 1 ? 's' : ''}</small><br/>` : ''}
+                            <small>📅 ${l.time_ago || 'Récemment'}</small>
+
+                            ${stats.median_price ? `
+                                <div class="city-stats">
+                                    <strong>${l.city}:</strong> Median <strong>${stats.median_price}€</strong> |
+                                    Avg <strong>${stats.avg_price}€</strong> |
+                                    ${stats.avg_price_m2}€/m²
+                                </div>
+                            ` : ''}
+
+                            <a href="${l.url}" target="_blank" class="btn btn-sm btn-primary mt-2" style="width:100%;">
+                                Voir l'annonce
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Load on DOM ready
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>

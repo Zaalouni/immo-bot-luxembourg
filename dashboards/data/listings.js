@@ -1,4 +1,4 @@
-// Genere le 26/02/2026 22:06
+// Genere le 26/02/2026 22:10
 // 110 annonces depuis listings.db
 const LISTINGS = [
   {
@@ -20,7 +20,16 @@ const LISTINGS = [
     "price_m2": 24.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2187,
+      "median_price": 2400,
+      "min_price": 1850,
+      "max_price": 2400,
+      "avg_price_m2": 25
+    }
   },
   {
     "listing_id": "vivi_208174",
@@ -41,7 +50,16 @@ const LISTINGS = [
     "price_m2": 25.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2145,
+      "median_price": 2050,
+      "min_price": 1995,
+      "max_price": 2390,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "vivi_208177",
@@ -62,7 +80,16 @@ const LISTINGS = [
     "price_m2": 22.9,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2145,
+      "median_price": 2050,
+      "min_price": 1995,
+      "max_price": 2390,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_6096993",
@@ -83,7 +110,16 @@ const LISTINGS = [
     "price_m2": 15.2,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": "GOOD_DEAL",
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2062,
+      "median_price": 2450,
+      "min_price": 1675,
+      "max_price": 2450,
+      "avg_price_m2": 18
+    }
   },
   {
     "listing_id": "nextimmo_15512",
@@ -104,7 +140,16 @@ const LISTINGS = [
     "price_m2": 14.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2500,
+      "median_price": 2500,
+      "min_price": 2500,
+      "max_price": 2500,
+      "avg_price_m2": 14
+    }
   },
   {
     "listing_id": "nextimmo_16795",
@@ -125,7 +170,16 @@ const LISTINGS = [
     "price_m2": 18.7,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2475,
+      "median_price": 2500,
+      "min_price": 2450,
+      "max_price": 2500,
+      "avg_price_m2": 19
+    }
   },
   {
     "listing_id": "nextimmo_14306",
@@ -146,7 +200,16 @@ const LISTINGS = [
     "price_m2": 19.5,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2225,
+      "median_price": 2500,
+      "min_price": 1950,
+      "max_price": 2500,
+      "avg_price_m2": 22
+    }
   },
   {
     "listing_id": "nextimmo_15504",
@@ -167,7 +230,16 @@ const LISTINGS = [
     "price_m2": 23.8,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2450,
+      "median_price": 2450,
+      "min_price": 2450,
+      "max_price": 2450,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "nextimmo_14834",
@@ -188,7 +260,16 @@ const LISTINGS = [
     "price_m2": 25.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2225,
+      "median_price": 2500,
+      "min_price": 1950,
+      "max_price": 2500,
+      "avg_price_m2": 22
+    }
   },
   {
     "listing_id": "nextimmo_17212",
@@ -209,7 +290,16 @@ const LISTINGS = [
     "price_m2": 28.9,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2187,
+      "median_price": 2400,
+      "min_price": 1850,
+      "max_price": 2400,
+      "avg_price_m2": 25
+    }
   },
   {
     "listing_id": "nextimmo_18136",
@@ -230,7 +320,16 @@ const LISTINGS = [
     "price_m2": 28.8,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2200,
+      "median_price": 2300,
+      "min_price": 2100,
+      "max_price": 2300,
+      "avg_price_m2": 26
+    }
   },
   {
     "listing_id": "nextimmo_43894",
@@ -251,7 +350,16 @@ const LISTINGS = [
     "price_m2": 26.9,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2233,
+      "median_price": 2250,
+      "min_price": 2150,
+      "max_price": 2300,
+      "avg_price_m2": 26
+    }
   },
   {
     "listing_id": "nextimmo_12430",
@@ -272,7 +380,16 @@ const LISTINGS = [
     "price_m2": 20.6,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2350,
+      "median_price": 2350,
+      "min_price": 2350,
+      "max_price": 2350,
+      "avg_price_m2": 20
+    }
   },
   {
     "listing_id": "nextimmo_17680",
@@ -293,7 +410,16 @@ const LISTINGS = [
     "price_m2": 26.2,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 6,
+      "avg_price": 2304,
+      "median_price": 2375,
+      "min_price": 2100,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "nextimmo_15111",
@@ -314,7 +440,16 @@ const LISTINGS = [
     "price_m2": 15.5,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 1915,
+      "median_price": 1980,
+      "min_price": 1850,
+      "max_price": 1980,
+      "avg_price_m2": 17
+    }
   },
   {
     "listing_id": "nextimmo_17632",
@@ -335,7 +470,16 @@ const LISTINGS = [
     "price_m2": 25.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2225,
+      "median_price": 2250,
+      "min_price": 2100,
+      "max_price": 2400,
+      "avg_price_m2": 27
+    }
   },
   {
     "listing_id": "nextimmo_19177",
@@ -356,7 +500,16 @@ const LISTINGS = [
     "price_m2": 23.1,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2187,
+      "median_price": 2400,
+      "min_price": 1850,
+      "max_price": 2400,
+      "avg_price_m2": 25
+    }
   },
   {
     "listing_id": "nextimmo_17611",
@@ -377,7 +530,16 @@ const LISTINGS = [
     "price_m2": 27.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2316,
+      "median_price": 2350,
+      "min_price": 2200,
+      "max_price": 2400,
+      "avg_price_m2": 27
+    }
   },
   {
     "listing_id": "nextimmo_15061",
@@ -398,7 +560,16 @@ const LISTINGS = [
     "price_m2": 20.1,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 1915,
+      "median_price": 1980,
+      "min_price": 1850,
+      "max_price": 1980,
+      "avg_price_m2": 17
+    }
   },
   {
     "listing_id": "nextimmo_18544",
@@ -419,7 +590,16 @@ const LISTINGS = [
     "price_m2": 25.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 6,
+      "avg_price": 2304,
+      "median_price": 2375,
+      "min_price": 2100,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "nextimmo_18304",
@@ -440,7 +620,16 @@ const LISTINGS = [
     "price_m2": 25.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2200,
+      "median_price": 2200,
+      "min_price": 2200,
+      "max_price": 2200,
+      "avg_price_m2": 25
+    }
   },
   {
     "listing_id": "nextimmo_15202",
@@ -461,7 +650,16 @@ const LISTINGS = [
     "price_m2": 26.1,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2300,
+      "median_price": 2400,
+      "min_price": 2200,
+      "max_price": 2400,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "nextimmo_16085",
@@ -482,7 +680,16 @@ const LISTINGS = [
     "price_m2": 23.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 1890,
+      "median_price": 1890,
+      "min_price": 1890,
+      "max_price": 1890,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "newimmo_127084",
@@ -503,7 +710,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2000,
+      "median_price": 2000,
+      "min_price": 2000,
+      "max_price": 2000,
+      "avg_price_m2": 0
+    }
   },
   {
     "listing_id": "newimmo_127151",
@@ -524,7 +740,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2500,
+      "median_price": 2500,
+      "min_price": 2500,
+      "max_price": 2500,
+      "avg_price_m2": 0
+    }
   },
   {
     "listing_id": "newimmo_127301",
@@ -545,7 +770,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2400,
+      "median_price": 2400,
+      "min_price": 2400,
+      "max_price": 2400,
+      "avg_price_m2": 0
+    }
   },
   {
     "listing_id": "newimmo_127231",
@@ -566,7 +800,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 7,
+      "avg_price": 1767,
+      "median_price": 1850,
+      "min_price": 1400,
+      "max_price": 2000,
+      "avg_price_m2": 0
+    }
   },
   {
     "listing_id": "newimmo_127171",
@@ -587,7 +830,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": "GOOD_DEAL",
+    "city_stats": {
+      "count": 5,
+      "avg_price": 2180,
+      "median_price": 2300,
+      "min_price": 1500,
+      "max_price": 2500,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "vivi_208222",
@@ -608,7 +860,16 @@ const LISTINGS = [
     "price_m2": 17.8,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 1600,
+      "median_price": 1600,
+      "min_price": 1600,
+      "max_price": 1600,
+      "avg_price_m2": 17
+    }
   },
   {
     "listing_id": "vivi_209665",
@@ -629,7 +890,16 @@ const LISTINGS = [
     "price_m2": 21.1,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 1900,
+      "median_price": 1900,
+      "min_price": 1900,
+      "max_price": 1900,
+      "avg_price_m2": 21
+    }
   },
   {
     "listing_id": "vivi_212239",
@@ -650,7 +920,16 @@ const LISTINGS = [
     "price_m2": 23.6,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2200,
+      "median_price": 2300,
+      "min_price": 2100,
+      "max_price": 2300,
+      "avg_price_m2": 26
+    }
   },
   {
     "listing_id": "vivi_212177",
@@ -671,7 +950,16 @@ const LISTINGS = [
     "price_m2": 24.7,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2300,
+      "median_price": 2400,
+      "min_price": 2000,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "vivi_202433",
@@ -692,7 +980,16 @@ const LISTINGS = [
     "price_m2": 15.7,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 1850,
+      "median_price": 2100,
+      "min_price": 1600,
+      "max_price": 2100,
+      "avg_price_m2": 15
+    }
   },
   {
     "listing_id": "vivi_210717",
@@ -713,7 +1010,16 @@ const LISTINGS = [
     "price_m2": 15.6,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 1850,
+      "median_price": 2100,
+      "min_price": 1600,
+      "max_price": 2100,
+      "avg_price_m2": 15
+    }
   },
   {
     "listing_id": "vivi_212471",
@@ -734,7 +1040,16 @@ const LISTINGS = [
     "price_m2": 17.6,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 1500,
+      "median_price": 1500,
+      "min_price": 1500,
+      "max_price": 1500,
+      "avg_price_m2": 17
+    }
   },
   {
     "listing_id": "vivi_210570",
@@ -755,7 +1070,16 @@ const LISTINGS = [
     "price_m2": 24.1,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 1950,
+      "median_price": 1950,
+      "min_price": 1950,
+      "max_price": 1950,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "vivi_212589",
@@ -776,7 +1100,16 @@ const LISTINGS = [
     "price_m2": 24.7,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2187,
+      "median_price": 2400,
+      "min_price": 1850,
+      "max_price": 2400,
+      "avg_price_m2": 25
+    }
   },
   {
     "listing_id": "immotop_1847365",
@@ -797,7 +1130,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 7,
+      "avg_price": 1767,
+      "median_price": 1850,
+      "min_price": 1400,
+      "max_price": 2000,
+      "avg_price_m2": 0
+    }
   },
   {
     "listing_id": "immotop_1856543",
@@ -818,7 +1160,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 5,
+      "avg_price": 2180,
+      "median_price": 2300,
+      "min_price": 1500,
+      "max_price": 2500,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "athome_8040167",
@@ -839,7 +1190,16 @@ const LISTINGS = [
     "price_m2": 20.4,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2300,
+      "median_price": 2450,
+      "min_price": 2150,
+      "max_price": 2450,
+      "avg_price_m2": 20
+    }
   },
   {
     "listing_id": "athome_9004744",
@@ -860,7 +1220,16 @@ const LISTINGS = [
     "price_m2": 17.2,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2500,
+      "median_price": 2500,
+      "min_price": 2500,
+      "max_price": 2500,
+      "avg_price_m2": 17
+    }
   },
   {
     "listing_id": "athome_6402510",
@@ -881,7 +1250,16 @@ const LISTINGS = [
     "price_m2": 25.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2300,
+      "median_price": 2400,
+      "min_price": 2000,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8976207",
@@ -902,7 +1280,16 @@ const LISTINGS = [
     "price_m2": 24.5,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2450,
+      "median_price": 2500,
+      "min_price": 2400,
+      "max_price": 2500,
+      "avg_price_m2": 25
+    }
   },
   {
     "listing_id": "athome_8995712",
@@ -923,7 +1310,16 @@ const LISTINGS = [
     "price_m2": 25.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2200,
+      "median_price": 2200,
+      "min_price": 2200,
+      "max_price": 2200,
+      "avg_price_m2": 25
+    }
   },
   {
     "listing_id": "athome_8980537",
@@ -944,7 +1340,16 @@ const LISTINGS = [
     "price_m2": 29.4,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2375,
+      "median_price": 2400,
+      "min_price": 2350,
+      "max_price": 2400,
+      "avg_price_m2": 28
+    }
   },
   {
     "listing_id": "athome_8727519",
@@ -965,7 +1370,16 @@ const LISTINGS = [
     "price_m2": 23.1,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 5,
+      "avg_price": 2100,
+      "median_price": 2100,
+      "min_price": 1750,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8981863",
@@ -986,7 +1400,16 @@ const LISTINGS = [
     "price_m2": 21.5,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 1850,
+      "median_price": 1850,
+      "min_price": 1850,
+      "max_price": 1850,
+      "avg_price_m2": 21
+    }
   },
   {
     "listing_id": "athome_9001888",
@@ -1007,7 +1430,16 @@ const LISTINGS = [
     "price_m2": 27.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2275,
+      "median_price": 2350,
+      "min_price": 2200,
+      "max_price": 2350,
+      "avg_price_m2": 25
+    }
   },
   {
     "listing_id": "athome_9003175",
@@ -1028,7 +1460,16 @@ const LISTINGS = [
     "price_m2": 29.4,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 5,
+      "avg_price": 2100,
+      "median_price": 2100,
+      "min_price": 1750,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8958134",
@@ -1049,7 +1490,16 @@ const LISTINGS = [
     "price_m2": 26.2,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2225,
+      "median_price": 2250,
+      "min_price": 2100,
+      "max_price": 2400,
+      "avg_price_m2": 27
+    }
   },
   {
     "listing_id": "athome_8963275",
@@ -1070,7 +1520,16 @@ const LISTINGS = [
     "price_m2": 20.5,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2300,
+      "median_price": 2450,
+      "min_price": 2150,
+      "max_price": 2450,
+      "avg_price_m2": 20
+    }
   },
   {
     "listing_id": "athome_9001439",
@@ -1091,7 +1550,16 @@ const LISTINGS = [
     "price_m2": 19.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 1900,
+      "median_price": 1900,
+      "min_price": 1900,
+      "max_price": 1900,
+      "avg_price_m2": 19
+    }
   },
   {
     "listing_id": "athome_8793493",
@@ -1112,7 +1580,16 @@ const LISTINGS = [
     "price_m2": 26.5,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2275,
+      "median_price": 2300,
+      "min_price": 2250,
+      "max_price": 2300,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8919659",
@@ -1133,7 +1610,16 @@ const LISTINGS = [
     "price_m2": 28.2,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2400,
+      "median_price": 2400,
+      "min_price": 2400,
+      "max_price": 2400,
+      "avg_price_m2": 28
+    }
   },
   {
     "listing_id": "athome_8871260",
@@ -1154,7 +1640,16 @@ const LISTINGS = [
     "price_m2": 23.7,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2233,
+      "median_price": 2250,
+      "min_price": 2150,
+      "max_price": 2300,
+      "avg_price_m2": 26
+    }
   },
   {
     "listing_id": "athome_8997163",
@@ -1175,7 +1670,16 @@ const LISTINGS = [
     "price_m2": 27.6,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2375,
+      "median_price": 2400,
+      "min_price": 2350,
+      "max_price": 2400,
+      "avg_price_m2": 28
+    }
   },
   {
     "listing_id": "athome_8952070",
@@ -1196,7 +1700,16 @@ const LISTINGS = [
     "price_m2": 27.4,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2250,
+      "median_price": 2250,
+      "min_price": 2250,
+      "max_price": 2250,
+      "avg_price_m2": 27
+    }
   },
   {
     "listing_id": "athome_8994928",
@@ -1217,7 +1730,16 @@ const LISTINGS = [
     "price_m2": 24.4,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 6,
+      "avg_price": 2304,
+      "median_price": 2375,
+      "min_price": 2100,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_7786123",
@@ -1238,7 +1760,16 @@ const LISTINGS = [
     "price_m2": 26.6,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2420,
+      "median_price": 2450,
+      "min_price": 2390,
+      "max_price": 2450,
+      "avg_price_m2": 28
+    }
   },
   {
     "listing_id": "athome_8812008",
@@ -1259,7 +1790,16 @@ const LISTINGS = [
     "price_m2": 30.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2450,
+      "median_price": 2500,
+      "min_price": 2400,
+      "max_price": 2500,
+      "avg_price_m2": 28
+    }
   },
   {
     "listing_id": "athome_8619057",
@@ -1280,7 +1820,16 @@ const LISTINGS = [
     "price_m2": 26.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2180,
+      "median_price": 2290,
+      "min_price": 1950,
+      "max_price": 2300,
+      "avg_price_m2": 21
+    }
   },
   {
     "listing_id": "athome_8456918",
@@ -1301,7 +1850,16 @@ const LISTINGS = [
     "price_m2": 30.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2225,
+      "median_price": 2250,
+      "min_price": 2100,
+      "max_price": 2400,
+      "avg_price_m2": 27
+    }
   },
   {
     "listing_id": "athome_8871303",
@@ -1322,7 +1880,16 @@ const LISTINGS = [
     "price_m2": 27.9,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 5,
+      "avg_price": 2180,
+      "median_price": 2300,
+      "min_price": 1500,
+      "max_price": 2500,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "athome_8986750",
@@ -1343,7 +1910,16 @@ const LISTINGS = [
     "price_m2": 20.4,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 5,
+      "avg_price": 2180,
+      "median_price": 2300,
+      "min_price": 1500,
+      "max_price": 2500,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "athome_8947910",
@@ -1364,7 +1940,16 @@ const LISTINGS = [
     "price_m2": 22.9,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2300,
+      "median_price": 2400,
+      "min_price": 2200,
+      "max_price": 2400,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "athome_8937110",
@@ -1385,7 +1970,16 @@ const LISTINGS = [
     "price_m2": 22.6,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 6,
+      "avg_price": 2304,
+      "median_price": 2375,
+      "min_price": 2100,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_1372622",
@@ -1406,7 +2000,16 @@ const LISTINGS = [
     "price_m2": 16.7,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 6,
+      "avg_price": 2304,
+      "median_price": 2375,
+      "min_price": 2100,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_7829031",
@@ -1427,7 +2030,16 @@ const LISTINGS = [
     "price_m2": 17.2,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2500,
+      "median_price": 2500,
+      "min_price": 2500,
+      "max_price": 2500,
+      "avg_price_m2": 17
+    }
   },
   {
     "listing_id": "athome_8931852",
@@ -1448,7 +2060,16 @@ const LISTINGS = [
     "price_m2": 30.6,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2420,
+      "median_price": 2450,
+      "min_price": 2390,
+      "max_price": 2450,
+      "avg_price_m2": 28
+    }
   },
   {
     "listing_id": "athome_8986666",
@@ -1469,7 +2090,16 @@ const LISTINGS = [
     "price_m2": 20.5,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2300,
+      "median_price": 2400,
+      "min_price": 2000,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8909121",
@@ -1490,7 +2120,16 @@ const LISTINGS = [
     "price_m2": 18.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2180,
+      "median_price": 2290,
+      "min_price": 1950,
+      "max_price": 2300,
+      "avg_price_m2": 21
+    }
   },
   {
     "listing_id": "athome_7438675",
@@ -1511,7 +2150,16 @@ const LISTINGS = [
     "price_m2": 25.9,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2316,
+      "median_price": 2350,
+      "min_price": 2200,
+      "max_price": 2400,
+      "avg_price_m2": 27
+    }
   },
   {
     "listing_id": "athome_7981264",
@@ -1532,7 +2180,16 @@ const LISTINGS = [
     "price_m2": 21.7,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2180,
+      "median_price": 2290,
+      "min_price": 1950,
+      "max_price": 2300,
+      "avg_price_m2": 21
+    }
   },
   {
     "listing_id": "athome_8949037",
@@ -1553,7 +2210,16 @@ const LISTINGS = [
     "price_m2": 28.7,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2350,
+      "median_price": 2350,
+      "min_price": 2350,
+      "max_price": 2350,
+      "avg_price_m2": 28
+    }
   },
   {
     "listing_id": "athome_8899869",
@@ -1574,7 +2240,16 @@ const LISTINGS = [
     "price_m2": 24.5,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2400,
+      "median_price": 2400,
+      "min_price": 2400,
+      "max_price": 2400,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "athome_8992071",
@@ -1595,7 +2270,16 @@ const LISTINGS = [
     "price_m2": 23.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2100,
+      "median_price": 2100,
+      "min_price": 2100,
+      "max_price": 2100,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8937085",
@@ -1616,7 +2300,16 @@ const LISTINGS = [
     "price_m2": 19.6,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2475,
+      "median_price": 2500,
+      "min_price": 2450,
+      "max_price": 2500,
+      "avg_price_m2": 19
+    }
   },
   {
     "listing_id": "athome_9003325",
@@ -1637,7 +2330,16 @@ const LISTINGS = [
     "price_m2": 19.7,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2275,
+      "median_price": 2300,
+      "min_price": 2250,
+      "max_price": 2300,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8994521",
@@ -1658,7 +2360,16 @@ const LISTINGS = [
     "price_m2": 25.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 6,
+      "avg_price": 2304,
+      "median_price": 2375,
+      "min_price": 2100,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8086234",
@@ -1679,7 +2390,16 @@ const LISTINGS = [
     "price_m2": 24.2,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2375,
+      "median_price": 2375,
+      "min_price": 2375,
+      "max_price": 2375,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "athome_8470343",
@@ -1700,7 +2420,16 @@ const LISTINGS = [
     "price_m2": 27.8,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2500,
+      "median_price": 2500,
+      "min_price": 2500,
+      "max_price": 2500,
+      "avg_price_m2": 27
+    }
   },
   {
     "listing_id": "athome_8976000",
@@ -1721,7 +2450,16 @@ const LISTINGS = [
     "price_m2": 25.8,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 5,
+      "avg_price": 2180,
+      "median_price": 2300,
+      "min_price": 1500,
+      "max_price": 2500,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "athome_8982175",
@@ -1742,7 +2480,16 @@ const LISTINGS = [
     "price_m2": 24.1,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2100,
+      "median_price": 2100,
+      "min_price": 2100,
+      "max_price": 2100,
+      "avg_price_m2": 24
+    }
   },
   {
     "listing_id": "athome_8114963",
@@ -1763,7 +2510,16 @@ const LISTINGS = [
     "price_m2": 28.4,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2233,
+      "median_price": 2250,
+      "min_price": 2150,
+      "max_price": 2300,
+      "avg_price_m2": 26
+    }
   },
   {
     "listing_id": "athome_8706333",
@@ -1784,7 +2540,16 @@ const LISTINGS = [
     "price_m2": 27.8,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2450,
+      "median_price": 2500,
+      "min_price": 2400,
+      "max_price": 2500,
+      "avg_price_m2": 28
+    }
   },
   {
     "listing_id": "athome_8221893",
@@ -1805,7 +2570,16 @@ const LISTINGS = [
     "price_m2": 19.4,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 5,
+      "avg_price": 2100,
+      "median_price": 2100,
+      "min_price": 1750,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_7744189",
@@ -1826,7 +2600,16 @@ const LISTINGS = [
     "price_m2": 30.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2316,
+      "median_price": 2350,
+      "min_price": 2200,
+      "max_price": 2400,
+      "avg_price_m2": 27
+    }
   },
   {
     "listing_id": "athome_7840995",
@@ -1847,7 +2630,16 @@ const LISTINGS = [
     "price_m2": 22.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2062,
+      "median_price": 2450,
+      "min_price": 1675,
+      "max_price": 2450,
+      "avg_price_m2": 18
+    }
   },
   {
     "listing_id": "athome_9001090",
@@ -1868,7 +2660,16 @@ const LISTINGS = [
     "price_m2": 23.4,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 5,
+      "avg_price": 2100,
+      "median_price": 2100,
+      "min_price": 1750,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_9003547",
@@ -1889,7 +2690,16 @@ const LISTINGS = [
     "price_m2": 23.8,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 5,
+      "avg_price": 2100,
+      "median_price": 2100,
+      "min_price": 1750,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8908362",
@@ -1910,7 +2720,16 @@ const LISTINGS = [
     "price_m2": 30.1,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2500,
+      "median_price": 2500,
+      "min_price": 2500,
+      "max_price": 2500,
+      "avg_price_m2": 30
+    }
   },
   {
     "listing_id": "athome_8498529",
@@ -1931,7 +2750,16 @@ const LISTINGS = [
     "price_m2": 19.2,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2500,
+      "median_price": 2500,
+      "min_price": 2500,
+      "max_price": 2500,
+      "avg_price_m2": 19
+    }
   },
   {
     "listing_id": "athome_8892284",
@@ -1952,7 +2780,16 @@ const LISTINGS = [
     "price_m2": 21.9,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 3,
+      "avg_price": 2145,
+      "median_price": 2050,
+      "min_price": 1995,
+      "max_price": 2390,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_9002366",
@@ -1973,7 +2810,16 @@ const LISTINGS = [
     "price_m2": 22.9,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2075,
+      "median_price": 2200,
+      "min_price": 1950,
+      "max_price": 2200,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_9002393",
@@ -1994,7 +2840,16 @@ const LISTINGS = [
     "price_m2": 23.2,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2075,
+      "median_price": 2200,
+      "min_price": 1950,
+      "max_price": 2200,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8992217",
@@ -2015,7 +2870,16 @@ const LISTINGS = [
     "price_m2": 24.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2300,
+      "median_price": 2400,
+      "min_price": 2000,
+      "max_price": 2500,
+      "avg_price_m2": 23
+    }
   },
   {
     "listing_id": "athome_8947973",
@@ -2036,7 +2900,16 @@ const LISTINGS = [
     "price_m2": 23.9,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2275,
+      "median_price": 2350,
+      "min_price": 2200,
+      "max_price": 2350,
+      "avg_price_m2": 25
+    }
   },
   {
     "listing_id": "athome_8983034",
@@ -2057,7 +2930,16 @@ const LISTINGS = [
     "price_m2": 21.5,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2150,
+      "median_price": 2150,
+      "min_price": 2150,
+      "max_price": 2150,
+      "avg_price_m2": 21
+    }
   },
   {
     "listing_id": "athome_8982958",
@@ -2078,7 +2960,16 @@ const LISTINGS = [
     "price_m2": 14.0,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2400,
+      "median_price": 2400,
+      "min_price": 2400,
+      "max_price": 2400,
+      "avg_price_m2": 13
+    }
   },
   {
     "listing_id": "athome_9001358",
@@ -2099,7 +2990,16 @@ const LISTINGS = [
     "price_m2": 18.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2300,
+      "median_price": 2300,
+      "min_price": 2300,
+      "max_price": 2300,
+      "avg_price_m2": 18
+    }
   },
   {
     "listing_id": "athome_8383829",
@@ -2120,7 +3020,16 @@ const LISTINGS = [
     "price_m2": 22.9,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 1900,
+      "median_price": 1900,
+      "min_price": 1900,
+      "max_price": 1900,
+      "avg_price_m2": 22
+    }
   },
   {
     "listing_id": "athome_9003558",
@@ -2141,7 +3050,16 @@ const LISTINGS = [
     "price_m2": 28.1,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 4,
+      "avg_price": 2225,
+      "median_price": 2250,
+      "min_price": 2100,
+      "max_price": 2400,
+      "avg_price_m2": 27
+    }
   },
   {
     "listing_id": "athome_8971722",
@@ -2162,7 +3080,16 @@ const LISTINGS = [
     "price_m2": 25.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2350,
+      "median_price": 2350,
+      "min_price": 2350,
+      "max_price": 2350,
+      "avg_price_m2": 25
+    }
   },
   {
     "listing_id": "athome_8958851",
@@ -2183,7 +3110,16 @@ const LISTINGS = [
     "price_m2": 29.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 1,
+      "avg_price": 2400,
+      "median_price": 2400,
+      "min_price": 2400,
+      "max_price": 2400,
+      "avg_price_m2": 29
+    }
   },
   {
     "listing_id": "sothebys_459",
@@ -2204,7 +3140,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 7,
+      "avg_price": 1767,
+      "median_price": 1850,
+      "min_price": 1400,
+      "max_price": 2000,
+      "avg_price_m2": 0
+    }
   },
   {
     "listing_id": "sothebys_1972",
@@ -2225,7 +3170,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 7,
+      "avg_price": 1767,
+      "median_price": 1850,
+      "min_price": 1400,
+      "max_price": 2000,
+      "avg_price_m2": 0
+    }
   },
   {
     "listing_id": "sothebys_1767",
@@ -2246,7 +3200,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 7,
+      "avg_price": 1767,
+      "median_price": 1850,
+      "min_price": 1400,
+      "max_price": 2000,
+      "avg_price_m2": 0
+    }
   },
   {
     "listing_id": "sothebys_2015",
@@ -2267,7 +3230,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 7,
+      "avg_price": 1767,
+      "median_price": 1850,
+      "min_price": 1400,
+      "max_price": 2000,
+      "avg_price_m2": 0
+    }
   },
   {
     "listing_id": "sothebys_2016",
@@ -2288,7 +3260,16 @@ const LISTINGS = [
     "price_m2": null,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 7,
+      "avg_price": 1767,
+      "median_price": 1850,
+      "min_price": 1400,
+      "max_price": 2000,
+      "avg_price_m2": 0
+    }
   },
   {
     "listing_id": "floor_maison-luxembourg-limpertsberg",
@@ -2309,6 +3290,15 @@ const LISTINGS = [
     "price_m2": 26.3,
     "time_ago": "N/A",
     "published_date": "—",
-    "created_date": "—"
+    "created_date": "—",
+    "price_anomaly": null,
+    "city_stats": {
+      "count": 2,
+      "avg_price": 2450,
+      "median_price": 2500,
+      "min_price": 2400,
+      "max_price": 2500,
+      "avg_price_m2": 25
+    }
   }
 ];
