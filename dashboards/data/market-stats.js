@@ -1,14 +1,6 @@
-// Genere le 26/02/2026 22:41
+// Genere le 26/02/2026 22:45
 // Statistiques detaillees par ville (median, avg, price_m2, etc.)
 const MARKET_STATS = {
-  "Bridel": {
-    "count": 4,
-    "avg_price": 2187,
-    "median_price": 2400,
-    "min_price": 1850,
-    "max_price": 2400,
-    "avg_price_m2": 25
-  },
   "Schouweiler": {
     "count": 3,
     "avg_price": 2145,
@@ -56,6 +48,14 @@ const MARKET_STATS = {
     "min_price": 2450,
     "max_price": 2450,
     "avg_price_m2": 23
+  },
+  "Bridel": {
+    "count": 3,
+    "avg_price": 2116,
+    "median_price": 2100,
+    "min_price": 1850,
+    "max_price": 2400,
+    "avg_price_m2": 25
   },
   "Olm": {
     "count": 2,
@@ -163,17 +163,17 @@ const MARKET_STATS = {
   },
   "Luxembourg": {
     "count": 7,
-    "avg_price": 1767,
-    "median_price": 1850,
-    "min_price": 1400,
-    "max_price": 2000,
+    "avg_price": 1938,
+    "median_price": 1900,
+    "min_price": 1500,
+    "max_price": 2600,
     "avg_price_m2": 0
   },
   "Bertrange": {
     "count": 5,
-    "avg_price": 2180,
-    "median_price": 2300,
-    "min_price": 1500,
+    "avg_price": 2380,
+    "median_price": 2400,
+    "min_price": 2200,
     "max_price": 2500,
     "avg_price_m2": 24
   },
