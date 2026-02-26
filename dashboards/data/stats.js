@@ -1,443 +1,339 @@
-// Genere le 26/02/2026 18:52
+// Genere le 26/02/2026 19:53
 const STATS = {
-  "total": 151,
-  "avg_price": 2088,
-  "min_price": 1300,
+  "total": 108,
+  "avg_price": 2199,
+  "min_price": 1400,
   "max_price": 2500,
-  "avg_surface": 105,
-  "cities": 82,
+  "avg_surface": 98,
+  "cities": 61,
   "sites": {
-    "SothebysRealty.lu": 7,
-    "Newimmo.lu": 6,
+    "SothebysRealty.lu": 5,
+    "Nextimmo.lu": 19,
+    "Newimmo.lu": 5,
     "VIVI.lu": 10,
-    "Immotop.lu": 4,
-    "Athome.lu": 99,
-    "Nextimmo.lu": 25
+    "Immotop.lu": 2,
+    "Floor.lu": 1,
+    "Athome.lu": 66
   },
   "by_city": [
     {
-      "city": "arlon",
-      "count": 6,
-      "avg_price": 1566
+      "city": "Luxembourg",
+      "count": 7,
+      "avg_price": 1767
     },
     {
-      "city": "luxembourg belair",
+      "city": "Luxembourg-Belair",
       "count": 6,
       "avg_price": 2304
     },
     {
-      "city": "luxembourg",
-      "count": 5,
-      "avg_price": 1720
-    },
-    {
-      "city": "bertrange",
+      "city": "Bertrange",
       "count": 5,
       "avg_price": 2180
     },
     {
-      "city": "esch sur alzette",
+      "city": "Esch-sur-Alzette",
       "count": 5,
       "avg_price": 2100
     },
     {
-      "city": "luxembourg limpertsberg",
-      "count": 4,
-      "avg_price": 1999
-    },
-    {
-      "city": "mamer",
-      "count": 4,
-      "avg_price": 2300
-    },
-    {
-      "city": "senningerberg",
-      "count": 4,
-      "avg_price": 2222
-    },
-    {
-      "city": "bridel",
-      "count": 4,
-      "avg_price": 2187
-    },
-    {
-      "city": "luxembourg centre ville",
-      "count": 4,
-      "avg_price": 2437
-    },
-    {
-      "city": "luxembourg hollerich",
+      "city": "Luxembourg-Hollerich",
       "count": 4,
       "avg_price": 2225
     },
     {
-      "city": "perl",
+      "city": "Mamer",
       "count": 4,
-      "avg_price": 1900
+      "avg_price": 2300
     },
     {
-      "city": "luxembourg bonnevoie",
+      "city": "Bridel",
+      "count": 3,
+      "avg_price": 2116
+    },
+    {
+      "city": "Luxembourg-Bonnevoie",
       "count": 3,
       "avg_price": 2233
     },
     {
-      "city": "rodange",
+      "city": "Senningerberg",
       "count": 3,
-      "avg_price": 2076
+      "avg_price": 2180
     },
     {
-      "city": "messancy",
-      "count": 3,
-      "avg_price": 1666
-    },
-    {
-      "city": "luxembourg gare",
-      "count": 3,
-      "avg_price": 2446
-    },
-    {
-      "city": "luxembourg kirchberg",
+      "city": "Luxembourg-Kirchberg",
       "count": 3,
       "avg_price": 2316
     },
     {
-      "city": "olm",
-      "count": 2,
-      "avg_price": 2200
-    },
-    {
-      "city": "bissen",
-      "count": 2,
-      "avg_price": 1975
-    },
-    {
-      "city": "steinsel",
-      "count": 2,
-      "avg_price": 2275
-    },
-    {
-      "city": "bettembourg",
+      "city": "Bettembourg",
       "count": 2,
       "avg_price": 2475
     },
     {
-      "city": "garnich",
+      "city": "Olm",
       "count": 2,
-      "avg_price": 2350
+      "avg_price": 2200
     },
     {
-      "city": "belvaux",
+      "city": "Reuler",
+      "count": 2,
+      "avg_price": 1850
+    },
+    {
+      "city": "Luxembourg-Limpertsberg",
+      "count": 2,
+      "avg_price": 2450
+    },
+    {
+      "city": "Belvaux",
       "count": 2,
       "avg_price": 2300
     },
     {
-      "city": "cattenom",
-      "count": 2,
-      "avg_price": 1715
-    },
-    {
-      "city": "junglinster",
+      "city": "Junglinster",
       "count": 2,
       "avg_price": 2225
     },
     {
-      "city": "hautcharage",
+      "city": "Hautcharage",
       "count": 2,
       "avg_price": 1915
     },
     {
-      "city": "grevenmacher",
+      "city": "Alzingen",
       "count": 2,
-      "avg_price": 2100
+      "avg_price": 2375
     },
     {
-      "city": "dudelange",
+      "city": "Dudelange",
       "count": 2,
       "avg_price": 2300
     },
     {
-      "city": "petange",
+      "city": "Pétange",
       "count": 2,
       "avg_price": 2275
     },
     {
-      "city": "lallange",
+      "city": "Steinsel",
+      "count": 2,
+      "avg_price": 2275
+    },
+    {
+      "city": "Luxembourg-Gare",
+      "count": 2,
+      "avg_price": 2420
+    },
+    {
+      "city": "Luxembourg-Centre ville",
+      "count": 2,
+      "avg_price": 2450
+    },
+    {
+      "city": "Lallange",
       "count": 2,
       "avg_price": 2075
     },
     {
-      "city": "reuler",
-      "count": 2,
-      "avg_price": 1850
-    },
-    {
-      "city": "habscht",
-      "count": 2,
-      "avg_price": 1750
-    },
-    {
-      "city": "alzingen",
-      "count": 2,
-      "avg_price": 2375
-    },
-    {
-      "city": "mondercange",
-      "count": 1,
-      "avg_price": 2400
-    },
-    {
-      "city": "niederfeulen",
-      "count": 1,
-      "avg_price": 1600
-    },
-    {
-      "city": "lasauvage",
-      "count": 1,
-      "avg_price": 1900
-    },
-    {
-      "city": "roussy le village",
-      "count": 1,
-      "avg_price": 1650
-    },
-    {
-      "city": "luxembourg beggen",
+      "city": "Mondorf-les-Bains",
       "count": 1,
       "avg_price": 2500
     },
     {
-      "city": "bivange&nbsp;",
-      "count": 1,
-      "avg_price": 1400
-    },
-    {
-      "city": "schieren&nbsp;",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
-      "city": "strassen&nbsp;",
-      "count": 1,
-      "avg_price": 2150
-    },
-    {
-      "city": "mondorf les bains",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
-      "city": "tetange",
+      "city": "Tétange",
       "count": 1,
       "avg_price": 2450
     },
     {
-      "city": "weiler la tour",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
-      "city": "christnach",
-      "count": 1,
-      "avg_price": 1750
-    },
-    {
-      "city": "hettange grande",
-      "count": 1,
-      "avg_price": 1410
-    },
-    {
-      "city": "weydig",
-      "count": 1,
-      "avg_price": 1950
-    },
-    {
-      "city": "palzem",
-      "count": 1,
-      "avg_price": 1480
-    },
-    {
-      "city": "gonderange",
+      "city": "Luxembourg-Pfaffenthal",
       "count": 1,
       "avg_price": 2200
     },
     {
-      "city": "hassel",
-      "count": 1,
-      "avg_price": 1850
-    },
-    {
-      "city": "schifflange",
-      "count": 1,
-      "avg_price": 1800
-    },
-    {
-      "city": "thil",
-      "count": 1,
-      "avg_price": 1340
-    },
-    {
-      "city": "aubange",
-      "count": 1,
-      "avg_price": 1350
-    },
-    {
-      "city": "schengen",
-      "count": 1,
-      "avg_price": 1700
-    },
-    {
-      "city": "athus",
-      "count": 1,
-      "avg_price": 1350
-    },
-    {
-      "city": "perl perl",
-      "count": 1,
-      "avg_price": 1400
-    },
-    {
-      "city": "luxembourg hamm",
+      "city": "Luxembourg-Hamm",
       "count": 1,
       "avg_price": 1890
     },
     {
-      "city": "luxembourg pfaffenthal",
-      "count": 1,
-      "avg_price": 2200
-    },
-    {
-      "city": "luxembourg neudorf",
+      "city": "Luxembourg Neudorf",
       "count": 1,
       "avg_price": 2000
     },
     {
-      "city": "filsdorf",
+      "city": "Luxembourg Gare",
       "count": 1,
-      "avg_price": 2350
+      "avg_price": 2500
     },
     {
-      "city": "weiswampach",
-      "count": 1,
-      "avg_price": 1500
-    },
-    {
-      "city": "luxembourg weimerskirch",
-      "count": 1,
-      "avg_price": 2200
-    },
-    {
-      "city": "hesperange",
+      "city": "Mondercange",
       "count": 1,
       "avg_price": 2400
     },
     {
-      "city": "luxembourg gasperich   cloche dor",
-      "count": 1,
-      "avg_price": 2250
-    },
-    {
-      "city": "luxembourg eich",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
-      "city": "strassen",
-      "count": 1,
-      "avg_price": 2350
-    },
-    {
-      "city": "sprinkange",
-      "count": 1,
-      "avg_price": 2100
-    },
-    {
-      "city": "luxembourg merl",
-      "count": 1,
-      "avg_price": 2300
-    },
-    {
-      "city": "belval",
-      "count": 1,
-      "avg_price": 2375
-    },
-    {
-      "city": "luxembourg cessange",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
-      "city": "differdange",
-      "count": 1,
-      "avg_price": 2100
-    },
-    {
-      "city": "oberkorn",
-      "count": 1,
-      "avg_price": 1750
-    },
-    {
-      "city": "luxembourg dommeldange",
-      "count": 1,
-      "avg_price": 2450
-    },
-    {
-      "city": "helmsange",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
-      "city": "remich",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
-      "city": "schouweiler",
-      "count": 1,
-      "avg_price": 2390
-    },
-    {
-      "city": "eischen",
+      "city": "Niederfeulen",
       "count": 1,
       "avg_price": 1600
     },
     {
-      "city": "rollingen",
-      "count": 1,
-      "avg_price": 2150
-    },
-    {
-      "city": "brouch (mersch)",
-      "count": 1,
-      "avg_price": 2400
-    },
-    {
-      "city": "hobscheid",
+      "city": "Lasauvage",
       "count": 1,
       "avg_price": 1900
     },
     {
-      "city": "kahler",
+      "city": "Weiler La Tour",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Weiswampach",
+      "count": 1,
+      "avg_price": 1500
+    },
+    {
+      "city": "Bissen",
+      "count": 1,
+      "avg_price": 1950
+    },
+    {
+      "city": "Roussy-le-Village",
+      "count": 1,
+      "avg_price": 1650
+    },
+    {
+      "city": "Luxembourg-Beggen",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Filsdorf",
+      "count": 1,
+      "avg_price": 2350
+    },
+    {
+      "city": "Luxembourg-Weimerskirch",
+      "count": 1,
+      "avg_price": 2200
+    },
+    {
+      "city": "Hassel",
+      "count": 1,
+      "avg_price": 1850
+    },
+    {
+      "city": "Schifflange",
+      "count": 1,
+      "avg_price": 1900
+    },
+    {
+      "city": "Hesperange",
+      "count": 1,
+      "avg_price": 2400
+    },
+    {
+      "city": "Luxembourg-Gasperich - Cloche d'or",
+      "count": 1,
+      "avg_price": 2250
+    },
+    {
+      "city": "Luxembourg-Eich",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Strassen",
+      "count": 1,
+      "avg_price": 2350
+    },
+    {
+      "city": "Garnich",
+      "count": 1,
+      "avg_price": 2400
+    },
+    {
+      "city": "Sprinkange",
+      "count": 1,
+      "avg_price": 2100
+    },
+    {
+      "city": "Belval",
+      "count": 1,
+      "avg_price": 2375
+    },
+    {
+      "city": "Luxembourg-Cessange",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Differdange",
+      "count": 1,
+      "avg_price": 2100
+    },
+    {
+      "city": "Luxembourg-Dommeldange",
+      "count": 1,
+      "avg_price": 2450
+    },
+    {
+      "city": "Helmsange",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Remich",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Schouweiler",
+      "count": 1,
+      "avg_price": 2390
+    },
+    {
+      "city": "Rollingen",
+      "count": 1,
+      "avg_price": 2150
+    },
+    {
+      "city": "Brouch (Mersch)",
+      "count": 1,
+      "avg_price": 2400
+    },
+    {
+      "city": "Kahler",
       "count": 1,
       "avg_price": 2300
     },
     {
-      "city": "contern",
+      "city": "Hobscheid",
+      "count": 1,
+      "avg_price": 1900
+    },
+    {
+      "city": "Luxembourg-Centre Ville",
+      "count": 1,
+      "avg_price": 2350
+    },
+    {
+      "city": "Contern",
       "count": 1,
       "avg_price": 2400
     }
   ],
   "by_price_range": {
-    "< 1500": 15,
-    "1500 - 2000": 39,
-    "2000 - 2500": 78,
-    "> 2500": 19
+    "< 1500": 1,
+    "1500 - 2000": 24,
+    "2000 - 2500": 67,
+    "> 2500": 16
   },
   "data_quality": {
     "completeness": 94,
-    "with_gps": 141,
-    "with_price": 151,
-    "with_surface": 134,
-    "total": 151
+    "with_gps": 102,
+    "with_price": 108,
+    "with_surface": 96,
+    "total": 108
   },
   "anomalies": {
     "extreme_prices": [],
@@ -445,483 +341,364 @@ const STATS = {
   },
   "price_heatmap": [
     {
-      "city": "olm",
-      "lat": 49.64,
-      "lng": 6.01,
-      "avg_price_m2": 26.2,
-      "count": 2
-    },
-    {
-      "city": "bertrange",
-      "lat": 49.61,
-      "lng": 6.05,
-      "avg_price_m2": 24.7,
-      "count": 3
-    },
-    {
-      "city": "roussy le village",
-      "lat": 49.457134,
-      "lng": 6.173333,
-      "avg_price_m2": 10.9,
-      "count": 1
-    },
-    {
-      "city": "luxembourg beggen",
-      "lat": 49.6426379,
-      "lng": 6.1266808,
-      "avg_price_m2": 17.2,
-      "count": 1
-    },
-    {
-      "city": "luxembourg limpertsberg",
-      "lat": 49.62369109999999,
-      "lng": 6.121335699999999,
-      "avg_price_m2": 19.2,
-      "count": 3
-    },
-    {
-      "city": "esch sur alzette",
-      "lat": 49.5020092,
-      "lng": 5.9451393,
-      "avg_price_m2": 23.8,
-      "count": 5
-    },
-    {
-      "city": "luxembourg bonnevoie",
-      "lat": 49.5988911,
-      "lng": 6.142993,
-      "avg_price_m2": 26.3,
-      "count": 3
-    },
-    {
-      "city": "mamer",
-      "lat": 49.630503,
-      "lng": 6.013457700000001,
-      "avg_price_m2": 23.6,
-      "count": 4
-    },
-    {
-      "city": "senningerberg",
-      "lat": 49.6507477,
-      "lng": 6.2337462,
-      "avg_price_m2": 22.4,
-      "count": 4
-    },
-    {
-      "city": "bridel",
-      "lat": 49.65897,
-      "lng": 6.08135,
-      "avg_price_m2": 25.2,
-      "count": 4
-    },
-    {
-      "city": "steinsel",
-      "lat": 49.6750699,
-      "lng": 6.137721099999999,
-      "avg_price_m2": 23.1,
-      "count": 2
-    },
-    {
-      "city": "luxembourg centre ville",
-      "lat": 49.6124883,
-      "lng": 6.126248899999999,
-      "avg_price_m2": 26.4,
-      "count": 4
-    },
-    {
-      "city": "luxembourg hollerich",
-      "lat": 49.6031294,
-      "lng": 6.114701999999999,
-      "avg_price_m2": 27.4,
-      "count": 4
-    },
-    {
-      "city": "mondorf les bains",
+      "city": "Mondorf-les-Bains",
       "lat": 49.50185,
       "lng": 6.27573,
       "avg_price_m2": 14.3,
       "count": 1
     },
     {
-      "city": "bettembourg",
+      "city": "Bettembourg",
       "lat": 49.52,
       "lng": 6.105,
       "avg_price_m2": 19.1,
       "count": 2
     },
     {
-      "city": "tetange",
+      "city": "Tétange",
       "lat": 49.47374,
       "lng": 6.03998,
       "avg_price_m2": 23.8,
       "count": 1
     },
     {
-      "city": "rodange",
-      "lat": 49.54524,
-      "lng": 5.83908,
-      "avg_price_m2": 20.6,
-      "count": 3
+      "city": "Olm",
+      "lat": 49.65509,
+      "lng": 5.99296,
+      "avg_price_m2": 26.2,
+      "count": 2
     },
     {
-      "city": "weiler la tour",
-      "lat": 49.54,
-      "lng": 6.19,
-      "avg_price_m2": 19.2,
-      "count": 1
-    },
-    {
-      "city": "garnich",
-      "lat": 49.61,
-      "lng": 5.96,
-      "avg_price_m2": 24.5,
-      "count": 1
-    },
-    {
-      "city": "christnach",
-      "lat": 49.7880278,
-      "lng": 6.2675721,
-      "avg_price_m2": 20.6,
-      "count": 1
-    },
-    {
-      "city": "messancy",
-      "lat": 49.6080933,
-      "lng": 5.849097299999999,
-      "avg_price_m2": 9.4,
-      "count": 3
-    },
-    {
-      "city": "arlon",
-      "lat": 49.6829691,
-      "lng": 5.8075929,
-      "avg_price_m2": 9.5,
+      "city": "Luxembourg-Belair",
+      "lat": 49.60751,
+      "lng": 6.10969,
+      "avg_price_m2": 23.4,
       "count": 6
     },
     {
-      "city": "hettange grande",
-      "lat": 49.4059136,
-      "lng": 6.1554768,
-      "avg_price_m2": 15.5,
-      "count": 1
-    },
-    {
-      "city": "belvaux",
-      "lat": 49.5043347,
-      "lng": 5.9214334,
-      "avg_price_m2": 20.4,
-      "count": 2
-    },
-    {
-      "city": "weydig",
-      "lat": 49.7117967,
-      "lng": 6.367479899999999,
-      "avg_price_m2": 13.0,
-      "count": 1
-    },
-    {
-      "city": "palzem",
-      "lat": 49.5541335,
-      "lng": 6.4085363,
-      "avg_price_m2": 15.6,
-      "count": 1
-    },
-    {
-      "city": "cattenom",
-      "lat": 49.406263,
-      "lng": 6.243668,
-      "avg_price_m2": 11.4,
-      "count": 2
-    },
-    {
-      "city": "junglinster",
-      "lat": 49.71,
-      "lng": 6.25,
-      "avg_price_m2": 22.4,
-      "count": 2
-    },
-    {
-      "city": "hautcharage",
-      "lat": 49.5771,
-      "lng": 5.90988,
-      "avg_price_m2": 17.8,
-      "count": 2
-    },
-    {
-      "city": "gonderange",
-      "lat": 49.69,
-      "lng": 6.25,
-      "avg_price_m2": 23.2,
-      "count": 1
-    },
-    {
-      "city": "hassel",
-      "lat": 49.55093489999999,
-      "lng": 6.2076007,
-      "avg_price_m2": 21.5,
-      "count": 1
-    },
-    {
-      "city": "grevenmacher",
-      "lat": 49.6773648,
-      "lng": 6.4402066,
-      "avg_price_m2": 20.9,
-      "count": 2
-    },
-    {
-      "city": "dudelange",
-      "lat": 49.48081,
-      "lng": 6.07795,
-      "avg_price_m2": 24.5,
-      "count": 2
-    },
-    {
-      "city": "petange",
-      "lat": 49.5570739,
-      "lng": 5.885361899999999,
-      "avg_price_m2": 25.4,
-      "count": 2
-    },
-    {
-      "city": "schifflange",
-      "lat": 49.5031753,
-      "lng": 6.000680099999999,
-      "avg_price_m2": 18.0,
-      "count": 1
-    },
-    {
-      "city": "thil",
-      "lat": 49.4724674,
-      "lng": 5.9094834,
-      "avg_price_m2": 16.1,
-      "count": 1
-    },
-    {
-      "city": "aubange",
-      "lat": 49.5608954,
-      "lng": 5.808873,
-      "avg_price_m2": 11.4,
-      "count": 1
-    },
-    {
-      "city": "perl",
-      "lat": 49.4730674,
-      "lng": 6.3851003,
-      "avg_price_m2": 16.3,
+      "city": "Luxembourg-Hollerich",
+      "lat": 49.60034,
+      "lng": 6.12105,
+      "avg_price_m2": 27.4,
       "count": 4
     },
     {
-      "city": "schengen",
-      "lat": 49.47,
-      "lng": 6.37,
-      "avg_price_m2": 18.7,
-      "count": 1
-    },
-    {
-      "city": "athus",
-      "lat": 49.5573653,
-      "lng": 5.8377516,
-      "avg_price_m2": 14.5,
-      "count": 1
-    },
-    {
-      "city": "perl perl",
-      "lat": 49.4730674,
-      "lng": 6.3851003,
-      "avg_price_m2": 14.0,
-      "count": 1
-    },
-    {
-      "city": "lallange",
-      "lat": 49.5112992,
-      "lng": 5.9873939,
-      "avg_price_m2": 23.0,
-      "count": 2
-    },
-    {
-      "city": "luxembourg hamm",
-      "lat": 49.6116,
-      "lng": 6.1319,
-      "avg_price_m2": 23.3,
-      "count": 1
-    },
-    {
-      "city": "luxembourg belair",
-      "lat": 49.60751,
-      "lng": 6.10969,
-      "avg_price_m2": 23.2,
-      "count": 6
-    },
-    {
-      "city": "luxembourg pfaffenthal",
+      "city": "Luxembourg-Pfaffenthal",
       "lat": 49.6158,
       "lng": 6.13289,
       "avg_price_m2": 25.0,
       "count": 1
     },
     {
-      "city": "luxembourg gare",
-      "lat": 49.6,
-      "lng": 6.1342,
-      "avg_price_m2": 28.6,
+      "city": "Luxembourg-Hamm",
+      "lat": 49.6116,
+      "lng": 6.1319,
+      "avg_price_m2": 23.3,
+      "count": 1
+    },
+    {
+      "city": "Bertrange",
+      "lat": 49.61,
+      "lng": 6.05,
+      "avg_price_m2": 24.7,
+      "count": 3
+    },
+    {
+      "city": "Weiler La Tour",
+      "lat": 49.54,
+      "lng": 6.19,
+      "avg_price_m2": 19.2,
+      "count": 1
+    },
+    {
+      "city": "Mamer",
+      "lat": 49.627,
+      "lng": 6.023,
+      "avg_price_m2": 23.6,
+      "count": 4
+    },
+    {
+      "city": "Luxembourg-Limpertsberg",
+      "lat": 49.6116,
+      "lng": 6.1319,
+      "avg_price_m2": 25.4,
       "count": 2
     },
     {
-      "city": "luxembourg weimerskirch",
+      "city": "Roussy-le-Village",
+      "lat": 49.457134,
+      "lng": 6.173333,
+      "avg_price_m2": 10.9,
+      "count": 1
+    },
+    {
+      "city": "Belvaux",
+      "lat": 49.5043347,
+      "lng": 5.9214334,
+      "avg_price_m2": 20.4,
+      "count": 2
+    },
+    {
+      "city": "Luxembourg-Beggen",
+      "lat": 49.6426379,
+      "lng": 6.1266808,
+      "avg_price_m2": 17.2,
+      "count": 1
+    },
+    {
+      "city": "Junglinster",
+      "lat": 49.71,
+      "lng": 6.25,
+      "avg_price_m2": 22.4,
+      "count": 2
+    },
+    {
+      "city": "Hautcharage",
+      "lat": 49.5771,
+      "lng": 5.90988,
+      "avg_price_m2": 17.8,
+      "count": 2
+    },
+    {
+      "city": "Filsdorf",
+      "lat": 49.53025,
+      "lng": 6.24472,
+      "avg_price_m2": 20.6,
+      "count": 1
+    },
+    {
+      "city": "Luxembourg-Weimerskirch",
       "lat": 49.6254273,
       "lng": 6.135935,
       "avg_price_m2": 25.0,
       "count": 1
     },
     {
-      "city": "alzingen",
+      "city": "Alzingen",
       "lat": 49.5712572,
       "lng": 6.1637244,
       "avg_price_m2": 28.5,
       "count": 2
     },
     {
-      "city": "hesperange",
+      "city": "Esch-sur-Alzette",
+      "lat": 49.502401,
+      "lng": 5.9721782,
+      "avg_price_m2": 23.8,
+      "count": 5
+    },
+    {
+      "city": "Hassel",
+      "lat": 49.55093489999999,
+      "lng": 6.2076007,
+      "avg_price_m2": 21.5,
+      "count": 1
+    },
+    {
+      "city": "Bridel",
+      "lat": 49.6567235,
+      "lng": 6.0823886,
+      "avg_price_m2": 25.6,
+      "count": 3
+    },
+    {
+      "city": "Dudelange",
+      "lat": 49.48081,
+      "lng": 6.07795,
+      "avg_price_m2": 24.5,
+      "count": 2
+    },
+    {
+      "city": "Pétange",
+      "lat": 49.5570739,
+      "lng": 5.885361899999999,
+      "avg_price_m2": 25.4,
+      "count": 2
+    },
+    {
+      "city": "Schifflange",
+      "lat": 49.5031753,
+      "lng": 6.000680099999999,
+      "avg_price_m2": 19.0,
+      "count": 1
+    },
+    {
+      "city": "Steinsel",
+      "lat": 49.6750699,
+      "lng": 6.1377211,
+      "avg_price_m2": 23.1,
+      "count": 2
+    },
+    {
+      "city": "Hesperange",
       "lat": 49.5731206,
       "lng": 6.161307000000001,
       "avg_price_m2": 28.2,
       "count": 1
     },
     {
-      "city": "luxembourg kirchberg",
-      "lat": 49.62977069999999,
-      "lng": 6.179113,
-      "avg_price_m2": 27.9,
+      "city": "Luxembourg-Bonnevoie",
+      "lat": 49.59625699999999,
+      "lng": 6.1366508,
+      "avg_price_m2": 26.3,
       "count": 3
     },
     {
-      "city": "luxembourg gasperich   cloche dor",
+      "city": "Luxembourg-Gasperich - Cloche d'or",
       "lat": 49.5849,
       "lng": 6.12475,
       "avg_price_m2": 27.4,
       "count": 1
     },
     {
-      "city": "luxembourg eich",
+      "city": "Luxembourg-Gare",
+      "lat": 49.599092,
+      "lng": 6.132617,
+      "avg_price_m2": 28.6,
+      "count": 2
+    },
+    {
+      "city": "Luxembourg-Centre ville",
+      "lat": 49.6123327,
+      "lng": 6.1258432,
+      "avg_price_m2": 28.9,
+      "count": 2
+    },
+    {
+      "city": "Senningerberg",
+      "lat": 49.6450986,
+      "lng": 6.2223386,
+      "avg_price_m2": 22.0,
+      "count": 3
+    },
+    {
+      "city": "Luxembourg-Eich",
       "lat": 49.6247615,
       "lng": 6.1294726,
       "avg_price_m2": 17.2,
       "count": 1
     },
     {
-      "city": "strassen",
+      "city": "Luxembourg-Kirchberg",
+      "lat": 49.6278694,
+      "lng": 6.153422,
+      "avg_price_m2": 27.6,
+      "count": 3
+    },
+    {
+      "city": "Strassen",
       "lat": 49.6242968,
       "lng": 6.0774257,
       "avg_price_m2": 28.7,
       "count": 1
     },
     {
-      "city": "sprinkange",
+      "city": "Garnich",
+      "lat": 49.6174427,
+      "lng": 5.9512695,
+      "avg_price_m2": 24.5,
+      "count": 1
+    },
+    {
+      "city": "Sprinkange",
       "lat": 49.5842339,
       "lng": 5.9640686,
       "avg_price_m2": 23.3,
       "count": 1
     },
     {
-      "city": "luxembourg merl",
-      "lat": 49.6024497,
-      "lng": 6.1143973,
-      "avg_price_m2": 23.0,
-      "count": 1
-    },
-    {
-      "city": "belval",
+      "city": "Belval",
       "lat": 49.5045503,
       "lng": 5.9435467,
       "avg_price_m2": 24.2,
       "count": 1
     },
     {
-      "city": "luxembourg cessange",
+      "city": "Luxembourg-Cessange",
       "lat": 49.5872157,
       "lng": 6.1061192,
       "avg_price_m2": 27.8,
       "count": 1
     },
     {
-      "city": "differdange",
+      "city": "Differdange",
       "lat": 49.52075,
       "lng": 5.8999095,
       "avg_price_m2": 24.1,
       "count": 1
     },
     {
-      "city": "oberkorn",
-      "lat": 49.53,
-      "lng": 5.89,
-      "avg_price_m2": 21.9,
-      "count": 1
-    },
-    {
-      "city": "luxembourg dommeldange",
+      "city": "Luxembourg-Dommeldange",
       "lat": 49.6391127,
       "lng": 6.1376927,
       "avg_price_m2": 22.3,
       "count": 1
     },
     {
-      "city": "helmsange",
+      "city": "Helmsange",
       "lat": 49.6687138,
       "lng": 6.1321495,
       "avg_price_m2": 30.1,
       "count": 1
     },
     {
-      "city": "remich",
+      "city": "Remich",
       "lat": 49.545017,
       "lng": 6.3674222,
       "avg_price_m2": 19.2,
       "count": 1
     },
     {
-      "city": "schouweiler",
+      "city": "Schouweiler",
       "lat": 49.5820512,
       "lng": 5.955324099999999,
       "avg_price_m2": 21.9,
       "count": 1
     },
     {
-      "city": "eischen",
-      "lat": 49.6799401,
-      "lng": 5.8782811,
-      "avg_price_m2": 16.2,
-      "count": 1
+      "city": "Lallange",
+      "lat": 49.5112992,
+      "lng": 5.9873939,
+      "avg_price_m2": 23.0,
+      "count": 2
     },
     {
-      "city": "rollingen",
+      "city": "Rollingen",
       "lat": 49.7402205,
       "lng": 6.1137785,
       "avg_price_m2": 21.5,
       "count": 1
     },
     {
-      "city": "brouch (mersch)",
+      "city": "Brouch (Mersch)",
       "lat": 49.7373735,
       "lng": 6.0202389,
       "avg_price_m2": 14.0,
       "count": 1
     },
     {
-      "city": "hobscheid",
-      "lat": 49.6863684,
-      "lng": 5.9151653,
-      "avg_price_m2": 22.9,
-      "count": 1
-    },
-    {
-      "city": "kahler",
+      "city": "Kahler",
       "lat": 49.6308897,
       "lng": 5.916589,
       "avg_price_m2": 18.3,
       "count": 1
     },
     {
-      "city": "contern",
+      "city": "Hobscheid",
+      "lat": 49.6863684,
+      "lng": 5.9151653,
+      "avg_price_m2": 22.9,
+      "count": 1
+    },
+    {
+      "city": "Luxembourg-Centre Ville",
+      "lat": 49.6118458,
+      "lng": 6.126972500000001,
+      "avg_price_m2": 25.3,
+      "count": 1
+    },
+    {
+      "city": "Contern",
       "lat": 49.5854461,
       "lng": 6.224731299999999,
       "avg_price_m2": 29.3,
@@ -930,502 +707,380 @@ const STATS = {
   ],
   "timeline": [
     {
-      "date": "2026-02-24",
-      "count": 130
-    },
-    {
       "date": "2026-02-26",
-      "count": 21
+      "count": 108
     }
   ]
 };
 const SITE_COLORS = {
   "SothebysRealty.lu": "#FF6384",
-  "Newimmo.lu": "#36A2EB",
-  "VIVI.lu": "#FFCE56",
-  "Immotop.lu": "#4BC0C0",
-  "Athome.lu": "#9966FF",
-  "Nextimmo.lu": "#FF9F40"
+  "Nextimmo.lu": "#36A2EB",
+  "Newimmo.lu": "#FFCE56",
+  "VIVI.lu": "#4BC0C0",
+  "Immotop.lu": "#9966FF",
+  "Floor.lu": "#FF9F40",
+  "Athome.lu": "#2ECC71"
 };
 const PRICE_HEATMAP = [
   {
-    "city": "olm",
-    "lat": 49.64,
-    "lng": 6.01,
-    "avg_price_m2": 26.2,
-    "count": 2
-  },
-  {
-    "city": "bertrange",
-    "lat": 49.61,
-    "lng": 6.05,
-    "avg_price_m2": 24.7,
-    "count": 3
-  },
-  {
-    "city": "roussy le village",
-    "lat": 49.457134,
-    "lng": 6.173333,
-    "avg_price_m2": 10.9,
-    "count": 1
-  },
-  {
-    "city": "luxembourg beggen",
-    "lat": 49.6426379,
-    "lng": 6.1266808,
-    "avg_price_m2": 17.2,
-    "count": 1
-  },
-  {
-    "city": "luxembourg limpertsberg",
-    "lat": 49.62369109999999,
-    "lng": 6.121335699999999,
-    "avg_price_m2": 19.2,
-    "count": 3
-  },
-  {
-    "city": "esch sur alzette",
-    "lat": 49.5020092,
-    "lng": 5.9451393,
-    "avg_price_m2": 23.8,
-    "count": 5
-  },
-  {
-    "city": "luxembourg bonnevoie",
-    "lat": 49.5988911,
-    "lng": 6.142993,
-    "avg_price_m2": 26.3,
-    "count": 3
-  },
-  {
-    "city": "mamer",
-    "lat": 49.630503,
-    "lng": 6.013457700000001,
-    "avg_price_m2": 23.6,
-    "count": 4
-  },
-  {
-    "city": "senningerberg",
-    "lat": 49.6507477,
-    "lng": 6.2337462,
-    "avg_price_m2": 22.4,
-    "count": 4
-  },
-  {
-    "city": "bridel",
-    "lat": 49.65897,
-    "lng": 6.08135,
-    "avg_price_m2": 25.2,
-    "count": 4
-  },
-  {
-    "city": "steinsel",
-    "lat": 49.6750699,
-    "lng": 6.137721099999999,
-    "avg_price_m2": 23.1,
-    "count": 2
-  },
-  {
-    "city": "luxembourg centre ville",
-    "lat": 49.6124883,
-    "lng": 6.126248899999999,
-    "avg_price_m2": 26.4,
-    "count": 4
-  },
-  {
-    "city": "luxembourg hollerich",
-    "lat": 49.6031294,
-    "lng": 6.114701999999999,
-    "avg_price_m2": 27.4,
-    "count": 4
-  },
-  {
-    "city": "mondorf les bains",
+    "city": "Mondorf-les-Bains",
     "lat": 49.50185,
     "lng": 6.27573,
     "avg_price_m2": 14.3,
     "count": 1
   },
   {
-    "city": "bettembourg",
+    "city": "Bettembourg",
     "lat": 49.52,
     "lng": 6.105,
     "avg_price_m2": 19.1,
     "count": 2
   },
   {
-    "city": "tetange",
+    "city": "Tétange",
     "lat": 49.47374,
     "lng": 6.03998,
     "avg_price_m2": 23.8,
     "count": 1
   },
   {
-    "city": "rodange",
-    "lat": 49.54524,
-    "lng": 5.83908,
-    "avg_price_m2": 20.6,
-    "count": 3
+    "city": "Olm",
+    "lat": 49.65509,
+    "lng": 5.99296,
+    "avg_price_m2": 26.2,
+    "count": 2
   },
   {
-    "city": "weiler la tour",
-    "lat": 49.54,
-    "lng": 6.19,
-    "avg_price_m2": 19.2,
-    "count": 1
-  },
-  {
-    "city": "garnich",
-    "lat": 49.61,
-    "lng": 5.96,
-    "avg_price_m2": 24.5,
-    "count": 1
-  },
-  {
-    "city": "christnach",
-    "lat": 49.7880278,
-    "lng": 6.2675721,
-    "avg_price_m2": 20.6,
-    "count": 1
-  },
-  {
-    "city": "messancy",
-    "lat": 49.6080933,
-    "lng": 5.849097299999999,
-    "avg_price_m2": 9.4,
-    "count": 3
-  },
-  {
-    "city": "arlon",
-    "lat": 49.6829691,
-    "lng": 5.8075929,
-    "avg_price_m2": 9.5,
+    "city": "Luxembourg-Belair",
+    "lat": 49.60751,
+    "lng": 6.10969,
+    "avg_price_m2": 23.4,
     "count": 6
   },
   {
-    "city": "hettange grande",
-    "lat": 49.4059136,
-    "lng": 6.1554768,
-    "avg_price_m2": 15.5,
-    "count": 1
-  },
-  {
-    "city": "belvaux",
-    "lat": 49.5043347,
-    "lng": 5.9214334,
-    "avg_price_m2": 20.4,
-    "count": 2
-  },
-  {
-    "city": "weydig",
-    "lat": 49.7117967,
-    "lng": 6.367479899999999,
-    "avg_price_m2": 13.0,
-    "count": 1
-  },
-  {
-    "city": "palzem",
-    "lat": 49.5541335,
-    "lng": 6.4085363,
-    "avg_price_m2": 15.6,
-    "count": 1
-  },
-  {
-    "city": "cattenom",
-    "lat": 49.406263,
-    "lng": 6.243668,
-    "avg_price_m2": 11.4,
-    "count": 2
-  },
-  {
-    "city": "junglinster",
-    "lat": 49.71,
-    "lng": 6.25,
-    "avg_price_m2": 22.4,
-    "count": 2
-  },
-  {
-    "city": "hautcharage",
-    "lat": 49.5771,
-    "lng": 5.90988,
-    "avg_price_m2": 17.8,
-    "count": 2
-  },
-  {
-    "city": "gonderange",
-    "lat": 49.69,
-    "lng": 6.25,
-    "avg_price_m2": 23.2,
-    "count": 1
-  },
-  {
-    "city": "hassel",
-    "lat": 49.55093489999999,
-    "lng": 6.2076007,
-    "avg_price_m2": 21.5,
-    "count": 1
-  },
-  {
-    "city": "grevenmacher",
-    "lat": 49.6773648,
-    "lng": 6.4402066,
-    "avg_price_m2": 20.9,
-    "count": 2
-  },
-  {
-    "city": "dudelange",
-    "lat": 49.48081,
-    "lng": 6.07795,
-    "avg_price_m2": 24.5,
-    "count": 2
-  },
-  {
-    "city": "petange",
-    "lat": 49.5570739,
-    "lng": 5.885361899999999,
-    "avg_price_m2": 25.4,
-    "count": 2
-  },
-  {
-    "city": "schifflange",
-    "lat": 49.5031753,
-    "lng": 6.000680099999999,
-    "avg_price_m2": 18.0,
-    "count": 1
-  },
-  {
-    "city": "thil",
-    "lat": 49.4724674,
-    "lng": 5.9094834,
-    "avg_price_m2": 16.1,
-    "count": 1
-  },
-  {
-    "city": "aubange",
-    "lat": 49.5608954,
-    "lng": 5.808873,
-    "avg_price_m2": 11.4,
-    "count": 1
-  },
-  {
-    "city": "perl",
-    "lat": 49.4730674,
-    "lng": 6.3851003,
-    "avg_price_m2": 16.3,
+    "city": "Luxembourg-Hollerich",
+    "lat": 49.60034,
+    "lng": 6.12105,
+    "avg_price_m2": 27.4,
     "count": 4
   },
   {
-    "city": "schengen",
-    "lat": 49.47,
-    "lng": 6.37,
-    "avg_price_m2": 18.7,
-    "count": 1
-  },
-  {
-    "city": "athus",
-    "lat": 49.5573653,
-    "lng": 5.8377516,
-    "avg_price_m2": 14.5,
-    "count": 1
-  },
-  {
-    "city": "perl perl",
-    "lat": 49.4730674,
-    "lng": 6.3851003,
-    "avg_price_m2": 14.0,
-    "count": 1
-  },
-  {
-    "city": "lallange",
-    "lat": 49.5112992,
-    "lng": 5.9873939,
-    "avg_price_m2": 23.0,
-    "count": 2
-  },
-  {
-    "city": "luxembourg hamm",
-    "lat": 49.6116,
-    "lng": 6.1319,
-    "avg_price_m2": 23.3,
-    "count": 1
-  },
-  {
-    "city": "luxembourg belair",
-    "lat": 49.60751,
-    "lng": 6.10969,
-    "avg_price_m2": 23.2,
-    "count": 6
-  },
-  {
-    "city": "luxembourg pfaffenthal",
+    "city": "Luxembourg-Pfaffenthal",
     "lat": 49.6158,
     "lng": 6.13289,
     "avg_price_m2": 25.0,
     "count": 1
   },
   {
-    "city": "luxembourg gare",
-    "lat": 49.6,
-    "lng": 6.1342,
-    "avg_price_m2": 28.6,
+    "city": "Luxembourg-Hamm",
+    "lat": 49.6116,
+    "lng": 6.1319,
+    "avg_price_m2": 23.3,
+    "count": 1
+  },
+  {
+    "city": "Bertrange",
+    "lat": 49.61,
+    "lng": 6.05,
+    "avg_price_m2": 24.7,
+    "count": 3
+  },
+  {
+    "city": "Weiler La Tour",
+    "lat": 49.54,
+    "lng": 6.19,
+    "avg_price_m2": 19.2,
+    "count": 1
+  },
+  {
+    "city": "Mamer",
+    "lat": 49.627,
+    "lng": 6.023,
+    "avg_price_m2": 23.6,
+    "count": 4
+  },
+  {
+    "city": "Luxembourg-Limpertsberg",
+    "lat": 49.6116,
+    "lng": 6.1319,
+    "avg_price_m2": 25.4,
     "count": 2
   },
   {
-    "city": "luxembourg weimerskirch",
+    "city": "Roussy-le-Village",
+    "lat": 49.457134,
+    "lng": 6.173333,
+    "avg_price_m2": 10.9,
+    "count": 1
+  },
+  {
+    "city": "Belvaux",
+    "lat": 49.5043347,
+    "lng": 5.9214334,
+    "avg_price_m2": 20.4,
+    "count": 2
+  },
+  {
+    "city": "Luxembourg-Beggen",
+    "lat": 49.6426379,
+    "lng": 6.1266808,
+    "avg_price_m2": 17.2,
+    "count": 1
+  },
+  {
+    "city": "Junglinster",
+    "lat": 49.71,
+    "lng": 6.25,
+    "avg_price_m2": 22.4,
+    "count": 2
+  },
+  {
+    "city": "Hautcharage",
+    "lat": 49.5771,
+    "lng": 5.90988,
+    "avg_price_m2": 17.8,
+    "count": 2
+  },
+  {
+    "city": "Filsdorf",
+    "lat": 49.53025,
+    "lng": 6.24472,
+    "avg_price_m2": 20.6,
+    "count": 1
+  },
+  {
+    "city": "Luxembourg-Weimerskirch",
     "lat": 49.6254273,
     "lng": 6.135935,
     "avg_price_m2": 25.0,
     "count": 1
   },
   {
-    "city": "alzingen",
+    "city": "Alzingen",
     "lat": 49.5712572,
     "lng": 6.1637244,
     "avg_price_m2": 28.5,
     "count": 2
   },
   {
-    "city": "hesperange",
+    "city": "Esch-sur-Alzette",
+    "lat": 49.502401,
+    "lng": 5.9721782,
+    "avg_price_m2": 23.8,
+    "count": 5
+  },
+  {
+    "city": "Hassel",
+    "lat": 49.55093489999999,
+    "lng": 6.2076007,
+    "avg_price_m2": 21.5,
+    "count": 1
+  },
+  {
+    "city": "Bridel",
+    "lat": 49.6567235,
+    "lng": 6.0823886,
+    "avg_price_m2": 25.6,
+    "count": 3
+  },
+  {
+    "city": "Dudelange",
+    "lat": 49.48081,
+    "lng": 6.07795,
+    "avg_price_m2": 24.5,
+    "count": 2
+  },
+  {
+    "city": "Pétange",
+    "lat": 49.5570739,
+    "lng": 5.885361899999999,
+    "avg_price_m2": 25.4,
+    "count": 2
+  },
+  {
+    "city": "Schifflange",
+    "lat": 49.5031753,
+    "lng": 6.000680099999999,
+    "avg_price_m2": 19.0,
+    "count": 1
+  },
+  {
+    "city": "Steinsel",
+    "lat": 49.6750699,
+    "lng": 6.1377211,
+    "avg_price_m2": 23.1,
+    "count": 2
+  },
+  {
+    "city": "Hesperange",
     "lat": 49.5731206,
     "lng": 6.161307000000001,
     "avg_price_m2": 28.2,
     "count": 1
   },
   {
-    "city": "luxembourg kirchberg",
-    "lat": 49.62977069999999,
-    "lng": 6.179113,
-    "avg_price_m2": 27.9,
+    "city": "Luxembourg-Bonnevoie",
+    "lat": 49.59625699999999,
+    "lng": 6.1366508,
+    "avg_price_m2": 26.3,
     "count": 3
   },
   {
-    "city": "luxembourg gasperich   cloche dor",
+    "city": "Luxembourg-Gasperich - Cloche d'or",
     "lat": 49.5849,
     "lng": 6.12475,
     "avg_price_m2": 27.4,
     "count": 1
   },
   {
-    "city": "luxembourg eich",
+    "city": "Luxembourg-Gare",
+    "lat": 49.599092,
+    "lng": 6.132617,
+    "avg_price_m2": 28.6,
+    "count": 2
+  },
+  {
+    "city": "Luxembourg-Centre ville",
+    "lat": 49.6123327,
+    "lng": 6.1258432,
+    "avg_price_m2": 28.9,
+    "count": 2
+  },
+  {
+    "city": "Senningerberg",
+    "lat": 49.6450986,
+    "lng": 6.2223386,
+    "avg_price_m2": 22.0,
+    "count": 3
+  },
+  {
+    "city": "Luxembourg-Eich",
     "lat": 49.6247615,
     "lng": 6.1294726,
     "avg_price_m2": 17.2,
     "count": 1
   },
   {
-    "city": "strassen",
+    "city": "Luxembourg-Kirchberg",
+    "lat": 49.6278694,
+    "lng": 6.153422,
+    "avg_price_m2": 27.6,
+    "count": 3
+  },
+  {
+    "city": "Strassen",
     "lat": 49.6242968,
     "lng": 6.0774257,
     "avg_price_m2": 28.7,
     "count": 1
   },
   {
-    "city": "sprinkange",
+    "city": "Garnich",
+    "lat": 49.6174427,
+    "lng": 5.9512695,
+    "avg_price_m2": 24.5,
+    "count": 1
+  },
+  {
+    "city": "Sprinkange",
     "lat": 49.5842339,
     "lng": 5.9640686,
     "avg_price_m2": 23.3,
     "count": 1
   },
   {
-    "city": "luxembourg merl",
-    "lat": 49.6024497,
-    "lng": 6.1143973,
-    "avg_price_m2": 23.0,
-    "count": 1
-  },
-  {
-    "city": "belval",
+    "city": "Belval",
     "lat": 49.5045503,
     "lng": 5.9435467,
     "avg_price_m2": 24.2,
     "count": 1
   },
   {
-    "city": "luxembourg cessange",
+    "city": "Luxembourg-Cessange",
     "lat": 49.5872157,
     "lng": 6.1061192,
     "avg_price_m2": 27.8,
     "count": 1
   },
   {
-    "city": "differdange",
+    "city": "Differdange",
     "lat": 49.52075,
     "lng": 5.8999095,
     "avg_price_m2": 24.1,
     "count": 1
   },
   {
-    "city": "oberkorn",
-    "lat": 49.53,
-    "lng": 5.89,
-    "avg_price_m2": 21.9,
-    "count": 1
-  },
-  {
-    "city": "luxembourg dommeldange",
+    "city": "Luxembourg-Dommeldange",
     "lat": 49.6391127,
     "lng": 6.1376927,
     "avg_price_m2": 22.3,
     "count": 1
   },
   {
-    "city": "helmsange",
+    "city": "Helmsange",
     "lat": 49.6687138,
     "lng": 6.1321495,
     "avg_price_m2": 30.1,
     "count": 1
   },
   {
-    "city": "remich",
+    "city": "Remich",
     "lat": 49.545017,
     "lng": 6.3674222,
     "avg_price_m2": 19.2,
     "count": 1
   },
   {
-    "city": "schouweiler",
+    "city": "Schouweiler",
     "lat": 49.5820512,
     "lng": 5.955324099999999,
     "avg_price_m2": 21.9,
     "count": 1
   },
   {
-    "city": "eischen",
-    "lat": 49.6799401,
-    "lng": 5.8782811,
-    "avg_price_m2": 16.2,
-    "count": 1
+    "city": "Lallange",
+    "lat": 49.5112992,
+    "lng": 5.9873939,
+    "avg_price_m2": 23.0,
+    "count": 2
   },
   {
-    "city": "rollingen",
+    "city": "Rollingen",
     "lat": 49.7402205,
     "lng": 6.1137785,
     "avg_price_m2": 21.5,
     "count": 1
   },
   {
-    "city": "brouch (mersch)",
+    "city": "Brouch (Mersch)",
     "lat": 49.7373735,
     "lng": 6.0202389,
     "avg_price_m2": 14.0,
     "count": 1
   },
   {
-    "city": "hobscheid",
-    "lat": 49.6863684,
-    "lng": 5.9151653,
-    "avg_price_m2": 22.9,
-    "count": 1
-  },
-  {
-    "city": "kahler",
+    "city": "Kahler",
     "lat": 49.6308897,
     "lng": 5.916589,
     "avg_price_m2": 18.3,
     "count": 1
   },
   {
-    "city": "contern",
+    "city": "Hobscheid",
+    "lat": 49.6863684,
+    "lng": 5.9151653,
+    "avg_price_m2": 22.9,
+    "count": 1
+  },
+  {
+    "city": "Luxembourg-Centre Ville",
+    "lat": 49.6118458,
+    "lng": 6.126972500000001,
+    "avg_price_m2": 25.3,
+    "count": 1
+  },
+  {
+    "city": "Contern",
     "lat": 49.5854461,
     "lng": 6.224731299999999,
     "avg_price_m2": 29.3,
@@ -1434,11 +1089,7 @@ const PRICE_HEATMAP = [
 ];
 const TIMELINE = [
   {
-    "date": "2026-02-24",
-    "count": 130
-  },
-  {
     "date": "2026-02-26",
-    "count": 21
+    "count": 108
   }
 ];
