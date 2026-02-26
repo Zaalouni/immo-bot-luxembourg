@@ -104,10 +104,10 @@
         <!-- Filtres -->
         <div class="filters">
             <label style="font-weight: 600; margin-bottom: 0.8rem; display: block;">Filtre par période:</label>
-            <button class="filter-btn active" onclick="filterByPeriod('today')">Aujourd'hui</button>
-            <button class="filter-btn" onclick="filterByPeriod('7days')">7 derniers jours</button>
-            <button class="filter-btn" onclick="filterByPeriod('30days')">30 derniers jours</button>
-            <button class="filter-btn" onclick="filterByPeriod('all')">Toutes</button>
+            <button class="filter-btn active" id="btn-today" onclick="filterByPeriod('today', this)">Aujourd'hui</button>
+            <button class="filter-btn" id="btn-7days" onclick="filterByPeriod('7days', this)">7 derniers jours</button>
+            <button class="filter-btn" id="btn-30days" onclick="filterByPeriod('30days', this)">30 derniers jours</button>
+            <button class="filter-btn" id="btn-all" onclick="filterByPeriod('all', this)">Toutes</button>
         </div>
 
         <!-- Listings -->
@@ -142,7 +142,7 @@
             return getHoursAgo(dateStr) < 24;
         }
 
-        function filterByPeriod(period) {
+        function filterByPeriod(period, buttonElement) {
             currentFilter = period;
 
             const now = new Date();
@@ -166,7 +166,9 @@
 
             // Update filter buttons
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            }
 
             renderListings();
         }

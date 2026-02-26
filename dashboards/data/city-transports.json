@@ -1,0 +1,406 @@
+{
+  "description": "Transport data for Luxembourg cities to Luxembourg Central Station",
+  "reference_point": "Gare Centrale de Luxembourg",
+  "data_source": "TICE (Transports Intercommunaux), CFL (Chemins de fer Luxembourgeois), RGTR",
+  "last_updated": "2026-02-26",
+  "cities": {
+    "Luxembourg": {
+      "name": "Luxembourg",
+      "region": "Centre",
+      "distance_km": 0,
+      "note": "Gare Centrale - point de référence",
+      "transports": [
+        {
+          "type": "gare",
+          "name": "Gare Centrale de Luxembourg",
+          "duration_min": 0,
+          "description": "Point de départ"
+        }
+      ]
+    },
+    "Belair": {
+      "name": "Belair",
+      "region": "Nord-Ouest",
+      "distance_km": 2,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 1, 2, 3",
+          "duration_min": 8,
+          "description": "Bus direct depuis Belair vers Gare"
+        },
+        {
+          "type": "pied",
+          "number": "À pied",
+          "duration_min": 15,
+          "description": "15-20 minutes à pied"
+        }
+      ]
+    },
+    "Mamer": {
+      "name": "Mamer",
+      "region": "Ouest",
+      "distance_km": 8,
+      "transports": [
+        {
+          "type": "train",
+          "number": "CFL - Gare de Mamer",
+          "duration_min": 12,
+          "description": "Train direct Mamer → Gare Centrale (12-15 min)"
+        },
+        {
+          "type": "bus",
+          "number": "TICE 7, 8",
+          "duration_min": 25,
+          "description": "Bus via Strassen (25-30 min)"
+        }
+      ]
+    },
+    "Kirchberg": {
+      "name": "Kirchberg",
+      "region": "Nord-Est",
+      "distance_km": 4,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 1, 2, 11, 12, 13",
+          "duration_min": 15,
+          "description": "Bus directs depuis Kirchberg (15-20 min)"
+        },
+        {
+          "type": "pied",
+          "number": "À pied",
+          "duration_min": 25,
+          "description": "Environ 25 minutes"
+        }
+      ]
+    },
+    "Gare": {
+      "name": "Gare",
+      "region": "Centre",
+      "distance_km": 0.5,
+      "note": "Quartier immédiatement adjacent à la Gare Centrale",
+      "transports": [
+        {
+          "type": "pied",
+          "number": "À pied",
+          "duration_min": 3,
+          "description": "Environ 3-5 minutes à pied"
+        },
+        {
+          "type": "bus",
+          "number": "Tous les bus locaux",
+          "duration_min": 5,
+          "description": "Tous les bus passent à la Gare"
+        }
+      ]
+    },
+    "Esch": {
+      "name": "Esch-sur-Alzette",
+      "region": "Sud",
+      "distance_km": 18,
+      "transports": [
+        {
+          "type": "train",
+          "number": "CFL - Gare d'Esch",
+          "duration_min": 28,
+          "description": "Train direct Esch → Gare Centrale (28-32 min)"
+        },
+        {
+          "type": "bus",
+          "number": "RGTR",
+          "duration_min": 50,
+          "description": "Bus longue distance (50-60 min)"
+        }
+      ]
+    },
+    "Strassen": {
+      "name": "Strassen",
+      "region": "Ouest",
+      "distance_km": 6,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 5, 6",
+          "duration_min": 20,
+          "description": "Bus Strassen → Gare (20-25 min)"
+        },
+        {
+          "type": "pied",
+          "number": "À pied",
+          "duration_min": 45,
+          "description": "Environ 45 minutes"
+        }
+      ]
+    },
+    "Howald": {
+      "name": "Howald",
+      "region": "Est",
+      "distance_km": 5,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 3, 4",
+          "duration_min": 15,
+          "description": "Bus direct (15-20 min)"
+        }
+      ]
+    },
+    "Bertrange": {
+      "name": "Bertrange",
+      "region": "Ouest",
+      "distance_km": 7,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 2, 10",
+          "duration_min": 22,
+          "description": "Bus Bertrange → Gare (20-25 min)"
+        }
+      ]
+    },
+    "Hesperange": {
+      "name": "Hesperange",
+      "region": "Sud-Est",
+      "distance_km": 8,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 3, 4",
+          "duration_min": 25,
+          "description": "Bus Hesperange → Gare (25-30 min)"
+        }
+      ]
+    },
+    "Limpertsberg": {
+      "name": "Limpertsberg",
+      "region": "Nord",
+      "distance_km": 3,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 9, 10",
+          "duration_min": 12,
+          "description": "Bus direct (12-15 min)"
+        },
+        {
+          "type": "pied",
+          "number": "À pied",
+          "duration_min": 20,
+          "description": "20 minutes"
+        }
+      ]
+    },
+    "Bonnevoie": {
+      "name": "Bonnevoie",
+      "region": "Est",
+      "distance_km": 2,
+      "note": "Quartier de Luxembourg-ville",
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 2, 4",
+          "duration_min": 10,
+          "description": "Bus local (10-12 min)"
+        },
+        {
+          "type": "pied",
+          "number": "À pied",
+          "duration_min": 15,
+          "description": "15-20 minutes"
+        }
+      ]
+    },
+    "Cessange": {
+      "name": "Cessange",
+      "region": "Sud-Ouest",
+      "distance_km": 5,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 5",
+          "duration_min": 20,
+          "description": "Bus Cessange → Gare (20-25 min)"
+        }
+      ]
+    },
+    "Gasparich": {
+      "name": "Gasparich",
+      "region": "Sud",
+      "distance_km": 3,
+      "note": "Quartier de Luxembourg-ville",
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 1, 2, 13",
+          "duration_min": 10,
+          "description": "Bus direct (10-15 min)"
+        }
+      ]
+    },
+    "Hollerich": {
+      "name": "Hollerich",
+      "region": "Nord-Est",
+      "distance_km": 3,
+      "transports": [
+        {
+          "type": "train",
+          "number": "CFL - Gare de Hollerich",
+          "duration_min": 8,
+          "description": "Train direct (8-10 min)"
+        },
+        {
+          "type": "bus",
+          "number": "TICE 2, 13",
+          "duration_min": 12,
+          "description": "Bus vers Gare (12-15 min)"
+        }
+      ]
+    },
+    "Merl": {
+      "name": "Merl",
+      "region": "Est",
+      "distance_km": 5,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 3, 4",
+          "duration_min": 18,
+          "description": "Bus Merl → Gare (18-22 min)"
+        }
+      ]
+    },
+    "Alzette": {
+      "name": "Alzette",
+      "region": "Sud",
+      "distance_km": 20,
+      "note": "Quartier/commune près d'Esch",
+      "transports": [
+        {
+          "type": "train",
+          "number": "CFL via Esch",
+          "duration_min": 35,
+          "description": "Train via gare d'Esch (35-40 min)"
+        },
+        {
+          "type": "bus",
+          "number": "RGTR",
+          "duration_min": 55,
+          "description": "Bus longue distance (55-60 min)"
+        }
+      ]
+    },
+    "Findel": {
+      "name": "Findel",
+      "region": "Nord-Est",
+      "distance_km": 6,
+      "note": "Secteur aéroport",
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 11, 16",
+          "duration_min": 25,
+          "description": "Bus aéroport → Gare (25-30 min)"
+        }
+      ]
+    },
+    "Cents": {
+      "name": "Cents",
+      "region": "Nord-Ouest",
+      "distance_km": 6,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 6, 7",
+          "duration_min": 22,
+          "description": "Bus Cents → Gare (22-25 min)"
+        }
+      ]
+    },
+    "Hamm": {
+      "name": "Hamm",
+      "region": "Nord",
+      "distance_km": 4,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 9",
+          "duration_min": 15,
+          "description": "Bus direct (15-18 min)"
+        }
+      ]
+    },
+    "Pulvermuhl": {
+      "name": "Pulvermuhl",
+      "region": "Nord",
+      "distance_km": 5,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 8, 9",
+          "duration_min": 18,
+          "description": "Bus Pulvermuhl → Gare (18-22 min)"
+        }
+      ]
+    },
+    "Weimerskirch": {
+      "name": "Weimerskirch",
+      "region": "Nord-Est",
+      "distance_km": 7,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 11, 12",
+          "duration_min": 22,
+          "description": "Bus vers Gare (22-28 min)"
+        }
+      ]
+    },
+    "Rollingergrund": {
+      "name": "Rollingergrund",
+      "region": "Nord-Ouest",
+      "distance_km": 3,
+      "note": "Quartier de Luxembourg-ville",
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 2, 3",
+          "duration_min": 12,
+          "description": "Bus direct (12-15 min)"
+        }
+      ]
+    },
+    "Dommeldange": {
+      "name": "Dommeldange",
+      "region": "Nord",
+      "distance_km": 5,
+      "transports": [
+        {
+          "type": "bus",
+          "number": "TICE 8, 9, 13",
+          "duration_min": 18,
+          "description": "Bus Dommeldange → Gare (18-22 min)"
+        }
+      ]
+    },
+    "Differdange": {
+      "name": "Differdange",
+      "region": "Sud",
+      "distance_km": 25,
+      "transports": [
+        {
+          "type": "train",
+          "number": "CFL - Gare de Differdange",
+          "duration_min": 42,
+          "description": "Train direct Differdange → Gare Centrale (40-45 min)"
+        },
+        {
+          "type": "bus",
+          "number": "RGTR",
+          "duration_min": 70,
+          "description": "Bus longue distance (60-70 min)"
+        }
+      ]
+    }
+  }
+}
