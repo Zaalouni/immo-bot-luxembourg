@@ -86,7 +86,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <h1>ImmoLux Dashboard</h1>
-            <small>Mis a jour le 26/02/2026 21:17 — 109 annonces</small>
+            <small>Mis a jour le 26/02/2026 21:25 — 109 annonces</small>
         </div>
         <div style="display: flex; gap: 10px; align-items: center;">
             <a href="map.html" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; background: rgba(255,255,255,0.2);">🗺️ Carte</a>
@@ -413,7 +413,9 @@ function renderPriceView() {
 
 // --- Carte Leaflet (lazy load quand onglet actif) ---
 let mapInit = false;
-document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', () => {
+const mapTabBtn = document.querySelector('[data-bs-target="#tab-map"]');
+if (mapTabBtn) {
+mapTabBtn.addEventListener('shown.bs.tab', () => {
     if (mapInit) return;
     mapInit = true;
     const withGPS = LISTINGS.filter(l => l.latitude && l.longitude);
@@ -434,11 +436,13 @@ document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs
         `);
     });
     map.fitBounds(withGPS.map(l => [l.latitude, l.longitude]), { padding: [30, 30] });
-});
+    });
+}
 
 // --- Init ---
 initFilters();
 applyFilters();
+renderTable();
 renderCityView();
 renderPriceView();
 </script>
