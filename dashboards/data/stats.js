@@ -1,30 +1,20 @@
-// Genere le 25/02/2026 20:01
+// Genere le 26/02/2026 18:50
 const STATS = {
-  "total": 146,
-  "avg_price": 2091,
+  "total": 151,
+  "avg_price": 2088,
   "min_price": 1300,
   "max_price": 2500,
-  "avg_surface": 104,
-  "cities": 77,
+  "avg_surface": 105,
+  "cities": 82,
   "sites": {
     "SothebysRealty.lu": 7,
-    "Athome.lu": 97,
-    "VIVI.lu": 8,
+    "Newimmo.lu": 6,
+    "VIVI.lu": 10,
     "Immotop.lu": 4,
-    "Nextimmo.lu": 25,
-    "Newimmo.lu": 5
+    "Athome.lu": 99,
+    "Nextimmo.lu": 25
   },
   "by_city": [
-    {
-      "city": "luxembourg",
-      "count": 6,
-      "avg_price": 1753
-    },
-    {
-      "city": "bertrange",
-      "count": 6,
-      "avg_price": 2233
-    },
     {
       "city": "arlon",
       "count": 6,
@@ -36,9 +26,14 @@ const STATS = {
       "avg_price": 2304
     },
     {
-      "city": "luxembourg hollerich",
+      "city": "luxembourg",
       "count": 5,
-      "avg_price": 2240
+      "avg_price": 1720
+    },
+    {
+      "city": "bertrange",
+      "count": 5,
+      "avg_price": 2180
     },
     {
       "city": "esch sur alzette",
@@ -56,9 +51,9 @@ const STATS = {
       "avg_price": 2300
     },
     {
-      "city": "luxembourg centre ville",
+      "city": "senningerberg",
       "count": 4,
-      "avg_price": 2437
+      "avg_price": 2222
     },
     {
       "city": "bridel",
@@ -66,9 +61,24 @@ const STATS = {
       "avg_price": 2187
     },
     {
+      "city": "luxembourg centre ville",
+      "count": 4,
+      "avg_price": 2437
+    },
+    {
+      "city": "luxembourg hollerich",
+      "count": 4,
+      "avg_price": 2225
+    },
+    {
       "city": "perl",
       "count": 4,
       "avg_price": 1900
+    },
+    {
+      "city": "luxembourg bonnevoie",
+      "count": 3,
+      "avg_price": 2233
     },
     {
       "city": "rodange",
@@ -81,11 +91,6 @@ const STATS = {
       "avg_price": 1666
     },
     {
-      "city": "senningerberg",
-      "count": 3,
-      "avg_price": 2196
-    },
-    {
       "city": "luxembourg gare",
       "count": 3,
       "avg_price": 2446
@@ -96,9 +101,14 @@ const STATS = {
       "avg_price": 2316
     },
     {
-      "city": "schouweiler",
+      "city": "olm",
       "count": 2,
-      "avg_price": 2145
+      "avg_price": 2200
+    },
+    {
+      "city": "bissen",
+      "count": 2,
+      "avg_price": 1975
     },
     {
       "city": "steinsel",
@@ -171,9 +181,29 @@ const STATS = {
       "avg_price": 2375
     },
     {
-      "city": "luxembourg bonnevoie",
-      "count": 2,
-      "avg_price": 2275
+      "city": "mondercange",
+      "count": 1,
+      "avg_price": 2400
+    },
+    {
+      "city": "niederfeulen",
+      "count": 1,
+      "avg_price": 1600
+    },
+    {
+      "city": "lasauvage",
+      "count": 1,
+      "avg_price": 1900
+    },
+    {
+      "city": "roussy le village",
+      "count": 1,
+      "avg_price": 1650
+    },
+    {
+      "city": "luxembourg beggen",
+      "count": 1,
+      "avg_price": 2500
     },
     {
       "city": "bivange&nbsp;",
@@ -199,11 +229,6 @@ const STATS = {
       "city": "tetange",
       "count": 1,
       "avg_price": 2450
-    },
-    {
-      "city": "olm",
-      "count": 1,
-      "avg_price": 2300
     },
     {
       "city": "weiler la tour",
@@ -331,11 +356,6 @@ const STATS = {
       "avg_price": 2300
     },
     {
-      "city": "bissen",
-      "count": 1,
-      "avg_price": 2000
-    },
-    {
       "city": "belval",
       "count": 1,
       "avg_price": 2375
@@ -371,6 +391,11 @@ const STATS = {
       "avg_price": 2500
     },
     {
+      "city": "schouweiler",
+      "count": 1,
+      "avg_price": 2390
+    },
+    {
       "city": "eischen",
       "count": 1,
       "avg_price": 1600
@@ -403,16 +428,16 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 15,
-    "1500 - 2000": 36,
-    "2000 - 2500": 76,
+    "1500 - 2000": 39,
+    "2000 - 2500": 78,
     "> 2500": 19
   },
   "data_quality": {
     "completeness": 94,
-    "with_gps": 139,
-    "with_price": 146,
-    "with_surface": 130,
-    "total": 146
+    "with_gps": 141,
+    "with_price": 151,
+    "with_surface": 134,
+    "total": 151
   },
   "anomalies": {
     "extreme_prices": [],
@@ -420,25 +445,32 @@ const STATS = {
   },
   "price_heatmap": [
     {
-      "city": "luxembourg",
-      "lat": 49.6116,
-      "lng": 6.1319,
-      "avg_price_m2": 22.2,
-      "count": 1
-    },
-    {
-      "city": "luxembourg hollerich",
-      "lat": 49.6031294,
-      "lng": 6.114701999999999,
-      "avg_price_m2": 26.5,
-      "count": 5
+      "city": "olm",
+      "lat": 49.64,
+      "lng": 6.01,
+      "avg_price_m2": 26.2,
+      "count": 2
     },
     {
       "city": "bertrange",
       "lat": 49.61,
       "lng": 6.05,
-      "avg_price_m2": 25.4,
-      "count": 4
+      "avg_price_m2": 24.7,
+      "count": 3
+    },
+    {
+      "city": "roussy le village",
+      "lat": 49.457134,
+      "lng": 6.173333,
+      "avg_price_m2": 10.9,
+      "count": 1
+    },
+    {
+      "city": "luxembourg beggen",
+      "lat": 49.6426379,
+      "lng": 6.1266808,
+      "avg_price_m2": 17.2,
+      "count": 1
     },
     {
       "city": "luxembourg limpertsberg",
@@ -455,17 +487,31 @@ const STATS = {
       "count": 5
     },
     {
-      "city": "schouweiler",
-      "lat": 49.5814957,
-      "lng": 5.9588682,
-      "avg_price_m2": 20.9,
-      "count": 2
+      "city": "luxembourg bonnevoie",
+      "lat": 49.5988911,
+      "lng": 6.142993,
+      "avg_price_m2": 26.3,
+      "count": 3
     },
     {
       "city": "mamer",
       "lat": 49.630503,
       "lng": 6.013457700000001,
       "avg_price_m2": 23.6,
+      "count": 4
+    },
+    {
+      "city": "senningerberg",
+      "lat": 49.6507477,
+      "lng": 6.2337462,
+      "avg_price_m2": 22.4,
+      "count": 4
+    },
+    {
+      "city": "bridel",
+      "lat": 49.65897,
+      "lng": 6.08135,
+      "avg_price_m2": 25.2,
       "count": 4
     },
     {
@@ -483,10 +529,10 @@ const STATS = {
       "count": 4
     },
     {
-      "city": "bridel",
-      "lat": 49.65897,
-      "lng": 6.08135,
-      "avg_price_m2": 25.2,
+      "city": "luxembourg hollerich",
+      "lat": 49.6031294,
+      "lng": 6.114701999999999,
+      "avg_price_m2": 27.4,
       "count": 4
     },
     {
@@ -508,13 +554,6 @@ const STATS = {
       "lat": 49.47374,
       "lng": 6.03998,
       "avg_price_m2": 23.8,
-      "count": 1
-    },
-    {
-      "city": "olm",
-      "lat": 49.65509,
-      "lng": 5.99296,
-      "avg_price_m2": 28.8,
       "count": 1
     },
     {
@@ -672,13 +711,6 @@ const STATS = {
       "count": 4
     },
     {
-      "city": "senningerberg",
-      "lat": 49.6450986,
-      "lng": 6.2223386,
-      "avg_price_m2": 23.8,
-      "count": 3
-    },
-    {
       "city": "schengen",
       "lat": 49.47,
       "lng": 6.37,
@@ -756,13 +788,6 @@ const STATS = {
       "count": 1
     },
     {
-      "city": "luxembourg bonnevoie",
-      "lat": 49.59625699999999,
-      "lng": 6.1366508,
-      "avg_price_m2": 26.0,
-      "count": 2
-    },
-    {
       "city": "luxembourg kirchberg",
       "lat": 49.62977069999999,
       "lng": 6.179113,
@@ -802,13 +827,6 @@ const STATS = {
       "lat": 49.6024497,
       "lng": 6.1143973,
       "avg_price_m2": 23.0,
-      "count": 1
-    },
-    {
-      "city": "bissen",
-      "lat": 49.771065,
-      "lng": 5.9816771,
-      "avg_price_m2": 24.7,
       "count": 1
     },
     {
@@ -861,6 +879,13 @@ const STATS = {
       "count": 1
     },
     {
+      "city": "schouweiler",
+      "lat": 49.5820512,
+      "lng": 5.955324099999999,
+      "avg_price_m2": 21.9,
+      "count": 1
+    },
+    {
       "city": "eischen",
       "lat": 49.6799401,
       "lng": 5.8782811,
@@ -906,43 +931,50 @@ const STATS = {
   "timeline": [
     {
       "date": "2026-02-24",
-      "count": 132
+      "count": 130
     },
     {
-      "date": "2026-02-25",
-      "count": 14
+      "date": "2026-02-26",
+      "count": 21
     }
   ]
 };
 const SITE_COLORS = {
   "SothebysRealty.lu": "#FF6384",
-  "Athome.lu": "#36A2EB",
+  "Newimmo.lu": "#36A2EB",
   "VIVI.lu": "#FFCE56",
   "Immotop.lu": "#4BC0C0",
-  "Nextimmo.lu": "#9966FF",
-  "Newimmo.lu": "#FF9F40"
+  "Athome.lu": "#9966FF",
+  "Nextimmo.lu": "#FF9F40"
 };
 const PRICE_HEATMAP = [
   {
-    "city": "luxembourg",
-    "lat": 49.6116,
-    "lng": 6.1319,
-    "avg_price_m2": 22.2,
-    "count": 1
-  },
-  {
-    "city": "luxembourg hollerich",
-    "lat": 49.6031294,
-    "lng": 6.114701999999999,
-    "avg_price_m2": 26.5,
-    "count": 5
+    "city": "olm",
+    "lat": 49.64,
+    "lng": 6.01,
+    "avg_price_m2": 26.2,
+    "count": 2
   },
   {
     "city": "bertrange",
     "lat": 49.61,
     "lng": 6.05,
-    "avg_price_m2": 25.4,
-    "count": 4
+    "avg_price_m2": 24.7,
+    "count": 3
+  },
+  {
+    "city": "roussy le village",
+    "lat": 49.457134,
+    "lng": 6.173333,
+    "avg_price_m2": 10.9,
+    "count": 1
+  },
+  {
+    "city": "luxembourg beggen",
+    "lat": 49.6426379,
+    "lng": 6.1266808,
+    "avg_price_m2": 17.2,
+    "count": 1
   },
   {
     "city": "luxembourg limpertsberg",
@@ -959,17 +991,31 @@ const PRICE_HEATMAP = [
     "count": 5
   },
   {
-    "city": "schouweiler",
-    "lat": 49.5814957,
-    "lng": 5.9588682,
-    "avg_price_m2": 20.9,
-    "count": 2
+    "city": "luxembourg bonnevoie",
+    "lat": 49.5988911,
+    "lng": 6.142993,
+    "avg_price_m2": 26.3,
+    "count": 3
   },
   {
     "city": "mamer",
     "lat": 49.630503,
     "lng": 6.013457700000001,
     "avg_price_m2": 23.6,
+    "count": 4
+  },
+  {
+    "city": "senningerberg",
+    "lat": 49.6507477,
+    "lng": 6.2337462,
+    "avg_price_m2": 22.4,
+    "count": 4
+  },
+  {
+    "city": "bridel",
+    "lat": 49.65897,
+    "lng": 6.08135,
+    "avg_price_m2": 25.2,
     "count": 4
   },
   {
@@ -987,10 +1033,10 @@ const PRICE_HEATMAP = [
     "count": 4
   },
   {
-    "city": "bridel",
-    "lat": 49.65897,
-    "lng": 6.08135,
-    "avg_price_m2": 25.2,
+    "city": "luxembourg hollerich",
+    "lat": 49.6031294,
+    "lng": 6.114701999999999,
+    "avg_price_m2": 27.4,
     "count": 4
   },
   {
@@ -1012,13 +1058,6 @@ const PRICE_HEATMAP = [
     "lat": 49.47374,
     "lng": 6.03998,
     "avg_price_m2": 23.8,
-    "count": 1
-  },
-  {
-    "city": "olm",
-    "lat": 49.65509,
-    "lng": 5.99296,
-    "avg_price_m2": 28.8,
     "count": 1
   },
   {
@@ -1176,13 +1215,6 @@ const PRICE_HEATMAP = [
     "count": 4
   },
   {
-    "city": "senningerberg",
-    "lat": 49.6450986,
-    "lng": 6.2223386,
-    "avg_price_m2": 23.8,
-    "count": 3
-  },
-  {
     "city": "schengen",
     "lat": 49.47,
     "lng": 6.37,
@@ -1260,13 +1292,6 @@ const PRICE_HEATMAP = [
     "count": 1
   },
   {
-    "city": "luxembourg bonnevoie",
-    "lat": 49.59625699999999,
-    "lng": 6.1366508,
-    "avg_price_m2": 26.0,
-    "count": 2
-  },
-  {
     "city": "luxembourg kirchberg",
     "lat": 49.62977069999999,
     "lng": 6.179113,
@@ -1306,13 +1331,6 @@ const PRICE_HEATMAP = [
     "lat": 49.6024497,
     "lng": 6.1143973,
     "avg_price_m2": 23.0,
-    "count": 1
-  },
-  {
-    "city": "bissen",
-    "lat": 49.771065,
-    "lng": 5.9816771,
-    "avg_price_m2": 24.7,
     "count": 1
   },
   {
@@ -1365,6 +1383,13 @@ const PRICE_HEATMAP = [
     "count": 1
   },
   {
+    "city": "schouweiler",
+    "lat": 49.5820512,
+    "lng": 5.955324099999999,
+    "avg_price_m2": 21.9,
+    "count": 1
+  },
+  {
     "city": "eischen",
     "lat": 49.6799401,
     "lng": 5.8782811,
@@ -1410,10 +1435,10 @@ const PRICE_HEATMAP = [
 const TIMELINE = [
   {
     "date": "2026-02-24",
-    "count": 132
+    "count": 130
   },
   {
-    "date": "2026-02-25",
-    "count": 14
+    "date": "2026-02-26",
+    "count": 21
   }
 ];
