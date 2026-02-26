@@ -1,4 +1,4 @@
-// Genere le 26/02/2026 19:53
+// Genere le 26/02/2026 19:54
 const STATS = {
   "total": 108,
   "avg_price": 2199,
