@@ -1,4 +1,4 @@
-// Genere le 26/02/2026 22:22
+// Genere le 26/02/2026 22:32
 // Statistiques detaillees par ville (median, avg, price_m2, etc.)
 const MARKET_STATS = {
   "Bridel": {
