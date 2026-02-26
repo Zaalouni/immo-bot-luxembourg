@@ -1,6 +1,6 @@
-// Genere le 26/02/2026 21:14
+// Genere le 26/02/2026 21:17
 // 109 annonces depuis listings.db
-const listings = [
+const LISTINGS = [
   {
     "listing_id": "vivi_208174",
     "site": "VIVI.lu",
