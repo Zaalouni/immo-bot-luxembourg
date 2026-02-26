@@ -1,15 +1,15 @@
-// Genere le 26/02/2026 22:53
+// Genere le 26/02/2026 22:56
 const STATS = {
-  "total": 110,
-  "avg_price": 2195,
-  "min_price": 1400,
-  "max_price": 2500,
+  "total": 109,
+  "avg_price": 2214,
+  "min_price": 1500,
+  "max_price": 2600,
   "avg_surface": 97,
   "cities": 59,
   "sites": {
-    "Nextimmo.lu": 20,
     "VIVI.lu": 11,
     "Athome.lu": 66,
+    "Nextimmo.lu": 19,
     "Newimmo.lu": 5,
     "Immotop.lu": 2,
     "SothebysRealty.lu": 5,
@@ -19,7 +19,7 @@ const STATS = {
     {
       "city": "Luxembourg",
       "count": 7,
-      "avg_price": 1767
+      "avg_price": 1938
     },
     {
       "city": "Luxembourg-Belair",
@@ -29,17 +29,12 @@ const STATS = {
     {
       "city": "Bertrange",
       "count": 5,
-      "avg_price": 2180
+      "avg_price": 2380
     },
     {
       "city": "Esch-sur-Alzette",
       "count": 5,
       "avg_price": 2100
-    },
-    {
-      "city": "Bridel",
-      "count": 4,
-      "avg_price": 2187
     },
     {
       "city": "Luxembourg-Hollerich",
@@ -55,6 +50,11 @@ const STATS = {
       "city": "Schouweiler",
       "count": 3,
       "avg_price": 2145
+    },
+    {
+      "city": "Bridel",
+      "count": 3,
+      "avg_price": 2116
     },
     {
       "city": "Luxembourg-Bonnevoie",
@@ -313,16 +313,16 @@ const STATS = {
     }
   ],
   "by_price_range": {
-    "< 1500": 1,
-    "1500 - 2000": 25,
-    "2000 - 2500": 69,
-    "> 2500": 15
+    "< 1500": 0,
+    "1500 - 2000": 24,
+    "2000 - 2500": 68,
+    "> 2500": 17
   }
 };
 const SITE_COLORS = {
-  "Nextimmo.lu": "#FF6384",
-  "VIVI.lu": "#36A2EB",
-  "Athome.lu": "#FFCE56",
+  "VIVI.lu": "#FF6384",
+  "Athome.lu": "#36A2EB",
+  "Nextimmo.lu": "#FFCE56",
   "Newimmo.lu": "#4BC0C0",
   "Immotop.lu": "#9966FF",
   "SothebysRealty.lu": "#FF9F40",
