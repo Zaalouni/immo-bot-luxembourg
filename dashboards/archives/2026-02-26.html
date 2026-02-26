@@ -86,7 +86,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <div>
             <h1>ImmoLux Dashboard</h1>
-            <small>Mis a jour le 26/02/2026 21:25 — 109 annonces</small>
+            <small>Mis a jour le 26/02/2026 21:31 — 109 annonces</small>
         </div>
         <div style="display: flex; gap: 10px; align-items: center;">
             <a href="map.html" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; background: rgba(255,255,255,0.2);">🗺️ Carte</a>
@@ -186,6 +186,14 @@
                         <label class="form-label form-label-sm mb-0">m&sup2; min</label>
                         <input type="number" id="f-smin" class="form-control form-control-sm" placeholder="0">
                     </div>
+                    <div class="col-6 col-md-2">
+                        <label class="form-label form-label-sm mb-0">Publié de</label>
+                        <input type="date" id="f-date-from" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-6 col-md-2">
+                        <label class="form-label form-label-sm mb-0">Publié à</label>
+                        <input type="date" id="f-date-to" class="form-control form-control-sm">
+                    </div>
                     <div class="col-3 col-md-1">
                         <button class="btn btn-sm btn-outline-secondary w-100" onclick="resetFilters()">Reset</button>
                     </div>
@@ -207,7 +215,9 @@
                                 <th data-col="surface">m&sup2; <span class="sort-arrow">&#9650;</span></th>
                                 <th data-col="price_m2">&euro;/m&sup2; <span class="sort-arrow">&#9650;</span></th>
                                 <th data-col="distance_km">Dist. <span class="sort-arrow">&#9650;</span></th>
-                                <th data-col="time_ago">Publié <span class="sort-arrow">&#9650;</span></th>
+                                <th data-col="time_ago">Relatif <span class="sort-arrow">&#9650;</span></th>
+                                <th data-col="published_date">Publié le <span class="sort-arrow">&#9650;</span></th>
+                                <th data-col="created_date">Découvert <span class="sort-arrow">&#9650;</span></th>
                                 <th>Titre</th>
                             </tr>
                         </thead>
@@ -263,12 +273,29 @@ function applyFilters() {
     const pmax = parseInt(document.getElementById('f-pmax').value) || 999999;
     const site = document.getElementById('f-site').value;
     const smin = parseInt(document.getElementById('f-smin').value) || 0;
+    const dateFrom = document.getElementById('f-date-from').value;  // Format ISO: "2026-02-20"
+    const dateTo = document.getElementById('f-date-to').value;      // Format ISO: "2026-02-26"
 
     filtered = LISTINGS.filter(l => {
         if (city && l.city !== city) return false;
         if (l.price < pmin || l.price > pmax) return false;
         if (site && l.site !== site) return false;
         if (smin && (!l.surface || l.surface < smin)) return false;
+
+        // NOUVEAU: Filtrage par date publication
+        // published_date format: "26/02/2026 20:22" → extraire "26/02/2026"
+        if (dateFrom || dateTo) {
+            const listingDateStr = l.published_date ? l.published_date.split(' ')[0] : '';  // "26/02/2026"
+            // Convertir "26/02/2026" en format ISO "2026-02-26" pour comparaison
+            let listingDateISO = '';
+            if (listingDateStr) {
+                const [day, month, year] = listingDateStr.split('/');
+                listingDateISO = `${year}-${month}-${day}`;
+            }
+            if (dateFrom && listingDateISO < dateFrom) return false;
+            if (dateTo && listingDateISO > dateTo) return false;
+        }
+
         return true;
     });
     sortAndRender();
@@ -289,7 +316,8 @@ function renderTable() {
     const tbody = document.getElementById('table-body');
     document.getElementById('table-count').textContent = filtered.length + ' / ' + LISTINGS.length;
     if (!filtered.length) {
-        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted py-3">Aucune annonce</td></tr>';
+        // colspan="11" pour 11 colonnes (site, city, price, rooms, surface, price_m2, distance, time_ago, published_date, created_date, title)
+        tbody.innerHTML = '<tr><td colspan="11" class="text-center text-muted py-3">Aucune annonce</td></tr>';
         return;
     }
     tbody.innerHTML = filtered.map(l => `
@@ -302,13 +330,17 @@ function renderTable() {
             <td>${l.price_m2 ? l.price_m2 + '&euro;' : '—'}</td>
             <td>${l.distance_km != null ? l.distance_km + ' km' : '—'}</td>
             <td><span class="badge ${l.time_ago && l.time_ago.includes('min') ? 'bg-warning text-dark' : 'bg-secondary'}">${l.time_ago || 'N/A'}</span></td>
+            <td><small>${l.published_date || '—'}</small></td>
+            <td><small>${l.created_date || '—'}</small></td>
             <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 50)}</a></td>
         </tr>
     `).join('');
 }
 
 function resetFilters() {
-    ['f-city','f-pmin','f-pmax','f-site','f-smin'].forEach(id => document.getElementById(id).value = '');
+    // Réinitialiser TOUS les filtres (incluant dates)
+    ['f-city','f-pmin','f-pmax','f-site','f-smin','f-date-from','f-date-to']
+        .forEach(id => document.getElementById(id).value = '');
     applyFilters();
 }
 
@@ -327,6 +359,8 @@ document.querySelectorAll('#main-table th[data-col]').forEach(th => {
 // Filtres en temps reel
 ['f-city', 'f-site'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
 ['f-pmin', 'f-pmax', 'f-smin'].forEach(id => document.getElementById(id).addEventListener('input', applyFilters));
+// NOUVEAU: Filtres date (change event pour date inputs)
+['f-date-from', 'f-date-to'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
 
 function initFilters() {
     const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();

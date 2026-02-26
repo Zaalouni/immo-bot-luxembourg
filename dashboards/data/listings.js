@@ -1,4 +1,4 @@
-// Genere le 26/02/2026 21:25
+// Genere le 26/02/2026 21:31
 // 109 annonces depuis listings.db
 const LISTINGS = [
   {
@@ -18,7 +18,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 19:28:36",
     "published_at": "2026-02-26 20:22:31.537952",
     "price_m2": 25.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "vivi_208177",
@@ -37,7 +39,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 19:28:22",
     "published_at": "2026-02-26 20:22:31.428924",
     "price_m2": 22.9,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_6096993",
@@ -56,7 +60,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 19:28:17",
     "published_at": "2026-02-26 20:21:55.527694",
     "price_m2": 15.2,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_15512",
@@ -75,7 +81,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:52:36",
     "published_at": "2026-02-26 19:33:23.026126",
     "price_m2": 14.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_16795",
@@ -94,7 +102,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:52:25",
     "published_at": "2026-02-26 19:33:23.025461",
     "price_m2": 18.7,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_14306",
@@ -113,7 +123,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:47:18",
     "published_at": "2026-02-26 19:33:18.556297",
     "price_m2": 19.5,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_15504",
@@ -132,7 +144,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:52:15",
     "published_at": "2026-02-26 19:33:18.556257",
     "price_m2": 23.8,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_14834",
@@ -151,7 +165,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:37:08",
     "published_at": "2026-02-26 19:33:17.436833",
     "price_m2": 25.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_17212",
@@ -170,7 +186,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:39:45",
     "published_at": "2026-02-26 19:33:17.436732",
     "price_m2": 28.9,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_18136",
@@ -189,7 +207,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:52:05",
     "published_at": "2026-02-26 19:33:16.273144",
     "price_m2": 28.8,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_43894",
@@ -208,7 +228,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:42:11",
     "published_at": "2026-02-26 19:33:15.117669",
     "price_m2": 26.9,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_12430",
@@ -227,7 +249,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:46:57",
     "published_at": "2026-02-26 19:33:15.117400",
     "price_m2": 20.6,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_17680",
@@ -246,7 +270,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:51:55",
     "published_at": "2026-02-26 19:33:15.116876",
     "price_m2": 26.2,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_15111",
@@ -265,7 +291,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:47:08",
     "published_at": "2026-02-26 19:33:13.971496",
     "price_m2": 15.5,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_17632",
@@ -284,7 +312,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:51:45",
     "published_at": "2026-02-26 19:33:13.971339",
     "price_m2": 25.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_19177",
@@ -303,7 +333,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:45:46",
     "published_at": "2026-02-26 19:33:13.971224",
     "price_m2": 23.1,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_17611",
@@ -322,7 +354,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:39:34",
     "published_at": "2026-02-26 19:33:13.970604",
     "price_m2": 27.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_15061",
@@ -341,7 +375,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:46:27",
     "published_at": "2026-02-26 19:33:12.799133",
     "price_m2": 20.1,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_18544",
@@ -360,7 +396,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:45:26",
     "published_at": "2026-02-26 19:33:12.798894",
     "price_m2": 25.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_18304",
@@ -379,7 +417,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:51:35",
     "published_at": "2026-02-26 19:33:12.798841",
     "price_m2": 25.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_15202",
@@ -398,7 +438,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:45:36",
     "published_at": "2026-02-26 19:33:12.798151",
     "price_m2": 26.1,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "nextimmo_16085",
@@ -417,7 +459,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:51:24",
     "published_at": "2026-02-26 19:33:11.679682",
     "price_m2": 23.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "newimmo_127084",
@@ -436,7 +480,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:51:14",
     "published_at": "2026-02-26 19:30:18.349935",
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "newimmo_127151",
@@ -455,7 +501,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:51:04",
     "published_at": "2026-02-26 19:30:18.349464",
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "newimmo_127301",
@@ -474,7 +522,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:50:54",
     "published_at": "2026-02-26 19:30:18.347780",
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "newimmo_127231",
@@ -493,7 +543,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:50:44",
     "published_at": "2026-02-26 19:30:18.346819",
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "newimmo_127171",
@@ -512,7 +564,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:50:33",
     "published_at": "2026-02-26 19:30:18.346065",
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "vivi_208222",
@@ -531,7 +585,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:50:21",
     "published_at": "2026-02-26 19:29:04.757689",
     "price_m2": 17.8,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "vivi_209665",
@@ -550,7 +606,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:50:09",
     "published_at": "2026-02-26 19:29:04.592301",
     "price_m2": 21.1,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "vivi_212239",
@@ -569,7 +627,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:49:56",
     "published_at": "2026-02-26 19:28:43.603667",
     "price_m2": 23.6,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "vivi_212177",
@@ -588,7 +648,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:49:30",
     "published_at": "2026-02-26 19:28:31.756067",
     "price_m2": 24.7,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "vivi_202433",
@@ -607,7 +669,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:49:18",
     "published_at": "2026-02-26 19:28:21.163247",
     "price_m2": 15.7,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "vivi_210717",
@@ -626,7 +690,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:49:05",
     "published_at": "2026-02-26 19:28:21.095469",
     "price_m2": 15.6,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "vivi_212471",
@@ -645,7 +711,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:48:53",
     "published_at": "2026-02-26 19:28:20.936515",
     "price_m2": 17.6,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "vivi_210570",
@@ -664,7 +732,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:48:40",
     "published_at": "2026-02-26 19:28:20.733828",
     "price_m2": 24.1,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "vivi_212589",
@@ -683,7 +753,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:39:55",
     "published_at": "2026-02-26 19:28:20.532026",
     "price_m2": 24.7,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "immotop_1847365",
@@ -702,7 +774,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:48:30",
     "published_at": "2026-02-26 19:27:51.202631",
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "immotop_1856543",
@@ -721,7 +795,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:48:20",
     "published_at": "2026-02-26 19:27:51.202593",
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8040167",
@@ -740,7 +816,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:47:48",
     "published_at": "2026-02-26 19:27:44.324993",
     "price_m2": 20.4,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9004744",
@@ -759,7 +837,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:47:38",
     "published_at": "2026-02-26 19:27:44.323919",
     "price_m2": 17.2,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_6402510",
@@ -778,7 +858,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:47:28",
     "published_at": "2026-02-26 19:27:44.320770",
     "price_m2": 25.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8976207",
@@ -797,7 +879,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:46:47",
     "published_at": "2026-02-26 19:27:44.320069",
     "price_m2": 24.5,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8995712",
@@ -816,7 +900,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:46:37",
     "published_at": "2026-02-26 19:27:44.319787",
     "price_m2": 25.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8980537",
@@ -835,7 +921,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:46:17",
     "published_at": "2026-02-26 19:27:44.319020",
     "price_m2": 29.4,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8727519",
@@ -854,7 +942,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:46:07",
     "published_at": "2026-02-26 19:27:44.318720",
     "price_m2": 23.1,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8981863",
@@ -873,7 +963,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:45:56",
     "published_at": "2026-02-26 19:27:44.318595",
     "price_m2": 21.5,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9001888",
@@ -892,7 +984,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:45:16",
     "published_at": "2026-02-26 19:27:44.317434",
     "price_m2": 27.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9003175",
@@ -911,7 +1005,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:45:05",
     "published_at": "2026-02-26 19:27:44.317362",
     "price_m2": 29.4,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8958134",
@@ -930,7 +1026,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:44:55",
     "published_at": "2026-02-26 19:27:44.317324",
     "price_m2": 26.2,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8963275",
@@ -949,7 +1047,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:44:45",
     "published_at": "2026-02-26 19:27:44.317285",
     "price_m2": 20.5,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9001439",
@@ -968,7 +1068,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:44:35",
     "published_at": "2026-02-26 19:27:44.317208",
     "price_m2": 19.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8793493",
@@ -987,7 +1089,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:44:25",
     "published_at": "2026-02-26 19:27:44.317169",
     "price_m2": 26.5,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8919659",
@@ -1006,7 +1110,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:44:14",
     "published_at": "2026-02-26 19:27:44.317033",
     "price_m2": 28.2,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8871260",
@@ -1025,7 +1131,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:44:04",
     "published_at": "2026-02-26 19:27:44.316871",
     "price_m2": 23.7,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8997163",
@@ -1044,7 +1152,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:43:54",
     "published_at": "2026-02-26 19:27:44.316815",
     "price_m2": 27.6,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8952070",
@@ -1063,7 +1173,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:43:44",
     "published_at": "2026-02-26 19:27:44.316577",
     "price_m2": 27.4,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8994928",
@@ -1082,7 +1194,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:43:34",
     "published_at": "2026-02-26 19:27:44.316401",
     "price_m2": 24.4,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_7786123",
@@ -1101,7 +1215,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:43:23",
     "published_at": "2026-02-26 19:27:44.315791",
     "price_m2": 26.6,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8812008",
@@ -1120,7 +1236,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:43:13",
     "published_at": "2026-02-26 19:27:44.315569",
     "price_m2": 30.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8619057",
@@ -1139,7 +1257,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:43:03",
     "published_at": "2026-02-26 19:27:44.315350",
     "price_m2": 26.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8456918",
@@ -1158,7 +1278,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:42:52",
     "published_at": "2026-02-26 19:27:44.315190",
     "price_m2": 30.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8871303",
@@ -1177,7 +1299,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:42:42",
     "published_at": "2026-02-26 19:27:44.314056",
     "price_m2": 27.9,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8986750",
@@ -1196,7 +1320,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:42:32",
     "published_at": "2026-02-26 19:27:44.313984",
     "price_m2": 20.4,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8947910",
@@ -1215,7 +1341,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:42:22",
     "published_at": "2026-02-26 19:27:44.313791",
     "price_m2": 22.9,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8937110",
@@ -1234,7 +1362,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:42:01",
     "published_at": "2026-02-26 19:27:44.313668",
     "price_m2": 22.6,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_1372622",
@@ -1253,7 +1383,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:41:51",
     "published_at": "2026-02-26 19:27:44.313459",
     "price_m2": 16.7,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_7829031",
@@ -1272,7 +1404,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:41:41",
     "published_at": "2026-02-26 19:27:44.313303",
     "price_m2": 17.2,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8931852",
@@ -1291,7 +1425,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:41:31",
     "published_at": "2026-02-26 19:27:44.313242",
     "price_m2": 30.6,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8986666",
@@ -1310,7 +1446,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:41:20",
     "published_at": "2026-02-26 19:27:44.313182",
     "price_m2": 20.5,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8909121",
@@ -1329,7 +1467,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:41:10",
     "published_at": "2026-02-26 19:27:44.312943",
     "price_m2": 18.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_7438675",
@@ -1348,7 +1488,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:40:59",
     "published_at": "2026-02-26 19:27:44.312770",
     "price_m2": 25.9,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_7981264",
@@ -1367,7 +1509,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:40:49",
     "published_at": "2026-02-26 19:27:44.312715",
     "price_m2": 21.7,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8949037",
@@ -1386,7 +1530,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:40:38",
     "published_at": "2026-02-26 19:27:44.312587",
     "price_m2": 28.7,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8899869",
@@ -1405,7 +1551,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:40:28",
     "published_at": "2026-02-26 19:27:44.312192",
     "price_m2": 24.5,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8992071",
@@ -1424,7 +1572,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:40:18",
     "published_at": "2026-02-26 19:27:44.312123",
     "price_m2": 23.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8937085",
@@ -1443,7 +1593,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:40:07",
     "published_at": "2026-02-26 19:27:44.312015",
     "price_m2": 19.6,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9003325",
@@ -1462,7 +1614,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:39:23",
     "published_at": "2026-02-26 19:27:44.311561",
     "price_m2": 19.7,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8994521",
@@ -1481,7 +1635,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:39:13",
     "published_at": "2026-02-26 19:27:44.310991",
     "price_m2": 25.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8086234",
@@ -1500,7 +1656,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:39:03",
     "published_at": "2026-02-26 19:27:44.310834",
     "price_m2": 24.2,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8470343",
@@ -1519,7 +1677,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:38:53",
     "published_at": "2026-02-26 19:27:44.310671",
     "price_m2": 27.8,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8976000",
@@ -1538,7 +1698,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:38:42",
     "published_at": "2026-02-26 19:27:44.310606",
     "price_m2": 25.8,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8982175",
@@ -1557,7 +1719,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:38:32",
     "published_at": "2026-02-26 19:27:44.310543",
     "price_m2": 24.1,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8114963",
@@ -1576,7 +1740,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:38:22",
     "published_at": "2026-02-26 19:27:44.310417",
     "price_m2": 28.4,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8706333",
@@ -1595,7 +1761,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:38:12",
     "published_at": "2026-02-26 19:27:44.310252",
     "price_m2": 27.8,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8221893",
@@ -1614,7 +1782,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:38:02",
     "published_at": "2026-02-26 19:27:44.310144",
     "price_m2": 19.4,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_7744189",
@@ -1633,7 +1803,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:37:52",
     "published_at": "2026-02-26 19:27:44.309854",
     "price_m2": 30.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_7840995",
@@ -1652,7 +1824,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:37:41",
     "published_at": "2026-02-26 19:27:44.309731",
     "price_m2": 22.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9001090",
@@ -1671,7 +1845,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:37:29",
     "published_at": "2026-02-26 19:27:44.309313",
     "price_m2": 23.4,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9003547",
@@ -1690,7 +1866,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:37:19",
     "published_at": "2026-02-26 19:27:44.309245",
     "price_m2": 23.8,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8908362",
@@ -1709,7 +1887,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:36:55",
     "published_at": "2026-02-26 19:27:44.309053",
     "price_m2": 30.1,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8498529",
@@ -1728,7 +1908,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:36:42",
     "published_at": "2026-02-26 19:27:44.308987",
     "price_m2": 19.2,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8892284",
@@ -1747,7 +1929,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:36:32",
     "published_at": "2026-02-26 19:27:44.308696",
     "price_m2": 21.9,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9002366",
@@ -1766,7 +1950,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:36:22",
     "published_at": "2026-02-26 19:27:44.308179",
     "price_m2": 22.9,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9002393",
@@ -1785,7 +1971,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:36:11",
     "published_at": "2026-02-26 19:27:44.308108",
     "price_m2": 23.2,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8992217",
@@ -1804,7 +1992,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:35:59",
     "published_at": "2026-02-26 19:27:44.307976",
     "price_m2": 24.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8947973",
@@ -1823,7 +2013,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:35:47",
     "published_at": "2026-02-26 19:27:44.307837",
     "price_m2": 23.9,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8983034",
@@ -1842,7 +2034,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:35:36",
     "published_at": "2026-02-26 19:27:44.307765",
     "price_m2": 21.5,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8982958",
@@ -1861,7 +2055,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:35:25",
     "published_at": "2026-02-26 19:27:44.307701",
     "price_m2": 14.0,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9001358",
@@ -1880,7 +2076,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:35:15",
     "published_at": "2026-02-26 19:27:44.307632",
     "price_m2": 18.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8383829",
@@ -1899,7 +2097,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:35:05",
     "published_at": "2026-02-26 19:27:44.307318",
     "price_m2": 22.9,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_9003558",
@@ -1918,7 +2118,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:34:54",
     "published_at": "2026-02-26 19:27:44.307186",
     "price_m2": 28.1,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8971722",
@@ -1937,7 +2139,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:34:43",
     "published_at": "2026-02-26 19:27:44.307049",
     "price_m2": 25.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "athome_8958851",
@@ -1956,7 +2160,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:34:37",
     "published_at": "2026-02-26 19:27:44.306584",
     "price_m2": 29.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "sothebys_459",
@@ -1975,7 +2181,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:53:27",
     "published_at": null,
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "sothebys_1972",
@@ -1994,7 +2202,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:53:17",
     "published_at": null,
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "sothebys_1767",
@@ -2013,7 +2223,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:53:07",
     "published_at": null,
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "sothebys_2015",
@@ -2032,7 +2244,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:52:56",
     "published_at": null,
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "sothebys_2016",
@@ -2051,7 +2265,9 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:52:46",
     "published_at": null,
     "price_m2": null,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   },
   {
     "listing_id": "floor_maison-luxembourg-limpertsberg",
@@ -2070,6 +2286,8 @@ const LISTINGS = [
     "created_at": "2026-02-26 18:48:09",
     "published_at": null,
     "price_m2": 26.3,
-    "time_ago": "N/A"
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
   }
 ];
