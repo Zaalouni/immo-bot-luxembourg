@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#667eea">
@@ -68,6 +69,42 @@
         a:hover { text-decoration: underline; }
         .listing-count { font-size: 0.8rem; color: #888; }
 
+        /* 📊 Qualité des données */
+        .quality-badge { padding: 5px 15px; border-radius: 20px; font-weight: 600; }
+        .quality-bar { height: 8px; border-radius: 4px; background: #e9ecef; margin-top: 5px; overflow: hidden; }
+        .quality-fill { height: 100%; background: #2ECC71; transition: width 0.3s; }
+
+        /* 🚨 Anomalies */
+        .anomaly-alert { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; border-radius: 4px; margin: 10px 0; }
+        .anomaly-item { font-size: 0.8rem; color: #856404; }
+        .flag-badge { display: inline-block; font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; margin-right: 3px; }
+        .flag-suspect { background: #FF6384; color: white; }
+        .flag-eleve { background: #FFA500; color: white; }
+        .flag-petite { background: #36A2EB; color: white; }
+        .flag-gps { background: #999; color: white; }
+
+        /* 📱 Timeline */
+        .timeline-slider { width: 100%; height: 40px; padding: 10px 0; }
+        .timeline-label { font-size: 0.75rem; color: #666; margin-top: 5px; }
+
+        /* 🔗 QR Codes & Partage */
+        .qr-modal { text-align: center; }
+        .qr-image { max-width: 200px; border: 1px solid #ddd; padding: 10px; border-radius: 8px; }
+        .share-buttons { display: flex; gap: 10px; margin-top: 10px; }
+        .share-btn { padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; color: white; text-decoration: none; transition: all 0.2s; }
+        .share-btn:hover { transform: scale(1.1); }
+        .share-whatsapp { background: #25D366; }
+        .share-telegram { background: #0088cc; }
+        .share-email { background: #EA4335; }
+
+        /* 🗺️ Map Mode Buttons */
+        #map-mode-markers.active, #map-mode-heatmap.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* 🗺️ Heatmap prix */
+        .heatmap-legend { background: white; padding: 10px; border-radius: 5px; font-size: 0.8rem; }
+        .heatmap-entry { display: flex; align-items: center; gap: 8px; margin: 5px 0; }
+        .heatmap-color { width: 20px; height: 15px; border-radius: 3px; }
+
         /* Mobile */
         @media (max-width: 768px) {
             .header h1 { font-size: 1.1rem; }
@@ -76,20 +113,34 @@
             .table { font-size: 0.7rem; }
             .container-fluid { padding-left: 0.5rem; padding-right: 0.5rem; }
             #map { height: 280px; }
+            .share-buttons { flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
 
-<!-- Header -->
+<!-- Header avec Navigation -->
 <div class="header">
-    <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex justify-content-between align-items-center mb-2">
         <div>
-            <h1>ImmoLux Dashboard</h1>
-            <small>Mis a jour le 26/02/2026 20:34 — 109 annonces</small>
+            <h1>ImmoLux Dashboard v2.0</h1>
+            <small>Mis a jour le 26/02/2026 20:44 — 109 annonces</small>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <a href="index.html" style="color: white; text-decoration: none; font-weight: 500;">📊 Dashboard</a>
+            <a href="map.html" style="color: white; text-decoration: none; font-weight: 500;">🗺️ Carte</a>
+            <a href="photos.html" style="color: white; text-decoration: none; font-weight: 500;">🖼️ Photos</a>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <div style="margin-top: 8px;">
+            <span class="quality-badge" style="background: #2ECC71; color: white;">
+                📊 Qualité: 93%
+            </span>
+            
         </div>
         <div>
-            <span class="listing-count">59 villes | 7 sites</span>
+            <span class="listing-count">59 villes | 7 sites | GPS: 101/109</span>
         </div>
     </div>
 </div>
@@ -139,22 +190,34 @@
     <!-- Par site -->
     <div class="filter-section mb-2">
         <strong>Sites :</strong>
-        <span class="site-badge ms-1" style="background:#FF6384">VIVI.lu (11)</span> <span class="site-badge ms-1" style="background:#36A2EB">Athome.lu (66)</span> <span class="site-badge ms-1" style="background:#FFCE56">Nextimmo.lu (19)</span> <span class="site-badge ms-1" style="background:#4BC0C0">Newimmo.lu (5)</span> <span class="site-badge ms-1" style="background:#9966FF">Immotop.lu (2)</span> <span class="site-badge ms-1" style="background:#FF9F40">SothebysRealty.lu (5)</span> <span class="site-badge ms-1" style="background:#2ECC71">Floor.lu (1)</span>
+        <span class="site-badge ms-1" style="background:#FF6384">VIVI.lu (11)</span> <span class="site-badge ms-1" style="background:#36A2EB">Athome.lu (66)</span> <span class="site-badge ms-1" style="background:#FFCE56">SothebysRealty.lu (5)</span> <span class="site-badge ms-1" style="background:#4BC0C0">Nextimmo.lu (19)</span> <span class="site-badge ms-1" style="background:#9966FF">Newimmo.lu (5)</span> <span class="site-badge ms-1" style="background:#FF9F40">Immotop.lu (2)</span> <span class="site-badge ms-1" style="background:#2ECC71">Floor.lu (1)</span>
     </div>
 
-    <!-- Onglets -->
+    <!-- Onglets v2.0 -->
     <ul class="nav nav-tabs mb-2" role="tablist">
         <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-table">Tableau</button>
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-table">📋 Tableau</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-city">Par ville</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-site">📊 Sites</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-price">Par prix</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-city">📍 Villes</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-map">Carte</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-price">💰 Par prix</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-map">🗺️ Carte</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-heatmap">🔥 Densité</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-timeline">📈 Timeline</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-anomalies">🚨 Anomalies</button>
         </li>
     </ul>
 
@@ -205,8 +268,8 @@
                                 <th data-col="surface">m&sup2; <span class="sort-arrow">&#9650;</span></th>
                                 <th data-col="price_m2">&euro;/m&sup2; <span class="sort-arrow">&#9650;</span></th>
                                 <th data-col="distance_km">Dist. <span class="sort-arrow">&#9650;</span></th>
-                                <th data-col="time_ago">Publié <span class="sort-arrow">&#9650;</span></th>
                                 <th>Titre</th>
+                                <th style="width: 80px;">Partage</th>
                             </tr>
                         </thead>
                         <tbody id="table-body"></tbody>
@@ -217,7 +280,23 @@
 
         <!-- TAB: Par ville -->
         <div class="tab-pane fade" id="tab-city">
+            <div class="card mb-3">
+                <div class="card-header">📊 Graphique par ville</div>
+                <div class="card-body">
+                    <canvas id="cityChart" height="80"></canvas>
+                </div>
+            </div>
             <div id="city-container"></div>
+        </div>
+
+        <!-- TAB: Par site -->
+        <div class="tab-pane fade" id="tab-site">
+            <div class="card mb-3">
+                <div class="card-header">📊 Répartition par site</div>
+                <div class="card-body">
+                    <canvas id="siteChart" height="80"></canvas>
+                </div>
+            </div>
         </div>
 
         <!-- TAB: Par prix -->
@@ -228,8 +307,56 @@
         <!-- TAB: Carte -->
         <div class="tab-pane fade" id="tab-map">
             <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>📍 Carte des annonces</span>
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary me-2" id="map-mode-markers">📍 Markers</button>
+                        <button class="btn btn-sm btn-outline-secondary" id="map-mode-heatmap">🔥 Heatmap</button>
+                    </div>
+                </div>
                 <div class="card-body p-0">
-                    <div id="map"></div>
+                    <div id="map" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Heatmap Densité 🔥 -->
+        <div class="tab-pane fade" id="tab-heatmap">
+            <div class="card">
+                <div class="card-header">
+                    <span>🔥 Heatmap de densité des annonces</span>
+                    <small class="float-end">Plus sombre = plus d'annonces</small>
+                </div>
+                <div class="card-body p-0">
+                    <div id="heatmap" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Timeline 📈 -->
+        <div class="tab-pane fade" id="tab-timeline">
+            <div class="card">
+                <div class="card-header">📈 Timeline des annonces</div>
+                <div class="card-body">
+                    <div class="timeline-slider">
+                        <input type="range" id="timeline-slider" style="width: 100%;" min="0" max="100">
+                        <div class="timeline-label">
+                            <strong id="timeline-date">Toutes les dates</strong> - <span id="timeline-count">Chargement...</span>
+                        </div>
+                    </div>
+                    <canvas id="timelineChart" style="margin-top: 20px;"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Anomalies 🚨 -->
+        <div class="tab-pane fade" id="tab-anomalies">
+            <div class="card">
+                <div class="card-header">🚨 Anomalies détectées</div>
+                <div class="card-body">
+                    <div id="anomalies-container">
+                        <p class="text-muted">Analyse en cours...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -239,6 +366,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="data/listings.js"></script>
 <script src="data/stats.js"></script>
 <script>
@@ -253,7 +382,7 @@ function badge(site) {
 // --- Tableau triable ---
 let sortCol = 'price';
 let sortAsc = true;
-let filtered = [...LISTINGS];
+let filtered = []; // Sera rempli par waitForDataAndInit() quand LISTINGS sera chargé
 
 function applyFilters() {
     const city = document.getElementById('f-city').value;
@@ -270,6 +399,7 @@ function applyFilters() {
         return true;
     });
     sortAndRender();
+    updateMap();
 }
 
 function sortAndRender() {
@@ -299,8 +429,13 @@ function renderTable() {
             <td>${l.surface || '—'}</td>
             <td>${l.price_m2 ? l.price_m2 + '&euro;' : '—'}</td>
             <td>${l.distance_km != null ? l.distance_km + ' km' : '—'}</td>
-            <td><span class="badge ${l.time_ago && l.time_ago.includes('min') ? 'bg-warning text-dark' : 'bg-secondary'}">${l.time_ago || 'N/A'}</span></td>
             <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 50)}</a></td>
+            <td>
+                <div class="share-buttons" style="gap: 4px;">
+                    <a href="${l.share_urls.whatsapp}" target="_blank" class="share-btn share-whatsapp" title="WhatsApp">💬</a>
+                    <a href="${l.share_urls.telegram}" target="_blank" class="share-btn share-telegram" title="Telegram">✈️</a>
+                </div>
+            </td>
         </tr>
     `).join('');
 }
@@ -310,21 +445,50 @@ function resetFilters() {
     applyFilters();
 }
 
-// Tri au clic
-document.querySelectorAll('#main-table th[data-col]').forEach(th => {
-    th.addEventListener('click', () => {
-        const col = th.dataset.col;
-        if (sortCol === col) { sortAsc = !sortAsc; } else { sortCol = col; sortAsc = true; }
-        document.querySelectorAll('.sort-arrow').forEach(a => a.classList.remove('active'));
-        th.querySelector('.sort-arrow').classList.add('active');
-        th.querySelector('.sort-arrow').innerHTML = sortAsc ? '&#9650;' : '&#9660;';
-        sortAndRender();
-    });
-});
+// Tri au clic - enveloppé dans vérification de DOM
+function setupTableListeners() {
+    const tables = document.querySelectorAll('#main-table th[data-col]');
+    if (tables.length === 0) {
+        console.warn('[setupTableListeners] Table headers non trouvés');
+        setTimeout(setupTableListeners, 100);
+        return;
+    }
 
-// Filtres en temps reel
-['f-city', 'f-site'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
-['f-pmin', 'f-pmax', 'f-smin'].forEach(id => document.getElementById(id).addEventListener('input', applyFilters));
+    tables.forEach(th => {
+        th.addEventListener('click', () => {
+            const col = th.dataset.col;
+            if (sortCol === col) { sortAsc = !sortAsc; } else { sortCol = col; sortAsc = true; }
+            document.querySelectorAll('.sort-arrow').forEach(a => a.classList.remove('active'));
+            th.querySelector('.sort-arrow').classList.add('active');
+            th.querySelector('.sort-arrow').innerHTML = sortAsc ? '&#9650;' : '&#9660;';
+            sortAndRender();
+        });
+    });
+    console.log('[setupTableListeners] ✅ Table listeners setup');
+}
+
+// Filtres en temps reel - enveloppé dans vérification de DOM
+function setupFilterListeners() {
+    const cities = document.getElementById('f-city');
+    if (!cities) {
+        console.warn('[setupFilterListeners] Filter elements non trouvés');
+        setTimeout(setupFilterListeners, 100);
+        return;
+    }
+
+    ['f-city', 'f-site'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('change', applyFilters);
+    });
+    ['f-pmin', 'f-pmax', 'f-smin'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', applyFilters);
+    });
+    console.log('[setupFilterListeners] ✅ Filter listeners setup');
+}
+
+setupTableListeners();
+setupFilterListeners();
 
 function initFilters() {
     const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
@@ -411,34 +575,394 @@ function renderPriceView() {
 
 // --- Carte Leaflet (lazy load quand onglet actif) ---
 let mapInit = false;
-document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', () => {
+let mapInstance = null;
+let markersLayer = L.layerGroup();
+let heatmapLayer = null;
+let currentMapMode = 'markers';
+
+function initMap() {
     if (mapInit) return;
     mapInit = true;
-    const withGPS = LISTINGS.filter(l => l.latitude && l.longitude);
+
+    // Initialiser la carte une fois
+    mapInstance = L.map('map').setView([49.6116, 6.1319], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(mapInstance);
+
+    // 🔘 Boutons mode
+    document.getElementById('map-mode-markers').addEventListener('click', () => {
+        currentMapMode = 'markers';
+        mapInstance.removeLayer(heatmapLayer);
+        if (markersLayer.getLayers().length > 0) markersLayer.addTo(mapInstance);
+        document.getElementById('map-mode-markers').classList.add('active');
+        document.getElementById('map-mode-heatmap').classList.remove('active');
+    });
+
+    document.getElementById('map-mode-heatmap').addEventListener('click', () => {
+        currentMapMode = 'heatmap';
+        mapInstance.removeLayer(markersLayer);
+        if (heatmapLayer) heatmapLayer.addTo(mapInstance);
+        document.getElementById('map-mode-heatmap').classList.add('active');
+        document.getElementById('map-mode-markers').classList.remove('active');
+    });
+
+    // Mettre à jour avec les données filtrées
+    updateMap();
+}
+
+function updateMap() {
+    if (!mapInstance) return;
+
+    // Utiliser 'filtered' (données filtrées) au lieu de 'LISTINGS'
+    const withGPS = filtered.filter(l => l.latitude && l.longitude);
+
     if (!withGPS.length) {
         document.getElementById('map').innerHTML = '<p class="text-center text-muted py-5">Aucune annonce avec coordonnees GPS</p>';
         return;
     }
-    const map = L.map('map').setView([49.6116, 6.1319], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(map);
+
+    // Vider les couches précédentes
+    markersLayer.clearLayers();
+
+    // 📍 Créer les markers avec données filtrées
     withGPS.forEach(l => {
         const color = SITE_COLORS[l.site] || '#888';
         L.circleMarker([l.latitude, l.longitude], {
             radius: 7, fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
-        }).addTo(map).bindPopup(`
+        }).addTo(markersLayer).bindPopup(`
             <strong>${l.city || '—'}</strong><br>
             ${fmt(l.price)}&euro; | ${l.rooms || '?'} ch. | ${l.surface || '?'} m&sup2;<br>
             <a href="${l.url}" target="_blank">Voir l'annonce</a>
         `);
     });
-    map.fitBounds(withGPS.map(l => [l.latitude, l.longitude]), { padding: [30, 30] });
-});
 
-// --- Init ---
-initFilters();
-applyFilters();
-renderCityView();
-renderPriceView();
+    // 🔥 Créer la heatmap avec données filtrées
+    const heatmapData = withGPS.map(l => [l.latitude, l.longitude, 0.7]);
+    if (heatmapLayer) mapInstance.removeLayer(heatmapLayer);
+    heatmapLayer = L.heatLayer(heatmapData, { max: 100, radius: 25, blur: 15, gradient: {0.4: 'blue', 0.65: 'lime', 0.8: 'yellow', 1.0: 'red'} });
+
+    // Afficher selon le mode courant
+    if (currentMapMode === 'markers') {
+        if (heatmapLayer && mapInstance.hasLayer(heatmapLayer)) mapInstance.removeLayer(heatmapLayer);
+        if (markersLayer.getLayers().length > 0) markersLayer.addTo(mapInstance);
+    } else {
+        if (markersLayer && mapInstance.hasLayer(markersLayer)) mapInstance.removeLayer(markersLayer);
+        if (heatmapLayer) heatmapLayer.addTo(mapInstance);
+    }
+
+    // Ajuster la vue à tous les markers visibles
+    if (withGPS.length > 0) {
+        const bounds = L.latLngBounds(withGPS.map(l => [l.latitude, l.longitude]));
+        mapInstance.fitBounds(bounds, { padding: [30, 30] });
+    }
+}
+
+// Setup map tab listener avec protection
+function setupMapListener() {
+    const mapBtn = document.querySelector('[data-bs-target="#tab-map"]');
+    if (mapBtn) {
+        mapBtn.addEventListener('shown.bs.tab', initMap);
+        console.log('[setupMapListener] ✅ Map listener setup');
+    } else {
+        console.warn('[setupMapListener] Map button not found');
+    }
+}
+setupMapListener();
+
+// --- Heatmap Tab ---
+let heatmapTabInstance = null;
+let heatmapTabInitialized = false;
+
+function initHeatmapTab() {
+    if (heatmapTabInitialized || !LISTINGS || LISTINGS.length === 0) return;
+
+    const heatmapContainer = document.getElementById('heatmap');
+    if (!heatmapContainer) {
+        console.warn('[initHeatmapTab] Container not found');
+        return;
+    }
+
+    console.log('[initHeatmapTab] Initializing heatmap...');
+
+    // Créer la carte
+    heatmapTabInstance = L.map('heatmap').setView([49.6116, 6.1319], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(heatmapTabInstance);
+
+    // Créer heatmap data
+    const withGPS = LISTINGS.filter(l => l.latitude && l.longitude);
+    if (withGPS.length === 0) {
+        console.warn('[initHeatmapTab] Pas de données GPS');
+        heatmapContainer.innerHTML = '<p class="text-center text-muted py-5">Aucune annonce avec coordonnées GPS</p>';
+        return;
+    }
+
+    const heatmapData = withGPS.map(l => [l.latitude, l.longitude, 0.8]);
+    const heatmapLayer = L.heatLayer(heatmapData, {
+        max: 100,
+        radius: 30,
+        blur: 20,
+        gradient: {0.2: 'blue', 0.4: 'lime', 0.6: 'yellow', 0.8: 'orange', 1.0: 'red'}
+    });
+    heatmapLayer.addTo(heatmapTabInstance);
+
+    // Zoom sur enveloppe
+    const bounds = L.latLngBounds(withGPS.map(l => [l.latitude, l.longitude]));
+    heatmapTabInstance.fitBounds(bounds, {padding: [30, 30]});
+
+    heatmapTabInitialized = true;
+    console.log('[initHeatmapTab] ✅ Heatmap initialized with', withGPS.length, 'points');
+}
+
+// Setup onglet heatmap
+function setupHeatmapTab() {
+    const heatmapBtn = document.querySelector('[data-bs-target="#tab-heatmap"]');
+    if (heatmapBtn) {
+        heatmapBtn.addEventListener('shown.bs.tab', initHeatmapTab);
+        console.log('[setupHeatmapTab] ✅ Setup done');
+    } else {
+        console.warn('[setupHeatmapTab] Button not found');
+    }
+}
+setupHeatmapTab();
+
+// --- Graphiques Chart.js ---
+function initCharts() {
+    // Graphique PAR SITE
+    if (STATS && STATS.sites && Object.keys(STATS.sites).length > 0) {
+        try {
+            const sites = Object.entries(STATS.sites).map(([name, count]) => ({ site: name, count })).sort((a,b) => b.count - a.count);
+            const siteChart = new Chart(document.getElementById('siteChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: sites.map(s => s.site),
+                    datasets: [{
+                        data: sites.map(s => s.count),
+                        backgroundColor: sites.map(s => SITE_COLORS[s.site] || '#999')
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+            });
+        } catch (e) { console.error('Erreur graphique sites:', e); }
+    }
+
+    // Graphique PAR VILLE
+    if (STATS && STATS.by_city && STATS.by_city.length > 0) {
+        try {
+            const cityChart = new Chart(document.getElementById('cityChart'), {
+                type: 'bar',
+                data: {
+                    labels: STATS.by_city.map(c => c.city),
+                    datasets: [{
+                        label: 'Annonces',
+                        data: STATS.by_city.map(c => c.count),
+                        backgroundColor: '#667eea'
+                    }]
+                },
+                options: { responsive: true, scales: { y: { beginAtZero: true } } }
+            });
+        } catch (e) { console.error('Erreur graphique villes:', e); }
+    }
+}
+
+// --- Timeline ---
+function initTimeline() {
+    if (!LISTINGS || LISTINGS.length === 0) return;
+
+    // Grouper par date
+    const byDate = {};
+    LISTINGS.forEach(l => {
+        const date = l.created_at ? l.created_at.split(' ')[0] : 'N/A';
+        if (!byDate[date]) byDate[date] = [];
+        byDate[date].push(l);
+    });
+
+    const dates = Object.keys(byDate).sort();
+    const counts = dates.map(d => byDate[d].length);
+
+    // Graphique timeline
+    const timelineCanvas = document.getElementById('timelineChart');
+    if (timelineCanvas) {
+        try {
+            new Chart(timelineCanvas, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Annonces ajoutées',
+                        data: counts,
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'top' } },
+                    scales: { y: { beginAtZero: true } }
+                }
+            });
+            console.log('[initTimeline] ✅ Timeline chart created');
+        } catch (e) {
+            console.error('[initTimeline] Error:', e);
+        }
+    }
+}
+
+// --- Anomalies ---
+function initAnomalies() {
+    if (!LISTINGS || LISTINGS.length === 0) return;
+
+    const container = document.getElementById('anomalies-container');
+    let html = '';
+
+    // Annonces sans image
+    const noImage = LISTINGS.filter(l => !l.image_url);
+    html += `<div class="card mb-3"><div class="card-header">📸 Sans image (${noImage.length})</div><div class="card-body">`;
+    if (noImage.length > 0) {
+        html += '<ul style="font-size: 0.9rem; max-height: 200px; overflow-y: auto;">';
+        noImage.slice(0, 10).forEach(l => {
+            html += `<li>${l.site} - ${l.title.substring(0, 50)} (${l.city})</li>`;
+        });
+        if (noImage.length > 10) html += `<li><em>... et ${noImage.length - 10} autres</em></li>`;
+        html += '</ul>';
+    } else {
+        html += '<p class="text-success">✅ Toutes les annonces ont une image</p>';
+    }
+    html += '</div></div>';
+
+    // Annonces sans GPS
+    const noGPS = LISTINGS.filter(l => !l.latitude || !l.longitude);
+    html += `<div class="card mb-3"><div class="card-header">🗺️ Sans GPS (${noGPS.length})</div><div class="card-body">`;
+    if (noGPS.length > 0) {
+        html += '<ul style="font-size: 0.9rem; max-height: 200px; overflow-y: auto;">';
+        noGPS.slice(0, 10).forEach(l => {
+            html += `<li>${l.site} - ${l.title.substring(0, 50)} (${l.city})</li>`;
+        });
+        if (noGPS.length > 10) html += `<li><em>... et ${noGPS.length - 10} autres</em></li>`;
+        html += '</ul>';
+    } else {
+        html += '<p class="text-success">✅ Toutes les annonces ont des coordonnées GPS</p>';
+    }
+    html += '</div></div>';
+
+    // Données incomplètes
+    const incomplete = LISTINGS.filter(l => !l.price || !l.rooms || !l.surface);
+    html += `<div class="card mb-3"><div class="card-header">⚠️ Données incomplètes (${incomplete.length})</div><div class="card-body">`;
+    if (incomplete.length > 0) {
+        html += '<ul style="font-size: 0.9rem; max-height: 200px; overflow-y: auto;">';
+        incomplete.slice(0, 10).forEach(l => {
+            const missing = [];
+            if (!l.price) missing.push('prix');
+            if (!l.rooms) missing.push('chambres');
+            if (!l.surface) missing.push('surface');
+            html += `<li>${l.site} - manque: ${missing.join(', ')}</li>`;
+        });
+        if (incomplete.length > 10) html += `<li><em>... et ${incomplete.length - 10} autres</em></li>`;
+        html += '</ul>';
+    } else {
+        html += '<p class="text-success">✅ Toutes les annonces sont complètes</p>';
+    }
+    html += '</div></div>';
+
+    container.innerHTML = html;
+    console.log('[initAnomalies] ✅ Anomalies initialized');
+}
+
+// --- Fonction attendre LISTINGS et initialiser ---
+function waitForDataAndInit() {
+    console.log('[waitForDataAndInit] Vérification LISTINGS...');
+
+    // Attendre que LISTINGS soit chargé
+    if (typeof LISTINGS === 'undefined') {
+        console.warn('[waitForDataAndInit] LISTINGS undefined, retry...');
+        setTimeout(waitForDataAndInit, 100);
+        return;
+    }
+
+    if (!LISTINGS) {
+        console.warn('[waitForDataAndInit] LISTINGS is null/falsy, retry...');
+        setTimeout(waitForDataAndInit, 100);
+        return;
+    }
+
+    if (LISTINGS.length === 0) {
+        console.warn('[waitForDataAndInit] LISTINGS is empty, retry...');
+        setTimeout(waitForDataAndInit, 100);
+        return;
+    }
+
+    console.log('✅ LISTINGS chargé:', LISTINGS.length, 'annonces');
+    console.log('[waitForDataAndInit] Premier listing:', LISTINGS[0]);
+
+    try {
+        // Initialiser les données de base
+        console.log('[waitForDataAndInit] Copie LISTINGS -> filtered');
+        filtered = [...LISTINGS];
+        console.log('[waitForDataAndInit] filtered maintenant a', filtered.length, 'annonces');
+
+        // Remplir le tableau
+        const tbody = document.getElementById('table-body');
+        console.log('[waitForDataAndInit] tbody element:', tbody);
+
+        if (!tbody) {
+            console.error('❌ tbody element non trouvé!');
+            return;
+        }
+
+        if (LISTINGS.length > 0) {
+            console.log('[waitForDataAndInit] Appel initFilters()...');
+            initFilters();
+            console.log('[waitForDataAndInit] ✅ initFilters() OK');
+
+            console.log('[waitForDataAndInit] Appel applyFilters()...');
+            applyFilters();
+            console.log('[waitForDataAndInit] ✅ applyFilters() OK, filtered a', filtered.length, 'annonces');
+        }
+
+        // Rendre les vues
+        console.log('[waitForDataAndInit] Appel renderCityView()...');
+        renderCityView();
+        console.log('[waitForDataAndInit] ✅ renderCityView() OK');
+
+        console.log('[waitForDataAndInit] Appel renderPriceView()...');
+        renderPriceView();
+        console.log('[waitForDataAndInit] ✅ renderPriceView() OK');
+
+        console.log('[waitForDataAndInit] Appel initTimeline()...');
+        initTimeline();
+        console.log('[waitForDataAndInit] ✅ initTimeline() OK');
+
+        console.log('[waitForDataAndInit] Appel initAnomalies()...');
+        initAnomalies();
+        console.log('[waitForDataAndInit] ✅ initAnomalies() OK');
+
+        console.log('[waitForDataAndInit] Appel initCharts()...');
+        initCharts();
+        console.log('[waitForDataAndInit] ✅ initCharts() OK');
+
+        console.log('🎉 Dashboard initialisé complètement avec', LISTINGS.length, 'annonces');
+    } catch (e) {
+        console.error('❌ Erreur initialisation:', e.message);
+        console.error('Stack:', e.stack);
+        const tb = document.getElementById('table-body');
+        if (tb) tb.innerHTML = '<tr><td colspan="9" class="alert alert-danger m-3">Erreur: ' + e.message + '<br/>' + e.stack + '</td></tr>';
+    }
+}
+
+// Lancer l'initialisation quand le document est prêt
+console.log('[Init] document.readyState:', document.readyState);
+if (document.readyState === 'loading') {
+    console.log('[Init] En attente de DOMContentLoaded...');
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('[DOMContentLoaded] Appel waitForDataAndInit()');
+        waitForDataAndInit();
+    });
+} else {
+    console.log('[Init] Document déjà chargé, appel waitForDataAndInit() immédiatement');
+    waitForDataAndInit();
+}
 </script>
 </body>
 </html>
