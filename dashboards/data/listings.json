@@ -1,5 +1,26 @@
 [
   {
+    "listing_id": "nextimmo_16052",
+    "site": "Nextimmo.lu",
+    "title": "Appartement Bridel",
+    "city": "Bridel",
+    "price": 2400,
+    "rooms": 3,
+    "surface": 100,
+    "url": "https://nextimmo.lu/en/details/16052",
+    "image_url": "https://storage.nextimmo.lu/images/thumb/2f13c504dd31a84bb5bb855182ad8019/cc87f5f3695cbb1fbd67971c137f07a3.jpg",
+    "contact_email": null,
+    "latitude": 49.655,
+    "longitude": 6.08,
+    "distance_km": 7.3,
+    "created_at": "2026-02-26 20:41:48",
+    "published_at": "2026-02-26 21:40:25.912761",
+    "price_m2": 24.0,
+    "time_ago": "N/A",
+    "published_date": "—",
+    "created_date": "—"
+  },
+  {
     "listing_id": "vivi_208174",
     "site": "VIVI.lu",
     "title": "Appartement 2 chambres à louer",
