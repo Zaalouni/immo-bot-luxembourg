@@ -5,9 +5,9 @@
 
 const CACHE_NAME = 'dashboard2-v1';
 const ASSETS_TO_CACHE = [
-  '/immo-bot-luxembourg/dashboards2/',
-  '/immo-bot-luxembourg/dashboards2/index.html',
-  '/immo-bot-luxembourg/dashboards2/manifest.json'
+  '/immo-bot-luxembourg/dashboards2/dist/',
+  '/immo-bot-luxembourg/dashboards2/dist/index.html',
+  '/immo-bot-luxembourg/dashboards2/dist/manifest.json'
 ];
 
 // Install event - cache assets
