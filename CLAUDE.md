@@ -6,14 +6,15 @@
 
 ---
 
-## ⚠️  MODE SERVEUR LINUX - LOCAL WORK ONLY
+## ⚠️  MODE SERVEUR LINUX + GITHUB PAGES POUR DASHBOARDS
 
-**Configuration pour travailler EN LOCAL sur le serveur Linux:**
+**Configuration pour travailler EN LOCAL sur le serveur Linux + Push dashboards/ à GitHub:**
 - ✅ Tous les commandes locales auto-approvées
 - ✅ Test python, grep, curl, tous les outils → AUTORISÉ
 - ✅ Build, test, generate dashboards → AUTORISÉ
-- 🔒 **AUCUN PUSH À GITHUB** (sauf dashboards/ folder) - push uniquement le dossier dashboards/
-- 📌 Fonctionne comme environnement de production local
+- ✅ **PUSH À GITHUB AUTORISÉ** - dossier dashboards/ uniquement (GitHub Pages)
+- 🔒 Autres dossiers restent en local (scrapers, main.py, etc.)
+- 📌 Fonctionne comme environnement de production local + GitHub Pages
 - 📋 **PLAN OBLIGATOIRE** avant de commencer les travaux
 
 ### 📋 WORKFLOW AVEC PLAN
@@ -35,18 +36,21 @@
 4. **Rapport final** avec résumé des changements
 
 ```bash
-# ✅ AUTORISÉ (local work)
+# ✅ AUTORISÉ (local work + dashboards/ push)
 python dashboard_generator.py     # Générer dashboards
 npm run build                     # Build Dashboard2
 python -m pytest                  # Tests locaux
 python test_*.py                  # Tests spécifiques
 grep -r "pattern" .              # Chercher patterns
 curl https://...                 # Requêtes HTTP
-git add ... / git commit ...      # Commit local (pas de push!)
+git add ... / git commit ...      # Commit local
 
-# ❌ INTERDIT (pas de push)
-git push origin main              # ❌ JAMAIS!
-git push ...                      # ❌ JAMAIS AUCUN PUSH!
+# ✅ PUSH AUTORISÉ - dashboards/ UNIQUEMENT
+git push origin main -- dashboards/   # ✅ Push dashboards/ à GitHub Pages
+
+# ❌ INTERDIT (autres dossiers)
+git push origin main              # ❌ JAMAIS! (autres fichiers/dossiers)
+git push ...                      # ❌ JAMAIS! (autres dossiers/branches)
 ```
 
 ---
@@ -320,10 +324,10 @@ claude code . --model claude-haiku-4-5-20251001
 
 ## 🔐 NOTES IMPORTANTES
 
-1. **Ce fichier est le contrat pour LOCAL WORK**
+1. **Ce fichier est le contrat pour LOCAL WORK + dashboards/ PUSH**
    - Serveur Linux = environnement de travail local
-   - Pas de push à GitHub
-   - Tous les changements restent en local
+   - dashboards/ = poussé à GitHub Pages automatiquement
+   - Autres dossiers (scrapers, main.py, etc.) restent en local uniquement
 
 2. **PLAN-BASED WORKFLOW (OBLIGATOIRE)**
    - ✅ Claude présente un PLAN clair AVANT de commencer
@@ -331,35 +335,36 @@ claude code . --model claude-haiku-4-5-20251001
    - ✅ Claude exécute SANS VALIDATION sur chaque commande
    - ✅ Rapport final avec résumé des changements
 
-3. **Auto-approve = actions safe locales uniquement**
+3. **Auto-approve = actions safe locales + dashboards/ push**
    - ✅ git add/commit (commits locaux)
    - ✅ npm build/install
    - ✅ python tests (tous: pytest, grep, curl, etc.)
    - ✅ Générer dashboards
    - ✅ Chercher patterns, faire requêtes HTTP
-   - ❌ git push (JAMAIS!)
+   - ✅ `git push origin main -- dashboards/` (AUTORISÉ)
+   - ❌ `git push origin main` (JAMAIS! autres fichiers)
 
 4. **JAMAIS auto pour actions risquées**
    - rm -rf (destructif)
    - git reset --hard (perte de données)
-   - git push (JAMAIS! Pas de push!)
    - git push --force (JAMAIS!)
+   - git push origin main (JAMAIS! sans -- dashboards/)
    - .env ou secrets
 
-5. **Avant chaque commit LOCAL, TOUJOURS:**
+5. **Avant chaque commit/push, TOUJOURS:**
    - ✅ Vérifier `git status`
-   - ✅ Tests passent
+   - ✅ Tests passent (python -m pytest)
    - ✅ Code valide
-   - ✅ Pas de .env ou secrets
-   - ❌ NE PAS POUSSER
+   - ✅ Pas de .env ou secrets dans dashboards/
+   - ✅ Push dashboards/ après commit réussi
 
 ---
 
 **Créé:** 2026-02-27
-**Version:** 2.1 - Local-Only Mode
+**Version:** 2.2 - Local + dashboards/ GitHub Push
 **Statut:** ✅ Active
 
-🎯 **Mode LOCAL ONLY - Aucun push à GitHub** 🔒
+🎯 **Mode LOCAL WORK + dashboards/ GitHub Push** ✅
 - Wortimmo + Immoweb bloques par Cloudflare/CAPTCHA → remplacer par nouveaux sites
 - Unicorn : CAPTCHA intermittent, peu d'annonces, filtrage surface strict
 - Filtrage duplique (chaque scraper + main.py) → a centraliser v3.0
