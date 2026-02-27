@@ -1,5 +1,5 @@
 // Helper to get data URL - hardcoded for GitHub Pages
-// Note: /dist/ is removed because peaceiris/actions-gh-pages serves from dashboards2/ directly
+// Note: Files are copied from dashboards2/dist/* to dashboards2/* in gh-pages branch
 const API_BASE = 'https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/';
 
 function getDataUrl(filename) {

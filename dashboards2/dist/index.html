@@ -23,7 +23,7 @@
 
     <script>
         // Register Service Worker - hardcoded URL for GitHub Pages
-        // Note: /dist/ is removed because peaceiris/actions-gh-pages serves from dashboards2/ directly
+        // Note: Files are copied from dashboards2/dist/* to dashboards2/* in gh-pages branch
         if ('serviceWorker' in navigator) {
             const swUrl = 'https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/sw.js';
             navigator.serviceWorker.register(swUrl).catch(err =>

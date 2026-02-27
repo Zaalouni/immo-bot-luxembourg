@@ -90,4 +90,4 @@ jobs:
         run: |
           echo "[OK] Dashboards deployed successfully!"
           echo "[Dashboard 1] https://zaalouni.github.io/immo-bot-luxembourg/dashboards/index.html"
-          echo "[Dashboard 2] https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/dist/index.html"
+          echo "[Dashboard 2] https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/index.html"
