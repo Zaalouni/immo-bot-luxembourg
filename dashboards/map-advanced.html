@@ -156,6 +156,12 @@
     <script src="data/listings.js"></script>
     <script src="data/anomalies.js"></script>
     <script>
+        // Fallback si ANOMALIES n'est pas chargé
+        if (typeof ANOMALIES === 'undefined') {
+            window.ANOMALIES = {};
+        }
+    </script>
+    <script>
         let map;
         let markerClusterGroup;
         let currentMarkers = {};
