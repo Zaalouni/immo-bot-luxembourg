@@ -756,14 +756,15 @@
 
             container.innerHTML = page.map((l, idx) => {
                 const bg = SITE_COLORS_MAP[l.site] || '#667eea';
+                // Filter out badge/logo images
                 const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
                 const price = l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—';
 
                 return `
-                    <div class="gallery-item" ${hasImage ? `onclick="openLightbox(${start + idx})"` : ''} style="${!hasImage ? 'cursor: default;' : ''} ">
+                    <div class="gallery-item" onclick="openLightbox(${start + idx})">
                         <div class="gallery-img-container">
                             ${hasImage ? `
-                                <img src="${l.image_url}" alt="" class="gallery-img" onerror="this.style.display='none';">
+                                <img src="${l.image_url}" alt="${l.title}" class="gallery-img" onerror="this.parentElement.innerHTML='<div class=\"gallery-no-image\"><span>📸</span><span class=\"gallery-no-image-text\">Image non disponible</span></div>'">
                                 <span class="gallery-image-badge">✅ Photo</span>
                             ` : `
                                 <div class="gallery-no-image">
@@ -777,7 +778,7 @@
                             <p class="gallery-meta">${l.city || '—'}</p>
                             <span class="site-badge" style="background: ${bg};">${l.site}</span>
                             <p class="price-tag">${price}</p>
-                            ${!hasImage ? `<a href="${l.url}" target="_blank" style="display: inline-block; margin-top: 0.5rem; padding: 0.4rem 0.8rem; background: ${bg}; color: white; text-decoration: none; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">🔗 Voir le site</a>` : ''}
+                            <a href="${l.url}" target="_blank" style="display: inline-block; margin-top: 0.5rem; padding: 0.4rem 0.8rem; background: ${bg}; color: white; text-decoration: none; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">🔗 Voir l'annonce</a>
                         </div>
                     </div>
                 `;
@@ -790,8 +791,21 @@
         function openLightbox(index) {
             const l = filtered[index];
             const bg = SITE_COLORS_MAP[l.site] || '#667eea';
+            const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
 
-            document.getElementById('lightbox-image').src = l.image_url || '';
+            // Set image or placeholder
+            const img = document.getElementById('lightbox-image');
+            if (hasImage) {
+                img.src = l.image_url;
+                img.onerror = function() {
+                    this.style.display = 'none';
+                    document.getElementById('lightbox').innerHTML += '<p style="text-align: center; padding: 2rem; color: #666;">Image non disponible</p>';
+                };
+            } else {
+                img.style.display = 'none';
+                img.src = '';
+            }
+
             document.getElementById('lightbox-title').textContent = l.title || '—';
             document.getElementById('lightbox-city').textContent = (l.city || '—') + ' • ' + (new Date(l.created_at).toLocaleDateString('fr-FR') || '—');
             document.getElementById('lightbox-site').textContent = l.site || '—';

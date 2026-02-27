@@ -33,7 +33,7 @@ def read_listings(db_path='listings.db'):
 
     cursor.execute('''
         SELECT listing_id, site, title, city, price, rooms, surface,
-               url, latitude, longitude, distance_km, created_at
+               url, latitude, longitude, distance_km, created_at, image_url
         FROM listings
         ORDER BY id DESC
     ''')
