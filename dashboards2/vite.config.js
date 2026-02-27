@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
+  // Base URL for GitHub Pages deployment
+  base: '/immo-bot-luxembourg/dashboards2/dist/',
   server: {
     port: 5173,
     host: true
