@@ -80,21 +80,29 @@ jobs:
         run: |
           cd deploy
           echo "=== Files to be deployed ==="
-          find . -type f | sort
+          find . -type f | wc -l
+          echo "total files"
+          ls -lah
+          echo ""
+          echo "=== Dashboard2 files ==="
+          find dashboards2 -type f | sort
           echo ""
           echo "=== Starting git deployment ==="
           git init
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
           git add -A
-          echo "Files staged for commit:"
+          echo "=== Files staged for commit ==="
+          git ls-files | wc -l
+          echo "total staged"
           git ls-files | sort
-          git commit -m "Deploy dashboards"
+          echo ""
+          git commit -m "Deploy dashboards [$(date)]"
           git branch -M gh-pages
           git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          echo "Pushing to gh-pages..."
-          git push -u origin gh-pages --force
-          echo "Deployment complete!"
+          echo "=== Pushing to gh-pages with verbose output ==="
+          git push -vvv -u origin gh-pages --force 2>&1
+          echo "=== Deployment push complete ==="
           cd ..
 
       - name: Summary
