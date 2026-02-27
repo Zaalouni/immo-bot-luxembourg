@@ -4864,6 +4864,46 @@
             renderCities();
         }
 
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            renderCities();
+        }
+
+        function exportCSV() {
+            let csv = 'Ville,NbAnnonces,PrixMin,PrixMoyen,PrixMax,SurfaceMoy,ChambresAvg,Distance,Transport\n';
+
+            allCities.forEach(city => {
+                const data = cityData[city];
+                const transport = data.transport ? `${data.transport.distance_km}km - ${data.transport.transports.map(t => t.number).join(', ')}` : 'N/A';
+                csv += `"${city}",${data.count},${data.minPrice},${data.avgPrice},${data.maxPrice},${data.avgSurface},${data.avgRooms},"${transport}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `ImmoLux-Stats-${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        // ==================== DARK MODE ====================
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+            });
+
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        }
+
+        // ==================== SERVICE WORKER ====================
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
+        }
+
+        // ==================== INIT ====================
         window.addEventListener('DOMContentLoaded', init);
 
     </script>
