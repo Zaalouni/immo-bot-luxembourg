@@ -1,18 +1,18 @@
-// Genere le 26/02/2026 23:10
+// Genere le 27/02/2026 11:52
 const STATS = {
-  "total": 110,
-  "avg_price": 2195,
+  "total": 112,
+  "avg_price": 2193,
   "min_price": 1400,
   "max_price": 2500,
-  "avg_surface": 97,
-  "cities": 59,
+  "avg_surface": 98,
+  "cities": 61,
   "sites": {
     "Nextimmo.lu": 20,
-    "VIVI.lu": 11,
-    "Athome.lu": 66,
+    "VIVI.lu": 12,
+    "Athome.lu": 67,
+    "SothebysRealty.lu": 5,
     "Newimmo.lu": 5,
     "Immotop.lu": 2,
-    "SothebysRealty.lu": 5,
     "Floor.lu": 1
   },
   "by_city": [
@@ -62,14 +62,14 @@ const STATS = {
       "avg_price": 2233
     },
     {
-      "city": "Luxembourg-Kirchberg",
-      "count": 3,
-      "avg_price": 2316
-    },
-    {
       "city": "Senningerberg",
       "count": 3,
       "avg_price": 2180
+    },
+    {
+      "city": "Luxembourg-Kirchberg",
+      "count": 3,
+      "avg_price": 2316
     },
     {
       "city": "Luxembourg-Dommeldange",
@@ -82,24 +82,9 @@ const STATS = {
       "avg_price": 2475
     },
     {
-      "city": "Junglinster",
-      "count": 2,
-      "avg_price": 2225
-    },
-    {
       "city": "Olm",
       "count": 2,
       "avg_price": 2200
-    },
-    {
-      "city": "Hautcharage",
-      "count": 2,
-      "avg_price": 1915
-    },
-    {
-      "city": "Dudelange",
-      "count": 2,
-      "avg_price": 2300
     },
     {
       "city": "Reuler",
@@ -107,19 +92,34 @@ const STATS = {
       "avg_price": 1850
     },
     {
-      "city": "Belvaux",
-      "count": 2,
-      "avg_price": 2300
-    },
-    {
       "city": "Luxembourg-Limpertsberg",
       "count": 2,
       "avg_price": 2450
     },
     {
+      "city": "Belvaux",
+      "count": 2,
+      "avg_price": 2300
+    },
+    {
+      "city": "Junglinster",
+      "count": 2,
+      "avg_price": 2225
+    },
+    {
+      "city": "Hautcharage",
+      "count": 2,
+      "avg_price": 1915
+    },
+    {
       "city": "Alzingen",
       "count": 2,
       "avg_price": 2375
+    },
+    {
+      "city": "Dudelange",
+      "count": 2,
+      "avg_price": 2300
     },
     {
       "city": "Pétange",
@@ -157,11 +157,6 @@ const STATS = {
       "avg_price": 2450
     },
     {
-      "city": "Filsdorf",
-      "count": 1,
-      "avg_price": 2350
-    },
-    {
       "city": "Luxembourg-Pfaffenthal",
       "count": 1,
       "avg_price": 2200
@@ -197,6 +192,11 @@ const STATS = {
       "avg_price": 1900
     },
     {
+      "city": "Weiler La Tour",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
       "city": "Weiswampach",
       "count": 1,
       "avg_price": 1500
@@ -207,9 +207,19 @@ const STATS = {
       "avg_price": 1950
     },
     {
+      "city": "Roussy-le-Village",
+      "count": 1,
+      "avg_price": 1650
+    },
+    {
       "city": "Luxembourg-Beggen",
       "count": 1,
       "avg_price": 2500
+    },
+    {
+      "city": "Filsdorf",
+      "count": 1,
+      "avg_price": 2350
     },
     {
       "city": "Luxembourg-Weimerskirch",
@@ -314,17 +324,17 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 1,
-    "1500 - 2000": 25,
+    "1500 - 2000": 26,
     "2000 - 2500": 69,
-    "> 2500": 15
+    "> 2500": 16
   }
 };
 const SITE_COLORS = {
   "Nextimmo.lu": "#FF6384",
   "VIVI.lu": "#36A2EB",
   "Athome.lu": "#FFCE56",
-  "Newimmo.lu": "#4BC0C0",
-  "Immotop.lu": "#9966FF",
-  "SothebysRealty.lu": "#FF9F40",
+  "SothebysRealty.lu": "#4BC0C0",
+  "Newimmo.lu": "#9966FF",
+  "Immotop.lu": "#FF9F40",
   "Floor.lu": "#2ECC71"
 };
