@@ -61,6 +61,17 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden;
 .qs-item { background: #f8fafc; border-radius: 6px; padding: .35rem .5rem; text-align: center; }
 .qs-val { font-size: .95rem; font-weight: 800; color: #0f172a; }
 .qs-lbl { font-size: .6rem; text-transform: uppercase; letter-spacing: .05em; color: #94a3b8; }
+        .dark-mode-toggle {
+            position: fixed; bottom: 2rem; right: 2rem;
+            width: 50px; height: 50px; border-radius: 50%;
+            background: #667eea; color: white; border: none; cursor: pointer;
+            font-size: 1.2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transition: all 0.3s; z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .dark-mode-toggle:hover { transform: scale(1.1); background: #5a6fd6; }
+        body.dark-mode { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #ecf0f1; }
+        body.dark-mode > * { background: rgba(255, 255, 255, 0.05); }
 </style>
 </head>
 <body>
@@ -337,5 +348,7 @@ window.addEventListener('DOMContentLoaded', () => {
   buildMap(GEO);
 });
 </script>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre">🌙</button>
 </body>
 </html>
