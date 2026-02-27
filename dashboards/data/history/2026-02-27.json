@@ -1,6 +1,6 @@
 {
   "date": "2026-02-27",
-  "generated_at": "27/02/2026 13:20",
+  "generated_at": "27/02/2026 16:36",
   "stats": {
     "total": 114,
     "avg_price": 2187,
@@ -355,6 +355,7 @@
       "longitude": null,
       "distance_km": null,
       "created_at": "2026-02-27 10:52:33",
+      "image_url": null,
       "price_m2": 17.6
     },
     {
@@ -370,6 +371,7 @@
       "longitude": 6.1448228,
       "distance_km": 1.5,
       "created_at": "2026-02-27 10:52:27",
+      "image_url": null,
       "price_m2": 26.2
     },
     {
@@ -385,6 +387,7 @@
       "longitude": 6.08,
       "distance_km": 7.3,
       "created_at": "2026-02-26 20:41:48",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/2f13c504dd31a84bb5bb855182ad8019/cc87f5f3695cbb1fbd67971c137f07a3.jpg",
       "price_m2": 24.0
     },
     {
@@ -400,6 +403,7 @@
       "longitude": null,
       "distance_km": null,
       "created_at": "2026-02-26 19:28:36",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 25.0
     },
     {
@@ -415,6 +419,7 @@
       "longitude": null,
       "distance_km": null,
       "created_at": "2026-02-26 19:28:22",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 22.9
     },
     {
@@ -430,6 +435,7 @@
       "longitude": 6.142818,
       "distance_km": 4.3,
       "created_at": "2026-02-26 19:28:17",
+      "image_url": null,
       "price_m2": 15.2
     },
     {
@@ -445,6 +451,7 @@
       "longitude": 6.1319,
       "distance_km": 1.3,
       "created_at": "2026-02-26 18:53:27",
+      "image_url": "https://sothebysrealty.lu/asset/22483/1200/650",
       "price_m2": null
     },
     {
@@ -460,6 +467,7 @@
       "longitude": 6.1319,
       "distance_km": 1.3,
       "created_at": "2026-02-26 18:53:17",
+      "image_url": "https://sothebysrealty.lu/asset/72231/1200/650",
       "price_m2": null
     },
     {
@@ -475,6 +483,7 @@
       "longitude": 6.1319,
       "distance_km": 1.3,
       "created_at": "2026-02-26 18:53:07",
+      "image_url": "https://sothebysrealty.lu/asset/67095/1200/650",
       "price_m2": null
     },
     {
@@ -490,6 +499,7 @@
       "longitude": 6.1319,
       "distance_km": 1.3,
       "created_at": "2026-02-26 18:52:56",
+      "image_url": "https://sothebysrealty.lu/asset/73111/1200/650",
       "price_m2": null
     },
     {
@@ -505,6 +515,7 @@
       "longitude": 6.1319,
       "distance_km": 1.3,
       "created_at": "2026-02-26 18:52:46",
+      "image_url": "https://sothebysrealty.lu/asset/73128/1200/650",
       "price_m2": null
     },
     {
@@ -520,6 +531,7 @@
       "longitude": 6.27573,
       "distance_km": 14.9,
       "created_at": "2026-02-26 18:52:36",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/92184b7f6756a770af19bd80a8106eea/605c8bf11b5303c20df2a25bb1337a64.jpg",
       "price_m2": 14.3
     },
     {
@@ -535,6 +547,7 @@
       "longitude": 6.105,
       "distance_km": 9.1,
       "created_at": "2026-02-26 18:52:25",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/572ea8434609c0a04e17c4e4a96e6100/9b241ca1381510e07161457d35f614cd.jpg",
       "price_m2": 18.7
     },
     {
@@ -550,6 +563,7 @@
       "longitude": 6.03998,
       "distance_km": 15.6,
       "created_at": "2026-02-26 18:52:15",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/070ae099e0aa29ac2c645f2bcd1b45ad/b994a20a3ce317bc57a1107d9794112f.jpg",
       "price_m2": 23.8
     },
     {
@@ -565,6 +579,7 @@
       "longitude": 5.99296,
       "distance_km": 11.9,
       "created_at": "2026-02-26 18:52:05",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/b6898aacbdecfc78ff0620f13cf45392/87d136ddb4ae11f84d2fa795793ad3a0.jpg",
       "price_m2": 28.8
     },
     {
@@ -580,6 +595,7 @@
       "longitude": 6.10969,
       "distance_km": 2.0,
       "created_at": "2026-02-26 18:51:55",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/21ada46a6d82b8f22cb30182a23de5e0/52a4a948b4bf7d0d7334864888194e09.jpg",
       "price_m2": 26.2
     },
     {
@@ -595,6 +611,7 @@
       "longitude": 6.12105,
       "distance_km": 0.9,
       "created_at": "2026-02-26 18:51:45",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/7ce6385f1f8020c1c25ab9ce083c9c57/074430dcda0bedfa58f482715391be39.jpg",
       "price_m2": 25.3
     },
     {
@@ -610,6 +627,7 @@
       "longitude": 6.13289,
       "distance_km": 1.8,
       "created_at": "2026-02-26 18:51:35",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/e36624904245d189a675727193a29217/fda4b79c0451428197e96d54df2fa7f1.jpg",
       "price_m2": 25.0
     },
     {
@@ -625,6 +643,7 @@
       "longitude": 6.1319,
       "distance_km": 1.3,
       "created_at": "2026-02-26 18:51:24",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/1a9d3955e57bfd1102cd0d2b4ef2ffb6/04e683b869f0098ac556c0f3377d6a25.jpg",
       "price_m2": 23.3
     },
     {
@@ -640,6 +659,7 @@
       "longitude": 6.1319,
       "distance_km": 1.3,
       "created_at": "2026-02-26 18:51:14",
+      "image_url": "https://images.newimmo.lu/zbHUItBPGmrOz2XhDj7LVT84aHy7MZRrpWevD3OdXkk/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTE3MzE2MzMxNWU0MF80NDkzMjE3OFsuanBnXQ.jpg?nocache=0",
       "price_m2": null
     },
     {
@@ -655,6 +675,7 @@
       "longitude": 6.1342,
       "distance_km": 0.0,
       "created_at": "2026-02-26 18:51:04",
+      "image_url": "https://images.newimmo.lu/45H1Nl1JxEY2oZfvXXcX2S4LPXNU_PzOr6-16cIhUk0/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTVlNDhkMWYwZjMwMl8xOTYwMDIyM1suanBnXQ.jpg?nocache=0",
       "price_m2": null
     },
     {
@@ -670,6 +691,7 @@
       "longitude": 6.02,
       "distance_km": 11.0,
       "created_at": "2026-02-26 18:50:54",
+      "image_url": "https://images.newimmo.lu/3OXJ0VzHKLyy69jRjpd0EKhBTVbJijoXyrrLAryDyPo/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTk4YmFiYzBlOWQzMV83MTI5MjY4N1suanBnXQ.jpg?nocache=0",
       "price_m2": null
     },
     {
@@ -685,6 +707,7 @@
       "longitude": 6.1319,
       "distance_km": 1.3,
       "created_at": "2026-02-26 18:50:44",
+      "image_url": "https://images.newimmo.lu/1wgIbF_PAtGhJqcrnDrxQ1r7Kco4of8AeaECxMLgWuM/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OThmNTAzZWI3MWYwNl80NzY2OTQxNlsuanBnXQ.jpg?nocache=0",
       "price_m2": null
     },
     {
@@ -700,6 +723,7 @@
       "longitude": 6.05,
       "distance_km": 6.2,
       "created_at": "2026-02-26 18:50:33",
+      "image_url": "https://images.newimmo.lu/WtSrff4sRn9tOLl2-TALs5_O-D5KP8guQM6EQipPUkM/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTVmODk5NDcyZTEzNV84ODM0NDUxN1suanBnXQ.jpg?nocache=0",
       "price_m2": null
     },
     {
@@ -715,6 +739,7 @@
       "longitude": null,
       "distance_km": null,
       "created_at": "2026-02-26 18:50:21",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 17.8
     },
     {
@@ -730,6 +755,7 @@
       "longitude": null,
       "distance_km": null,
       "created_at": "2026-02-26 18:50:09",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 21.1
     },
     {
@@ -745,6 +771,7 @@
       "longitude": 6.01,
       "distance_km": 10.0,
       "created_at": "2026-02-26 18:49:56",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 23.6
     },
     {
@@ -760,6 +787,7 @@
       "longitude": 6.19,
       "distance_km": 7.8,
       "created_at": "2026-02-26 18:49:43",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 19.2
     },
     {
@@ -775,6 +803,7 @@
       "longitude": 6.023,
       "distance_km": 8.6,
       "created_at": "2026-02-26 18:49:30",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 24.7
     },
     {
@@ -790,6 +819,7 @@
       "longitude": null,
       "distance_km": null,
       "created_at": "2026-02-26 18:49:18",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 15.7
     },
     {
@@ -805,6 +835,7 @@
       "longitude": null,
       "distance_km": null,
       "created_at": "2026-02-26 18:49:05",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 15.6
     },
     {
@@ -820,6 +851,7 @@
       "longitude": null,
       "distance_km": null,
       "created_at": "2026-02-26 18:48:53",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 17.6
     },
     {
@@ -835,6 +867,7 @@
       "longitude": null,
       "distance_km": null,
       "created_at": "2026-02-26 18:48:40",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 24.1
     },
     {
@@ -850,6 +883,7 @@
       "longitude": 6.1319,
       "distance_km": 1.3,
       "created_at": "2026-02-26 18:48:30",
+      "image_url": "https://pic.immotop.lu/image/148398059/xxs-c.jpg",
       "price_m2": null
     },
     {
@@ -865,6 +899,7 @@
       "longitude": 6.05,
       "distance_km": 6.2,
       "created_at": "2026-02-26 18:48:20",
+      "image_url": "https://pic.immotop.lu/image/148535273/xxs-c.jpg",
       "price_m2": null
     },
     {
@@ -880,6 +915,7 @@
       "longitude": 6.1319,
       "distance_km": 1.3,
       "created_at": "2026-02-26 18:48:09",
+      "image_url": "https://floor.lu/wp-content/uploads/696657f571cbc9_41240076.jpeg",
       "price_m2": 26.3
     },
     {
@@ -895,6 +931,7 @@
       "longitude": 6.173333,
       "distance_km": 16.1,
       "created_at": "2026-02-26 18:47:59",
+      "image_url": null,
       "price_m2": 10.9
     },
     {
@@ -910,6 +947,7 @@
       "longitude": 5.9214334,
       "distance_km": 18.7,
       "created_at": "2026-02-26 18:47:48",
+      "image_url": null,
       "price_m2": 20.4
     },
     {
@@ -925,6 +963,7 @@
       "longitude": 6.1266808,
       "distance_km": 4.8,
       "created_at": "2026-02-26 18:47:38",
+      "image_url": null,
       "price_m2": 17.2
     },
     {
@@ -940,6 +979,7 @@
       "longitude": 6.0146129,
       "distance_km": 9.1,
       "created_at": "2026-02-26 18:47:28",
+      "image_url": null,
       "price_m2": 25.0
     },
     {
@@ -955,6 +995,7 @@
       "longitude": 6.25,
       "distance_km": 14.8,
       "created_at": "2026-02-26 18:47:18",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/be749a86004a937d047a7f24438cca85/c856f4155668b7c79aa2e3100566c32f.jpg",
       "price_m2": 19.5
     },
     {
@@ -970,6 +1011,7 @@
       "longitude": 5.90988,
       "distance_km": 16.4,
       "created_at": "2026-02-26 18:47:08",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/e45bbd99f6b4026068740391066d894d/588dca0192c28881b092e877e942e9f9.jpg",
       "price_m2": 15.5
     },
     {
@@ -985,6 +1027,7 @@
       "longitude": 6.24472,
       "distance_km": 11.1,
       "created_at": "2026-02-26 18:46:57",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/898b7612521adabe6c4a9f834071ef88/589058c1a6f3dbe23e7e1747920dbcb2.jpg",
       "price_m2": 20.6
     },
     {
@@ -1000,6 +1043,7 @@
       "longitude": 6.121335699999999,
       "distance_km": 2.8,
       "created_at": "2026-02-26 18:46:47",
+      "image_url": null,
       "price_m2": 24.5
     },
     {
@@ -1015,6 +1059,7 @@
       "longitude": 6.135935,
       "distance_km": 2.8,
       "created_at": "2026-02-26 18:46:37",
+      "image_url": null,
       "price_m2": 25.0
     },
     {
@@ -1030,6 +1075,7 @@
       "longitude": 5.90988,
       "distance_km": 16.4,
       "created_at": "2026-02-26 18:46:27",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/bcf012ad535dfd54d020e858200602ca/02d2db4a804f9bcf02893eb85f312b18.jpg",
       "price_m2": 20.1
     },
     {
@@ -1045,6 +1091,7 @@
       "longitude": 6.1637244,
       "distance_km": 3.8,
       "created_at": "2026-02-26 18:46:17",
+      "image_url": null,
       "price_m2": 29.4
     },
     {
@@ -1060,6 +1107,7 @@
       "longitude": 5.9721782,
       "distance_km": 15.9,
       "created_at": "2026-02-26 18:46:07",
+      "image_url": null,
       "price_m2": 23.1
     },
     {
@@ -1075,6 +1123,7 @@
       "longitude": 6.2076007,
       "distance_km": 7.6,
       "created_at": "2026-02-26 18:45:56",
+      "image_url": null,
       "price_m2": 21.5
     },
     {
@@ -1090,6 +1139,7 @@
       "longitude": 6.0823886,
       "distance_km": 7.3,
       "created_at": "2026-02-26 18:45:46",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/c0edd2f190b4aabc36821ef22da3e6f7/86dbf267c278634bc63623ec489063e2.jpg",
       "price_m2": 23.1
     },
     {
@@ -1105,6 +1155,7 @@
       "longitude": 6.07795,
       "distance_km": 13.9,
       "created_at": "2026-02-26 18:45:36",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/c055ab2f2e14fea6506a1102dac55589/20c8dc914342580261407e7312f4938e.jpg",
       "price_m2": 26.1
     },
     {
@@ -1120,6 +1171,7 @@
       "longitude": 6.1092036,
       "distance_km": 2.1,
       "created_at": "2026-02-26 18:45:26",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/c90af9b326022cbccfb6173f8b95fdfd/42ba208db930b768393a1891eacfe208.jpg",
       "price_m2": 25.3
     },
     {
@@ -1135,6 +1187,7 @@
       "longitude": 5.885361899999999,
       "distance_km": 18.6,
       "created_at": "2026-02-26 18:45:16",
+      "image_url": null,
       "price_m2": 27.0
     },
     {
@@ -1150,6 +1203,7 @@
       "longitude": 5.9451393,
       "distance_km": 17.5,
       "created_at": "2026-02-26 18:45:05",
+      "image_url": null,
       "price_m2": 29.4
     },
     {
@@ -1165,6 +1219,7 @@
       "longitude": 6.1137845,
       "distance_km": 1.5,
       "created_at": "2026-02-26 18:44:55",
+      "image_url": null,
       "price_m2": 26.2
     },
     {
@@ -1180,6 +1235,7 @@
       "longitude": 5.9368383,
       "distance_km": 17.5,
       "created_at": "2026-02-26 18:44:45",
+      "image_url": null,
       "price_m2": 20.5
     },
     {
@@ -1195,6 +1251,7 @@
       "longitude": 6.000680099999999,
       "distance_km": 14.4,
       "created_at": "2026-02-26 18:44:35",
+      "image_url": null,
       "price_m2": 19.0
     },
     {
@@ -1210,6 +1267,7 @@
       "longitude": 6.1377211,
       "distance_km": 8.4,
       "created_at": "2026-02-26 18:44:25",
+      "image_url": null,
       "price_m2": 26.5
     },
     {
@@ -1225,6 +1283,7 @@
       "longitude": 6.161307000000001,
       "distance_km": 3.6,
       "created_at": "2026-02-26 18:44:14",
+      "image_url": null,
       "price_m2": 28.2
     },
     {
@@ -1240,6 +1299,7 @@
       "longitude": 6.1366508,
       "distance_km": 0.5,
       "created_at": "2026-02-26 18:44:04",
+      "image_url": null,
       "price_m2": 23.7
     },
     {
@@ -1255,6 +1315,7 @@
       "longitude": 6.1617104,
       "distance_km": 4.5,
       "created_at": "2026-02-26 18:43:54",
+      "image_url": null,
       "price_m2": 27.6
     },
     {
@@ -1270,6 +1331,7 @@
       "longitude": 6.12475,
       "distance_km": 1.8,
       "created_at": "2026-02-26 18:43:44",
+      "image_url": null,
       "price_m2": 27.4
     },
     {
@@ -1285,6 +1347,7 @@
       "longitude": 6.1155111,
       "distance_km": 1.6,
       "created_at": "2026-02-26 18:43:34",
+      "image_url": null,
       "price_m2": 24.4
     },
     {
@@ -1300,6 +1363,7 @@
       "longitude": 6.132617,
       "distance_km": 0.2,
       "created_at": "2026-02-26 18:43:23",
+      "image_url": null,
       "price_m2": 26.6
     },
     {
@@ -1315,6 +1379,7 @@
       "longitude": 6.1258432,
       "distance_km": 1.5,
       "created_at": "2026-02-26 18:43:13",
+      "image_url": null,
       "price_m2": 30.0
     },
     {
@@ -1330,6 +1395,7 @@
       "longitude": 6.2223386,
       "distance_km": 8.1,
       "created_at": "2026-02-26 18:43:03",
+      "image_url": null,
       "price_m2": 26.0
     },
     {
@@ -1345,6 +1411,7 @@
       "longitude": 6.117406099999999,
       "distance_km": 1.2,
       "created_at": "2026-02-26 18:42:52",
+      "image_url": null,
       "price_m2": 30.0
     },
     {
@@ -1360,6 +1427,7 @@
       "longitude": 6.0502349,
       "distance_km": 6.2,
       "created_at": "2026-02-26 18:42:42",
+      "image_url": null,
       "price_m2": 27.9
     },
     {
@@ -1375,6 +1443,7 @@
       "longitude": 6.0502349,
       "distance_km": 6.2,
       "created_at": "2026-02-26 18:42:32",
+      "image_url": null,
       "price_m2": 20.4
     },
     {
@@ -1390,6 +1459,7 @@
       "longitude": 6.0821581,
       "distance_km": 13.8,
       "created_at": "2026-02-26 18:42:22",
+      "image_url": null,
       "price_m2": 22.9
     },
     {
@@ -1405,6 +1475,7 @@
       "longitude": 6.142993,
       "distance_km": 0.6,
       "created_at": "2026-02-26 18:42:11",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/0ab3830395d149d1e3b97ad489a44797/9897891e19996af6ab9f15391c19e604.jpg",
       "price_m2": 26.9
     },
     {
@@ -1420,6 +1491,7 @@
       "longitude": 6.10673,
       "distance_km": 2.2,
       "created_at": "2026-02-26 18:42:01",
+      "image_url": null,
       "price_m2": 22.6
     },
     {
@@ -1435,6 +1507,7 @@
       "longitude": 6.1028472,
       "distance_km": 2.8,
       "created_at": "2026-02-26 18:41:51",
+      "image_url": null,
       "price_m2": 16.7
     },
     {
@@ -1450,6 +1523,7 @@
       "longitude": 6.1294726,
       "distance_km": 2.8,
       "created_at": "2026-02-26 18:41:41",
+      "image_url": null,
       "price_m2": 17.2
     },
     {
@@ -1465,6 +1539,7 @@
       "longitude": 6.132617,
       "distance_km": 0.2,
       "created_at": "2026-02-26 18:41:31",
+      "image_url": null,
       "price_m2": 30.6
     },
     {
@@ -1480,6 +1555,7 @@
       "longitude": 6.013457700000001,
       "distance_km": 9.3,
       "created_at": "2026-02-26 18:41:20",
+      "image_url": null,
       "price_m2": 20.5
     },
     {
@@ -1495,6 +1571,7 @@
       "longitude": 6.2337462,
       "distance_km": 9.1,
       "created_at": "2026-02-26 18:41:10",
+      "image_url": null,
       "price_m2": 18.3
     },
     {
@@ -1510,6 +1587,7 @@
       "longitude": 6.153422,
       "distance_km": 3.4,
       "created_at": "2026-02-26 18:40:59",
+      "image_url": null,
       "price_m2": 25.9
     },
     {
@@ -1525,6 +1603,7 @@
       "longitude": 6.2352602,
       "distance_km": 9.2,
       "created_at": "2026-02-26 18:40:49",
+      "image_url": null,
       "price_m2": 21.7
     },
     {
@@ -1540,6 +1619,7 @@
       "longitude": 6.0774257,
       "distance_km": 4.9,
       "created_at": "2026-02-26 18:40:38",
+      "image_url": null,
       "price_m2": 28.7
     },
     {
@@ -1555,6 +1635,7 @@
       "longitude": 5.9512695,
       "distance_km": 13.3,
       "created_at": "2026-02-26 18:40:28",
+      "image_url": null,
       "price_m2": 24.5
     },
     {
@@ -1570,6 +1651,7 @@
       "longitude": 5.9640686,
       "distance_km": 12.4,
       "created_at": "2026-02-26 18:40:18",
+      "image_url": null,
       "price_m2": 23.3
     },
     {
@@ -1585,6 +1667,7 @@
       "longitude": 6.098749499999999,
       "distance_km": 9.5,
       "created_at": "2026-02-26 18:40:07",
+      "image_url": null,
       "price_m2": 19.6
     },
     {
@@ -1600,6 +1683,7 @@
       "longitude": 6.08,
       "distance_km": 7.3,
       "created_at": "2026-02-26 18:39:55",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
       "price_m2": 24.7
     },
     {
@@ -1615,6 +1699,7 @@
       "longitude": 6.08135,
       "distance_km": 7.6,
       "created_at": "2026-02-26 18:39:45",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/7817f1d460337bb860c382686de09e0d/5cd613b1151f110cd4ef71047e558569.jpg",
       "price_m2": 28.9
     },
     {
@@ -1630,6 +1715,7 @@
       "longitude": 6.14274,
       "distance_km": 2.9,
       "created_at": "2026-02-26 18:39:34",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/3bca47682f82f5089e6d6d0eb5b608e4/2296c8cbc5e2b3e40d422942e6902104.jpg",
       "price_m2": 27.0
     },
     {
@@ -1645,6 +1731,7 @@
       "longitude": 6.137721099999999,
       "distance_km": 8.4,
       "created_at": "2026-02-26 18:39:23",
+      "image_url": null,
       "price_m2": 19.7
     },
     {
@@ -1660,6 +1747,7 @@
       "longitude": 6.1070622,
       "distance_km": 2.1,
       "created_at": "2026-02-26 18:39:13",
+      "image_url": null,
       "price_m2": 25.0
     },
     {
@@ -1675,6 +1763,7 @@
       "longitude": 5.9435467,
       "distance_km": 17.4,
       "created_at": "2026-02-26 18:39:03",
+      "image_url": null,
       "price_m2": 24.2
     },
     {
@@ -1690,6 +1779,7 @@
       "longitude": 6.1061192,
       "distance_km": 2.5,
       "created_at": "2026-02-26 18:38:53",
+      "image_url": null,
       "price_m2": 27.8
     },
     {
@@ -1705,6 +1795,7 @@
       "longitude": 6.0732987,
       "distance_km": 4.4,
       "created_at": "2026-02-26 18:38:42",
+      "image_url": null,
       "price_m2": 25.8
     },
     {
@@ -1720,6 +1811,7 @@
       "longitude": 5.8999095,
       "distance_km": 19.1,
       "created_at": "2026-02-26 18:38:32",
+      "image_url": null,
       "price_m2": 24.1
     },
     {
@@ -1735,6 +1827,7 @@
       "longitude": 6.1441177,
       "distance_km": 1.1,
       "created_at": "2026-02-26 18:38:22",
+      "image_url": null,
       "price_m2": 28.4
     },
     {
@@ -1750,6 +1843,7 @@
       "longitude": 6.126248899999999,
       "distance_km": 1.5,
       "created_at": "2026-02-26 18:38:12",
+      "image_url": null,
       "price_m2": 27.8
     },
     {
@@ -1765,6 +1859,7 @@
       "longitude": 5.9753139,
       "distance_km": 16.2,
       "created_at": "2026-02-26 18:38:02",
+      "image_url": null,
       "price_m2": 19.4
     },
     {
@@ -1780,6 +1875,7 @@
       "longitude": 6.153422,
       "distance_km": 3.4,
       "created_at": "2026-02-26 18:37:52",
+      "image_url": null,
       "price_m2": 30.0
     },
     {
@@ -1795,6 +1891,7 @@
       "longitude": 6.1376927,
       "distance_km": 4.4,
       "created_at": "2026-02-26 18:37:41",
+      "image_url": null,
       "price_m2": 22.3
     },
     {
@@ -1810,6 +1907,7 @@
       "longitude": 5.9879452,
       "distance_km": 14.7,
       "created_at": "2026-02-26 18:37:29",
+      "image_url": null,
       "price_m2": 23.4
     },
     {
@@ -1825,6 +1923,7 @@
       "longitude": 5.988012899999999,
       "distance_km": 14.7,
       "created_at": "2026-02-26 18:37:19",
+      "image_url": null,
       "price_m2": 23.8
     },
     {
@@ -1840,6 +1939,7 @@
       "longitude": 6.25612,
       "distance_km": 15.4,
       "created_at": "2026-02-26 18:37:08",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/11800701703a63bed24598328aeaba43/fe1524c12e47b051555fa65994f2b1d1.jpg",
       "price_m2": 25.3
     },
     {
@@ -1855,6 +1955,7 @@
       "longitude": 6.1321495,
       "distance_km": 7.6,
       "created_at": "2026-02-26 18:36:55",
+      "image_url": null,
       "price_m2": 30.1
     },
     {
@@ -1870,6 +1971,7 @@
       "longitude": 6.3674222,
       "distance_km": 17.9,
       "created_at": "2026-02-26 18:36:42",
+      "image_url": null,
       "price_m2": 19.2
     },
     {
@@ -1885,6 +1987,7 @@
       "longitude": 5.955324099999999,
       "distance_km": 13.0,
       "created_at": "2026-02-26 18:36:32",
+      "image_url": null,
       "price_m2": 21.9
     },
     {
@@ -1900,6 +2003,7 @@
       "longitude": 5.9873939,
       "distance_km": 14.5,
       "created_at": "2026-02-26 18:36:22",
+      "image_url": null,
       "price_m2": 22.9
     },
     {
@@ -1915,6 +2019,7 @@
       "longitude": 5.9873939,
       "distance_km": 14.5,
       "created_at": "2026-02-26 18:36:11",
+      "image_url": null,
       "price_m2": 23.2
     },
     {
@@ -1930,6 +2035,7 @@
       "longitude": 6.0197216,
       "distance_km": 9.0,
       "created_at": "2026-02-26 18:35:59",
+      "image_url": null,
       "price_m2": 24.0
     },
     {
@@ -1945,6 +2051,7 @@
       "longitude": 5.8651621,
       "distance_km": 19.9,
       "created_at": "2026-02-26 18:35:47",
+      "image_url": null,
       "price_m2": 23.9
     },
     {
@@ -1960,6 +2067,7 @@
       "longitude": 6.1137785,
       "distance_km": 15.7,
       "created_at": "2026-02-26 18:35:36",
+      "image_url": null,
       "price_m2": 21.5
     },
     {
@@ -1975,6 +2083,7 @@
       "longitude": 6.0202389,
       "distance_km": 17.3,
       "created_at": "2026-02-26 18:35:25",
+      "image_url": null,
       "price_m2": 14.0
     },
     {
@@ -1990,6 +2099,7 @@
       "longitude": 5.916589,
       "distance_km": 16.0,
       "created_at": "2026-02-26 18:35:15",
+      "image_url": null,
       "price_m2": 18.3
     },
     {
@@ -2005,6 +2115,7 @@
       "longitude": 5.9151653,
       "distance_km": 18.5,
       "created_at": "2026-02-26 18:35:05",
+      "image_url": null,
       "price_m2": 22.9
     },
     {
@@ -2020,6 +2131,7 @@
       "longitude": 6.114701999999999,
       "distance_km": 1.4,
       "created_at": "2026-02-26 18:34:54",
+      "image_url": null,
       "price_m2": 28.1
     },
     {
@@ -2035,6 +2147,7 @@
       "longitude": 6.126972500000001,
       "distance_km": 1.4,
       "created_at": "2026-02-26 18:34:43",
+      "image_url": null,
       "price_m2": 25.3
     },
     {
@@ -2050,6 +2163,7 @@
       "longitude": 6.224731299999999,
       "distance_km": 6.7,
       "created_at": "2026-02-26 18:34:37",
+      "image_url": null,
       "price_m2": 29.3
     }
   ]
