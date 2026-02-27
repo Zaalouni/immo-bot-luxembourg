@@ -1,7 +1,8 @@
 # =============================================================================
-# dashboard_generator.py — Generateur de dashboard HTML statique
+# dashboard_generator.py — Generateur de donnees pour dashboard
 # =============================================================================
-# Lit listings.db, exporte les donnees en fichiers JS/JSON, genere le dashboard.
+# Lit listings.db, exporte les donnees en fichiers JS/JSON.
+# ⚠️  NE RÉGÉNÈRE PAS les fichiers HTML (conserve les modifications manuelles!)
 #
 # Usage : python dashboard_generator.py
 # Output :
@@ -9,12 +10,12 @@
 #   dashboards/data/stats.js              — statistiques (variable JS)
 #   dashboards/data/listings.json         — JSON pur (reutilisable)
 #   dashboards/data/history/YYYY-MM-DD.json — archive JSON du jour
-#   dashboards/index.html                 — dashboard PWA
 #   dashboards/manifest.json              — manifest PWA
-#   dashboards/archives/YYYY-MM-DD.html   — archive HTML du jour
+#
+# ✅ Les fichiers HTML (index.html, photos.html, etc.) sont gérés manuellement
+#    et NE sont PAS régénérés pour conserver les corrections du jour!
 #
 # Zero dependance externe (stdlib Python uniquement)
-# Compatible PWA / smartphone — Bootstrap 5 + Leaflet.js via CDN
 # =============================================================================
 
 import sqlite3
@@ -691,25 +692,40 @@ def main():
     generate_manifest(dashboards_dir)
     print(f"  -> {dashboards_dir}/manifest.json")
 
-    # Etape 3 : HTML dashboard
-    html = generate_html(stats, site_colors)
-    index_path = os.path.join(dashboards_dir, 'index.html')
-    with open(index_path, 'w', encoding='utf-8') as f:
-        f.write(html)
-    print(f"  -> {index_path}")
+    # ⚠️  ETAPES 3 & 4 COMMENTÉES : Ne pas régénérer les fichiers HTML
+    # Les fichiers HTML (index.html, photos.html, stats-by-city.html, etc.) sont gérés manuellement
+    # et doivent conserver les modifications du jour (glasmorphism, dark mode, photos, transport info, etc.)
+    #
+    # Décommentez uniquement si vous voulez recréer les fichiers HTML depuis le modèle
+    # (cela écrasera TOUTES les corrections manuelles!)
+    #
+    # # Etape 3 : HTML dashboard
+    # html = generate_html(stats, site_colors)
+    # index_path = os.path.join(dashboards_dir, 'index.html')
+    # with open(index_path, 'w', encoding='utf-8') as f:
+    #     f.write(html)
+    # print(f"  -> {index_path}")
 
-    # Etape 4 : archive HTML du jour
-    archive_path = os.path.join(dashboards_dir, 'archives', f'{today}.html')
-    shutil.copy2(index_path, archive_path)
-    print(f"  -> {archive_path}")
+    # # Etape 4 : archive HTML du jour
+    # archive_path = os.path.join(dashboards_dir, 'archives', f'{today}.html')
+    # shutil.copy2(index_path, archive_path)
+    # print(f"  -> {archive_path}")
 
-    # Etape 5 : sync data to Dashboard2 (Vue app)
-    print("\nSync Dashboard2...")
-    sync_data_to_dashboard2(data_dir)
+    # ⚠️  Dashboard2 sync commentée : dossier supprimé (uniquement dashboards/ en use)
+    # # Etape 5 : sync data to Dashboard2 (Vue app)
+    # print("\nSync Dashboard2...")
+    # sync_data_to_dashboard2(data_dir)
 
-    print(f"\nDashboard genere avec succes !")
-    print(f"Ouvrir : {os.path.abspath(index_path)}")
-    print(f"Dashboard2 : dashboards2/dist/index.html (apres npm run build)")
+    print(f"\n✅ Données du dashboard générées avec succès!")
+    print(f"📊 Les fichiers HTML manuels sont PRÉSERVÉS:")
+    print(f"   - dashboards/index.html (avec glasmorphism + dark mode)")
+    print(f"   - dashboards/photos.html (avec images + transport)")
+    print(f"   - dashboards/stats-by-city.html (avec onglets + transport)")
+    print(f"   - Et tous les autres fichiers HTML personnalisés")
+    print(f"\n📈 Données exportées:")
+    print(f"   ✅ listings.js (avec {stats['total']} annonces + photos)")
+    print(f"   ✅ stats.js")
+    print(f"   ✅ manifest.json")
 
 
 if __name__ == '__main__':
