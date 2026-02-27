@@ -7,45 +7,128 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
     <style>
-        :root { --primary: #667eea; --primary-dark: #5a6fd6; }
-        body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; padding-bottom: 2rem; }
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a6fd6;
+            --secondary: #764ba2;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', sans-serif;
+            padding-bottom: 2rem;
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #ecf0f1;
+        }
+
+        body.dark-mode .stat-card,
+        body.dark-mode .location-box,
+        body.dark-mode .listing-card {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ecf0f1;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; padding: 1.2rem 1rem; margin-bottom: 1rem;
-            position: sticky; top: 0; z-index: 1000;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.5rem 1rem;
+            margin-bottom: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
         }
-        .header h1 { font-size: 1.4rem; margin: 0; }
+        .header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: 700;
+        }
 
-        .nav-link { color: white; opacity: 0.8; text-decoration: none; margin: 0 1rem; }
-        .nav-link:hover { opacity: 1; }
-        .nav-link.active { opacity: 1; border-bottom: 2px solid white; }
+        .nav-link {
+            color: white;
+            opacity: 0.85;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: var(--transition);
+        }
+        .nav-link:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+        .nav-link.active {
+            opacity: 1;
+            border-bottom: 2px solid white;
+        }
 
         .stat-card {
-            background: white; border-radius: 12px; padding: 0.8rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            padding: 1.2rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.9);
         }
         .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
         .stat-label { font-size: 0.7rem; color: #888; text-transform: uppercase; }
 
         .location-box {
-            background: white; border-radius: 12px; padding: 1.2rem;
-            margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
             text-align: center;
+            transition: var(--transition);
         }
 
         .location-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; border: none; padding: 0.8rem 1.5rem;
-            border-radius: 8px; font-weight: 600; cursor: pointer;
-            font-size: 1rem; margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
         }
-        .location-button:hover { opacity: 0.9; }
-        .location-button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .location-button:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .location-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
 
         .listing-card {
-            background: white; border-radius: 12px; padding: 1rem;
-            margin-bottom: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .listing-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .distance-badge {
@@ -63,6 +146,31 @@
             height: 300px;
             border-radius: 12px;
             margin-bottom: 1rem;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transition: var(--transition);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary-dark);
         }
 
         .status {
@@ -144,6 +252,9 @@
         <!-- Listings nearby -->
         <div id="listings"></div>
     </div>
+
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre">🌙</button>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="data/listings.js"></script>
@@ -336,6 +447,17 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        // ==================== DARK MODE ====================
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        });
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
