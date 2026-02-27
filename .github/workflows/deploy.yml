@@ -1,0 +1,102 @@
+name: Deploy Dashboards to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'dashboards/**'
+      - 'dashboards2/**'
+      - 'dashboard_generator.py'
+      - 'database.py'
+      - 'config.py'
+      - 'listings.db'
+      - '.github/workflows/deploy.yml'
+
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'dashboards2/package-lock.json'
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || echo "No requirements.txt"
+
+      - name: Build Dashboard2 (Vue 3)
+        run: |
+          cd dashboards2
+          npm install --frozen-lockfile
+          npm run build
+          cd ..
+
+      - name: Generate Dashboards
+        run: |
+          python dashboard_generator.py
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+      - name: Commit dashboards changes
+        run: |
+          # Stage only dashboards/ and dashboards2/
+          git add dashboards/ dashboards2/
+
+          # Check if there are changes
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: Update dashboards from GitHub Actions"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+      - name: Create deployment folder (dashboards only)
+        run: |
+          # Copy only dashboards to a clean directory for deployment
+          mkdir -p deploy_temp
+          cp -r dashboards deploy_temp/
+          cp -r dashboards2/dist deploy_temp/dashboards2
+          ls -la deploy_temp/
+
+      - name: Deploy dashboards to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./deploy_temp
+          cname: false
+          force_orphan: false
+
+      - name: Summary
+        run: |
+          echo "[OK] Dashboards deployed successfully!"
+          echo "[Dashboard 1] https://zaalouni.github.io/immo-bot-luxembourg/dashboards/index.html"
+          echo "[Dashboard 2] https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/dist/index.html"

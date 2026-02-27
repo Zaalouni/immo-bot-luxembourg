@@ -1,0 +1,2 @@
+# Disable Jekyll processing on GitHub Pages
+# This allows folders starting with _ (like _framework) to be served correctly
