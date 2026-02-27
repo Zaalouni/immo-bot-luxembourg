@@ -1,4 +1,4 @@
-// Genere le 27/02/2026 12:46
+// Genere le 27/02/2026 13:10
 // 114 annonces depuis listings.db
 const LISTINGS = [
   {
