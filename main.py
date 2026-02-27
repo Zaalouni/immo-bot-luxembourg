@@ -3,7 +3,7 @@
 # main.py — Orchestrateur principal du bot immobilier Luxembourg
 # =============================================================================
 # Point d'entree du projet. Contient la classe ImmoBot qui :
-#   1. Charge les 9 scrapers au demarrage (imports dynamiques try/except)
+#   1. Charge les 11 scrapers au demarrage (imports dynamiques try/except)
 #   2. Execute des cycles de scraping sequentiels (check_new_listings)
 #   3. Deduplique les annonces cross-sites (prix + ville + surface)
 #   4. Filtre selon les criteres config.py (prix, rooms, surface, distance, mots exclus)
@@ -13,6 +13,8 @@
 #   python main.py          → mode continu (boucle toutes les CHECK_INTERVAL secondes)
 #   python main.py --once   → mode test (1 seul cycle)
 #
+# Scrapers actifs (11): Athome, Immotop, VIVI, Newimmo, Nextimmo,
+#                       Sigelux, Sothebys, LDHome, Rockenbrod, PropertyInvest, REMAX
 # Voir architecture.md pour le flux de donnees complet.
 # =============================================================================
 import logging
@@ -65,21 +67,6 @@ try:
     except ImportError as e:
         logger.warning(f"⚠️ Immotop.lu: {e}")
 
-    # Luxhome.lu (JSON/Regex - version principale)
-    try:
-        from scrapers.luxhome_scraper import luxhome_scraper
-        scrapers_config.append(('🏠 Luxhome.lu', luxhome_scraper))
-        logger.info("✅ Luxhome.lu (JSON/Regex)")
-    except ImportError as e:
-        logger.warning(f"⚠️ Luxhome.lu: {e}")
-        # Fallback vers version Selenium uniquement si la principale échoue
-        try:
-            from scrapers.luxhome_scraper_final import luxhome_scraper_final
-            scrapers_config.append(('🏠 Luxhome.lu', luxhome_scraper_final))
-            logger.info("✅ Luxhome.lu (Selenium fallback)")
-        except ImportError as e2:
-            logger.warning(f"⚠️ Luxhome.lu fallback: {e2}")
-
     # VIVI.lu (Selenium)
     try:
         from scrapers.vivi_scraper_selenium import vivi_scraper_selenium
@@ -95,34 +82,6 @@ try:
         logger.info("✅ Newimmo.lu")
     except ImportError as e:
         logger.warning(f"⚠️ Newimmo.lu: {e}")
-
-    # Unicorn.lu
-    try:
-        from scrapers.unicorn_scraper_real import unicorn_scraper_real
-        scrapers_config.append(('🦄 Unicorn.lu', unicorn_scraper_real))
-        logger.info("✅ Unicorn.lu")
-    except ImportError as e:
-        logger.warning(f"⚠️ Unicorn.lu: {e}")
-
-    # ============================================
-    # NOUVEAUX SITES
-    # ============================================
-
-    # Wortimmo.lu
-    try:
-        from scrapers.wortimmo_scraper import wortimmo_scraper
-        scrapers_config.append(('📰 Wortimmo.lu', wortimmo_scraper))
-        logger.info("✅ Wortimmo.lu")
-    except ImportError as e:
-        logger.warning(f"⚠️ Wortimmo.lu: {e}")
-
-    # Immoweb.be (Luxembourg)
-    try:
-        from scrapers.immoweb_scraper import immoweb_scraper
-        scrapers_config.append(('🇧🇪 Immoweb.be', immoweb_scraper))
-        logger.info("✅ Immoweb.be")
-    except ImportError as e:
-        logger.warning(f"⚠️ Immoweb.be: {e}")
 
     # Nextimmo.lu
     try:
