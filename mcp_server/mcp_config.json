@@ -1,0 +1,60 @@
+{
+  "_comment": "Configuration Claude Desktop / Claude Code pour Immo-Bot Luxembourg MCP Server",
+  "_usage": "Copier le bloc 'mcpServers' dans ~/.config/claude/claude_desktop_config.json",
+
+  "mcpServers": {
+    "immo-bot-luxembourg": {
+      "command": "python",
+      "args": [
+        "/home/user/immo-bot-luxembourg/mcp_server/mcp_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/home/user/immo-bot-luxembourg",
+        "MCP_LOG_LEVEL": "INFO"
+      }
+    }
+  },
+
+  "_alternatives": {
+    "_comment": "Alternatives selon votre environnement",
+
+    "avec_venv": {
+      "command": "/home/user/immo-bot-luxembourg/venv/bin/python",
+      "args": [
+        "/home/user/immo-bot-luxembourg/mcp_server/mcp_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/home/user/immo-bot-luxembourg"
+      }
+    },
+
+    "avec_python3_explicite": {
+      "command": "python3",
+      "args": [
+        "/home/user/immo-bot-luxembourg/mcp_server/mcp_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "/home/user/immo-bot-luxembourg",
+        "MCP_LOG_LEVEL": "DEBUG"
+      }
+    },
+
+    "avec_module": {
+      "command": "python",
+      "args": [
+        "-m", "mcp_server.mcp_server"
+      ],
+      "env": {
+        "PYTHONPATH": "/home/user/immo-bot-luxembourg"
+      }
+    }
+  },
+
+  "_setup_steps": [
+    "1. pip install mcp>=1.0.0",
+    "2. Copier le bloc 'mcpServers' dans ~/.config/claude/claude_desktop_config.json",
+    "3. Redémarrer Claude Desktop ou Claude Code",
+    "4. Vérifier avec: test_connection()",
+    "5. Premier test: get_stats()"
+  ]
+}

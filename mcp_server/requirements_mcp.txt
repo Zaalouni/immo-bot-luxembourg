@@ -1,0 +1,24 @@
+# =============================================================================
+# requirements_mcp.txt — Dépendances du serveur MCP Immo-Bot Luxembourg
+# =============================================================================
+# Installation: pip install -r mcp_server/requirements_mcp.txt
+#
+# Le serveur MCP s'appuie sur les mêmes dépendances que le bot principal
+# (requirements.txt à la racine) + le SDK MCP d'Anthropic.
+# =============================================================================
+
+# --- SDK MCP Anthropic (OBLIGATOIRE) ---
+mcp>=1.0.0                  # Model Context Protocol Python SDK
+
+# --- Dépendances héritées du bot principal (déjà dans requirements.txt) ---
+requests>=2.28.0            # HTTP pour test_connection Telegram
+python-dotenv>=0.21.0       # Chargement du .env
+beautifulsoup4>=4.11.0      # Parsing HTML (scrapers)
+
+# --- Optionnel: transport HTTP (si MCP_TRANSPORT=http) ---
+# httpx>=0.24.0             # Client HTTP async (pour mode HTTP)
+# uvicorn>=0.20.0           # Serveur ASGI (pour mode HTTP)
+
+# --- Développement et tests ---
+pytest>=7.0.0               # Tests unitaires
+pytest-asyncio>=0.21.0      # Tests async
