@@ -1,7 +1,8 @@
-// Helper to get data URL with proper base path for GitHub Pages
+// Helper to get data URL - hardcoded for GitHub Pages
+const API_BASE = 'https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/dist/';
+
 function getDataUrl(filename) {
-  const baseUrl = import.meta.env.BASE_URL || '/'
-  return new URL(`data/${filename}`, baseUrl).href
+  return `${API_BASE}data/${filename}`
 }
 
 export async function loadAll(listingsStore, statsStore) {
