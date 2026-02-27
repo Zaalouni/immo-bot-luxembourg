@@ -8,10 +8,15 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout main branch
@@ -49,7 +54,7 @@ jobs:
 
       - name: Create docs folder for GitHub Pages
         run: |
-          echo "=== Setting up GitHub Pages deployment ==="
+          echo "=== Setting up GitHub Pages deployment from /docs ==="
           rm -rf docs
           mkdir -p docs/dashboards2/assets docs/dashboards2/data docs/dashboards
 
@@ -69,33 +74,31 @@ jobs:
           # Create .nojekyll to disable Jekyll processing
           touch docs/.nojekyll
 
-          echo "✅ Files deployed to docs/ folder:"
+          echo "✅ Files prepared for GitHub Pages:"
           find docs -type f | wc -l
           echo "   total files"
-          find docs -type f -name "*.json" -o -name "*.js" -o -name "*.html" | sort
 
-      - name: Commit changes
-        run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions"
-          git add docs/
-          git add dashboards/
-          git add dashboards2/dist/
-          git commit -m "build: Update dashboards - $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
-      - name: Push changes
-        run: |
-          git push origin main || echo "Already up to date"
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: 'docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
 
       - name: Summary
         run: |
-          echo "✅ [OK] Dashboards built and committed successfully!"
+          echo "✅ [OK] Dashboards built and deployed successfully!"
           echo ""
-          echo "📊 GitHub Pages will serve from /docs/ folder:"
+          echo "📊 Available at GitHub Pages:"
           echo "  [Dashboard 1] https://zaalouni.github.io/immo-bot-luxembourg/dashboards/index.html"
           echo "  [Dashboard 2] https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/index.html"
           echo ""
-          echo "⚙️  Configuration:"
+          echo "⚙️  Deployment Configuration:"
+          echo "  - Method: GitHub Actions official Pages deployment"
+          echo "  - Source: /docs folder"
           echo "  - Branch: main"
-          echo "  - Source: /docs"
-          echo "  - Build: Dashboard2 (npm), Dashboard1 (python)"
