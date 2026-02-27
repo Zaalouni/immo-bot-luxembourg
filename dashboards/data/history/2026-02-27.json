@@ -2,16 +2,16 @@
   "date": "2026-02-27",
   "generated_at": "27/02/2026 11:52",
   "stats": {
-    "total": 112,
-    "avg_price": 2193,
+    "total": 114,
+    "avg_price": 2187,
     "min_price": 1400,
     "max_price": 2500,
-    "avg_surface": 98,
-    "cities": 61,
+    "avg_surface": 97,
+    "cities": 63,
     "sites": {
+      "VIVI.lu": 13,
+      "Athome.lu": 68,
       "Nextimmo.lu": 20,
-      "VIVI.lu": 12,
-      "Athome.lu": 67,
       "SothebysRealty.lu": 5,
       "Newimmo.lu": 5,
       "Immotop.lu": 2,
@@ -147,6 +147,16 @@
         "city": "Lallange",
         "count": 2,
         "avg_price": 2075
+      },
+      {
+        "city": "Bastendorf",
+        "count": 1,
+        "avg_price": 1600
+      },
+      {
+        "city": "Howald",
+        "count": 1,
+        "avg_price": 2100
       },
       {
         "city": "Mondorf-les-Bains",
@@ -326,12 +336,42 @@
     ],
     "by_price_range": {
       "< 1500": 1,
-      "1500 - 2000": 26,
-      "2000 - 2500": 69,
+      "1500 - 2000": 27,
+      "2000 - 2500": 70,
       "> 2500": 16
     }
   },
   "listings": [
+    {
+      "listing_id": "vivi_212688",
+      "site": "VIVI.lu",
+      "title": "Appartement 2 chambres à louer",
+      "city": "Bastendorf",
+      "price": 1600,
+      "rooms": 2,
+      "surface": 91,
+      "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/bastendorf/appartement-2-chambres-a-louer/212688",
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-27 10:52:33",
+      "price_m2": 17.6
+    },
+    {
+      "listing_id": "athome_7901304",
+      "site": "Athome.lu",
+      "title": "En location, beau appartement de 80 m2 avec 2 chambres à coucher, 2 ba",
+      "city": "Howald",
+      "price": 2100,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://www.athome.lu/location/appartement/howald/id-7901304.html",
+      "latitude": 49.5883423,
+      "longitude": 6.1448228,
+      "distance_km": 1.5,
+      "created_at": "2026-02-27 10:52:27",
+      "price_m2": 26.2
+    },
     {
       "listing_id": "nextimmo_16052",
       "site": "Nextimmo.lu",
