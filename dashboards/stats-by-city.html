@@ -266,7 +266,10 @@
             <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-cards">📊 Cartes</button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-table">📋 Tableau</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-table">📋 Par Ville</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-listings">📝 Toutes les Annonces</button>
         </li>
     </ul>
 
@@ -277,7 +280,7 @@
             <div class="cities-grid" id="citiesGrid"></div>
         </div>
 
-        <!-- Tab 2: Table -->
+        <!-- Tab 2: Table Par Ville -->
         <div class="tab-pane fade" id="tab-table">
             <div style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1rem; overflow-x: auto;">
                 <table class="table table-hover mb-0" id="statsTable">
@@ -285,14 +288,28 @@
                         <tr>
                             <th>Ville</th>
                             <th>Annonces</th>
-                            <th>Prix Moyen</th>
-                            <th>Min</th>
-                            <th>Max</th>
-                            <th>Surface Avg</th>
-                            <th>Chambres Avg</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 3: All Listings -->
+        <div class="tab-pane fade" id="tab-listings">
+            <div style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1rem; overflow-x: auto;">
+                <table class="table table-hover mb-0" id="listingsTable">
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Ville</th>
+                            <th>Prix</th>
+                            <th>Chambres</th>
+                            <th>Surface</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listingsBody"></tbody>
                 </table>
             </div>
         </div>
@@ -365,6 +382,7 @@
 
         renderCities();
         renderTable();
+        renderListings();
     }
 
     function filterCities() {
@@ -382,29 +400,9 @@
             return `
                 <div class="city-card">
                     <div class="city-name">📍 ${city}</div>
-                    <div class="stats-row">
+                    <div class="stats-row" style="border-bottom: none;">
                         <span>Annonces:</span>
                         <strong>${stats.count}</strong>
-                    </div>
-                    <div class="stats-row">
-                        <span>Prix Moyen:</span>
-                        <strong>${stats.avgPrice.toLocaleString('fr-FR')}€</strong>
-                    </div>
-                    <div class="stats-row">
-                        <span>Prix Min:</span>
-                        <strong>${stats.minPrice.toLocaleString('fr-FR')}€</strong>
-                    </div>
-                    <div class="stats-row">
-                        <span>Prix Max:</span>
-                        <strong>${stats.maxPrice.toLocaleString('fr-FR')}€</strong>
-                    </div>
-                    <div class="stats-row">
-                        <span>Surface Avg:</span>
-                        <strong>${stats.avgSurface}m²</strong>
-                    </div>
-                    <div class="stats-row" style="border-bottom: none;">
-                        <span>Chambres Avg:</span>
-                        <strong>${stats.avgRooms}</strong>
                     </div>
                 </div>
             `;
@@ -419,14 +417,23 @@
                 <tr>
                     <td><strong>${city}</strong></td>
                     <td>${stats.count}</td>
-                    <td>${stats.avgPrice.toLocaleString('fr-FR')}€</td>
-                    <td>${stats.minPrice.toLocaleString('fr-FR')}€</td>
-                    <td>${stats.maxPrice.toLocaleString('fr-FR')}€</td>
-                    <td>${stats.avgSurface}m²</td>
-                    <td>${stats.avgRooms}</td>
                 </tr>
             `;
         }).join('');
+    }
+
+    function renderListings() {
+        const tbody = document.getElementById('listingsBody');
+        tbody.innerHTML = LISTINGS.map(l => `
+            <tr>
+                <td><strong>${l.title.substring(0, 40)}</strong></td>
+                <td>${l.city}</td>
+                <td>${l.price.toLocaleString('fr-FR')}€</td>
+                <td>${l.rooms}</td>
+                <td>${l.surface}m²</td>
+                <td><a href="${l.url}" target="_blank" class="btn btn-sm btn-primary">Voir</a></td>
+            </tr>
+        `).join('');
     }
 
     // ==================== SERVICE WORKER ====================
