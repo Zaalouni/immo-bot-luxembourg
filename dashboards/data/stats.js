@@ -1,15 +1,18 @@
-// Genere le 27/02/2026 16:40
+// Genere le 27/02/2026 18:46
 const STATS = {
-  "total": 114,
-  "avg_price": 2187,
+  "total": 122,
+  "avg_price": 2185,
   "min_price": 1400,
   "max_price": 2500,
-  "avg_surface": 97,
-  "cities": 63,
+  "avg_surface": 108,
+  "cities": 65,
   "sites": {
-    "VIVI.lu": 13,
-    "Athome.lu": 68,
-    "Nextimmo.lu": 20,
+    "Remax.lu": 2,
+    "PropertyInvest.lu": 1,
+    "Rockenbrod.lu": 1,
+    "Nextimmo.lu": 21,
+    "Athome.lu": 70,
+    "VIVI.lu": 14,
     "SothebysRealty.lu": 5,
     "Newimmo.lu": 5,
     "Immotop.lu": 2,
@@ -18,13 +21,23 @@ const STATS = {
   "by_city": [
     {
       "city": "Luxembourg",
-      "count": 7,
-      "avg_price": 1767
+      "count": 8,
+      "avg_price": 1808
     },
     {
       "city": "Luxembourg-Belair",
       "count": 6,
       "avg_price": 2304
+    },
+    {
+      "city": "Mamer",
+      "count": 5,
+      "avg_price": 2270
+    },
+    {
+      "city": "Luxembourg-Hollerich",
+      "count": 5,
+      "avg_price": 2240
     },
     {
       "city": "Bertrange",
@@ -42,14 +55,14 @@ const STATS = {
       "avg_price": 2187
     },
     {
-      "city": "Luxembourg-Hollerich",
-      "count": 4,
-      "avg_price": 2225
+      "city": "Bettembourg",
+      "count": 3,
+      "avg_price": 2350
     },
     {
-      "city": "Mamer",
-      "count": 4,
-      "avg_price": 2300
+      "city": "Dudelange",
+      "count": 3,
+      "avg_price": 2166
     },
     {
       "city": "Schouweiler",
@@ -72,14 +85,14 @@ const STATS = {
       "avg_price": 2316
     },
     {
+      "city": "Luxembourg-Eich",
+      "count": 2,
+      "avg_price": 2425
+    },
+    {
       "city": "Luxembourg-Dommeldange",
       "count": 2,
       "avg_price": 2062
-    },
-    {
-      "city": "Bettembourg",
-      "count": 2,
-      "avg_price": 2475
     },
     {
       "city": "Olm",
@@ -117,11 +130,6 @@ const STATS = {
       "avg_price": 2375
     },
     {
-      "city": "Dudelange",
-      "count": 2,
-      "avg_price": 2300
-    },
-    {
       "city": "Pétange",
       "count": 2,
       "avg_price": 2275
@@ -145,6 +153,16 @@ const STATS = {
       "city": "Lallange",
       "count": 2,
       "avg_price": 2075
+    },
+    {
+      "city": "Bereldange",
+      "count": 1,
+      "avg_price": 2300
+    },
+    {
+      "city": "Cents",
+      "count": 1,
+      "avg_price": 2000
     },
     {
       "city": "Bastendorf",
@@ -257,11 +275,6 @@ const STATS = {
       "avg_price": 2250
     },
     {
-      "city": "Luxembourg-Eich",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
       "city": "Strassen",
       "count": 1,
       "avg_price": 2350
@@ -334,17 +347,20 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 1,
-    "1500 - 2000": 27,
-    "2000 - 2500": 70,
+    "1500 - 2000": 28,
+    "2000 - 2500": 77,
     "> 2500": 16
   }
 };
 const SITE_COLORS = {
-  "VIVI.lu": "#FF6384",
-  "Athome.lu": "#36A2EB",
-  "Nextimmo.lu": "#FFCE56",
-  "SothebysRealty.lu": "#4BC0C0",
-  "Newimmo.lu": "#9966FF",
-  "Immotop.lu": "#FF9F40",
-  "Floor.lu": "#2ECC71"
+  "Remax.lu": "#FF6384",
+  "PropertyInvest.lu": "#36A2EB",
+  "Rockenbrod.lu": "#FFCE56",
+  "Nextimmo.lu": "#4BC0C0",
+  "Athome.lu": "#9966FF",
+  "VIVI.lu": "#FF9F40",
+  "SothebysRealty.lu": "#2ECC71",
+  "Newimmo.lu": "#E74C3C",
+  "Immotop.lu": "#3498DB",
+  "Floor.lu": "#FF6384"
 };
