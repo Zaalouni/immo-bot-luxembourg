@@ -1,3 +1,9 @@
+// Helper to get data URL with proper base path for GitHub Pages
+function getDataUrl(filename) {
+  const baseUrl = import.meta.env.BASE_URL || '/'
+  return new URL(`data/${filename}`, baseUrl).href
+}
+
 export async function loadAll(listingsStore, statsStore) {
   try {
     const [listings, statsData, anomalies, marketStats] = await Promise.all([
@@ -20,14 +26,14 @@ export async function loadAll(listingsStore, statsStore) {
 }
 
 export async function loadListings() {
-  const response = await fetch('./data/listings.json')
+  const response = await fetch(getDataUrl('listings.json'))
   if (!response.ok) throw new Error('Failed to load listings')
   return response.json()
 }
 
 export async function loadStats() {
   try {
-    const response = await fetch('./data/stats.js')
+    const response = await fetch(getDataUrl('stats.js'))
     const text = await response.text()
     // Extract STATS object from: const STATS = {...}
     const match = text.match(/const\s+STATS\s*=\s*({[\s\S]*?});/)
@@ -41,7 +47,7 @@ export async function loadStats() {
 
 export async function loadAnomalies() {
   try {
-    const response = await fetch('./data/anomalies.js')
+    const response = await fetch(getDataUrl('anomalies.js'))
     const text = await response.text()
     // Extract ANOMALIES object from: const ANOMALIES = {...}
     const match = text.match(/const\s+ANOMALIES\s*=\s*({[\s\S]*?});/)
@@ -57,7 +63,7 @@ export async function loadAnomalies() {
 
 export async function loadMarketStats() {
   try {
-    const response = await fetch('./data/market-stats.js')
+    const response = await fetch(getDataUrl('market-stats.js'))
     const text = await response.text()
     // Extract MARKET_STATS object from: const MARKET_STATS = {...}
     const match = text.match(/const\s+MARKET_STATS\s*=\s*({[\s\S]*?});/)
