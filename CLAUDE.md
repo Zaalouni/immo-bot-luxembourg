@@ -12,7 +12,7 @@
 - ✅ Tous les commandes locales auto-approvées
 - ✅ Test python, grep, curl, tous les outils → AUTORISÉ
 - ✅ Build, test, generate dashboards → AUTORISÉ
-- 🔒 **AUCUN PUSH À GITHUB** (git push COMPLÈTEMENT INTERDIT)
+- 🔒 **AUCUN PUSH À GITHUB** (sauf dashboards/ folder) - push uniquement le dossier dashboards/
 - 📌 Fonctionne comme environnement de production local
 - 📋 **PLAN OBLIGATOIRE** avant de commencer les travaux
 
@@ -53,21 +53,21 @@ git push ...                      # ❌ JAMAIS AUCUN PUSH!
 
 ## 🟢 PERMISSIONS AUTOMATIQUES (Sans validation)
 
-### Git Operations (AUTO-APPROVED - SAUF PUSH)
+### Git Operations (AUTO-APPROVED)
 
 ```bash
 git add .                          # ✅ Ajouter tous les fichiers
-git add dashboards2/              # ✅ Ajouter Dashboard2
-git add dashboards/               # ✅ Ajouter Dashboard original
+git add dashboards/                # ✅ Ajouter dashboards
 git add CLAUDE.md                 # ✅ Ajouter config
 git add *.md                      # ✅ Ajouter docs
 git add *.py                      # ✅ Ajouter scripts Python
 git status                        # ✅ Vérifier état
 git log --oneline -10             # ✅ Voir historique
-git commit -m "message"           # ✅ Créer commit (local)
+git commit -m "message"           # ✅ Créer commit
 git stash                         # ✅ Stash changements
-git push origin main              # ❌ INTERDIT - PAS DE PUSH À GITHUB
-git push ...                      # ❌ INTERDIT - AUCUN PUSH
+git push origin main -- dashboards/  # ✅ AUTORISÉ - Push dashboards/ uniquement
+git push origin main              # ❌ INTERDIT - PAS DE PUSH (autres dossiers)
+git push ...                      # ❌ INTERDIT - AUCUN PUSH (autres)
 ```
 
 ### Build & Package Commands (AUTO-APPROVED)
@@ -147,46 +147,50 @@ nano .env                         # ❌ MODIFIER SECRETS
 
 ---
 
-## 🚫 RÈGLE CRITIQUE — AUCUN PUSH À GITHUB
+## 🚫 RÈGLE CRITIQUE — PUSH AUTORISÉ UNIQUEMENT POUR dashboards/
 
-### ❌ GIT PUSH COMPLÈTEMENT INTERDIT
+### ✅ GIT PUSH AUTORISÉ - DASHBOARDS/ UNIQUEMENT
 
 ```bash
-git push origin main              # ❌ JAMAIS! (serveur local only)
-git push origin develop           # ❌ JAMAIS!
-git push ...                      # ❌ AUCUN PUSH (peu importe le dossier)
+git push origin main -- dashboards/    # ✅ AUTORISÉ - Push dashboards/ à GitHub Pages
+git push origin main                   # ❌ JAMAIS! (autres fichiers/dossiers)
+git push origin develop                # ❌ JAMAIS!
+git push ...                           # ❌ AUCUN PUSH (autres dossiers)
 ```
 
 ### ✅ CE QUI EST AUTORISÉ
 
 ```bash
-git add dashboards2/              # ✅ Ajouter fichiers
-git add dashboards/               # ✅ Ajouter fichiers
+git add dashboards/               # ✅ Ajouter fichiers dashboards
+git add CLAUDE.md                 # ✅ Ajouter config
 git add *.md *.py                 # ✅ Ajouter docs/scripts
-git commit -m "message"           # ✅ Commit LOCAL
+git commit -m "message"           # ✅ Créer commit
 git status                        # ✅ Vérifier état
 git log                           # ✅ Voir historique
+git push origin main -- dashboards/   # ✅ Push dashboards/ uniquement
 ```
 
-### 🎯 Workflow LOCAL ONLY
+### 🎯 Workflow - Push dashboards/ à GitHub Pages
 
 ```bash
-# Travailler EN LOCAL - pas de push:
+# 1. Travailler localement
 git status                        # Vérifier état local
 
-# Ajouter modifications locales
-git add dashboards2/
+# 2. Ajouter modifications au dashboards/
 git add dashboards/
-git add *.py *.md
+git add CLAUDE.md
 
-# Tester OBLIGATOIREMENT avant commit
+# 3. Tester OBLIGATOIREMENT avant commit
 python -m pytest test_dashboard_regression.py -v
 
-# Commit LOCAL (pas de push!)
+# 4. Commit
 git commit -m "fix: description"
 
-# ❌ STOP - NE PAS POUSSER!
-# Les changements restent EN LOCAL sur ce serveur
+# 5. ✅ PUSH AUTORISÉ POUR dashboards/ UNIQUEMENT
+git push origin main -- dashboards/
+
+# Pour autres fichiers/dossiers:
+# ❌ Ne JAMAIS pousser (autres dossiers restent en LOCAL)
 ```
 
 ---
@@ -236,16 +240,17 @@ build_cmd: npm run build (in dashboards2/)
 
 ---
 
-## 📋 RÉSUMÉ RAPIDE (LOCAL WORK ONLY)
+## 📋 RÉSUMÉ RAPIDE (dashboards/ Push Autorisé)
 
 | Action | Auto? | Notes |
 |--------|-------|-------|
-| `git add dashboards2/` | ✅ | Toujours |
 | `git add dashboards/` | ✅ | Toujours |
+| `git add CLAUDE.md` | ✅ | Config |
 | `git add *.md *.py` | ✅ | Docs & scripts |
 | `git commit` | ✅ | Commit LOCAL |
-| `git push origin main` | ❌ | JAMAIS! Pas de push |
-| `git push ...` | ❌ | JAMAIS! Aucun push |
+| `git push origin main -- dashboards/` | ✅ | Push dashboards/ seulement |
+| `git push origin main` | ❌ | JAMAIS! (autres fichiers) |
+| `git push ...` | ❌ | JAMAIS! (autres dossiers) |
 | `npm run build` | ✅ | Toujours |
 | `npm install` | ✅ | Toujours |
 | `python dashboard_generator.py` | ✅ | Toujours |
