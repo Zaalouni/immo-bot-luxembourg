@@ -1,0 +1,4398 @@
+{
+  "date": "2026-02-24",
+  "generated_at": "24/02/2026 23:53",
+  "stats": {
+    "total": 130,
+    "avg_price": 2080,
+    "min_price": 1300,
+    "max_price": 2500,
+    "avg_surface": 105,
+    "cities": 77,
+    "sites": {
+      "SothebysRealty.lu": 4,
+      "Nextimmo.lu": 24,
+      "Newimmo.lu": 5,
+      "VIVI.lu": 6,
+      "Immotop.lu": 3,
+      "Athome.lu": 88
+    },
+    "by_city": [
+      {
+        "city": "arlon",
+        "count": 6,
+        "avg_price": 1566
+      },
+      {
+        "city": "luxembourg belair",
+        "count": 6,
+        "avg_price": 2304
+      },
+      {
+        "city": "bertrange",
+        "count": 4,
+        "avg_price": 2100
+      },
+      {
+        "city": "perl",
+        "count": 4,
+        "avg_price": 1900
+      },
+      {
+        "city": "rodange",
+        "count": 3,
+        "avg_price": 2076
+      },
+      {
+        "city": "messancy",
+        "count": 3,
+        "avg_price": 1666
+      },
+      {
+        "city": "mamer",
+        "count": 3,
+        "avg_price": 2300
+      },
+      {
+        "city": "esch sur alzette",
+        "count": 3,
+        "avg_price": 2016
+      },
+      {
+        "city": "bridel",
+        "count": 3,
+        "avg_price": 2116
+      },
+      {
+        "city": "senningerberg",
+        "count": 3,
+        "avg_price": 2196
+      },
+      {
+        "city": "luxembourg hollerich",
+        "count": 3,
+        "avg_price": 2216
+      },
+      {
+        "city": "luxembourg limpertsberg",
+        "count": 3,
+        "avg_price": 1866
+      },
+      {
+        "city": "luxembourg gare",
+        "count": 3,
+        "avg_price": 2446
+      },
+      {
+        "city": "luxembourg kirchberg",
+        "count": 3,
+        "avg_price": 2316
+      },
+      {
+        "city": "luxembourg centre ville",
+        "count": 3,
+        "avg_price": 2416
+      },
+      {
+        "city": "luxembourg",
+        "count": 2,
+        "avg_price": 1700
+      },
+      {
+        "city": "bettembourg",
+        "count": 2,
+        "avg_price": 2475
+      },
+      {
+        "city": "garnich",
+        "count": 2,
+        "avg_price": 2350
+      },
+      {
+        "city": "belvaux",
+        "count": 2,
+        "avg_price": 2300
+      },
+      {
+        "city": "cattenom",
+        "count": 2,
+        "avg_price": 1715
+      },
+      {
+        "city": "junglinster",
+        "count": 2,
+        "avg_price": 2225
+      },
+      {
+        "city": "hautcharage",
+        "count": 2,
+        "avg_price": 1915
+      },
+      {
+        "city": "grevenmacher",
+        "count": 2,
+        "avg_price": 2100
+      },
+      {
+        "city": "dudelange",
+        "count": 2,
+        "avg_price": 2300
+      },
+      {
+        "city": "petange",
+        "count": 2,
+        "avg_price": 2275
+      },
+      {
+        "city": "lallange",
+        "count": 2,
+        "avg_price": 2075
+      },
+      {
+        "city": "reuler",
+        "count": 2,
+        "avg_price": 1850
+      },
+      {
+        "city": "habscht",
+        "count": 2,
+        "avg_price": 1750
+      },
+      {
+        "city": "alzingen",
+        "count": 2,
+        "avg_price": 2375
+      },
+      {
+        "city": "luxembourg bonnevoie",
+        "count": 2,
+        "avg_price": 2275
+      },
+      {
+        "city": "bivange&nbsp;",
+        "count": 1,
+        "avg_price": 1400
+      },
+      {
+        "city": "schieren&nbsp;",
+        "count": 1,
+        "avg_price": 2500
+      },
+      {
+        "city": "strassen&nbsp;",
+        "count": 1,
+        "avg_price": 2150
+      },
+      {
+        "city": "mondorf les bains",
+        "count": 1,
+        "avg_price": 2500
+      },
+      {
+        "city": "tetange",
+        "count": 1,
+        "avg_price": 2450
+      },
+      {
+        "city": "olm",
+        "count": 1,
+        "avg_price": 2300
+      },
+      {
+        "city": "weiler la tour",
+        "count": 1,
+        "avg_price": 2500
+      },
+      {
+        "city": "christnach",
+        "count": 1,
+        "avg_price": 1750
+      },
+      {
+        "city": "hettange grande",
+        "count": 1,
+        "avg_price": 1410
+      },
+      {
+        "city": "weydig",
+        "count": 1,
+        "avg_price": 1950
+      },
+      {
+        "city": "palzem",
+        "count": 1,
+        "avg_price": 1480
+      },
+      {
+        "city": "gonderange",
+        "count": 1,
+        "avg_price": 2200
+      },
+      {
+        "city": "hassel",
+        "count": 1,
+        "avg_price": 1850
+      },
+      {
+        "city": "schifflange",
+        "count": 1,
+        "avg_price": 1800
+      },
+      {
+        "city": "steinsel",
+        "count": 1,
+        "avg_price": 2250
+      },
+      {
+        "city": "thil",
+        "count": 1,
+        "avg_price": 1340
+      },
+      {
+        "city": "aubange",
+        "count": 1,
+        "avg_price": 1350
+      },
+      {
+        "city": "schengen",
+        "count": 1,
+        "avg_price": 1700
+      },
+      {
+        "city": "athus",
+        "count": 1,
+        "avg_price": 1350
+      },
+      {
+        "city": "perl perl",
+        "count": 1,
+        "avg_price": 1400
+      },
+      {
+        "city": "luxembourg hamm",
+        "count": 1,
+        "avg_price": 1890
+      },
+      {
+        "city": "luxembourg pfaffenthal",
+        "count": 1,
+        "avg_price": 2200
+      },
+      {
+        "city": "luxembourg neudorf",
+        "count": 1,
+        "avg_price": 2000
+      },
+      {
+        "city": "filsdorf",
+        "count": 1,
+        "avg_price": 2350
+      },
+      {
+        "city": "weiswampach",
+        "count": 1,
+        "avg_price": 1500
+      },
+      {
+        "city": "luxembourg weimerskirch",
+        "count": 1,
+        "avg_price": 2200
+      },
+      {
+        "city": "hesperange",
+        "count": 1,
+        "avg_price": 2400
+      },
+      {
+        "city": "luxembourg gasperich   cloche dor",
+        "count": 1,
+        "avg_price": 2250
+      },
+      {
+        "city": "luxembourg eich",
+        "count": 1,
+        "avg_price": 2500
+      },
+      {
+        "city": "strassen",
+        "count": 1,
+        "avg_price": 2350
+      },
+      {
+        "city": "sprinkange",
+        "count": 1,
+        "avg_price": 2100
+      },
+      {
+        "city": "luxembourg merl",
+        "count": 1,
+        "avg_price": 2300
+      },
+      {
+        "city": "bissen",
+        "count": 1,
+        "avg_price": 2000
+      },
+      {
+        "city": "belval",
+        "count": 1,
+        "avg_price": 2375
+      },
+      {
+        "city": "luxembourg cessange",
+        "count": 1,
+        "avg_price": 2500
+      },
+      {
+        "city": "differdange",
+        "count": 1,
+        "avg_price": 2100
+      },
+      {
+        "city": "oberkorn",
+        "count": 1,
+        "avg_price": 1750
+      },
+      {
+        "city": "luxembourg dommeldange",
+        "count": 1,
+        "avg_price": 2450
+      },
+      {
+        "city": "helmsange",
+        "count": 1,
+        "avg_price": 2500
+      },
+      {
+        "city": "remich",
+        "count": 1,
+        "avg_price": 2500
+      },
+      {
+        "city": "schouweiler",
+        "count": 1,
+        "avg_price": 2390
+      },
+      {
+        "city": "eischen",
+        "count": 1,
+        "avg_price": 1600
+      },
+      {
+        "city": "rollingen",
+        "count": 1,
+        "avg_price": 2150
+      },
+      {
+        "city": "brouch (mersch)",
+        "count": 1,
+        "avg_price": 2400
+      },
+      {
+        "city": "hobscheid",
+        "count": 1,
+        "avg_price": 1900
+      },
+      {
+        "city": "kahler",
+        "count": 1,
+        "avg_price": 2300
+      },
+      {
+        "city": "contern",
+        "count": 1,
+        "avg_price": 2400
+      }
+    ],
+    "by_price_range": {
+      "< 1500": 14,
+      "1500 - 2000": 32,
+      "2000 - 2500": 69,
+      "> 2500": 15
+    },
+    "data_quality": {
+      "completeness": 95,
+      "with_gps": 123,
+      "with_price": 130,
+      "with_surface": 118,
+      "total": 130
+    },
+    "anomalies": {
+      "extreme_prices": [],
+      "count": 0
+    },
+    "price_heatmap": [
+      {
+        "city": "mondorf les bains",
+        "lat": 49.50185,
+        "lng": 6.27573,
+        "avg_price_m2": 14.3,
+        "count": 1
+      },
+      {
+        "city": "bettembourg",
+        "lat": 49.52,
+        "lng": 6.105,
+        "avg_price_m2": 19.1,
+        "count": 2
+      },
+      {
+        "city": "tetange",
+        "lat": 49.47374,
+        "lng": 6.03998,
+        "avg_price_m2": 23.8,
+        "count": 1
+      },
+      {
+        "city": "olm",
+        "lat": 49.65509,
+        "lng": 5.99296,
+        "avg_price_m2": 28.8,
+        "count": 1
+      },
+      {
+        "city": "rodange",
+        "lat": 49.54524,
+        "lng": 5.83908,
+        "avg_price_m2": 20.6,
+        "count": 3
+      },
+      {
+        "city": "bertrange",
+        "lat": 49.61,
+        "lng": 6.05,
+        "avg_price_m2": 24.7,
+        "count": 3
+      },
+      {
+        "city": "weiler la tour",
+        "lat": 49.54,
+        "lng": 6.19,
+        "avg_price_m2": 19.2,
+        "count": 1
+      },
+      {
+        "city": "garnich",
+        "lat": 49.61,
+        "lng": 5.96,
+        "avg_price_m2": 24.5,
+        "count": 1
+      },
+      {
+        "city": "christnach",
+        "lat": 49.7880278,
+        "lng": 6.2675721,
+        "avg_price_m2": 20.6,
+        "count": 1
+      },
+      {
+        "city": "messancy",
+        "lat": 49.6080933,
+        "lng": 5.849097299999999,
+        "avg_price_m2": 9.4,
+        "count": 3
+      },
+      {
+        "city": "arlon",
+        "lat": 49.6829691,
+        "lng": 5.8075929,
+        "avg_price_m2": 9.5,
+        "count": 6
+      },
+      {
+        "city": "hettange grande",
+        "lat": 49.4059136,
+        "lng": 6.1554768,
+        "avg_price_m2": 15.5,
+        "count": 1
+      },
+      {
+        "city": "belvaux",
+        "lat": 49.5043347,
+        "lng": 5.9214334,
+        "avg_price_m2": 20.4,
+        "count": 2
+      },
+      {
+        "city": "weydig",
+        "lat": 49.7117967,
+        "lng": 6.367479899999999,
+        "avg_price_m2": 13.0,
+        "count": 1
+      },
+      {
+        "city": "palzem",
+        "lat": 49.5541335,
+        "lng": 6.4085363,
+        "avg_price_m2": 15.6,
+        "count": 1
+      },
+      {
+        "city": "cattenom",
+        "lat": 49.406263,
+        "lng": 6.243668,
+        "avg_price_m2": 11.4,
+        "count": 2
+      },
+      {
+        "city": "mamer",
+        "lat": 49.6270927,
+        "lng": 6.0146129,
+        "avg_price_m2": 24.6,
+        "count": 3
+      },
+      {
+        "city": "junglinster",
+        "lat": 49.71,
+        "lng": 6.25,
+        "avg_price_m2": 22.4,
+        "count": 2
+      },
+      {
+        "city": "hautcharage",
+        "lat": 49.5771,
+        "lng": 5.90988,
+        "avg_price_m2": 17.8,
+        "count": 2
+      },
+      {
+        "city": "gonderange",
+        "lat": 49.69,
+        "lng": 6.25,
+        "avg_price_m2": 23.2,
+        "count": 1
+      },
+      {
+        "city": "esch sur alzette",
+        "lat": 49.502401,
+        "lng": 5.9721782,
+        "avg_price_m2": 22.0,
+        "count": 3
+      },
+      {
+        "city": "hassel",
+        "lat": 49.55093489999999,
+        "lng": 6.2076007,
+        "avg_price_m2": 21.5,
+        "count": 1
+      },
+      {
+        "city": "grevenmacher",
+        "lat": 49.6773648,
+        "lng": 6.4402066,
+        "avg_price_m2": 20.9,
+        "count": 2
+      },
+      {
+        "city": "bridel",
+        "lat": 49.6567235,
+        "lng": 6.0823886,
+        "avg_price_m2": 23.9,
+        "count": 3
+      },
+      {
+        "city": "dudelange",
+        "lat": 49.48081,
+        "lng": 6.07795,
+        "avg_price_m2": 24.5,
+        "count": 2
+      },
+      {
+        "city": "petange",
+        "lat": 49.5570739,
+        "lng": 5.885361899999999,
+        "avg_price_m2": 25.4,
+        "count": 2
+      },
+      {
+        "city": "schifflange",
+        "lat": 49.5031753,
+        "lng": 6.000680099999999,
+        "avg_price_m2": 18.0,
+        "count": 1
+      },
+      {
+        "city": "steinsel",
+        "lat": 49.6750699,
+        "lng": 6.1377211,
+        "avg_price_m2": 26.5,
+        "count": 1
+      },
+      {
+        "city": "thil",
+        "lat": 49.4724674,
+        "lng": 5.9094834,
+        "avg_price_m2": 16.1,
+        "count": 1
+      },
+      {
+        "city": "aubange",
+        "lat": 49.5608954,
+        "lng": 5.808873,
+        "avg_price_m2": 11.4,
+        "count": 1
+      },
+      {
+        "city": "perl",
+        "lat": 49.4730674,
+        "lng": 6.3851003,
+        "avg_price_m2": 16.3,
+        "count": 4
+      },
+      {
+        "city": "senningerberg",
+        "lat": 49.6450986,
+        "lng": 6.2223386,
+        "avg_price_m2": 23.8,
+        "count": 3
+      },
+      {
+        "city": "schengen",
+        "lat": 49.47,
+        "lng": 6.37,
+        "avg_price_m2": 18.7,
+        "count": 1
+      },
+      {
+        "city": "athus",
+        "lat": 49.5573653,
+        "lng": 5.8377516,
+        "avg_price_m2": 14.5,
+        "count": 1
+      },
+      {
+        "city": "perl perl",
+        "lat": 49.4730674,
+        "lng": 6.3851003,
+        "avg_price_m2": 14.0,
+        "count": 1
+      },
+      {
+        "city": "lallange",
+        "lat": 49.5112992,
+        "lng": 5.9873939,
+        "avg_price_m2": 23.0,
+        "count": 2
+      },
+      {
+        "city": "luxembourg hamm",
+        "lat": 49.6116,
+        "lng": 6.1319,
+        "avg_price_m2": 23.3,
+        "count": 1
+      },
+      {
+        "city": "luxembourg hollerich",
+        "lat": 49.60034,
+        "lng": 6.12105,
+        "avg_price_m2": 27.2,
+        "count": 3
+      },
+      {
+        "city": "luxembourg belair",
+        "lat": 49.60751,
+        "lng": 6.10969,
+        "avg_price_m2": 23.2,
+        "count": 6
+      },
+      {
+        "city": "luxembourg pfaffenthal",
+        "lat": 49.6158,
+        "lng": 6.13289,
+        "avg_price_m2": 25.0,
+        "count": 1
+      },
+      {
+        "city": "luxembourg limpertsberg",
+        "lat": 49.6116,
+        "lng": 6.1319,
+        "avg_price_m2": 16.5,
+        "count": 2
+      },
+      {
+        "city": "luxembourg gare",
+        "lat": 49.6,
+        "lng": 6.1342,
+        "avg_price_m2": 28.6,
+        "count": 2
+      },
+      {
+        "city": "luxembourg weimerskirch",
+        "lat": 49.6254273,
+        "lng": 6.135935,
+        "avg_price_m2": 25.0,
+        "count": 1
+      },
+      {
+        "city": "alzingen",
+        "lat": 49.5712572,
+        "lng": 6.1637244,
+        "avg_price_m2": 28.5,
+        "count": 2
+      },
+      {
+        "city": "hesperange",
+        "lat": 49.5731206,
+        "lng": 6.161307000000001,
+        "avg_price_m2": 28.2,
+        "count": 1
+      },
+      {
+        "city": "luxembourg bonnevoie",
+        "lat": 49.59625699999999,
+        "lng": 6.1366508,
+        "avg_price_m2": 26.0,
+        "count": 2
+      },
+      {
+        "city": "luxembourg kirchberg",
+        "lat": 49.62977069999999,
+        "lng": 6.179113,
+        "avg_price_m2": 27.9,
+        "count": 3
+      },
+      {
+        "city": "luxembourg gasperich   cloche dor",
+        "lat": 49.5849,
+        "lng": 6.12475,
+        "avg_price_m2": 27.4,
+        "count": 1
+      },
+      {
+        "city": "luxembourg centre ville",
+        "lat": 49.6123327,
+        "lng": 6.1258432,
+        "avg_price_m2": 26.0,
+        "count": 3
+      },
+      {
+        "city": "luxembourg eich",
+        "lat": 49.6247615,
+        "lng": 6.1294726,
+        "avg_price_m2": 17.2,
+        "count": 1
+      },
+      {
+        "city": "strassen",
+        "lat": 49.6242968,
+        "lng": 6.0774257,
+        "avg_price_m2": 28.7,
+        "count": 1
+      },
+      {
+        "city": "sprinkange",
+        "lat": 49.5842339,
+        "lng": 5.9640686,
+        "avg_price_m2": 23.3,
+        "count": 1
+      },
+      {
+        "city": "luxembourg merl",
+        "lat": 49.6024497,
+        "lng": 6.1143973,
+        "avg_price_m2": 23.0,
+        "count": 1
+      },
+      {
+        "city": "bissen",
+        "lat": 49.771065,
+        "lng": 5.9816771,
+        "avg_price_m2": 24.7,
+        "count": 1
+      },
+      {
+        "city": "belval",
+        "lat": 49.5045503,
+        "lng": 5.9435467,
+        "avg_price_m2": 24.2,
+        "count": 1
+      },
+      {
+        "city": "luxembourg cessange",
+        "lat": 49.5872157,
+        "lng": 6.1061192,
+        "avg_price_m2": 27.8,
+        "count": 1
+      },
+      {
+        "city": "differdange",
+        "lat": 49.52075,
+        "lng": 5.8999095,
+        "avg_price_m2": 24.1,
+        "count": 1
+      },
+      {
+        "city": "oberkorn",
+        "lat": 49.53,
+        "lng": 5.89,
+        "avg_price_m2": 21.9,
+        "count": 1
+      },
+      {
+        "city": "luxembourg dommeldange",
+        "lat": 49.6391127,
+        "lng": 6.1376927,
+        "avg_price_m2": 22.3,
+        "count": 1
+      },
+      {
+        "city": "helmsange",
+        "lat": 49.6687138,
+        "lng": 6.1321495,
+        "avg_price_m2": 30.1,
+        "count": 1
+      },
+      {
+        "city": "remich",
+        "lat": 49.545017,
+        "lng": 6.3674222,
+        "avg_price_m2": 19.2,
+        "count": 1
+      },
+      {
+        "city": "schouweiler",
+        "lat": 49.5820512,
+        "lng": 5.955324099999999,
+        "avg_price_m2": 21.9,
+        "count": 1
+      },
+      {
+        "city": "eischen",
+        "lat": 49.6799401,
+        "lng": 5.8782811,
+        "avg_price_m2": 16.2,
+        "count": 1
+      },
+      {
+        "city": "rollingen",
+        "lat": 49.7402205,
+        "lng": 6.1137785,
+        "avg_price_m2": 21.5,
+        "count": 1
+      },
+      {
+        "city": "brouch (mersch)",
+        "lat": 49.7373735,
+        "lng": 6.0202389,
+        "avg_price_m2": 14.0,
+        "count": 1
+      },
+      {
+        "city": "hobscheid",
+        "lat": 49.6863684,
+        "lng": 5.9151653,
+        "avg_price_m2": 22.9,
+        "count": 1
+      },
+      {
+        "city": "kahler",
+        "lat": 49.6308897,
+        "lng": 5.916589,
+        "avg_price_m2": 18.3,
+        "count": 1
+      },
+      {
+        "city": "contern",
+        "lat": 49.5854461,
+        "lng": 6.224731299999999,
+        "avg_price_m2": 29.3,
+        "count": 1
+      }
+    ],
+    "timeline": [
+      {
+        "date": "2026-02-24",
+        "count": 130
+      }
+    ]
+  },
+  "listings": [
+    {
+      "listing_id": "sothebys_1586",
+      "site": "SothebysRealty.lu",
+      "title": "Appartement — Bivange&nbsp;",
+      "city": "bivange&nbsp;",
+      "price": 1400,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange",
+      "image_url": null,
+      "latitude": 49.55,
+      "longitude": 6.11,
+      "distance_km": 5.8,
+      "created_at": "2026-02-24 22:10:24",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsothebysrealty.lu%2Ffra%2Frentals%2F1586_appartement-a-bivange&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement — Bivange&nbsp; - 1400€ @ bivange&nbsp; https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange",
+        "telegram": "https://t.me/share/url?url=https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange&text=Appartement — Bivange&nbsp; - 1400€",
+        "email": "mailto:?subject=Appartement — Bivange&nbsp;&body=https://sothebysrealty.lu/fra/rentals/1586_appartement-a-bivange"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "sothebys_1767",
+      "site": "SothebysRealty.lu",
+      "title": "Penthouse — Schieren&nbsp;",
+      "city": "schieren&nbsp;",
+      "price": 2500,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://sothebysrealty.lu/fra/rentals/1767_penthouse-a-schieren",
+      "image_url": null,
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-24 22:10:13",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsothebysrealty.lu%2Ffra%2Frentals%2F1767_penthouse-a-schieren&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Penthouse — Schieren&nbsp; - 2500€ @ schieren&nbsp; https://sothebysrealty.lu/fra/rentals/1767_penthouse-a-schieren",
+        "telegram": "https://t.me/share/url?url=https://sothebysrealty.lu/fra/rentals/1767_penthouse-a-schieren&text=Penthouse — Schieren&nbsp; - 2500€",
+        "email": "mailto:?subject=Penthouse — Schieren&nbsp;&body=https://sothebysrealty.lu/fra/rentals/1767_penthouse-a-schieren"
+      },
+      "flags": [
+        "pas-gps"
+      ]
+    },
+    {
+      "listing_id": "sothebys_1995",
+      "site": "SothebysRealty.lu",
+      "title": "Appartement — Luxembourg Kirchberg&nbsp;",
+      "city": "luxembourg",
+      "price": 1500,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://sothebysrealty.lu/fra/rentals/1995_appartement-a-luxembourg-kirchberg",
+      "image_url": null,
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-02-24 22:10:01",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsothebysrealty.lu%2Ffra%2Frentals%2F1995_appartement-a-luxembourg-kirchberg&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement — Luxembourg Kirchberg&nbsp; - 1500€ @ luxembourg https://sothebysrealty.lu/fra/rentals/1995_appartement-a-luxembourg-kirchberg",
+        "telegram": "https://t.me/share/url?url=https://sothebysrealty.lu/fra/rentals/1995_appartement-a-luxembourg-kirchberg&text=Appartement — Luxembourg Kirchberg&nbsp; - 1500€",
+        "email": "mailto:?subject=Appartement — Luxembourg Kirchberg&nbsp;&body=https://sothebysrealty.lu/fra/rentals/1995_appartement-a-luxembourg-kirchberg"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "sothebys_2015",
+      "site": "SothebysRealty.lu",
+      "title": "Appartement — Strassen&nbsp;",
+      "city": "strassen&nbsp;",
+      "price": 2150,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://sothebysrealty.lu/fra/rentals/2015_appartement-a-strassen",
+      "image_url": null,
+      "latitude": 49.62,
+      "longitude": 6.07,
+      "distance_km": 5.1,
+      "created_at": "2026-02-24 22:09:56",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fsothebysrealty.lu%2Ffra%2Frentals%2F2015_appartement-a-strassen&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement — Strassen&nbsp; - 2150€ @ strassen&nbsp; https://sothebysrealty.lu/fra/rentals/2015_appartement-a-strassen",
+        "telegram": "https://t.me/share/url?url=https://sothebysrealty.lu/fra/rentals/2015_appartement-a-strassen&text=Appartement — Strassen&nbsp; - 2150€",
+        "email": "mailto:?subject=Appartement — Strassen&nbsp;&body=https://sothebysrealty.lu/fra/rentals/2015_appartement-a-strassen"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_15512",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Mondorf-les-Bains",
+      "city": "mondorf les bains",
+      "price": 2500,
+      "rooms": 5,
+      "surface": 175,
+      "url": "https://nextimmo.lu/en/details/15512",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/92184b7f6756a770af19bd80a8106eea/605c8bf11b5303c20df2a25bb1337a64.jpg",
+      "latitude": 49.50185,
+      "longitude": 6.27573,
+      "distance_km": 14.9,
+      "created_at": "2026-02-24 20:46:12",
+      "price_m2": 14.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F15512&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Mondorf-les-Bains - 2500€ @ mondorf les bains https://nextimmo.lu/en/details/15512",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/15512&text=Appartement Mondorf-les-Bains - 2500€",
+        "email": "mailto:?subject=Appartement Mondorf-les-Bains&body=https://nextimmo.lu/en/details/15512"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_16795",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Bettembourg",
+      "city": "bettembourg",
+      "price": 2500,
+      "rooms": 4,
+      "surface": 134,
+      "url": "https://nextimmo.lu/en/details/16795",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/572ea8434609c0a04e17c4e4a96e6100/9b241ca1381510e07161457d35f614cd.jpg",
+      "latitude": 49.52,
+      "longitude": 6.105,
+      "distance_km": 9.1,
+      "created_at": "2026-02-24 20:46:01",
+      "price_m2": 18.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F16795&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Bettembourg - 2500€ @ bettembourg https://nextimmo.lu/en/details/16795",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/16795&text=Appartement Bettembourg - 2500€",
+        "email": "mailto:?subject=Appartement Bettembourg&body=https://nextimmo.lu/en/details/16795"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_15504",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Tétange",
+      "city": "tetange",
+      "price": 2450,
+      "rooms": 2,
+      "surface": 103,
+      "url": "https://nextimmo.lu/en/details/15504",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/070ae099e0aa29ac2c645f2bcd1b45ad/b994a20a3ce317bc57a1107d9794112f.jpg",
+      "latitude": 49.47374,
+      "longitude": 6.03998,
+      "distance_km": 15.6,
+      "created_at": "2026-02-24 20:45:50",
+      "price_m2": 23.8,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F15504&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Tétange - 2450€ @ tetange https://nextimmo.lu/en/details/15504",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/15504&text=Appartement Tétange - 2450€",
+        "email": "mailto:?subject=Appartement Tétange&body=https://nextimmo.lu/en/details/15504"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_18136",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Olm",
+      "city": "olm",
+      "price": 2300,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://nextimmo.lu/en/details/18136",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/b6898aacbdecfc78ff0620f13cf45392/87d136ddb4ae11f84d2fa795793ad3a0.jpg",
+      "latitude": 49.65509,
+      "longitude": 5.99296,
+      "distance_km": 11.9,
+      "created_at": "2026-02-24 20:45:41",
+      "price_m2": 28.8,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F18136&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Olm - 2300€ @ olm https://nextimmo.lu/en/details/18136",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/18136&text=Appartement Olm - 2300€",
+        "email": "mailto:?subject=Appartement Olm&body=https://nextimmo.lu/en/details/18136"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_15414",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Rodange",
+      "city": "rodange",
+      "price": 2300,
+      "rooms": 3,
+      "surface": 103,
+      "url": "https://nextimmo.lu/en/details/15414",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/8b0f392445c28a45a545d123a11d1dc3/4016da2929ef2215e1d636e185270256.jpg",
+      "latitude": 49.54524,
+      "longitude": 5.83908,
+      "distance_km": 22.1,
+      "created_at": "2026-02-24 20:45:31",
+      "price_m2": 22.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F15414&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Rodange - 2300€ @ rodange https://nextimmo.lu/en/details/15414",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/15414&text=Appartement Rodange - 2300€",
+        "email": "mailto:?subject=Appartement Rodange&body=https://nextimmo.lu/en/details/15414"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "newimmo_127171",
+      "site": "Newimmo.lu",
+      "title": "Appartement - Bertrange",
+      "city": "bertrange",
+      "price": 1500,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.newimmo.lu/fr/louer/appartement/bertrange/127171-appartement-bertrange/",
+      "image_url": "https://images.newimmo.lu/WtSrff4sRn9tOLl2-TALs5_O-D5KP8guQM6EQipPUkM/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTVmODk5NDcyZTEzNV84ODM0NDUxN1suanBnXQ.jpg?nocache=0",
+      "latitude": 49.61,
+      "longitude": 6.05,
+      "distance_km": 6.2,
+      "created_at": "2026-02-24 20:45:23",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.newimmo.lu%2Ffr%2Flouer%2Fappartement%2Fbertrange%2F127171-appartement-bertrange%2F&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement - Bertrange - 1500€ @ bertrange https://www.newimmo.lu/fr/louer/appartement/bertrange/127171-appartement-bertrange/",
+        "telegram": "https://t.me/share/url?url=https://www.newimmo.lu/fr/louer/appartement/bertrange/127171-appartement-bertrange/&text=Appartement - Bertrange - 1500€",
+        "email": "mailto:?subject=Appartement - Bertrange&body=https://www.newimmo.lu/fr/louer/appartement/bertrange/127171-appartement-bertrange/"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "vivi_188402",
+      "site": "VIVI.lu",
+      "title": "Appartement 3 chambres à louer",
+      "city": "weiler la tour",
+      "price": 2500,
+      "rooms": 3,
+      "surface": 130,
+      "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/weiler-la-tour/appartement-3-chambres-a-louer/188402",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
+      "latitude": 49.54,
+      "longitude": 6.19,
+      "distance_km": 7.8,
+      "created_at": "2026-02-24 20:45:09",
+      "price_m2": 19.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.vivi.lu%2Ffr%2Fpropriete%2Flieu%2Fappartement%2Fweiler-la-tour%2Fappartement-3-chambres-a-louer%2F188402&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 3 chambres à louer - 2500€ @ weiler la tour https://www.vivi.lu/fr/propriete/lieu/appartement/weiler-la-tour/appartement-3-chambres-a-louer/188402",
+        "telegram": "https://t.me/share/url?url=https://www.vivi.lu/fr/propriete/lieu/appartement/weiler-la-tour/appartement-3-chambres-a-louer/188402&text=Appartement 3 chambres à louer - 2500€",
+        "email": "mailto:?subject=Appartement 3 chambres à louer&body=https://www.vivi.lu/fr/propriete/lieu/appartement/weiler-la-tour/appartement-3-chambres-a-louer/188402"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "immotop_1878349",
+      "site": "Immotop.lu",
+      "title": "Appartement 3 chambres 35 rue Principale, Kahler, Garnich",
+      "city": "garnich",
+      "price": 2300,
+      "rooms": 3,
+      "surface": 0,
+      "url": "https://www.immotop.lu/annonces/1878349/",
+      "image_url": "https://pic.immotop.lu/image/148859623/xxs-c.jpg",
+      "latitude": 49.61,
+      "longitude": 5.96,
+      "distance_km": 12.6,
+      "created_at": "2026-02-24 20:44:57",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.immotop.lu%2Fannonces%2F1878349%2F&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 3 chambres 35 rue Principale, Kahler,  - 2300€ @ garnich https://www.immotop.lu/annonces/1878349/",
+        "telegram": "https://t.me/share/url?url=https://www.immotop.lu/annonces/1878349/&text=Appartement 3 chambres 35 rue Principale, Kahler,  - 2300€",
+        "email": "mailto:?subject=Appartement 3 chambres 35 rue Principale, Kahler, &body=https://www.immotop.lu/annonces/1878349/"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8961767",
+      "site": "Athome.lu",
+      "title": "Maison à Christnach à louer avec 2 chambres à coucher ,living, cuisine",
+      "city": "christnach",
+      "price": 1750,
+      "rooms": 2,
+      "surface": 85,
+      "url": "https://www.athome.lu/location/terraced/christnach/id-8961767.html",
+      "image_url": null,
+      "latitude": 49.7880278,
+      "longitude": 6.2675721,
+      "distance_km": 23.0,
+      "created_at": "2026-02-24 20:44:47",
+      "price_m2": 20.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fterraced%2Fchristnach%2Fid-8961767.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Maison à Christnach à louer avec 2 chambres à couc - 1750€ @ christnach https://www.athome.lu/location/terraced/christnach/id-8961767.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/terraced/christnach/id-8961767.html&text=Maison à Christnach à louer avec 2 chambres à couc - 1750€",
+        "email": "mailto:?subject=Maison à Christnach à louer avec 2 chambres à couc&body=https://www.athome.lu/location/terraced/christnach/id-8961767.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8997344",
+      "site": "Athome.lu",
+      "title": "Dans le village de Sélange (Messancy) à 2 km de Clémency : En retrait",
+      "city": "messancy",
+      "price": 1350,
+      "rooms": 2,
+      "surface": 160,
+      "url": "https://www.athome.lu/location/maison/messancy/id-8997344.html",
+      "image_url": null,
+      "latitude": 49.6080933,
+      "longitude": 5.849097299999999,
+      "distance_km": 20.6,
+      "created_at": "2026-02-24 20:44:35",
+      "price_m2": 8.4,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fmaison%2Fmessancy%2Fid-8997344.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Dans le village de Sélange (Messancy) à 2 km de Cl - 1350€ @ messancy https://www.athome.lu/location/maison/messancy/id-8997344.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/maison/messancy/id-8997344.html&text=Dans le village de Sélange (Messancy) à 2 km de Cl - 1350€",
+        "email": "mailto:?subject=Dans le village de Sélange (Messancy) à 2 km de Cl&body=https://www.athome.lu/location/maison/messancy/id-8997344.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8958244",
+      "site": "Athome.lu",
+      "title": "W Immobilière vous propose à Arlon, à deux pas du centre-ville et de t",
+      "city": "arlon",
+      "price": 1950,
+      "rooms": 4,
+      "surface": 288,
+      "url": "https://www.athome.lu/location/maison/arlon/id-8958244.html",
+      "image_url": null,
+      "latitude": 49.6829691,
+      "longitude": 5.8075929,
+      "distance_km": 25.3,
+      "created_at": "2026-02-24 20:44:26",
+      "price_m2": 6.8,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fmaison%2Farlon%2Fid-8958244.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: W Immobilière vous propose à Arlon, à deux pas du  - 1950€ @ arlon https://www.athome.lu/location/maison/arlon/id-8958244.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/maison/arlon/id-8958244.html&text=W Immobilière vous propose à Arlon, à deux pas du  - 1950€",
+        "email": "mailto:?subject=W Immobilière vous propose à Arlon, à deux pas du &body=https://www.athome.lu/location/maison/arlon/id-8958244.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8993560",
+      "site": "Athome.lu",
+      "title": "Arlon, proche du centre et des grands axes routiers, Century 21 Cofilu",
+      "city": "arlon",
+      "price": 1500,
+      "rooms": 3,
+      "surface": 145,
+      "url": "https://www.athome.lu/location/maison/arlon/id-8993560.html",
+      "image_url": null,
+      "latitude": 49.68841190000001,
+      "longitude": 5.8166288,
+      "distance_km": 24.9,
+      "created_at": "2026-02-24 20:44:15",
+      "price_m2": 10.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fmaison%2Farlon%2Fid-8993560.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Arlon, proche du centre et des grands axes routier - 1500€ @ arlon https://www.athome.lu/location/maison/arlon/id-8993560.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/maison/arlon/id-8993560.html&text=Arlon, proche du centre et des grands axes routier - 1500€",
+        "email": "mailto:?subject=Arlon, proche du centre et des grands axes routier&body=https://www.athome.lu/location/maison/arlon/id-8993560.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8938056",
+      "site": "Athome.lu",
+      "title": "Située au 47D, avenue de Longwy à Messancy, cette maison neuve se dist",
+      "city": "messancy",
+      "price": 2250,
+      "rooms": 4,
+      "surface": 231,
+      "url": "https://www.athome.lu/location/detached house/messancy/id-8938056.html",
+      "image_url": null,
+      "latitude": 49.58662220000001,
+      "longitude": 5.8145193,
+      "distance_km": 23.1,
+      "created_at": "2026-02-24 20:44:03",
+      "price_m2": 9.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fdetached+house%2Fmessancy%2Fid-8938056.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Située au 47D, avenue de Longwy à Messancy, cette  - 2250€ @ messancy https://www.athome.lu/location/detached house/messancy/id-8938056.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/detached house/messancy/id-8938056.html&text=Située au 47D, avenue de Longwy à Messancy, cette  - 2250€",
+        "email": "mailto:?subject=Située au 47D, avenue de Longwy à Messancy, cette &body=https://www.athome.lu/location/detached house/messancy/id-8938056.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8952838",
+      "site": "Athome.lu",
+      "title": "LOCATION HETTANGE GRANDE MAISON 4 CHAMBRES JARDIN. Si vous êtes intére",
+      "city": "hettange grande",
+      "price": 1410,
+      "rooms": 5,
+      "surface": 91,
+      "url": "https://www.athome.lu/location/maison/hettange-grande/id-8952838.html",
+      "image_url": null,
+      "latitude": 49.4059136,
+      "longitude": 6.1554768,
+      "distance_km": 21.6,
+      "created_at": "2026-02-24 20:43:52",
+      "price_m2": 15.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fmaison%2Fhettange-grande%2Fid-8952838.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: LOCATION HETTANGE GRANDE MAISON 4 CHAMBRES JARDIN. - 1410€ @ hettange grande https://www.athome.lu/location/maison/hettange-grande/id-8952838.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/maison/hettange-grande/id-8952838.html&text=LOCATION HETTANGE GRANDE MAISON 4 CHAMBRES JARDIN. - 1410€",
+        "email": "mailto:?subject=LOCATION HETTANGE GRANDE MAISON 4 CHAMBRES JARDIN.&body=https://www.athome.lu/location/maison/hettange-grande/id-8952838.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8040167",
+      "site": "Athome.lu",
+      "title": "***LOUE***\n\"active relocation luxembourg\" vous propose une belle maiso",
+      "city": "belvaux",
+      "price": 2450,
+      "rooms": 2,
+      "surface": 120,
+      "url": "https://www.athome.lu/location/terraced/belvaux/id-8040167.html",
+      "image_url": null,
+      "latitude": 49.5043347,
+      "longitude": 5.9214334,
+      "distance_km": 18.7,
+      "created_at": "2026-02-24 20:43:43",
+      "price_m2": 20.4,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fterraced%2Fbelvaux%2Fid-8040167.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: ***LOUE***\n\"active relocation luxembourg\" vous pro - 2450€ @ belvaux https://www.athome.lu/location/terraced/belvaux/id-8040167.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/terraced/belvaux/id-8040167.html&text=***LOUE***\n\"active relocation luxembourg\" vous pro - 2450€",
+        "email": "mailto:?subject=***LOUE***\n\"active relocation luxembourg\" vous pro&body=https://www.athome.lu/location/terraced/belvaux/id-8040167.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_7464421",
+      "site": "Athome.lu",
+      "title": "Découvrez cette charmante maison individuelle disponible à la location",
+      "city": "weydig",
+      "price": 1950,
+      "rooms": 6,
+      "surface": 150,
+      "url": "https://www.athome.lu/location/detached house/weydig/id-7464421.html",
+      "image_url": null,
+      "latitude": 49.7117967,
+      "longitude": 6.367479899999999,
+      "distance_km": 20.9,
+      "created_at": "2026-02-24 20:43:32",
+      "price_m2": 13.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fdetached+house%2Fweydig%2Fid-7464421.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Découvrez cette charmante maison individuelle disp - 1950€ @ weydig https://www.athome.lu/location/detached house/weydig/id-7464421.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/detached house/weydig/id-7464421.html&text=Découvrez cette charmante maison individuelle disp - 1950€",
+        "email": "mailto:?subject=Découvrez cette charmante maison individuelle disp&body=https://www.athome.lu/location/detached house/weydig/id-7464421.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8974062",
+      "site": "Athome.lu",
+      "title": "5 MIN. BIS L-REMICH: \n\nIn Idyllischer Ortslage von PALZEM-KREUZWEILER,",
+      "city": "palzem",
+      "price": 1480,
+      "rooms": 3,
+      "surface": 95,
+      "url": "https://www.athome.lu/location/maison/palzem/id-8974062.html",
+      "image_url": null,
+      "latitude": 49.5541335,
+      "longitude": 6.4085363,
+      "distance_km": 20.4,
+      "created_at": "2026-02-24 20:43:22",
+      "price_m2": 15.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fmaison%2Fpalzem%2Fid-8974062.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: 5 MIN. BIS L-REMICH: \n\nIn Idyllischer Ortslage von - 1480€ @ palzem https://www.athome.lu/location/maison/palzem/id-8974062.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/maison/palzem/id-8974062.html&text=5 MIN. BIS L-REMICH: \n\nIn Idyllischer Ortslage von - 1480€",
+        "email": "mailto:?subject=5 MIN. BIS L-REMICH: \n\nIn Idyllischer Ortslage von&body=https://www.athome.lu/location/maison/palzem/id-8974062.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8997017",
+      "site": "Athome.lu",
+      "title": "Appointments only on www.honesty.be via the property page ? No appoint",
+      "city": "arlon",
+      "price": 1450,
+      "rooms": 3,
+      "surface": 214,
+      "url": "https://www.athome.lu/location/maison/arlon/id-8997017.html",
+      "image_url": null,
+      "latitude": 49.68841190000001,
+      "longitude": 5.8166288,
+      "distance_km": 24.9,
+      "created_at": "2026-02-24 20:43:12",
+      "price_m2": 6.8,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fmaison%2Farlon%2Fid-8997017.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appointments only on www.honesty.be via the proper - 1450€ @ arlon https://www.athome.lu/location/maison/arlon/id-8997017.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/maison/arlon/id-8997017.html&text=Appointments only on www.honesty.be via the proper - 1450€",
+        "email": "mailto:?subject=Appointments only on www.honesty.be via the proper&body=https://www.athome.lu/location/maison/arlon/id-8997017.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8997018",
+      "site": "Athome.lu",
+      "title": "Appointments only on www.honesty.be via the property page ? No appoint",
+      "city": "messancy",
+      "price": 1400,
+      "rooms": 3,
+      "surface": 140,
+      "url": "https://www.athome.lu/location/maison/messancy/id-8997018.html",
+      "image_url": null,
+      "latitude": 49.6216258,
+      "longitude": 5.8214036,
+      "distance_km": 22.7,
+      "created_at": "2026-02-24 20:43:01",
+      "price_m2": 10.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fmaison%2Fmessancy%2Fid-8997018.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appointments only on www.honesty.be via the proper - 1400€ @ messancy https://www.athome.lu/location/maison/messancy/id-8997018.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/maison/messancy/id-8997018.html&text=Appointments only on www.honesty.be via the proper - 1400€",
+        "email": "mailto:?subject=Appointments only on www.honesty.be via the proper&body=https://www.athome.lu/location/maison/messancy/id-8997018.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_7968706",
+      "site": "Athome.lu",
+      "title": "Belardimmo vous propose une belle maison mitoyenne à Cattenom/Sentzich",
+      "city": "cattenom",
+      "price": 1700,
+      "rooms": 5,
+      "surface": 150,
+      "url": "https://www.athome.lu/location/detached house/cattenom/id-7968706.html",
+      "image_url": null,
+      "latitude": 49.406263,
+      "longitude": 6.243668,
+      "distance_km": 22.9,
+      "created_at": "2026-02-24 20:42:49",
+      "price_m2": 11.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fdetached+house%2Fcattenom%2Fid-7968706.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Belardimmo vous propose une belle maison mitoyenne - 1700€ @ cattenom https://www.athome.lu/location/detached house/cattenom/id-7968706.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/detached house/cattenom/id-7968706.html&text=Belardimmo vous propose une belle maison mitoyenne - 1700€",
+        "email": "mailto:?subject=Belardimmo vous propose une belle maison mitoyenne&body=https://www.athome.lu/location/detached house/cattenom/id-7968706.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8872001",
+      "site": "Athome.lu",
+      "title": "Maison 150 m² – 5 pièces – Cattenom (Sentzich)\n\nSituée dans le secteur",
+      "city": "cattenom",
+      "price": 1730,
+      "rooms": 5,
+      "surface": 150,
+      "url": "https://www.athome.lu/location/maison/cattenom/id-8872001.html",
+      "image_url": null,
+      "latitude": 49.4086846,
+      "longitude": 6.2433064,
+      "distance_km": 22.7,
+      "created_at": "2026-02-24 20:42:38",
+      "price_m2": 11.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fmaison%2Fcattenom%2Fid-8872001.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Maison 150 m² – 5 pièces – Cattenom (Sentzich)\n\nSi - 1730€ @ cattenom https://www.athome.lu/location/maison/cattenom/id-8872001.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/maison/cattenom/id-8872001.html&text=Maison 150 m² – 5 pièces – Cattenom (Sentzich)\n\nSi - 1730€",
+        "email": "mailto:?subject=Maison 150 m² – 5 pièces – Cattenom (Sentzich)\n\nSi&body=https://www.athome.lu/location/maison/cattenom/id-8872001.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8958135",
+      "site": "Athome.lu",
+      "title": "W Immobilière vous propose en location à Arlon, un splendide duplex de",
+      "city": "arlon",
+      "price": 1350,
+      "rooms": 2,
+      "surface": 110,
+      "url": "https://www.athome.lu/location/appartement/arlon/id-8958135.html",
+      "image_url": null,
+      "latitude": 49.6893802,
+      "longitude": 5.8227845,
+      "distance_km": 24.5,
+      "created_at": "2026-02-24 20:42:29",
+      "price_m2": 12.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Farlon%2Fid-8958135.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: W Immobilière vous propose en location à Arlon, un - 1350€ @ arlon https://www.athome.lu/location/appartement/arlon/id-8958135.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/arlon/id-8958135.html&text=W Immobilière vous propose en location à Arlon, un - 1350€",
+        "email": "mailto:?subject=W Immobilière vous propose en location à Arlon, un&body=https://www.athome.lu/location/appartement/arlon/id-8958135.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_6402510",
+      "site": "Athome.lu",
+      "title": "Appartement meublé lumineux et bien agencé. Ce bien entouré par la vég",
+      "city": "mamer",
+      "price": 2500,
+      "rooms": 3,
+      "surface": 100,
+      "url": "https://www.athome.lu/location/appartement/mamer/id-6402510.html",
+      "image_url": null,
+      "latitude": 49.6270927,
+      "longitude": 6.0146129,
+      "distance_km": 9.1,
+      "created_at": "2026-02-24 20:42:19",
+      "price_m2": 25.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fmamer%2Fid-6402510.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement meublé lumineux et bien agencé. Ce bie - 2500€ @ mamer https://www.athome.lu/location/appartement/mamer/id-6402510.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/mamer/id-6402510.html&text=Appartement meublé lumineux et bien agencé. Ce bie - 2500€",
+        "email": "mailto:?subject=Appartement meublé lumineux et bien agencé. Ce bie&body=https://www.athome.lu/location/appartement/mamer/id-6402510.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_14306",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Junglinster",
+      "city": "junglinster",
+      "price": 1950,
+      "rooms": 2,
+      "surface": 100,
+      "url": "https://nextimmo.lu/en/details/14306",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/be749a86004a937d047a7f24438cca85/c856f4155668b7c79aa2e3100566c32f.jpg",
+      "latitude": 49.71,
+      "longitude": 6.25,
+      "distance_km": 14.8,
+      "created_at": "2026-02-24 20:42:07",
+      "price_m2": 19.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F14306&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Junglinster - 1950€ @ junglinster https://nextimmo.lu/en/details/14306",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/14306&text=Appartement Junglinster - 1950€",
+        "email": "mailto:?subject=Appartement Junglinster&body=https://nextimmo.lu/en/details/14306"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_15111",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Hautcharage",
+      "city": "hautcharage",
+      "price": 1980,
+      "rooms": 2,
+      "surface": 128,
+      "url": "https://nextimmo.lu/en/details/15111",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/e45bbd99f6b4026068740391066d894d/588dca0192c28881b092e877e942e9f9.jpg",
+      "latitude": 49.5771,
+      "longitude": 5.90988,
+      "distance_km": 16.4,
+      "created_at": "2026-02-24 20:41:57",
+      "price_m2": 15.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F15111&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Hautcharage - 1980€ @ hautcharage https://nextimmo.lu/en/details/15111",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/15111&text=Appartement Hautcharage - 1980€",
+        "email": "mailto:?subject=Appartement Hautcharage&body=https://nextimmo.lu/en/details/15111"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8887412",
+      "site": "Athome.lu",
+      "title": "---SOUS OPTION---  Arlon, Century 21 Cofilux vous propose un apparteme",
+      "city": "arlon",
+      "price": 1300,
+      "rooms": 2,
+      "surface": 150,
+      "url": "https://www.athome.lu/location/appartement/arlon/id-8887412.html",
+      "image_url": null,
+      "latitude": 49.68841190000001,
+      "longitude": 5.8166288,
+      "distance_km": 24.9,
+      "created_at": "2026-02-24 20:41:48",
+      "price_m2": 8.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Farlon%2Fid-8887412.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: ---SOUS OPTION---  Arlon, Century 21 Cofilux vous  - 1300€ @ arlon https://www.athome.lu/location/appartement/arlon/id-8887412.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/arlon/id-8887412.html&text=---SOUS OPTION---  Arlon, Century 21 Cofilux vous  - 1300€",
+        "email": "mailto:?subject=---SOUS OPTION---  Arlon, Century 21 Cofilux vous &body=https://www.athome.lu/location/appartement/arlon/id-8887412.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_15061",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Hautcharage",
+      "city": "hautcharage",
+      "price": 1850,
+      "rooms": 2,
+      "surface": 92,
+      "url": "https://nextimmo.lu/en/details/15061",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/bcf012ad535dfd54d020e858200602ca/02d2db4a804f9bcf02893eb85f312b18.jpg",
+      "latitude": 49.5771,
+      "longitude": 5.90988,
+      "distance_km": 16.4,
+      "created_at": "2026-02-24 20:41:37",
+      "price_m2": 20.1,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F15061&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Hautcharage - 1850€ @ hautcharage https://nextimmo.lu/en/details/15061",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/15061&text=Appartement Hautcharage - 1850€",
+        "email": "mailto:?subject=Appartement Hautcharage&body=https://nextimmo.lu/en/details/15061"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_17640",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Gonderange",
+      "city": "gonderange",
+      "price": 2200,
+      "rooms": 2,
+      "surface": 95,
+      "url": "https://nextimmo.lu/en/details/17640",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/f6f3798b47ca77caca06e2dccdc86ad9/0733f76747ae32dc826236eb05c91979.jpg",
+      "latitude": 49.69,
+      "longitude": 6.25,
+      "distance_km": 13.0,
+      "created_at": "2026-02-24 20:41:25",
+      "price_m2": 23.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F17640&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Gonderange - 2200€ @ gonderange https://nextimmo.lu/en/details/17640",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/17640&text=Appartement Gonderange - 2200€",
+        "email": "mailto:?subject=Appartement Gonderange&body=https://nextimmo.lu/en/details/17640"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8727519",
+      "site": "Athome.lu",
+      "title": "Appartement de haut standing, complètement rénové, situé au 2ème étage",
+      "city": "esch sur alzette",
+      "price": 2100,
+      "rooms": 2,
+      "surface": 91,
+      "url": "https://www.athome.lu/location/appartement/esch-sur-alzette/id-8727519.html",
+      "image_url": null,
+      "latitude": 49.502401,
+      "longitude": 5.9721782,
+      "distance_km": 15.9,
+      "created_at": "2026-02-24 20:41:14",
+      "price_m2": 23.1,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fesch-sur-alzette%2Fid-8727519.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement de haut standing, complètement rénové, - 2100€ @ esch sur alzette https://www.athome.lu/location/appartement/esch-sur-alzette/id-8727519.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/esch-sur-alzette/id-8727519.html&text=Appartement de haut standing, complètement rénové, - 2100€",
+        "email": "mailto:?subject=Appartement de haut standing, complètement rénové,&body=https://www.athome.lu/location/appartement/esch-sur-alzette/id-8727519.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8981863",
+      "site": "Athome.lu",
+      "title": "Bel appartement comprenant un hall d'entrée desservant un living avec",
+      "city": "hassel",
+      "price": 1850,
+      "rooms": 2,
+      "surface": 86,
+      "url": "https://www.athome.lu/location/appartement/hassel/id-8981863.html",
+      "image_url": null,
+      "latitude": 49.55093489999999,
+      "longitude": 6.2076007,
+      "distance_km": 7.6,
+      "created_at": "2026-02-24 20:41:04",
+      "price_m2": 21.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fhassel%2Fid-8981863.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Bel appartement comprenant un hall d'entrée desser - 1850€ @ hassel https://www.athome.lu/location/appartement/hassel/id-8981863.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/hassel/id-8981863.html&text=Bel appartement comprenant un hall d'entrée desser - 1850€",
+        "email": "mailto:?subject=Bel appartement comprenant un hall d'entrée desser&body=https://www.athome.lu/location/appartement/hassel/id-8981863.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8938378",
+      "site": "Athome.lu",
+      "title": "********À LOUER*******  \nAppartement lumineux ±85 m² avec terrasse ple",
+      "city": "grevenmacher",
+      "price": 2000,
+      "rooms": 2,
+      "surface": 85,
+      "url": "https://www.athome.lu/location/appartement/grevenmacher/id-8938378.html",
+      "image_url": null,
+      "latitude": 49.6773648,
+      "longitude": 6.4402066,
+      "distance_km": 23.7,
+      "created_at": "2026-02-24 20:40:55",
+      "price_m2": 23.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fgrevenmacher%2Fid-8938378.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: ********À LOUER*******  \nAppartement lumineux ±85  - 2000€ @ grevenmacher https://www.athome.lu/location/appartement/grevenmacher/id-8938378.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/grevenmacher/id-8938378.html&text=********À LOUER*******  \nAppartement lumineux ±85  - 2000€",
+        "email": "mailto:?subject=********À LOUER*******  \nAppartement lumineux ±85 &body=https://www.athome.lu/location/appartement/grevenmacher/id-8938378.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_19177",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Bridel",
+      "city": "bridel",
+      "price": 1850,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://nextimmo.lu/en/details/19177",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/c0edd2f190b4aabc36821ef22da3e6f7/86dbf267c278634bc63623ec489063e2.jpg",
+      "latitude": 49.6567235,
+      "longitude": 6.0823886,
+      "distance_km": 7.3,
+      "created_at": "2026-02-24 20:40:44",
+      "price_m2": 23.1,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F19177&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Bridel - 1850€ @ bridel https://nextimmo.lu/en/details/19177",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/19177&text=Appartement Bridel - 1850€",
+        "email": "mailto:?subject=Appartement Bridel&body=https://nextimmo.lu/en/details/19177"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_15202",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Dudelange",
+      "city": "dudelange",
+      "price": 2400,
+      "rooms": 3,
+      "surface": 92,
+      "url": "https://nextimmo.lu/en/details/15202",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/c055ab2f2e14fea6506a1102dac55589/20c8dc914342580261407e7312f4938e.jpg",
+      "latitude": 49.48081,
+      "longitude": 6.07795,
+      "distance_km": 13.9,
+      "created_at": "2026-02-24 20:40:33",
+      "price_m2": 26.1,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F15202&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Dudelange - 2400€ @ dudelange https://nextimmo.lu/en/details/15202",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/15202&text=Appartement Dudelange - 2400€",
+        "email": "mailto:?subject=Appartement Dudelange&body=https://nextimmo.lu/en/details/15202"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_9001888",
+      "site": "Athome.lu",
+      "title": "Appartement 2 chambres à louer ? Pétange\n\nBel appartement de 87 m² sit",
+      "city": "petange",
+      "price": 2350,
+      "rooms": 2,
+      "surface": 87,
+      "url": "https://www.athome.lu/location/appartement/pétange/id-9001888.html",
+      "image_url": null,
+      "latitude": 49.5570739,
+      "longitude": 5.885361899999999,
+      "distance_km": 18.6,
+      "created_at": "2026-02-24 20:40:22",
+      "price_m2": 27.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fp%C3%A9tange%2Fid-9001888.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 2 chambres à louer ? Pétange\n\nBel appa - 2350€ @ petange https://www.athome.lu/location/appartement/pétange/id-9001888.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/pétange/id-9001888.html&text=Appartement 2 chambres à louer ? Pétange\n\nBel appa - 2350€",
+        "email": "mailto:?subject=Appartement 2 chambres à louer ? Pétange\n\nBel appa&body=https://www.athome.lu/location/appartement/pétange/id-9001888.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8963275",
+      "site": "Athome.lu",
+      "title": "Alain Grossklos Tél. : +352 691 265 450 vous propose à la location ce",
+      "city": "belvaux",
+      "price": 2150,
+      "rooms": 2,
+      "surface": 105,
+      "url": "https://www.athome.lu/location/appartement/belvaux/id-8963275.html",
+      "image_url": null,
+      "latitude": 49.5085182,
+      "longitude": 5.9368383,
+      "distance_km": 17.5,
+      "created_at": "2026-02-24 20:40:13",
+      "price_m2": 20.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fbelvaux%2Fid-8963275.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Alain Grossklos Tél. : +352 691 265 450 vous propo - 2150€ @ belvaux https://www.athome.lu/location/appartement/belvaux/id-8963275.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/belvaux/id-8963275.html&text=Alain Grossklos Tél. : +352 691 265 450 vous propo - 2150€",
+        "email": "mailto:?subject=Alain Grossklos Tél. : +352 691 265 450 vous propo&body=https://www.athome.lu/location/appartement/belvaux/id-8963275.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_9001439",
+      "site": "Athome.lu",
+      "title": "Appartement à louer ? 2 chambres ? Lumineux\n\nBel appartement lumineux",
+      "city": "schifflange",
+      "price": 1800,
+      "rooms": 2,
+      "surface": 100,
+      "url": "https://www.athome.lu/location/appartement/schifflange/id-9001439.html",
+      "image_url": null,
+      "latitude": 49.5031753,
+      "longitude": 6.000680099999999,
+      "distance_km": 14.4,
+      "created_at": "2026-02-24 20:40:02",
+      "price_m2": 18.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fschifflange%2Fid-9001439.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement à louer ? 2 chambres ? Lumineux\n\nBel a - 1800€ @ schifflange https://www.athome.lu/location/appartement/schifflange/id-9001439.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/schifflange/id-9001439.html&text=Appartement à louer ? 2 chambres ? Lumineux\n\nBel a - 1800€",
+        "email": "mailto:?subject=Appartement à louer ? 2 chambres ? Lumineux\n\nBel a&body=https://www.athome.lu/location/appartement/schifflange/id-9001439.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8793493",
+      "site": "Athome.lu",
+      "title": "*** LOUÉ ***\n\nDRP Group vous propose à la location un très joli appa",
+      "city": "steinsel",
+      "price": 2250,
+      "rooms": 2,
+      "surface": 85,
+      "url": "https://www.athome.lu/location/appartement/steinsel/id-8793493.html",
+      "image_url": null,
+      "latitude": 49.6750699,
+      "longitude": 6.1377211,
+      "distance_km": 8.4,
+      "created_at": "2026-02-24 20:39:50",
+      "price_m2": 26.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fsteinsel%2Fid-8793493.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: *** LOUÉ ***\n\nDRP Group vous propose à la location - 2250€ @ steinsel https://www.athome.lu/location/appartement/steinsel/id-8793493.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/steinsel/id-8793493.html&text=*** LOUÉ ***\n\nDRP Group vous propose à la location - 2250€",
+        "email": "mailto:?subject=*** LOUÉ ***\n\nDRP Group vous propose à la location&body=https://www.athome.lu/location/appartement/steinsel/id-8793493.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8190200",
+      "site": "Athome.lu",
+      "title": "A louer à thil proche Esch-sur-Alzette appartement cuisine équipée ouv",
+      "city": "thil",
+      "price": 1340,
+      "rooms": 3,
+      "surface": 83,
+      "url": "https://www.athome.lu/location/appartement/thil/id-8190200.html",
+      "image_url": null,
+      "latitude": 49.4724674,
+      "longitude": 5.9094834,
+      "distance_km": 21.5,
+      "created_at": "2026-02-24 20:39:38",
+      "price_m2": 16.1,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fthil%2Fid-8190200.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: A louer à thil proche Esch-sur-Alzette appartement - 1340€ @ thil https://www.athome.lu/location/appartement/thil/id-8190200.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/thil/id-8190200.html&text=A louer à thil proche Esch-sur-Alzette appartement - 1340€",
+        "email": "mailto:?subject=A louer à thil proche Esch-sur-Alzette appartement&body=https://www.athome.lu/location/appartement/thil/id-8190200.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8082282",
+      "site": "Athome.lu",
+      "title": "Appartement de 118m2 situé à Aubange à proximité des axes routiers, au",
+      "city": "aubange",
+      "price": 1350,
+      "rooms": 7,
+      "surface": 118,
+      "url": "https://www.athome.lu/location/appartement/aubange/id-8082282.html",
+      "image_url": null,
+      "latitude": 49.5608954,
+      "longitude": 5.808873,
+      "distance_km": 23.9,
+      "created_at": "2026-02-24 20:39:29",
+      "price_m2": 11.4,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Faubange%2Fid-8082282.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement de 118m2 situé à Aubange à proximité d - 1350€ @ aubange https://www.athome.lu/location/appartement/aubange/id-8082282.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/aubange/id-8082282.html&text=Appartement de 118m2 situé à Aubange à proximité d - 1350€",
+        "email": "mailto:?subject=Appartement de 118m2 situé à Aubange à proximité d&body=https://www.athome.lu/location/appartement/aubange/id-8082282.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8791238",
+      "site": "Athome.lu",
+      "title": "Willkommen in Ihrer neuen Traumwohnung! Diese helle und einladende Woh",
+      "city": "perl",
+      "price": 1350,
+      "rooms": 3,
+      "surface": 95,
+      "url": "https://www.athome.lu/location/appartement/perl/id-8791238.html",
+      "image_url": null,
+      "latitude": 49.4730674,
+      "longitude": 6.3851003,
+      "distance_km": 23.0,
+      "created_at": "2026-02-24 20:39:17",
+      "price_m2": 14.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fperl%2Fid-8791238.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Willkommen in Ihrer neuen Traumwohnung! Diese hell - 1350€ @ perl https://www.athome.lu/location/appartement/perl/id-8791238.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/perl/id-8791238.html&text=Willkommen in Ihrer neuen Traumwohnung! Diese hell - 1350€",
+        "email": "mailto:?subject=Willkommen in Ihrer neuen Traumwohnung! Diese hell&body=https://www.athome.lu/location/appartement/perl/id-8791238.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8975057",
+      "site": "Athome.lu",
+      "title": "Duplex meublé moderne avec terrasse ? 3 chambres ? Grevenmacher\n\nLocat",
+      "city": "grevenmacher",
+      "price": 2200,
+      "rooms": 3,
+      "surface": 120,
+      "url": "https://www.athome.lu/location/duplex/grevenmacher/id-8975057.html",
+      "image_url": null,
+      "latitude": 49.6799894,
+      "longitude": 6.4422868,
+      "distance_km": 23.9,
+      "created_at": "2026-02-24 20:39:06",
+      "price_m2": 18.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fduplex%2Fgrevenmacher%2Fid-8975057.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Duplex meublé moderne avec terrasse ? 3 chambres ? - 2200€ @ grevenmacher https://www.athome.lu/location/duplex/grevenmacher/id-8975057.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/duplex/grevenmacher/id-8975057.html&text=Duplex meublé moderne avec terrasse ? 3 chambres ? - 2200€",
+        "email": "mailto:?subject=Duplex meublé moderne avec terrasse ? 3 chambres ?&body=https://www.athome.lu/location/duplex/grevenmacher/id-8975057.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8619057",
+      "site": "Athome.lu",
+      "title": "Démarrez votre nouvelle vie à Luxembourg avec ce charmant appartement",
+      "city": "senningerberg",
+      "price": 2340,
+      "rooms": 2,
+      "surface": 88,
+      "url": "https://www.athome.lu/location/appartement/senningerberg/id-8619057.html",
+      "image_url": null,
+      "latitude": 49.6450986,
+      "longitude": 6.2223386,
+      "distance_km": 8.1,
+      "created_at": "2026-02-24 20:38:55",
+      "price_m2": 26.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fsenningerberg%2Fid-8619057.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Démarrez votre nouvelle vie à Luxembourg avec ce c - 2340€ @ senningerberg https://www.athome.lu/location/appartement/senningerberg/id-8619057.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/senningerberg/id-8619057.html&text=Démarrez votre nouvelle vie à Luxembourg avec ce c - 2340€",
+        "email": "mailto:?subject=Démarrez votre nouvelle vie à Luxembourg avec ce c&body=https://www.athome.lu/location/appartement/senningerberg/id-8619057.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_17218",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Schengen",
+      "city": "schengen",
+      "price": 1700,
+      "rooms": 2,
+      "surface": 91,
+      "url": "https://nextimmo.lu/en/details/17218",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/3864f6234cfb141d6e99ae9653b7f1f5/ea08be1f65f97f1013cf07baf4f238e9.jpg",
+      "latitude": 49.47,
+      "longitude": 6.37,
+      "distance_km": 22.3,
+      "created_at": "2026-02-24 20:38:47",
+      "price_m2": 18.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F17218&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Schengen - 1700€ @ schengen https://nextimmo.lu/en/details/17218",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/17218&text=Appartement Schengen - 1700€",
+        "email": "mailto:?subject=Appartement Schengen&body=https://nextimmo.lu/en/details/17218"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8871303",
+      "site": "Athome.lu",
+      "title": "A Louer - Superbe Appartement Moderne et Lumineux - 2 Chambres - Bertr",
+      "city": "bertrange",
+      "price": 2400,
+      "rooms": 6,
+      "surface": 86,
+      "url": "https://www.athome.lu/location/appartement/bertrange/id-8871303.html",
+      "image_url": null,
+      "latitude": 49.6106248,
+      "longitude": 6.0502349,
+      "distance_km": 6.2,
+      "created_at": "2026-02-24 20:38:38",
+      "price_m2": 27.9,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fbertrange%2Fid-8871303.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: A Louer - Superbe Appartement Moderne et Lumineux  - 2400€ @ bertrange https://www.athome.lu/location/appartement/bertrange/id-8871303.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/bertrange/id-8871303.html&text=A Louer - Superbe Appartement Moderne et Lumineux  - 2400€",
+        "email": "mailto:?subject=A Louer - Superbe Appartement Moderne et Lumineux &body=https://www.athome.lu/location/appartement/bertrange/id-8871303.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8986750",
+      "site": "Athome.lu",
+      "title": "******** À louer ? Bel appartement 2 chambres à Bertrange ********\n\nSi",
+      "city": "bertrange",
+      "price": 2200,
+      "rooms": 5,
+      "surface": 108,
+      "url": "https://www.athome.lu/location/duplex/bertrange/id-8986750.html",
+      "image_url": null,
+      "latitude": 49.6106248,
+      "longitude": 6.0502349,
+      "distance_km": 6.2,
+      "created_at": "2026-02-24 20:38:29",
+      "price_m2": 20.4,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fduplex%2Fbertrange%2Fid-8986750.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: ******** À louer ? Bel appartement 2 chambres à Be - 2200€ @ bertrange https://www.athome.lu/location/duplex/bertrange/id-8986750.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/duplex/bertrange/id-8986750.html&text=******** À louer ? Bel appartement 2 chambres à Be - 2200€",
+        "email": "mailto:?subject=******** À louer ? Bel appartement 2 chambres à Be&body=https://www.athome.lu/location/duplex/bertrange/id-8986750.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8947910",
+      "site": "Athome.lu",
+      "title": "L'agence Luna Immo vous propose à la location, un appartement entièrem",
+      "city": "dudelange",
+      "price": 2200,
+      "rooms": 3,
+      "surface": 96,
+      "url": "https://www.athome.lu/location/appartement/dudelange/id-8947910.html",
+      "image_url": null,
+      "latitude": 49.4801198,
+      "longitude": 6.0821581,
+      "distance_km": 13.8,
+      "created_at": "2026-02-24 20:38:18",
+      "price_m2": 22.9,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fdudelange%2Fid-8947910.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: L'agence Luna Immo vous propose à la location, un  - 2200€ @ dudelange https://www.athome.lu/location/appartement/dudelange/id-8947910.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/dudelange/id-8947910.html&text=L'agence Luna Immo vous propose à la location, un  - 2200€",
+        "email": "mailto:?subject=L'agence Luna Immo vous propose à la location, un &body=https://www.athome.lu/location/appartement/dudelange/id-8947910.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8962185",
+      "site": "Athome.lu",
+      "title": "Découvrez ce bel appartement situé au deuxième étage d’une résidence n",
+      "city": "athus",
+      "price": 1350,
+      "rooms": 2,
+      "surface": 93,
+      "url": "https://www.athome.lu/location/appartement/athus/id-8962185.html",
+      "image_url": null,
+      "latitude": 49.5573653,
+      "longitude": 5.8377516,
+      "distance_km": 21.9,
+      "created_at": "2026-02-24 20:38:06",
+      "price_m2": 14.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fathus%2Fid-8962185.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Découvrez ce bel appartement situé au deuxième éta - 1350€ @ athus https://www.athome.lu/location/appartement/athus/id-8962185.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/athus/id-8962185.html&text=Découvrez ce bel appartement situé au deuxième éta - 1350€",
+        "email": "mailto:?subject=Découvrez ce bel appartement situé au deuxième éta&body=https://www.athome.lu/location/appartement/athus/id-8962185.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_1719537",
+      "site": "Athome.lu",
+      "title": "Appartement, meublé, accès facile, proche des institutions européennes",
+      "city": "senningerberg",
+      "price": 2300,
+      "rooms": 2,
+      "surface": 100,
+      "url": "https://www.athome.lu/location/appartement/senningerberg/id-1719537.html",
+      "image_url": null,
+      "latitude": 49.64983,
+      "longitude": 6.22619,
+      "distance_km": 8.6,
+      "created_at": "2026-02-24 20:37:57",
+      "price_m2": 23.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fsenningerberg%2Fid-1719537.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement, meublé, accès facile, proche des inst - 2300€ @ senningerberg https://www.athome.lu/location/appartement/senningerberg/id-1719537.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/senningerberg/id-1719537.html&text=Appartement, meublé, accès facile, proche des inst - 2300€",
+        "email": "mailto:?subject=Appartement, meublé, accès facile, proche des inst&body=https://www.athome.lu/location/appartement/senningerberg/id-1719537.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8974600",
+      "site": "Athome.lu",
+      "title": "ACHTUNG: KEINE VERMITTLUNGSPROVISION / SOFORTIGER BEZUG MÖGLICH\n\n\n\nBes",
+      "city": "perl",
+      "price": 2500,
+      "rooms": 3,
+      "surface": 135,
+      "url": "https://www.athome.lu/location/penthouse/perl/id-8974600.html",
+      "image_url": null,
+      "latitude": 49.4730674,
+      "longitude": 6.3851003,
+      "distance_km": 23.0,
+      "created_at": "2026-02-24 20:37:46",
+      "price_m2": 18.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fpenthouse%2Fperl%2Fid-8974600.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: ACHTUNG: KEINE VERMITTLUNGSPROVISION / SOFORTIGER  - 2500€ @ perl https://www.athome.lu/location/penthouse/perl/id-8974600.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/penthouse/perl/id-8974600.html&text=ACHTUNG: KEINE VERMITTLUNGSPROVISION / SOFORTIGER  - 2500€",
+        "email": "mailto:?subject=ACHTUNG: KEINE VERMITTLUNGSPROVISION / SOFORTIGER &body=https://www.athome.lu/location/penthouse/perl/id-8974600.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_7981264",
+      "site": "Athome.lu",
+      "title": "Senningerberg - Proximité immédiate aéroport & Kirchberg\n\nA louer ap",
+      "city": "senningerberg",
+      "price": 1950,
+      "rooms": 2,
+      "surface": 90,
+      "url": "https://www.athome.lu/location/appartement/senningerberg/id-7981264.html",
+      "image_url": null,
+      "latitude": 49.6508207,
+      "longitude": 6.2352602,
+      "distance_km": 9.2,
+      "created_at": "2026-02-24 20:37:36",
+      "price_m2": 21.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fsenningerberg%2Fid-7981264.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Senningerberg - Proximité immédiate aéroport & Kir - 1950€ @ senningerberg https://www.athome.lu/location/appartement/senningerberg/id-7981264.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/senningerberg/id-7981264.html&text=Senningerberg - Proximité immédiate aéroport & Kir - 1950€",
+        "email": "mailto:?subject=Senningerberg - Proximité immédiate aéroport & Kir&body=https://www.athome.lu/location/appartement/senningerberg/id-7981264.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8926064",
+      "site": "Athome.lu",
+      "title": "Perl\nDirekt an der Grenze L-Schengen\n\nMietwohnung im OG sucht neuen Mi",
+      "city": "perl perl",
+      "price": 1400,
+      "rooms": 3,
+      "surface": 100,
+      "url": "https://www.athome.lu/location/appartement/perl-perl/id-8926064.html",
+      "image_url": null,
+      "latitude": 49.4730674,
+      "longitude": 6.3851003,
+      "distance_km": 23.0,
+      "created_at": "2026-02-24 20:37:28",
+      "price_m2": 14.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fperl-perl%2Fid-8926064.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Perl\nDirekt an der Grenze L-Schengen\n\nMietwohnung  - 1400€ @ perl perl https://www.athome.lu/location/appartement/perl-perl/id-8926064.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/perl-perl/id-8926064.html&text=Perl\nDirekt an der Grenze L-Schengen\n\nMietwohnung  - 1400€",
+        "email": "mailto:?subject=Perl\nDirekt an der Grenze L-Schengen\n\nMietwohnung &body=https://www.athome.lu/location/appartement/perl-perl/id-8926064.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8937085",
+      "site": "Athome.lu",
+      "title": "Pour tous renseignements, contacter Julien Feld:\njulien.feld@kwluxemb",
+      "city": "bettembourg",
+      "price": 2450,
+      "rooms": 2,
+      "surface": 125,
+      "url": "https://www.athome.lu/location/appartement/bettembourg/id-8937085.html",
+      "image_url": null,
+      "latitude": 49.5176326,
+      "longitude": 6.098749499999999,
+      "distance_km": 9.5,
+      "created_at": "2026-02-24 20:37:15",
+      "price_m2": 19.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fbettembourg%2Fid-8937085.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Pour tous renseignements, contacter Julien Feld:\nj - 2450€ @ bettembourg https://www.athome.lu/location/appartement/bettembourg/id-8937085.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/bettembourg/id-8937085.html&text=Pour tous renseignements, contacter Julien Feld:\nj - 2450€",
+        "email": "mailto:?subject=Pour tous renseignements, contacter Julien Feld:\nj&body=https://www.athome.lu/location/appartement/bettembourg/id-8937085.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_9002393",
+      "site": "Athome.lu",
+      "title": "Située rue de Mondercange à Esch-sur-Alzette, au coeur de Lallange, la",
+      "city": "lallange",
+      "price": 1950,
+      "rooms": 2,
+      "surface": 84,
+      "url": "https://www.athome.lu/location/appartement/lallange/id-9002393.html",
+      "image_url": null,
+      "latitude": 49.5112992,
+      "longitude": 5.9873939,
+      "distance_km": 14.5,
+      "created_at": "2026-02-24 20:37:10",
+      "price_m2": 23.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Flallange%2Fid-9002393.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Située rue de Mondercange à Esch-sur-Alzette, au c - 1950€ @ lallange https://www.athome.lu/location/appartement/lallange/id-9002393.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/lallange/id-9002393.html&text=Située rue de Mondercange à Esch-sur-Alzette, au c - 1950€",
+        "email": "mailto:?subject=Située rue de Mondercange à Esch-sur-Alzette, au c&body=https://www.athome.lu/location/appartement/lallange/id-9002393.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_16085",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Hamm",
+      "city": "luxembourg hamm",
+      "price": 1890,
+      "rooms": 2,
+      "surface": 81,
+      "url": "https://nextimmo.lu/en/details/16085",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/1a9d3955e57bfd1102cd0d2b4ef2ffb6/04e683b869f0098ac556c0f3377d6a25.jpg",
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-02-24 20:29:58",
+      "price_m2": 23.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F16085&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Luxembourg-Hamm - 1890€ @ luxembourg hamm https://nextimmo.lu/en/details/16085",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/16085&text=Appartement Luxembourg-Hamm - 1890€",
+        "email": "mailto:?subject=Appartement Luxembourg-Hamm&body=https://nextimmo.lu/en/details/16085"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_17632",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Hollerich",
+      "city": "luxembourg hollerich",
+      "price": 2150,
+      "rooms": 2,
+      "surface": 85,
+      "url": "https://nextimmo.lu/en/details/17632",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/7ce6385f1f8020c1c25ab9ce083c9c57/074430dcda0bedfa58f482715391be39.jpg",
+      "latitude": 49.60034,
+      "longitude": 6.12105,
+      "distance_km": 0.9,
+      "created_at": "2026-02-24 20:29:50",
+      "price_m2": 25.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F17632&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Luxembourg-Hollerich - 2150€ @ luxembourg hollerich https://nextimmo.lu/en/details/17632",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/17632&text=Appartement Luxembourg-Hollerich - 2150€",
+        "email": "mailto:?subject=Appartement Luxembourg-Hollerich&body=https://nextimmo.lu/en/details/17632"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_17680",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Belair",
+      "city": "luxembourg belair",
+      "price": 2100,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://nextimmo.lu/en/details/17680",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/21ada46a6d82b8f22cb30182a23de5e0/52a4a948b4bf7d0d7334864888194e09.jpg",
+      "latitude": 49.60751,
+      "longitude": 6.10969,
+      "distance_km": 2.0,
+      "created_at": "2026-02-24 20:29:40",
+      "price_m2": 26.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F17680&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Luxembourg-Belair - 2100€ @ luxembourg belair https://nextimmo.lu/en/details/17680",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/17680&text=Appartement Luxembourg-Belair - 2100€",
+        "email": "mailto:?subject=Appartement Luxembourg-Belair&body=https://nextimmo.lu/en/details/17680"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_18304",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Pfaffenthal",
+      "city": "luxembourg pfaffenthal",
+      "price": 2200,
+      "rooms": 2,
+      "surface": 88,
+      "url": "https://nextimmo.lu/en/details/18304",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/e36624904245d189a675727193a29217/fda4b79c0451428197e96d54df2fa7f1.jpg",
+      "latitude": 49.6158,
+      "longitude": 6.13289,
+      "distance_km": 1.8,
+      "created_at": "2026-02-24 20:29:29",
+      "price_m2": 25.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F18304&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Luxembourg-Pfaffenthal - 2200€ @ luxembourg pfaffenthal https://nextimmo.lu/en/details/18304",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/18304&text=Appartement Luxembourg-Pfaffenthal - 2200€",
+        "email": "mailto:?subject=Appartement Luxembourg-Pfaffenthal&body=https://nextimmo.lu/en/details/18304"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "newimmo_127231",
+      "site": "Newimmo.lu",
+      "title": "Appartement - Luxembourg",
+      "city": "luxembourg",
+      "price": 1900,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg/127231-appartement-luxembourg/",
+      "image_url": "https://images.newimmo.lu/1wgIbF_PAtGhJqcrnDrxQ1r7Kco4of8AeaECxMLgWuM/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OThmNTAzZWI3MWYwNl80NzY2OTQxNlsuanBnXQ.jpg?nocache=0",
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-02-24 20:29:17",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.newimmo.lu%2Ffr%2Flouer%2Fappartement%2Fluxembourg%2F127231-appartement-luxembourg%2F&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement - Luxembourg - 1900€ @ luxembourg https://www.newimmo.lu/fr/louer/appartement/luxembourg/127231-appartement-luxembourg/",
+        "telegram": "https://t.me/share/url?url=https://www.newimmo.lu/fr/louer/appartement/luxembourg/127231-appartement-luxembourg/&text=Appartement - Luxembourg - 1900€",
+        "email": "mailto:?subject=Appartement - Luxembourg&body=https://www.newimmo.lu/fr/louer/appartement/luxembourg/127231-appartement-luxembourg/"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "newimmo_127084",
+      "site": "Newimmo.lu",
+      "title": "Appartement - Luxembourg Neudorf",
+      "city": "luxembourg neudorf",
+      "price": 2000,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-neudorf/127084-appartement-luxembourg-neudorf/",
+      "image_url": "https://images.newimmo.lu/zbHUItBPGmrOz2XhDj7LVT84aHy7MZRrpWevD3OdXkk/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTE3MzE2MzMxNWU0MF80NDkzMjE3OFsuanBnXQ.jpg?nocache=0",
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-02-24 20:29:05",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.newimmo.lu%2Ffr%2Flouer%2Fappartement%2Fluxembourg-neudorf%2F127084-appartement-luxembourg-neudorf%2F&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement - Luxembourg Neudorf - 2000€ @ luxembourg neudorf https://www.newimmo.lu/fr/louer/appartement/luxembourg-neudorf/127084-appartement-luxembourg-neudorf/",
+        "telegram": "https://t.me/share/url?url=https://www.newimmo.lu/fr/louer/appartement/luxembourg-neudorf/127084-appartement-luxembourg-neudorf/&text=Appartement - Luxembourg Neudorf - 2000€",
+        "email": "mailto:?subject=Appartement - Luxembourg Neudorf&body=https://www.newimmo.lu/fr/louer/appartement/luxembourg-neudorf/127084-appartement-luxembourg-neudorf/"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "newimmo_127282",
+      "site": "Newimmo.lu",
+      "title": "Appartement - Luxembourg Limpertsberg",
+      "city": "luxembourg limpertsberg",
+      "price": 1750,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-limpertsberg/127282-appartement-luxembourg-limpertsberg/",
+      "image_url": "https://images.newimmo.lu/IXEDcfwkxEIycPzGXKM49UkhTIeHuFuC-pfrPyjViOc/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OThlZmYxNDdhY2EyNV82OTI1MTkyM1suanBnXQ.jpg?nocache=0",
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-02-24 20:28:55",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.newimmo.lu%2Ffr%2Flouer%2Fappartement%2Fluxembourg-limpertsberg%2F127282-appartement-luxembourg-limpertsberg%2F&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement - Luxembourg Limpertsberg - 1750€ @ luxembourg limpertsberg https://www.newimmo.lu/fr/louer/appartement/luxembourg-limpertsberg/127282-appartement-luxembourg-limpertsberg/",
+        "telegram": "https://t.me/share/url?url=https://www.newimmo.lu/fr/louer/appartement/luxembourg-limpertsberg/127282-appartement-luxembourg-limpertsberg/&text=Appartement - Luxembourg Limpertsberg - 1750€",
+        "email": "mailto:?subject=Appartement - Luxembourg Limpertsberg&body=https://www.newimmo.lu/fr/louer/appartement/luxembourg-limpertsberg/127282-appartement-luxembourg-limpertsberg/"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "newimmo_127151",
+      "site": "Newimmo.lu",
+      "title": "Appartement - Luxembourg Gare",
+      "city": "luxembourg gare",
+      "price": 2500,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.newimmo.lu/fr/louer/appartement/luxembourg-gare/127151-appartement-luxembourg-gare/",
+      "image_url": "https://images.newimmo.lu/45H1Nl1JxEY2oZfvXXcX2S4LPXNU_PzOr6-16cIhUk0/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTVlNDhkMWYwZjMwMl8xOTYwMDIyM1suanBnXQ.jpg?nocache=0",
+      "latitude": 49.6,
+      "longitude": 6.1342,
+      "distance_km": 0.0,
+      "created_at": "2026-02-24 20:28:44",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.newimmo.lu%2Ffr%2Flouer%2Fappartement%2Fluxembourg-gare%2F127151-appartement-luxembourg-gare%2F&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement - Luxembourg Gare - 2500€ @ luxembourg gare https://www.newimmo.lu/fr/louer/appartement/luxembourg-gare/127151-appartement-luxembourg-gare/",
+        "telegram": "https://t.me/share/url?url=https://www.newimmo.lu/fr/louer/appartement/luxembourg-gare/127151-appartement-luxembourg-gare/&text=Appartement - Luxembourg Gare - 2500€",
+        "email": "mailto:?subject=Appartement - Luxembourg Gare&body=https://www.newimmo.lu/fr/louer/appartement/luxembourg-gare/127151-appartement-luxembourg-gare/"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "vivi_203372",
+      "site": "VIVI.lu",
+      "title": "Appartement 3 chambres à louer",
+      "city": "filsdorf",
+      "price": 2350,
+      "rooms": 3,
+      "surface": 114,
+      "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/filsdorf/appartement-3-chambres-a-louer/203372",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-24 20:28:30",
+      "price_m2": 20.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.vivi.lu%2Ffr%2Fpropriete%2Flieu%2Fappartement%2Ffilsdorf%2Fappartement-3-chambres-a-louer%2F203372&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 3 chambres à louer - 2350€ @ filsdorf https://www.vivi.lu/fr/propriete/lieu/appartement/filsdorf/appartement-3-chambres-a-louer/203372",
+        "telegram": "https://t.me/share/url?url=https://www.vivi.lu/fr/propriete/lieu/appartement/filsdorf/appartement-3-chambres-a-louer/203372&text=Appartement 3 chambres à louer - 2350€",
+        "email": "mailto:?subject=Appartement 3 chambres à louer&body=https://www.vivi.lu/fr/propriete/lieu/appartement/filsdorf/appartement-3-chambres-a-louer/203372"
+      },
+      "flags": [
+        "pas-gps"
+      ]
+    },
+    {
+      "listing_id": "vivi_202433",
+      "site": "VIVI.lu",
+      "title": "Appartement 2 chambres à louer",
+      "city": "reuler",
+      "price": 1600,
+      "rooms": 2,
+      "surface": 102,
+      "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-2-chambres-a-louer/202433",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-24 20:28:16",
+      "price_m2": 15.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.vivi.lu%2Ffr%2Fpropriete%2Flieu%2Fappartement%2Freuler%2Fappartement-2-chambres-a-louer%2F202433&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 2 chambres à louer - 1600€ @ reuler https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-2-chambres-a-louer/202433",
+        "telegram": "https://t.me/share/url?url=https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-2-chambres-a-louer/202433&text=Appartement 2 chambres à louer - 1600€",
+        "email": "mailto:?subject=Appartement 2 chambres à louer&body=https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-2-chambres-a-louer/202433"
+      },
+      "flags": [
+        "pas-gps"
+      ]
+    },
+    {
+      "listing_id": "vivi_210717",
+      "site": "VIVI.lu",
+      "title": "Appartement 3 chambres à louer",
+      "city": "reuler",
+      "price": 2100,
+      "rooms": 3,
+      "surface": 135,
+      "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-3-chambres-a-louer/210717",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-24 20:28:05",
+      "price_m2": 15.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.vivi.lu%2Ffr%2Fpropriete%2Flieu%2Fappartement%2Freuler%2Fappartement-3-chambres-a-louer%2F210717&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 3 chambres à louer - 2100€ @ reuler https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-3-chambres-a-louer/210717",
+        "telegram": "https://t.me/share/url?url=https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-3-chambres-a-louer/210717&text=Appartement 3 chambres à louer - 2100€",
+        "email": "mailto:?subject=Appartement 3 chambres à louer&body=https://www.vivi.lu/fr/propriete/lieu/appartement/reuler/appartement-3-chambres-a-louer/210717"
+      },
+      "flags": [
+        "pas-gps"
+      ]
+    },
+    {
+      "listing_id": "vivi_212471",
+      "site": "VIVI.lu",
+      "title": "Appartement 2 chambres à louer",
+      "city": "weiswampach",
+      "price": 1500,
+      "rooms": 2,
+      "surface": 85,
+      "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/weiswampach/appartement-2-chambres-a-louer/212471",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-24 20:27:51",
+      "price_m2": 17.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.vivi.lu%2Ffr%2Fpropriete%2Flieu%2Fappartement%2Fweiswampach%2Fappartement-2-chambres-a-louer%2F212471&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 2 chambres à louer - 1500€ @ weiswampach https://www.vivi.lu/fr/propriete/lieu/appartement/weiswampach/appartement-2-chambres-a-louer/212471",
+        "telegram": "https://t.me/share/url?url=https://www.vivi.lu/fr/propriete/lieu/appartement/weiswampach/appartement-2-chambres-a-louer/212471&text=Appartement 2 chambres à louer - 1500€",
+        "email": "mailto:?subject=Appartement 2 chambres à louer&body=https://www.vivi.lu/fr/propriete/lieu/appartement/weiswampach/appartement-2-chambres-a-louer/212471"
+      },
+      "flags": [
+        "pas-gps"
+      ]
+    },
+    {
+      "listing_id": "immotop_1872659",
+      "site": "Immotop.lu",
+      "title": "Appartement 2 chambres 6 Grand&#x27;rue, Hobscheid, Habscht",
+      "city": "habscht",
+      "price": 1900,
+      "rooms": 2,
+      "surface": 0,
+      "url": "https://www.immotop.lu/annonces/1872659/",
+      "image_url": "https://pic.immotop.lu/image/148781711/xxs-c.jpg",
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-24 20:27:41",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.immotop.lu%2Fannonces%2F1872659%2F&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 2 chambres 6 Grand&#x27;rue, Hobscheid - 1900€ @ habscht https://www.immotop.lu/annonces/1872659/",
+        "telegram": "https://t.me/share/url?url=https://www.immotop.lu/annonces/1872659/&text=Appartement 2 chambres 6 Grand&#x27;rue, Hobscheid - 1900€",
+        "email": "mailto:?subject=Appartement 2 chambres 6 Grand&#x27;rue, Hobscheid&body=https://www.immotop.lu/annonces/1872659/"
+      },
+      "flags": [
+        "pas-gps"
+      ]
+    },
+    {
+      "listing_id": "immotop_1878271",
+      "site": "Immotop.lu",
+      "title": "Appartement 2 chambres 11B, Rue de Clairefontaine, Eischen, Gaichel, H",
+      "city": "habscht",
+      "price": 1600,
+      "rooms": 2,
+      "surface": 0,
+      "url": "https://www.immotop.lu/annonces/1878271/",
+      "image_url": "https://pic.immotop.lu/image/148858649/xxs-c.jpg",
+      "latitude": null,
+      "longitude": null,
+      "distance_km": null,
+      "created_at": "2026-02-24 20:27:29",
+      "price_m2": null,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.immotop.lu%2Fannonces%2F1878271%2F&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 2 chambres 11B, Rue de Clairefontaine, - 1600€ @ habscht https://www.immotop.lu/annonces/1878271/",
+        "telegram": "https://t.me/share/url?url=https://www.immotop.lu/annonces/1878271/&text=Appartement 2 chambres 11B, Rue de Clairefontaine, - 1600€",
+        "email": "mailto:?subject=Appartement 2 chambres 11B, Rue de Clairefontaine,&body=https://www.immotop.lu/annonces/1878271/"
+      },
+      "flags": [
+        "pas-gps"
+      ]
+    },
+    {
+      "listing_id": "athome_8995712",
+      "site": "Athome.lu",
+      "title": "***Fully furnished apartment !***  \nLocated in the sought-after neighb",
+      "city": "luxembourg weimerskirch",
+      "price": 2200,
+      "rooms": 2,
+      "surface": 88,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-weimerskirch/id-8995712.html",
+      "image_url": null,
+      "latitude": 49.6254273,
+      "longitude": 6.135935,
+      "distance_km": 2.8,
+      "created_at": "2026-02-24 20:27:18",
+      "price_m2": 25.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-weimerskirch%2Fid-8995712.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: ***Fully furnished apartment !***  \nLocated in the - 2200€ @ luxembourg weimerskirch https://www.athome.lu/location/appartement/luxembourg-weimerskirch/id-8995712.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-weimerskirch/id-8995712.html&text=***Fully furnished apartment !***  \nLocated in the - 2200€",
+        "email": "mailto:?subject=***Fully furnished apartment !***  \nLocated in the&body=https://www.athome.lu/location/appartement/luxembourg-weimerskirch/id-8995712.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8980537",
+      "site": "Athome.lu",
+      "title": "Bel appartement à 2 chambres à louer au rez-de-chaussée de la résidenc",
+      "city": "alzingen",
+      "price": 2350,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://www.athome.lu/location/appartement/alzingen/id-8980537.html",
+      "image_url": null,
+      "latitude": 49.5712572,
+      "longitude": 6.1637244,
+      "distance_km": 3.8,
+      "created_at": "2026-02-24 20:27:10",
+      "price_m2": 29.4,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Falzingen%2Fid-8980537.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Bel appartement à 2 chambres à louer au rez-de-cha - 2350€ @ alzingen https://www.athome.lu/location/appartement/alzingen/id-8980537.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/alzingen/id-8980537.html&text=Bel appartement à 2 chambres à louer au rez-de-cha - 2350€",
+        "email": "mailto:?subject=Bel appartement à 2 chambres à louer au rez-de-cha&body=https://www.athome.lu/location/appartement/alzingen/id-8980537.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_18544",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Belair",
+      "city": "luxembourg belair",
+      "price": 2400,
+      "rooms": 2,
+      "surface": 95,
+      "url": "https://nextimmo.lu/en/details/18544",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/c90af9b326022cbccfb6173f8b95fdfd/42ba208db930b768393a1891eacfe208.jpg",
+      "latitude": 49.6097283,
+      "longitude": 6.1092036,
+      "distance_km": 2.1,
+      "created_at": "2026-02-24 20:27:01",
+      "price_m2": 25.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F18544&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Luxembourg-Belair - 2400€ @ luxembourg belair https://nextimmo.lu/en/details/18544",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/18544&text=Appartement Luxembourg-Belair - 2400€",
+        "email": "mailto:?subject=Appartement Luxembourg-Belair&body=https://nextimmo.lu/en/details/18544"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8958134",
+      "site": "Athome.lu",
+      "title": "Luxembourg-Belair - Boulevard Pierre Dupong\n\nAppartement 2 chambres av",
+      "city": "luxembourg hollerich",
+      "price": 2100,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-hollerich/id-8958134.html",
+      "image_url": null,
+      "latitude": 49.6023272,
+      "longitude": 6.1137845,
+      "distance_km": 1.5,
+      "created_at": "2026-02-24 20:26:52",
+      "price_m2": 26.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-hollerich%2Fid-8958134.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Luxembourg-Belair - Boulevard Pierre Dupong\n\nAppar - 2100€ @ luxembourg hollerich https://www.athome.lu/location/appartement/luxembourg-hollerich/id-8958134.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-hollerich/id-8958134.html&text=Luxembourg-Belair - Boulevard Pierre Dupong\n\nAppar - 2100€",
+        "email": "mailto:?subject=Luxembourg-Belair - Boulevard Pierre Dupong\n\nAppar&body=https://www.athome.lu/location/appartement/luxembourg-hollerich/id-8958134.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8919659",
+      "site": "Athome.lu",
+      "title": "DALPA vous propose en location, ce lumineux appartement avec 2 chambre",
+      "city": "hesperange",
+      "price": 2400,
+      "rooms": 2,
+      "surface": 85,
+      "url": "https://www.athome.lu/location/appartement/hesperange/id-8919659.html",
+      "image_url": null,
+      "latitude": 49.5731206,
+      "longitude": 6.161307000000001,
+      "distance_km": 3.6,
+      "created_at": "2026-02-24 20:26:42",
+      "price_m2": 28.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fhesperange%2Fid-8919659.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: DALPA vous propose en location, ce lumineux appart - 2400€ @ hesperange https://www.athome.lu/location/appartement/hesperange/id-8919659.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/hesperange/id-8919659.html&text=DALPA vous propose en location, ce lumineux appart - 2400€",
+        "email": "mailto:?subject=DALPA vous propose en location, ce lumineux appart&body=https://www.athome.lu/location/appartement/hesperange/id-8919659.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8871260",
+      "site": "Athome.lu",
+      "title": "(English follows)\n\nÀ louer Duplex lumineux avec terrasse privative\nApp",
+      "city": "luxembourg bonnevoie",
+      "price": 2250,
+      "rooms": 2,
+      "surface": 95,
+      "url": "https://www.athome.lu/location/duplex/luxembourg-bonnevoie/id-8871260.html",
+      "image_url": null,
+      "latitude": 49.59625699999999,
+      "longitude": 6.1366508,
+      "distance_km": 0.5,
+      "created_at": "2026-02-24 20:26:31",
+      "price_m2": 23.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fduplex%2Fluxembourg-bonnevoie%2Fid-8871260.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: (English follows)\n\nÀ louer Duplex lumineux avec te - 2250€ @ luxembourg bonnevoie https://www.athome.lu/location/duplex/luxembourg-bonnevoie/id-8871260.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/duplex/luxembourg-bonnevoie/id-8871260.html&text=(English follows)\n\nÀ louer Duplex lumineux avec te - 2250€",
+        "email": "mailto:?subject=(English follows)\n\nÀ louer Duplex lumineux avec te&body=https://www.athome.lu/location/duplex/luxembourg-bonnevoie/id-8871260.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8997163",
+      "site": "Athome.lu",
+      "title": "Appartement lumineux de 87m2 dans une rue tranquille avec vue dégagée",
+      "city": "alzingen",
+      "price": 2400,
+      "rooms": 2,
+      "surface": 87,
+      "url": "https://www.athome.lu/location/appartement/alzingen/id-8997163.html",
+      "image_url": null,
+      "latitude": 49.5640337,
+      "longitude": 6.1617104,
+      "distance_km": 4.5,
+      "created_at": "2026-02-24 20:26:19",
+      "price_m2": 27.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Falzingen%2Fid-8997163.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement lumineux de 87m2 dans une rue tranquil - 2400€ @ alzingen https://www.athome.lu/location/appartement/alzingen/id-8997163.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/alzingen/id-8997163.html&text=Appartement lumineux de 87m2 dans une rue tranquil - 2400€",
+        "email": "mailto:?subject=Appartement lumineux de 87m2 dans une rue tranquil&body=https://www.athome.lu/location/appartement/alzingen/id-8997163.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8883123",
+      "site": "Athome.lu",
+      "title": "ENGLISH TEXT BELOW\n\n** Appartement 81 à louer ** - 1er étage avec asce",
+      "city": "luxembourg kirchberg",
+      "price": 2200,
+      "rooms": 2,
+      "surface": 82,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-8883123.html",
+      "image_url": null,
+      "latitude": 49.62977069999999,
+      "longitude": 6.179113,
+      "distance_km": 4.6,
+      "created_at": "2026-02-24 20:26:10",
+      "price_m2": 26.8,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-kirchberg%2Fid-8883123.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: ENGLISH TEXT BELOW\n\n** Appartement 81 à louer ** - - 2200€ @ luxembourg kirchberg https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-8883123.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-8883123.html&text=ENGLISH TEXT BELOW\n\n** Appartement 81 à louer ** - - 2200€",
+        "email": "mailto:?subject=ENGLISH TEXT BELOW\n\n** Appartement 81 à louer ** -&body=https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-8883123.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8952070",
+      "site": "Athome.lu",
+      "title": "Adresse : 14, rue Charles Darwin – L-1433 Luxembourg\nSituation : en f",
+      "city": "luxembourg gasperich   cloche dor",
+      "price": 2250,
+      "rooms": 2,
+      "surface": 82,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-gasperich---cloche-dor/id-8952070.html",
+      "image_url": null,
+      "latitude": 49.5849,
+      "longitude": 6.12475,
+      "distance_km": 1.8,
+      "created_at": "2026-02-24 20:26:01",
+      "price_m2": 27.4,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-gasperich---cloche-dor%2Fid-8952070.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Adresse : 14, rue Charles Darwin – L-1433 Luxembou - 2250€ @ luxembourg gasperich   cloche dor https://www.athome.lu/location/appartement/luxembourg-gasperich---cloche-dor/id-8952070.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-gasperich---cloche-dor/id-8952070.html&text=Adresse : 14, rue Charles Darwin – L-1433 Luxembou - 2250€",
+        "email": "mailto:?subject=Adresse : 14, rue Charles Darwin – L-1433 Luxembou&body=https://www.athome.lu/location/appartement/luxembourg-gasperich---cloche-dor/id-8952070.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_7786123",
+      "site": "Athome.lu",
+      "title": "Démarrez votre nouvelle vie à Luxembourg avec ce confortable apparteme",
+      "city": "luxembourg gare",
+      "price": 2390,
+      "rooms": 3,
+      "surface": 90,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-gare/id-7786123.html",
+      "image_url": null,
+      "latitude": 49.599092,
+      "longitude": 6.132617,
+      "distance_km": 0.2,
+      "created_at": "2026-02-24 20:25:51",
+      "price_m2": 26.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-gare%2Fid-7786123.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Démarrez votre nouvelle vie à Luxembourg avec ce c - 2390€ @ luxembourg gare https://www.athome.lu/location/appartement/luxembourg-gare/id-7786123.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-gare/id-7786123.html&text=Démarrez votre nouvelle vie à Luxembourg avec ce c - 2390€",
+        "email": "mailto:?subject=Démarrez votre nouvelle vie à Luxembourg avec ce c&body=https://www.athome.lu/location/appartement/luxembourg-gare/id-7786123.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8812008",
+      "site": "Athome.lu",
+      "title": "Appartement 2 chambres entièrement rénové ? Luxembourg-Merl\n\nAdresse :",
+      "city": "luxembourg centre ville",
+      "price": 2400,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8812008.html",
+      "image_url": null,
+      "latitude": 49.6123327,
+      "longitude": 6.1258432,
+      "distance_km": 1.5,
+      "created_at": "2026-02-24 20:25:41",
+      "price_m2": 30.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-centre-ville%2Fid-8812008.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 2 chambres entièrement rénové ? Luxemb - 2400€ @ luxembourg centre ville https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8812008.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8812008.html&text=Appartement 2 chambres entièrement rénové ? Luxemb - 2400€",
+        "email": "mailto:?subject=Appartement 2 chambres entièrement rénové ? Luxemb&body=https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8812008.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8940694",
+      "site": "Athome.lu",
+      "title": "+352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Estate Invest vous prop",
+      "city": "luxembourg limpertsberg",
+      "price": 2500,
+      "rooms": 2,
+      "surface": 110,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-8940694.html",
+      "image_url": null,
+      "latitude": 49.6261216,
+      "longitude": 6.113202299999999,
+      "distance_km": 3.3,
+      "created_at": "2026-02-24 20:25:29",
+      "price_m2": 22.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-limpertsberg%2Fid-8940694.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: +352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Est - 2500€ @ luxembourg limpertsberg https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-8940694.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-8940694.html&text=+352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Est - 2500€",
+        "email": "mailto:?subject=+352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Est&body=https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-8940694.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8456918",
+      "site": "Athome.lu",
+      "title": "MT Real Estate Invest Sarl vous propose un superbe appartement à louer",
+      "city": "luxembourg hollerich",
+      "price": 2400,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-hollerich/id-8456918.html",
+      "image_url": null,
+      "latitude": 49.6022613,
+      "longitude": 6.117406099999999,
+      "distance_km": 1.2,
+      "created_at": "2026-02-24 20:25:17",
+      "price_m2": 30.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-hollerich%2Fid-8456918.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: MT Real Estate Invest Sarl vous propose un superbe - 2400€ @ luxembourg hollerich https://www.athome.lu/location/appartement/luxembourg-hollerich/id-8456918.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-hollerich/id-8456918.html&text=MT Real Estate Invest Sarl vous propose un superbe - 2400€",
+        "email": "mailto:?subject=MT Real Estate Invest Sarl vous propose un superbe&body=https://www.athome.lu/location/appartement/luxembourg-hollerich/id-8456918.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_9002367",
+      "site": "Athome.lu",
+      "title": "** 42, Boulevard NAPOLEON 1er ** \n\nDisponible le 01.07.2026.\n\nA louer,",
+      "city": "luxembourg belair",
+      "price": 2200,
+      "rooms": 2,
+      "surface": 93,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-9002367.html",
+      "image_url": null,
+      "latitude": 49.6167781,
+      "longitude": 6.1110913,
+      "distance_km": 2.5,
+      "created_at": "2026-02-24 20:25:08",
+      "price_m2": 23.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-belair%2Fid-9002367.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: ** 42, Boulevard NAPOLEON 1er ** \n\nDisponible le 0 - 2200€ @ luxembourg belair https://www.athome.lu/location/appartement/luxembourg-belair/id-9002367.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-belair/id-9002367.html&text=** 42, Boulevard NAPOLEON 1er ** \n\nDisponible le 0 - 2200€",
+        "email": "mailto:?subject=** 42, Boulevard NAPOLEON 1er ** \n\nDisponible le 0&body=https://www.athome.lu/location/appartement/luxembourg-belair/id-9002367.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8937110",
+      "site": "Athome.lu",
+      "title": "Appartement, proche du centre-ville, dans quartier résidentiel, quarti",
+      "city": "luxembourg belair",
+      "price": 2375,
+      "rooms": 3,
+      "surface": 105,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-8937110.html",
+      "image_url": null,
+      "latitude": 49.6083062,
+      "longitude": 6.10673,
+      "distance_km": 2.2,
+      "created_at": "2026-02-24 20:24:58",
+      "price_m2": 22.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-belair%2Fid-8937110.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement, proche du centre-ville, dans quartier - 2375€ @ luxembourg belair https://www.athome.lu/location/appartement/luxembourg-belair/id-8937110.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-belair/id-8937110.html&text=Appartement, proche du centre-ville, dans quartier - 2375€",
+        "email": "mailto:?subject=Appartement, proche du centre-ville, dans quartier&body=https://www.athome.lu/location/appartement/luxembourg-belair/id-8937110.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_7829031",
+      "site": "Athome.lu",
+      "title": "Duplex, proche du centre-ville, accès facile, proche des institutions",
+      "city": "luxembourg eich",
+      "price": 2500,
+      "rooms": 2,
+      "surface": 145,
+      "url": "https://www.athome.lu/location/duplex/luxembourg-eich/id-7829031.html",
+      "image_url": null,
+      "latitude": 49.6247615,
+      "longitude": 6.1294726,
+      "distance_km": 2.8,
+      "created_at": "2026-02-24 20:24:46",
+      "price_m2": 17.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fduplex%2Fluxembourg-eich%2Fid-7829031.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Duplex, proche du centre-ville, accès facile, proc - 2500€ @ luxembourg eich https://www.athome.lu/location/duplex/luxembourg-eich/id-7829031.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/duplex/luxembourg-eich/id-7829031.html&text=Duplex, proche du centre-ville, accès facile, proc - 2500€",
+        "email": "mailto:?subject=Duplex, proche du centre-ville, accès facile, proc&body=https://www.athome.lu/location/duplex/luxembourg-eich/id-7829031.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_1372622",
+      "site": "Athome.lu",
+      "title": "Appartement, meublé, dans quartier résidentiel, accès facile, living,",
+      "city": "luxembourg belair",
+      "price": 2500,
+      "rooms": 2,
+      "surface": 150,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-1372622.html",
+      "image_url": null,
+      "latitude": 49.6155658,
+      "longitude": 6.1028472,
+      "distance_km": 2.8,
+      "created_at": "2026-02-24 20:24:36",
+      "price_m2": 16.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-belair%2Fid-1372622.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement, meublé, dans quartier résidentiel, ac - 2500€ @ luxembourg belair https://www.athome.lu/location/appartement/luxembourg-belair/id-1372622.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-belair/id-1372622.html&text=Appartement, meublé, dans quartier résidentiel, ac - 2500€",
+        "email": "mailto:?subject=Appartement, meublé, dans quartier résidentiel, ac&body=https://www.athome.lu/location/appartement/luxembourg-belair/id-1372622.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8931852",
+      "site": "Athome.lu",
+      "title": "DÉJÀ LOUÉ --- ALREADY RENTED OUT\n\nVeuillez nous contacter pour plus de",
+      "city": "luxembourg gare",
+      "price": 2450,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://www.athome.lu/location/duplex/luxembourg-gare/id-8931852.html",
+      "image_url": null,
+      "latitude": 49.599092,
+      "longitude": 6.132617,
+      "distance_km": 0.2,
+      "created_at": "2026-02-24 20:24:26",
+      "price_m2": 30.6,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fduplex%2Fluxembourg-gare%2Fid-8931852.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: DÉJÀ LOUÉ --- ALREADY RENTED OUT\n\nVeuillez nous co - 2450€ @ luxembourg gare https://www.athome.lu/location/duplex/luxembourg-gare/id-8931852.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/duplex/luxembourg-gare/id-8931852.html&text=DÉJÀ LOUÉ --- ALREADY RENTED OUT\n\nVeuillez nous co - 2450€",
+        "email": "mailto:?subject=DÉJÀ LOUÉ --- ALREADY RENTED OUT\n\nVeuillez nous co&body=https://www.athome.lu/location/duplex/luxembourg-gare/id-8931852.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8949037",
+      "site": "Athome.lu",
+      "title": "L’agence Property Invest a le plaisir de vous présenter ce bel apparte",
+      "city": "strassen",
+      "price": 2350,
+      "rooms": 7,
+      "surface": 82,
+      "url": "https://www.athome.lu/location/appartement/strassen/id-8949037.html",
+      "image_url": null,
+      "latitude": 49.6242968,
+      "longitude": 6.0774257,
+      "distance_km": 4.9,
+      "created_at": "2026-02-24 20:24:20",
+      "price_m2": 28.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fstrassen%2Fid-8949037.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: L’agence Property Invest a le plaisir de vous prés - 2350€ @ strassen https://www.athome.lu/location/appartement/strassen/id-8949037.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/strassen/id-8949037.html&text=L’agence Property Invest a le plaisir de vous prés - 2350€",
+        "email": "mailto:?subject=L’agence Property Invest a le plaisir de vous prés&body=https://www.athome.lu/location/appartement/strassen/id-8949037.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8899869",
+      "site": "Athome.lu",
+      "title": "Superbe duplex de 98,78 m² situé à Garnich, Luxembourg, est une opport",
+      "city": "garnich",
+      "price": 2400,
+      "rooms": 2,
+      "surface": 98,
+      "url": "https://www.athome.lu/location/duplex/garnich/id-8899869.html",
+      "image_url": null,
+      "latitude": 49.6174427,
+      "longitude": 5.9512695,
+      "distance_km": 13.3,
+      "created_at": "2026-02-24 20:17:47",
+      "price_m2": 24.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fduplex%2Fgarnich%2Fid-8899869.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Superbe duplex de 98,78 m² situé à Garnich, Luxemb - 2400€ @ garnich https://www.athome.lu/location/duplex/garnich/id-8899869.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/duplex/garnich/id-8899869.html&text=Superbe duplex de 98,78 m² situé à Garnich, Luxemb - 2400€",
+        "email": "mailto:?subject=Superbe duplex de 98,78 m² situé à Garnich, Luxemb&body=https://www.athome.lu/location/duplex/garnich/id-8899869.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8992071",
+      "site": "Athome.lu",
+      "title": "A louer lumineux appartement deux chambres à Sprinkange.\n\nCet appart",
+      "city": "sprinkange",
+      "price": 2100,
+      "rooms": 2,
+      "surface": 90,
+      "url": "https://www.athome.lu/location/appartement/sprinkange/id-8992071.html",
+      "image_url": null,
+      "latitude": 49.5842339,
+      "longitude": 5.9640686,
+      "distance_km": 12.4,
+      "created_at": "2026-02-24 20:17:38",
+      "price_m2": 23.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fsprinkange%2Fid-8992071.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: A louer lumineux appartement deux chambres à Sprin - 2100€ @ sprinkange https://www.athome.lu/location/appartement/sprinkange/id-8992071.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/sprinkange/id-8992071.html&text=A louer lumineux appartement deux chambres à Sprin - 2100€",
+        "email": "mailto:?subject=A louer lumineux appartement deux chambres à Sprin&body=https://www.athome.lu/location/appartement/sprinkange/id-8992071.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_19277",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Merl",
+      "city": "luxembourg merl",
+      "price": 2300,
+      "rooms": 2,
+      "surface": 100,
+      "url": "https://nextimmo.lu/en/details/19277",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/2965fecb12e7d38935bb6d44d6e9cb5b/586c9251b3070de7f2fa45240efce443.jpg",
+      "latitude": 49.6024497,
+      "longitude": 6.1143973,
+      "distance_km": 1.5,
+      "created_at": "2026-02-24 20:17:26",
+      "price_m2": 23.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F19277&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Luxembourg-Merl - 2300€ @ luxembourg merl https://nextimmo.lu/en/details/19277",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/19277&text=Appartement Luxembourg-Merl - 2300€",
+        "email": "mailto:?subject=Appartement Luxembourg-Merl&body=https://nextimmo.lu/en/details/19277"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8971656",
+      "site": "Athome.lu",
+      "title": "Appartement de haut standing lumineux avec jardin privatif sis au rez-",
+      "city": "bridel",
+      "price": 2100,
+      "rooms": 3,
+      "surface": 85,
+      "url": "https://www.athome.lu/location/appartement/bridel/id-8971656.html",
+      "image_url": null,
+      "latitude": 49.6576485,
+      "longitude": 6.0817229,
+      "distance_km": 7.4,
+      "created_at": "2026-02-24 20:17:14",
+      "price_m2": 24.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fbridel%2Fid-8971656.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement de haut standing lumineux avec jardin  - 2100€ @ bridel https://www.athome.lu/location/appartement/bridel/id-8971656.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/bridel/id-8971656.html&text=Appartement de haut standing lumineux avec jardin  - 2100€",
+        "email": "mailto:?subject=Appartement de haut standing lumineux avec jardin &body=https://www.athome.lu/location/appartement/bridel/id-8971656.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_16052",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Bridel",
+      "city": "bridel",
+      "price": 2400,
+      "rooms": 3,
+      "surface": 100,
+      "url": "https://nextimmo.lu/en/details/16052",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/2f13c504dd31a84bb5bb855182ad8019/cc87f5f3695cbb1fbd67971c137f07a3.jpg",
+      "latitude": 49.655,
+      "longitude": 6.08,
+      "distance_km": 7.3,
+      "created_at": "2026-02-24 20:17:02",
+      "price_m2": 24.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F16052&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Bridel - 2400€ @ bridel https://nextimmo.lu/en/details/16052",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/16052&text=Appartement Bridel - 2400€",
+        "email": "mailto:?subject=Appartement Bridel&body=https://nextimmo.lu/en/details/16052"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_17611",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Luxembourg-Kirchberg",
+      "city": "luxembourg kirchberg",
+      "price": 2350,
+      "rooms": 2,
+      "surface": 87,
+      "url": "https://nextimmo.lu/en/details/17611",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/3bca47682f82f5089e6d6d0eb5b608e4/2296c8cbc5e2b3e40d422942e6902104.jpg",
+      "latitude": 49.62508,
+      "longitude": 6.14274,
+      "distance_km": 2.9,
+      "created_at": "2026-02-24 20:16:52",
+      "price_m2": 27.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F17611&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Luxembourg-Kirchberg - 2350€ @ luxembourg kirchberg https://nextimmo.lu/en/details/17611",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/17611&text=Appartement Luxembourg-Kirchberg - 2350€",
+        "email": "mailto:?subject=Appartement Luxembourg-Kirchberg&body=https://nextimmo.lu/en/details/17611"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8947980",
+      "site": "Athome.lu",
+      "title": "Bel appartement très lumineux situé au 2ème étage d'une petite résiden",
+      "city": "bissen",
+      "price": 2000,
+      "rooms": 3,
+      "surface": 81,
+      "url": "https://www.athome.lu/location/appartement/bissen/id-8947980.html",
+      "image_url": null,
+      "latitude": 49.771065,
+      "longitude": 5.9816771,
+      "distance_km": 22.0,
+      "created_at": "2026-02-24 20:16:43",
+      "price_m2": 24.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fbissen%2Fid-8947980.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Bel appartement très lumineux situé au 2ème étage  - 2000€ @ bissen https://www.athome.lu/location/appartement/bissen/id-8947980.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/bissen/id-8947980.html&text=Bel appartement très lumineux situé au 2ème étage  - 2000€",
+        "email": "mailto:?subject=Bel appartement très lumineux situé au 2ème étage &body=https://www.athome.lu/location/appartement/bissen/id-8947980.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8086234",
+      "site": "Athome.lu",
+      "title": "Many Many vous propose cet appartement de 98 m², situé au 2ème étage d",
+      "city": "belval",
+      "price": 2375,
+      "rooms": 2,
+      "surface": 98,
+      "url": "https://www.athome.lu/location/appartement/belval/id-8086234.html",
+      "image_url": null,
+      "latitude": 49.5045503,
+      "longitude": 5.9435467,
+      "distance_km": 17.4,
+      "created_at": "2026-02-24 20:16:33",
+      "price_m2": 24.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fbelval%2Fid-8086234.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Many Many vous propose cet appartement de 98 m², s - 2375€ @ belval https://www.athome.lu/location/appartement/belval/id-8086234.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/belval/id-8086234.html&text=Many Many vous propose cet appartement de 98 m², s - 2375€",
+        "email": "mailto:?subject=Many Many vous propose cet appartement de 98 m², s&body=https://www.athome.lu/location/appartement/belval/id-8086234.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8470343",
+      "site": "Athome.lu",
+      "title": "Many Many vous présente cet appartement meublé et traversant à la déco",
+      "city": "luxembourg cessange",
+      "price": 2500,
+      "rooms": 4,
+      "surface": 90,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-cessange/id-8470343.html",
+      "image_url": null,
+      "latitude": 49.5872157,
+      "longitude": 6.1061192,
+      "distance_km": 2.5,
+      "created_at": "2026-02-24 20:16:23",
+      "price_m2": 27.8,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-cessange%2Fid-8470343.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Many Many vous présente cet appartement meublé et  - 2500€ @ luxembourg cessange https://www.athome.lu/location/appartement/luxembourg-cessange/id-8470343.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-cessange/id-8470343.html&text=Many Many vous présente cet appartement meublé et  - 2500€",
+        "email": "mailto:?subject=Many Many vous présente cet appartement meublé et &body=https://www.athome.lu/location/appartement/luxembourg-cessange/id-8470343.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8994521",
+      "site": "Athome.lu",
+      "title": "appartement lumineux sis au rez-de-chaussée surélevé d’un petit immeub",
+      "city": "luxembourg belair",
+      "price": 2250,
+      "rooms": 5,
+      "surface": 90,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-8994521.html",
+      "image_url": null,
+      "latitude": 49.6078954,
+      "longitude": 6.1070622,
+      "distance_km": 2.1,
+      "created_at": "2026-02-24 20:16:14",
+      "price_m2": 25.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-belair%2Fid-8994521.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: appartement lumineux sis au rez-de-chaussée suréle - 2250€ @ luxembourg belair https://www.athome.lu/location/appartement/luxembourg-belair/id-8994521.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-belair/id-8994521.html&text=appartement lumineux sis au rez-de-chaussée suréle - 2250€",
+        "email": "mailto:?subject=appartement lumineux sis au rez-de-chaussée suréle&body=https://www.athome.lu/location/appartement/luxembourg-belair/id-8994521.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_9001789",
+      "site": "Athome.lu",
+      "title": "appartement rénové en 2020 à louer dans un une rue calme de Limpertsbe",
+      "city": "luxembourg limpertsberg",
+      "price": 1348,
+      "rooms": 7,
+      "surface": 131,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-9001789.html",
+      "image_url": null,
+      "latitude": 49.6185865,
+      "longitude": 6.122383399999999,
+      "distance_km": 2.2,
+      "created_at": "2026-02-24 20:16:03",
+      "price_m2": 10.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-limpertsberg%2Fid-9001789.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: appartement rénové en 2020 à louer dans un une rue - 1348€ @ luxembourg limpertsberg https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-9001789.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-9001789.html&text=appartement rénové en 2020 à louer dans un une rue - 1348€",
+        "email": "mailto:?subject=appartement rénové en 2020 à louer dans un une rue&body=https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-9001789.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8976000",
+      "site": "Athome.lu",
+      "title": "A louer, superbe appartement de 89 m2 avec 2 chambres à coucher, parti",
+      "city": "bertrange",
+      "price": 2300,
+      "rooms": 2,
+      "surface": 89,
+      "url": "https://www.athome.lu/location/appartement/bertrange/id-8976000.html",
+      "image_url": null,
+      "latitude": 49.6024772,
+      "longitude": 6.0732987,
+      "distance_km": 4.4,
+      "created_at": "2026-02-24 20:15:51",
+      "price_m2": 25.8,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fbertrange%2Fid-8976000.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: A louer, superbe appartement de 89 m2 avec 2 chamb - 2300€ @ bertrange https://www.athome.lu/location/appartement/bertrange/id-8976000.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/bertrange/id-8976000.html&text=A louer, superbe appartement de 89 m2 avec 2 chamb - 2300€",
+        "email": "mailto:?subject=A louer, superbe appartement de 89 m2 avec 2 chamb&body=https://www.athome.lu/location/appartement/bertrange/id-8976000.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8982175",
+      "site": "Athome.lu",
+      "title": "PANERE Group vous propose à la location un magnifique Penthouse, situé",
+      "city": "differdange",
+      "price": 2100,
+      "rooms": 2,
+      "surface": 87,
+      "url": "https://www.athome.lu/location/penthouse/differdange/id-8982175.html",
+      "image_url": null,
+      "latitude": 49.52075,
+      "longitude": 5.8999095,
+      "distance_km": 19.1,
+      "created_at": "2026-02-24 20:15:43",
+      "price_m2": 24.1,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fpenthouse%2Fdifferdange%2Fid-8982175.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: PANERE Group vous propose à la location un magnifi - 2100€ @ differdange https://www.athome.lu/location/penthouse/differdange/id-8982175.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/penthouse/differdange/id-8982175.html&text=PANERE Group vous propose à la location un magnifi - 2100€",
+        "email": "mailto:?subject=PANERE Group vous propose à la location un magnifi&body=https://www.athome.lu/location/penthouse/differdange/id-8982175.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8114963",
+      "site": "Athome.lu",
+      "title": "Many Many vous propose ce bel appartement rez-de-Jardin de 81 m² situé",
+      "city": "luxembourg bonnevoie",
+      "price": 2300,
+      "rooms": 2,
+      "surface": 81,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-bonnevoie/id-8114963.html",
+      "image_url": null,
+      "latitude": 49.5923442,
+      "longitude": 6.1441177,
+      "distance_km": 1.1,
+      "created_at": "2026-02-24 20:15:31",
+      "price_m2": 28.4,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-bonnevoie%2Fid-8114963.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Many Many vous propose ce bel appartement rez-de-J - 2300€ @ luxembourg bonnevoie https://www.athome.lu/location/appartement/luxembourg-bonnevoie/id-8114963.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-bonnevoie/id-8114963.html&text=Many Many vous propose ce bel appartement rez-de-J - 2300€",
+        "email": "mailto:?subject=Many Many vous propose ce bel appartement rez-de-J&body=https://www.athome.lu/location/appartement/luxembourg-bonnevoie/id-8114963.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8221893",
+      "site": "Athome.lu",
+      "title": "++++COUP DE COEUR! FULLY FURNISHED COLOCATION POSSIBLE AVAILABLE 15.06",
+      "city": "esch sur alzette",
+      "price": 1750,
+      "rooms": 2,
+      "surface": 90,
+      "url": "https://www.athome.lu/location/appartement/esch-sur-alzette/id-8221893.html",
+      "image_url": null,
+      "latitude": 49.4964624,
+      "longitude": 5.9753139,
+      "distance_km": 16.2,
+      "created_at": "2026-02-24 20:15:23",
+      "price_m2": 19.4,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fesch-sur-alzette%2Fid-8221893.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: ++++COUP DE COEUR! FULLY FURNISHED COLOCATION POSS - 1750€ @ esch sur alzette https://www.athome.lu/location/appartement/esch-sur-alzette/id-8221893.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/esch-sur-alzette/id-8221893.html&text=++++COUP DE COEUR! FULLY FURNISHED COLOCATION POSS - 1750€",
+        "email": "mailto:?subject=++++COUP DE COEUR! FULLY FURNISHED COLOCATION POSS&body=https://www.athome.lu/location/appartement/esch-sur-alzette/id-8221893.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8940704",
+      "site": "Athome.lu",
+      "title": "+352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Estate Invest vous prop",
+      "city": "luxembourg centre ville",
+      "price": 2500,
+      "rooms": 2,
+      "surface": 110,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8940704.html",
+      "image_url": null,
+      "latitude": 49.6124883,
+      "longitude": 6.126248899999999,
+      "distance_km": 1.5,
+      "created_at": "2026-02-24 20:15:13",
+      "price_m2": 22.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-centre-ville%2Fid-8940704.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: +352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Est - 2500€ @ luxembourg centre ville https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8940704.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8940704.html&text=+352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Est - 2500€",
+        "email": "mailto:?subject=+352 621 71 28 77 bernard@mtinvest.lu\n\nMT Real Est&body=https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8940704.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_7980446",
+      "site": "Athome.lu",
+      "title": "+++SHORT TERM COURT SEJOUR FULLY FURNISHED+++EUREKA REAL ESTATE vous p",
+      "city": "luxembourg kirchberg",
+      "price": 2400,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7980446.html",
+      "image_url": null,
+      "latitude": 49.6278694,
+      "longitude": 6.153422,
+      "distance_km": 3.4,
+      "created_at": "2026-02-24 20:15:03",
+      "price_m2": 30.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-kirchberg%2Fid-7980446.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: +++SHORT TERM COURT SEJOUR FULLY FURNISHED+++EUREK - 2400€ @ luxembourg kirchberg https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7980446.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7980446.html&text=+++SHORT TERM COURT SEJOUR FULLY FURNISHED+++EUREK - 2400€",
+        "email": "mailto:?subject=+++SHORT TERM COURT SEJOUR FULLY FURNISHED+++EUREK&body=https://www.athome.lu/location/appartement/luxembourg-kirchberg/id-7980446.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_16073",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Oberkorn",
+      "city": "oberkorn",
+      "price": 1750,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://nextimmo.lu/en/details/16073",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/7430d64cfb24ada7c40e435e6815f0ad/34d26e563caa9f2aa912b73b94bb4c8f.jpg",
+      "latitude": 49.53,
+      "longitude": 5.89,
+      "distance_km": 19.3,
+      "created_at": "2026-02-24 20:14:51",
+      "price_m2": 21.9,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F16073&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Oberkorn - 1750€ @ oberkorn https://nextimmo.lu/en/details/16073",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/16073&text=Appartement Oberkorn - 1750€",
+        "email": "mailto:?subject=Appartement Oberkorn&body=https://nextimmo.lu/en/details/16073"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_7840995",
+      "site": "Athome.lu",
+      "title": "+++COUP DE COEUR! SHORT TERM FULLY FURNISHED COLOCATION POSSIBLE+++EUR",
+      "city": "luxembourg dommeldange",
+      "price": 2450,
+      "rooms": 2,
+      "surface": 110,
+      "url": "https://www.athome.lu/location/penthouse/luxembourg-dommeldange/id-7840995.html",
+      "image_url": null,
+      "latitude": 49.6391127,
+      "longitude": 6.1376927,
+      "distance_km": 4.4,
+      "created_at": "2026-02-24 20:14:40",
+      "price_m2": 22.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fpenthouse%2Fluxembourg-dommeldange%2Fid-7840995.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: +++COUP DE COEUR! SHORT TERM FULLY FURNISHED COLOC - 2450€ @ luxembourg dommeldange https://www.athome.lu/location/penthouse/luxembourg-dommeldange/id-7840995.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/penthouse/luxembourg-dommeldange/id-7840995.html&text=+++COUP DE COEUR! SHORT TERM FULLY FURNISHED COLOC - 2450€",
+        "email": "mailto:?subject=+++COUP DE COEUR! SHORT TERM FULLY FURNISHED COLOC&body=https://www.athome.lu/location/penthouse/luxembourg-dommeldange/id-7840995.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_9001090",
+      "site": "Athome.lu",
+      "title": "À louer par Supereal. Superbe appartement deux chambres avec terrasse",
+      "city": "esch sur alzette",
+      "price": 2200,
+      "rooms": 2,
+      "surface": 94,
+      "url": "https://www.athome.lu/location/appartement/esch-sur-alzette/id-9001090.html",
+      "image_url": null,
+      "latitude": 49.50818390000001,
+      "longitude": 5.9879452,
+      "distance_km": 14.7,
+      "created_at": "2026-02-24 20:14:30",
+      "price_m2": 23.4,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fesch-sur-alzette%2Fid-9001090.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: À louer par Supereal. Superbe appartement deux cha - 2200€ @ esch sur alzette https://www.athome.lu/location/appartement/esch-sur-alzette/id-9001090.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/esch-sur-alzette/id-9001090.html&text=À louer par Supereal. Superbe appartement deux cha - 2200€",
+        "email": "mailto:?subject=À louer par Supereal. Superbe appartement deux cha&body=https://www.athome.lu/location/appartement/esch-sur-alzette/id-9001090.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_14834",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Junglinster",
+      "city": "junglinster",
+      "price": 2500,
+      "rooms": 3,
+      "surface": 99,
+      "url": "https://nextimmo.lu/en/details/14834",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/11800701703a63bed24598328aeaba43/fe1524c12e47b051555fa65994f2b1d1.jpg",
+      "latitude": 49.7133,
+      "longitude": 6.25612,
+      "distance_km": 15.4,
+      "created_at": "2026-02-24 20:14:19",
+      "price_m2": 25.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F14834&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Junglinster - 2500€ @ junglinster https://nextimmo.lu/en/details/14834",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/14834&text=Appartement Junglinster - 2500€",
+        "email": "mailto:?subject=Appartement Junglinster&body=https://nextimmo.lu/en/details/14834"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8908362",
+      "site": "Athome.lu",
+      "title": "Castel immobilier propose à la location ce magnifique appartement enti",
+      "city": "helmsange",
+      "price": 2500,
+      "rooms": 2,
+      "surface": 83,
+      "url": "https://www.athome.lu/location/appartement/helmsange/id-8908362.html",
+      "image_url": null,
+      "latitude": 49.6687138,
+      "longitude": 6.1321495,
+      "distance_km": 7.6,
+      "created_at": "2026-02-24 20:14:09",
+      "price_m2": 30.1,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fhelmsange%2Fid-8908362.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Castel immobilier propose à la location ce magnifi - 2500€ @ helmsange https://www.athome.lu/location/appartement/helmsange/id-8908362.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/helmsange/id-8908362.html&text=Castel immobilier propose à la location ce magnifi - 2500€",
+        "email": "mailto:?subject=Castel immobilier propose à la location ce magnifi&body=https://www.athome.lu/location/appartement/helmsange/id-8908362.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8498529",
+      "site": "Athome.lu",
+      "title": "Très bel appartement situé dans une nouvelle résidence avec seulement",
+      "city": "remich",
+      "price": 2500,
+      "rooms": 4,
+      "surface": 130,
+      "url": "https://www.athome.lu/location/appartement/remich/id-8498529.html",
+      "image_url": null,
+      "latitude": 49.545017,
+      "longitude": 6.3674222,
+      "distance_km": 17.9,
+      "created_at": "2026-02-24 20:13:57",
+      "price_m2": 19.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fremich%2Fid-8498529.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Très bel appartement situé dans une nouvelle résid - 2500€ @ remich https://www.athome.lu/location/appartement/remich/id-8498529.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/remich/id-8498529.html&text=Très bel appartement situé dans une nouvelle résid - 2500€",
+        "email": "mailto:?subject=Très bel appartement situé dans une nouvelle résid&body=https://www.athome.lu/location/appartement/remich/id-8498529.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_18173",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Rodange",
+      "city": "rodange",
+      "price": 1980,
+      "rooms": 3,
+      "surface": 95,
+      "url": "https://nextimmo.lu/en/details/18173",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/63d705e51a5088caa509b0ab256fd41c/e79c9135e2e4784de8cb489228f52692.jpg",
+      "latitude": 49.55,
+      "longitude": 5.84,
+      "distance_km": 21.9,
+      "created_at": "2026-02-24 20:13:46",
+      "price_m2": 20.8,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F18173&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Rodange - 1980€ @ rodange https://nextimmo.lu/en/details/18173",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/18173&text=Appartement Rodange - 1980€",
+        "email": "mailto:?subject=Appartement Rodange&body=https://nextimmo.lu/en/details/18173"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8892284",
+      "site": "Athome.lu",
+      "title": "Magnifique appartement n° 05 (lot 035) d'une superficie de +/- 109,42",
+      "city": "schouweiler",
+      "price": 2390,
+      "rooms": 7,
+      "surface": 109,
+      "url": "https://www.athome.lu/location/appartement/schouweiler/id-8892284.html",
+      "image_url": null,
+      "latitude": 49.5820512,
+      "longitude": 5.955324099999999,
+      "distance_km": 13.0,
+      "created_at": "2026-02-24 20:13:36",
+      "price_m2": 21.9,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fschouweiler%2Fid-8892284.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Magnifique appartement n° 05 (lot 035) d'une super - 2390€ @ schouweiler https://www.athome.lu/location/appartement/schouweiler/id-8892284.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/schouweiler/id-8892284.html&text=Magnifique appartement n° 05 (lot 035) d'une super - 2390€",
+        "email": "mailto:?subject=Magnifique appartement n° 05 (lot 035) d'une super&body=https://www.athome.lu/location/appartement/schouweiler/id-8892284.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8184615",
+      "site": "Athome.lu",
+      "title": "A EISCHEN 11B, rue de Clairefontaine\nBel appartement au 1er étage  de",
+      "city": "eischen",
+      "price": 1600,
+      "rooms": 2,
+      "surface": 99,
+      "url": "https://www.athome.lu/location/appartement/eischen/id-8184615.html",
+      "image_url": null,
+      "latitude": 49.6799401,
+      "longitude": 5.8782811,
+      "distance_km": 20.5,
+      "created_at": "2026-02-24 20:13:26",
+      "price_m2": 16.2,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Feischen%2Fid-8184615.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: A EISCHEN 11B, rue de Clairefontaine\nBel apparteme - 1600€ @ eischen https://www.athome.lu/location/appartement/eischen/id-8184615.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/eischen/id-8184615.html&text=A EISCHEN 11B, rue de Clairefontaine\nBel apparteme - 1600€",
+        "email": "mailto:?subject=A EISCHEN 11B, rue de Clairefontaine\nBel apparteme&body=https://www.athome.lu/location/appartement/eischen/id-8184615.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_9002366",
+      "site": "Athome.lu",
+      "title": "Située rue de Mondercange à Esch-sur-Alzette, au coeur de Lallange, la",
+      "city": "lallange",
+      "price": 2200,
+      "rooms": 2,
+      "surface": 96,
+      "url": "https://www.athome.lu/location/appartement/lallange/id-9002366.html",
+      "image_url": null,
+      "latitude": 49.5112992,
+      "longitude": 5.9873939,
+      "distance_km": 14.5,
+      "created_at": "2026-02-24 20:13:14",
+      "price_m2": 22.9,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Flallange%2Fid-9002366.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Située rue de Mondercange à Esch-sur-Alzette, au c - 2200€ @ lallange https://www.athome.lu/location/appartement/lallange/id-9002366.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/lallange/id-9002366.html&text=Située rue de Mondercange à Esch-sur-Alzette, au c - 2200€",
+        "email": "mailto:?subject=Située rue de Mondercange à Esch-sur-Alzette, au c&body=https://www.athome.lu/location/appartement/lallange/id-9002366.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8992217",
+      "site": "Athome.lu",
+      "title": "Appartement 037\n\nEn location, Creahaus vous propose ce charmant appa",
+      "city": "mamer",
+      "price": 2400,
+      "rooms": 7,
+      "surface": 100,
+      "url": "https://www.athome.lu/location/appartement/mamer/id-8992217.html",
+      "image_url": null,
+      "latitude": 49.6314553,
+      "longitude": 6.0197216,
+      "distance_km": 9.0,
+      "created_at": "2026-02-24 20:13:03",
+      "price_m2": 24.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fmamer%2Fid-8992217.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 037\n\nEn location, Creahaus vous propos - 2400€ @ mamer https://www.athome.lu/location/appartement/mamer/id-8992217.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/mamer/id-8992217.html&text=Appartement 037\n\nEn location, Creahaus vous propos - 2400€",
+        "email": "mailto:?subject=Appartement 037\n\nEn location, Creahaus vous propos&body=https://www.athome.lu/location/appartement/mamer/id-8992217.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "nextimmo_16087",
+      "site": "Nextimmo.lu",
+      "title": "Appartement Rodange",
+      "city": "rodange",
+      "price": 1950,
+      "rooms": 3,
+      "surface": 104,
+      "url": "https://nextimmo.lu/en/details/16087",
+      "image_url": "https://storage.nextimmo.lu/images/thumb/6a1280eec80367b69751eb06481299e4/2b86cee066ce900227b10f3f21b6654a.jpg",
+      "latitude": 49.55,
+      "longitude": 5.84,
+      "distance_km": 21.9,
+      "created_at": "2026-02-24 20:12:52",
+      "price_m2": 18.8,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fnextimmo.lu%2Fen%2Fdetails%2F16087&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement Rodange - 1950€ @ rodange https://nextimmo.lu/en/details/16087",
+        "telegram": "https://t.me/share/url?url=https://nextimmo.lu/en/details/16087&text=Appartement Rodange - 1950€",
+        "email": "mailto:?subject=Appartement Rodange&body=https://nextimmo.lu/en/details/16087"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8983034",
+      "site": "Athome.lu",
+      "title": "Spacieux appartement sis au rez-de-chaussée, dans une Résidence très s",
+      "city": "rollingen",
+      "price": 2150,
+      "rooms": 6,
+      "surface": 100,
+      "url": "https://www.athome.lu/location/appartement/rollingen/id-8983034.html",
+      "image_url": null,
+      "latitude": 49.7402205,
+      "longitude": 6.1137785,
+      "distance_km": 15.7,
+      "created_at": "2026-02-24 20:12:43",
+      "price_m2": 21.5,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Frollingen%2Fid-8983034.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Spacieux appartement sis au rez-de-chaussée, dans  - 2150€ @ rollingen https://www.athome.lu/location/appartement/rollingen/id-8983034.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/rollingen/id-8983034.html&text=Spacieux appartement sis au rez-de-chaussée, dans  - 2150€",
+        "email": "mailto:?subject=Spacieux appartement sis au rez-de-chaussée, dans &body=https://www.athome.lu/location/appartement/rollingen/id-8983034.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8982958",
+      "site": "Athome.lu",
+      "title": "Spacieux triplex en situation calme à Brouch, offrant des espaces géné",
+      "city": "brouch (mersch)",
+      "price": 2400,
+      "rooms": 3,
+      "surface": 172,
+      "url": "https://www.athome.lu/location/duplex/brouch-(mersch)/id-8982958.html",
+      "image_url": null,
+      "latitude": 49.7373735,
+      "longitude": 6.0202389,
+      "distance_km": 17.3,
+      "created_at": "2026-02-24 20:12:31",
+      "price_m2": 14.0,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fduplex%2Fbrouch-%28mersch%29%2Fid-8982958.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Spacieux triplex en situation calme à Brouch, offr - 2400€ @ brouch (mersch) https://www.athome.lu/location/duplex/brouch-(mersch)/id-8982958.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/duplex/brouch-(mersch)/id-8982958.html&text=Spacieux triplex en situation calme à Brouch, offr - 2400€",
+        "email": "mailto:?subject=Spacieux triplex en situation calme à Brouch, offr&body=https://www.athome.lu/location/duplex/brouch-(mersch)/id-8982958.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8947973",
+      "site": "Athome.lu",
+      "title": "Nouvelle construction - 1ère occupation\n\nTrès bel appartement au 1er",
+      "city": "petange",
+      "price": 2200,
+      "rooms": 5,
+      "surface": 92,
+      "url": "https://www.athome.lu/location/appartement/pétange/id-8947973.html",
+      "image_url": null,
+      "latitude": 49.5596561,
+      "longitude": 5.8651621,
+      "distance_km": 19.9,
+      "created_at": "2026-02-24 20:12:19",
+      "price_m2": 23.9,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fp%C3%A9tange%2Fid-8947973.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Nouvelle construction - 1ère occupation\n\nTrès bel  - 2200€ @ petange https://www.athome.lu/location/appartement/pétange/id-8947973.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/pétange/id-8947973.html&text=Nouvelle construction - 1ère occupation\n\nTrès bel  - 2200€",
+        "email": "mailto:?subject=Nouvelle construction - 1ère occupation\n\nTrès bel &body=https://www.athome.lu/location/appartement/pétange/id-8947973.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8383829",
+      "site": "Athome.lu",
+      "title": "RESIDENCE (2017): Au 1er étage (de l'avant à l'arrière)\nbel apparteme",
+      "city": "hobscheid",
+      "price": 1900,
+      "rooms": 2,
+      "surface": 83,
+      "url": "https://www.athome.lu/location/appartement/hobscheid/id-8383829.html",
+      "image_url": null,
+      "latitude": 49.6863684,
+      "longitude": 5.9151653,
+      "distance_km": 18.5,
+      "created_at": "2026-02-24 20:12:09",
+      "price_m2": 22.9,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fhobscheid%2Fid-8383829.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: RESIDENCE (2017): Au 1er étage (de l'avant à l'arr - 1900€ @ hobscheid https://www.athome.lu/location/appartement/hobscheid/id-8383829.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/hobscheid/id-8383829.html&text=RESIDENCE (2017): Au 1er étage (de l'avant à l'arr - 1900€",
+        "email": "mailto:?subject=RESIDENCE (2017): Au 1er étage (de l'avant à l'arr&body=https://www.athome.lu/location/appartement/hobscheid/id-8383829.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_9001358",
+      "site": "Athome.lu",
+      "title": "A KAHLER, village situé dans le canton de Capellen, avec accès facile",
+      "city": "kahler",
+      "price": 2300,
+      "rooms": 3,
+      "surface": 126,
+      "url": "https://www.athome.lu/location/appartement/kahler/id-9001358.html",
+      "image_url": null,
+      "latitude": 49.6308897,
+      "longitude": 5.916589,
+      "distance_km": 16.0,
+      "created_at": "2026-02-24 20:11:57",
+      "price_m2": 18.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fkahler%2Fid-9001358.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: A KAHLER, village situé dans le canton de Capellen - 2300€ @ kahler https://www.athome.lu/location/appartement/kahler/id-9001358.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/kahler/id-9001358.html&text=A KAHLER, village situé dans le canton de Capellen - 2300€",
+        "email": "mailto:?subject=A KAHLER, village situé dans le canton de Capellen&body=https://www.athome.lu/location/appartement/kahler/id-9001358.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "vivi_212177",
+      "site": "VIVI.lu",
+      "title": "Appartement 2 chambres à louer",
+      "city": "mamer",
+      "price": 2000,
+      "rooms": 2,
+      "surface": 81,
+      "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/mamer/appartement-2-chambres-a-louer/212177",
+      "image_url": "https://www.vivi.lu/images/member-badge.svg",
+      "latitude": 49.627,
+      "longitude": 6.023,
+      "distance_km": 8.6,
+      "created_at": "2026-02-24 20:11:43",
+      "price_m2": 24.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.vivi.lu%2Ffr%2Fpropriete%2Flieu%2Fappartement%2Fmamer%2Fappartement-2-chambres-a-louer%2F212177&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Appartement 2 chambres à louer - 2000€ @ mamer https://www.vivi.lu/fr/propriete/lieu/appartement/mamer/appartement-2-chambres-a-louer/212177",
+        "telegram": "https://t.me/share/url?url=https://www.vivi.lu/fr/propriete/lieu/appartement/mamer/appartement-2-chambres-a-louer/212177&text=Appartement 2 chambres à louer - 2000€",
+        "email": "mailto:?subject=Appartement 2 chambres à louer&body=https://www.vivi.lu/fr/propriete/lieu/appartement/mamer/appartement-2-chambres-a-louer/212177"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8726729",
+      "site": "Athome.lu",
+      "title": "L'offre est sans commission pour le locataire !!! \n\nAppartement modern",
+      "city": "perl",
+      "price": 2000,
+      "rooms": 4,
+      "surface": 120,
+      "url": "https://www.athome.lu/location/appartement/perl/id-8726729.html",
+      "image_url": null,
+      "latitude": 49.47774580000001,
+      "longitude": 6.3818646,
+      "distance_km": 22.5,
+      "created_at": "2026-02-24 20:11:33",
+      "price_m2": 16.7,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fperl%2Fid-8726729.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: L'offre est sans commission pour le locataire !!!  - 2000€ @ perl https://www.athome.lu/location/appartement/perl/id-8726729.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/perl/id-8726729.html&text=L'offre est sans commission pour le locataire !!!  - 2000€",
+        "email": "mailto:?subject=L'offre est sans commission pour le locataire !!! &body=https://www.athome.lu/location/appartement/perl/id-8726729.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8831762",
+      "site": "Athome.lu",
+      "title": "Wohnung zur Miete ? Perl (Deutschland)\nDiese helle Wohnung befindet si",
+      "city": "perl",
+      "price": 1750,
+      "rooms": 4,
+      "surface": 110,
+      "url": "https://www.athome.lu/location/appartement/perl/id-8831762.html",
+      "image_url": null,
+      "latitude": 49.4778083,
+      "longitude": 6.3823749,
+      "distance_km": 22.5,
+      "created_at": "2026-02-24 20:11:22",
+      "price_m2": 15.9,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fperl%2Fid-8831762.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Wohnung zur Miete ? Perl (Deutschland)\nDiese helle - 1750€ @ perl https://www.athome.lu/location/appartement/perl/id-8831762.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/perl/id-8831762.html&text=Wohnung zur Miete ? Perl (Deutschland)\nDiese helle - 1750€",
+        "email": "mailto:?subject=Wohnung zur Miete ? Perl (Deutschland)\nDiese helle&body=https://www.athome.lu/location/appartement/perl/id-8831762.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8971722",
+      "site": "Athome.lu",
+      "title": "Lien vers visite virtuelle : https://tour.giraffe360.com/0b04f7ad1b0a4",
+      "city": "luxembourg centre ville",
+      "price": 2350,
+      "rooms": 2,
+      "surface": 93,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8971722.html",
+      "image_url": null,
+      "latitude": 49.6118458,
+      "longitude": 6.126972500000001,
+      "distance_km": 1.4,
+      "created_at": "2026-02-24 20:11:14",
+      "price_m2": 25.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fluxembourg-centre-ville%2Fid-8971722.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Lien vers visite virtuelle : https://tour.giraffe3 - 2350€ @ luxembourg centre ville https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8971722.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8971722.html&text=Lien vers visite virtuelle : https://tour.giraffe3 - 2350€",
+        "email": "mailto:?subject=Lien vers visite virtuelle : https://tour.giraffe3&body=https://www.athome.lu/location/appartement/luxembourg-centre-ville/id-8971722.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8958851",
+      "site": "Athome.lu",
+      "title": "Situé dans le paisible village de Contern, dans une résidence avec asc",
+      "city": "contern",
+      "price": 2400,
+      "rooms": 2,
+      "surface": 82,
+      "url": "https://www.athome.lu/location/appartement/contern/id-8958851.html",
+      "image_url": null,
+      "latitude": 49.5854461,
+      "longitude": 6.224731299999999,
+      "distance_km": 6.7,
+      "created_at": "2026-02-24 20:11:05",
+      "price_m2": 29.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Fappartement%2Fcontern%2Fid-8958851.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Situé dans le paisible village de Contern, dans un - 2400€ @ contern https://www.athome.lu/location/appartement/contern/id-8958851.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/appartement/contern/id-8958851.html&text=Situé dans le paisible village de Contern, dans un - 2400€",
+        "email": "mailto:?subject=Situé dans le paisible village de Contern, dans un&body=https://www.athome.lu/location/appartement/contern/id-8958851.html"
+      },
+      "flags": []
+    },
+    {
+      "listing_id": "athome_8957695",
+      "site": "Athome.lu",
+      "title": "Triplex Arlon",
+      "city": "arlon",
+      "price": 1850,
+      "rooms": 3,
+      "surface": 150,
+      "url": "https://www.athome.lu/location/triplex/arlon/id-8957695.html",
+      "image_url": null,
+      "latitude": 49.68841190000001,
+      "longitude": 5.8166288,
+      "distance_km": 24.9,
+      "created_at": "2026-02-24 20:11:00",
+      "price_m2": 12.3,
+      "qr_code_url": "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fwww.athome.lu%2Flocation%2Ftriplex%2Farlon%2Fid-8957695.html&format=png",
+      "share_urls": {
+        "whatsapp": "https://wa.me/?text=Annonce immo: Triplex Arlon - 1850€ @ arlon https://www.athome.lu/location/triplex/arlon/id-8957695.html",
+        "telegram": "https://t.me/share/url?url=https://www.athome.lu/location/triplex/arlon/id-8957695.html&text=Triplex Arlon - 1850€",
+        "email": "mailto:?subject=Triplex Arlon&body=https://www.athome.lu/location/triplex/arlon/id-8957695.html"
+      },
+      "flags": []
+    }
+  ],
+  "price_heatmap": [
+    {
+      "city": "mondorf les bains",
+      "lat": 49.50185,
+      "lng": 6.27573,
+      "avg_price_m2": 14.3,
+      "count": 1
+    },
+    {
+      "city": "bettembourg",
+      "lat": 49.52,
+      "lng": 6.105,
+      "avg_price_m2": 19.1,
+      "count": 2
+    },
+    {
+      "city": "tetange",
+      "lat": 49.47374,
+      "lng": 6.03998,
+      "avg_price_m2": 23.8,
+      "count": 1
+    },
+    {
+      "city": "olm",
+      "lat": 49.65509,
+      "lng": 5.99296,
+      "avg_price_m2": 28.8,
+      "count": 1
+    },
+    {
+      "city": "rodange",
+      "lat": 49.54524,
+      "lng": 5.83908,
+      "avg_price_m2": 20.6,
+      "count": 3
+    },
+    {
+      "city": "bertrange",
+      "lat": 49.61,
+      "lng": 6.05,
+      "avg_price_m2": 24.7,
+      "count": 3
+    },
+    {
+      "city": "weiler la tour",
+      "lat": 49.54,
+      "lng": 6.19,
+      "avg_price_m2": 19.2,
+      "count": 1
+    },
+    {
+      "city": "garnich",
+      "lat": 49.61,
+      "lng": 5.96,
+      "avg_price_m2": 24.5,
+      "count": 1
+    },
+    {
+      "city": "christnach",
+      "lat": 49.7880278,
+      "lng": 6.2675721,
+      "avg_price_m2": 20.6,
+      "count": 1
+    },
+    {
+      "city": "messancy",
+      "lat": 49.6080933,
+      "lng": 5.849097299999999,
+      "avg_price_m2": 9.4,
+      "count": 3
+    },
+    {
+      "city": "arlon",
+      "lat": 49.6829691,
+      "lng": 5.8075929,
+      "avg_price_m2": 9.5,
+      "count": 6
+    },
+    {
+      "city": "hettange grande",
+      "lat": 49.4059136,
+      "lng": 6.1554768,
+      "avg_price_m2": 15.5,
+      "count": 1
+    },
+    {
+      "city": "belvaux",
+      "lat": 49.5043347,
+      "lng": 5.9214334,
+      "avg_price_m2": 20.4,
+      "count": 2
+    },
+    {
+      "city": "weydig",
+      "lat": 49.7117967,
+      "lng": 6.367479899999999,
+      "avg_price_m2": 13.0,
+      "count": 1
+    },
+    {
+      "city": "palzem",
+      "lat": 49.5541335,
+      "lng": 6.4085363,
+      "avg_price_m2": 15.6,
+      "count": 1
+    },
+    {
+      "city": "cattenom",
+      "lat": 49.406263,
+      "lng": 6.243668,
+      "avg_price_m2": 11.4,
+      "count": 2
+    },
+    {
+      "city": "mamer",
+      "lat": 49.6270927,
+      "lng": 6.0146129,
+      "avg_price_m2": 24.6,
+      "count": 3
+    },
+    {
+      "city": "junglinster",
+      "lat": 49.71,
+      "lng": 6.25,
+      "avg_price_m2": 22.4,
+      "count": 2
+    },
+    {
+      "city": "hautcharage",
+      "lat": 49.5771,
+      "lng": 5.90988,
+      "avg_price_m2": 17.8,
+      "count": 2
+    },
+    {
+      "city": "gonderange",
+      "lat": 49.69,
+      "lng": 6.25,
+      "avg_price_m2": 23.2,
+      "count": 1
+    },
+    {
+      "city": "esch sur alzette",
+      "lat": 49.502401,
+      "lng": 5.9721782,
+      "avg_price_m2": 22.0,
+      "count": 3
+    },
+    {
+      "city": "hassel",
+      "lat": 49.55093489999999,
+      "lng": 6.2076007,
+      "avg_price_m2": 21.5,
+      "count": 1
+    },
+    {
+      "city": "grevenmacher",
+      "lat": 49.6773648,
+      "lng": 6.4402066,
+      "avg_price_m2": 20.9,
+      "count": 2
+    },
+    {
+      "city": "bridel",
+      "lat": 49.6567235,
+      "lng": 6.0823886,
+      "avg_price_m2": 23.9,
+      "count": 3
+    },
+    {
+      "city": "dudelange",
+      "lat": 49.48081,
+      "lng": 6.07795,
+      "avg_price_m2": 24.5,
+      "count": 2
+    },
+    {
+      "city": "petange",
+      "lat": 49.5570739,
+      "lng": 5.885361899999999,
+      "avg_price_m2": 25.4,
+      "count": 2
+    },
+    {
+      "city": "schifflange",
+      "lat": 49.5031753,
+      "lng": 6.000680099999999,
+      "avg_price_m2": 18.0,
+      "count": 1
+    },
+    {
+      "city": "steinsel",
+      "lat": 49.6750699,
+      "lng": 6.1377211,
+      "avg_price_m2": 26.5,
+      "count": 1
+    },
+    {
+      "city": "thil",
+      "lat": 49.4724674,
+      "lng": 5.9094834,
+      "avg_price_m2": 16.1,
+      "count": 1
+    },
+    {
+      "city": "aubange",
+      "lat": 49.5608954,
+      "lng": 5.808873,
+      "avg_price_m2": 11.4,
+      "count": 1
+    },
+    {
+      "city": "perl",
+      "lat": 49.4730674,
+      "lng": 6.3851003,
+      "avg_price_m2": 16.3,
+      "count": 4
+    },
+    {
+      "city": "senningerberg",
+      "lat": 49.6450986,
+      "lng": 6.2223386,
+      "avg_price_m2": 23.8,
+      "count": 3
+    },
+    {
+      "city": "schengen",
+      "lat": 49.47,
+      "lng": 6.37,
+      "avg_price_m2": 18.7,
+      "count": 1
+    },
+    {
+      "city": "athus",
+      "lat": 49.5573653,
+      "lng": 5.8377516,
+      "avg_price_m2": 14.5,
+      "count": 1
+    },
+    {
+      "city": "perl perl",
+      "lat": 49.4730674,
+      "lng": 6.3851003,
+      "avg_price_m2": 14.0,
+      "count": 1
+    },
+    {
+      "city": "lallange",
+      "lat": 49.5112992,
+      "lng": 5.9873939,
+      "avg_price_m2": 23.0,
+      "count": 2
+    },
+    {
+      "city": "luxembourg hamm",
+      "lat": 49.6116,
+      "lng": 6.1319,
+      "avg_price_m2": 23.3,
+      "count": 1
+    },
+    {
+      "city": "luxembourg hollerich",
+      "lat": 49.60034,
+      "lng": 6.12105,
+      "avg_price_m2": 27.2,
+      "count": 3
+    },
+    {
+      "city": "luxembourg belair",
+      "lat": 49.60751,
+      "lng": 6.10969,
+      "avg_price_m2": 23.2,
+      "count": 6
+    },
+    {
+      "city": "luxembourg pfaffenthal",
+      "lat": 49.6158,
+      "lng": 6.13289,
+      "avg_price_m2": 25.0,
+      "count": 1
+    },
+    {
+      "city": "luxembourg limpertsberg",
+      "lat": 49.6116,
+      "lng": 6.1319,
+      "avg_price_m2": 16.5,
+      "count": 2
+    },
+    {
+      "city": "luxembourg gare",
+      "lat": 49.6,
+      "lng": 6.1342,
+      "avg_price_m2": 28.6,
+      "count": 2
+    },
+    {
+      "city": "luxembourg weimerskirch",
+      "lat": 49.6254273,
+      "lng": 6.135935,
+      "avg_price_m2": 25.0,
+      "count": 1
+    },
+    {
+      "city": "alzingen",
+      "lat": 49.5712572,
+      "lng": 6.1637244,
+      "avg_price_m2": 28.5,
+      "count": 2
+    },
+    {
+      "city": "hesperange",
+      "lat": 49.5731206,
+      "lng": 6.161307000000001,
+      "avg_price_m2": 28.2,
+      "count": 1
+    },
+    {
+      "city": "luxembourg bonnevoie",
+      "lat": 49.59625699999999,
+      "lng": 6.1366508,
+      "avg_price_m2": 26.0,
+      "count": 2
+    },
+    {
+      "city": "luxembourg kirchberg",
+      "lat": 49.62977069999999,
+      "lng": 6.179113,
+      "avg_price_m2": 27.9,
+      "count": 3
+    },
+    {
+      "city": "luxembourg gasperich   cloche dor",
+      "lat": 49.5849,
+      "lng": 6.12475,
+      "avg_price_m2": 27.4,
+      "count": 1
+    },
+    {
+      "city": "luxembourg centre ville",
+      "lat": 49.6123327,
+      "lng": 6.1258432,
+      "avg_price_m2": 26.0,
+      "count": 3
+    },
+    {
+      "city": "luxembourg eich",
+      "lat": 49.6247615,
+      "lng": 6.1294726,
+      "avg_price_m2": 17.2,
+      "count": 1
+    },
+    {
+      "city": "strassen",
+      "lat": 49.6242968,
+      "lng": 6.0774257,
+      "avg_price_m2": 28.7,
+      "count": 1
+    },
+    {
+      "city": "sprinkange",
+      "lat": 49.5842339,
+      "lng": 5.9640686,
+      "avg_price_m2": 23.3,
+      "count": 1
+    },
+    {
+      "city": "luxembourg merl",
+      "lat": 49.6024497,
+      "lng": 6.1143973,
+      "avg_price_m2": 23.0,
+      "count": 1
+    },
+    {
+      "city": "bissen",
+      "lat": 49.771065,
+      "lng": 5.9816771,
+      "avg_price_m2": 24.7,
+      "count": 1
+    },
+    {
+      "city": "belval",
+      "lat": 49.5045503,
+      "lng": 5.9435467,
+      "avg_price_m2": 24.2,
+      "count": 1
+    },
+    {
+      "city": "luxembourg cessange",
+      "lat": 49.5872157,
+      "lng": 6.1061192,
+      "avg_price_m2": 27.8,
+      "count": 1
+    },
+    {
+      "city": "differdange",
+      "lat": 49.52075,
+      "lng": 5.8999095,
+      "avg_price_m2": 24.1,
+      "count": 1
+    },
+    {
+      "city": "oberkorn",
+      "lat": 49.53,
+      "lng": 5.89,
+      "avg_price_m2": 21.9,
+      "count": 1
+    },
+    {
+      "city": "luxembourg dommeldange",
+      "lat": 49.6391127,
+      "lng": 6.1376927,
+      "avg_price_m2": 22.3,
+      "count": 1
+    },
+    {
+      "city": "helmsange",
+      "lat": 49.6687138,
+      "lng": 6.1321495,
+      "avg_price_m2": 30.1,
+      "count": 1
+    },
+    {
+      "city": "remich",
+      "lat": 49.545017,
+      "lng": 6.3674222,
+      "avg_price_m2": 19.2,
+      "count": 1
+    },
+    {
+      "city": "schouweiler",
+      "lat": 49.5820512,
+      "lng": 5.955324099999999,
+      "avg_price_m2": 21.9,
+      "count": 1
+    },
+    {
+      "city": "eischen",
+      "lat": 49.6799401,
+      "lng": 5.8782811,
+      "avg_price_m2": 16.2,
+      "count": 1
+    },
+    {
+      "city": "rollingen",
+      "lat": 49.7402205,
+      "lng": 6.1137785,
+      "avg_price_m2": 21.5,
+      "count": 1
+    },
+    {
+      "city": "brouch (mersch)",
+      "lat": 49.7373735,
+      "lng": 6.0202389,
+      "avg_price_m2": 14.0,
+      "count": 1
+    },
+    {
+      "city": "hobscheid",
+      "lat": 49.6863684,
+      "lng": 5.9151653,
+      "avg_price_m2": 22.9,
+      "count": 1
+    },
+    {
+      "city": "kahler",
+      "lat": 49.6308897,
+      "lng": 5.916589,
+      "avg_price_m2": 18.3,
+      "count": 1
+    },
+    {
+      "city": "contern",
+      "lat": 49.5854461,
+      "lng": 6.224731299999999,
+      "avg_price_m2": 29.3,
+      "count": 1
+    }
+  ],
+  "timeline": [
+    {
+      "date": "2026-02-24",
+      "count": 130
+    }
+  ]
+}
