@@ -21,8 +21,9 @@
     <script type="module" src="./src/main.js"></script>
     <script>
         // Register Service Worker - hardcoded URL for GitHub Pages
+        // Note: /dist/ is removed because peaceiris/actions-gh-pages serves from dashboards2/ directly
         if ('serviceWorker' in navigator) {
-            const swUrl = 'https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/dist/sw.js';
+            const swUrl = 'https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/sw.js';
             navigator.serviceWorker.register(swUrl).catch(err =>
                 console.log('SW registration failed:', err)
             );
