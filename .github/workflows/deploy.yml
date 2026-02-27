@@ -69,6 +69,9 @@ jobs:
           cp -r dashboards2/dist/assets/* deploy/dashboards2/assets/ 2>/dev/null || true
           cp -r dashboards2/dist/data/* deploy/dashboards2/data/ 2>/dev/null || true
 
+          # Create .nojekyll to disable Jekyll processing
+          touch deploy/.nojekyll
+
           echo "Files to deploy:"
           find deploy -type f | wc -l
           find deploy -type f -name "*.js" -o -name "*.json" -o -name "*.html" | sort
@@ -76,14 +79,22 @@ jobs:
       - name: Deploy to gh-pages branch
         run: |
           cd deploy
+          echo "=== Files to be deployed ==="
+          find . -type f | sort
+          echo ""
+          echo "=== Starting git deployment ==="
           git init
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
           git add -A
+          echo "Files staged for commit:"
+          git ls-files | sort
           git commit -m "Deploy dashboards"
           git branch -M gh-pages
           git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          echo "Pushing to gh-pages..."
           git push -u origin gh-pages --force
+          echo "Deployment complete!"
           cd ..
 
       - name: Summary
