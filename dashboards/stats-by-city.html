@@ -63,6 +63,46 @@
             background: #fff3cd; color: #856404; padding: 1rem; border-radius: 8px;
             margin-bottom: 1rem;
         }
+
+        .listings-section {
+            background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-top: 1.5rem;
+        }
+
+        .listings-title {
+            font-weight: 700; font-size: 1rem; color: var(--primary); margin-bottom: 1rem;
+        }
+
+        .listings-table {
+            font-size: 0.85rem; width: 100%;
+        }
+
+        .listings-table th {
+            background: var(--primary); color: white; padding: 0.7rem;
+            font-weight: 600; text-align: left; border-radius: 4px 4px 0 0;
+        }
+
+        .listings-table td {
+            padding: 0.7rem; border-bottom: 1px solid #e0e0e0; vertical-align: middle;
+        }
+
+        .listings-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .site-label {
+            display: inline-block; padding: 2px 8px; border-radius: 4px;
+            color: white; font-size: 0.7rem; font-weight: 600; background: #667eea;
+        }
+
+        .listing-title {
+            color: var(--primary); text-decoration: none; font-weight: 500;
+            display: block; max-width: 200px; overflow: hidden; text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .listing-title:hover {
+            text-decoration: underline;
+        }
     </style>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#667eea">
@@ -4238,7 +4278,8 @@
                     medianPrice,
                     avgSurface,
                     avgRooms,
-                    transport: TRANSPORTS_DATA[city] || null
+                    transport: TRANSPORTS_DATA[city] || null,
+                    listings: listings.sort((a, b) => a.price - b.price)  // Trier par prix
                 };
             });
 
@@ -4317,6 +4358,38 @@
                                 `).join('')}
                             </div>
                         ` : ''}
+
+                        <div class="listings-section">
+                            <div class="listings-title">📋 Annonces dans ${city} (${data.listings.length})</div>
+                            <div style="overflow-x: auto;">
+                                <table class="listings-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 12%;">Site</th>
+                                            <th style="width: 35%;">Titre</th>
+                                            <th style="width: 12%;">Prix</th>
+                                            <th style="width: 8%;">Ch.</th>
+                                            <th style="width: 10%;">m²</th>
+                                            <th style="width: 12%;">€/m²</th>
+                                            <th style="width: 11%;">Lien</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${data.listings.map(l => `
+                                            <tr>
+                                                <td><span class="site-label">${l.site}</span></td>
+                                                <td><strong>${l.title || 'Sans titre'}</strong></td>
+                                                <td style="font-weight:700; color:var(--primary);">${l.price ? l.price.toLocaleString('fr-FR') + '€' : '—'}</td>
+                                                <td>${l.rooms || '—'}</td>
+                                                <td>${l.surface || '—'}</td>
+                                                <td>${l.price_m2 ? l.price_m2 + '€' : '—'}</td>
+                                                <td><a href="${l.url}" target="_blank" style="color:var(--primary); font-size:0.85rem;">Voir →</a></td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 `;
             }).join('');
