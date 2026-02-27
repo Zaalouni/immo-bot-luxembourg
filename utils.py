@@ -328,3 +328,155 @@ def get_distance_emoji(distance_km):
         return "🟠"  # Moyen
     else:
         return "🔴"  # Loin
+
+
+# =============================================================================
+# DATE PARSING — Parsing dates de publication pour tous scrapers
+# =============================================================================
+from datetime import datetime, timedelta
+import re
+
+def ensure_published_at(published_at=None):
+    """
+    Garantir que published_at JAMAIS None.
+    Fallback central pour tous les scrapers.
+    """
+    if published_at is None:
+        return datetime.now()
+    if not isinstance(published_at, datetime):
+        return datetime.now()
+    now = datetime.now()
+    if published_at > now:
+        return now  # Correction futur
+    return published_at
+
+
+def parse_relative_date(text):
+    """Parser texte relatif 'il y a X jours' → datetime"""
+    if not text:
+        return None
+    text_lower = text.lower()
+
+    if 'récemment' in text_lower or 'aujourd' in text_lower or 'now' in text_lower:
+        return datetime.now()
+
+    match = re.search(r'(\d+)\s*(?:heure|jour|semaine|mois|h|d|w|m)s?', text_lower)
+    if match:
+        number = int(match.group(1))
+        unit = match.group(0).split()[-1].lower()
+
+        if any(x in unit for x in ['heure', 'h']):
+            return datetime.now() - timedelta(hours=number)
+        elif any(x in unit for x in ['jour', 'd']):
+            return datetime.now() - timedelta(days=number)
+        elif any(x in unit for x in ['semaine', 'w']):
+            return datetime.now() - timedelta(weeks=number)
+        elif any(x in unit for x in ['mois', 'm']):
+            return datetime.now() - timedelta(days=number*30)
+    return None
+
+
+def parse_iso_date(date_str):
+    """Parser ISO 8601 (ex: '2026-02-26T09:45:00Z')"""
+    if not date_str:
+        return None
+    try:
+        clean = date_str.replace('Z', '+00:00')
+        return datetime.fromisoformat(clean)
+    except (ValueError, TypeError, AttributeError):
+        return None
+
+
+def parse_absolute_date(date_str, format_str="%d/%m/%Y"):
+    """Parser date absolue (ex: '26/02/2026')"""
+    if not date_str:
+        return None
+    try:
+        return datetime.strptime(date_str.strip(), format_str)
+    except (ValueError, TypeError):
+        return None
+
+
+# =============================================================================
+# RETRY MECHANISM — Retry with exponential backoff for HTTP requests
+# =============================================================================
+import time
+
+def retry_with_backoff(func, max_attempts=3, base_delay=1, backoff_multiplier=2, logger_obj=None):
+    """
+    Retry a function with exponential backoff on failure.
+    """
+    delay = base_delay
+
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return func()
+        except Exception as e:
+            error_type = type(e).__name__
+
+            if logger_obj:
+                logger_obj.debug(f"Attempt {attempt}/{max_attempts} failed ({error_type})")
+
+            if attempt < max_attempts:
+                if logger_obj:
+                    logger_obj.debug(f"Retrying in {delay}s...")
+                time.sleep(delay)
+                delay *= backoff_multiplier
+            else:
+                if logger_obj:
+                    logger_obj.error(f"All {max_attempts} attempts failed ({error_type})")
+                raise
+
+
+def validate_listing_data(listing):
+    """
+    Validate that a listing dict has required fields.
+    """
+    if not isinstance(listing, dict):
+        return False
+
+    required_fields = ['listing_id', 'site', 'title', 'price', 'url']
+    return all(field in listing and listing[field] for field in required_fields)
+
+
+def extract_energy_class(text):
+    """
+    Extract energy class from text (A, B, C, D, E, F, G).
+    """
+    if not text:
+        return None
+    import re
+    match = re.search(r'\b([A-G])\b', str(text).upper())
+    if match:
+        return match.group(1)
+    return None
+
+
+def extract_available_from(text):
+    """
+    Extract available from date from text.
+    Examples: "Disponible immédiatement", "Disponible à partir du 01/03/2026"
+
+    Returns:
+        str: Date string or "Immédiatement" or None
+    """
+    if not text:
+        return None
+    text_lower = text.lower()
+
+    # Immediately available
+    if 'immédiat' in text_lower or 'immediate' in text_lower or 'now' in text_lower:
+        return "Immédiatement"
+
+    # Date pattern: "01/03/2026" or "1 mars 2026"
+    import re
+    date_match = re.search(r'(\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4})', text)
+    if date_match:
+        return date_match.group(1)
+
+    # Month pattern: "mars 2026"
+    month_match = re.search(r'(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s*\d{4}', text_lower)
+    if month_match:
+        return month_match.group(0).title()
+
+    return None

@@ -80,6 +80,40 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 # ===== USER AGENT =====
 USER_AGENT = os.getenv('USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
 
+# User agents list for random rotation (used by some scrapers)
+USER_AGENTS = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+]
+
+# ===== VILLES EXCLUES =====
+# Villes hors Luxembourg a exclure (Belgique, Allemagne, France)
+_excluded_cities_raw = os.getenv('EXCLUDED_CITIES', 'Arlon,Aubange,Perl,Trier,Konz,Saarbrücken,Cattenom,Longwy,Verdun')
+EXCLUDED_CITIES = [c.strip().lower() for c in _excluded_cities_raw.split(',') if c.strip()]
+
+# ===== SCRAPER TIMEOUTS (centralisés) =====
+SCRAPER_TIMEOUTS = {
+    'default': int(os.getenv('SCRAPER_TIMEOUT_DEFAULT', '15')),      # HTTP standard
+    'selenium': int(os.getenv('SCRAPER_TIMEOUT_SELENIUM', '30')),    # Selenium load
+    'cloudflare': int(os.getenv('SCRAPER_TIMEOUT_CLOUDFLARE', '60')), # Cloudflare wait
+}
+
+# ===== SCRAPER SLEEP CONFIG =====
+SCRAPER_SLEEP_CONFIG = {
+    'between_pages': (1, 2),              # Random entre pages
+    'cloudflare_wait': 8,                 # Wait fixe Cloudflare
+    'rate_limit': (0.5, 1.5),             # Random rate limiting
+}
+
+# ===== RETRY CONFIG =====
+RETRY_CONFIG = {
+    'max_attempts': int(os.getenv('RETRY_MAX_ATTEMPTS', '3')),
+    'base_delay': int(os.getenv('RETRY_BASE_DELAY', '1')),
+    'backoff_multiplier': int(os.getenv('RETRY_BACKOFF_MULTIPLIER', '2')),
+}
+
 # ===== VÉRIFICATION =====
 if __name__ == "__main__":
     print("✅ Configuration chargée")

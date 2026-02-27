@@ -132,6 +132,58 @@ try:
     except ImportError as e:
         logger.warning(f"⚠️ Nextimmo.lu: {e}")
 
+    # ============================================
+    # NOUVEAUX SCRAPERS (ajoutés 27/02/2026)
+    # ============================================
+
+    # Sigelux.lu
+    try:
+        from scrapers.sigelux_scraper import sigelux_scraper
+        scrapers_config.append(('🏛️ Sigelux.lu', sigelux_scraper))
+        logger.info("✅ Sigelux.lu")
+    except ImportError as e:
+        logger.warning(f"⚠️ Sigelux.lu: {e}")
+
+    # Sotheby's Realty Luxembourg
+    try:
+        from scrapers.sothebys_scraper import sothebys_scraper
+        scrapers_config.append(('💎 Sothebys.lu', sothebys_scraper))
+        logger.info("✅ Sothebys.lu")
+    except ImportError as e:
+        logger.warning(f"⚠️ Sothebys.lu: {e}")
+
+    # LDHome.lu
+    try:
+        from scrapers.ldhome_scraper import ldhome_scraper
+        scrapers_config.append(('🏡 LDHome.lu', ldhome_scraper))
+        logger.info("✅ LDHome.lu")
+    except ImportError as e:
+        logger.warning(f"⚠️ LDHome.lu: {e}")
+
+    # Rockenbrod Immo
+    try:
+        from scrapers.rockenbrod_scraper import rockenbrod_scraper
+        scrapers_config.append(('🪨 Rockenbrod.lu', rockenbrod_scraper))
+        logger.info("✅ Rockenbrod.lu")
+    except ImportError as e:
+        logger.warning(f"⚠️ Rockenbrod.lu: {e}")
+
+    # PropertyInvest.lu
+    try:
+        from scrapers.propertyinvest_scraper import propertyinvest_scraper
+        scrapers_config.append(('💼 PropertyInvest.lu', propertyinvest_scraper))
+        logger.info("✅ PropertyInvest.lu")
+    except ImportError as e:
+        logger.warning(f"⚠️ PropertyInvest.lu: {e}")
+
+    # RE/MAX Luxembourg
+    try:
+        from scrapers.remax_scraper import remax_scraper
+        scrapers_config.append(('🔴 REMAX.lu', remax_scraper))
+        logger.info("✅ REMAX.lu")
+    except ImportError as e:
+        logger.warning(f"⚠️ REMAX.lu: {e}")
+
 except ImportError as e:
     logger.error(f"❌ Erreur importation: {e}")
     sys.exit(1)
