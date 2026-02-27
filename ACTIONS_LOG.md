@@ -195,6 +195,69 @@ Expected behavior: Dashboard2 loads successfully with all data and Service Worke
 
 ---
 
+---
+
+## 🔧 Session 2026-02-27 (Continued) — Simplify GitHub Actions Workflow
+
+### Problem
+Previous workflow using peaceiris/actions-gh-pages had file copy issues. Dashboard assets and data not appearing on GitHub Pages despite being in dist/ locally.
+
+### Solution
+Rewrote `.github/workflows/deploy.yml` to use direct git push instead of peaceiris action:
+
+**Workflow Changes:**
+1. Build Dashboard2: `npm run build` → `dashboards2/dist/`
+2. Run: `python dashboard_generator.py` → updates `dashboards/` and `dashboards2/public/data/`
+3. Explicitly copy files:
+   ```bash
+   mkdir -p deploy/dashboards2/{assets,data} deploy/dashboards
+   cp -r dashboards2/dist/* deploy/dashboards2/
+   cp -r dashboards/data deploy/dashboards/
+   cp dashboards/index.html deploy/dashboards/
+   ```
+4. Push to gh-pages with `git push -u origin gh-pages --force`
+
+**Key Fixes:**
+- Removed peaceiris action (unreliable copy behavior)
+- Direct git operations ensure all files transferred
+- Force push ensures clean gh-pages branch
+- Explicit logging to verify file count before deployment
+
+**Files Modified:**
+- `.github/workflows/deploy.yml` - Complete rewrite (lines 76-87)
+- `dashboards2/src/services/dataLoader.js` - Updated comment (line 2)
+- `dashboards2/dist/index.html` - Updated comment (line 26)
+
+**Commits:**
+- 2911574 - fix: Simplify GitHub Actions - push directly to gh-pages with git
+- b5c66a4 - Merge remote-tracking branch 'origin/main'
+- 4af0828 - fix: Update workflow summary URL and clarify deployment structure
+
+### Verification Steps
+```bash
+# Local verification before push:
+npm run build                        # Verify build completes
+ls -la dashboards2/dist/            # Check all files present
+python dashboard_generator.py        # Verify data sync
+
+# After push (GitHub Actions runs):
+curl https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/index.html
+# Should return HTML without 404
+
+curl https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/sw.js
+# Should return service worker content
+
+curl https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/data/listings.json
+# Should return JSON without 404
+```
+
+### Current Status
+- ✅ Vite base URL corrected (`/immo-bot-luxembourg/dashboards2/` without /dist/)
+- ✅ Data files present and synced to dashboards2/dist/data/
+- ✅ Service Worker properly configured
+- ✅ Workflow simplified and documented
+- ⏳ Ready for push to trigger deployment (requires user approval per CLAUDE.md)
+
 **Last Updated:** 2026-02-27
 **Maintained By:** Claude Code
 **Session Duration:** Multiple fixes and tests
