@@ -269,6 +269,9 @@
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-table">📋 Par Ville</button>
         </li>
         <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-listings-by-city">🏠 Annonces par Ville</button>
+        </li>
+        <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-listings">📝 Toutes les Annonces</button>
         </li>
     </ul>
@@ -295,7 +298,12 @@
             </div>
         </div>
 
-        <!-- Tab 3: All Listings -->
+        <!-- Tab 3: Listings by City -->
+        <div class="tab-pane fade" id="tab-listings-by-city">
+            <div id="listingsByCityContainer" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1rem;"></div>
+        </div>
+
+        <!-- Tab 4: All Listings -->
         <div class="tab-pane fade" id="tab-listings">
             <div style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1rem; overflow-x: auto;">
                 <table class="table table-hover mb-0" id="listingsTable">
@@ -322,6 +330,17 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="data/listings.js"></script>
+<script>
+// Load transport data
+let TRANSPORTS = {};
+fetch('data/city-transports.json')
+    .then(r => r.json())
+    .then(data => {
+        TRANSPORTS = data.transports || {};
+        console.log('✅ Transports loaded:', Object.keys(TRANSPORTS).length, 'cities');
+    })
+    .catch(err => console.log('Transport data not available:', err));
+</script>
 <script>
     // ==================== DARK MODE ====================
     const darkModeToggle = document.getElementById('darkModeToggle');
@@ -383,6 +402,8 @@
         renderCities();
         renderTable();
         renderListings();
+        // Render listings by city after a short delay to ensure transports are loaded
+        setTimeout(() => renderListingsByCity(), 500);
     }
 
     function filterCities() {
@@ -434,6 +455,84 @@
                 <td><a href="${l.url}" target="_blank" class="btn btn-sm btn-primary">Voir</a></td>
             </tr>
         `).join('');
+    }
+
+    function renderListingsByCity() {
+        const container = document.getElementById('listingsByCityContainer');
+        const byCity = {};
+
+        LISTINGS.forEach(l => {
+            const city = l.city || 'N/A';
+            if (!byCity[city]) byCity[city] = [];
+            byCity[city].push(l);
+        });
+
+        const cities = Object.keys(byCity).sort();
+        let html = '';
+
+        cities.forEach((city, idx) => {
+            const listings = byCity[city];
+            const transport = TRANSPORTS[city] || {};
+            const transportList = transport.transports || [];
+
+            html += `
+                <div class="accordion" id="accordion-${idx}">
+                    <div class="accordion-item" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); margin-bottom: 0.5rem; border-radius: 10px;">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#city-${idx}">
+                                <strong style="color: var(--primary); margin-right: 1rem;">📍 ${city}</strong>
+                                <span style="background: #667eea; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.85rem; margin-right: 1rem;">${listings.length} annonces</span>
+                                <span style="color: #666; font-size: 0.9rem;">
+                                    ${transportList.length > 0 ?
+                                        transportList.map(t => `${t.type === 'gare' ? '🚂' : t.type === 'bus' ? '🚌' : '🚶'} ${t.number}`).join(' • ')
+                                        : 'Pas de transports'}
+                                </span>
+                            </button>
+                        </h2>
+                        <div id="city-${idx}" class="accordion-collapse collapse" data-bs-parent="#accordion-${idx}">
+                            <div class="accordion-body" style="padding: 1rem; background: rgba(255,255,255,0.5);">
+                                ${transportList.length > 0 ? `
+                                    <div style="background: #e8f4f8; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #667eea;">
+                                        <strong>🚊 Moyens de transport:</strong><br>
+                                        ${transportList.map(t => `
+                                            <div style="margin-top: 0.5rem;">
+                                                ${t.type === 'gare' ? '🚂' : t.type === 'bus' ? '🚌' : '🚶'}
+                                                <strong>${t.number}</strong> - ${t.description}
+                                                <span style="color: #666;">(${t.duration_min} min)</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+                                <table class="table table-sm mb-0">
+                                    <thead style="background: #f5f5f5;">
+                                        <tr>
+                                            <th>Titre</th>
+                                            <th>Prix</th>
+                                            <th>Chambres</th>
+                                            <th>Surface</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${listings.map(l => `
+                                            <tr>
+                                                <td><small><strong>${l.title.substring(0, 35)}</strong></small></td>
+                                                <td><strong>${l.price.toLocaleString('fr-FR')}€</strong></td>
+                                                <td>${l.rooms}</td>
+                                                <td>${l.surface}m²</td>
+                                                <td><a href="${l.url}" target="_blank" class="btn btn-xs btn-primary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;">Voir</a></td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
     }
 
     // ==================== SERVICE WORKER ====================
