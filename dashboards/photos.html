@@ -255,16 +255,37 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #f0f2f5 0%, #e9ecef 100%);
-            color: var(--text-light);
-            font-size: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-no-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
         }
 
         .gallery-no-image-text {
             font-size: 0.8rem;
-            margin-top: 0.5rem;
+            margin-top: 0.8rem;
             text-align: center;
-            color: var(--text-light);
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
         }
 
         .gallery-image-badge {
@@ -566,6 +587,11 @@
         </div>
     </div>
 
+    <!-- INFO BANNER -->
+    <div style="background: rgba(102, 126, 234, 0.1); border-left: 4px solid #667eea; padding: 1rem; margin: 1rem; border-radius: 8px; color: #2c3e50;">
+        <strong>ℹ️ Info:</strong> Les photos détaillées de chaque annonce sont disponibles sur les sites sources (VIVI.lu, Athome.lu, etc.). Cliquez sur "<strong>Voir le site</strong>" pour découvrir les photos complètes!
+    </div>
+
     <!-- FILTERS -->
     <div class="container-main">
         <div class="filters-container">
@@ -584,11 +610,11 @@
             </div>
 
             <div class="filter-group">
-                <label>🖼️ Photos</label>
+                <label>🖼️ Statut Photos</label>
                 <select id="filter-images" onchange="filterGallery()">
-                    <option value="">Toutes</option>
+                    <option value="">Toutes les annonces</option>
                     <option value="with-image">Avec photos</option>
-                    <option value="no-image">Sans photos</option>
+                    <option value="no-image">Photos sur site source</option>
                 </select>
             </div>
 
@@ -703,6 +729,9 @@
                 if (city && l.city !== city) return false;
                 if (site && l.site !== site) return false;
 
+                // Si pas de valeur pour images, afficher toutes les annonces
+                if (!images) return true;
+
                 const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
                 if (images === 'with-image' && !hasImage) return false;
                 if (images === 'no-image' && hasImage) return false;
@@ -731,15 +760,15 @@
                 const price = l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—';
 
                 return `
-                    <div class="gallery-item" onclick="openLightbox(${start + idx})">
+                    <div class="gallery-item" ${hasImage ? `onclick="openLightbox(${start + idx})"` : ''} style="${!hasImage ? 'cursor: default;' : ''} ">
                         <div class="gallery-img-container">
                             ${hasImage ? `
                                 <img src="${l.image_url}" alt="" class="gallery-img" onerror="this.style.display='none';">
                                 <span class="gallery-image-badge">✅ Photo</span>
                             ` : `
                                 <div class="gallery-no-image">
-                                    <span>📸</span>
-                                    <span class="gallery-no-image-text">Pas de photo</span>
+                                    <span>🏠</span>
+                                    <span class="gallery-no-image-text">Photos sur<br>${l.site}</span>
                                 </div>
                             `}
                         </div>
@@ -748,6 +777,7 @@
                             <p class="gallery-meta">${l.city || '—'}</p>
                             <span class="site-badge" style="background: ${bg};">${l.site}</span>
                             <p class="price-tag">${price}</p>
+                            ${!hasImage ? `<a href="${l.url}" target="_blank" style="display: inline-block; margin-top: 0.5rem; padding: 0.4rem 0.8rem; background: ${bg}; color: white; text-decoration: none; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">🔗 Voir le site</a>` : ''}
                         </div>
                     </div>
                 `;
