@@ -2,267 +2,814 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Galerie photos des annonces immobilières - ImmoLux">
     <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ImmoLux Photos">
+    <meta property="og:title" content="Galerie Photos - ImmoLux">
+    <meta property="og:description" content="Découvrez les photos des annonces immobilières au Luxembourg">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23667eea' width='180' height='180'/><text x='90' y='100' font-size='100' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>🖼️</text></svg>">
     <title>Galerie Photos - ImmoLux</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #667eea; }
-        body { background: #f0f2f5; padding-bottom: 2rem; }
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a6fd6;
+            --secondary: #764ba2;
+            --bg-light: #f8f9fa;
+            --bg-white: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #95a5a6;
+            --border-light: #ecf0f1;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            padding-bottom: 3rem;
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #ecf0f1;
+        }
+
+        body.dark-mode .filters-container,
+        body.dark-mode .gallery-item,
+        body.dark-mode .pagination-controls {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ecf0f1;
+        }
+
+        /* HEADER */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; padding: 1.2rem 1rem; margin-bottom: 1rem;
-            position: sticky; top: 0; z-index: 1000;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
         }
-        .header h1 { font-size: 1.4rem; margin: 0; }
-        .nav-links { display: flex; gap: 1rem; align-items: center; }
-        .nav-links a { color: white; text-decoration: none; font-weight: 500; }
-        .nav-links a:hover { text-decoration: underline; }
 
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; padding: 1rem; }
-        .gallery-item {
-            background: white; border-radius: 12px; overflow: hidden; cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s;
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
-        .gallery-item:hover { transform: scale(1.05); }
-        .gallery-img { width: 100%; height: 200px; object-fit: cover; background: #e9ecef; }
-        .gallery-img.no-image { display: flex; align-items: center; justify-content: center; font-size: 3rem; }
 
-        .gallery-info { padding: 1rem; }
-        .gallery-title { font-weight: 600; color: #333; margin: 0 0 0.5rem 0; font-size: 0.9rem; }
-        .gallery-meta { font-size: 0.8rem; color: #666; margin: 0.3rem 0; }
-        .site-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; color: white; font-size: 0.7rem; font-weight: 600; }
-        .price-tag { font-weight: 700; color: var(--primary); font-size: 1.1rem; }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; }
-        .modal.show { display: flex; align-items: center; justify-content: center; }
-        .modal-content { background: white; border-radius: 12px; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; }
-        .modal-image { width: 100%; height: 100%; object-fit: cover; }
-        .modal-info { padding: 1.5rem; overflow-y: auto; }
-        .modal-close { position: absolute; top: 10px; right: 20px; color: white; font-size: 2rem; cursor: pointer; }
-        .modal-price { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin: 0.5rem 0; }
-        .modal-link { display: inline-block; margin-top: 1rem; padding: 0.7rem 1.5rem; background: var(--primary); color: white; border-radius: 8px; text-decoration: none; }
-        .modal-link:hover { background: #5a6fd6; text-decoration: none; }
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
 
-        .filters { background: white; padding: 1rem; margin: 1rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        .filters label { font-weight: 600; margin-right: 0.5rem; }
-        .filters select { padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
 
-        .pagination-controls { text-align: center; padding: 1rem; }
-        .pagination-controls button, .pagination-controls a { padding: 0.5rem 1rem; margin: 0 0.2rem; background: white; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; }
-        .pagination-controls button:hover, .pagination-controls a:hover { background: var(--primary); color: white; border-color: var(--primary); }
-        .pagination-controls button.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* CONTAINER */
+        .container-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* FILTERS */
+        .filters-container {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.7rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-filter {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-filter.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-filter.primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-filter.secondary {
+            background: var(--bg-light);
+            color: var(--text-dark);
+            border: 2px solid var(--border-light);
+        }
+
+        .btn-filter.secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* GALLERY GRID */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
 
         @media (max-width: 768px) {
-            .modal-content { grid-template-columns: 1fr; }
-            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-            .header h1 { font-size: 1.1rem; }
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+        }
+
+        /* GALLERY ITEM */
+        .gallery-item {
+            background: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid var(--border-light);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-img-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--bg-light) 0%, rgba(102, 126, 234, 0.05) 100%);
+            overflow: hidden;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+
+        .gallery-no-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e9ecef 100%);
+            color: var(--text-light);
+            font-size: 2rem;
+        }
+
+        .gallery-no-image-text {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .gallery-image-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .gallery-info {
+            padding: 1.2rem;
+        }
+
+        .gallery-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin: 0 0 0.5rem 0;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+
+        .gallery-meta {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin: 0.3rem 0;
+        }
+
+        .site-badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: var(--primary);
+        }
+
+        .price-tag {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* MODAL / LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .lightbox.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lightbox-content {
+            background: var(--bg-white);
+            border-radius: 12px;
+            max-width: 900px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-content {
+                grid-template-columns: 1fr;
+                max-height: 95vh;
+            }
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            font-weight: 300;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .lightbox-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px 0 0 12px;
+        }
+
+        @media (max-width: 768px) {
+            .lightbox-image {
+                border-radius: 12px 12px 0 0;
+            }
+        }
+
+        .lightbox-info {
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .lightbox-title {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .lightbox-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        .lightbox-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .lightbox-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .lightbox-meta-label {
+            color: var(--text-light);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .lightbox-meta-value {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .lightbox-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .lightbox-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* PAGINATION */
+        .pagination-controls {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination-controls button {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--border-light);
+            background: var(--bg-white);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            color: var(--text-dark);
+        }
+
+        .pagination-controls button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pagination-info {
+            font-weight: 600;
+            color: var(--text-dark);
+            min-width: 200px;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-light);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* DARK MODE TOGGLE */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 1rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header-content {
+                justify-content: space-between;
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .container-main {
+                padding: 1rem 0.5rem;
+            }
+
+            .filters-container {
+                grid-template-columns: 1fr;
+            }
+
+            .lightbox-info {
+                padding: 1.5rem;
+            }
         }
     </style>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#667eea">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="ImmoLux">
 </head>
 <body>
-
-<!-- Header -->
-<div class="header">
-    <div class="d-flex justify-content-between align-items-center">
-        <h1>🖼️ Galerie Photos</h1>
-        <div class="nav-links">
-            <a href="index.html">📊 Dashboard</a>
-            <a href="map.html">🗺️ Carte</a>
-            <a href="photos.html">🖼️ Photos</a>
-        </div>
-    </div>
-</div>
-
-<!-- Filtres -->
-<div class="filters">
-    <label>Ville:</label>
-    <select id="filter-city" onchange="filterGallery()">
-        <option value="">Toutes les villes</option>
-    </select>
-
-    <label style="margin-left: 1rem;">Site:</label>
-    <select id="filter-site" onchange="filterGallery()">
-        <option value="">Tous les sites</option>
-    </select>
-
-    <button onclick="filterGallery()" style="margin-left: 1rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer;">🔍 Filtrer</button>
-</div>
-
-<!-- Galerie -->
-<div id="gallery-container" class="gallery-grid"></div>
-
-<!-- Pagination -->
-<div class="pagination-controls">
-    <button onclick="previousPage()">← Précédent</button>
-    <span id="page-info" style="margin: 0 1rem; font-weight: 600;"></span>
-    <button onclick="nextPage()">Suivant →</button>
-</div>
-
-<!-- Modal Lightbox -->
-<div id="lightbox" class="modal">
-    <div style="position: relative;">
-        <span class="modal-close" onclick="closeLightbox()">×</span>
-        <div class="modal-content">
-            <img id="modal-image" class="modal-image" src="" alt="">
-            <div class="modal-info">
-                <p id="modal-title" class="modal-title" style="font-weight: 600; margin: 0 0 0.5rem 0;"></p>
-                <p id="modal-city" style="color: #666; font-size: 0.9rem; margin: 0.3rem 0;"></p>
-                <p id="modal-site" style="margin: 0.3rem 0;"><span id="modal-site-badge" class="site-badge"></span></p>
-                <p class="modal-price" id="modal-price"></p>
-                <p style="color: #666; font-size: 0.85rem;">
-                    <strong>Rooms:</strong> <span id="modal-rooms">-</span> |
-                    <strong>Surface:</strong> <span id="modal-surface">-</span> m² |
-                    <strong>€/m²:</strong> <span id="modal-price-m2">-</span>
-                </p>
-                <p style="color: #666; font-size: 0.85rem;">
-                    <strong>Distance:</strong> <span id="modal-distance">-</span> |
-                    <strong>Ajout:</strong> <span id="modal-date">-</span>
-                </p>
-                <a id="modal-link" class="modal-link" href="#" target="_blank">👁️ Voir l'annonce</a>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-content">
+            <h1>🖼️ Galerie Photos</h1>
+            <div class="nav-links">
+                <a href="index.html">🏠 Dashboard</a>
+                <a href="map.html">🗺️ Carte</a>
+                <a href="map-advanced.html">🗺️ Carte+</a>
+                <a href="new-listings.html">⭐ Nouvelles</a>
+                <a href="stats-by-city.html">📊 Stats</a>
+                <a href="photos.html" class="active">🖼️ Photos</a>
             </div>
         </div>
     </div>
-</div>
 
-<script src="data/listings.js"></script>
-<script src="data/stats.js"></script>
-<script>
-const ITEMS_PER_PAGE = 20;
-let currentPage = 1;
-let filtered = [];
-const SITE_COLORS_MAP = (typeof SITE_COLORS !== 'undefined') ? SITE_COLORS : {};
+    <!-- FILTERS -->
+    <div class="container-main">
+        <div class="filters-container">
+            <div class="filter-group">
+                <label>🏙️ Ville</label>
+                <select id="filter-city" onchange="filterGallery()">
+                    <option value="">Toutes les villes</option>
+                </select>
+            </div>
 
-function init() {
-    console.log('🖼️ Initialisation galerie, LISTINGS:', LISTINGS ? LISTINGS.length : 0);
+            <div class="filter-group">
+                <label>🏢 Site</label>
+                <select id="filter-site" onchange="filterGallery()">
+                    <option value="">Tous les sites</option>
+                </select>
+            </div>
 
-    if (typeof LISTINGS === 'undefined' || !LISTINGS) {
-        console.error('❌ LISTINGS non disponible');
-        return;
-    }
+            <div class="filter-group">
+                <label>🖼️ Photos</label>
+                <select id="filter-images" onchange="filterGallery()">
+                    <option value="">Toutes</option>
+                    <option value="with-image">Avec photos</option>
+                    <option value="no-image">Sans photos</option>
+                </select>
+            </div>
 
-    // Remplir les filtres
-    const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
-    const sites = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
+            <div class="filter-buttons">
+                <button class="btn-filter secondary" onclick="resetFilters()">↻ Réinitialiser</button>
+                <button class="btn-filter primary" onclick="filterGallery()">🔍 Filtrer</button>
+            </div>
+        </div>
 
-    const citySelect = document.getElementById('filter-city');
-    cities.forEach(c => {
-        const opt = document.createElement('option');
-        opt.value = c;
-        opt.textContent = c;
-        citySelect.appendChild(opt);
-    });
+        <!-- GALLERY -->
+        <div id="gallery-container" class="gallery-grid"></div>
 
-    const siteSelect = document.getElementById('filter-site');
-    sites.forEach(s => {
-        const opt = document.createElement('option');
-        opt.value = s;
-        opt.textContent = s;
-        siteSelect.appendChild(opt);
-    });
+        <!-- PAGINATION -->
+        <div class="pagination-controls">
+            <button onclick="previousPage()">← Précédent</button>
+            <span class="pagination-info" id="page-info"></span>
+            <button onclick="nextPage()">Suivant →</button>
+        </div>
+    </div>
 
-    filterGallery();
-}
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <div class="lightbox-content">
+            <img id="lightbox-image" class="lightbox-image" src="" alt="">
+            <div class="lightbox-info">
+                <div>
+                    <h2 id="lightbox-title" class="lightbox-title"></h2>
+                    <p id="lightbox-city" class="gallery-meta"></p>
+                    <p><span id="lightbox-site" class="site-badge"></span></p>
+                    <div id="lightbox-price" class="lightbox-price"></div>
 
-function filterGallery() {
-    const city = document.getElementById('filter-city').value;
-    const site = document.getElementById('filter-site').value;
-
-    filtered = LISTINGS.filter(l => {
-        if (city && l.city !== city) return false;
-        if (site && l.site !== site) return false;
-        return true;
-    });
-
-    currentPage = 1;
-    renderGallery();
-}
-
-function renderGallery() {
-    const container = document.getElementById('gallery-container');
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    const page = filtered.slice(start, end);
-
-    container.innerHTML = page.map(l => {
-        const bg = SITE_COLORS_MAP[l.site] || '#888';
-        return `
-            <div class="gallery-item" onclick="openLightbox(${filtered.indexOf(l)})">
-                <img src="${l.image_url || ''}" alt="" class="gallery-img ${!l.image_url ? 'no-image' : ''}"
-                     onerror="this.classList.add('no-image'); this.textContent='🖼️';">
-                <div class="gallery-info">
-                    <p class="gallery-title">${(l.title || 'Voir').substring(0, 50)}</p>
-                    <p class="gallery-meta">${l.city || '—'}</p>
-                    <p class="gallery-meta"><span class="site-badge" style="background: ${bg};">${l.site}</span></p>
-                    <p class="price-tag">${l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—'}</p>
+                    <div class="lightbox-meta">
+                        <div class="lightbox-meta-item">
+                            <span class="lightbox-meta-label">Chambres</span>
+                            <span class="lightbox-meta-value" id="lightbox-rooms">—</span>
+                        </div>
+                        <div class="lightbox-meta-item">
+                            <span class="lightbox-meta-label">Surface</span>
+                            <span class="lightbox-meta-value" id="lightbox-surface">—</span>
+                        </div>
+                        <div class="lightbox-meta-item">
+                            <span class="lightbox-meta-label">€/m²</span>
+                            <span class="lightbox-meta-value" id="lightbox-price-m2">—</span>
+                        </div>
+                        <div class="lightbox-meta-item">
+                            <span class="lightbox-meta-label">Distance</span>
+                            <span class="lightbox-meta-value" id="lightbox-distance">—</span>
+                        </div>
+                    </div>
                 </div>
+
+                <a id="lightbox-link" class="lightbox-link" href="#" target="_blank">👁️ Voir l'annonce compète</a>
             </div>
-        `;
-    }).join('');
+        </div>
+    </div>
 
-    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-    document.getElementById('page-info').textContent = `Page ${currentPage} / ${totalPages} (${filtered.length} annonces)`;
-}
+    <!-- DARK MODE TOGGLE -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre">🌙</button>
 
-function openLightbox(index) {
-    const l = filtered[index];
-    document.getElementById('modal-image').src = l.image_url || '';
-    document.getElementById('modal-title').textContent = l.title || '—';
-    document.getElementById('modal-city').textContent = l.city || '—';
-    document.getElementById('modal-site-badge').textContent = l.site || '—';
-    document.getElementById('modal-site-badge').style.background = SITE_COLORS_MAP[l.site] || '#888';
-    document.getElementById('modal-price').textContent = l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—';
-    document.getElementById('modal-rooms').textContent = l.rooms || '—';
-    document.getElementById('modal-surface').textContent = l.surface || '—';
-    document.getElementById('modal-price-m2').textContent = l.price_m2 || '—';
-    document.getElementById('modal-distance').textContent = l.distance_km ? l.distance_km + ' km' : '—';
-    document.getElementById('modal-date').textContent = l.created_at ? l.created_at.split(' ')[0] : '—';
-    document.getElementById('modal-link').href = l.url;
-    document.getElementById('lightbox').classList.add('show');
-}
+    <script src="data/listings.js"></script>
+    <script src="data/stats.js"></script>
+    <script>
+        const ITEMS_PER_PAGE = 20;
+        let currentPage = 1;
+        let filtered = [];
+        const SITE_COLORS_MAP = (typeof SITE_COLORS !== 'undefined') ? SITE_COLORS : {};
 
-function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('show');
-}
+        function init() {
+            if (typeof LISTINGS === 'undefined' || !LISTINGS) {
+                document.getElementById('gallery-container').innerHTML = '<div class="empty-state"><div class="empty-state-icon">❌</div><p>Erreur: données non disponibles</p></div>';
+                return;
+            }
 
-function nextPage() {
-    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-    if (currentPage < totalPages) {
-        currentPage++;
-        renderGallery();
-        window.scrollTo(0, 0);
-    }
-}
+            // Remplir filtres
+            const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
+            const sites = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
 
-function previousPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        renderGallery();
-        window.scrollTo(0, 0);
-    }
-}
+            document.getElementById('filter-city').innerHTML = '<option value="">Toutes les villes</option>' +
+                cities.map(c => `<option value="${c}">${c}</option>`).join('');
 
-// Attendre que LISTINGS soit chargé puis initialiser
-function waitForPhotosInit() {
-    if (typeof LISTINGS === 'undefined' || !LISTINGS) {
-        console.warn('⏳ Photos: LISTINGS pas encore chargé');
-        setTimeout(waitForPhotosInit, 100);
-        return;
-    }
-    console.log('✅ Photos: LISTINGS chargé, initialisation...');
-    init();
-}
+            document.getElementById('filter-site').innerHTML = '<option value="">Tous les sites</option>' +
+                sites.map(s => `<option value="${s}">${s}</option>`).join('');
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', waitForPhotosInit);
-} else {
-    waitForPhotosInit();
-}
-</script>
+            filterGallery();
+            setupDarkMode();
+        }
+
+        function setupDarkMode() {
+            const toggle = document.getElementById('darkModeToggle');
+            const savedMode = localStorage.getItem('darkMode') === 'true';
+
+            if (savedMode) {
+                document.body.classList.add('dark-mode');
+                toggle.textContent = '☀️';
+            }
+
+            toggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDark);
+                toggle.textContent = isDark ? '☀️' : '🌙';
+            });
+        }
+
+        function filterGallery() {
+            const city = document.getElementById('filter-city').value;
+            const site = document.getElementById('filter-site').value;
+            const images = document.getElementById('filter-images').value;
+
+            filtered = LISTINGS.filter(l => {
+                if (city && l.city !== city) return false;
+                if (site && l.site !== site) return false;
+
+                const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
+                if (images === 'with-image' && !hasImage) return false;
+                if (images === 'no-image' && hasImage) return false;
+
+                return true;
+            });
+
+            currentPage = 1;
+            renderGallery();
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('gallery-container');
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const page = filtered.slice(start, end);
+
+            if (page.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><p>Aucune photo trouvée avec ces critères</p></div>';
+                return;
+            }
+
+            container.innerHTML = page.map((l, idx) => {
+                const bg = SITE_COLORS_MAP[l.site] || '#667eea';
+                const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
+                const price = l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—';
+
+                return `
+                    <div class="gallery-item" onclick="openLightbox(${start + idx})">
+                        <div class="gallery-img-container">
+                            ${hasImage ? `
+                                <img src="${l.image_url}" alt="" class="gallery-img" onerror="this.style.display='none';">
+                                <span class="gallery-image-badge">✅ Photo</span>
+                            ` : `
+                                <div class="gallery-no-image">
+                                    <span>📸</span>
+                                    <span class="gallery-no-image-text">Pas de photo</span>
+                                </div>
+                            `}
+                        </div>
+                        <div class="gallery-info">
+                            <p class="gallery-title">${(l.title || 'Voir').substring(0, 50)}</p>
+                            <p class="gallery-meta">${l.city || '—'}</p>
+                            <span class="site-badge" style="background: ${bg};">${l.site}</span>
+                            <p class="price-tag">${price}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+            document.getElementById('page-info').textContent = `Page ${currentPage} / ${totalPages} (${filtered.length} annonces)`;
+        }
+
+        function openLightbox(index) {
+            const l = filtered[index];
+            const bg = SITE_COLORS_MAP[l.site] || '#667eea';
+
+            document.getElementById('lightbox-image').src = l.image_url || '';
+            document.getElementById('lightbox-title').textContent = l.title || '—';
+            document.getElementById('lightbox-city').textContent = (l.city || '—') + ' • ' + (new Date(l.created_at).toLocaleDateString('fr-FR') || '—');
+            document.getElementById('lightbox-site').textContent = l.site || '—';
+            document.getElementById('lightbox-site').style.background = bg;
+            document.getElementById('lightbox-price').textContent = (l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—');
+            document.getElementById('lightbox-rooms').textContent = l.rooms || '—';
+            document.getElementById('lightbox-surface').textContent = l.surface || '—';
+            document.getElementById('lightbox-price-m2').textContent = l.price_m2 ? l.price_m2.toFixed(0) + '€' : '—';
+            document.getElementById('lightbox-distance').textContent = l.distance_km ? l.distance_km + ' km' : '—';
+            document.getElementById('lightbox-link').href = l.url;
+
+            document.getElementById('lightbox').classList.add('show');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('show');
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderGallery();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderGallery();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-city').value = '';
+            document.getElementById('filter-site').value = '';
+            document.getElementById('filter-images').value = '';
+            filterGallery();
+        }
+
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
