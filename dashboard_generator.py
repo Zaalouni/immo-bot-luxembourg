@@ -22,6 +22,7 @@ import json
 import os
 import shutil
 from datetime import datetime
+from database import db
 
 
 def read_listings(db_path='listings.db'):
@@ -628,6 +629,10 @@ renderPriceView();
 
 def main():
     """Point d'entree principal"""
+    print("Initialisation de la base de donnees...")
+    # Initialize database (creates tables if they don't exist)
+    db.init_db()
+
     print("Lecture de listings.db...")
     listings = read_listings()
 
