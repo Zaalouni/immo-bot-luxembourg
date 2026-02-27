@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Résumé ImmoLux - Vue d'ensemble du marché immobilier">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <title>Résumé - ImmoLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a6fd6;
+            --secondary: #764ba2;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #ecf0f1;
+        }
+
+        body.dark-mode .header,
+        body.dark-mode .stat-card,
+        body.dark-mode .top-listings,
+        body.dark-mode .nav-section {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ecf0f1;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+
+        .container-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .city-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .city-row {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+
+        .city-row:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .nav-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transition: var(--transition);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.5rem; }
+            .stat-value { font-size: 1.5rem; }
+            .section { padding: 1.5rem; }
+            .nav-links { flex-direction: column; }
+            .nav-links a { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>📊 Résumé ImmoLux</h1>
+    <p style="opacity: 0.9; margin: 0;">Vue d'ensemble du marché immobilier luxembourgeois</p>
+</div>
+
+<div class="container-main">
+
+    <!-- KPIs Globaux -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" id="kpiTotal">114</div>
+            <div class="stat-label">Annonces Total</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="kpiCities">63</div>
+            <div class="stat-label">Villes</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="kpiAvgPrice">2187€</div>
+            <div class="stat-label">Prix Moyen</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="kpiNewToday">—</div>
+            <div class="stat-label">Nouvelles (24h)</div>
+        </div>
+    </div>
+
+    <!-- Navigation vers autres pages -->
+    <div class="nav-section">
+        <h3 style="margin-bottom: 1.5rem; color: var(--primary);">🔗 Explorez le Dashboard</h3>
+        <div class="nav-links">
+            <a href="index.html">📊 Dashboard Principal</a>
+            <a href="stats-by-city.html">📋 Stats par Ville</a>
+            <a href="comparison.html">🔄 Comparateur</a>
+            <a href="map.html">🗺️ Carte</a>
+            <a href="photos.html">📸 Galerie</a>
+            <a href="anomalies.html">⚠️ Anomalies</a>
+            <a href="alerts.html">⭐ Favoris</a>
+            <a href="trends.html">📈 Tendances</a>
+            <a href="reports.html">📄 Reports</a>
+        </div>
+    </div>
+
+    <!-- Top 5 Villes -->
+    <div class="section">
+        <h2>🏙️ Top 5 Villes (par nombre d'annonces)</h2>
+        <div id="topCities"></div>
+    </div>
+
+    <!-- Top 5 Prix -->
+    <div class="section">
+        <h2>💰 Prix les Plus Hauts</h2>
+        <div id="topPrices"></div>
+    </div>
+
+    <!-- Dernières Annonces -->
+    <div class="section top-listings">
+        <h2>✨ Dernières Annonces (5 récentes)</h2>
+        <div id="recentListings"></div>
+    </div>
+
+</div>
+
+<!-- Dark Mode Toggle -->
+<button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre">🌙</button>
+
+<script src="data/listings.js"></script>
+<script>
+    // ==================== DARK MODE ====================
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    });
+
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+
+    // ==================== INIT ====================
+    function init() {
+        if (!LISTINGS) return;
+
+        // KPIs
+        document.getElementById('kpiTotal').textContent = LISTINGS.length;
+
+        const cities = new Set(LISTINGS.map(l => l.city));
+        document.getElementById('kpiCities').textContent = cities.size;
+
+        const prices = LISTINGS.filter(l => l.price > 0).map(l => l.price);
+        const avgPrice = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
+        document.getElementById('kpiAvgPrice').textContent = avgPrice.toLocaleString('fr-FR') + '€';
+
+        // Top 5 Villes
+        const cityCounts = {};
+        LISTINGS.forEach(l => {
+            cityCounts[l.city] = (cityCounts[l.city] || 0) + 1;
+        });
+
+        const topCities = Object.entries(cityCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5);
+
+        document.getElementById('topCities').innerHTML = topCities.map(([city, count]) => `
+            <div class="city-row">
+                <strong>${city}</strong>
+                <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 10px; font-weight: 600;">${count} annonces</span>
+            </div>
+        `).join('');
+
+        // Top 5 Prix
+        const topPrices = LISTINGS
+            .filter(l => l.price > 0)
+            .sort((a, b) => b.price - a.price)
+            .slice(0, 5);
+
+        document.getElementById('topPrices').innerHTML = topPrices.map(l => `
+            <div class="city-row">
+                <div>
+                    <strong>${l.title.substring(0, 50)}</strong><br>
+                    <small style="color: #888;">${l.city} • ${l.site}</small>
+                </div>
+                <strong style="color: var(--primary); font-size: 1.1rem;">${l.price.toLocaleString('fr-FR')}€</strong>
+            </div>
+        `).join('');
+
+        // Dernières Annonces
+        const recent = LISTINGS.slice(0, 5);
+        document.getElementById('recentListings').innerHTML = recent.map(l => `
+            <div class="city-row">
+                <div>
+                    <strong>${l.title.substring(0, 50)}</strong><br>
+                    <small style="color: #888;">${l.city} • ${l.rooms || '—'} ch. • ${l.surface || '—'}m²</small>
+                </div>
+                <div style="text-align: right;">
+                    <strong style="color: var(--primary);">${l.price.toLocaleString('fr-FR')}€</strong><br>
+                    <small><a href="${l.url}" target="_blank" style="color: var(--primary); text-decoration: none;">Voir →</a></small>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
+    }
+
+    init();
+</script>
+</body>
+</html>

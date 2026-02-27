@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
+    <link rel="manifest" href="manifest.json">
+    <title>Tendances - ImmoLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --primary: #667eea; --secondary: #764ba2; }
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); font-family: 'Segoe UI', sans-serif; padding: 2rem 1rem; min-height: 100vh; }
+        body.dark-mode { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #ecf0f1; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 2rem; text-align: center; border-radius: 16px; margin-bottom: 2rem; }
+        .container-main { max-width: 1200px; margin: 0 auto; }
+        .chart-container { background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; position: relative; height: 300px; }
+        body.dark-mode .chart-container { background: rgba(255,255,255,0.05); }
+        .dark-mode-toggle { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; border-radius: 50%; background: var(--primary); color: white; border: none; cursor: pointer; font-size: 1.2rem; z-index: 100; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📈 Tendances du Marché</h1>
+        <p style="margin: 0; opacity: 0.9;">Évolution des prix et volumes</p>
+    </div>
+
+    <div class="container-main">
+        <div class="chart-container">
+            <canvas id="priceChart"></canvas>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">📊 Statistiques Globales</h3>
+            <div id="stats"></div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="btn btn-primary">← Retour</a>
+        </div>
+    </div>
+
+    <button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
+
+    <script src="data/listings.js"></script>
+    <script>
+        const dm = document.getElementById("darkModeToggle");
+        dm.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+        });
+        if(localStorage.getItem("darkMode") === "true") document.body.classList.add("dark-mode");
+
+        function init() {
+            if(!LISTINGS) return;
+
+            const cityPrices = {};
+            LISTINGS.forEach(l => {
+                if(!cityPrices[l.city]) cityPrices[l.city] = [];
+                if(l.price > 0) cityPrices[l.city].push(l.price);
+            });
+
+            const topCities = Object.entries(cityPrices)
+                .map(([city, prices]) => [city, Math.round(prices.reduce((a,b) => a+b, 0) / prices.length)])
+                .sort((a,b) => b[1] - a[1])
+                .slice(0, 5);
+
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: topCities.map(c => c[0]),
+                    datasets: [{
+                        label: 'Prix Moyen (€)',
+                        data: topCities.map(c => c[1]),
+                        backgroundColor: ['#667eea', '#764ba2', '#8b9cff', '#5a6fd6', '#36a2eb'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true } }
+                }
+            });
+
+            document.getElementById('stats').innerHTML = `
+                <p><strong>Total Annonces:</strong> ${LISTINGS.length}</p>
+                <p><strong>Nombre de Villes:</strong> ${Object.keys(cityPrices).length}</p>
+                <p><strong>Prix Moyen Global:</strong> ${Math.round(LISTINGS.filter(l => l.price > 0).map(l => l.price).reduce((a,b) => a+b, 0) / LISTINGS.filter(l => l.price > 0).length)}€</p>
+            `;
+        }
+
+        init();
+    </script>
+</body>
+</html>

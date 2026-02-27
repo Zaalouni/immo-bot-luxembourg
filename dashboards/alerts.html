@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
+    <link rel="manifest" href="manifest.json">
+    <title>Favoris & Alertes - ImmoLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root { --primary: #667eea; --secondary: #764ba2; }
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); font-family: 'Segoe UI', sans-serif; padding: 2rem 1rem; min-height: 100vh; }
+        body.dark-mode { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #ecf0f1; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 2rem; text-align: center; border-radius: 16px; margin-bottom: 2rem; }
+        .container-main { max-width: 1000px; margin: 0 auto; }
+        .card-item { background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        body.dark-mode .card-item { background: rgba(255,255,255,0.05); }
+        .btn-action { padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s; border: none; }
+        .btn-fav { background: #ffc107; color: #333; }
+        .btn-fav.added { background: #28a745; color: white; }
+        .btn-del { background: #dc3545; color: white; }
+        .dark-mode-toggle { position: fixed; bottom: 2rem; right: 2rem; width: 50px; height: 50px; border-radius: 50%; background: var(--primary); color: white; border: none; cursor: pointer; font-size: 1.2rem; z-index: 100; }
+        .alert-control { background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+        body.dark-mode .alert-control { background: rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⭐ Favoris & Alertes</h1>
+        <p style="margin: 0; opacity: 0.9;">Sauvegardez vos annonces préférées et recevez des alertes</p>
+    </div>
+
+    <div class="container-main">
+        <div class="alert-control">
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">🔔 Configuration des Alertes</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Alerte si prix < (€):</label>
+                    <input type="number" id="alertPrice" class="form-control form-control-sm" placeholder="1500">
+                </div>
+                <div class="col-md-6">
+                    <label>Ville:</label>
+                    <select id="alertCity" class="form-select form-select-sm"></select>
+                </div>
+            </div>
+            <button class="btn btn-primary mt-2" onclick="setAlert()">💾 Sauvegarder Alerte</button>
+        </div>
+
+        <div>
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">⭐ Mes Favoris</h3>
+            <div id="favoritesList"></div>
+            <p id="noFavs" class="text-muted text-center" style="padding: 2rem;">Aucun favori sauvegardé. Cliquez sur ⭐ pour ajouter une annonce!</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" class="btn btn-primary">← Retour</a>
+        </div>
+    </div>
+
+    <button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
+
+    <script src="data/listings.js"></script>
+    <script>
+        const dm = document.getElementById("darkModeToggle");
+        dm.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+        });
+        if(localStorage.getItem("darkMode") === "true") document.body.classList.add("dark-mode");
+
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+
+        function init() {
+            const cities = [...new Set(LISTINGS.map(l => l.city))].sort();
+            const select = document.getElementById('alertCity');
+            cities.forEach(c => {
+                select.innerHTML += `<option value="${c}">${c}</option>`;
+            });
+            renderFavorites();
+        }
+
+        function toggleFavorite(id) {
+            const idx = favorites.indexOf(id);
+            if(idx === -1) favorites.push(id);
+            else favorites.splice(idx, 1);
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            renderFavorites();
+        }
+
+        function renderFavorites() {
+            const favListings = LISTINGS.filter(l => favorites.includes(l.listing_id));
+            document.getElementById('noFavs').style.display = favListings.length ? 'none' : 'block';
+            document.getElementById('favoritesList').innerHTML = favListings.map(l => `
+                <div class="card-item">
+                    <div>
+                        <strong>${l.title.substring(0, 50)}</strong><br>
+                        <small style="color: #888;">${l.city} • ${l.price.toLocaleString('fr-FR')}€ • ${l.site}</small>
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn-action btn-fav" onclick="toggleFavorite('${l.listing_id}')">⭐ Favori</button>
+                        <a href="${l.url}" target="_blank" class="btn-action" style="background: var(--primary); color: white;">Voir</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setAlert() {
+            const price = document.getElementById('alertPrice').value;
+            const city = document.getElementById('alertCity').value;
+            if(price && city) {
+                alert(`✅ Alerte créée: Prix < ${price}€ à ${city}`);
+                document.getElementById('alertPrice').value = '';
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
