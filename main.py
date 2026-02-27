@@ -3,7 +3,7 @@
 # main.py — Orchestrateur principal du bot immobilier Luxembourg
 # =============================================================================
 # Point d'entree du projet. Contient la classe ImmoBot qui :
-#   1. Charge les 11 scrapers au demarrage (imports dynamiques try/except)
+#   1. Charge les 12 scrapers au demarrage (imports dynamiques try/except)
 #   2. Execute des cycles de scraping sequentiels (check_new_listings)
 #   3. Deduplique les annonces cross-sites (prix + ville + surface)
 #   4. Filtre selon les criteres config.py (prix, rooms, surface, distance, mots exclus)
@@ -13,8 +13,8 @@
 #   python main.py          → mode continu (boucle toutes les CHECK_INTERVAL secondes)
 #   python main.py --once   → mode test (1 seul cycle)
 #
-# Scrapers actifs (11): Athome, Immotop, VIVI, Newimmo, Nextimmo,
-#                       Sigelux, Sothebys, LDHome, Rockenbrod, PropertyInvest, REMAX
+# Scrapers actifs (12): Athome, Immotop, VIVI, Newimmo, Nextimmo, Sigelux,
+#                       Sothebys, LDHome, Rockenbrod, PropertyInvest, REMAX, ImmoStar
 # Voir architecture.md pour le flux de donnees complet.
 # =============================================================================
 import logging
@@ -142,6 +142,14 @@ try:
         logger.info("✅ REMAX.lu")
     except ImportError as e:
         logger.warning(f"⚠️ REMAX.lu: {e}")
+
+    # ImmoStar.lu
+    try:
+        from scrapers.immostar_scraper import immostar_scraper
+        scrapers_config.append(('⭐ ImmoStar.lu', immostar_scraper))
+        logger.info("✅ ImmoStar.lu")
+    except ImportError as e:
+        logger.warning(f"⚠️ ImmoStar.lu: {e}")
 
 except ImportError as e:
     logger.error(f"❌ Erreur importation: {e}")
