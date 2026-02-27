@@ -1,12 +1,11 @@
 # =============================================================================
 # scrapers/immostar_scraper.py — Scraper ImmoStar.lu via HTML + BeautifulSoup
 # =============================================================================
-# URL     : https://immostar.lu/search/1?t=1&loc=lu|Luxembourg (pays)
+# URL     : https://immostar.lu/search/1?t=1&pmin=1000&pmax=4000&smin=70&rmin=2
 # Methode : requete HTTP GET, parsing BeautifulSoup
-# Structure : <div class="list"> contient image, titre, prix, description
+# Structure : <div class="list" data-ref="ID" data-url="/location/type/city/ID">
 # Image   : <img src="https://img.immostar.lu/id/XXXXX/...">
-# Prix    : extrait du texte (ex: "1 200€")
-# Surface : extrait du texte (ex: "70 m²")
+# Prix    : extrait du texte (ex: "1 200€" ou "3 500€")
 # Pagination : /search/N pour N = 1, 2, 3...
 # Instance globale : immostar_scraper
 # =============================================================================
@@ -21,8 +20,12 @@ logger = logging.getLogger(__name__)
 
 MAX_PAGES = 5
 
-# Types à exclure
-EXCLUDED_TYPES = {'commercial', 'parking', 'garage', 'bureau', 'office', 'entrepôt', 'cave', 'terrain'}
+# Types à exclure (basé sur l'URL data-url)
+EXCLUDED_URL_TYPES = {
+    'local-commercial', 'commercial', 'bureau', 'office',
+    'fond-de-commerce', 'entrepot', 'parking', 'garage',
+    'cave', 'terrain', 'immeuble-de-rapport'
+}
 
 
 class ImmostarScraper:
@@ -40,10 +43,20 @@ class ImmostarScraper:
         listings = []
         seen_ids = set()
 
+        # Importer les critères de config pour construire l'URL
+        try:
+            from config import MIN_PRICE, MAX_PRICE, MIN_SURFACE, MIN_ROOMS
+        except ImportError:
+            MIN_PRICE, MAX_PRICE, MIN_SURFACE, MIN_ROOMS = 500, 5000, 50, 1
+
         try:
             for page_num in range(1, MAX_PAGES + 1):
-                # URL avec paramètres de recherche
-                url = f"{self.base_url}/search/{page_num}?t=1&loc=lu|Luxembourg%C2%A0(pays)"
+                # URL avec paramètres de recherche basés sur config.py
+                # t=1: location, pmin/pmax: prix, smin: surface min, rmin: pièces min
+                url = (f"{self.base_url}/search/{page_num}"
+                       f"?t=1&pmin={MIN_PRICE}&pmax={MAX_PRICE}"
+                       f"&smin={MIN_SURFACE}&rmin={MIN_ROOMS}"
+                       f"&loc=lu|Luxembourg%C2%A0(pays)")
                 logger.info(f"[ImmoStar] Page {page_num}: {url}")
 
                 resp = self.session.get(url, timeout=20)
@@ -54,8 +67,8 @@ class ImmostarScraper:
 
                 soup = BeautifulSoup(resp.text, 'html.parser')
 
-                # Trouver les cartes d'annonces
-                cards = soup.find_all('div', class_='list')
+                # Trouver les cartes d'annonces (ont data-ref et data-url)
+                cards = soup.find_all('div', class_='list', attrs={'data-ref': True})
                 if not cards:
                     logger.info(f"  Page {page_num}: aucune annonce, arrêt")
                     break
@@ -96,49 +109,65 @@ class ImmostarScraper:
 
     def _parse_card(self, card, seen_ids):
         """Parser une carte d'annonce"""
+        # Extraire l'ID depuis data-ref
+        listing_id = card.get('data-ref', '')
+        if not listing_id or listing_id in seen_ids:
+            return None
+
+        # Extraire l'URL depuis data-url
+        data_url = card.get('data-url', '')
+        if not data_url:
+            return None
+
+        # Vérifier si c'est un type exclu (basé sur l'URL)
+        url_lower = data_url.lower()
+        for excl_type in EXCLUDED_URL_TYPES:
+            if excl_type in url_lower:
+                logger.debug(f"  Exclus (type commercial): {data_url}")
+                return None
+
+        # Construire l'URL complète
+        url = f"{self.base_url}{data_url}"
+
         # Extraire le texte complet de la carte
         text = ' '.join(card.get_text().split())
 
-        # Extraire ID et prix avec le pattern: ID (6 chiffres) + prix
-        # Format: "2124721 200€" = ID 212472, prix 1200€
-        id_price_match = re.search(r'(\d{6})(\d[\d\s]*)\s*€', text)
-        if not id_price_match:
+        # Extraire le prix (format: ID(6 chiffres) + prix avant €)
+        # Le texte contient "2124193 500€" = ID 212419 + prix 3 500€
+        price_match = re.search(r'\d{6}(\d[\d\s]{0,6})€', text)
+        if not price_match:
             return None
 
-        listing_id = id_price_match.group(1)
-        price_raw = id_price_match.group(2).replace(' ', '')
-
-        if listing_id in seen_ids:
-            return None
-
-        # Extraire le prix
         try:
-            price = int(price_raw)
-        except:
+            price_str = price_match.group(1).replace(' ', '').replace('\xa0', '')
+            price = int(price_str)
+        except (ValueError, AttributeError):
             return None
 
         # Prix raisonnable pour une location résidentielle
         if price < 500 or price > 10000:
             return None
 
-        # Extraire le titre (avant l'ID/prix)
-        title_match = re.search(r'([A-ZÀÂÄÉÈÊËÏÎÔÙÛÜÇ][^€]+?)(?=\d{6})', text)
-        title = title_match.group(1).strip() if title_match else text[:80]
-
-        # Vérifier si c'est un type exclu
-        title_lower = title.lower()
-        if any(excl in title_lower for excl in EXCLUDED_TYPES):
-            return None
-
-        # Extraire la ville depuis le titre (ex: "À LOUER À REMICH")
-        city_match = re.search(r'(?:À|A|IN|ZU)\s+([A-ZÀÂÄÉÈÊËÏÎÔÙÛÜÇ][A-Za-zÀÂÄÉÈÊËÏÎÔÙÛÜÇàâäéèêëïîôùûüç\-]+)\s*$', title.strip())
-        if city_match:
-            city = city_match.group(1).strip().title()
+        # Extraire le titre (texte majuscule avant le prix)
+        # Ex: "MAISON MITOYENNE À LOUER À BERELDANGE"
+        title_match = re.search(r'([A-ZÀÂÄÉÈÊËÏÎÔÙÛÜÇ][A-ZÀÂÄÉÈÊËÏÎÔÙÛÜÇ\s]+(?:À LOUER|A LOUER)[^€]*?)(?=\d)', text)
+        if title_match:
+            title = title_match.group(1).strip()
         else:
-            city = ''
+            # Fallback: premiers 80 caractères
+            title = text[:80]
+
+        # Extraire la ville depuis l'URL (format: /location/type/CITY/id)
+        city_match = re.search(r'/location/[^/]+/([^/]+)/\d+', data_url)
+        if city_match:
+            city = city_match.group(1).replace('-', ' ').title()
+        else:
+            # Fallback: chercher dans le titre
+            city_title_match = re.search(r'(?:À|A)\s+([A-ZÀÂÄÉÈÊËÏÎÔÙÛÜÇ][A-Za-zÀÂÄÉÈÊËÏÎÔÙÛÜÇàâäéèêëïîôùûüç\-]+)\s*$', title.strip())
+            city = city_title_match.group(1).title() if city_title_match else ''
 
         # Extraire la surface
-        surface_match = re.search(r'(\d+)\s*m[²2]', text)
+        surface_match = re.search(r'(\d+)\s*m[²2]', text, re.I)
         surface = int(surface_match.group(1)) if surface_match else 0
 
         # Extraire les chambres
@@ -156,11 +185,9 @@ class ImmostarScraper:
                 lat, lng = coords
                 distance_km = haversine_distance(REFERENCE_LAT, REFERENCE_LNG, lat, lng)
 
-        # URL de l'annonce (construire depuis l'ID)
-        # On n'a pas l'URL exacte, utiliser l'URL de recherche comme fallback
-        url = f"{self.base_url}/fr/{listing_id}"
-
-        # Image
+        # Image - extraire depuis la carte HTML
+        img_tag = card.find('img')
+        img_src = img_tag.get('src', '') if img_tag else ''
         image_url = img_src if img_src.startswith('http') else None
 
         listing = {
