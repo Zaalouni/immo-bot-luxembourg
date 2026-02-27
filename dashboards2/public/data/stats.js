@@ -1,15 +1,15 @@
 // Genere le 27/02/2026 11:52
 const STATS = {
-  "total": 112,
-  "avg_price": 2193,
+  "total": 114,
+  "avg_price": 2187,
   "min_price": 1400,
   "max_price": 2500,
-  "avg_surface": 98,
-  "cities": 61,
+  "avg_surface": 97,
+  "cities": 63,
   "sites": {
+    "VIVI.lu": 13,
+    "Athome.lu": 68,
     "Nextimmo.lu": 20,
-    "VIVI.lu": 12,
-    "Athome.lu": 67,
     "SothebysRealty.lu": 5,
     "Newimmo.lu": 5,
     "Immotop.lu": 2,
@@ -145,6 +145,16 @@ const STATS = {
       "city": "Lallange",
       "count": 2,
       "avg_price": 2075
+    },
+    {
+      "city": "Bastendorf",
+      "count": 1,
+      "avg_price": 1600
+    },
+    {
+      "city": "Howald",
+      "count": 1,
+      "avg_price": 2100
     },
     {
       "city": "Mondorf-les-Bains",
@@ -324,15 +334,15 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 1,
-    "1500 - 2000": 26,
-    "2000 - 2500": 69,
+    "1500 - 2000": 27,
+    "2000 - 2500": 70,
     "> 2500": 16
   }
 };
 const SITE_COLORS = {
-  "Nextimmo.lu": "#FF6384",
-  "VIVI.lu": "#36A2EB",
-  "Athome.lu": "#FFCE56",
+  "VIVI.lu": "#FF6384",
+  "Athome.lu": "#36A2EB",
+  "Nextimmo.lu": "#FFCE56",
   "SothebysRealty.lu": "#4BC0C0",
   "Newimmo.lu": "#9966FF",
   "Immotop.lu": "#FF9F40",

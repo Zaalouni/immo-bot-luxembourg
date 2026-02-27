@@ -1,6 +1,36 @@
 // Genere le 27/02/2026 11:52
-// 112 annonces depuis listings.db
+// 114 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "vivi_212688",
+    "site": "VIVI.lu",
+    "title": "Appartement 2 chambres à louer",
+    "city": "Bastendorf",
+    "price": 1600,
+    "rooms": 2,
+    "surface": 91,
+    "url": "https://www.vivi.lu/fr/propriete/lieu/appartement/bastendorf/appartement-2-chambres-a-louer/212688",
+    "latitude": null,
+    "longitude": null,
+    "distance_km": null,
+    "created_at": "2026-02-27 10:52:33",
+    "price_m2": 17.6
+  },
+  {
+    "listing_id": "athome_7901304",
+    "site": "Athome.lu",
+    "title": "En location, beau appartement de 80 m2 avec 2 chambres à coucher, 2 ba",
+    "city": "Howald",
+    "price": 2100,
+    "rooms": 2,
+    "surface": 80,
+    "url": "https://www.athome.lu/location/appartement/howald/id-7901304.html",
+    "latitude": 49.5883423,
+    "longitude": 6.1448228,
+    "distance_km": 1.5,
+    "created_at": "2026-02-27 10:52:27",
+    "price_m2": 26.2
+  },
   {
     "listing_id": "nextimmo_16052",
     "site": "Nextimmo.lu",
