@@ -4,9 +4,8 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   // Base URL for GitHub Pages deployment
-  // Note: GitHub Pages serves from dashboards2/ (not dashboards2/dist/)
-  // because peaceiris/actions-gh-pages copies dist/* to dashboards2/
-  base: '/immo-bot-luxembourg/dashboards2/',
+  // Note: GitHub Pages serves from repo root, files are at dashboards2/dist/
+  base: '/immo-bot-luxembourg/dashboards2/dist/',
   server: {
     port: 5173,
     host: true
