@@ -1,6 +1,6 @@
 // Helper to get data URL - hardcoded for GitHub Pages
-// Note: Files are copied from dashboards2/dist/* to dashboards2/* in gh-pages branch
-const API_BASE = 'https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/';
+// Note: Files are served from dashboards2/dist/* on GitHub Pages
+const API_BASE = 'https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/dist/';
 
 function getDataUrl(filename) {
   return `${API_BASE}data/${filename}`
