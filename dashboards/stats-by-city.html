@@ -336,7 +336,7 @@ let TRANSPORTS = {};
 fetch('data/city-transports.json')
     .then(r => r.json())
     .then(data => {
-        TRANSPORTS = data.transports || {};
+        TRANSPORTS = data.cities || {};
         console.log('✅ Transports loaded:', Object.keys(TRANSPORTS).length, 'cities');
     })
     .catch(err => console.log('Transport data not available:', err));
