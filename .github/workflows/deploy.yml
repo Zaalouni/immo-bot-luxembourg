@@ -79,21 +79,36 @@ jobs:
             echo "No changes to commit"
           fi
 
-      - name: Create deployment folder (dashboards only)
+      - name: Verify build files exist
         run: |
-          # Copy dashboards and Dashboard2 build to deployment directory
-          mkdir -p deploy_temp/dashboards2
-          cp -r dashboards deploy_temp/
+          echo "Checking dashboards2/dist contents:"
+          ls -lah dashboards2/dist/
+          echo "---"
+          ls -lah dashboards2/dist/assets/ | head -10
+          echo "---"
+          ls -lah dashboards2/dist/data/ | head -10
 
-          # Copy all files from dashboards2/dist including nested files
-          cp dashboards2/dist/index.html deploy_temp/dashboards2/
-          cp dashboards2/dist/manifest.json deploy_temp/dashboards2/
-          cp dashboards2/dist/sw.js deploy_temp/dashboards2/
-          cp -r dashboards2/dist/assets deploy_temp/dashboards2/
-          cp -r dashboards2/dist/data deploy_temp/dashboards2/
+      - name: Create deployment folder with all files
+        run: |
+          mkdir -p deploy_temp/dashboards2/assets deploy_temp/dashboards2/data
+          mkdir -p deploy_temp/dashboards
 
-          echo "Deployment structure:"
-          find deploy_temp -type f | head -20
+          # Copy Dashboard 1 (original)
+          cp -v dashboards/index.html deploy_temp/dashboards/
+          cp -v dashboards/manifest.json deploy_temp/dashboards/
+          cp -v dashboards/sw.js deploy_temp/dashboards/ 2>/dev/null || true
+          cp -rv dashboards/data deploy_temp/dashboards/
+          cp -rv dashboards/archives deploy_temp/dashboards/ 2>/dev/null || true
+
+          # Copy Dashboard2 Vue build - explicit file copy
+          cp -v dashboards2/dist/index.html deploy_temp/dashboards2/
+          cp -v dashboards2/dist/manifest.json deploy_temp/dashboards2/
+          cp -v dashboards2/dist/sw.js deploy_temp/dashboards2/
+          cp -rv dashboards2/dist/assets/* deploy_temp/dashboards2/assets/ || true
+          cp -rv dashboards2/dist/data/* deploy_temp/dashboards2/data/ || true
+
+          echo "Final deployment structure:"
+          find deploy_temp -type f -name "*.html" -o -name "*.js" -o -name "*.json" | sort
 
       - name: Deploy dashboards to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
@@ -101,7 +116,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./deploy_temp
           cname: false
-          force_orphan: false
 
       - name: Summary
         run: |
