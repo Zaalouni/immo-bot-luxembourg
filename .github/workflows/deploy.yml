@@ -81,11 +81,19 @@ jobs:
 
       - name: Create deployment folder (dashboards only)
         run: |
-          # Copy only dashboards to a clean directory for deployment
-          mkdir -p deploy_temp
+          # Copy dashboards and Dashboard2 build to deployment directory
+          mkdir -p deploy_temp/dashboards2
           cp -r dashboards deploy_temp/
-          cp -r dashboards2/dist deploy_temp/dashboards2
-          ls -la deploy_temp/
+
+          # Copy all files from dashboards2/dist including nested files
+          cp dashboards2/dist/index.html deploy_temp/dashboards2/
+          cp dashboards2/dist/manifest.json deploy_temp/dashboards2/
+          cp dashboards2/dist/sw.js deploy_temp/dashboards2/
+          cp -r dashboards2/dist/assets deploy_temp/dashboards2/
+          cp -r dashboards2/dist/data deploy_temp/dashboards2/
+
+          echo "Deployment structure:"
+          find deploy_temp -type f | head -20
 
       - name: Deploy dashboards to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
