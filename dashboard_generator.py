@@ -627,6 +627,37 @@ renderPriceView();
     return html
 
 
+def sync_data_to_dashboard2(data_dir):
+    """Sync data files to Dashboard2 (Vue app)"""
+    dashboard2_data = 'dashboards2/public/data'
+
+    try:
+        # Create directory if it doesn't exist
+        os.makedirs(dashboard2_data, exist_ok=True)
+
+        # Files to sync
+        files_to_sync = [
+            'listings.js',
+            'stats.js',
+            'listings.json',
+            'anomalies.js',
+            'market-stats.js',
+            'new-listings.json'
+        ]
+
+        # Copy files
+        for filename in files_to_sync:
+            src = os.path.join(data_dir, filename)
+            dst = os.path.join(dashboard2_data, filename)
+            if os.path.exists(src):
+                shutil.copy2(src, dst)
+                print(f"  -> {dst}")
+
+        print("✅ Dashboard2 data synced")
+    except Exception as e:
+        print(f"⚠️  Dashboard2 sync skipped: {e}")
+
+
 def main():
     """Point d'entree principal"""
     print("Initialisation de la base de donnees...")
@@ -672,8 +703,13 @@ def main():
     shutil.copy2(index_path, archive_path)
     print(f"  -> {archive_path}")
 
+    # Etape 5 : sync data to Dashboard2 (Vue app)
+    print("\nSync Dashboard2...")
+    sync_data_to_dashboard2(data_dir)
+
     print(f"\nDashboard genere avec succes !")
     print(f"Ouvrir : {os.path.abspath(index_path)}")
+    print(f"Dashboard2 : dashboards2/dist/index.html (apres npm run build)")
 
 
 if __name__ == '__main__':
