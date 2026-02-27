@@ -8,15 +8,10 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout main branch
@@ -52,9 +47,9 @@ jobs:
       - name: Generate Dashboards
         run: python dashboard_generator.py
 
-      - name: Create docs folder for GitHub Pages
+      - name: Update docs folder
         run: |
-          echo "=== Setting up GitHub Pages deployment from /docs ==="
+          echo "=== Updating docs folder for GitHub Pages ==="
           rm -rf docs
           mkdir -p docs/dashboards2/assets docs/dashboards2/data docs/dashboards
 
@@ -74,31 +69,21 @@ jobs:
           # Create .nojekyll to disable Jekyll processing
           touch docs/.nojekyll
 
-          echo "✅ Files prepared for GitHub Pages:"
+          echo "✅ Files updated in docs/:"
           find docs -type f | wc -l
           echo "   total files"
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: 'docs'
-
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          cname: false
 
       - name: Summary
         run: |
-          echo "✅ [OK] Dashboards built and deployed successfully!"
+          echo "✅ [OK] Dashboards deployed to GitHub Pages!"
           echo ""
-          echo "📊 Available at GitHub Pages:"
+          echo "📊 Available at:"
           echo "  [Dashboard 1] https://zaalouni.github.io/immo-bot-luxembourg/dashboards/index.html"
           echo "  [Dashboard 2] https://zaalouni.github.io/immo-bot-luxembourg/dashboards2/index.html"
-          echo ""
-          echo "⚙️  Deployment Configuration:"
-          echo "  - Method: GitHub Actions official Pages deployment"
-          echo "  - Source: /docs folder"
-          echo "  - Branch: main"
