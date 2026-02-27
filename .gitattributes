@@ -1,0 +1,9 @@
+# GitHub Pages - force proper MIME types
+*.json text charset=utf-8
+*.js text charset=utf-8
+*.css text charset=utf-8
+*.html text charset=utf-8
+.nojekyll text
+
+# Ensure line endings
+* text=auto
