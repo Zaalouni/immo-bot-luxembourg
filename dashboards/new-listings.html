@@ -6,8 +6,7 @@
     <title>Nouvelles Offres - ImmoLux</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root { --primary: #667eea; --primary-dark: #5a6fd6; --secondary: #764ba2; --shadow: 0 2px 12px rgba(0,0,0,0.1); --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        :root { --primary: #667eea; --primary-dark: #5a6fd6; --secondary: #764ba2; }
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -16,262 +15,159 @@
             color: #2c3e50;
             min-height: 100vh;
         }
-
         body.dark-mode {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #ecf0f1;
         }
-
         .header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 1.2rem 1rem;
-            margin-bottom: 1rem;
+            padding: 1rem;
             position: sticky;
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            backdrop-filter: blur(10px);
         }
-        .header h1 { font-size: 1.4rem; margin: 0; font-weight: 700; }
-        .header small { opacity: 0.85; font-size: 0.75rem; display: block; margin-top: 0.3rem; }
-
+        .header h1 { font-size: 1.3rem; margin: 0; font-weight: 700; }
+        .header small { opacity: 0.85; font-size: 0.75rem; }
         .nav-link {
-            color: white;
-            opacity: 0.8;
-            text-decoration: none;
-            margin: 0 0.5rem;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            display: inline-block;
+            color: white; opacity: 0.8; text-decoration: none;
+            margin: 0 0.4rem; font-size: 0.85rem;
         }
-        .nav-link:hover { opacity: 1; transform: translateY(-2px); }
-        .nav-link.active { opacity: 1; border-bottom: 3px solid white; padding-bottom: 0.2rem; }
+        .nav-link:hover, .nav-link.active { opacity: 1; }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 14px;
-            padding: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: var(--transition);
-        }
-        .stat-card:hover {
-            transform: translateY(-4px);
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-        }
-        .stat-value { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
-        .stat-label { font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.5rem; }
-
-        body.dark-mode .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        /* GRID RESPONSIVE POUR LES ANNONCES */
-        .listings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .listings-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .listing-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255,255,255,0.8);
             border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--primary);
-            position: relative;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
+            padding: 0.8rem;
+            text-align: center;
         }
-        .listing-card:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-        }
-        .listing-card.new { border-left-color: #ffc107; }
-
-        body.dark-mode .listing-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .badge-new {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
-            z-index: 10;
-        }
-
-        .date-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #f0f2f5 0%, #e8eef7 100%);
-            color: #666;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            margin-right: 0.5rem;
-            font-weight: 500;
-            border: 1px solid #ddd;
-        }
+        body.dark-mode .stat-card { background: rgba(255,255,255,0.1); }
+        .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .stat-label { font-size: 0.65rem; color: #888; text-transform: uppercase; }
 
         .filters {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 1.2rem;
-            border-radius: 14px;
+            background: rgba(255,255,255,0.8);
+            padding: 1rem;
+            border-radius: 12px;
             margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
+        body.dark-mode .filters { background: rgba(255,255,255,0.1); }
 
         .filter-btn {
             background: white;
             border: 1px solid #ddd;
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            font-weight: 500;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            margin-right: 0.3rem;
+            margin-bottom: 0.3rem;
         }
-        .filter-btn:hover {
-            border-color: var(--primary);
-            background: #f8f9ff;
-        }
+        .filter-btn:hover { border-color: var(--primary); }
         .filter-btn.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
+        body.dark-mode .filter-btn { background: rgba(255,255,255,0.1); color: #eee; border-color: #555; }
+        body.dark-mode .filter-btn.active { background: var(--primary); }
 
-        .dark-mode-toggle {
-            position: fixed; bottom: 2rem; right: 2rem;
-            width: 50px; height: 50px; border-radius: 50%;
-            background: var(--primary); color: white; border: none; cursor: pointer;
-            font-size: 1.2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-            transition: var(--transition); z-index: 100;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .dark-mode-toggle:hover { transform: scale(1.1); background: var(--primary-dark); }
-
-        body.dark-mode .filters {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        body.dark-mode .filter-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-            color: #ecf0f1;
-        }
-
-        body.dark-mode .date-badge {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-            color: #ccc;
-        }
-
-        .listing-image {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 0.8rem;
-            background: #f0f0f0;
-        }
-
-        .no-image {
-            width: 100%;
-            height: 160px;
-            background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
-            border-radius: 8px;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 0.85rem;
-        }
-
-        .listing-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin: 0 0 0.5rem 0;
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+        /* TABLE STYLE - COMPACT */
+        .listings-table {
+            background: rgba(255,255,255,0.9);
+            border-radius: 12px;
             overflow: hidden;
         }
+        body.dark-mode .listings-table { background: rgba(255,255,255,0.05); }
 
-        .listing-price {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .listing-details {
-            color: #666;
+        .listings-table table {
+            width: 100%;
+            margin: 0;
             font-size: 0.85rem;
-            margin-top: 0.3rem;
+        }
+        .listings-table th {
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        .listings-table td {
+            padding: 0.6rem;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        body.dark-mode .listings-table td { border-color: #333; color: #ddd; }
+
+        .listings-table tr:hover { background: rgba(102,126,234,0.05); }
+        .listings-table tr.is-new { background: rgba(255,193,7,0.1); }
+
+        .badge-new {
+            background: #ffc107;
+            color: #333;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
 
-        body.dark-mode .listing-details {
-            color: #aaa;
+        .price-cell { font-weight: 700; color: var(--primary); white-space: nowrap; }
+        .city-cell { font-weight: 500; }
+        .date-cell { color: #888; font-size: 0.8rem; white-space: nowrap; }
+
+        .btn-voir {
+            background: var(--primary);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+        .btn-voir:hover { background: var(--primary-dark); color: white; }
+
+        .dark-mode-toggle {
+            position: fixed; bottom: 1.5rem; right: 1.5rem;
+            width: 45px; height: 45px; border-radius: 50%;
+            background: var(--primary); color: white; border: none;
+            cursor: pointer; font-size: 1.1rem; z-index: 100;
         }
 
-        .listing-footer {
-            margin-top: auto;
-            padding-top: 0.8rem;
+        .results-info {
+            background: #e8f4f8;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        body.dark-mode .results-info { background: rgba(102,126,234,0.2); }
+
+        @media (max-width: 768px) {
+            .listings-table { font-size: 0.75rem; }
+            .listings-table th, .listings-table td { padding: 0.4rem; }
+            .hide-mobile { display: none; }
         }
     </style>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#667eea">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="ImmoLux">
 </head>
 <body>
     <div class="header">
-        <h1>⭐ Nouvelles Offres - ImmoLux</h1>
+        <h1>⭐ Nouvelles Offres</h1>
         <small id="lastUpdate"></small>
-        <div style="margin-top: 0.8rem;">
+        <div style="margin-top: 0.5rem;">
             <a href="index.html" class="nav-link">📊 Dashboard</a>
-            <a href="new-listings.html" class="nav-link active">⭐ New Offres</a>
+            <a href="new-listings.html" class="nav-link active">⭐ New</a>
             <a href="anomalies.html" class="nav-link">🎯 Anomalies</a>
-            <a href="map-advanced.html" class="nav-link">🗺️ Carte+</a>
-            <a href="stats-by-city.html" class="nav-link">📊 Stats Ville</a>
-            <a href="photos.html" class="nav-link">🖼️ Photos</a>
+            <a href="map-advanced.html" class="nav-link">🗺️ Carte</a>
+            <a href="stats-by-city.html" class="nav-link">📊 Villes</a>
         </div>
     </div>
 
-    <div class="container-fluid p-3">
+    <div class="container-fluid p-2">
         <!-- Stats -->
-        <div class="row g-2 mb-3">
+        <div class="row g-2 mb-2">
             <div class="col-4">
                 <div class="stat-card">
                     <div class="stat-value" id="todayCount">0</div>
@@ -286,71 +182,86 @@
             </div>
             <div class="col-4">
                 <div class="stat-card">
-                    <div class="stat-value" id="monthCount">0</div>
-                    <div class="stat-label">30 Jours</div>
+                    <div class="stat-value" id="totalCount">0</div>
+                    <div class="stat-label">Total</div>
                 </div>
             </div>
         </div>
 
         <!-- Filtres -->
         <div class="filters">
-            <label style="font-weight: 600; margin-bottom: 0.8rem; display: block;">Filtre par période:</label>
-            <button class="filter-btn active" data-period="all">Toutes (125)</button>
+            <strong style="font-size: 0.9rem;">Filtrer:</strong>
+            <button class="filter-btn active" data-period="all">Toutes</button>
             <button class="filter-btn" data-period="today">Aujourd'hui</button>
-            <button class="filter-btn" data-period="7days">7 derniers jours</button>
-            <button class="filter-btn" data-period="30days">30 derniers jours</button>
+            <button class="filter-btn" data-period="3days">3 jours</button>
+            <button class="filter-btn" data-period="7days">7 jours</button>
         </div>
 
-        <!-- Listings Grid -->
-        <div id="listings" class="listings-grid"></div>
+        <!-- Info résultats -->
+        <div class="results-info" id="resultsInfo">Chargement...</div>
+
+        <!-- Table des annonces -->
+        <div class="listings-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ville</th>
+                        <th>Prix</th>
+                        <th class="hide-mobile">Surface</th>
+                        <th class="hide-mobile">Ch.</th>
+                        <th>Date</th>
+                        <th>Site</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="listingsBody"></tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- Dark Mode Toggle -->
-    <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre">🌙</button>
+    <button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
 
-    <!-- Charger les données depuis listings.js -->
     <script src="data/listings.js"></script>
     <script>
         let currentFilter = 'all';
-        let filteredListings = [];
+
+        function parseDate(dateStr) {
+            if (!dateStr) return null;
+            try {
+                // Format: "2026-02-28 14:25:16"
+                return new Date(dateStr.replace(' ', 'T'));
+            } catch (e) {
+                return null;
+            }
+        }
 
         function init() {
-            if (typeof LISTINGS === 'undefined' || !LISTINGS || LISTINGS.length === 0) {
-                document.getElementById('listings').innerHTML = '<div class="alert alert-danger">Erreur: Données non chargées</div>';
+            if (typeof LISTINGS === 'undefined' || !LISTINGS.length) {
+                document.getElementById('listingsBody').innerHTML = '<tr><td colspan="7">Erreur: données non chargées</td></tr>';
                 return;
             }
 
-            document.getElementById('lastUpdate').textContent = `Mis à jour: ${new Date().toLocaleString('fr-FR')} | ${LISTINGS.length} annonces`;
-
-            // Calculer les stats
             const now = new Date();
             const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            const sevenDaysAgo = new Date(today);
-            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-            const thirtyDaysAgo = new Date(today);
-            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+            const threeDaysAgo = new Date(today.getTime() - 3 * 24 * 60 * 60 * 1000);
+            const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 
-            let todayCount = 0, weekCount = 0, monthCount = 0;
+            let todayCount = 0, weekCount = 0;
 
             LISTINGS.forEach(l => {
-                const dateStr = l.created_at || l.published_at;
-                if (!dateStr) return;
-                try {
-                    const d = new Date(dateStr.replace(' ', 'T'));
+                const d = parseDate(l.created_at);
+                if (d) {
                     if (d >= today) todayCount++;
                     if (d >= sevenDaysAgo) weekCount++;
-                    if (d >= thirtyDaysAgo) monthCount++;
-                } catch (e) {}
+                }
             });
 
             document.getElementById('todayCount').textContent = todayCount;
             document.getElementById('weekCount').textContent = weekCount;
-            document.getElementById('monthCount').textContent = monthCount;
+            document.getElementById('totalCount').textContent = LISTINGS.length;
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleString('fr-FR');
 
-            // Mettre à jour le bouton "Toutes"
-            document.querySelector('[data-period="all"]').textContent = `Toutes (${LISTINGS.length})`;
-
-            // Ajouter les event listeners aux boutons
+            // Event listeners
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -359,122 +270,87 @@
                 });
             });
 
-            // Afficher toutes les annonces par défaut
             filterByPeriod('all');
         }
 
         function filterByPeriod(period) {
             currentFilter = period;
-
             const now = new Date();
             const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            const sevenDaysAgo = new Date(today);
-            sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-            const thirtyDaysAgo = new Date(today);
-            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+            const threeDaysAgo = new Date(today.getTime() - 3 * 24 * 60 * 60 * 1000);
+            const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 
-            filteredListings = LISTINGS.filter(l => {
-                const dateStr = l.created_at || l.published_at;
-                if (!dateStr) return period === 'all';
-                try {
-                    const d = new Date(dateStr.replace(' ', 'T'));
-                    if (period === 'today') return d >= today;
-                    if (period === '7days') return d >= sevenDaysAgo;
-                    if (period === '30days') return d >= thirtyDaysAgo;
-                    return true;
-                } catch (e) {
-                    return period === 'all';
-                }
+            let filtered = LISTINGS.filter(l => {
+                if (period === 'all') return true;
+                const d = parseDate(l.created_at);
+                if (!d) return false;
+                if (period === 'today') return d >= today;
+                if (period === '3days') return d >= threeDaysAgo;
+                if (period === '7days') return d >= sevenDaysAgo;
+                return true;
             });
 
             // Trier par date décroissante
-            filteredListings.sort((a, b) => {
-                try {
-                    const dateA = new Date((a.created_at || a.published_at || '').replace(' ', 'T'));
-                    const dateB = new Date((b.created_at || b.published_at || '').replace(' ', 'T'));
-                    return dateB - dateA;
-                } catch (e) {
-                    return 0;
-                }
+            filtered.sort((a, b) => {
+                const da = parseDate(a.created_at) || new Date(0);
+                const db = parseDate(b.created_at) || new Date(0);
+                return db - da;
             });
 
-            render();
-        }
+            // Mettre à jour l'info
+            const periodNames = {
+                'all': 'toutes les annonces',
+                'today': "aujourd'hui",
+                '3days': 'les 3 derniers jours',
+                '7days': 'les 7 derniers jours'
+            };
+            document.getElementById('resultsInfo').innerHTML =
+                '<strong>' + filtered.length + '</strong> annonces pour ' + periodNames[period];
 
-        function getHoursAgo(dateStr) {
-            if (!dateStr) return 999;
-            try {
-                const d = new Date(dateStr.replace(' ', 'T'));
-                const now = new Date();
-                return Math.floor((now - d) / (1000 * 60 * 60));
-            } catch (e) {
-                return 999;
-            }
+            render(filtered);
         }
 
         function formatDate(dateStr) {
-            if (!dateStr) return 'N/A';
-            try {
-                const d = new Date(dateStr.replace(' ', 'T'));
-                const day = String(d.getDate()).padStart(2, '0');
-                const month = String(d.getMonth() + 1).padStart(2, '0');
-                const hours = String(d.getHours()).padStart(2, '0');
-                const mins = String(d.getMinutes()).padStart(2, '0');
-                return `${day}/${month} à ${hours}:${mins}`;
-            } catch (e) {
-                return 'N/A';
-            }
+            const d = parseDate(dateStr);
+            if (!d) return 'N/A';
+            const day = String(d.getDate()).padStart(2, '0');
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const hours = String(d.getHours()).padStart(2, '0');
+            const mins = String(d.getMinutes()).padStart(2, '0');
+            return day + '/' + month + ' ' + hours + ':' + mins;
         }
 
-        function render() {
-            const container = document.getElementById('listings');
+        function isNew(dateStr) {
+            const d = parseDate(dateStr);
+            if (!d) return false;
+            const now = new Date();
+            const hoursAgo = (now - d) / (1000 * 60 * 60);
+            return hoursAgo < 24;
+        }
 
-            if (filteredListings.length === 0) {
-                container.innerHTML = '<div class="alert alert-info" style="grid-column: 1/-1;">Aucune annonce trouvée pour cette période</div>';
+        function render(listings) {
+            const tbody = document.getElementById('listingsBody');
+
+            if (!listings.length) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:2rem;">Aucune annonce pour cette période</td></tr>';
                 return;
             }
 
-            container.innerHTML = filteredListings.map(l => {
-                const dateStr = l.created_at || l.published_at;
-                const hoursAgo = getHoursAgo(dateStr);
-                const isNew = hoursAgo < 24;
-                const formattedDate = formatDate(dateStr);
-                const title = (l.title || 'Sans titre').substring(0, 60);
-                const hasValidImage = l.image_url && !l.image_url.includes('member-badge') && !l.image_url.includes('placeholder');
-
+            tbody.innerHTML = listings.map(l => {
+                const isNewListing = isNew(l.created_at);
                 return `
-                    <div class="listing-card ${isNew ? 'new' : ''}">
-                        ${isNew ? '<span class="badge-new">⭐ NEW</span>' : ''}
-
-                        ${hasValidImage
-                            ? `<img src="${l.image_url}" alt="" class="listing-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                               <div class="no-image" style="display:none;">📷 Image non disponible</div>`
-                            : '<div class="no-image">📷 Pas d\'image</div>'
-                        }
-
-                        <h5 class="listing-title">${title}</h5>
-
-                        <span class="date-badge">📅 ${formattedDate}</span>
-
-                        <div style="margin: 0.8rem 0;">
-                            <div class="listing-price">${l.price ? l.price.toLocaleString('fr-FR') : 'N/A'}€</div>
-                            <div class="listing-details">
-                                ${l.surface > 0 ? l.surface + 'm²' : ''}
-                                ${l.surface > 0 && l.rooms > 0 ? ' | ' : ''}
-                                ${l.rooms > 0 ? l.rooms + ' ch' : ''}
-                                ${(l.surface > 0 || l.rooms > 0) && l.city ? ' | ' : ''}
-                                ${l.city || ''}
-                            </div>
-                        </div>
-
-                        <div class="listing-footer">
-                            <span class="badge bg-secondary">${l.site || 'N/A'}</span>
-                            ${l.distance_km ? `<span class="badge bg-light text-dark">${l.distance_km} km</span>` : ''}
-                            <a href="${l.url}" target="_blank" class="btn btn-sm btn-primary float-end">
-                                Voir →
-                            </a>
-                        </div>
-                    </div>
+                    <tr class="${isNewListing ? 'is-new' : ''}">
+                        <td class="city-cell">
+                            ${isNewListing ? '<span class="badge-new">NEW</span> ' : ''}
+                            ${l.city || 'N/A'}
+                        </td>
+                        <td class="price-cell">${l.price ? l.price.toLocaleString('fr-FR') + '€' : 'N/A'}</td>
+                        <td class="hide-mobile">${l.surface || '-'}m²</td>
+                        <td class="hide-mobile">${l.rooms || '-'}</td>
+                        <td class="date-cell">${formatDate(l.created_at)}</td>
+                        <td><small>${(l.site || '').replace('.lu', '')}</small></td>
+                        <td><a href="${l.url}" target="_blank" class="btn-voir">Voir</a></td>
+                    </tr>
                 `;
             }).join('');
         }
@@ -484,12 +360,9 @@
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         });
+        if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
 
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-        }
-
-        // Initialiser
+        // Init
         window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
