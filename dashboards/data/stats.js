@@ -1,18 +1,18 @@
-// Genere le 27/02/2026 18:46
+// Genere le 28/02/2026 15:25
 const STATS = {
-  "total": 122,
-  "avg_price": 2185,
+  "total": 125,
+  "avg_price": 2181,
   "min_price": 1400,
   "max_price": 2500,
   "avg_surface": 108,
   "cities": 65,
   "sites": {
+    "VIVI.lu": 16,
+    "Nextimmo.lu": 22,
     "Remax.lu": 2,
     "PropertyInvest.lu": 1,
     "Rockenbrod.lu": 1,
-    "Nextimmo.lu": 21,
     "Athome.lu": 70,
-    "VIVI.lu": 14,
     "SothebysRealty.lu": 5,
     "Newimmo.lu": 5,
     "Immotop.lu": 2,
@@ -21,8 +21,13 @@ const STATS = {
   "by_city": [
     {
       "city": "Luxembourg",
-      "count": 8,
-      "avg_price": 1808
+      "count": 9,
+      "avg_price": 1830
+    },
+    {
+      "city": "Bertrange",
+      "count": 6,
+      "avg_price": 2233
     },
     {
       "city": "Luxembourg-Belair",
@@ -38,11 +43,6 @@ const STATS = {
       "city": "Luxembourg-Hollerich",
       "count": 5,
       "avg_price": 2240
-    },
-    {
-      "city": "Bertrange",
-      "count": 5,
-      "avg_price": 2180
     },
     {
       "city": "Esch-sur-Alzette",
@@ -83,6 +83,11 @@ const STATS = {
       "city": "Luxembourg-Kirchberg",
       "count": 3,
       "avg_price": 2316
+    },
+    {
+      "city": "Mondorf-les-Bains",
+      "count": 2,
+      "avg_price": 2050
     },
     {
       "city": "Luxembourg-Eich",
@@ -173,11 +178,6 @@ const STATS = {
       "city": "Howald",
       "count": 1,
       "avg_price": 2100
-    },
-    {
-      "city": "Mondorf-les-Bains",
-      "count": 1,
-      "avg_price": 2500
     },
     {
       "city": "Tétange",
@@ -347,18 +347,18 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 1,
-    "1500 - 2000": 28,
-    "2000 - 2500": 77,
-    "> 2500": 16
+    "1500 - 2000": 29,
+    "2000 - 2500": 78,
+    "> 2500": 17
   }
 };
 const SITE_COLORS = {
-  "Remax.lu": "#FF6384",
-  "PropertyInvest.lu": "#36A2EB",
-  "Rockenbrod.lu": "#FFCE56",
-  "Nextimmo.lu": "#4BC0C0",
-  "Athome.lu": "#9966FF",
-  "VIVI.lu": "#FF9F40",
+  "VIVI.lu": "#FF6384",
+  "Nextimmo.lu": "#36A2EB",
+  "Remax.lu": "#FFCE56",
+  "PropertyInvest.lu": "#4BC0C0",
+  "Rockenbrod.lu": "#9966FF",
+  "Athome.lu": "#FF9F40",
   "SothebysRealty.lu": "#2ECC71",
   "Newimmo.lu": "#E74C3C",
   "Immotop.lu": "#3498DB",
