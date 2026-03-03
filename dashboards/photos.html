@@ -949,16 +949,31 @@
             'Rockenbrod.lu': '#34495e'
         };
 
-        // Check if image URL is likely to work
-        function isImageLikelyValid(url) {
-            if (!url) return false;
+        // Get the best image URL (local first, then remote if valid)
+        function getBestImageUrl(listing) {
+            // Priorité 1: Image locale (toujours disponible)
+            if (listing.local_image) {
+                return { url: listing.local_image, isLocal: true };
+            }
+
+            // Priorité 2: URL externe si pas de hotlink protection
+            const url = listing.image_url;
+            if (!url) return null;
+
             // Filter out badges, logos, and known problematic patterns
-            if (url.includes('badge') || url.includes('logo') || url.includes('placeholder')) return false;
-            // Athome.lu images won't load externally (hotlink protection)
-            if (url.includes('athome.lu/imageGallery')) return false;
-            // Immotop images often blocked too
-            if (url.includes('immotop.lu')) return false;
-            return true;
+            if (url.includes('badge') || url.includes('logo') || url.includes('placeholder')) return null;
+
+            // Sites avec hotlink protection - ne pas essayer
+            if (url.includes('athome.lu/imageGallery')) return null;
+            if (url.includes('immotop.lu')) return null;
+
+            return { url: url, isLocal: false };
+        }
+
+        // Check if image URL is likely to work (legacy support)
+        function isImageLikelyValid(url) {
+            const result = getBestImageUrl({ image_url: url });
+            return result !== null;
         }
 
         function formatPrice(price) {
@@ -995,11 +1010,12 @@
 
         function updateStats() {
             const total = LISTINGS.length;
-            const withPhotos = LISTINGS.filter(l => l.image_url && !l.image_url.includes('badge')).length;
-            const percent = Math.round((withPhotos / total) * 100);
+            const withLocalPhotos = LISTINGS.filter(l => l.local_image).length;
+            const withAnyPhotos = LISTINGS.filter(l => l.local_image || (l.image_url && !l.image_url.includes('badge'))).length;
+            const percent = Math.round((withLocalPhotos / total) * 100);
 
             document.getElementById('stat-total').textContent = total;
-            document.getElementById('stat-photos').textContent = withPhotos;
+            document.getElementById('stat-photos').textContent = withLocalPhotos;
             document.getElementById('stat-percent').textContent = percent + '%';
         }
 
@@ -1055,7 +1071,7 @@
 
             container.innerHTML = page.map((l, idx) => {
                 const bg = SITE_COLORS_MAP[l.site] || '#667eea';
-                const canShowImage = isImageLikelyValid(l.image_url);
+                const imageInfo = getBestImageUrl(l);
                 const price = formatPrice(l.price);
                 const priceM2 = l.price_m2 ? `${l.price_m2.toFixed(0)}€/m²` : '';
                 const siteName = l.site ? l.site.replace('.lu', '') : 'Site';
@@ -1064,14 +1080,14 @@
                     <div class="gallery-card" onclick="openLightbox(${start + idx})">
                         <div class="card-image">
                             <span class="site-badge" style="background: ${bg};">${siteName}</span>
-                            ${canShowImage ? `
-                                <img src="${l.image_url}"
+                            ${imageInfo ? `
+                                <img src="${imageInfo.url}"
                                      alt="${l.title || 'Annonce'}"
                                      loading="lazy"
                                      decoding="async"
-                                     referrerpolicy="no-referrer"
+                                     ${imageInfo.isLocal ? '' : 'referrerpolicy="no-referrer"'}
                                      onerror="this.parentElement.innerHTML='<div class=\\'card-placeholder\\'><span class=\\'card-placeholder-icon\\'>🏠</span><span class=\\'card-placeholder-text\\'>Photo sur ${siteName}</span><a href=\\'${l.url}\\' target=\\'_blank\\' class=\\'card-placeholder-link\\' onclick=\\'event.stopPropagation()\\'>Voir →</a></div><span class=\\'site-badge\\' style=\\'background: ${bg};\\'>${siteName}</span>'">
-                                <span class="image-badge has-photo">✓ Photo</span>
+                                <span class="image-badge has-photo">${imageInfo.isLocal ? '✓ Local' : '✓ Photo'}</span>
                             ` : `
                                 <div class="card-placeholder">
                                     <span class="card-placeholder-icon">🏠</span>
@@ -1103,16 +1119,19 @@
         function openLightbox(index) {
             const l = filtered[index];
             const bg = SITE_COLORS_MAP[l.site] || '#667eea';
-            const canShowImage = isImageLikelyValid(l.image_url);
+            const imageInfo = getBestImageUrl(l);
             const siteName = l.site ? l.site.replace('.lu', '') : 'Site';
 
             // Image or placeholder
             const imgContainer = document.getElementById('lightbox-image-container');
             const img = document.getElementById('lightbox-image');
 
-            if (canShowImage) {
-                img.src = l.image_url;
+            if (imageInfo) {
+                img.src = imageInfo.url;
                 img.style.display = 'block';
+                if (!imageInfo.isLocal) {
+                    img.referrerPolicy = 'no-referrer';
+                }
                 img.onerror = function() {
                     imgContainer.innerHTML = `
                         <div class="lightbox-placeholder">
