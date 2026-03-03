@@ -281,7 +281,7 @@
         .card-image {
             position: relative;
             width: 100%;
-            height: 280px;
+            height: 240px;
             overflow: hidden;
             background: linear-gradient(135deg, #1e1e3f 0%, #2d2d5a 100%);
         }
@@ -351,30 +351,25 @@
             background: rgba(239, 68, 68, 0.9);
         }
 
-        /* Card Info (on image) */
+        /* Card Info (on image) - Compact */
         .card-info {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 1.5rem;
+            padding: 1rem 1.25rem;
             z-index: 2;
         }
 
-        .card-location {
+        .card-top-row {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-location-icon {
-            font-size: 1rem;
-            color: var(--accent-light);
+            margin-bottom: 0.4rem;
         }
 
         .card-city {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: white;
         }
@@ -382,46 +377,33 @@
         .card-details {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 0.75rem;
-            flex-wrap: wrap;
+            gap: 0.6rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
         .card-detail {
             display: flex;
             align-items: center;
-            gap: 0.35rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+            gap: 0.2rem;
         }
 
-        .card-detail-icon {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        .card-price-row {
+        .card-bottom-row {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: center;
         }
 
         .card-price {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: white;
         }
 
         .card-price span {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 500;
             color: var(--text-secondary);
-        }
-
-        .card-price-m2 {
-            font-size: 0.85rem;
-            color: var(--accent-light);
-            font-weight: 600;
         }
 
         /* Placeholder */
@@ -433,27 +415,27 @@
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
         }
 
         .card-placeholder-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
             opacity: 0.4;
         }
 
         .card-placeholder-text {
-            font-size: 0.9rem;
-            margin-bottom: 0.75rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
         }
 
         .card-placeholder-link {
-            padding: 0.5rem 1.25rem;
+            padding: 0.4rem 1rem;
             background: var(--accent);
             color: white;
-            border-radius: 8px;
-            font-size: 0.85rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
@@ -461,6 +443,24 @@
 
         .card-placeholder-link:hover {
             background: var(--accent-light);
+        }
+
+        /* Voir button */
+        .card-voir-btn {
+            padding: 0.35rem 0.8rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .card-voir-btn:hover {
+            background: var(--accent-light);
+            color: white;
         }
 
         /* Pagination */
@@ -1043,18 +1043,18 @@
                         <div class="card-image">
                             ${imageUrl ? `
                                 <img src="${imageUrl}" alt="${l.title || 'Annonce'}" loading="lazy"
-                                     onerror="this.parentElement.innerHTML='<div class=\\'card-placeholder\\'><span class=\\'card-placeholder-icon\\'>🏠</span><span class=\\'card-placeholder-text\\'>Photo sur ${siteName}</span><a href=\\'${l.url}\\' class=\\'card-placeholder-link\\' target=\\'_blank\\' onclick=\\'event.stopPropagation()\\'>Voir →</a></div>'">
+                                     onerror="this.parentElement.innerHTML='<div class=\\'card-placeholder\\'><span class=\\'card-placeholder-icon\\'>🏠</span><span class=\\'card-placeholder-text\\'>${siteName}</span><a href=\\'${l.url}\\' class=\\'card-placeholder-link\\' target=\\'_blank\\' onclick=\\'event.stopPropagation()\\'>Voir</a></div>'">
                             ` : `
                                 <div class="card-placeholder">
                                     <span class="card-placeholder-icon">🏠</span>
-                                    <span class="card-placeholder-text">Photo sur ${siteName}</span>
-                                    <a href="${l.url}" class="card-placeholder-link" target="_blank" onclick="event.stopPropagation()">Voir →</a>
+                                    <span class="card-placeholder-text">${siteName}</span>
+                                    <a href="${l.url}" class="card-placeholder-link" target="_blank" onclick="event.stopPropagation()">Voir</a>
                                 </div>
                             `}
                             <div class="card-badges">
                                 <div>
                                     <span class="badge badge-site" style="background: ${siteColor}">${siteName}</span>
-                                    ${isNewListing ? '<span class="badge badge-new" style="margin-left: 0.5rem">NEW</span>' : ''}
+                                    ${isNewListing ? '<span class="badge badge-new" style="margin-left: 0.4rem">NEW</span>' : ''}
                                 </div>
                                 <span class="badge badge-favorite ${isFav ? 'active' : ''}"
                                       onclick="toggleFavorite('${l.listing_id}', event)">
@@ -1062,29 +1062,16 @@
                                 </span>
                             </div>
                             <div class="card-info">
-                                <div class="card-location">
-                                    <span class="card-location-icon">📍</span>
-                                    <span class="card-city">${l.city || 'Luxembourg'}</span>
-                                </div>
-                                <div class="card-details">
-                                    <span class="card-detail">
-                                        <span class="card-detail-icon">🛏️</span>
-                                        ${l.rooms || '—'} ch
+                                <div class="card-top-row">
+                                    <span class="card-city">📍 ${l.city || 'Luxembourg'}</span>
+                                    <span class="card-details">
+                                        <span class="card-detail">🛏️ ${l.rooms || '—'}</span>
+                                        <span class="card-detail">📐 ${l.surface || '—'}m²</span>
                                     </span>
-                                    <span class="card-detail">
-                                        <span class="card-detail-icon">📐</span>
-                                        ${l.surface || '—'} m²
-                                    </span>
-                                    ${l.distance_km ? `
-                                        <span class="card-detail">
-                                            <span class="card-detail-icon">🚗</span>
-                                            ${l.distance_km} km
-                                        </span>
-                                    ` : ''}
                                 </div>
-                                <div class="card-price-row">
-                                    <span class="card-price">${price} <span>/mois</span></span>
-                                    ${priceM2 ? `<span class="card-price-m2">${priceM2}</span>` : ''}
+                                <div class="card-bottom-row">
+                                    <span class="card-price">${price}<span>/mois</span></span>
+                                    <a href="${l.url}" class="card-voir-btn" target="_blank" onclick="event.stopPropagation()">Voir →</a>
                                 </div>
                             </div>
                         </div>
