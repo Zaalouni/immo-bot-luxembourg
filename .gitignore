@@ -1,0 +1,26 @@
+# Garder seulement dashboards/ sur GitHub
+/*
+!dashboards/
+!.gitignore
+!README.md
+!CLAUDE.md
+
+# Ignorer explicitement
+BACKUP_*/
+*.tmp
+*.log
+*.db
+*.csv
+__pycache__/
+*.pyc
+.env
+venv/
+node_modules/
+debug_html/
+mcp_server/
+lib/
+scrapers/
+*.py
+*.sh
+*.md
+!dashboards/**

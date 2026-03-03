@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Galerie photos des annonces immobilières - ImmoLux">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ImmoLux Photos">
+    <meta property="og:title" content="Galerie Photos - ImmoLux">
+    <meta property="og:description" content="Découvrez les photos des annonces immobilières au Luxembourg">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23667eea' width='180' height='180'/><text x='90' y='100' font-size='100' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>🖼️</text></svg>">
+    <title>Galerie Photos - ImmoLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Layout compact */
+        .container-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0.5rem;
+        }
+
+        /* Info banner compact */
+        .info-banner {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-left: 3px solid #667eea;
+            padding: 0.6rem 1rem;
+            margin: 0.5rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: #2c3e50;
+        }
+
+        body.dark-mode .info-banner {
+            background: rgba(102, 126, 234, 0.15);
+            color: #e2e8f0;
+        }
+
+        /* Filtres compacts */
+        .filters-container {
+            background: white;
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.6rem;
+            align-items: end;
+        }
+
+        body.dark-mode .filters-container {
+            background: #2d3748;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .filter-group label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        body.dark-mode .filter-group label {
+            color: #9ca3af;
+        }
+
+        .filter-group select {
+            padding: 0.4rem 0.6rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            background: white;
+            color: #1f2937;
+        }
+
+        body.dark-mode .filter-group select {
+            background: #374151;
+            border-color: #4b5563;
+            color: #f3f4f6;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-filter {
+            padding: 0.4rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-filter.primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-filter.primary:hover {
+            background: #5568d3;
+        }
+
+        .btn-filter.secondary {
+            background: #e5e7eb;
+            color: #4b5563;
+        }
+
+        .btn-filter.secondary:hover {
+            background: #d1d5db;
+        }
+
+        body.dark-mode .btn-filter.secondary {
+            background: #374151;
+            color: #9ca3af;
+        }
+
+        /* Gallery grid compact */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        body.dark-mode .gallery-item {
+            background: #2d3748;
+        }
+
+        .gallery-img-container {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            background: #f3f4f6;
+            overflow: hidden;
+        }
+
+        body.dark-mode .gallery-img-container {
+            background: #1a202c;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-no-image {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            color: #6b7280;
+        }
+
+        body.dark-mode .gallery-no-image {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            color: #9ca3af;
+        }
+
+        .gallery-no-image span:first-child {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-no-image-text {
+            font-size: 0.75rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .gallery-image-badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(34, 197, 94, 0.9);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        .gallery-info {
+            padding: 0.8rem;
+        }
+
+        .gallery-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0 0 0.3rem 0;
+            color: #1f2937;
+            line-height: 1.3;
+        }
+
+        body.dark-mode .gallery-title {
+            color: #f3f4f6;
+        }
+
+        .gallery-meta {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin: 0 0 0.5rem 0;
+        }
+
+        body.dark-mode .gallery-meta {
+            color: #9ca3af;
+        }
+
+        .site-badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-tag {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 0.5rem 0;
+        }
+
+        body.dark-mode .price-tag {
+            color: #818cf8;
+        }
+
+        /* Pagination compact */
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .pagination-controls button {
+            padding: 0.4rem 1rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pagination-controls button:hover:not(:disabled) {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .pagination-controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        body.dark-mode .pagination-controls button {
+            background: #374151;
+            border-color: #4b5563;
+            color: #f3f4f6;
+        }
+
+        .pagination-info {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        body.dark-mode .pagination-info {
+            color: #9ca3af;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #6b7280;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.show {
+            display: flex;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            gap: 2rem;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            overflow: auto;
+        }
+
+        body.dark-mode .lightbox-content {
+            background: #2d3748;
+        }
+
+        .lightbox-image {
+            max-width: 600px;
+            max-height: 600px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .lightbox-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        body.dark-mode .lightbox-title {
+            color: #f3f4f6;
+        }
+
+        .lightbox-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 1rem 0;
+        }
+
+        body.dark-mode .lightbox-price {
+            color: #818cf8;
+        }
+
+        .lightbox-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .lightbox-meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lightbox-meta-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .lightbox-meta-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        body.dark-mode .lightbox-meta-value {
+            color: #f3f4f6;
+        }
+
+        .lightbox-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .lightbox-link:hover {
+            background: #5568d3;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.5rem;
+            }
+
+            .gallery-img-container {
+                height: 120px;
+            }
+
+            .lightbox-content {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .lightbox-image {
+                max-width: 100%;
+            }
+        }
+    </style>
+    <script src="dark-mode.js" defer></script>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-content">
+            <h1>🖼️ Galerie Photos</h1>
+            <div class="nav-links">
+                <a href="index.html">🏠 Dashboard</a>
+                <a href="map.html">🗺️ Carte</a>
+                <a href="map-advanced.html">🗺️ Carte+</a>
+                <a href="new-listings.html">⭐ Nouvelles</a>
+                <a href="stats-by-city.html">📊 Stats</a>
+                <a href="photos.html" class="active">🖼️ Photos</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- INFO BANNER -->
+    <div class="info-banner">
+        <strong>ℹ️</strong> Photos complètes disponibles sur les sites sources. Cliquez sur <strong>"Voir l'annonce"</strong> pour plus de détails.
+    </div>
+
+    <!-- FILTERS -->
+    <div class="container-main">
+        <div class="filters-container">
+            <div class="filter-group">
+                <label>🏙️ Ville</label>
+                <select id="filter-city" onchange="filterGallery()">
+                    <option value="">Toutes les villes</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>🏢 Site</label>
+                <select id="filter-site" onchange="filterGallery()">
+                    <option value="">Tous les sites</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>🖼️ Statut Photos</label>
+                <select id="filter-images" onchange="filterGallery()">
+                    <option value="">Toutes les annonces</option>
+                    <option value="with-image">Avec photos</option>
+                    <option value="no-image">Photos sur site source</option>
+                </select>
+            </div>
+
+            <div class="filter-buttons">
+                <button class="btn-filter secondary" onclick="resetFilters()">↻ Réinitialiser</button>
+                <button class="btn-filter primary" onclick="filterGallery()">🔍 Filtrer</button>
+            </div>
+        </div>
+
+        <!-- GALLERY -->
+        <div id="gallery-container" class="gallery-grid"></div>
+
+        <!-- PAGINATION -->
+        <div class="pagination-controls">
+            <button id="prev-btn" onclick="previousPage()">← Précédent</button>
+            <span class="pagination-info" id="page-info">Chargement...</span>
+            <button id="next-btn" onclick="nextPage()">Suivant →</button>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <div class="lightbox-content">
+            <img id="lightbox-image" class="lightbox-image" src="" alt="">
+            <div class="lightbox-info">
+                <div>
+                    <h2 id="lightbox-title" class="lightbox-title"></h2>
+                    <p id="lightbox-city" class="gallery-meta"></p>
+                    <p><span id="lightbox-site" class="site-badge"></span></p>
+                    <div id="lightbox-price" class="lightbox-price"></div>
+
+                    <div class="lightbox-meta">
+                        <div class="lightbox-meta-item">
+                            <span class="lightbox-meta-label">Chambres</span>
+                            <span class="lightbox-meta-value" id="lightbox-rooms">—</span>
+                        </div>
+                        <div class="lightbox-meta-item">
+                            <span class="lightbox-meta-label">Surface</span>
+                            <span class="lightbox-meta-value" id="lightbox-surface">—</span>
+                        </div>
+                        <div class="lightbox-meta-item">
+                            <span class="lightbox-meta-label">€/m²</span>
+                            <span class="lightbox-meta-value" id="lightbox-price-m2">—</span>
+                        </div>
+                        <div class="lightbox-meta-item">
+                            <span class="lightbox-meta-label">Distance</span>
+                            <span class="lightbox-meta-value" id="lightbox-distance">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <a id="lightbox-link" class="lightbox-link" href="#" target="_blank">👁️ Voir l'annonce compète</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- DARK MODE TOGGLE -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre">🌙</button>
+
+    <!-- BACK TO TOP -->
+    <button id="backToTop" title="Retour en haut" style="display:none;position:fixed;bottom:5rem;left:2rem;width:45px;height:45px;border-radius:50%;background:#667eea;color:white;border:none;cursor:pointer;font-size:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:99;">↑</button>
+
+    <script src="data/listings.js"></script>
+    <script src="data/stats.js"></script>
+    <script>
+        const ITEMS_PER_PAGE = 20;
+        let currentPage = 1;
+        let filtered = [];
+        const SITE_COLORS_MAP = (typeof SITE_COLORS !== 'undefined') ? SITE_COLORS : {};
+
+        function init() {
+            if (typeof LISTINGS === 'undefined' || !LISTINGS) {
+                document.getElementById('gallery-container').innerHTML = '<div class="empty-state"><div class="empty-state-icon">❌</div><p>Erreur: données non disponibles</p></div>';
+                return;
+            }
+
+            // Remplir filtres
+            const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
+            const sites = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
+
+            document.getElementById('filter-city').innerHTML = '<option value="">Toutes les villes</option>' +
+                cities.map(c => `<option value="${c}">${c}</option>`).join('');
+
+            document.getElementById('filter-site').innerHTML = '<option value="">Tous les sites</option>' +
+                sites.map(s => `<option value="${s}">${s}</option>`).join('');
+
+            filterGallery();
+            setupDarkMode();
+        }
+
+        function setupDarkMode() {
+            const toggle = document.getElementById('darkModeToggle');
+            const savedMode = localStorage.getItem('darkMode') === 'true';
+
+            if (savedMode) {
+                document.body.classList.add('dark-mode');
+                toggle.textContent = '☀️';
+            }
+
+            toggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDark);
+                toggle.textContent = isDark ? '☀️' : '🌙';
+            });
+        }
+
+        function filterGallery() {
+            const city = document.getElementById('filter-city').value;
+            const site = document.getElementById('filter-site').value;
+            const images = document.getElementById('filter-images').value;
+
+            filtered = LISTINGS.filter(l => {
+                if (city && l.city !== city) return false;
+                if (site && l.site !== site) return false;
+
+                // Si pas de valeur pour images, afficher toutes les annonces
+                if (!images) return true;
+
+                const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
+                if (images === 'with-image' && !hasImage) return false;
+                if (images === 'no-image' && hasImage) return false;
+
+                return true;
+            });
+
+            currentPage = 1;
+            renderGallery();
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('gallery-container');
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const page = filtered.slice(start, end);
+
+            if (page.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><p>Aucune annonce trouvée</p></div>';
+                document.getElementById('page-info').textContent = '0 annonces';
+                return;
+            }
+
+            container.innerHTML = page.map((l, idx) => {
+                const bg = SITE_COLORS_MAP[l.site] || '#667eea';
+                // Filter out badge/logo images
+                const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
+                const price = l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—';
+
+                return `
+                    <div class="gallery-item" onclick="openLightbox(${start + idx})">
+                        <div class="gallery-img-container">
+                            ${hasImage ? `
+                                <img loading="lazy" decoding="async" src="${l.image_url}" alt="${l.title}" class="gallery-img" onerror="this.parentElement.innerHTML='<div class=\"gallery-no-image\"><span>📸</span><span class=\"gallery-no-image-text\">Non disponible</span></div>'">
+                                <span class="gallery-image-badge">✓</span>
+                            ` : `
+                                <div class="gallery-no-image">
+                                    <span>🏠</span>
+                                    <span class="gallery-no-image-text">Sur ${l.site.replace('.lu', '')}</span>
+                                </div>
+                            `}
+                        </div>
+                        <div class="gallery-info">
+                            <p class="gallery-title">${(l.title || 'Voir').substring(0, 45)}</p>
+                            <p class="gallery-meta">📍 ${l.city || '—'} • ${l.rooms || '-'}ch • ${l.surface || '-'}m²</p>
+                            <span class="site-badge" style="background: ${bg};">${l.site.replace('.lu', '')}</span>
+                            <p class="price-tag">${price}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+            document.getElementById('page-info').textContent = `Page ${currentPage} / ${totalPages} • ${filtered.length} annonces`;
+
+            // Update pagination buttons
+            document.getElementById('prev-btn').disabled = currentPage <= 1;
+            document.getElementById('next-btn').disabled = currentPage >= totalPages;
+
+            // Preload next page images
+            const nextStart = end;
+            const nextEnd = nextStart + ITEMS_PER_PAGE;
+            filtered.slice(nextStart, nextEnd).forEach(l => {
+                if (l.image_url && !l.image_url.includes('badge')) {
+                    const img = new Image();
+                    img.src = l.image_url;
+                }
+            });
+        }
+
+        function openLightbox(index) {
+            const l = filtered[index];
+            const bg = SITE_COLORS_MAP[l.site] || '#667eea';
+            const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
+
+            // Set image or placeholder
+            const img = document.getElementById('lightbox-image');
+            if (hasImage) {
+                img.src = l.image_url;
+                img.onerror = function() {
+                    this.style.display = 'none';
+                    document.getElementById('lightbox').innerHTML += '<p style="text-align: center; padding: 2rem; color: #666;">Image non disponible</p>';
+                };
+            } else {
+                img.style.display = 'none';
+                img.src = '';
+            }
+
+            document.getElementById('lightbox-title').textContent = l.title || '—';
+            document.getElementById('lightbox-city').textContent = (l.city || '—') + ' • ' + (new Date(l.created_at).toLocaleDateString('fr-FR') || '—');
+            document.getElementById('lightbox-site').textContent = l.site || '—';
+            document.getElementById('lightbox-site').style.background = bg;
+            document.getElementById('lightbox-price').textContent = (l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—');
+            document.getElementById('lightbox-rooms').textContent = l.rooms || '—';
+            document.getElementById('lightbox-surface').textContent = l.surface || '—';
+            document.getElementById('lightbox-price-m2').textContent = l.price_m2 ? l.price_m2.toFixed(0) + '€' : '—';
+            document.getElementById('lightbox-distance').textContent = l.distance_km ? l.distance_km + ' km' : '—';
+            document.getElementById('lightbox-link').href = l.url;
+
+            document.getElementById('lightbox').classList.add('show');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('show');
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderGallery();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderGallery();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-city').value = '';
+            document.getElementById('filter-site').value = '';
+            document.getElementById('filter-images').value = '';
+            filterGallery();
+        }
+
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
+        }
+
+        // Back to top
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+        });
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Photo stats counter
+        function updatePhotoStats() {
+            const withPhotos = LISTINGS.filter(l => l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo')).length;
+            const total = LISTINGS.length;
+            const pct = Math.round((withPhotos / total) * 100);
+            const statsEl = document.querySelector('.info-banner');
+            if (statsEl) {
+                statsEl.innerHTML = `<strong>📸 ${withPhotos}/${total} annonces avec photos (${pct}%)</strong> — Cliquez sur une annonce pour voir les détails.`;
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            init();
+            updatePhotoStats();
+        });
+    </script>
+</body>
+</html>
