@@ -351,59 +351,44 @@
             background: rgba(239, 68, 68, 0.9);
         }
 
-        /* Card Info (on image) - Compact */
+        /* Card Info (on image) - Ultra Compact */
         .card-info {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 1rem 1.25rem;
+            padding: 0.6rem 1rem;
             z-index: 2;
-        }
-
-        .card-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.4rem;
+            gap: 0.5rem;
+        }
+
+        .card-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
         }
 
         .card-city {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: white;
         }
 
-        .card-details {
+        .card-meta {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            font-size: 0.8rem;
+            gap: 0.5rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
-        }
-
-        .card-detail {
-            display: flex;
-            align-items: center;
-            gap: 0.2rem;
-        }
-
-        .card-bottom-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .card-price {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            color: white;
-        }
-
-        .card-price span {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--text-secondary);
+            color: var(--accent-light);
         }
 
         /* Placeholder */
@@ -445,22 +430,25 @@
             background: var(--accent-light);
         }
 
-        /* Voir button */
+        /* Voir button - aligned right */
         .card-voir-btn {
-            padding: 0.35rem 0.8rem;
+            padding: 0.4rem 1rem;
             background: var(--accent);
             color: white;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
             white-space: nowrap;
+            margin-left: auto;
+            flex-shrink: 0;
         }
 
         .card-voir-btn:hover {
             background: var(--accent-light);
             color: white;
+            transform: translateX(3px);
         }
 
         /* Pagination */
@@ -1062,17 +1050,11 @@
                                 </span>
                             </div>
                             <div class="card-info">
-                                <div class="card-top-row">
+                                <div class="card-left">
                                     <span class="card-city">📍 ${l.city || 'Luxembourg'}</span>
-                                    <span class="card-details">
-                                        <span class="card-detail">🛏️ ${l.rooms || '—'}</span>
-                                        <span class="card-detail">📐 ${l.surface || '—'}m²</span>
-                                    </span>
+                                    <span class="card-meta">${l.rooms || '—'}ch · ${l.surface || '—'}m² · <span class="card-price">${price}</span></span>
                                 </div>
-                                <div class="card-bottom-row">
-                                    <span class="card-price">${price}<span>/mois</span></span>
-                                    <a href="${l.url}" class="card-voir-btn" target="_blank" onclick="event.stopPropagation()">Voir →</a>
-                                </div>
+                                <a href="${l.url}" class="card-voir-btn" target="_blank" onclick="event.stopPropagation()">Voir →</a>
                             </div>
                         </div>
                     </article>
