@@ -6,317 +6,472 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Galerie photos des annonces immobilières - ImmoLux">
     <meta name="theme-color" content="#667eea">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="ImmoLux Photos">
+    <meta name="referrer" content="no-referrer">
     <meta property="og:title" content="Galerie Photos - ImmoLux">
     <meta property="og:description" content="Découvrez les photos des annonces immobilières au Luxembourg">
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23667eea' width='180' height='180'/><text x='90' y='100' font-size='100' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>🖼️</text></svg>">
     <title>Galerie Photos - ImmoLux</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Layout compact */
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            min-height: 100vh;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+
+        /* Container */
         .container-main {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0.5rem;
+            padding: 1rem;
         }
 
-        /* Info banner compact */
-        .info-banner {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border-left: 3px solid #667eea;
-            padding: 0.6rem 1rem;
-            margin: 0.5rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            color: #2c3e50;
+        /* Stats Banner */
+        .stats-banner {
+            background: linear-gradient(135deg, var(--primary), #764ba2);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
-        body.dark-mode .info-banner {
-            background: rgba(102, 126, 234, 0.15);
-            color: #e2e8f0;
+        .stats-banner h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
 
-        /* Filtres compacts */
+        .stats-numbers {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Info Alert */
+        .info-alert {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-left: 4px solid var(--warning);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--gray-700);
+        }
+
+        body.dark-mode .info-alert {
+            background: rgba(245, 158, 11, 0.1);
+            color: #fcd34d;
+        }
+
+        .info-alert strong {
+            color: var(--warning);
+        }
+
+        /* Filters */
         .filters-container {
             background: white;
-            padding: 0.8rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 0.6rem;
-            align-items: end;
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: flex-end;
         }
 
         body.dark-mode .filters-container {
-            background: #2d3748;
+            background: var(--gray-800);
         }
 
         .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
+            flex: 1;
+            min-width: 160px;
         }
 
         .filter-group label {
+            display: block;
             font-size: 0.75rem;
             font-weight: 600;
-            color: #6b7280;
-            margin: 0;
+            color: var(--gray-500);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         body.dark-mode .filter-group label {
-            color: #9ca3af;
+            color: var(--gray-300);
         }
 
         .filter-group select {
-            padding: 0.4rem 0.6rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 6px;
-            font-size: 0.85rem;
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.9rem;
             background: white;
-            color: #1f2937;
+            color: var(--gray-800);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
         }
 
         body.dark-mode .filter-group select {
-            background: #374151;
-            border-color: #4b5563;
-            color: #f3f4f6;
+            background: var(--gray-700);
+            border-color: var(--gray-500);
+            color: var(--gray-100);
         }
 
         .filter-buttons {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .btn-filter {
-            padding: 0.4rem 1rem;
+            padding: 0.6rem 1.25rem;
             border: none;
-            border-radius: 6px;
-            font-size: 0.85rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         .btn-filter.primary {
-            background: #667eea;
+            background: var(--primary);
             color: white;
         }
 
         .btn-filter.primary:hover {
-            background: #5568d3;
+            background: var(--primary-dark);
+            transform: translateY(-1px);
         }
 
         .btn-filter.secondary {
-            background: #e5e7eb;
-            color: #4b5563;
+            background: var(--gray-200);
+            color: var(--gray-700);
         }
 
         .btn-filter.secondary:hover {
-            background: #d1d5db;
+            background: var(--gray-300);
         }
 
         body.dark-mode .btn-filter.secondary {
-            background: #374151;
-            color: #9ca3af;
+            background: var(--gray-700);
+            color: var(--gray-300);
         }
 
-        /* Gallery grid compact */
+        /* Gallery Grid */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 0.8rem;
-            margin-bottom: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
         }
 
-        .gallery-item {
+        /* Gallery Card */
+        .gallery-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
         }
 
-        .gallery-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        .gallery-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
 
-        body.dark-mode .gallery-item {
-            background: #2d3748;
+        body.dark-mode .gallery-card {
+            background: var(--gray-800);
         }
 
-        .gallery-img-container {
+        /* Image Container */
+        .card-image {
             position: relative;
             width: 100%;
-            height: 180px;
-            background: #f3f4f6;
+            height: 200px;
+            background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
             overflow: hidden;
         }
 
-        body.dark-mode .gallery-img-container {
-            background: #1a202c;
+        body.dark-mode .card-image {
+            background: linear-gradient(135deg, var(--gray-700), var(--gray-800));
         }
 
-        .gallery-img {
+        .card-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
 
-        .gallery-no-image {
+        .gallery-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        /* Placeholder for no image */
+        .card-placeholder {
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
-            color: #6b7280;
+            color: var(--gray-500);
+            padding: 1rem;
+            text-align: center;
         }
 
-        body.dark-mode .gallery-no-image {
-            background: linear-gradient(135deg, #374151, #1f2937);
-            color: #9ca3af;
-        }
-
-        .gallery-no-image span:first-child {
+        .card-placeholder-icon {
             font-size: 3rem;
             margin-bottom: 0.5rem;
+            opacity: 0.6;
         }
 
-        .gallery-no-image-text {
-            font-size: 0.75rem;
-            text-align: center;
+        .card-placeholder-text {
+            font-size: 0.8rem;
             font-weight: 500;
         }
 
-        .gallery-image-badge {
+        .card-placeholder-link {
+            margin-top: 0.75rem;
+            padding: 0.4rem 1rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .card-placeholder-link:hover {
+            background: var(--primary-dark);
+            color: white;
+        }
+
+        /* Image Badge */
+        .image-badge {
             position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
+            top: 0.75rem;
+            right: 0.75rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .image-badge.has-photo {
             background: rgba(34, 197, 94, 0.9);
             color: white;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.65rem;
-            font-weight: 600;
         }
 
-        .gallery-info {
-            padding: 0.8rem;
-        }
-
-        .gallery-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin: 0 0 0.3rem 0;
-            color: #1f2937;
-            line-height: 1.3;
-        }
-
-        body.dark-mode .gallery-title {
-            color: #f3f4f6;
-        }
-
-        .gallery-meta {
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin: 0 0 0.5rem 0;
-        }
-
-        body.dark-mode .gallery-meta {
-            color: #9ca3af;
-        }
-
-        .site-badge {
-            display: inline-block;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
+        .image-badge.no-photo {
+            background: rgba(107, 114, 128, 0.9);
             color: white;
-            margin-bottom: 0.5rem;
         }
 
-        .price-tag {
-            font-size: 1.1rem;
+        /* Site Badge */
+        .site-badge {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
             font-weight: 700;
-            color: #667eea;
-            margin: 0.5rem 0;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        body.dark-mode .price-tag {
+        /* Card Content */
+        .card-content {
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin: 0 0 0.5rem 0;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        body.dark-mode .card-title {
+            color: var(--gray-100);
+        }
+
+        .card-location {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        body.dark-mode .card-location {
+            color: var(--gray-300);
+        }
+
+        .card-details {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .card-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        body.dark-mode .card-detail {
+            color: var(--gray-300);
+        }
+
+        .card-detail-icon {
+            font-size: 1rem;
+        }
+
+        .card-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        body.dark-mode .card-price {
             color: #818cf8;
         }
 
-        /* Pagination compact */
-        .pagination-controls {
+        .card-price-m2 {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+
+        /* Pagination */
+        .pagination-container {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 1rem;
-            padding: 1rem 0;
+            padding: 1.5rem 0;
         }
 
-        .pagination-controls button {
-            padding: 0.4rem 1rem;
-            border: 1px solid #e5e7eb;
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--gray-200);
             background: white;
-            border-radius: 6px;
-            font-size: 0.85rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            color: var(--gray-700);
         }
 
-        .pagination-controls button:hover:not(:disabled) {
-            background: #667eea;
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--primary);
             color: white;
-            border-color: #667eea;
+            border-color: var(--primary);
         }
 
-        .pagination-controls button:disabled {
-            opacity: 0.5;
+        .pagination-btn:disabled {
+            opacity: 0.4;
             cursor: not-allowed;
         }
 
-        body.dark-mode .pagination-controls button {
-            background: #374151;
-            border-color: #4b5563;
-            color: #f3f4f6;
+        body.dark-mode .pagination-btn {
+            background: var(--gray-700);
+            border-color: var(--gray-500);
+            color: var(--gray-200);
         }
 
         .pagination-info {
-            font-size: 0.85rem;
-            color: #6b7280;
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            font-weight: 500;
+            min-width: 150px;
+            text-align: center;
         }
 
         body.dark-mode .pagination-info {
-            color: #9ca3af;
-        }
-
-        /* Empty state */
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: #6b7280;
-        }
-
-        .empty-state-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            color: var(--gray-300);
         }
 
         /* Lightbox */
@@ -327,141 +482,310 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 9999;
-            align-items: center;
-            justify-content: center;
+            overflow: auto;
+            padding: 2rem;
         }
 
         .lightbox.show {
             display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .lightbox-close {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            font-size: 3rem;
+            position: fixed;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2.5rem;
             color: white;
             cursor: pointer;
             z-index: 10000;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.2);
         }
 
         .lightbox-content {
-            max-width: 90%;
-            max-height: 90%;
-            display: flex;
-            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
             background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            overflow: auto;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
         }
 
         body.dark-mode .lightbox-content {
-            background: #2d3748;
+            background: var(--gray-800);
+        }
+
+        .lightbox-image-container {
+            flex: 1;
+            min-height: 400px;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.dark-mode .lightbox-image-container {
+            background: var(--gray-900);
         }
 
         .lightbox-image {
-            max-width: 600px;
-            max-height: 600px;
+            max-width: 100%;
+            max-height: 500px;
             object-fit: contain;
-            border-radius: 8px;
+        }
+
+        .lightbox-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            color: var(--gray-500);
+            text-align: center;
+        }
+
+        .lightbox-placeholder-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
         }
 
         .lightbox-info {
             flex: 1;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+        }
+
+        .lightbox-site {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
         }
 
         .lightbox-title {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: #1f2937;
+            color: var(--gray-800);
         }
 
         body.dark-mode .lightbox-title {
-            color: #f3f4f6;
+            color: var(--gray-100);
+        }
+
+        .lightbox-location {
+            font-size: 1rem;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+        }
+
+        body.dark-mode .lightbox-location {
+            color: var(--gray-400);
         }
 
         .lightbox-price {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #667eea;
-            margin: 1rem 0;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
         }
 
         body.dark-mode .lightbox-price {
             color: #818cf8;
         }
 
-        .lightbox-meta {
+        .lightbox-details {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
-            margin: 1rem 0;
+            margin-bottom: 2rem;
         }
 
-        .lightbox-meta-item {
-            display: flex;
-            flex-direction: column;
+        .lightbox-detail {
+            background: var(--gray-100);
+            padding: 1rem;
+            border-radius: 10px;
         }
 
-        .lightbox-meta-label {
+        body.dark-mode .lightbox-detail {
+            background: var(--gray-700);
+        }
+
+        .lightbox-detail-label {
             font-size: 0.75rem;
-            color: #6b7280;
+            color: var(--gray-500);
             font-weight: 600;
-            margin-bottom: 0.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
         }
 
-        .lightbox-meta-value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1f2937;
+        body.dark-mode .lightbox-detail-label {
+            color: var(--gray-400);
         }
 
-        body.dark-mode .lightbox-meta-value {
-            color: #f3f4f6;
+        .lightbox-detail-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        body.dark-mode .lightbox-detail-value {
+            color: var(--gray-100);
         }
 
         .lightbox-link {
-            display: inline-block;
-            background: #667eea;
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
             color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
             text-align: center;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
             transition: all 0.2s;
+            margin-top: auto;
         }
 
         .lightbox-link:hover {
-            background: #5568d3;
+            background: var(--primary-dark);
             color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-500);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 5rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            z-index: 99;
+            display: none;
+            transition: all 0.2s;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gray-800);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            transition: all 0.2s;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: var(--gray-100);
+            color: var(--gray-800);
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 0.5rem;
-            }
-
-            .gallery-img-container {
-                height: 120px;
-            }
-
+        @media (max-width: 900px) {
             .lightbox-content {
                 flex-direction: column;
+            }
+
+            .lightbox-image-container {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stats-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-numbers {
+                justify-content: center;
+            }
+
+            .filter-group {
+                min-width: 100%;
+            }
+
+            .card-image {
+                height: 180px;
+            }
+
+            .lightbox {
                 padding: 1rem;
             }
 
-            .lightbox-image {
-                max-width: 100%;
+            .lightbox-close {
+                top: 0.75rem;
+                right: 0.75rem;
+            }
+
+            .lightbox-details {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -483,13 +807,33 @@
         </div>
     </div>
 
-    <!-- INFO BANNER -->
-    <div class="info-banner">
-        <strong>ℹ️</strong> Photos complètes disponibles sur les sites sources. Cliquez sur <strong>"Voir l'annonce"</strong> pour plus de détails.
-    </div>
-
-    <!-- FILTERS -->
     <div class="container-main">
+        <!-- STATS BANNER -->
+        <div class="stats-banner" id="stats-banner">
+            <h2>📸 Galerie des Annonces</h2>
+            <div class="stats-numbers">
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-total">—</div>
+                    <div class="stat-label">Total</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-photos">—</div>
+                    <div class="stat-label">Avec Photo</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-percent">—</div>
+                    <div class="stat-label">Couverture</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFO ALERT -->
+        <div class="info-alert">
+            <strong>⚠️ Note :</strong> Certains sites (Athome, Immotop...) bloquent l'affichage externe de leurs images.
+            Cliquez sur <strong>"Voir l'annonce"</strong> pour accéder aux photos complètes sur le site source.
+        </div>
+
+        <!-- FILTERS -->
         <div class="filters-container">
             <div class="filter-group">
                 <label>🏙️ Ville</label>
@@ -506,16 +850,18 @@
             </div>
 
             <div class="filter-group">
-                <label>🖼️ Statut Photos</label>
-                <select id="filter-images" onchange="filterGallery()">
-                    <option value="">Toutes les annonces</option>
-                    <option value="with-image">Avec photos</option>
-                    <option value="no-image">Photos sur site source</option>
+                <label>💰 Prix max</label>
+                <select id="filter-price" onchange="filterGallery()">
+                    <option value="">Tous les prix</option>
+                    <option value="1500">≤ 1 500€</option>
+                    <option value="2000">≤ 2 000€</option>
+                    <option value="2500">≤ 2 500€</option>
+                    <option value="3000">≤ 3 000€</option>
                 </select>
             </div>
 
             <div class="filter-buttons">
-                <button class="btn-filter secondary" onclick="resetFilters()">↻ Réinitialiser</button>
+                <button class="btn-filter secondary" onclick="resetFilters()">↻ Reset</button>
                 <button class="btn-filter primary" onclick="filterGallery()">🔍 Filtrer</button>
             </div>
         </div>
@@ -524,71 +870,110 @@
         <div id="gallery-container" class="gallery-grid"></div>
 
         <!-- PAGINATION -->
-        <div class="pagination-controls">
-            <button id="prev-btn" onclick="previousPage()">← Précédent</button>
+        <div class="pagination-container">
+            <button id="prev-btn" class="pagination-btn" onclick="previousPage()">
+                ← Précédent
+            </button>
             <span class="pagination-info" id="page-info">Chargement...</span>
-            <button id="next-btn" onclick="nextPage()">Suivant →</button>
+            <button id="next-btn" class="pagination-btn" onclick="nextPage()">
+                Suivant →
+            </button>
         </div>
     </div>
 
     <!-- LIGHTBOX -->
-    <div id="lightbox" class="lightbox">
+    <div id="lightbox" class="lightbox" onclick="if(event.target === this) closeLightbox()">
         <span class="lightbox-close" onclick="closeLightbox()">×</span>
         <div class="lightbox-content">
-            <img id="lightbox-image" class="lightbox-image" src="" alt="">
+            <div class="lightbox-image-container" id="lightbox-image-container">
+                <img id="lightbox-image" class="lightbox-image" src="" alt="" referrerpolicy="no-referrer">
+            </div>
             <div class="lightbox-info">
-                <div>
-                    <h2 id="lightbox-title" class="lightbox-title"></h2>
-                    <p id="lightbox-city" class="gallery-meta"></p>
-                    <p><span id="lightbox-site" class="site-badge"></span></p>
-                    <div id="lightbox-price" class="lightbox-price"></div>
+                <span id="lightbox-site" class="lightbox-site"></span>
+                <h2 id="lightbox-title" class="lightbox-title"></h2>
+                <p id="lightbox-location" class="lightbox-location"></p>
+                <div id="lightbox-price" class="lightbox-price"></div>
 
-                    <div class="lightbox-meta">
-                        <div class="lightbox-meta-item">
-                            <span class="lightbox-meta-label">Chambres</span>
-                            <span class="lightbox-meta-value" id="lightbox-rooms">—</span>
-                        </div>
-                        <div class="lightbox-meta-item">
-                            <span class="lightbox-meta-label">Surface</span>
-                            <span class="lightbox-meta-value" id="lightbox-surface">—</span>
-                        </div>
-                        <div class="lightbox-meta-item">
-                            <span class="lightbox-meta-label">€/m²</span>
-                            <span class="lightbox-meta-value" id="lightbox-price-m2">—</span>
-                        </div>
-                        <div class="lightbox-meta-item">
-                            <span class="lightbox-meta-label">Distance</span>
-                            <span class="lightbox-meta-value" id="lightbox-distance">—</span>
-                        </div>
+                <div class="lightbox-details">
+                    <div class="lightbox-detail">
+                        <div class="lightbox-detail-label">Chambres</div>
+                        <div class="lightbox-detail-value" id="lightbox-rooms">—</div>
+                    </div>
+                    <div class="lightbox-detail">
+                        <div class="lightbox-detail-label">Surface</div>
+                        <div class="lightbox-detail-value" id="lightbox-surface">—</div>
+                    </div>
+                    <div class="lightbox-detail">
+                        <div class="lightbox-detail-label">Prix/m²</div>
+                        <div class="lightbox-detail-value" id="lightbox-price-m2">—</div>
+                    </div>
+                    <div class="lightbox-detail">
+                        <div class="lightbox-detail-label">Distance</div>
+                        <div class="lightbox-detail-value" id="lightbox-distance">—</div>
                     </div>
                 </div>
 
-                <a id="lightbox-link" class="lightbox-link" href="#" target="_blank">👁️ Voir l'annonce compète</a>
+                <a id="lightbox-link" class="lightbox-link" href="#" target="_blank" rel="noopener">
+                    👁️ Voir l'annonce complète
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- DARK MODE TOGGLE -->
+    <!-- BUTTONS -->
+    <button class="back-to-top" id="backToTop" title="Retour en haut">↑</button>
     <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre">🌙</button>
-
-    <!-- BACK TO TOP -->
-    <button id="backToTop" title="Retour en haut" style="display:none;position:fixed;bottom:5rem;left:2rem;width:45px;height:45px;border-radius:50%;background:#667eea;color:white;border:none;cursor:pointer;font-size:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:99;">↑</button>
 
     <script src="data/listings.js"></script>
     <script src="data/stats.js"></script>
     <script>
-        const ITEMS_PER_PAGE = 20;
+        const ITEMS_PER_PAGE = 16;
         let currentPage = 1;
         let filtered = [];
-        const SITE_COLORS_MAP = (typeof SITE_COLORS !== 'undefined') ? SITE_COLORS : {};
+        const SITE_COLORS_MAP = (typeof SITE_COLORS !== 'undefined') ? SITE_COLORS : {
+            'Athome.lu': '#e74c3c',
+            'Immotop.lu': '#3498db',
+            'VIVI.lu': '#9b59b6',
+            'Luxhome.lu': '#27ae60',
+            'Wortimmo.lu': '#f39c12',
+            'Immoweb.lu': '#1abc9c',
+            'Newimmo.lu': '#e67e22',
+            'Nextimmo.lu': '#2ecc71',
+            'Nexvia.lu': '#16a085',
+            'LDHome.lu': '#8e44ad',
+            'Remax.lu': '#c0392b',
+            'Sothebys.lu': '#2c3e50',
+            'Sigelux.lu': '#7f8c8d',
+            'DDImmo.lu': '#d35400',
+            'Weckbecker.lu': '#1e3a5f',
+            'Rockenbrod.lu': '#34495e'
+        };
+
+        // Check if image URL is likely to work
+        function isImageLikelyValid(url) {
+            if (!url) return false;
+            // Filter out badges, logos, and known problematic patterns
+            if (url.includes('badge') || url.includes('logo') || url.includes('placeholder')) return false;
+            // Athome.lu images won't load externally (hotlink protection)
+            if (url.includes('athome.lu/imageGallery')) return false;
+            // Immotop images often blocked too
+            if (url.includes('immotop.lu')) return false;
+            return true;
+        }
+
+        function formatPrice(price) {
+            if (!price) return '—';
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€';
+        }
 
         function init() {
-            if (typeof LISTINGS === 'undefined' || !LISTINGS) {
-                document.getElementById('gallery-container').innerHTML = '<div class="empty-state"><div class="empty-state-icon">❌</div><p>Erreur: données non disponibles</p></div>';
+            if (typeof LISTINGS === 'undefined' || !LISTINGS || LISTINGS.length === 0) {
+                document.getElementById('gallery-container').innerHTML =
+                    '<div class="empty-state"><div class="empty-state-icon">❌</div><p class="empty-state-text">Données non disponibles</p></div>';
                 return;
             }
 
-            // Remplir filtres
+            // Populate filters
             const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
             const sites = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
 
@@ -598,8 +983,24 @@
             document.getElementById('filter-site').innerHTML = '<option value="">Tous les sites</option>' +
                 sites.map(s => `<option value="${s}">${s}</option>`).join('');
 
+            // Update stats
+            updateStats();
+
+            // Initial filter
             filterGallery();
+
+            // Setup dark mode
             setupDarkMode();
+        }
+
+        function updateStats() {
+            const total = LISTINGS.length;
+            const withPhotos = LISTINGS.filter(l => l.image_url && !l.image_url.includes('badge')).length;
+            const percent = Math.round((withPhotos / total) * 100);
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-photos').textContent = withPhotos;
+            document.getElementById('stat-percent').textContent = percent + '%';
         }
 
         function setupDarkMode() {
@@ -622,21 +1023,17 @@
         function filterGallery() {
             const city = document.getElementById('filter-city').value;
             const site = document.getElementById('filter-site').value;
-            const images = document.getElementById('filter-images').value;
+            const maxPrice = parseInt(document.getElementById('filter-price').value) || 0;
 
             filtered = LISTINGS.filter(l => {
                 if (city && l.city !== city) return false;
                 if (site && l.site !== site) return false;
-
-                // Si pas de valeur pour images, afficher toutes les annonces
-                if (!images) return true;
-
-                const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
-                if (images === 'with-image' && !hasImage) return false;
-                if (images === 'no-image' && hasImage) return false;
-
+                if (maxPrice && l.price > maxPrice) return false;
                 return true;
             });
+
+            // Sort by date (newest first)
+            filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
             currentPage = 1;
             renderGallery();
@@ -649,99 +1046,117 @@
             const page = filtered.slice(start, end);
 
             if (page.length === 0) {
-                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><p>Aucune annonce trouvée</p></div>';
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><p class="empty-state-text">Aucune annonce trouvée</p></div>';
                 document.getElementById('page-info').textContent = '0 annonces';
+                document.getElementById('prev-btn').disabled = true;
+                document.getElementById('next-btn').disabled = true;
                 return;
             }
 
             container.innerHTML = page.map((l, idx) => {
                 const bg = SITE_COLORS_MAP[l.site] || '#667eea';
-                // Filter out badge/logo images
-                const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
-                const price = l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—';
+                const canShowImage = isImageLikelyValid(l.image_url);
+                const price = formatPrice(l.price);
+                const priceM2 = l.price_m2 ? `${l.price_m2.toFixed(0)}€/m²` : '';
+                const siteName = l.site ? l.site.replace('.lu', '') : 'Site';
 
                 return `
-                    <div class="gallery-item" onclick="openLightbox(${start + idx})">
-                        <div class="gallery-img-container">
-                            ${hasImage ? `
-                                <img loading="lazy" decoding="async" src="${l.image_url}" alt="${l.title}" class="gallery-img" onerror="this.parentElement.innerHTML='<div class=\"gallery-no-image\"><span>📸</span><span class=\"gallery-no-image-text\">Non disponible</span></div>'">
-                                <span class="gallery-image-badge">✓</span>
+                    <div class="gallery-card" onclick="openLightbox(${start + idx})">
+                        <div class="card-image">
+                            <span class="site-badge" style="background: ${bg};">${siteName}</span>
+                            ${canShowImage ? `
+                                <img src="${l.image_url}"
+                                     alt="${l.title || 'Annonce'}"
+                                     loading="lazy"
+                                     decoding="async"
+                                     referrerpolicy="no-referrer"
+                                     onerror="this.parentElement.innerHTML='<div class=\\'card-placeholder\\'><span class=\\'card-placeholder-icon\\'>🏠</span><span class=\\'card-placeholder-text\\'>Photo sur ${siteName}</span><a href=\\'${l.url}\\' target=\\'_blank\\' class=\\'card-placeholder-link\\' onclick=\\'event.stopPropagation()\\'>Voir →</a></div><span class=\\'site-badge\\' style=\\'background: ${bg};\\'>${siteName}</span>'">
+                                <span class="image-badge has-photo">✓ Photo</span>
                             ` : `
-                                <div class="gallery-no-image">
-                                    <span>🏠</span>
-                                    <span class="gallery-no-image-text">Sur ${l.site.replace('.lu', '')}</span>
+                                <div class="card-placeholder">
+                                    <span class="card-placeholder-icon">🏠</span>
+                                    <span class="card-placeholder-text">Photo sur ${siteName}</span>
+                                    <a href="${l.url}" target="_blank" class="card-placeholder-link" onclick="event.stopPropagation()">Voir →</a>
                                 </div>
                             `}
                         </div>
-                        <div class="gallery-info">
-                            <p class="gallery-title">${(l.title || 'Voir').substring(0, 45)}</p>
-                            <p class="gallery-meta">📍 ${l.city || '—'} • ${l.rooms || '-'}ch • ${l.surface || '-'}m²</p>
-                            <span class="site-badge" style="background: ${bg};">${l.site.replace('.lu', '')}</span>
-                            <p class="price-tag">${price}</p>
+                        <div class="card-content">
+                            <h3 class="card-title">${(l.title || 'Annonce immobilière').substring(0, 60)}</h3>
+                            <p class="card-location">📍 ${l.city || 'Luxembourg'}</p>
+                            <div class="card-details">
+                                <span class="card-detail"><span class="card-detail-icon">🛏️</span> ${l.rooms || '—'} ch</span>
+                                <span class="card-detail"><span class="card-detail-icon">📐</span> ${l.surface || '—'} m²</span>
+                                ${l.distance_km ? `<span class="card-detail"><span class="card-detail-icon">📍</span> ${l.distance_km} km</span>` : ''}
+                            </div>
+                            <p class="card-price">${price}${priceM2 ? `<span class="card-price-m2">(${priceM2})</span>` : ''}</p>
                         </div>
                     </div>
                 `;
             }).join('');
 
             const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-            document.getElementById('page-info').textContent = `Page ${currentPage} / ${totalPages} • ${filtered.length} annonces`;
-
-            // Update pagination buttons
+            document.getElementById('page-info').textContent = `Page ${currentPage}/${totalPages} • ${filtered.length} annonces`;
             document.getElementById('prev-btn').disabled = currentPage <= 1;
             document.getElementById('next-btn').disabled = currentPage >= totalPages;
-
-            // Preload next page images
-            const nextStart = end;
-            const nextEnd = nextStart + ITEMS_PER_PAGE;
-            filtered.slice(nextStart, nextEnd).forEach(l => {
-                if (l.image_url && !l.image_url.includes('badge')) {
-                    const img = new Image();
-                    img.src = l.image_url;
-                }
-            });
         }
 
         function openLightbox(index) {
             const l = filtered[index];
             const bg = SITE_COLORS_MAP[l.site] || '#667eea';
-            const hasImage = l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo');
+            const canShowImage = isImageLikelyValid(l.image_url);
+            const siteName = l.site ? l.site.replace('.lu', '') : 'Site';
 
-            // Set image or placeholder
+            // Image or placeholder
+            const imgContainer = document.getElementById('lightbox-image-container');
             const img = document.getElementById('lightbox-image');
-            if (hasImage) {
+
+            if (canShowImage) {
                 img.src = l.image_url;
+                img.style.display = 'block';
                 img.onerror = function() {
-                    this.style.display = 'none';
-                    document.getElementById('lightbox').innerHTML += '<p style="text-align: center; padding: 2rem; color: #666;">Image non disponible</p>';
+                    imgContainer.innerHTML = `
+                        <div class="lightbox-placeholder">
+                            <span class="lightbox-placeholder-icon">🏠</span>
+                            <p>Photo disponible sur ${siteName}</p>
+                        </div>
+                    `;
                 };
+                imgContainer.innerHTML = '';
+                imgContainer.appendChild(img);
             } else {
-                img.style.display = 'none';
-                img.src = '';
+                imgContainer.innerHTML = `
+                    <div class="lightbox-placeholder">
+                        <span class="lightbox-placeholder-icon">🏠</span>
+                        <p>Photo disponible sur ${siteName}</p>
+                    </div>
+                `;
             }
 
-            document.getElementById('lightbox-title').textContent = l.title || '—';
-            document.getElementById('lightbox-city').textContent = (l.city || '—') + ' • ' + (new Date(l.created_at).toLocaleDateString('fr-FR') || '—');
             document.getElementById('lightbox-site').textContent = l.site || '—';
             document.getElementById('lightbox-site').style.background = bg;
-            document.getElementById('lightbox-price').textContent = (l.price ? l.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€' : '—');
-            document.getElementById('lightbox-rooms').textContent = l.rooms || '—';
-            document.getElementById('lightbox-surface').textContent = l.surface || '—';
-            document.getElementById('lightbox-price-m2').textContent = l.price_m2 ? l.price_m2.toFixed(0) + '€' : '—';
-            document.getElementById('lightbox-distance').textContent = l.distance_km ? l.distance_km + ' km' : '—';
+            document.getElementById('lightbox-title').textContent = l.title || 'Annonce immobilière';
+            document.getElementById('lightbox-location').textContent = `📍 ${l.city || 'Luxembourg'} • ${l.created_at ? new Date(l.created_at).toLocaleDateString('fr-FR') : '—'}`;
+            document.getElementById('lightbox-price').textContent = formatPrice(l.price);
+            document.getElementById('lightbox-rooms').textContent = l.rooms ? `${l.rooms} chambres` : '—';
+            document.getElementById('lightbox-surface').textContent = l.surface ? `${l.surface} m²` : '—';
+            document.getElementById('lightbox-price-m2').textContent = l.price_m2 ? `${l.price_m2.toFixed(0)}€` : '—';
+            document.getElementById('lightbox-distance').textContent = l.distance_km ? `${l.distance_km} km` : '—';
             document.getElementById('lightbox-link').href = l.url;
 
             document.getElementById('lightbox').classList.add('show');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('show');
+            document.body.style.overflow = '';
         }
 
         function previousPage() {
             if (currentPage > 1) {
                 currentPage--;
                 renderGallery();
-                window.scrollTo(0, 0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
@@ -750,44 +1165,38 @@
             if (currentPage < totalPages) {
                 currentPage++;
                 renderGallery();
-                window.scrollTo(0, 0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
         function resetFilters() {
             document.getElementById('filter-city').value = '';
             document.getElementById('filter-site').value = '';
-            document.getElementById('filter-images').value = '';
+            document.getElementById('filter-price').value = '';
             filterGallery();
         }
 
-        // Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
-        }
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (document.getElementById('lightbox').classList.contains('show')) {
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
 
-        // Back to top
+        // Back to top button
         const backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', () => {
             backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
         });
         backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-        // Photo stats counter
-        function updatePhotoStats() {
-            const withPhotos = LISTINGS.filter(l => l.image_url && !l.image_url.includes('badge') && !l.image_url.includes('logo')).length;
-            const total = LISTINGS.length;
-            const pct = Math.round((withPhotos / total) * 100);
-            const statsEl = document.querySelector('.info-banner');
-            if (statsEl) {
-                statsEl.innerHTML = `<strong>📸 ${withPhotos}/${total} annonces avec photos (${pct}%)</strong> — Cliquez sur une annonce pour voir les détails.`;
-            }
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            init();
-            updatePhotoStats();
-        });
+        // Init on DOM ready
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
