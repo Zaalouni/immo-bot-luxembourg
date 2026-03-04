@@ -1,12 +1,13 @@
-// Genere le 04/03/2026 20:28
+// Genere le 04/03/2026 21:37
 const STATS = {
-  "total": 165,
-  "avg_price": 2139,
+  "total": 166,
+  "avg_price": 2141,
   "min_price": 1400,
   "max_price": 2500,
   "avg_surface": 107,
-  "cities": 83,
+  "cities": 84,
   "sites": {
+    "Remax.lu": 4,
     "SothebysRealty.lu": 6,
     "Luxhome.lu": 10,
     "Athome.lu": 67,
@@ -15,7 +16,6 @@ const STATS = {
     "Immotop.lu": 5,
     "Rockenbrod.lu": 3,
     "Nextimmo.lu": 33,
-    "Remax.lu": 3,
     "Weckbecker.lu": 3,
     "Accord-Immo.lu": 1,
     "DDImmo.lu": 5,
@@ -174,6 +174,11 @@ const STATS = {
       "city": "Hautcharage",
       "count": 2,
       "avg_price": 1915
+    },
+    {
+      "city": "Beringen-Mersch",
+      "count": 1,
+      "avg_price": 2500
     },
     {
       "city": "Strassen&nbsp;",
@@ -445,19 +450,19 @@ const STATS = {
     "< 1500": 2,
     "1500 - 2000": 46,
     "2000 - 2500": 99,
-    "> 2500": 18
+    "> 2500": 19
   }
 };
 const SITE_COLORS = {
-  "SothebysRealty.lu": "#FF6384",
-  "Luxhome.lu": "#36A2EB",
-  "Athome.lu": "#FFCE56",
-  "Nexvia": "#4BC0C0",
-  "Newimmo.lu": "#9966FF",
-  "Immotop.lu": "#FF9F40",
-  "Rockenbrod.lu": "#2ECC71",
-  "Nextimmo.lu": "#E74C3C",
-  "Remax.lu": "#3498DB",
+  "Remax.lu": "#FF6384",
+  "SothebysRealty.lu": "#36A2EB",
+  "Luxhome.lu": "#FFCE56",
+  "Athome.lu": "#4BC0C0",
+  "Nexvia": "#9966FF",
+  "Newimmo.lu": "#FF9F40",
+  "Immotop.lu": "#2ECC71",
+  "Rockenbrod.lu": "#E74C3C",
+  "Nextimmo.lu": "#3498DB",
   "Weckbecker.lu": "#FF6384",
   "Accord-Immo.lu": "#36A2EB",
   "DDImmo.lu": "#FFCE56",

@@ -1,6 +1,23 @@
-// Genere le 04/03/2026 20:28
-// 165 annonces depuis listings.db
+// Genere le 04/03/2026 21:37
+// 166 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "remax_280191034-119",
+    "site": "Remax.lu",
+    "title": "Duplex à louer — Beringen Mersch",
+    "city": "Beringen-Mersch",
+    "price": 2500,
+    "rooms": 3,
+    "surface": 135,
+    "url": "https://www.remax.lu/fr-lu/mandats-de-vente/duplex/a-louer/beringen-mersch/rue-dettelbruck-27-7590/280191034-119",
+    "latitude": 49.75,
+    "longitude": 6.105,
+    "distance_km": 16.8,
+    "created_at": "2026-03-04 20:37:10",
+    "image_url": "https://remax.azureedge.net/userimages/28/LargeWM/L_e5c66033-ee04-45ea-903d-71a1b40f8cd1.jpg",
+    "price_m2": 18.5,
+    "local_image": "images/remax_280191034-119.jpg"
+  },
   {
     "listing_id": "sothebys_1998",
     "site": "SothebysRealty.lu",
