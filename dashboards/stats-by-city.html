@@ -164,8 +164,15 @@ fetch('data/city-transports.json')
                                 <span style="background: #667eea; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.85rem; margin-right: 1rem;">${listings.length} annonces</span>
                                 <span style="color: #666; font-size: 0.9rem;">
                                     ${transportList.length > 0 ?
-                                        transportList.map(t => `${t.type === 'gare' ? '🚂' : t.type === 'bus' ? '🚌' : '🚶'} ${t.number}`).join(' • ')
-                                        : 'Pas de transports'}
+                                        transportList.map(t => {
+                                            const icon = t.type === 'gare' ? '🚉' :
+                                                        t.type === 'train' ? '🚂' :
+                                                        t.type === 'bus' ? '🚌' :
+                                                        t.type === 'tram' ? '🚊' :
+                                                        t.type === 'pied' ? '🚶' : '🚇';
+                                            return `${icon} ${t.number}`;
+                                        }).join(' • ')
+                                        : '⚠️ Transports non disponibles'}
                                 </span>
                             </button>
                         </h2>
@@ -173,14 +180,24 @@ fetch('data/city-transports.json')
                             <div class="accordion-body" style="padding: 1rem; background: rgba(255,255,255,0.5);">
                                 ${transportList.length > 0 ? `
                                     <div style="background: #e8f4f8; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #667eea;">
-                                        <strong>🚊 Moyens de transport:</strong><br>
-                                        ${transportList.map(t => `
+                                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                            <strong>🚊 Moyens de transport vers Gare Centrale</strong>
+                                            ${transport.distance_km != null ? `<span style="color: #666; font-size: 0.9rem;">📏 ${transport.distance_km} km${transport.region ? ` • ${transport.region}` : ''}</span>` : ''}
+                                        </div>
+                                        ${transportList.map(t => {
+                                            const icon = t.type === 'gare' ? '🚉' :
+                                                        t.type === 'train' ? '🚂' :
+                                                        t.type === 'bus' ? '🚌' :
+                                                        t.type === 'tram' ? '🚊' :
+                                                        t.type === 'pied' ? '🚶' : '🚇';
+                                            return `
                                             <div style="margin-top: 0.5rem;">
-                                                ${t.type === 'gare' ? '🚂' : t.type === 'bus' ? '🚌' : '🚶'}
+                                                ${icon}
                                                 <strong>${t.number}</strong> - ${t.description}
                                                 <span style="color: #666;">(${t.duration_min} min)</span>
                                             </div>
-                                        `).join('')}
+                                            `;
+                                        }).join('')}
                                     </div>
                                 ` : ''}
                                 <table class="table table-sm mb-0">
