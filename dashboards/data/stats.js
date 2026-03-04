@@ -1,16 +1,18 @@
-// Genere le 04/03/2026 19:18
+// Genere le 04/03/2026 19:37
 const STATS = {
-  "total": 162,
-  "avg_price": 2138,
+  "total": 165,
+  "avg_price": 2139,
   "min_price": 1400,
   "max_price": 2500,
   "avg_surface": 107,
-  "cities": 81,
+  "cities": 83,
   "sites": {
+    "SothebysRealty.lu": 6,
+    "Luxhome.lu": 10,
+    "Athome.lu": 67,
     "Nexvia": 1,
     "Newimmo.lu": 7,
     "Immotop.lu": 5,
-    "Athome.lu": 66,
     "Rockenbrod.lu": 3,
     "Nextimmo.lu": 33,
     "Remax.lu": 3,
@@ -18,10 +20,8 @@ const STATS = {
     "Accord-Immo.lu": 1,
     "DDImmo.lu": 5,
     "Wortimmo.lu": 3,
-    "Luxhome.lu": 9,
     "VIVI.lu": 16,
     "PropertyInvest.lu": 1,
-    "SothebysRealty.lu": 5,
     "Floor.lu": 1
   },
   "by_city": [
@@ -116,6 +116,11 @@ const STATS = {
       "avg_price": 2145
     },
     {
+      "city": "Eich",
+      "count": 2,
+      "avg_price": 2425
+    },
+    {
       "city": "Garnich",
       "count": 2,
       "avg_price": 2350
@@ -171,6 +176,16 @@ const STATS = {
       "avg_price": 1915
     },
     {
+      "city": "Strassen&nbsp;",
+      "count": 1,
+      "avg_price": 2150
+    },
+    {
+      "city": "Luxembourg-Weimerskirch",
+      "count": 1,
+      "avg_price": 1900
+    },
+    {
       "city": "Luxembourg-Muhlenbach",
       "count": 1,
       "avg_price": 1400
@@ -184,11 +199,6 @@ const STATS = {
       "city": "Kopstal",
       "count": 1,
       "avg_price": 2140
-    },
-    {
-      "city": "Eich",
-      "count": 1,
-      "avg_price": 2350
     },
     {
       "city": "Roussy-Le-Village",
@@ -433,26 +443,26 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 2,
-    "1500 - 2000": 45,
-    "2000 - 2500": 98,
-    "> 2500": 17
+    "1500 - 2000": 46,
+    "2000 - 2500": 99,
+    "> 2500": 18
   }
 };
 const SITE_COLORS = {
-  "Nexvia": "#FF6384",
-  "Newimmo.lu": "#36A2EB",
-  "Immotop.lu": "#FFCE56",
-  "Athome.lu": "#4BC0C0",
-  "Rockenbrod.lu": "#9966FF",
-  "Nextimmo.lu": "#FF9F40",
-  "Remax.lu": "#2ECC71",
-  "Weckbecker.lu": "#E74C3C",
-  "Accord-Immo.lu": "#3498DB",
-  "DDImmo.lu": "#FF6384",
-  "Wortimmo.lu": "#36A2EB",
-  "Luxhome.lu": "#FFCE56",
-  "VIVI.lu": "#4BC0C0",
-  "PropertyInvest.lu": "#9966FF",
-  "SothebysRealty.lu": "#FF9F40",
+  "SothebysRealty.lu": "#FF6384",
+  "Luxhome.lu": "#36A2EB",
+  "Athome.lu": "#FFCE56",
+  "Nexvia": "#4BC0C0",
+  "Newimmo.lu": "#9966FF",
+  "Immotop.lu": "#FF9F40",
+  "Rockenbrod.lu": "#2ECC71",
+  "Nextimmo.lu": "#E74C3C",
+  "Remax.lu": "#3498DB",
+  "Weckbecker.lu": "#FF6384",
+  "Accord-Immo.lu": "#36A2EB",
+  "DDImmo.lu": "#FFCE56",
+  "Wortimmo.lu": "#4BC0C0",
+  "VIVI.lu": "#9966FF",
+  "PropertyInvest.lu": "#FF9F40",
   "Floor.lu": "#2ECC71"
 };
