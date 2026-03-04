@@ -32,71 +32,14 @@
 
     <!-- Search -->
     <div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Chercher une ville..." onkeyup="filterCities()">
-    </div>
-
-    <!-- Tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-cards">📊 Cartes</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-table">📋 Par Ville</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-listings-by-city">🏠 Annonces par Ville</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-listings">📝 Toutes les Annonces</button>
-        </li>
-    </ul>
-
-    <!-- Tab Content -->
-    <div class="tab-content">
-        <!-- Tab 1: Cards -->
-        <div class="tab-pane fade show active" id="tab-cards">
-            <div class="cities-grid" id="citiesGrid"></div>
-        </div>
-
-        <!-- Tab 2: Table Par Ville -->
-        <div class="tab-pane fade" id="tab-table">
-            <div style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1rem; overflow-x: auto;">
-                <table class="table table-hover mb-0" id="statsTable">
-                    <thead>
-                        <tr>
-                            <th>Ville</th>
-                            <th>Annonces</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Tab 3: Listings by City -->
-        <div class="tab-pane fade" id="tab-listings-by-city">
-            <div id="listingsByCityContainer" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1rem;"></div>
-        </div>
-
-        <!-- Tab 4: All Listings -->
-        <div class="tab-pane fade" id="tab-listings">
-            <div style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1rem; overflow-x: auto;">
-                <table class="table table-hover mb-0" id="listingsTable">
-                    <thead>
-                        <tr>
-                            <th>Titre</th>
-                            <th>Ville</th>
-                            <th>Prix</th>
-                            <th>Chambres</th>
-                            <th>Surface</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listingsBody"></tbody>
-                </table>
-            </div>
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Filtrer par ville (ex: Luxembourg, Esch...)" onkeyup="filterCities()">
+        <div style="text-align: center; margin-top: 0.5rem; color: #666; font-size: 0.9rem;">
+            <span id="cityCount"></span>
         </div>
     </div>
+
+    <!-- Content: Annonces par Ville -->
+    <div id="listingsByCityContainer" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1rem;"></div>
 
 </div>
 
@@ -174,66 +117,17 @@ fetch('data/city-transports.json')
             };
         });
 
-        renderCities();
-        renderTable();
-        renderListings();
         // Render listings by city after a short delay to ensure transports are loaded
         setTimeout(() => renderListingsByCity(), 500);
     }
 
     function filterCities() {
-        renderCities();
-    }
-
-    function renderCities() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = allCities.filter(city =>
-            city.toLowerCase().includes(searchTerm)
-        );
-
-        document.getElementById('citiesGrid').innerHTML = filtered.map(city => {
-            const stats = cityStats[city];
-            return `
-                <div class="city-card">
-                    <div class="city-name">📍 ${city}</div>
-                    <div class="stats-row" style="border-bottom: none;">
-                        <span>Annonces:</span>
-                        <strong>${stats.count}</strong>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
-
-    function renderTable() {
-        const tbody = document.getElementById('tableBody');
-        tbody.innerHTML = allCities.map(city => {
-            const stats = cityStats[city];
-            return `
-                <tr>
-                    <td><strong>${city}</strong></td>
-                    <td>${stats.count}</td>
-                </tr>
-            `;
-        }).join('');
-    }
-
-    function renderListings() {
-        const tbody = document.getElementById('listingsBody');
-        tbody.innerHTML = LISTINGS.map(l => `
-            <tr>
-                <td><strong>${l.title.substring(0, 40)}</strong></td>
-                <td>${l.city}</td>
-                <td>${l.price.toLocaleString('fr-FR')}€</td>
-                <td>${l.rooms}</td>
-                <td>${l.surface}m²</td>
-                <td><a href="${l.url}" target="_blank" class="btn btn-sm btn-primary">Voir</a></td>
-            </tr>
-        `).join('');
+        renderListingsByCity();
     }
 
     function renderListingsByCity() {
         const container = document.getElementById('listingsByCityContainer');
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
         const byCity = {};
 
         LISTINGS.forEach(l => {
@@ -243,9 +137,20 @@ fetch('data/city-transports.json')
         });
 
         const cities = Object.keys(byCity).sort();
+
+        // Filter cities based on search term
+        const filteredCities = cities.filter(city =>
+            city.toLowerCase().includes(searchTerm)
+        );
+
+        // Update city count
+        const totalListings = filteredCities.reduce((sum, city) => sum + byCity[city].length, 0);
+        document.getElementById('cityCount').textContent =
+            `📊 ${filteredCities.length} villes • ${totalListings} annonces`;
+
         let html = '';
 
-        cities.forEach((city, idx) => {
+        filteredCities.forEach((city, idx) => {
             const listings = byCity[city];
             const transport = TRANSPORTS[city] || {};
             const transportList = transport.transports || [];

@@ -1,22 +1,23 @@
-// Genere le 03/03/2026 21:06
+// Genere le 04/03/2026 18:11
 const STATS = {
-  "total": 155,
-  "avg_price": 2140,
+  "total": 162,
+  "avg_price": 2138,
   "min_price": 1400,
   "max_price": 2500,
-  "avg_surface": 108,
-  "cities": 78,
+  "avg_surface": 107,
+  "cities": 81,
   "sites": {
+    "Nexvia": 1,
+    "Newimmo.lu": 7,
+    "Immotop.lu": 5,
+    "Athome.lu": 66,
     "Rockenbrod.lu": 3,
-    "Athome.lu": 62,
     "Nextimmo.lu": 33,
-    "Immotop.lu": 4,
     "Remax.lu": 3,
     "Weckbecker.lu": 3,
     "Accord-Immo.lu": 1,
     "DDImmo.lu": 5,
     "Wortimmo.lu": 3,
-    "Newimmo.lu": 6,
     "Luxhome.lu": 9,
     "VIVI.lu": 16,
     "PropertyInvest.lu": 1,
@@ -45,6 +46,16 @@ const STATS = {
       "avg_price": 2188
     },
     {
+      "city": "Dudelange",
+      "count": 5,
+      "avg_price": 2090
+    },
+    {
+      "city": "Strassen",
+      "count": 5,
+      "avg_price": 2359
+    },
+    {
       "city": "Esch-Sur-Alzette",
       "count": 5,
       "avg_price": 1960
@@ -68,11 +79,6 @@ const STATS = {
       "city": "Luxembourg-Hollerich",
       "count": 4,
       "avg_price": 2275
-    },
-    {
-      "city": "Dudelange",
-      "count": 4,
-      "avg_price": 2087
     },
     {
       "city": "Mamer",
@@ -100,11 +106,6 @@ const STATS = {
       "avg_price": 2000
     },
     {
-      "city": "Strassen",
-      "count": 3,
-      "avg_price": 2356
-    },
-    {
       "city": "Luxembourg-Kirchberg",
       "count": 3,
       "avg_price": 2243
@@ -113,6 +114,11 @@ const STATS = {
       "city": "Schouweiler",
       "count": 3,
       "avg_price": 2145
+    },
+    {
+      "city": "Garnich",
+      "count": 2,
+      "avg_price": 2350
     },
     {
       "city": "Steinsel",
@@ -165,6 +171,21 @@ const STATS = {
       "avg_price": 1915
     },
     {
+      "city": "Luxembourg-Muhlenbach",
+      "count": 1,
+      "avg_price": 1400
+    },
+    {
+      "city": "Luxembourg-Merl",
+      "count": 1,
+      "avg_price": 2000
+    },
+    {
+      "city": "Kopstal",
+      "count": 1,
+      "avg_price": 2140
+    },
+    {
       "city": "Eich",
       "count": 1,
       "avg_price": 2350
@@ -208,11 +229,6 @@ const STATS = {
       "city": "Hunsdorf",
       "count": 1,
       "avg_price": 2200
-    },
-    {
-      "city": "Garnich",
-      "count": 1,
-      "avg_price": 2400
     },
     {
       "city": "Sprinkange",
@@ -416,26 +432,27 @@ const STATS = {
     }
   ],
   "by_price_range": {
-    "< 1500": 1,
+    "< 1500": 2,
     "1500 - 2000": 45,
-    "2000 - 2500": 92,
+    "2000 - 2500": 98,
     "> 2500": 17
   }
 };
 const SITE_COLORS = {
-  "Rockenbrod.lu": "#FF6384",
-  "Athome.lu": "#36A2EB",
-  "Nextimmo.lu": "#FFCE56",
-  "Immotop.lu": "#4BC0C0",
-  "Remax.lu": "#9966FF",
-  "Weckbecker.lu": "#FF9F40",
-  "Accord-Immo.lu": "#2ECC71",
-  "DDImmo.lu": "#E74C3C",
-  "Wortimmo.lu": "#3498DB",
-  "Newimmo.lu": "#FF6384",
-  "Luxhome.lu": "#36A2EB",
-  "VIVI.lu": "#FFCE56",
-  "PropertyInvest.lu": "#4BC0C0",
-  "SothebysRealty.lu": "#9966FF",
-  "Floor.lu": "#FF9F40"
+  "Nexvia": "#FF6384",
+  "Newimmo.lu": "#36A2EB",
+  "Immotop.lu": "#FFCE56",
+  "Athome.lu": "#4BC0C0",
+  "Rockenbrod.lu": "#9966FF",
+  "Nextimmo.lu": "#FF9F40",
+  "Remax.lu": "#2ECC71",
+  "Weckbecker.lu": "#E74C3C",
+  "Accord-Immo.lu": "#3498DB",
+  "DDImmo.lu": "#FF6384",
+  "Wortimmo.lu": "#36A2EB",
+  "Luxhome.lu": "#FFCE56",
+  "VIVI.lu": "#4BC0C0",
+  "PropertyInvest.lu": "#9966FF",
+  "SothebysRealty.lu": "#FF9F40",
+  "Floor.lu": "#2ECC71"
 };
