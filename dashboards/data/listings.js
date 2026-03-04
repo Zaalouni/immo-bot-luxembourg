@@ -15,8 +15,7 @@ const LISTINGS = [
     "distance_km": 13.7,
     "created_at": "2026-03-04 17:10:53",
     "image_url": "https://nexvia-listings.b-cdn.net/stored-photo/19650b62-7b11-11e9-8606-0cc47a9452c2/_69a5c0b7d65644_79166171[.jpg]?optimizer=image&width=1920&height=1080&format=jpeg&quality=80&nxversion=b5dd6332f6a9754bf902257c9f0052e6",
-    "price_m2": 25.3,
-    "local_image": "images/nexvia_5398627.jpg"
+    "price_m2": 25.3
   },
   {
     "listing_id": "newimmo_127324",
@@ -32,8 +31,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-03-04 17:10:42",
     "image_url": "https://images.newimmo.lu/PpBaHVcOFZ2MzTdL28PUKcVdJ3-4RWE-RQtVWT6y4O4/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OWExNjI1N2NmYTFjNl8zNTIzMzU1OFsuanBnXQ.jpg?nocache=0",
-    "price_m2": null,
-    "local_image": "images/newimmo_127324.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "immotop_1878349",
@@ -49,8 +47,7 @@ const LISTINGS = [
     "distance_km": 12.6,
     "created_at": "2026-03-04 17:10:31",
     "image_url": "https://pic.immotop.lu/image/148859623/xxs-c.jpg",
-    "price_m2": null,
-    "local_image": "images/immotop_1878349.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "athome_9013715",
@@ -130,8 +127,7 @@ const LISTINGS = [
     "distance_km": 3.3,
     "created_at": "2026-03-03 19:32:29",
     "image_url": "https://www.rockenbrod.lu/wp-content/uploads/2026/03/rbag002715l01_montee_st_crepin_luxembourg.jpg",
-    "price_m2": 16.2,
-    "local_image": "images/rockenbrod_lux-eich-monte-st-crpin-9.jpg"
+    "price_m2": 16.2
   },
   {
     "listing_id": "athome_9004825",
@@ -1891,8 +1887,7 @@ const LISTINGS = [
     "distance_km": 7.3,
     "created_at": "2026-02-26 20:41:48",
     "image_url": "https://storage.nextimmo.lu/images/thumb/2f13c504dd31a84bb5bb855182ad8019/cc87f5f3695cbb1fbd67971c137f07a3.jpg",
-    "price_m2": 24.0,
-    "local_image": "images/nextimmo_16052.jpg"
+    "price_m2": 24.0
   },
   {
     "listing_id": "vivi_208174",
@@ -1940,8 +1935,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-02-26 18:53:27",
     "image_url": "https://sothebysrealty.lu/asset/22483/1200/650",
-    "price_m2": null,
-    "local_image": "images/sothebys_459.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "sothebys_1972",
@@ -1957,8 +1951,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-02-26 18:53:17",
     "image_url": "https://sothebysrealty.lu/asset/72231/1200/650",
-    "price_m2": null,
-    "local_image": "images/sothebys_1972.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "sothebys_1767",
@@ -1974,8 +1967,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-02-26 18:53:07",
     "image_url": "https://sothebysrealty.lu/asset/67095/1200/650",
-    "price_m2": null,
-    "local_image": "images/sothebys_1767.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "sothebys_2015",
@@ -1991,8 +1983,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-02-26 18:52:56",
     "image_url": "https://sothebysrealty.lu/asset/73111/1200/650",
-    "price_m2": null,
-    "local_image": "images/sothebys_2015.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "sothebys_2016",
@@ -2008,8 +1999,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-02-26 18:52:46",
     "image_url": "https://sothebysrealty.lu/asset/73128/1200/650",
-    "price_m2": null,
-    "local_image": "images/sothebys_2016.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "nextimmo_15512",
@@ -2025,8 +2015,7 @@ const LISTINGS = [
     "distance_km": 14.9,
     "created_at": "2026-02-26 18:52:36",
     "image_url": "https://storage.nextimmo.lu/images/thumb/92184b7f6756a770af19bd80a8106eea/605c8bf11b5303c20df2a25bb1337a64.jpg",
-    "price_m2": 14.3,
-    "local_image": "images/nextimmo_15512.jpg"
+    "price_m2": 14.3
   },
   {
     "listing_id": "nextimmo_16795",
@@ -2042,8 +2031,7 @@ const LISTINGS = [
     "distance_km": 9.1,
     "created_at": "2026-02-26 18:52:25",
     "image_url": "https://storage.nextimmo.lu/images/thumb/572ea8434609c0a04e17c4e4a96e6100/9b241ca1381510e07161457d35f614cd.jpg",
-    "price_m2": 18.7,
-    "local_image": "images/nextimmo_16795.jpg"
+    "price_m2": 18.7
   },
   {
     "listing_id": "nextimmo_15504",
@@ -2059,8 +2047,7 @@ const LISTINGS = [
     "distance_km": 15.6,
     "created_at": "2026-02-26 18:52:15",
     "image_url": "https://storage.nextimmo.lu/images/thumb/070ae099e0aa29ac2c645f2bcd1b45ad/b994a20a3ce317bc57a1107d9794112f.jpg",
-    "price_m2": 23.8,
-    "local_image": "images/nextimmo_15504.jpg"
+    "price_m2": 23.8
   },
   {
     "listing_id": "nextimmo_18136",
@@ -2076,8 +2063,7 @@ const LISTINGS = [
     "distance_km": 11.9,
     "created_at": "2026-02-26 18:52:05",
     "image_url": "https://storage.nextimmo.lu/images/thumb/b6898aacbdecfc78ff0620f13cf45392/87d136ddb4ae11f84d2fa795793ad3a0.jpg",
-    "price_m2": 28.8,
-    "local_image": "images/nextimmo_18136.jpg"
+    "price_m2": 28.8
   },
   {
     "listing_id": "nextimmo_17680",
@@ -2093,8 +2079,7 @@ const LISTINGS = [
     "distance_km": 2.0,
     "created_at": "2026-02-26 18:51:55",
     "image_url": "https://storage.nextimmo.lu/images/thumb/21ada46a6d82b8f22cb30182a23de5e0/52a4a948b4bf7d0d7334864888194e09.jpg",
-    "price_m2": 26.2,
-    "local_image": "images/nextimmo_17680.jpg"
+    "price_m2": 26.2
   },
   {
     "listing_id": "nextimmo_17632",
@@ -2110,8 +2095,7 @@ const LISTINGS = [
     "distance_km": 0.9,
     "created_at": "2026-02-26 18:51:45",
     "image_url": "https://storage.nextimmo.lu/images/thumb/7ce6385f1f8020c1c25ab9ce083c9c57/074430dcda0bedfa58f482715391be39.jpg",
-    "price_m2": 25.3,
-    "local_image": "images/nextimmo_17632.jpg"
+    "price_m2": 25.3
   },
   {
     "listing_id": "nextimmo_18304",
@@ -2127,8 +2111,7 @@ const LISTINGS = [
     "distance_km": 1.8,
     "created_at": "2026-02-26 18:51:35",
     "image_url": "https://storage.nextimmo.lu/images/thumb/e36624904245d189a675727193a29217/fda4b79c0451428197e96d54df2fa7f1.jpg",
-    "price_m2": 25.0,
-    "local_image": "images/nextimmo_18304.jpg"
+    "price_m2": 25.0
   },
   {
     "listing_id": "nextimmo_16085",
@@ -2144,8 +2127,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-02-26 18:51:24",
     "image_url": "https://storage.nextimmo.lu/images/thumb/1a9d3955e57bfd1102cd0d2b4ef2ffb6/04e683b869f0098ac556c0f3377d6a25.jpg",
-    "price_m2": 23.3,
-    "local_image": "images/nextimmo_16085.jpg"
+    "price_m2": 23.3
   },
   {
     "listing_id": "newimmo_127084",
@@ -2161,8 +2143,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-02-26 18:51:14",
     "image_url": "https://images.newimmo.lu/zbHUItBPGmrOz2XhDj7LVT84aHy7MZRrpWevD3OdXkk/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTE3MzE2MzMxNWU0MF80NDkzMjE3OFsuanBnXQ.jpg?nocache=0",
-    "price_m2": null,
-    "local_image": "images/newimmo_127084.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "newimmo_127151",
@@ -2178,8 +2159,7 @@ const LISTINGS = [
     "distance_km": 0.0,
     "created_at": "2026-02-26 18:51:04",
     "image_url": "https://images.newimmo.lu/45H1Nl1JxEY2oZfvXXcX2S4LPXNU_PzOr6-16cIhUk0/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTVlNDhkMWYwZjMwMl8xOTYwMDIyM1suanBnXQ.jpg?nocache=0",
-    "price_m2": null,
-    "local_image": "images/newimmo_127151.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "newimmo_127301",
@@ -2195,8 +2175,7 @@ const LISTINGS = [
     "distance_km": 11.0,
     "created_at": "2026-02-26 18:50:54",
     "image_url": "https://images.newimmo.lu/3OXJ0VzHKLyy69jRjpd0EKhBTVbJijoXyrrLAryDyPo/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTk4YmFiYzBlOWQzMV83MTI5MjY4N1suanBnXQ.jpg?nocache=0",
-    "price_m2": null,
-    "local_image": "images/newimmo_127301.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "newimmo_127231",
@@ -2212,8 +2191,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-02-26 18:50:44",
     "image_url": "https://images.newimmo.lu/1wgIbF_PAtGhJqcrnDrxQ1r7Kco4of8AeaECxMLgWuM/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OThmNTAzZWI3MWYwNl80NzY2OTQxNlsuanBnXQ.jpg?nocache=0",
-    "price_m2": null,
-    "local_image": "images/newimmo_127231.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "newimmo_127171",
@@ -2229,8 +2207,7 @@ const LISTINGS = [
     "distance_km": 6.2,
     "created_at": "2026-02-26 18:50:33",
     "image_url": "https://images.newimmo.lu/WtSrff4sRn9tOLl2-TALs5_O-D5KP8guQM6EQipPUkM/rs:fill:650:650:1/g:ce/aHR0cHM6Ly9hcGktcHJvZHVjdGlvbi10ZXN0LmVhc3ktc2VydmV1cjU1LmNvbS9zdG9yZWQtcGhvdG8vMGFkNTVhNjQtN2IwZC0xMWU5LTg2MDYtMGNjNDdhOTQ1MmMyL182OTVmODk5NDcyZTEzNV84ODM0NDUxN1suanBnXQ.jpg?nocache=0",
-    "price_m2": null,
-    "local_image": "images/newimmo_127171.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "vivi_208222",
@@ -2390,8 +2367,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-02-26 18:48:30",
     "image_url": "https://pic.immotop.lu/image/148398059/xxs-c.jpg",
-    "price_m2": null,
-    "local_image": "images/immotop_1847365.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "immotop_1856543",
@@ -2407,8 +2383,7 @@ const LISTINGS = [
     "distance_km": 6.2,
     "created_at": "2026-02-26 18:48:20",
     "image_url": "https://pic.immotop.lu/image/148535273/xxs-c.jpg",
-    "price_m2": null,
-    "local_image": "images/immotop_1856543.jpg"
+    "price_m2": null
   },
   {
     "listing_id": "floor_maison-luxembourg-limpertsberg",
@@ -2424,8 +2399,7 @@ const LISTINGS = [
     "distance_km": 1.3,
     "created_at": "2026-02-26 18:48:09",
     "image_url": "https://floor.lu/wp-content/uploads/696657f571cbc9_41240076.jpeg",
-    "price_m2": 26.3,
-    "local_image": "images/floor_maison-luxembourg-limpertsberg.jpg"
+    "price_m2": 26.3
   },
   {
     "listing_id": "nextimmo_14306",
@@ -2441,8 +2415,7 @@ const LISTINGS = [
     "distance_km": 14.8,
     "created_at": "2026-02-26 18:47:18",
     "image_url": "https://storage.nextimmo.lu/images/thumb/be749a86004a937d047a7f24438cca85/c856f4155668b7c79aa2e3100566c32f.jpg",
-    "price_m2": 19.5,
-    "local_image": "images/nextimmo_14306.jpg"
+    "price_m2": 19.5
   },
   {
     "listing_id": "nextimmo_15111",
@@ -2458,8 +2431,7 @@ const LISTINGS = [
     "distance_km": 16.4,
     "created_at": "2026-02-26 18:47:08",
     "image_url": "https://storage.nextimmo.lu/images/thumb/e45bbd99f6b4026068740391066d894d/588dca0192c28881b092e877e942e9f9.jpg",
-    "price_m2": 15.5,
-    "local_image": "images/nextimmo_15111.jpg"
+    "price_m2": 15.5
   },
   {
     "listing_id": "nextimmo_12430",
@@ -2475,8 +2447,7 @@ const LISTINGS = [
     "distance_km": 11.1,
     "created_at": "2026-02-26 18:46:57",
     "image_url": "https://storage.nextimmo.lu/images/thumb/898b7612521adabe6c4a9f834071ef88/589058c1a6f3dbe23e7e1747920dbcb2.jpg",
-    "price_m2": 20.6,
-    "local_image": "images/nextimmo_12430.jpg"
+    "price_m2": 20.6
   },
   {
     "listing_id": "nextimmo_15061",
@@ -2492,8 +2463,7 @@ const LISTINGS = [
     "distance_km": 16.4,
     "created_at": "2026-02-26 18:46:27",
     "image_url": "https://storage.nextimmo.lu/images/thumb/bcf012ad535dfd54d020e858200602ca/02d2db4a804f9bcf02893eb85f312b18.jpg",
-    "price_m2": 20.1,
-    "local_image": "images/nextimmo_15061.jpg"
+    "price_m2": 20.1
   },
   {
     "listing_id": "nextimmo_19177",
@@ -2509,8 +2479,7 @@ const LISTINGS = [
     "distance_km": 7.3,
     "created_at": "2026-02-26 18:45:46",
     "image_url": "https://storage.nextimmo.lu/images/thumb/c0edd2f190b4aabc36821ef22da3e6f7/86dbf267c278634bc63623ec489063e2.jpg",
-    "price_m2": 23.1,
-    "local_image": "images/nextimmo_19177.jpg"
+    "price_m2": 23.1
   },
   {
     "listing_id": "nextimmo_15202",
@@ -2526,8 +2495,7 @@ const LISTINGS = [
     "distance_km": 13.9,
     "created_at": "2026-02-26 18:45:36",
     "image_url": "https://storage.nextimmo.lu/images/thumb/c055ab2f2e14fea6506a1102dac55589/20c8dc914342580261407e7312f4938e.jpg",
-    "price_m2": 26.1,
-    "local_image": "images/nextimmo_15202.jpg"
+    "price_m2": 26.1
   },
   {
     "listing_id": "nextimmo_18544",
@@ -2543,8 +2511,7 @@ const LISTINGS = [
     "distance_km": 2.1,
     "created_at": "2026-02-26 18:45:26",
     "image_url": "https://storage.nextimmo.lu/images/thumb/c90af9b326022cbccfb6173f8b95fdfd/42ba208db930b768393a1891eacfe208.jpg",
-    "price_m2": 25.3,
-    "local_image": "images/nextimmo_18544.jpg"
+    "price_m2": 25.3
   },
   {
     "listing_id": "nextimmo_43894",
@@ -2560,8 +2527,7 @@ const LISTINGS = [
     "distance_km": 0.6,
     "created_at": "2026-02-26 18:42:11",
     "image_url": "https://storage.nextimmo.lu/images/thumb/0ab3830395d149d1e3b97ad489a44797/9897891e19996af6ab9f15391c19e604.jpg",
-    "price_m2": 26.9,
-    "local_image": "images/nextimmo_43894.jpg"
+    "price_m2": 26.9
   },
   {
     "listing_id": "vivi_212589",
@@ -2593,8 +2559,7 @@ const LISTINGS = [
     "distance_km": 7.6,
     "created_at": "2026-02-26 18:39:45",
     "image_url": "https://storage.nextimmo.lu/images/thumb/7817f1d460337bb860c382686de09e0d/5cd613b1151f110cd4ef71047e558569.jpg",
-    "price_m2": 28.9,
-    "local_image": "images/nextimmo_17212.jpg"
+    "price_m2": 28.9
   },
   {
     "listing_id": "nextimmo_17611",
@@ -2610,8 +2575,7 @@ const LISTINGS = [
     "distance_km": 2.9,
     "created_at": "2026-02-26 18:39:34",
     "image_url": "https://storage.nextimmo.lu/images/thumb/3bca47682f82f5089e6d6d0eb5b608e4/2296c8cbc5e2b3e40d422942e6902104.jpg",
-    "price_m2": 27.0,
-    "local_image": "images/nextimmo_17611.jpg"
+    "price_m2": 27.0
   },
   {
     "listing_id": "nextimmo_14834",
@@ -2627,7 +2591,6 @@ const LISTINGS = [
     "distance_km": 15.4,
     "created_at": "2026-02-26 18:37:08",
     "image_url": "https://storage.nextimmo.lu/images/thumb/11800701703a63bed24598328aeaba43/fe1524c12e47b051555fa65994f2b1d1.jpg",
-    "price_m2": 25.3,
-    "local_image": "images/nextimmo_14834.jpg"
+    "price_m2": 25.3
   }
 ];
