@@ -26,8 +26,7 @@ function init() {
 
         // Render UI
         updateTimestamp();
-        renderQuickStats();
-        renderListingsByCity();
+        // Rendering will happen after transports load in loadTransportData()
 
         console.log('✓ Stats by city initialized');
     } catch (err) {
@@ -41,8 +40,16 @@ function loadTransportData() {
         .then(data => {
             TRANSPORTS = data.cities || {};
             console.log('✓ Transports loaded:', Object.keys(TRANSPORTS).length, 'cities');
+            // Render after transports are loaded
+            renderQuickStats();
+            renderListingsByCity();
         })
-        .catch(err => console.log('Transport data not available:', err));
+        .catch(err => {
+            console.log('Transport data not available:', err);
+            // Still render even if transports fail to load
+            renderQuickStats();
+            renderListingsByCity();
+        });
 }
 
 // ==================== STATISTICS CALCULATION ====================
