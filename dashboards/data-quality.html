@@ -146,6 +146,7 @@
 
         // Calculer métriques
         function calculateMetrics() {
+            if (!LISTINGS || !Array.isArray(LISTINGS)) return;
             const total = LISTINGS.length;
 
             // Compter couvertures

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Résumé ImmoLux - Vue d'ensemble du marché immobilier">
     <meta name="theme-color" content="#667eea">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
@@ -84,9 +84,9 @@
 </div>
 
 <!-- Dark Mode Toggle -->
-<button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre">🌙</button>
+<button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
 
-<script src="data/listings.js"></script>
+<script src="data/listings.js" defer></script>
 <script>
     // ==================== DARK MODE ====================
     const darkModeToggle = document.getElementById('darkModeToggle');
