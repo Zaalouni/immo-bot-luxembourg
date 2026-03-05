@@ -257,10 +257,13 @@ function updateSortArrows() {
 
 function initFilters() {
     try {
-        const cities = [...new Set(window.LISTINGS
-            .map(l => l.city)
-            .filter(c => c && c !== 'N/A')
-        )].sort((a, b) => a.localeCompare(b, 'fr-FR'));
+        // Get unique cities (normalized)
+        const cities = typeof CityNormalizer !== 'undefined' && CityNormalizer.getUniqueCities
+            ? CityNormalizer.getUniqueCities(window.LISTINGS)
+            : [...new Set(window.LISTINGS
+                .map(l => l.city)
+                .filter(c => c && c !== 'N/A')
+            )].sort((a, b) => a.localeCompare(b, 'fr-FR'));
 
         const sites = [...new Set(window.LISTINGS
             .map(l => l.site)
@@ -581,10 +584,12 @@ function updateStats() {
         const total = window.LISTINGS.length;
         const prices = window.LISTINGS.filter(l => l.price > 0).map(l => l.price);
         const surfaces = window.LISTINGS.filter(l => l.surface > 0).map(l => l.surface);
-        const cities = [...new Set(window.LISTINGS
-            .map(l => l.city)
-            .filter(c => c && c !== 'N/A')
-        )];
+        const cities = typeof CityNormalizer !== 'undefined' && CityNormalizer.getUniqueCities
+            ? CityNormalizer.getUniqueCities(window.LISTINGS)
+            : [...new Set(window.LISTINGS
+                .map(l => l.city)
+                .filter(c => c && c !== 'N/A')
+            )];
         const sites = [...new Set(window.LISTINGS
             .map(l => l.site)
             .filter(Boolean)
@@ -669,6 +674,12 @@ function init() {
         if (!window.LISTINGS || !Array.isArray(window.LISTINGS)) {
             console.error('LISTINGS data not available');
             return;
+        }
+
+        // Normalize city names
+        if (typeof CityNormalizer !== 'undefined' && CityNormalizer.normalizeListings) {
+            window.LISTINGS = CityNormalizer.normalizeListings(window.LISTINGS);
+            console.log('✓ City names normalized');
         }
 
         // Initialize
