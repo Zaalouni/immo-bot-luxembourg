@@ -39,7 +39,7 @@
 
     <button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
 
-    <script src="../data/listings.js"></script>
+    <script src="data/listings.js"></script>
     <script>
         const dm = document.getElementById("darkModeToggle");
         dm.addEventListener("click", () => {
@@ -60,7 +60,7 @@
                 date.setDate(date.getDate() - i);
                 const dateStr = date.toISOString().split('T')[0];
                 try {
-                    const response = await fetch(`../data/history/${dateStr}.json`);
+                    const response = await fetch(`data/history/${dateStr}.json`);
                     if (response.ok) {
                         const data = await response.json();
                         history.push({
