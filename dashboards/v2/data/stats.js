@@ -1,5 +1,5 @@
 // Genere le 04/03/2026 21:37
-const STATS = {
+var STATS = {
   "total": 166,
   "avg_price": 2141,
   "min_price": 1400,
@@ -453,7 +453,7 @@ const STATS = {
     "> 2500": 19
   }
 };
-const SITE_COLORS = {
+var SITE_COLORS = {
   "Remax.lu": "#FF6384",
   "SothebysRealty.lu": "#36A2EB",
   "Luxhome.lu": "#FFCE56",

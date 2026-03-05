@@ -670,13 +670,9 @@ function registerServiceWorker() {
 
 function init() {
     try {
-        // Debug: log LISTINGS status
-        console.log('[DEBUG] LISTINGS available:', typeof window.LISTINGS, Array.isArray(window.LISTINGS) ? `(array of ${window.LISTINGS.length} items)` : '');
-
         // Check if data is available
         if (!window.LISTINGS || !Array.isArray(window.LISTINGS)) {
             console.error('LISTINGS data not available');
-            console.error('[DEBUG] window.LISTINGS:', window.LISTINGS);
             return;
         }
 

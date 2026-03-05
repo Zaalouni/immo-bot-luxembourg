@@ -1,6 +1,6 @@
 // Genere le 26/02/2026 23:10
 // Statistiques detaillees par ville (median, avg, price_m2, etc.)
-const MARKET_STATS = {
+var MARKET_STATS = {
   "Bridel": {
     "count": 4,
     "avg_price": 2187,

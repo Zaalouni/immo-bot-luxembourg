@@ -1,6 +1,6 @@
 // Genere le 04/03/2026 21:37
 // 4 anomalies detectees
-const ANOMALIES = [
+var ANOMALIES = [
   {
     "listing_id": "luxhome_21089",
     "title": "Appartement meublé avec 2 chambres au champs du Soleil à Steinfort",

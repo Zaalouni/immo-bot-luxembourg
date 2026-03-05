@@ -1,6 +1,7 @@
 // Genere le 04/03/2026 21:37
 // 166 annonces depuis listings.db
-const LISTINGS = [
+// Using var so LISTINGS attaches to window (const does not)
+var LISTINGS = [
   {
     "listing_id": "remax_280191034-119",
     "site": "Remax.lu",
@@ -2698,5 +2699,3 @@ const LISTINGS = [
     "local_image": "images/nextimmo_14834.jpg"
   }
 ];
-
-console.log('[DEBUG] listings.js loaded successfully, LISTINGS array has', LISTINGS.length, 'items');

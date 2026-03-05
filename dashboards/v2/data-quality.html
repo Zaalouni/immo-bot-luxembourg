@@ -146,11 +146,7 @@
 
         // Calculer métriques
         function calculateMetrics() {
-            console.log('[DEBUG] calculateMetrics: LISTINGS available:', typeof LISTINGS, Array.isArray(LISTINGS) ? `(array of ${LISTINGS.length} items)` : '');
-            if (!LISTINGS || !Array.isArray(LISTINGS)) {
-                console.error('[DEBUG] LISTINGS not available in data-quality.html');
-                return;
-            }
+            if (!LISTINGS || !Array.isArray(LISTINGS)) return;
             const total = LISTINGS.length;
 
             // Compter couvertures

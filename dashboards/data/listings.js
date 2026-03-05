@@ -1,6 +1,6 @@
 // Genere le 04/03/2026 21:37
 // 166 annonces depuis listings.db
-const LISTINGS = [
+var LISTINGS = [
   {
     "listing_id": "remax_280191034-119",
     "site": "Remax.lu",
