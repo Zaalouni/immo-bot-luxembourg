@@ -94,7 +94,7 @@
                 <div class="card-item">
                     <div>
                         <strong>${l.title.substring(0, 50)}</strong><br>
-                        <small style="color: #888;">${l.city} • ${l.price.toLocaleString('fr-FR')}€ • ${l.site}</small>
+                        <small style="color: #888;">${normCity(l.city)} • ${l.price.toLocaleString('fr-FR')}€ • ${l.site}</small>
                     </div>
                     <div style="display: flex; gap: 0.5rem;">
                         <button class="btn-action btn-fav" onclick="toggleFavorite('${l.listing_id}')">⭐ Favori</button>
@@ -133,7 +133,7 @@
             }
             container.innerHTML = alerts.map(a => `
                 <div class="card-item" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>🔔 Prix &lt; <strong>${a.price}€</strong> à <strong>${a.city}</strong></span>
+                    <span>🔔 Prix &lt; <strong>${a.price}€</strong> à <strong>${normCity(a.city)}</strong></span>
                     <button class="btn btn-sm btn-outline-danger" onclick="removeAlert(${a.id})">✕</button>
                 </div>
             `).join('');
@@ -155,7 +155,7 @@
                         <div class="card-item">
                             <div>
                                 <strong>${m.listing.title.substring(0, 50)}</strong><br>
-                                <small style="color: #888;">${m.listing.city} • ${m.listing.price.toLocaleString('fr-FR')}€ (alerte: &lt;${m.alert.price}€)</small>
+                                <small style="color: #888;">${normCity(m.listing.city)} • ${m.listing.price.toLocaleString('fr-FR')}€ (alerte: &lt;${m.alert.price}€)</small>
                             </div>
                             <a href="${m.listing.url}" target="_blank" class="btn-action" style="background: var(--primary); color: white;">Voir</a>
                         </div>

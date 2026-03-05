@@ -243,7 +243,7 @@
                 }).bindPopup(`
                     <strong>${listing.title}</strong><br/>
                     ${listing.price}€ | ${listing.distance.toFixed(1)} km<br/>
-                    <small>${listing.city}</small><br/>
+                    <small>${normCity(listing.city)}</small><br/>
                     <a href="${listing.url}" target="_blank" class="btn btn-sm btn-primary mt-2">Voir</a>
                 `).addTo(map);
             });
@@ -274,7 +274,7 @@
                                 📍 ${l.distance.toFixed(1)} km
                             </div>
                         </div>
-                        <small class="badge bg-secondary">${l.city}</small>
+                        <small class="badge bg-secondary">${normCity(l.city)}</small>
                         <a href="${l.url}" target="_blank" class="btn btn-sm btn-primary mt-2">Voir l'annonce</a>
                     </div>
                 `;

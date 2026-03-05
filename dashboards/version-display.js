@@ -1,7 +1,23 @@
 /**
  * version-display.js — Affiche la version du dashboard dans toutes les pages
  * Lit VERSION_INFO depuis data/version.js (généré par dashboard_generator.py)
+ *
+ * Exporte window.normCity(city) — normalise les noms de villes :
+ *   "Luxembourg-Belair" → "Belair"
+ *   "Luxembourg-Kirchberg" → "Kirchberg"
+ *   "Luxembourg" → "Luxembourg" (inchangé)
  */
+
+/**
+ * Normalise le nom d'une ville : supprime le préfixe "Luxembourg-"
+ * @param {string} city
+ * @returns {string}
+ */
+window.normCity = function (city) {
+    if (!city) return city;
+    return city.replace(/^Luxembourg[-\s]/i, '');
+};
+
 (function () {
     'use strict';
 

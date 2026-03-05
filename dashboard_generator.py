@@ -70,12 +70,13 @@ def normalize_city_name(city):
     # Cas spéciaux - harmonisation
     replacements = {
         # Luxembourg Centre variations
-        'Luxembourg-Centre-Ville': 'Luxembourg-Centre',
-        'Luxembourg-Centre-Vill': 'Luxembourg-Centre',  # Typo potentiel
+        'Luxembourg-Centre-Ville': 'Centre',
+        'Luxembourg-Centre-Vill': 'Centre',  # Typo potentiel
+        'Luxembourg-Centre': 'Centre',
 
         # Gasperich variations
-        'Luxembourg-Gasperich-Cloche-D\'or': 'Luxembourg-Gasperich',
-        'Luxembourg-Gasperich-Cloche-D\'Or': 'Luxembourg-Gasperich',
+        'Luxembourg-Gasperich-Cloche-D\'or': 'Gasperich',
+        'Luxembourg-Gasperich-Cloche-D\'Or': 'Gasperich',
 
         # Brouch
         'Brouch-(mersch)': 'Brouch',
@@ -83,11 +84,17 @@ def normalize_city_name(city):
 
         # Weiler
         'Weiler-La-Tour': 'Weiler-La-Tour',
-
-        # Autres normalisations si nécessaire
     }
 
-    return replacements.get(city, city)
+    city = replacements.get(city, city)
+
+    # Supprimer le préfixe "Luxembourg-" pour les quartiers de la ville
+    # "Luxembourg-Belair" → "Belair", "Luxembourg-Kirchberg" → "Kirchberg"
+    # Mais conserver "Luxembourg" seul (la ville entière)
+    if '-' in city and city.lower().startswith('luxembourg-'):
+        city = city[len('Luxembourg-'):]
+
+    return city
 
 
 def read_listings(db_path='listings.db'):

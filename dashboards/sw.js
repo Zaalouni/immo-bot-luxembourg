@@ -1,9 +1,9 @@
 // =============================================================================
 // Service Worker - Immo Luxembourg Dashboard PWA
-// Version: 20260305-1859
+// Version: 20260305-1910
 // =============================================================================
 
-const CACHE_NAME = 'immo-lux-v20260305-1859';
+const CACHE_NAME = 'immo-lux-v20260305-1910';
 const STATIC_CACHE = 'immo-static-v1';
 const DYNAMIC_CACHE = 'immo-dynamic-v1';
 

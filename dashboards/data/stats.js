@@ -1,11 +1,11 @@
-// Genere le 05/03/2026 18:59
+// Genere le 05/03/2026 19:10
 const STATS = {
   "total": 172,
   "avg_price": 2144,
   "min_price": 1400,
   "max_price": 2500,
   "avg_surface": 107,
-  "cities": 87,
+  "cities": 81,
   "sites": {
     "Nextimmo.lu": 36,
     "Athome.lu": 70,
@@ -31,7 +31,7 @@ const STATS = {
       "avg_price": 1860
     },
     {
-      "city": "Luxembourg-Belair",
+      "city": "Belair",
       "count": 7,
       "avg_price": 2310
     },
@@ -46,9 +46,14 @@ const STATS = {
       "avg_price": 2188
     },
     {
-      "city": "Luxembourg-Bonnevoie",
+      "city": "Bonnevoie",
       "count": 5,
       "avg_price": 2230
+    },
+    {
+      "city": "Kirchberg",
+      "count": 5,
+      "avg_price": 2276
     },
     {
       "city": "Dudelange",
@@ -66,24 +71,19 @@ const STATS = {
       "avg_price": 1960
     },
     {
-      "city": "Luxembourg-Kirchberg",
-      "count": 4,
-      "avg_price": 2220
+      "city": "Gare",
+      "count": 5,
+      "avg_price": 2208
     },
     {
-      "city": "Luxembourg-Limpertsberg",
+      "city": "Hollerich",
+      "count": 5,
+      "avg_price": 2310
+    },
+    {
+      "city": "Limpertsberg",
       "count": 4,
       "avg_price": 2100
-    },
-    {
-      "city": "Luxembourg-Gare",
-      "count": 4,
-      "avg_price": 2335
-    },
-    {
-      "city": "Luxembourg-Hollerich",
-      "count": 4,
-      "avg_price": 2275
     },
     {
       "city": "Mamer",
@@ -101,7 +101,7 @@ const STATS = {
       "avg_price": 2187
     },
     {
-      "city": "Luxembourg-Centre",
+      "city": "Centre",
       "count": 3,
       "avg_price": 2416
     },
@@ -109,6 +109,11 @@ const STATS = {
       "city": "Mondorf-Les-Bains",
       "count": 3,
       "avg_price": 2000
+    },
+    {
+      "city": "Cessange",
+      "count": 3,
+      "avg_price": 2400
     },
     {
       "city": "Schouweiler",
@@ -131,6 +136,11 @@ const STATS = {
       "avg_price": 2350
     },
     {
+      "city": "Merl",
+      "count": 2,
+      "avg_price": 2000
+    },
+    {
       "city": "Steinsel",
       "count": 2,
       "avg_price": 2275
@@ -146,6 +156,11 @@ const STATS = {
       "avg_price": 2237
     },
     {
+      "city": "Cents",
+      "count": 2,
+      "avg_price": 2100
+    },
+    {
       "city": "Lallange",
       "count": 2,
       "avg_price": 2075
@@ -154,11 +169,6 @@ const STATS = {
       "city": "Weidingen",
       "count": 2,
       "avg_price": 1650
-    },
-    {
-      "city": "Cessange",
-      "count": 2,
-      "avg_price": 2375
     },
     {
       "city": "Olm",
@@ -206,19 +216,14 @@ const STATS = {
       "avg_price": 2150
     },
     {
-      "city": "Luxembourg-Weimerskirch",
+      "city": "Weimerskirch",
       "count": 1,
       "avg_price": 1900
     },
     {
-      "city": "Luxembourg-Muhlenbach",
+      "city": "Muhlenbach",
       "count": 1,
       "avg_price": 1400
-    },
-    {
-      "city": "Luxembourg-Merl",
-      "count": 1,
-      "avg_price": 2000
     },
     {
       "city": "Kopstal",
@@ -251,7 +256,7 @@ const STATS = {
       "avg_price": 2400
     },
     {
-      "city": "Luxembourg-Gasperich",
+      "city": "Gasperich",
       "count": 1,
       "avg_price": 2250
     },
@@ -271,19 +276,9 @@ const STATS = {
       "avg_price": 2100
     },
     {
-      "city": "Luxembourg-Cessange",
+      "city": "Dommeldange",
       "count": 1,
       "avg_price": 2450
-    },
-    {
-      "city": "Luxembourg-Dommeldange",
-      "count": 1,
-      "avg_price": 2450
-    },
-    {
-      "city": "Luxembourg-Cents",
-      "count": 1,
-      "avg_price": 2200
     },
     {
       "city": "Helmsange",
@@ -341,7 +336,7 @@ const STATS = {
       "avg_price": 1800
     },
     {
-      "city": "Luxembourg-Rollingergrund",
+      "city": "Rollingergrund",
       "count": 1,
       "avg_price": 2500
     },
@@ -361,11 +356,6 @@ const STATS = {
       "avg_price": 2000
     },
     {
-      "city": "Merl",
-      "count": 1,
-      "avg_price": 2000
-    },
-    {
       "city": "Frisange",
       "count": 1,
       "avg_price": 2000
@@ -376,29 +366,9 @@ const STATS = {
       "avg_price": 1600
     },
     {
-      "city": "Gare",
-      "count": 1,
-      "avg_price": 1700
-    },
-    {
-      "city": "Hollerich",
-      "count": 1,
-      "avg_price": 2450
-    },
-    {
-      "city": "Kirchberg",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
       "city": "Bereldange",
       "count": 1,
       "avg_price": 2300
-    },
-    {
-      "city": "Cents",
-      "count": 1,
-      "avg_price": 2000
     },
     {
       "city": "Bastendorf",
@@ -411,17 +381,17 @@ const STATS = {
       "avg_price": 2450
     },
     {
-      "city": "Luxembourg-Pfaffenthal",
+      "city": "Pfaffenthal",
       "count": 1,
       "avg_price": 2200
     },
     {
-      "city": "Luxembourg-Hamm",
+      "city": "Hamm",
       "count": 1,
       "avg_price": 1890
     },
     {
-      "city": "Luxembourg-Neudorf",
+      "city": "Neudorf",
       "count": 1,
       "avg_price": 2000
     },

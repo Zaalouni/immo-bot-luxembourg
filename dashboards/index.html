@@ -269,7 +269,7 @@
         tbody.innerHTML = filtered.map(l => `
             <tr>
                 <td>${badge(l.site)}</td>
-                <td>${l.city || '—'}</td>
+                <td>${normCity(l.city) || '—'}</td>
                 <td><strong>${fmt(l.price)}€</strong></td>
                 <td>${l.rooms || '—'}</td>
                 <td>${l.surface || '—'}</td>
@@ -328,7 +328,7 @@
     function renderCityView() {
         const container = document.getElementById('city-container');
         const groups = {};
-        LISTINGS.forEach(l => { const c = l.city || 'N/A'; if (!groups[c]) groups[c] = []; groups[c].push(l); });
+        LISTINGS.forEach(l => { const c = normCity(l.city || 'N/A'); if (!groups[c]) groups[c] = []; groups[c].push(l); });
         const sorted = Object.entries(groups).sort((a, b) => b[1].length - a[1].length);
 
         container.innerHTML = sorted.map(([city, items]) => {
@@ -375,7 +375,7 @@
             const rows = items.map(l => `
                 <tr>
                     <td>${badge(l.site)}</td>
-                    <td>${l.city || '—'}</td>
+                    <td>${normCity(l.city) || '—'}</td>
                     <td><strong>${fmt(l.price)}€</strong></td>
                     <td>${l.rooms || '—'} ch.</td>
                     <td>${l.surface || '—'} m²</td>
@@ -415,7 +415,7 @@
             L.circleMarker([l.latitude, l.longitude], {
                 radius: 7, fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
             }).addTo(map).bindPopup(`
-                <strong>${l.city || '—'}</strong><br>
+                <strong>${normCity(l.city) || '—'}</strong><br>
                 ${fmt(l.price)}€ | ${l.rooms || '?'} ch. | ${l.surface || '?'} m²<br>
                 <a href="${l.url}" target="_blank">Voir l'annonce</a>
             `);

@@ -68,7 +68,7 @@
         if(localStorage.getItem("darkMode") === "true") document.body.classList.add("dark-mode");
 
         function init() {
-            const cities = [...new Set(LISTINGS.map(l => l.city))].sort();
+            const cities = [...new Set(LISTINGS.map(l => normCity(l.city)))].sort();
             const s1 = document.getElementById('city1');
             const s2 = document.getElementById('city2');
             cities.forEach(c => {
@@ -90,8 +90,8 @@
             document.getElementById('h1').textContent = c1;
             document.getElementById('h2').textContent = c2;
 
-            const l1 = LISTINGS.filter(l => l.city === c1);
-            const l2 = LISTINGS.filter(l => l.city === c2);
+            const l1 = LISTINGS.filter(l => normCity(l.city) === c1);
+            const l2 = LISTINGS.filter(l => normCity(l.city) === c2);
 
             const getAvg = (arr, field) => {
                 const vals = arr.filter(l => l[field] > 0).map(l => l[field]);

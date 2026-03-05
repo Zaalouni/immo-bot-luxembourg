@@ -1,13 +1,13 @@
 {
   "date": "2026-03-05",
-  "generated_at": "05/03/2026 18:59",
+  "generated_at": "05/03/2026 19:10",
   "stats": {
     "total": 172,
     "avg_price": 2144,
     "min_price": 1400,
     "max_price": 2500,
     "avg_surface": 107,
-    "cities": 87,
+    "cities": 81,
     "sites": {
       "Nextimmo.lu": 36,
       "Athome.lu": 70,
@@ -33,7 +33,7 @@
         "avg_price": 1860
       },
       {
-        "city": "Luxembourg-Belair",
+        "city": "Belair",
         "count": 7,
         "avg_price": 2310
       },
@@ -48,9 +48,14 @@
         "avg_price": 2188
       },
       {
-        "city": "Luxembourg-Bonnevoie",
+        "city": "Bonnevoie",
         "count": 5,
         "avg_price": 2230
+      },
+      {
+        "city": "Kirchberg",
+        "count": 5,
+        "avg_price": 2276
       },
       {
         "city": "Dudelange",
@@ -68,24 +73,19 @@
         "avg_price": 1960
       },
       {
-        "city": "Luxembourg-Kirchberg",
-        "count": 4,
-        "avg_price": 2220
+        "city": "Gare",
+        "count": 5,
+        "avg_price": 2208
       },
       {
-        "city": "Luxembourg-Limpertsberg",
+        "city": "Hollerich",
+        "count": 5,
+        "avg_price": 2310
+      },
+      {
+        "city": "Limpertsberg",
         "count": 4,
         "avg_price": 2100
-      },
-      {
-        "city": "Luxembourg-Gare",
-        "count": 4,
-        "avg_price": 2335
-      },
-      {
-        "city": "Luxembourg-Hollerich",
-        "count": 4,
-        "avg_price": 2275
       },
       {
         "city": "Mamer",
@@ -103,7 +103,7 @@
         "avg_price": 2187
       },
       {
-        "city": "Luxembourg-Centre",
+        "city": "Centre",
         "count": 3,
         "avg_price": 2416
       },
@@ -111,6 +111,11 @@
         "city": "Mondorf-Les-Bains",
         "count": 3,
         "avg_price": 2000
+      },
+      {
+        "city": "Cessange",
+        "count": 3,
+        "avg_price": 2400
       },
       {
         "city": "Schouweiler",
@@ -133,6 +138,11 @@
         "avg_price": 2350
       },
       {
+        "city": "Merl",
+        "count": 2,
+        "avg_price": 2000
+      },
+      {
         "city": "Steinsel",
         "count": 2,
         "avg_price": 2275
@@ -148,6 +158,11 @@
         "avg_price": 2237
       },
       {
+        "city": "Cents",
+        "count": 2,
+        "avg_price": 2100
+      },
+      {
         "city": "Lallange",
         "count": 2,
         "avg_price": 2075
@@ -156,11 +171,6 @@
         "city": "Weidingen",
         "count": 2,
         "avg_price": 1650
-      },
-      {
-        "city": "Cessange",
-        "count": 2,
-        "avg_price": 2375
       },
       {
         "city": "Olm",
@@ -208,19 +218,14 @@
         "avg_price": 2150
       },
       {
-        "city": "Luxembourg-Weimerskirch",
+        "city": "Weimerskirch",
         "count": 1,
         "avg_price": 1900
       },
       {
-        "city": "Luxembourg-Muhlenbach",
+        "city": "Muhlenbach",
         "count": 1,
         "avg_price": 1400
-      },
-      {
-        "city": "Luxembourg-Merl",
-        "count": 1,
-        "avg_price": 2000
       },
       {
         "city": "Kopstal",
@@ -253,7 +258,7 @@
         "avg_price": 2400
       },
       {
-        "city": "Luxembourg-Gasperich",
+        "city": "Gasperich",
         "count": 1,
         "avg_price": 2250
       },
@@ -273,19 +278,9 @@
         "avg_price": 2100
       },
       {
-        "city": "Luxembourg-Cessange",
+        "city": "Dommeldange",
         "count": 1,
         "avg_price": 2450
-      },
-      {
-        "city": "Luxembourg-Dommeldange",
-        "count": 1,
-        "avg_price": 2450
-      },
-      {
-        "city": "Luxembourg-Cents",
-        "count": 1,
-        "avg_price": 2200
       },
       {
         "city": "Helmsange",
@@ -343,7 +338,7 @@
         "avg_price": 1800
       },
       {
-        "city": "Luxembourg-Rollingergrund",
+        "city": "Rollingergrund",
         "count": 1,
         "avg_price": 2500
       },
@@ -363,11 +358,6 @@
         "avg_price": 2000
       },
       {
-        "city": "Merl",
-        "count": 1,
-        "avg_price": 2000
-      },
-      {
         "city": "Frisange",
         "count": 1,
         "avg_price": 2000
@@ -378,29 +368,9 @@
         "avg_price": 1600
       },
       {
-        "city": "Gare",
-        "count": 1,
-        "avg_price": 1700
-      },
-      {
-        "city": "Hollerich",
-        "count": 1,
-        "avg_price": 2450
-      },
-      {
-        "city": "Kirchberg",
-        "count": 1,
-        "avg_price": 2500
-      },
-      {
         "city": "Bereldange",
         "count": 1,
         "avg_price": 2300
-      },
-      {
-        "city": "Cents",
-        "count": 1,
-        "avg_price": 2000
       },
       {
         "city": "Bastendorf",
@@ -413,17 +383,17 @@
         "avg_price": 2450
       },
       {
-        "city": "Luxembourg-Pfaffenthal",
+        "city": "Pfaffenthal",
         "count": 1,
         "avg_price": 2200
       },
       {
-        "city": "Luxembourg-Hamm",
+        "city": "Hamm",
         "count": 1,
         "avg_price": 1890
       },
       {
-        "city": "Luxembourg-Neudorf",
+        "city": "Neudorf",
         "count": 1,
         "avg_price": 2000
       },
@@ -475,7 +445,7 @@
       "listing_id": "nextimmo_46021",
       "site": "Nextimmo.lu",
       "title": "Appartement Luxembourg-Bonnevoie",
-      "city": "Luxembourg-Bonnevoie",
+      "city": "Bonnevoie",
       "price": 2200,
       "rooms": 2,
       "surface": 80,
@@ -539,7 +509,7 @@
       "listing_id": "athome_9014235",
       "site": "Athome.lu",
       "title": "Appartement (118) de 2 chambres à coucher, idéalement situé proche de ",
-      "city": "Luxembourg-Kirchberg",
+      "city": "Kirchberg",
       "price": 2150,
       "rooms": 2,
       "surface": 80,
@@ -619,7 +589,7 @@
       "listing_id": "athome_9013809",
       "site": "Athome.lu",
       "title": "Properties partners vous propose en location à Kirchberg, dans le quar",
-      "city": "Luxembourg-Weimerskirch",
+      "city": "Weimerskirch",
       "price": 1900,
       "rooms": 2,
       "surface": 90,
@@ -651,7 +621,7 @@
       "listing_id": "newimmo_127324",
       "site": "Newimmo.lu",
       "title": "Appartement - Luxembourg Muhlenbach",
-      "city": "Luxembourg-Muhlenbach",
+      "city": "Muhlenbach",
       "price": 1400,
       "rooms": 0,
       "surface": 0,
@@ -699,7 +669,7 @@
       "listing_id": "athome_2235649",
       "site": "Athome.lu",
       "title": "Appartement, proche du centre-ville, accès facile, dans petite résiden",
-      "city": "Luxembourg-Merl",
+      "city": "Merl",
       "price": 2000,
       "rooms": 3,
       "surface": 100,
@@ -779,7 +749,7 @@
       "listing_id": "athome_8976207",
       "site": "Athome.lu",
       "title": "LUXEMBOURG-LIMPERTSBERG\r\n\r\nAppartement de style dans petite résidence,",
-      "city": "Luxembourg-Limpertsberg",
+      "city": "Limpertsberg",
       "price": 2400,
       "rooms": 2,
       "surface": 98,
@@ -907,7 +877,7 @@
       "listing_id": "athome_8871260",
       "site": "Athome.lu",
       "title": "(English follows)\n\nÀ louer Duplex lumineux avec terrasse privative\nApp",
-      "city": "Luxembourg-Bonnevoie",
+      "city": "Bonnevoie",
       "price": 2350,
       "rooms": 2,
       "surface": 95,
@@ -923,7 +893,7 @@
       "listing_id": "athome_8952070",
       "site": "Athome.lu",
       "title": "Adresse : 14, rue Charles Darwin – L-1433 Luxembourg\r\nSituation : en f",
-      "city": "Luxembourg-Gasperich",
+      "city": "Gasperich",
       "price": 2250,
       "rooms": 2,
       "surface": 82,
@@ -955,7 +925,7 @@
       "listing_id": "athome_7786123",
       "site": "Athome.lu",
       "title": "Démarrez votre nouvelle vie à Luxembourg avec ce confortable apparteme",
-      "city": "Luxembourg-Gare",
+      "city": "Gare",
       "price": 2390,
       "rooms": 3,
       "surface": 90,
@@ -971,7 +941,7 @@
       "listing_id": "athome_8812008",
       "site": "Athome.lu",
       "title": "Appartement 2 chambres entièrement rénové ? Luxembourg-Merl\n\nAdresse :",
-      "city": "Luxembourg-Centre",
+      "city": "Centre",
       "price": 2400,
       "rooms": 2,
       "surface": 80,
@@ -1035,7 +1005,7 @@
       "listing_id": "athome_8812006",
       "site": "Athome.lu",
       "title": "Appartement 2 chambres entièrement rénové ? Luxembourg-Merl\n\nAdresse :",
-      "city": "Luxembourg-Hollerich",
+      "city": "Hollerich",
       "price": 2400,
       "rooms": 2,
       "surface": 80,
@@ -1099,7 +1069,7 @@
       "listing_id": "athome_8937110",
       "site": "Athome.lu",
       "title": "Appartement, proche du centre-ville, dans quartier résidentiel, quarti",
-      "city": "Luxembourg-Belair",
+      "city": "Belair",
       "price": 2375,
       "rooms": 3,
       "surface": 105,
@@ -1115,7 +1085,7 @@
       "listing_id": "athome_7686982",
       "site": "Athome.lu",
       "title": "Appartement, proche du centre-ville, dans quartier résidentiel, accès ",
-      "city": "Luxembourg-Hollerich",
+      "city": "Hollerich",
       "price": 2300,
       "rooms": 2,
       "surface": 90,
@@ -1131,7 +1101,7 @@
       "listing_id": "athome_1372622",
       "site": "Athome.lu",
       "title": "Appartement, meublé, dans quartier résidentiel, accès facile, living, ",
-      "city": "Luxembourg-Belair",
+      "city": "Belair",
       "price": 2500,
       "rooms": 2,
       "surface": 150,
@@ -1147,7 +1117,7 @@
       "listing_id": "athome_8931852",
       "site": "Athome.lu",
       "title": "DÉJÀ LOUÉ --- ALREADY RENTED OUT\n\nVeuillez nous contacter pour plus de",
-      "city": "Luxembourg-Gare",
+      "city": "Gare",
       "price": 2450,
       "rooms": 2,
       "surface": 80,
@@ -1179,7 +1149,7 @@
       "listing_id": "athome_9012475",
       "site": "Athome.lu",
       "title": "MABRO vous propose à la location ce très bel appartement traversant me",
-      "city": "Luxembourg-Belair",
+      "city": "Belair",
       "price": 2350,
       "rooms": 2,
       "surface": 93,
@@ -1323,7 +1293,7 @@
       "listing_id": "athome_8994521",
       "site": "Athome.lu",
       "title": "appartement lumineux sis au rez-de-chaussée surélevé d’un petit immeub",
-      "city": "Luxembourg-Belair",
+      "city": "Belair",
       "price": 2250,
       "rooms": 5,
       "surface": 90,
@@ -1355,7 +1325,7 @@
       "listing_id": "athome_8470343",
       "site": "Athome.lu",
       "title": "Many Many vous présente cet appartement meublé et traversant à la déco",
-      "city": "Luxembourg-Cessange",
+      "city": "Cessange",
       "price": 2450,
       "rooms": 4,
       "surface": 90,
@@ -1387,7 +1357,7 @@
       "listing_id": "athome_8114963",
       "site": "Athome.lu",
       "title": "Many Many vous propose ce bel appartement rez-de-Jardin de 81 m² situé",
-      "city": "Luxembourg-Bonnevoie",
+      "city": "Bonnevoie",
       "price": 2300,
       "rooms": 2,
       "surface": 81,
@@ -1419,7 +1389,7 @@
       "listing_id": "athome_8706333",
       "site": "Athome.lu",
       "title": "+++PROCHE CLOCHE D'OR ET CENTRE VILLE+++COURT SEJOUR SHORT TERM FULLY ",
-      "city": "Luxembourg-Centre",
+      "city": "Centre",
       "price": 2500,
       "rooms": 2,
       "surface": 90,
@@ -1435,7 +1405,7 @@
       "listing_id": "athome_7980446",
       "site": "Athome.lu",
       "title": "+++SHORT TERM COURT SEJOUR FULLY FURNISHED+++EUREKA REAL ESTATE vous p",
-      "city": "Luxembourg-Kirchberg",
+      "city": "Kirchberg",
       "price": 2400,
       "rooms": 2,
       "surface": 80,
@@ -1451,7 +1421,7 @@
       "listing_id": "athome_7840995",
       "site": "Athome.lu",
       "title": "+++COUP DE COEUR! SHORT TERM FULLY FURNISHED COLOCATION POSSIBLE+++EUR",
-      "city": "Luxembourg-Dommeldange",
+      "city": "Dommeldange",
       "price": 2450,
       "rooms": 2,
       "surface": 110,
@@ -1499,7 +1469,7 @@
       "listing_id": "athome_8927148",
       "site": "Athome.lu",
       "title": "NEW IMMO, votre agence Immobilière à Luxembourg vous propose à la loca",
-      "city": "Luxembourg-Gare",
+      "city": "Gare",
       "price": 2000,
       "rooms": 2,
       "surface": 90,
@@ -1515,7 +1485,7 @@
       "listing_id": "athome_8994928",
       "site": "Athome.lu",
       "title": "Bel appartement à louer au deuxième étage dans une petite Résidence.\n\n",
-      "city": "Luxembourg-Belair",
+      "city": "Belair",
       "price": 2200,
       "rooms": 2,
       "surface": 90,
@@ -1531,7 +1501,7 @@
       "listing_id": "athome_4858709",
       "site": "Athome.lu",
       "title": "''active relocation luxembourg'' vous propose un appartement avec 2 ch",
-      "city": "Luxembourg-Cents",
+      "city": "Cents",
       "price": 2200,
       "rooms": 2,
       "surface": 89,
@@ -1707,7 +1677,7 @@
       "listing_id": "athome_9003558",
       "site": "Athome.lu",
       "title": "Appartement de 80m2 au 2. étage situé au 34, rue de la Toison d'Or\n\nL'",
-      "city": "Luxembourg-Hollerich",
+      "city": "Hollerich",
       "price": 2250,
       "rooms": 2,
       "surface": 80,
@@ -1723,7 +1693,7 @@
       "listing_id": "athome_8971722",
       "site": "Athome.lu",
       "title": "Lien vers visite virtuelle : https://tour.giraffe360.com/0b04f7ad1b0a4",
-      "city": "Luxembourg-Centre",
+      "city": "Centre",
       "price": 2350,
       "rooms": 2,
       "surface": 93,
@@ -1931,7 +1901,7 @@
       "listing_id": "nextimmo_44275",
       "site": "Nextimmo.lu",
       "title": "Appartement Luxembourg-Bonnevoie",
-      "city": "Luxembourg-Bonnevoie",
+      "city": "Bonnevoie",
       "price": 2150,
       "rooms": 2,
       "surface": 80,
@@ -1947,7 +1917,7 @@
       "listing_id": "weckbecker_14103",
       "site": "Weckbecker.lu",
       "title": "Location Luxembourg-Kirchberg",
-      "city": "Luxembourg-Kirchberg",
+      "city": "Kirchberg",
       "price": 1980,
       "rooms": 0,
       "surface": 0,
@@ -1963,7 +1933,7 @@
       "listing_id": "weckbecker_14165",
       "site": "Weckbecker.lu",
       "title": "Location Luxembourg-Rollingergrund - 3 ch.",
-      "city": "Luxembourg-Rollingergrund",
+      "city": "Rollingergrund",
       "price": 2500,
       "rooms": 3,
       "surface": 0,
@@ -1979,7 +1949,7 @@
       "listing_id": "weckbecker_14355",
       "site": "Weckbecker.lu",
       "title": "Location Luxembourg-Limpertsberg",
-      "city": "Luxembourg-Limpertsberg",
+      "city": "Limpertsberg",
       "price": 1600,
       "rooms": 0,
       "surface": 0,
@@ -2139,7 +2109,7 @@
       "listing_id": "newimmo_127282",
       "site": "Newimmo.lu",
       "title": "Appartement - Luxembourg Limpertsberg",
-      "city": "Luxembourg-Limpertsberg",
+      "city": "Limpertsberg",
       "price": 1900,
       "rooms": 0,
       "surface": 0,
@@ -2699,7 +2669,7 @@
       "listing_id": "nextimmo_17680",
       "site": "Nextimmo.lu",
       "title": "Appartement Luxembourg-Belair",
-      "city": "Luxembourg-Belair",
+      "city": "Belair",
       "price": 2100,
       "rooms": 2,
       "surface": 80,
@@ -2715,7 +2685,7 @@
       "listing_id": "nextimmo_17632",
       "site": "Nextimmo.lu",
       "title": "Appartement Luxembourg-Hollerich",
-      "city": "Luxembourg-Hollerich",
+      "city": "Hollerich",
       "price": 2150,
       "rooms": 2,
       "surface": 85,
@@ -2731,7 +2701,7 @@
       "listing_id": "nextimmo_18304",
       "site": "Nextimmo.lu",
       "title": "Appartement Luxembourg-Pfaffenthal",
-      "city": "Luxembourg-Pfaffenthal",
+      "city": "Pfaffenthal",
       "price": 2200,
       "rooms": 2,
       "surface": 88,
@@ -2747,7 +2717,7 @@
       "listing_id": "nextimmo_16085",
       "site": "Nextimmo.lu",
       "title": "Appartement Luxembourg-Hamm",
-      "city": "Luxembourg-Hamm",
+      "city": "Hamm",
       "price": 1890,
       "rooms": 2,
       "surface": 81,
@@ -2763,7 +2733,7 @@
       "listing_id": "newimmo_127084",
       "site": "Newimmo.lu",
       "title": "Appartement - Luxembourg Neudorf",
-      "city": "Luxembourg-Neudorf",
+      "city": "Neudorf",
       "price": 2000,
       "rooms": 0,
       "surface": 0,
@@ -2779,7 +2749,7 @@
       "listing_id": "newimmo_127151",
       "site": "Newimmo.lu",
       "title": "Appartement - Luxembourg Gare",
-      "city": "Luxembourg-Gare",
+      "city": "Gare",
       "price": 2500,
       "rooms": 0,
       "surface": 0,
@@ -3019,7 +2989,7 @@
       "listing_id": "floor_maison-luxembourg-limpertsberg",
       "site": "Floor.lu",
       "title": "Maison — Luxembourg-Limpertsberg",
-      "city": "Luxembourg-Limpertsberg",
+      "city": "Limpertsberg",
       "price": 2500,
       "rooms": 2,
       "surface": 95,
@@ -3131,7 +3101,7 @@
       "listing_id": "nextimmo_18544",
       "site": "Nextimmo.lu",
       "title": "Appartement Luxembourg-Belair",
-      "city": "Luxembourg-Belair",
+      "city": "Belair",
       "price": 2400,
       "rooms": 2,
       "surface": 95,
@@ -3147,7 +3117,7 @@
       "listing_id": "nextimmo_43894",
       "site": "Nextimmo.lu",
       "title": "Appartement Luxembourg-Bonnevoie",
-      "city": "Luxembourg-Bonnevoie",
+      "city": "Bonnevoie",
       "price": 2150,
       "rooms": 2,
       "surface": 80,
@@ -3195,7 +3165,7 @@
       "listing_id": "nextimmo_17611",
       "site": "Nextimmo.lu",
       "title": "Appartement Luxembourg-Kirchberg",
-      "city": "Luxembourg-Kirchberg",
+      "city": "Kirchberg",
       "price": 2350,
       "rooms": 2,
       "surface": 87,

@@ -96,7 +96,7 @@
             const cityGroups = {};
 
             LISTINGS.forEach(l => {
-                const city = l.city || 'N/A';
+                const city = normCity(l.city || 'N/A');
                 if (city === 'N/A') return;
 
                 if (!cityGroups[city]) {
@@ -124,7 +124,7 @@
         }
 
         function getAnomaly(listing, cityStats) {
-            const city = listing.city || 'N/A';
+            const city = normCity(listing.city || 'N/A');
             if (city === 'N/A' || !listing.price || listing.price <= 0) return 'NONE';
 
             const stats = cityStats[city];
@@ -211,7 +211,7 @@
 
                         <div style="margin-bottom:0.8rem;">
                             <span class="badge bg-secondary">${l.site || 'N/A'}</span>
-                            <span class="badge bg-light" style="color:#666;">${l.city || 'N/A'}</span>
+                            <span class="badge bg-light" style="color:#666;">${normCity(l.city) || 'N/A'}</span>
                             ${anomaly !== 'NONE' ? `<span class="badge-anomaly ${badgeClass}">${badgeText}</span>` : ''}
                         </div>
 

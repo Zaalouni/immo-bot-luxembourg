@@ -86,10 +86,10 @@ fetch('data/city-transports.json')
 
         document.getElementById('lastUpdate').textContent = `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
 
-        // Group by city
+        // Group by city (normalisé)
         const byCity = {};
         LISTINGS.forEach(l => {
-            const city = l.city || 'N/A';
+            const city = normCity(l.city || 'N/A');
             if (!byCity[city]) byCity[city] = [];
             byCity[city].push(l);
         });
@@ -134,7 +134,7 @@ fetch('data/city-transports.json')
         const byCity = {};
 
         LISTINGS.forEach(l => {
-            const city = l.city || 'N/A';
+            const city = normCity(l.city || 'N/A');
             if (!byCity[city]) byCity[city] = [];
             byCity[city].push(l);
         });
