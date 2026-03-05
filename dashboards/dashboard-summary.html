@@ -19,68 +19,192 @@
     <script src="dark-mode.js" defer></script>
     <script src="data/version.js"></script>
     <script src="version-display.js" defer></script>
+    <style>
+        .summary-section {
+            background: var(--card-bg, #fff);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+        }
+        .summary-section h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary, #667eea);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.55rem 0;
+            border-bottom: 1px solid var(--border-color, #f0f0f0);
+            gap: 0.5rem;
+        }
+        .data-row:last-child { border-bottom: none; }
+        .data-row-left {
+            flex: 1;
+            min-width: 0;
+        }
+        .data-row-left strong {
+            display: block;
+            font-size: 0.88rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .data-row-left small { color: #888; font-size: 0.76rem; }
+        .data-row-right {
+            font-weight: 700;
+            color: var(--primary, #667eea);
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        .progress-bar-wrap {
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            margin-top: 0.3rem;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.4s ease;
+        }
+        .page-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0.6rem;
+        }
+        .page-link-card {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 8px;
+            background: var(--bg, #f8f9fa);
+            border: 1px solid var(--border-color, #e5e7eb);
+            text-decoration: none;
+            color: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+        .page-link-card:hover {
+            background: rgba(102,126,234,0.08);
+            border-color: #667eea;
+            color: var(--primary, #667eea);
+            transform: translateY(-1px);
+        }
+        .kpi-delta {
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            margin-left: 0.3rem;
+        }
+        .kpi-delta.positive { background: #d1fae5; color: #065f46; }
+        .kpi-delta.neutral  { background: #f3f4f6; color: #6b7280; }
+    </style>
 </head>
 <body>
 
 <div class="header">
     <h1>📊 Résumé ImmoLux</h1>
-    <p style="opacity: 0.9; margin: 0;">Vue d'ensemble du marché immobilier luxembourgeois</p>
+    <small id="lastUpdate"></small>
+    <div style="margin-top: 0.8rem;">
+        <a href="index.html" class="nav-link">📊 Dashboard</a>
+        <a href="new-listings.html" class="nav-link">⭐ New</a>
+        <a href="anomalies.html" class="nav-link">🎯 Anomalies</a>
+        <a href="map-advanced.html" class="nav-link">🗺️ Carte</a>
+        <a href="stats-by-city.html" class="nav-link">📊 Villes</a>
+        <a href="favorites.html" class="nav-link">⭐ Prioritaires</a>
+        <a href="photos.html" class="nav-link">🖼️ Photos</a>
+        <a href="gallery.html" class="nav-link">✨ Galerie</a>
+    </div>
 </div>
 
 <div class="container-main">
 
-    <!-- KPIs Globaux -->
-    <div class="stats-grid">
+    <!-- KPIs -->
+    <div class="stats-grid" id="kpiGrid">
         <div class="stat-card">
-            <div class="stat-value" id="kpiTotal">114</div>
-            <div class="stat-label">Annonces Total</div>
+            <div class="stat-value" id="kpiTotal">—</div>
+            <div class="stat-label">Total annonces</div>
         </div>
         <div class="stat-card">
-            <div class="stat-value" id="kpiCities">63</div>
+            <div class="stat-value" id="kpiCities">—</div>
             <div class="stat-label">Villes</div>
         </div>
         <div class="stat-card">
-            <div class="stat-value" id="kpiAvgPrice">2187€</div>
-            <div class="stat-label">Prix Moyen</div>
+            <div class="stat-value" id="kpiAvgPrice">—</div>
+            <div class="stat-label">Prix moyen</div>
         </div>
         <div class="stat-card">
             <div class="stat-value" id="kpiNewToday">—</div>
             <div class="stat-label">Nouvelles (24h)</div>
         </div>
-    </div>
-
-    <!-- Navigation vers autres pages -->
-    <div class="nav-section">
-        <h3 style="margin-bottom: 1.5rem; color: var(--primary);">🔗 Explorez le Dashboard</h3>
-        <div class="nav-links">
-            <a href="index.html">📊 Dashboard Principal</a>
-            <a href="stats-by-city.html">📋 Stats par Ville</a>
-            <a href="comparison.html">🔄 Comparateur</a>
-            <a href="map.html">🗺️ Carte</a>
-            <a href="photos.html">📸 Galerie</a>
-            <a href="anomalies.html">⚠️ Anomalies</a>
-            <a href="alerts.html">⭐ Favoris</a>
-            <a href="trends.html">📈 Tendances</a>
-            <a href="reports.html">📄 Reports</a>
+        <div class="stat-card">
+            <div class="stat-value" id="kpiMedian">—</div>
+            <div class="stat-label">Prix médian</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="kpiWithGps">—</div>
+            <div class="stat-label">Avec GPS</div>
         </div>
     </div>
 
-    <!-- Top 5 Villes -->
-    <div class="section">
-        <h2>🏙️ Top 5 Villes (par nombre d'annonces)</h2>
-        <div id="topCities"></div>
+    <!-- Navigation -->
+    <div class="summary-section">
+        <h2>🔗 Explorer le Dashboard</h2>
+        <div class="page-links">
+            <a href="index.html" class="page-link-card">📊 Dashboard</a>
+            <a href="new-listings.html" class="page-link-card">⭐ Nouvelles</a>
+            <a href="anomalies.html" class="page-link-card">🎯 Anomalies</a>
+            <a href="map-advanced.html" class="page-link-card">🗺️ Carte</a>
+            <a href="stats-by-city.html" class="page-link-card">📋 Par ville</a>
+            <a href="favorites.html" class="page-link-card">⭐ Prioritaires</a>
+            <a href="photos.html" class="page-link-card">🖼️ Photos</a>
+            <a href="gallery.html" class="page-link-card">✨ Galerie</a>
+            <a href="data-quality.html" class="page-link-card">🔍 Qualité</a>
+            <a href="nearby.html" class="page-link-card">📍 À proximité</a>
+            <a href="comparison.html" class="page-link-card">🔄 Comparateur</a>
+            <a href="trends.html" class="page-link-card">📈 Tendances</a>
+        </div>
     </div>
 
-    <!-- Top 5 Prix -->
-    <div class="section">
-        <h2>💰 Prix les Plus Hauts</h2>
-        <div id="topPrices"></div>
+    <!-- Top villes -->
+    <div class="summary-section">
+        <h2>🏙️ Top 8 villes (nombre d'annonces)</h2>
+        <div id="topCities"><div class="text-muted" style="font-size:0.85rem;">Chargement…</div></div>
     </div>
 
-    <!-- Dernières Annonces -->
-    <div class="section top-listings">
-        <h2>✨ Dernières Annonces (5 récentes)</h2>
-        <div id="recentListings"></div>
+    <!-- Répartition par site -->
+    <div class="summary-section">
+        <h2>🌐 Annonces par site</h2>
+        <div id="bySite"><div class="text-muted" style="font-size:0.85rem;">Chargement…</div></div>
+    </div>
+
+    <!-- Prix les plus hauts -->
+    <div class="summary-section">
+        <h2>💰 Prix les plus hauts</h2>
+        <div id="topPrices"><div class="text-muted" style="font-size:0.85rem;">Chargement…</div></div>
+    </div>
+
+    <!-- Prix les plus bas (bonnes affaires) -->
+    <div class="summary-section">
+        <h2>✅ Meilleures affaires (prix les plus bas)</h2>
+        <div id="topDeals"><div class="text-muted" style="font-size:0.85rem;">Chargement…</div></div>
+    </div>
+
+    <!-- Annonces récentes -->
+    <div class="summary-section">
+        <h2>✨ Annonces récentes</h2>
+        <div id="recentListings"><div class="text-muted" style="font-size:0.85rem;">Chargement…</div></div>
     </div>
 
 </div>
@@ -88,88 +212,140 @@
 <!-- Dark Mode Toggle -->
 <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
 
-<script src="data/listings.js" defer></script>
+<!-- listings.js sans defer pour garantir LISTINGS disponible avant init() -->
+<script src="data/listings.js"></script>
 <script>
-    // ==================== DARK MODE ====================
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    darkModeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    });
-
-    if (localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark-mode');
-    }
-
-    // ==================== INIT ====================
-    function init() {
-        if (!LISTINGS) return;
-
-        // KPIs
-        document.getElementById('kpiTotal').textContent = LISTINGS.length;
-
-        const cities = new Set(LISTINGS.map(l => l.city));
-        document.getElementById('kpiCities').textContent = cities.size;
-
-        const prices = LISTINGS.filter(l => l.price > 0).map(l => l.price);
-        const avgPrice = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
-        document.getElementById('kpiAvgPrice').textContent = avgPrice.toLocaleString('fr-FR') + '€';
-
-        // Top 5 Villes
-        const cityCounts = {};
-        LISTINGS.forEach(l => {
-            cityCounts[l.city] = (cityCounts[l.city] || 0) + 1;
-        });
-
-        const topCities = Object.entries(cityCounts)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 5);
-
-        document.getElementById('topCities').innerHTML = topCities.map(([city, count]) => `
-            <div class="city-row">
-                <strong>${city}</strong>
-                <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 10px; font-weight: 600;">${count} annonces</span>
-            </div>
-        `).join('');
-
-        // Top 5 Prix
-        const topPrices = LISTINGS
-            .filter(l => l.price > 0)
-            .sort((a, b) => b.price - a.price)
-            .slice(0, 5);
-
-        document.getElementById('topPrices').innerHTML = topPrices.map(l => `
-            <div class="city-row">
-                <div>
-                    <strong>${l.title.substring(0, 50)}</strong><br>
-                    <small style="color: #888;">${l.city} • ${l.site}</small>
-                </div>
-                <strong style="color: var(--primary); font-size: 1.1rem;">${l.price.toLocaleString('fr-FR')}€</strong>
-            </div>
-        `).join('');
-
-        // Dernières Annonces
-        const recent = LISTINGS.slice(0, 5);
-        document.getElementById('recentListings').innerHTML = recent.map(l => `
-            <div class="city-row">
-                <div>
-                    <strong>${l.title.substring(0, 50)}</strong><br>
-                    <small style="color: #888;">${l.city} • ${l.rooms || '—'} ch. • ${l.surface || '—'}m²</small>
-                </div>
-                <div style="text-align: right;">
-                    <strong style="color: var(--primary);">${l.price.toLocaleString('fr-FR')}€</strong><br>
-                    <small><a href="${l.url}" target="_blank" style="color: var(--primary); text-decoration: none;">Voir →</a></small>
-                </div>
-            </div>
-        `).join('');
+    // Fallback normCity
+    if (typeof normCity === 'undefined') {
+        window.normCity = function(city) {
+            return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
+        };
     }
 
     // Service Worker
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
+        navigator.serviceWorker.register('sw.js').catch(() => {});
     }
 
-    init();
+    function safeTitle(t, max) {
+        return (t || 'Sans titre').substring(0, max || 60);
+    }
+
+    function init() {
+        if (!window.LISTINGS || LISTINGS.length === 0) {
+            document.getElementById('topCities').innerHTML =
+                '<div class="text-danger" style="font-size:0.85rem;">Données non disponibles</div>';
+            return;
+        }
+
+        document.getElementById('lastUpdate').textContent =
+            `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
+
+        // ---- KPIs ----
+        const prices = LISTINGS.filter(l => l.price > 0).map(l => l.price).sort((a, b) => a - b);
+        const cities = new Set(LISTINGS.map(l => l.city).filter(Boolean));
+        const withGps = LISTINGS.filter(l => l.latitude && l.longitude).length;
+
+        const avg = prices.length > 0
+            ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
+            : 0;
+        const mid = Math.floor(prices.length / 2);
+        const median = prices.length > 0
+            ? (prices.length % 2 === 0 ? Math.round((prices[mid - 1] + prices[mid]) / 2) : prices[mid])
+            : 0;
+
+        // Nouvelles dernières 24h
+        const cutoff = Date.now() - 24 * 3600 * 1000;
+        const newToday = LISTINGS.filter(l => {
+            if (!l.created_at) return false;
+            try { return new Date(l.created_at).getTime() > cutoff; } catch { return false; }
+        }).length;
+
+        document.getElementById('kpiTotal').textContent    = LISTINGS.length;
+        document.getElementById('kpiCities').textContent   = cities.size;
+        document.getElementById('kpiAvgPrice').textContent = avg > 0 ? avg.toLocaleString('fr-FR') + '€' : '—';
+        document.getElementById('kpiMedian').textContent   = median > 0 ? median.toLocaleString('fr-FR') + '€' : '—';
+        document.getElementById('kpiNewToday').textContent = newToday > 0 ? '+' + newToday : '0';
+        document.getElementById('kpiWithGps').textContent  = withGps + ' / ' + LISTINGS.length;
+
+        // ---- Top villes ----
+        const cityCounts = {};
+        LISTINGS.forEach(l => { const c = normCity(l.city); if (c) cityCounts[c] = (cityCounts[c] || 0) + 1; });
+        const maxCityCount = Math.max(...Object.values(cityCounts));
+        const topCities = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
+
+        document.getElementById('topCities').innerHTML = topCities.map(([city, count]) => `
+            <div class="data-row">
+                <div class="data-row-left">
+                    <strong>${city}</strong>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-fill" style="width:${Math.round(count / maxCityCount * 100)}%;"></div>
+                    </div>
+                </div>
+                <div class="data-row-right">${count} annonce${count > 1 ? 's' : ''}</div>
+            </div>`).join('');
+
+        // ---- Par site ----
+        const siteCounts = {};
+        LISTINGS.forEach(l => { if (l.site) siteCounts[l.site] = (siteCounts[l.site] || 0) + 1; });
+        const maxSiteCount = Math.max(...Object.values(siteCounts));
+        const siteEntries = Object.entries(siteCounts).sort((a, b) => b[1] - a[1]);
+
+        document.getElementById('bySite').innerHTML = siteEntries.map(([site, count]) => `
+            <div class="data-row">
+                <div class="data-row-left">
+                    <strong>${site}</strong>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-fill" style="width:${Math.round(count / maxSiteCount * 100)}%; background:linear-gradient(90deg,#10b981,#059669);"></div>
+                    </div>
+                </div>
+                <div class="data-row-right">${count}</div>
+            </div>`).join('');
+
+        // ---- Top prix (5 plus chers) ----
+        const topPrices = LISTINGS.filter(l => l.price > 0).sort((a, b) => b.price - a.price).slice(0, 5);
+        document.getElementById('topPrices').innerHTML = topPrices.map(l => `
+            <div class="data-row">
+                <div class="data-row-left">
+                    <strong>${safeTitle(l.title, 55)}</strong>
+                    <small>${normCity(l.city) || l.city || '—'} · ${l.site || ''}${l.surface > 0 ? ' · ' + l.surface + 'm²' : ''}${l.rooms > 0 ? ' · ' + l.rooms + 'ch' : ''}</small>
+                </div>
+                <div style="text-align:right; flex-shrink:0;">
+                    <div class="data-row-right">${l.price.toLocaleString('fr-FR')}€</div>
+                    <a href="${l.url}" target="_blank" rel="noopener" style="font-size:0.72rem; color:var(--primary);">Voir →</a>
+                </div>
+            </div>`).join('');
+
+        // ---- Top deals (5 moins chers) ----
+        const topDeals = LISTINGS.filter(l => l.price > 0).sort((a, b) => a.price - b.price).slice(0, 5);
+        document.getElementById('topDeals').innerHTML = topDeals.map(l => `
+            <div class="data-row">
+                <div class="data-row-left">
+                    <strong>${safeTitle(l.title, 55)}</strong>
+                    <small>${normCity(l.city) || l.city || '—'} · ${l.site || ''}${l.surface > 0 ? ' · ' + l.surface + 'm²' : ''}${l.rooms > 0 ? ' · ' + l.rooms + 'ch' : ''}</small>
+                </div>
+                <div style="text-align:right; flex-shrink:0;">
+                    <div class="data-row-right" style="color:#10b981;">${l.price.toLocaleString('fr-FR')}€</div>
+                    <a href="${l.url}" target="_blank" rel="noopener" style="font-size:0.72rem; color:#10b981;">Voir →</a>
+                </div>
+            </div>`).join('');
+
+        // ---- Récentes (5 premières dans l'ordre du fichier) ----
+        const recent = LISTINGS.slice(0, 5);
+        document.getElementById('recentListings').innerHTML = recent.map(l => `
+            <div class="data-row">
+                <div class="data-row-left">
+                    <strong>${safeTitle(l.title, 55)}</strong>
+                    <small>${normCity(l.city) || l.city || '—'}${l.rooms > 0 ? ' · ' + l.rooms + ' ch.' : ''}${l.surface > 0 ? ' · ' + l.surface + 'm²' : ''}</small>
+                </div>
+                <div style="text-align:right; flex-shrink:0;">
+                    <div class="data-row-right">${l.price > 0 ? l.price.toLocaleString('fr-FR') + '€' : '—'}</div>
+                    <a href="${l.url}" target="_blank" rel="noopener" style="font-size:0.72rem; color:var(--primary);">Voir →</a>
+                </div>
+            </div>`).join('');
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
 </html>
