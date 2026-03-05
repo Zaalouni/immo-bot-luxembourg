@@ -1,0 +1,224 @@
+/* ==================== ADVANCED MAP LAYOUT ==================== */
+
+.container-advanced-map {
+    display: flex;
+    height: calc(100vh - var(--nav-height, 60px));
+    gap: 0;
+    overflow: hidden;
+}
+
+.sidebar-advanced {
+    width: 320px;
+    background: var(--bg-secondary, #fff);
+    border-right: 1px solid var(--border-color, #e2e8f0);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+.map-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Filter Section */
+.filter-section {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    background: var(--bg-primary, #ffffff);
+}
+
+.filter-title {
+    margin: 0 0 1rem 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary, #1a202c);
+}
+
+.filter-group {
+    margin-bottom: 0.75rem;
+}
+
+.filter-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary, #4a5568);
+    margin-bottom: 0.3rem;
+}
+
+.filter-group .form-select {
+    font-size: 0.85rem;
+    border-radius: 4px;
+}
+
+.filter-section .btn {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Listings Section */
+.listings-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--bg-secondary, #f8fafc);
+}
+
+.listings-title {
+    padding: 0.75rem 1rem;
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary, #1a202c);
+    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    background: var(--bg-primary, #ffffff);
+}
+
+.listings-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+}
+
+/* Listing Item */
+.listing-item {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color, #e2e8f0);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--bg-primary, #ffffff);
+}
+
+.listing-item:hover {
+    background: var(--bg-hover, #f0f4f8);
+}
+
+.listing-item.active {
+    background: var(--color-primary, #667eea);
+    color: white;
+}
+
+.listing-item.active h6,
+.listing-item.active .listing-item-price,
+.listing-item.active .badge,
+.listing-item.active .text-muted {
+    color: white;
+}
+
+.listing-item.active .badge {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+    color: white;
+}
+
+.listing-item h6 {
+    margin: 0 0 0.3rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary, #1a202c);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.listing-item-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-success, #28a745);
+    margin-bottom: 0.25rem;
+}
+
+.listing-item.active .listing-item-price {
+    color: white;
+}
+
+.listing-item .badge {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.5rem;
+    margin-right: 0.25rem;
+}
+
+.badge-anomaly {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.badge-good {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.badge-high {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.listing-item.active .badge-good,
+.listing-item.active .badge-high {
+    background-color: rgba(255, 255, 255, 0.25);
+    color: white;
+}
+
+.listing-item .small {
+    font-size: 0.8rem;
+}
+
+.listing-item .text-muted {
+    color: var(--text-secondary, #718096) !important;
+    margin-top: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container-advanced-map {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .sidebar-advanced {
+        width: 100%;
+        height: 300px;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+
+    .map-container {
+        height: calc(100vh - 360px);
+    }
+}
+
+/* Dark Mode */
+body.dark-mode .sidebar-advanced {
+    --bg-primary: #1a202c;
+    --bg-secondary: #2d3748;
+    --border-color: #4a5568;
+    --text-primary: #e2e8f0;
+    --text-secondary: #a0aec0;
+}
+
+body.dark-mode .filter-section {
+    background: #2d3748;
+}
+
+body.dark-mode .listings-section {
+    background: #1a202c;
+}
+
+body.dark-mode .listing-item {
+    background: #2d3748;
+    border-color: #4a5568;
+}
+
+body.dark-mode .listing-item:hover {
+    background: #374151;
+}
+
+body.dark-mode .listings-title {
+    background: #2d3748;
+}
