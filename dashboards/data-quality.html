@@ -3,345 +3,430 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Qualité des données - ImmoLux">
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
-    <title>Qualité des Données - ImmoLux</title>
     <link rel="manifest" href="manifest.json">
+    <title>📊 Qualité des Données - ImmoLux</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="dark-mode.js" defer></script>
     <script src="data/version.js"></script>
     <script src="version-display.js" defer></script>
+    <style>
+        .score-ring {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; font-weight: 700; color: white;
+            margin: 0 auto 0.5rem;
+        }
+        .score-excellent { background: linear-gradient(135deg, #28a745, #20c997); }
+        .score-good      { background: linear-gradient(135deg, #17a2b8, #0dcaf0); }
+        .score-warning   { background: linear-gradient(135deg, #ffc107, #fd7e14); }
+        .score-poor      { background: linear-gradient(135deg, #dc3545, #e74c3c); }
+
+        .site-row {
+            background: rgba(255,255,255,0.8);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            border-left: 4px solid #667eea;
+            transition: transform 0.15s;
+        }
+        .site-row:hover { transform: translateX(3px); }
+        body.dark-mode .site-row { background: rgba(45,55,72,0.8); }
+
+        .site-name-col { font-weight: 700; min-width: 130px; color: var(--primary); }
+
+        .mini-bar-wrap { flex: 1; min-width: 180px; }
+        .mini-bar-label { font-size: 0.72rem; color: #6c757d; margin-bottom: 2px; display: flex; justify-content: space-between; }
+        .mini-bar { height: 6px; border-radius: 3px; background: #e9ecef; overflow: hidden; }
+        .mini-bar-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+        .score-badge {
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: white;
+            white-space: nowrap;
+        }
+
+        .chart-box {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        body.dark-mode .chart-box { background: rgba(26,32,44,0.8); }
+
+        .alert-row {
+            display: flex; align-items: flex-start; gap: 0.8rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .alert-danger-custom  { background: #fff5f5; border-left: 4px solid #dc3545; }
+        .alert-warning-custom { background: #fffbeb; border-left: 4px solid #ffc107; }
+        .alert-info-custom    { background: #eff6ff; border-left: 4px solid #17a2b8; }
+        .alert-ok-custom      { background: #f0fdf4; border-left: 4px solid #28a745; }
+        body.dark-mode .alert-danger-custom  { background: #2d1515; }
+        body.dark-mode .alert-warning-custom { background: #2d2515; }
+        body.dark-mode .alert-info-custom    { background: #152030; }
+        body.dark-mode .alert-ok-custom      { background: #152d1f; }
+    </style>
 </head>
 <body>
 
-    <!-- Dark Mode Toggle -->
-    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
-        <span id="darkModeIcon">🌙</span>
-    </button>
+<!-- Header -->
+<div class="header">
+    <div class="header-content">
+        <div>
+            <h1>📊 Qualité des Données</h1>
+            <small id="lastUpdate">Mis à jour: —</small>
+        </div>
+        <div class="header-stats">
+            <div>📋 <strong id="hTotal">—</strong> annonces</div>
+            <div>⭐ <strong id="hScore">—</strong> score global</div>
+            <div>🏢 <strong id="hSites">—</strong> sites</div>
+        </div>
+    </div>
+</div>
 
-    <!-- HEADER -->
-    <div class="header">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h1>📊 Qualité des Données</h1>
-                    <p class="mb-0 opacity-75">Métriques et couverture des annonces</p>
+<div class="container-main">
+
+    <!-- Métriques globales -->
+    <div class="stats-grid" id="metricsGrid" style="margin-bottom:1.5rem;"></div>
+
+    <!-- Graphiques -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-5">
+            <div class="chart-box" style="height:280px;display:flex;flex-direction:column;">
+                <h6 style="color:var(--primary);font-weight:700;margin-bottom:0.5rem;">🎯 Score Qualité Global</h6>
+                <div style="flex:1;position:relative;">
+                    <canvas id="chartDoughnut"></canvas>
                 </div>
-                <a href="index.html" class="back-link">← Retour au dashboard</a>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="chart-box" style="height:280px;display:flex;flex-direction:column;">
+                <h6 style="color:var(--primary);font-weight:700;margin-bottom:0.5rem;">📈 Couverture par Champ</h6>
+                <div style="flex:1;position:relative;">
+                    <canvas id="chartFields"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
-
-        <!-- MÉTRIQUES GLOBALES -->
-        <div class="row mb-4">
-            <div class="col-md-3 col-sm-6 mb-3">
-                <div class="metric-card">
-                    <div class="metric-label">Total Annonces</div>
-                    <div class="metric-value" id="totalListings">-</div>
-                    <div class="metric-change">Mise à jour aujourd'hui</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-3">
-                <div class="metric-card">
-                    <div class="metric-label">Couverture Photos</div>
-                    <div class="metric-value status-warning" id="photoCoverage">-</div>
-                    <div class="metric-change" id="photoCount">-</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-3">
-                <div class="metric-card">
-                    <div class="metric-label">GPS Disponible</div>
-                    <div class="metric-value status-good" id="gpsCoverage">-</div>
-                    <div class="metric-change" id="gpsCount">-</div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 mb-3">
-                <div class="metric-card">
-                    <div class="metric-label">Surface Connue</div>
-                    <div class="metric-value status-excellent" id="surfaceCoverage">-</div>
-                    <div class="metric-change" id="surfaceCount">-</div>
-                </div>
-            </div>
+    <!-- Graphique qualité par site -->
+    <div class="chart-box mb-4">
+        <h6 style="color:var(--primary);font-weight:700;margin-bottom:1rem;">🏢 Qualité par Site (Photos / GPS / Surface)</h6>
+        <div style="position:relative;height:250px;">
+            <canvas id="chartSites"></canvas>
         </div>
-
-        <!-- COUVERTURE PAR CHAMP -->
-        <div class="card mb-4">
-            <div class="card-body">
-                <h3 class="card-title mb-4">📈 Couverture par Champ</h3>
-
-                <div class="mb-3">
-                    <div class="d-flex justify-content-between mb-1">
-                        <span>Photos (image_url)</span>
-                        <span id="photoPercentText">-</span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar bg-warning" id="photoProgress" style="width: 0%">0%</div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <div class="d-flex justify-content-between mb-1">
-                        <span>GPS (latitude/longitude)</span>
-                        <span id="gpsPercentText">-</span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar bg-info" id="gpsProgress" style="width: 0%">0%</div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <div class="d-flex justify-content-between mb-1">
-                        <span>Surface (m²)</span>
-                        <span id="surfacePercentText">-</span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar bg-success" id="surfaceProgress" style="width: 0%">0%</div>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <div class="d-flex justify-content-between mb-1">
-                        <span>Chambres</span>
-                        <span id="roomsPercentText">-</span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" id="roomsProgress" style="width: 0%">0%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- QUALITÉ PAR SITE -->
-        <div class="mb-4">
-            <h3 class="mb-3">🏢 Qualité par Site Immobilier</h3>
-            <div id="sitesContainer"></div>
-        </div>
-
-        <!-- ALERTES & PROBLÈMES -->
-        <div class="mb-4">
-            <h3 class="mb-3">⚠️ Sites en Panne ou Problèmes</h3>
-            <div id="alertsContainer"></div>
-        </div>
-
     </div>
 
-    <script src="data/listings.js"></script>
-    <script>
-        // Dark Mode
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const icon = document.getElementById('darkModeIcon');
-            icon.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        }
+    <!-- Détail par site -->
+    <div class="chart-box mb-4">
+        <h6 style="color:var(--primary);font-weight:700;margin-bottom:1rem;">📋 Détail par Site</h6>
+        <div id="sitesDetail"></div>
+    </div>
 
-        // Restore dark mode preference
-        if (localStorage.getItem('darkMode') === 'true') {
-            toggleDarkMode();
-        }
+    <!-- Alertes -->
+    <div class="chart-box mb-4">
+        <h6 style="color:var(--primary);font-weight:700;margin-bottom:1rem;">⚠️ Alertes & Problèmes</h6>
+        <div id="alertsContainer"></div>
+    </div>
 
-        // Calculer métriques
-        function calculateMetrics() {
-            if (!LISTINGS || !Array.isArray(LISTINGS)) return;
-            const total = LISTINGS.length;
+    <div style="text-align:center;">
+        <a href="index.html" class="btn btn-outline-secondary">← Retour dashboard</a>
+    </div>
+</div>
 
-            // Compter couvertures
-            let withPhotos = 0;
-            let withGPS = 0;
-            let withSurface = 0;
-            let withRooms = 0;
+<!-- Dark Mode Toggle -->
+<button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
 
-            LISTINGS.forEach(listing => {
-                if (listing.image_url) withPhotos++;
-                if (listing.latitude && listing.longitude) withGPS++;
-                if (listing.surface && listing.surface > 0) withSurface++;
-                if (listing.rooms && listing.rooms > 0) withRooms++;
-            });
-
-            // Pourcentages
-            const photoPercent = Math.round((withPhotos / total) * 100);
-            const gpsPercent = Math.round((withGPS / total) * 100);
-            const surfacePercent = Math.round((withSurface / total) * 100);
-            const roomsPercent = Math.round((withRooms / total) * 100);
-
-            // Afficher métriques globales
-            document.getElementById('totalListings').textContent = total;
-            document.getElementById('photoCoverage').textContent = photoPercent + '%';
-            document.getElementById('photoCount').textContent = `${withPhotos} sur ${total} annonces`;
-            document.getElementById('gpsCoverage').textContent = gpsPercent + '%';
-            document.getElementById('gpsCount').textContent = `${withGPS} sur ${total} annonces`;
-            document.getElementById('surfaceCoverage').textContent = surfacePercent + '%';
-            document.getElementById('surfaceCount').textContent = `${withSurface} sur ${total} annonces`;
-
-            // Progress bars
-            updateProgress('photoProgress', 'photoPercentText', withPhotos, total, photoPercent);
-            updateProgress('gpsProgress', 'gpsPercentText', withGPS, total, gpsPercent);
-            updateProgress('surfaceProgress', 'surfacePercentText', withSurface, total, surfacePercent);
-            updateProgress('roomsProgress', 'roomsPercentText', withRooms, total, roomsPercent);
-
-            // Par site
-            generateSiteStats();
-
-            // Alertes
-            generateAlerts();
-        }
-
-        function updateProgress(barId, textId, count, total, percent) {
-            const bar = document.getElementById(barId);
-            const text = document.getElementById(textId);
-
-            bar.style.width = percent + '%';
-            bar.textContent = percent + '%';
-            text.textContent = `${count} / ${total}`;
-        }
-
-        function generateSiteStats() {
-            const siteStats = {};
-
-            LISTINGS.forEach(listing => {
-                const site = listing.site || 'Inconnu';
-                if (!siteStats[site]) {
-                    siteStats[site] = {
-                        total: 0,
-                        withPhotos: 0,
-                        withGPS: 0,
-                        withSurface: 0
-                    };
-                }
-
-                siteStats[site].total++;
-                if (listing.image_url) siteStats[site].withPhotos++;
-                if (listing.latitude && listing.longitude) siteStats[site].withGPS++;
-                if (listing.surface && listing.surface > 0) siteStats[site].withSurface++;
-            });
-
-            const container = document.getElementById('sitesContainer');
-            container.innerHTML = '';
-
-            Object.keys(siteStats).sort((a, b) => siteStats[b].total - siteStats[a].total).forEach(site => {
-                const stats = siteStats[site];
-                const photoPercent = Math.round((stats.withPhotos / stats.total) * 100);
-                const gpsPercent = Math.round((stats.withGPS / stats.total) * 100);
-                const surfacePercent = Math.round((stats.withSurface / stats.total) * 100);
-
-                let statusClass = 'status-excellent';
-                if (photoPercent < 30) statusClass = 'status-poor';
-                else if (photoPercent < 60) statusClass = 'status-warning';
-                else if (photoPercent < 80) statusClass = 'status-good';
-
-                const card = document.createElement('div');
-                card.className = 'site-card';
-                card.innerHTML = `
-                    <div class="site-name">${site}</div>
-                    <div class="site-stats">
-                        <div class="site-stat">
-                            <div class="site-stat-value">${stats.total}</div>
-                            <div class="site-stat-label">Annonces</div>
-                        </div>
-                        <div class="site-stat">
-                            <div class="site-stat-value ${statusClass}">${photoPercent}%</div>
-                            <div class="site-stat-label">Photos (${stats.withPhotos})</div>
-                        </div>
-                        <div class="site-stat">
-                            <div class="site-stat-value">${gpsPercent}%</div>
-                            <div class="site-stat-label">GPS (${stats.withGPS})</div>
-                        </div>
-                        <div class="site-stat">
-                            <div class="site-stat-value">${surfacePercent}%</div>
-                            <div class="site-stat-label">Surface (${stats.withSurface})</div>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function generateAlerts() {
-            const alerts = [];
-            const siteStats = {};
-
-            // Calculer stats par site
-            LISTINGS.forEach(listing => {
-                const site = listing.site || 'Inconnu';
-                if (!siteStats[site]) {
-                    siteStats[site] = { total: 0, withPhotos: 0, withGPS: 0 };
-                }
-                siteStats[site].total++;
-                if (listing.image_url) siteStats[site].withPhotos++;
-                if (listing.latitude && listing.longitude) siteStats[site].withGPS++;
-            });
-
-            // Détecter problèmes dynamiquement
-            Object.entries(siteStats).forEach(([site, stats]) => {
-                const photoPercent = Math.round((stats.withPhotos / stats.total) * 100);
-                const gpsPercent = Math.round((stats.withGPS / stats.total) * 100);
-
-                if (stats.total === 0) {
-                    alerts.push({
-                        type: 'danger',
-                        icon: '🔴',
-                        title: site,
-                        message: 'Aucune annonce scrapée - Vérifier le scraper'
-                    });
-                } else if (photoPercent < 20) {
-                    alerts.push({
-                        type: 'warning',
-                        icon: '⚠️',
-                        title: site,
-                        message: `Faible couverture photos: ${photoPercent}% (${stats.withPhotos}/${stats.total})`
-                    });
-                } else if (gpsPercent < 30) {
-                    alerts.push({
-                        type: 'info',
-                        icon: 'ℹ️',
-                        title: site,
-                        message: `GPS limité: ${gpsPercent}% des annonces géolocalisées`
-                    });
-                }
-            });
-
-            // Sites connus avec problèmes CAPTCHA (info statique)
-            const knownIssues = ['Wortimmo.lu', 'Immoweb.be'];
-            knownIssues.forEach(site => {
-                if (!siteStats[site] || siteStats[site].total === 0) {
-                    alerts.push({
-                        type: 'danger',
-                        icon: '🔴',
-                        title: site,
-                        message: 'Site potentiellement bloqué (CAPTCHA/Cloudflare)'
-                    });
-                }
-            });
-
-            const container = document.getElementById('alertsContainer');
-            if (alerts.length === 0) {
-                container.innerHTML = '<div class="alert alert-success"><strong>✅ Aucun problème détecté</strong><p class="mb-0">Tous les scrapers fonctionnent normalement.</p></div>';
-            } else {
-                container.innerHTML = alerts.map(alert => `
-                    <div class="alert alert-${alert.type} alert-custom">
-                        <strong>${alert.icon} ${alert.title}</strong>
-                        <p class="mb-0">${alert.message}</p>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // Initialiser au chargement
-        calculateMetrics();
-    </script>
-<!-- Service Worker -->
+<script src="data/listings.js"></script>
 <script>
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js")
-        .then(reg => console.log("SW registered"))
-        .catch(err => console.log("SW failed:", err));
-}
+    // normCity fallback
+    if (typeof normCity === 'undefined') {
+        window.normCity = function(city) {
+            return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
+        };
+    }
+
+    // Dark mode
+    const dmToggle = document.getElementById('darkModeToggle');
+    dmToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        dmToggle.setAttribute('aria-pressed', document.body.classList.contains('dark-mode'));
+    });
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        dmToggle.setAttribute('aria-pressed', 'true');
+    }
+
+    // ==================== HELPERS ====================
+    function pct(n, total) { return total ? Math.round(n / total * 100) : 0; }
+    function scoreColor(p) {
+        if (p >= 80) return '#28a745';
+        if (p >= 60) return '#17a2b8';
+        if (p >= 35) return '#ffc107';
+        return '#dc3545';
+    }
+    function scoreClass(p) {
+        if (p >= 80) return 'score-excellent';
+        if (p >= 60) return 'score-good';
+        if (p >= 35) return 'score-warning';
+        return 'score-poor';
+    }
+    // Photo valide = chemin local images/ OU URL https (non imageGallery)
+    function hasValidPhoto(l) {
+        const img = l.image_url || '';
+        if (!img) return false;
+        if (img.startsWith('images/')) return true;
+        if (img.includes('imageGallery')) return false;
+        return img.startsWith('http');
+    }
+
+    // ==================== INIT ====================
+    function init() {
+        if (!LISTINGS || !Array.isArray(LISTINGS) || !LISTINGS.length) {
+            document.getElementById('sitesDetail').innerHTML = '<p class="text-muted">Aucune donnée disponible.</p>';
+            return;
+        }
+
+        const total = LISTINGS.length;
+        let withPhotos = 0, withGPS = 0, withSurface = 0, withRooms = 0, withPrice = 0;
+
+        // Stats globales
+        LISTINGS.forEach(l => {
+            if (hasValidPhoto(l))                    withPhotos++;
+            if (l.latitude && l.longitude)           withGPS++;
+            if (l.surface && l.surface > 0)          withSurface++;
+            if (l.rooms   && l.rooms > 0)            withRooms++;
+            if (l.price   && l.price > 0)            withPrice++;
+        });
+
+        const pp = pct(withPhotos, total);
+        const gp = pct(withGPS, total);
+        const sp = pct(withSurface, total);
+        const rp = pct(withRooms, total);
+        const prp = pct(withPrice, total);
+        const globalScore = Math.round((pp + gp + sp + rp + prp) / 5);
+
+        // Header
+        document.getElementById('hTotal').textContent = total;
+        document.getElementById('hScore').textContent = globalScore + '%';
+        document.getElementById('hSites').textContent = new Set(LISTINGS.map(l => l.site)).size;
+
+        // Métriques cards
+        document.getElementById('metricsGrid').innerHTML = [
+            { label: 'Total Annonces', val: total,            sub: 'dans la base',          color: '#667eea' },
+            { label: 'Photos locales', val: pp + '%',         sub: `${withPhotos}/${total}`, color: scoreColor(pp) },
+            { label: 'GPS',            val: gp + '%',         sub: `${withGPS}/${total}`,   color: scoreColor(gp) },
+            { label: 'Surface',        val: sp + '%',         sub: `${withSurface}/${total}`,color: scoreColor(sp) },
+            { label: 'Chambres',       val: rp + '%',         sub: `${withRooms}/${total}`, color: scoreColor(rp) },
+            { label: 'Prix',           val: prp + '%',        sub: `${withPrice}/${total}`, color: scoreColor(prp) },
+            { label: 'Score Global',   val: globalScore + '%',sub: 'moyenne 5 critères',    color: scoreColor(globalScore) },
+        ].map(m => `
+            <div class="stat-card" style="border-top:3px solid ${m.color};">
+                <div class="stat-value" style="color:${m.color};font-size:1.4rem;">${m.val}</div>
+                <div class="stat-label">${m.label}</div>
+                <div style="font-size:0.75rem;color:#9ca3af;">${m.sub}</div>
+            </div>
+        `).join('');
+
+        renderDoughnut(globalScore);
+        renderFieldsChart(pp, gp, sp, rp, prp);
+        renderSiteStats();
+    }
+
+    // ==================== DOUGHNUT — Score Global ====================
+    function renderDoughnut(score) {
+        new Chart(document.getElementById('chartDoughnut'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Score', 'Manquant'],
+                datasets: [{
+                    data: [score, 100 - score],
+                    backgroundColor: [scoreColor(score), '#e9ecef'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                cutout: '72%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            },
+            plugins: [{
+                id: 'centerText',
+                afterDraw(chart) {
+                    const { width, height, ctx } = chart;
+                    ctx.save();
+                    ctx.font = `bold ${height * 0.18}px sans-serif`;
+                    ctx.fillStyle = scoreColor(score);
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(score + '%', width / 2, height / 2);
+                    ctx.font = `${height * 0.09}px sans-serif`;
+                    ctx.fillStyle = '#9ca3af';
+                    ctx.fillText('qualité', width / 2, height / 2 + height * 0.13);
+                    ctx.restore();
+                }
+            }]
+        });
+    }
+
+    // ==================== BAR — Couverture par Champ ====================
+    function renderFieldsChart(pp, gp, sp, rp, prp) {
+        const labels = ['Photos', 'GPS', 'Surface', 'Chambres', 'Prix'];
+        const values = [pp, gp, sp, rp, prp];
+        new Chart(document.getElementById('chartFields'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Couverture (%)',
+                    data: values,
+                    backgroundColor: values.map(v => scoreColor(v) + 'cc'),
+                    borderColor:     values.map(v => scoreColor(v)),
+                    borderWidth: 1.5,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { min: 0, max: 100, ticks: { callback: v => v + '%' } }
+                }
+            }
+        });
+    }
+
+    // ==================== GROUPED BAR — Qualité par Site ====================
+    function renderSiteStats() {
+        const siteStats = {};
+        LISTINGS.forEach(l => {
+            const site = l.site || 'Inconnu';
+            if (!siteStats[site]) siteStats[site] = { total:0, p:0, g:0, s:0, r:0 };
+            siteStats[site].total++;
+            if (hasValidPhoto(l))           siteStats[site].p++;
+            if (l.latitude && l.longitude)  siteStats[site].g++;
+            if (l.surface && l.surface > 0) siteStats[site].s++;
+            if (l.rooms   && l.rooms > 0)   siteStats[site].r++;
+        });
+
+        const sorted = Object.entries(siteStats).sort((a,b) => b[1].total - a[1].total);
+        const labels = sorted.map(([s]) => s.replace('.lu','').replace('.be',''));
+
+        new Chart(document.getElementById('chartSites'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [
+                    { label: '📷 Photos',   data: sorted.map(([,v]) => pct(v.p, v.total)), backgroundColor: '#667eeacc', borderRadius: 4 },
+                    { label: '📍 GPS',      data: sorted.map(([,v]) => pct(v.g, v.total)), backgroundColor: '#17a2b8cc', borderRadius: 4 },
+                    { label: '📐 Surface',  data: sorted.map(([,v]) => pct(v.s, v.total)), backgroundColor: '#28a745cc', borderRadius: 4 },
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'top' } },
+                scales: {
+                    x: { ticks: { font: { size: 11 } } },
+                    y: { min: 0, max: 100, ticks: { callback: v => v + '%' } }
+                }
+            }
+        });
+
+        // Détail par site (rows)
+        const container = document.getElementById('sitesDetail');
+        const alertsData = [];
+
+        container.innerHTML = sorted.map(([site, v]) => {
+            const pp = pct(v.p, v.total), gp = pct(v.g, v.total), sp = pct(v.s, v.total), rp = pct(v.r, v.total);
+            const score = Math.round((pp + gp + sp + rp) / 4);
+            const borderColor = scoreColor(score);
+
+            // Collecter alertes
+            if (pp < 20) alertsData.push({ type:'warning', icon:'⚠️', site, msg:`Faible couverture photos : ${pp}% (${v.p}/${v.total})` });
+            if (gp < 20) alertsData.push({ type:'info',    icon:'ℹ️', site, msg:`GPS limité : ${gp}% géolocalisés` });
+            if (v.total === 1) alertsData.push({ type:'info', icon:'ℹ️', site, msg:`1 seule annonce — scraper peu actif ?` });
+
+            return `
+                <div class="site-row" style="border-left-color:${borderColor};">
+                    <div class="site-name-col">${site}</div>
+                    <div style="min-width:60px;text-align:center;">
+                        <div class="score-ring ${scoreClass(score)}" style="width:52px;height:52px;font-size:1rem;">${score}%</div>
+                        <div style="font-size:0.7rem;color:#9ca3af;">${v.total} ann.</div>
+                    </div>
+                    <div class="mini-bar-wrap">
+                        <div class="mini-bar-label"><span>📷 Photos</span><span>${pp}%</span></div>
+                        <div class="mini-bar"><div class="mini-bar-fill" style="width:${pp}%;background:${scoreColor(pp)};"></div></div>
+                    </div>
+                    <div class="mini-bar-wrap">
+                        <div class="mini-bar-label"><span>📍 GPS</span><span>${gp}%</span></div>
+                        <div class="mini-bar"><div class="mini-bar-fill" style="width:${gp}%;background:#17a2b8;"></div></div>
+                    </div>
+                    <div class="mini-bar-wrap">
+                        <div class="mini-bar-label"><span>📐 Surface</span><span>${sp}%</span></div>
+                        <div class="mini-bar"><div class="mini-bar-fill" style="width:${sp}%;background:#28a745;"></div></div>
+                    </div>
+                    <div class="mini-bar-wrap">
+                        <div class="mini-bar-label"><span>🛏️ Chambres</span><span>${rp}%</span></div>
+                        <div class="mini-bar"><div class="mini-bar-fill" style="width:${rp}%;background:#6f42c1;"></div></div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Alertes
+        const knownBlocked = ['Wortimmo.lu', 'Immoweb.be'];
+        knownBlocked.forEach(site => {
+            if (!siteStats[site]) {
+                alertsData.push({ type:'danger', icon:'🔴', site, msg:'Site bloqué ou inactif (CAPTCHA/Cloudflare)' });
+            }
+        });
+
+        const alertsContainer = document.getElementById('alertsContainer');
+        if (!alertsData.length) {
+            alertsContainer.innerHTML = '<div class="alert-row alert-ok-custom"><span>✅</span><span><strong>Aucun problème détecté</strong> — Tous les scrapers fonctionnent normalement.</span></div>';
+        } else {
+            alertsContainer.innerHTML = alertsData.map(a => `
+                <div class="alert-row alert-${a.type}-custom">
+                    <span style="font-size:1.1rem;">${a.icon}</span>
+                    <span><strong>${a.site}</strong> — ${a.msg}</span>
+                </div>
+            `).join('');
+        }
+    }
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+
+    init();
 </script>
 </body>
 </html>
