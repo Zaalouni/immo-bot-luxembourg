@@ -1,4 +1,4 @@
-// Genere le 05/03/2026 20:33
+// Genere le 05/03/2026 20:52
 // 114 annonces depuis listings.db
 const LISTINGS = [
   {
@@ -1575,8 +1575,9 @@ const LISTINGS = [
     "longitude": 5.9753139,
     "distance_km": 16.2,
     "created_at": "2026-03-05 18:31:13",
-    "image_url": "https://i1.static.athome.eu/images/annonces2/image_/5c/47/d7/92e422cc79d59399f39ac56dc5979aecc11da1b0.jpg",
-    "price_m2": 19.4
+    "image_url": "images/athome_8221893.jpg",
+    "price_m2": 19.4,
+    "local_image": "images/athome_8221893.jpg"
   },
   {
     "listing_id": "athome_7744189",
