@@ -1,6 +1,6 @@
 {
   "date": "2026-03-05",
-  "generated_at": "05/03/2026 20:27",
+  "generated_at": "05/03/2026 20:33",
   "stats": {
     "total": 114,
     "avg_price": 2215,
@@ -962,8 +962,9 @@
       "longitude": 6.173333,
       "distance_km": 16.1,
       "created_at": "2026-03-05 18:43:25",
-      "image_url": "https://www.athome.lu/imageGallery/xl/91/76/98/da08ce85ce4ee18bb7695a29b89781819f04a01d.jpg",
-      "price_m2": 10.9
+      "image_url": "images/athome_9004825.jpg",
+      "price_m2": 10.9,
+      "local_image": "images/athome_9004825.jpg"
     },
     {
       "listing_id": "athome_9014758",
@@ -978,8 +979,9 @@
       "longitude": 6.326704899999999,
       "distance_km": 13.9,
       "created_at": "2026-03-05 18:43:11",
-      "image_url": "https://www.athome.lu/imageGallery/xl/6e/d8/98/ec25e283d1df66feba350d4e756c257cdf42d310.jpg",
-      "price_m2": 15.9
+      "image_url": "images/athome_9014758.jpg",
+      "price_m2": 15.9,
+      "local_image": "images/athome_9014758.jpg"
     },
     {
       "listing_id": "athome_8919970",
@@ -994,8 +996,9 @@
       "longitude": 6.2524317,
       "distance_km": 15.1,
       "created_at": "2026-03-05 18:42:56",
-      "image_url": "https://www.athome.lu/imageGallery/xl/2a/b1/88/fd22d1773284ca529d691171e6e1054e8f9d67b6.jpg",
-      "price_m2": 19.5
+      "image_url": "images/athome_8919970.jpg",
+      "price_m2": 19.5,
+      "local_image": "images/athome_8919970.jpg"
     },
     {
       "listing_id": "athome_8600103",
@@ -1010,8 +1013,9 @@
       "longitude": 5.9086336,
       "distance_km": 16.5,
       "created_at": "2026-03-05 18:42:42",
-      "image_url": "https://www.athome.lu/imageGallery/xl/72/a3/38/cf6c630d18f1c12a981abf6035b68a669885f8d8.jpg",
-      "price_m2": 15.5
+      "image_url": "images/athome_8600103.jpg",
+      "price_m2": 15.5,
+      "local_image": "images/athome_8600103.jpg"
     },
     {
       "listing_id": "athome_8802259",
@@ -1026,8 +1030,9 @@
       "longitude": 6.2474705,
       "distance_km": 11.0,
       "created_at": "2026-03-05 18:42:28",
-      "image_url": "https://www.athome.lu/imageGallery/xl/3d/f4/68/6dbddd01f342c4304a01dfab91fa6b9fcb902f64.jpg",
-      "price_m2": 20.6
+      "image_url": "images/athome_8802259.jpg",
+      "price_m2": 20.6,
+      "local_image": "images/athome_8802259.jpg"
     },
     {
       "listing_id": "athome_8951940",
@@ -1042,8 +1047,9 @@
       "longitude": 5.9086336,
       "distance_km": 16.5,
       "created_at": "2026-03-05 18:42:15",
-      "image_url": "https://www.athome.lu/imageGallery/xl/48/89/88/eb2ea4e5199438736d1a147bb43611c1f84f9edd.jpg",
-      "price_m2": 20.1
+      "image_url": "images/athome_8951940.jpg",
+      "price_m2": 20.1,
+      "local_image": "images/athome_8951940.jpg"
     },
     {
       "listing_id": "athome_8980471",
@@ -1058,8 +1064,9 @@
       "longitude": 6.2511585,
       "distance_km": 8.5,
       "created_at": "2026-03-05 18:42:01",
-      "image_url": "https://www.athome.lu/imageGallery/xl/7f/70/98/eca8d3535f049f4edf930550749e3a64f84f8428.jpg",
-      "price_m2": 22.7
+      "image_url": "images/athome_8980471.jpg",
+      "price_m2": 22.7,
+      "local_image": "images/athome_8980471.jpg"
     },
     {
       "listing_id": "athome_8980537",
@@ -1074,8 +1081,9 @@
       "longitude": 6.1637244,
       "distance_km": 3.8,
       "created_at": "2026-03-05 18:41:48",
-      "image_url": "https://www.athome.lu/imageGallery/xl/93/80/98/f771aed610aab6b4b15c4cb02924e129e5ca97ea.jpg",
-      "price_m2": 29.4
+      "image_url": "images/athome_8980537.jpg",
+      "price_m2": 29.4,
+      "local_image": "images/athome_8980537.jpg"
     },
     {
       "listing_id": "athome_8727519",
@@ -1090,8 +1098,9 @@
       "longitude": 5.9721782,
       "distance_km": 15.9,
       "created_at": "2026-03-05 18:41:35",
-      "image_url": "https://www.athome.lu/imageGallery/xl/fd/b2/58/789a97eed38793aed15d235729c0c9feb7eb6170.jpg",
-      "price_m2": 23.1
+      "image_url": "images/athome_8727519.jpg",
+      "price_m2": 23.1,
+      "local_image": "images/athome_8727519.jpg"
     },
     {
       "listing_id": "athome_8981863",
@@ -1106,8 +1115,9 @@
       "longitude": 6.2076007,
       "distance_km": 7.6,
       "created_at": "2026-03-05 18:41:22",
-      "image_url": "https://www.athome.lu/imageGallery/xl/76/d0/98/dcedbc389664480d85016bc26836c8e23da14be5.jpg",
-      "price_m2": 21.5
+      "image_url": "images/athome_8981863.jpg",
+      "price_m2": 21.5,
+      "local_image": "images/athome_8981863.jpg"
     },
     {
       "listing_id": "athome_8997246",
@@ -1122,8 +1132,9 @@
       "longitude": 6.0823886,
       "distance_km": 7.3,
       "created_at": "2026-03-05 18:41:09",
-      "image_url": "https://www.athome.lu/imageGallery/xl/e7/94/98/67490697a07aafef3945fed9183c44cff6d718a4.jpg",
-      "price_m2": 23.1
+      "image_url": "images/athome_8997246.jpg",
+      "price_m2": 23.1,
+      "local_image": "images/athome_8997246.jpg"
     },
     {
       "listing_id": "athome_8995617",
@@ -1138,8 +1149,9 @@
       "longitude": 6.1092036,
       "distance_km": 2.1,
       "created_at": "2026-03-05 18:40:56",
-      "image_url": "https://www.athome.lu/imageGallery/xl/12/34/98/50f18ce73f6426c96aed513368eac7a2e93339f8.jpg",
-      "price_m2": 25.3
+      "image_url": "images/athome_8995617.jpg",
+      "price_m2": 25.3,
+      "local_image": "images/athome_8995617.jpg"
     },
     {
       "listing_id": "athome_8963275",
@@ -1154,8 +1166,9 @@
       "longitude": 5.9368383,
       "distance_km": 17.5,
       "created_at": "2026-03-05 18:40:42",
-      "image_url": "https://www.athome.lu/imageGallery/xl/bc/4c/88/e1c3fff27f8c619f04da472546d3885888500c10.png",
-      "price_m2": 20.5
+      "image_url": "images/athome_8963275.jpg",
+      "price_m2": 20.5,
+      "local_image": "images/athome_8963275.jpg"
     },
     {
       "listing_id": "athome_8793493",
@@ -1170,8 +1183,9 @@
       "longitude": 6.1377211,
       "distance_km": 8.4,
       "created_at": "2026-03-05 18:40:29",
-      "image_url": "https://www.athome.lu/imageGallery/xl/59/d2/68/ae0553d7956a205957ae9f6ab7dd2d5cced8f9b3.jpg",
-      "price_m2": 26.5
+      "image_url": "images/athome_8793493.jpg",
+      "price_m2": 26.5,
+      "local_image": "images/athome_8793493.jpg"
     },
     {
       "listing_id": "athome_8919659",
@@ -1186,8 +1200,9 @@
       "longitude": 6.161307000000001,
       "distance_km": 3.6,
       "created_at": "2026-03-05 18:40:16",
-      "image_url": "https://www.athome.lu/imageGallery/xl/b6/a1/88/c690b0ec75fc8e820fbb5362a43187d21eb52ea2.jpg",
-      "price_m2": 28.2
+      "image_url": "images/athome_8919659.jpg",
+      "price_m2": 28.2,
+      "local_image": "images/athome_8919659.jpg"
     },
     {
       "listing_id": "athome_8871260",
@@ -1202,8 +1217,9 @@
       "longitude": 6.1366508,
       "distance_km": 0.5,
       "created_at": "2026-03-05 18:40:03",
-      "image_url": "https://www.athome.lu/imageGallery/xl/c5/d5/78/c768ca6dd3967d01833b5ee14586f078c86eb963.jpg",
-      "price_m2": 24.7
+      "image_url": "images/athome_8871260.jpg",
+      "price_m2": 24.7,
+      "local_image": "images/athome_8871260.jpg"
     },
     {
       "listing_id": "athome_8952070",
@@ -1218,8 +1234,9 @@
       "longitude": 6.12475,
       "distance_km": 1.8,
       "created_at": "2026-03-05 18:39:50",
-      "image_url": "https://www.athome.lu/imageGallery/xl/60/99/88/2d0369bcd8e5ca64fbef591d9b3d88719f7a5a4d.jpg",
-      "price_m2": 27.4
+      "image_url": "images/athome_8952070.jpg",
+      "price_m2": 27.4,
+      "local_image": "images/athome_8952070.jpg"
     },
     {
       "listing_id": "athome_8976207",
@@ -1234,8 +1251,9 @@
       "longitude": 6.121335699999999,
       "distance_km": 2.8,
       "created_at": "2026-03-05 18:39:37",
-      "image_url": "https://www.athome.lu/imageGallery/xl/f4/7f/88/a4e16a2d61fe5b1669f6486a9109b56a87815ab5.jpg",
-      "price_m2": 24.5
+      "image_url": "images/athome_8976207.jpg",
+      "price_m2": 24.5,
+      "local_image": "images/athome_8976207.jpg"
     },
     {
       "listing_id": "athome_9010995",
@@ -1250,8 +1268,9 @@
       "longitude": 6.129575,
       "distance_km": 10.8,
       "created_at": "2026-03-05 18:39:24",
-      "image_url": "https://www.athome.lu/imageGallery/xl/33/f7/98/dfa45b977e94c8fe779ae429f5ad969d624c11b5.jpg",
-      "price_m2": 25.9
+      "image_url": "images/athome_9010995.jpg",
+      "price_m2": 25.9,
+      "local_image": "images/athome_9010995.jpg"
     },
     {
       "listing_id": "athome_7996673",
@@ -1266,8 +1285,9 @@
       "longitude": 6.107312,
       "distance_km": 9.7,
       "created_at": "2026-03-05 18:39:11",
-      "image_url": "https://www.athome.lu/imageGallery/xl/10/50/a7/a48018ff2589ed57437ce823ee65aaf3f09ea350.jpg",
-      "price_m2": 25.0
+      "image_url": "images/athome_7996673.jpg",
+      "price_m2": 25.0,
+      "local_image": "images/athome_7996673.jpg"
     },
     {
       "listing_id": "athome_7786123",
@@ -1282,8 +1302,9 @@
       "longitude": 6.132617,
       "distance_km": 0.2,
       "created_at": "2026-03-05 18:38:58",
-      "image_url": "https://www.athome.lu/imageGallery/xl/b8/ec/67/86c545b5cf02182b2139cefe847be459_1.jpg",
-      "price_m2": 26.6
+      "image_url": "images/athome_7786123.jpg",
+      "price_m2": 26.6,
+      "local_image": "images/athome_7786123.jpg"
     },
     {
       "listing_id": "athome_9014235",
@@ -1298,8 +1319,9 @@
       "longitude": 6.1632138,
       "distance_km": 4.1,
       "created_at": "2026-03-05 18:38:45",
-      "image_url": "https://www.athome.lu/imageGallery/xl/bd/b8/98/90b3612fc140bf3f16abb68147873ec5d2c3c654.jpg",
-      "price_m2": 26.9
+      "image_url": "images/athome_9014235.jpg",
+      "price_m2": 26.9,
+      "local_image": "images/athome_9014235.jpg"
     },
     {
       "listing_id": "athome_5738976",
@@ -1314,8 +1336,9 @@
       "longitude": 6.2801403,
       "distance_km": 14.7,
       "created_at": "2026-03-05 18:38:31",
-      "image_url": "https://www.athome.lu/imageGallery/xl/0e/19/75/cc1207a1464a72164d5972847342d4a2dd189c41.jpg",
-      "price_m2": 23.5
+      "image_url": "images/athome_5738976.jpg",
+      "price_m2": 23.5,
+      "local_image": "images/athome_5738976.jpg"
     },
     {
       "listing_id": "athome_8188128",
@@ -1330,8 +1353,9 @@
       "longitude": 6.0656327,
       "distance_km": 5.5,
       "created_at": "2026-03-05 18:38:19",
-      "image_url": "https://www.athome.lu/imageGallery/xl/0e/0f/c7/9130f70189e2c16e52db7a20effe7bff829392e8.jpg",
-      "price_m2": 26.2
+      "image_url": "images/athome_8188128.jpg",
+      "price_m2": 26.2,
+      "local_image": "images/athome_8188128.jpg"
     },
     {
       "listing_id": "athome_8619057",
@@ -1346,8 +1370,9 @@
       "longitude": 6.2223386,
       "distance_km": 8.1,
       "created_at": "2026-03-05 18:38:06",
-      "image_url": "https://www.athome.lu/imageGallery/xl/13/48/38/ef2035a236fca3da1378d52b32bf43a1dae3d0e2.jpg",
-      "price_m2": 26.0
+      "image_url": "images/athome_8619057.jpg",
+      "price_m2": 26.0,
+      "local_image": "images/athome_8619057.jpg"
     },
     {
       "listing_id": "athome_8986750",
@@ -1362,8 +1387,9 @@
       "longitude": 6.0502349,
       "distance_km": 6.2,
       "created_at": "2026-03-05 18:37:53",
-      "image_url": "https://www.athome.lu/imageGallery/xl/e7/02/98/2991b18fa276a8826dac96ea0692ca2c1e8fe656.jpg",
-      "price_m2": 20.4
+      "image_url": "images/athome_8986750.jpg",
+      "price_m2": 20.4,
+      "local_image": "images/athome_8986750.jpg"
     },
     {
       "listing_id": "athome_8871303",
@@ -1378,8 +1404,9 @@
       "longitude": 6.0502349,
       "distance_km": 6.2,
       "created_at": "2026-03-05 18:37:40",
-      "image_url": "https://www.athome.lu/imageGallery/xl/78/d5/78/2ad871c29d3d4586f3c60837acea95a5f8d45bd0.jpg",
-      "price_m2": 27.9
+      "image_url": "images/athome_8871303.jpg",
+      "price_m2": 27.9,
+      "local_image": "images/athome_8871303.jpg"
     },
     {
       "listing_id": "athome_8812008",
@@ -1394,8 +1421,9 @@
       "longitude": 6.1258432,
       "distance_km": 1.5,
       "created_at": "2026-03-05 18:37:27",
-      "image_url": "https://www.athome.lu/imageGallery/xl/8e/57/68/b2fc37fb5b227d9302b84926b04601af0e44f487.jpg",
-      "price_m2": 30.0
+      "image_url": "images/athome_8812008.jpg",
+      "price_m2": 30.0,
+      "local_image": "images/athome_8812008.jpg"
     },
     {
       "listing_id": "athome_9004767",
@@ -1410,8 +1438,9 @@
       "longitude": 6.142993,
       "distance_km": 0.6,
       "created_at": "2026-03-05 18:37:13",
-      "image_url": "https://www.athome.lu/imageGallery/xl/fd/66/98/e48e02d883526b64db627867f7f3675cbfa21588.jpg",
-      "price_m2": 26.9
+      "image_url": "images/athome_9004767.jpg",
+      "price_m2": 26.9,
+      "local_image": "images/athome_9004767.jpg"
     },
     {
       "listing_id": "athome_8812006",
@@ -1426,8 +1455,9 @@
       "longitude": 6.1174061,
       "distance_km": 1.2,
       "created_at": "2026-03-05 18:37:00",
-      "image_url": "https://www.athome.lu/imageGallery/xl/6e/57/68/1faebe8e65f75393b27179c3a611c137b90c895a.jpg",
-      "price_m2": 30.0
+      "image_url": "images/athome_8812006.jpg",
+      "price_m2": 30.0,
+      "local_image": "images/athome_8812006.jpg"
     },
     {
       "listing_id": "athome_8937110",
@@ -1442,8 +1472,9 @@
       "longitude": 6.10673,
       "distance_km": 2.2,
       "created_at": "2026-03-05 18:36:47",
-      "image_url": "https://www.athome.lu/imageGallery/xl/69/e5/88/cfa4c63b7e12caec2eacc63b359019b282cc8d87.png",
-      "price_m2": 22.6
+      "image_url": "images/athome_8937110.jpg",
+      "price_m2": 22.6,
+      "local_image": "images/athome_8937110.jpg"
     },
     {
       "listing_id": "athome_7686982",
@@ -1458,8 +1489,9 @@
       "longitude": 6.1163668,
       "distance_km": 1.4,
       "created_at": "2026-03-05 18:36:33",
-      "image_url": "https://www.athome.lu/imageGallery/xl/64/b4/57/99f482feaa79a4745d6371fb3797e5b94cd815a2.jpg",
-      "price_m2": 25.6
+      "image_url": "images/athome_7686982.jpg",
+      "price_m2": 25.6,
+      "local_image": "images/athome_7686982.jpg"
     },
     {
       "listing_id": "athome_1372622",
@@ -1474,8 +1506,9 @@
       "longitude": 6.1028472,
       "distance_km": 2.8,
       "created_at": "2026-03-05 18:36:20",
-      "image_url": "https://www.athome.lu/imageGallery/xl/ec/1f/41/366fb8bc50e57a8fd60c5a2ab9b1c33556f46a11.jpg",
-      "price_m2": 16.7
+      "image_url": "images/athome_1372622.jpg",
+      "price_m2": 16.7,
+      "local_image": "images/athome_1372622.jpg"
     },
     {
       "listing_id": "athome_8931852",
@@ -1490,8 +1523,9 @@
       "longitude": 6.132617,
       "distance_km": 0.2,
       "created_at": "2026-03-05 18:36:07",
-      "image_url": "https://www.athome.lu/imageGallery/xl/c0/a4/88/6bc677455c2d9f998919a3fb7cb61d2c5c04f1f7.jpg",
-      "price_m2": 30.6
+      "image_url": "images/athome_8931852.jpg",
+      "price_m2": 30.6,
+      "local_image": "images/athome_8931852.jpg"
     },
     {
       "listing_id": "athome_8986666",
@@ -1506,8 +1540,9 @@
       "longitude": 6.013457700000001,
       "distance_km": 9.3,
       "created_at": "2026-03-05 18:35:54",
-      "image_url": "https://www.athome.lu/imageGallery/xl/a2/02/98/3e65085b4025c1c306b19a0122477d46fde6183c.jpg",
-      "price_m2": 20.5
+      "image_url": "images/athome_8986666.jpg",
+      "price_m2": 20.5,
+      "local_image": "images/athome_8986666.jpg"
     },
     {
       "listing_id": "athome_8949037",
@@ -1522,8 +1557,9 @@
       "longitude": 6.0774257,
       "distance_km": 4.9,
       "created_at": "2026-03-05 18:35:40",
-      "image_url": "https://www.athome.lu/imageGallery/xl/d2/d8/88/f5ab084522685e1ad5a5fc59fa94592b037160f3.jpg",
-      "price_m2": 28.7
+      "image_url": "images/athome_8949037.jpg",
+      "price_m2": 28.7,
+      "local_image": "images/athome_8949037.jpg"
     },
     {
       "listing_id": "athome_8899869",
@@ -1538,8 +1574,9 @@
       "longitude": 5.9512695,
       "distance_km": 13.3,
       "created_at": "2026-03-05 18:35:27",
-      "image_url": "https://www.athome.lu/imageGallery/xl/d1/dc/78/f312f9d620ae5b8f73b16828e957a7f9a0a673ad.jpg",
-      "price_m2": 24.5
+      "image_url": "images/athome_8899869.jpg",
+      "price_m2": 24.5,
+      "local_image": "images/athome_8899869.jpg"
     },
     {
       "listing_id": "athome_7981264",
@@ -1554,8 +1591,9 @@
       "longitude": 6.2352602,
       "distance_km": 9.2,
       "created_at": "2026-03-05 18:35:14",
-      "image_url": "https://www.athome.lu/imageGallery/xl/0d/8c/97/77b1bcc76e0a4cd2db03b31a1bf017b68cfcdd8a.jpg",
-      "price_m2": 21.7
+      "image_url": "images/athome_7981264.jpg",
+      "price_m2": 21.7,
+      "local_image": "images/athome_7981264.jpg"
     },
     {
       "listing_id": "athome_8992071",
@@ -1570,8 +1608,9 @@
       "longitude": 5.9640686,
       "distance_km": 12.4,
       "created_at": "2026-03-05 18:35:00",
-      "image_url": "https://www.athome.lu/imageGallery/xl/74/53/98/73bdfb9997ddb38e2d54959a0ef4ab3767899c4c.jpg",
-      "price_m2": 23.3
+      "image_url": "images/athome_8992071.jpg",
+      "price_m2": 23.3,
+      "local_image": "images/athome_8992071.jpg"
     },
     {
       "listing_id": "athome_8937085",
@@ -1586,8 +1625,9 @@
       "longitude": 6.098749499999999,
       "distance_km": 9.5,
       "created_at": "2026-03-05 18:34:47",
-      "image_url": "https://www.athome.lu/imageGallery/xl/d7/e5/88/111c322935c4effdc5a965f849a2779a3c6cae75.jpg",
-      "price_m2": 19.6
+      "image_url": "images/athome_8937085.jpg",
+      "price_m2": 19.6,
+      "local_image": "images/athome_8937085.jpg"
     },
     {
       "listing_id": "athome_8971656",
@@ -1602,8 +1642,9 @@
       "longitude": 6.0817229,
       "distance_km": 7.4,
       "created_at": "2026-03-05 18:34:33",
-      "image_url": "https://www.athome.lu/imageGallery/xl/88/5e/88/e3ca35c5b9a392a2406acbd948168992e981453e.jpg",
-      "price_m2": 24.7
+      "image_url": "images/athome_8971656.jpg",
+      "price_m2": 24.7,
+      "local_image": "images/athome_8971656.jpg"
     },
     {
       "listing_id": "athome_9003325",
@@ -1618,8 +1659,9 @@
       "longitude": 6.137721099999999,
       "distance_km": 8.4,
       "created_at": "2026-03-05 18:34:19",
-      "image_url": "https://www.athome.lu/imageGallery/xl/d3/16/98/4bf4e41083b10f8c310d50eea4a252f977ff49e3.jpg",
-      "price_m2": 19.7
+      "image_url": "images/athome_9003325.jpg",
+      "price_m2": 19.7,
+      "local_image": "images/athome_9003325.jpg"
     },
     {
       "listing_id": "athome_8939499",
@@ -1634,8 +1676,9 @@
       "longitude": 6.1426854,
       "distance_km": 2.9,
       "created_at": "2026-03-05 18:34:05",
-      "image_url": "https://www.athome.lu/imageGallery/xl/be/76/88/4d34f5cc48598e3e09be12371199012ef7149df1.jpg",
-      "price_m2": 27.0
+      "image_url": "images/athome_8939499.jpg",
+      "price_m2": 27.0,
+      "local_image": "images/athome_8939499.jpg"
     },
     {
       "listing_id": "athome_9014544",
@@ -1650,8 +1693,9 @@
       "longitude": 6.0878521,
       "distance_km": 13.6,
       "created_at": "2026-03-05 18:33:51",
-      "image_url": "https://www.athome.lu/imageGallery/xl/01/d8/98/20a0f82479b2cc918ceff7745b47c81d2ca2d189.jpg",
-      "price_m2": 25.3
+      "image_url": "images/athome_9014544.jpg",
+      "price_m2": 25.3,
+      "local_image": "images/athome_9014544.jpg"
     },
     {
       "listing_id": "athome_9013370",
@@ -1666,8 +1710,9 @@
       "longitude": 6.080891599999999,
       "distance_km": 6.9,
       "created_at": "2026-03-05 18:33:38",
-      "image_url": "https://www.athome.lu/imageGallery/xl/a7/88/98/e8766215b3823363694f20cf009c955a2f052895.jpg",
-      "price_m2": 22.3
+      "image_url": "images/athome_9013370.jpg",
+      "price_m2": 22.3,
+      "local_image": "images/athome_9013370.jpg"
     },
     {
       "listing_id": "athome_8928664",
@@ -1682,8 +1727,9 @@
       "longitude": 6.1338602,
       "distance_km": 6.7,
       "created_at": "2026-03-05 18:33:25",
-      "image_url": "https://www.athome.lu/imageGallery/xl/89/d3/88/fd894778ddc28e72a65b9f5306e573b6428af830.jpg",
-      "price_m2": 23.2
+      "image_url": "images/athome_8928664.jpg",
+      "price_m2": 23.2,
+      "local_image": "images/athome_8928664.jpg"
     },
     {
       "listing_id": "athome_9011226",
@@ -1698,8 +1744,9 @@
       "longitude": 5.9437298,
       "distance_km": 17.5,
       "created_at": "2026-03-05 18:33:11",
-      "image_url": "https://www.athome.lu/imageGallery/xl/a1/08/98/8d5491d6d0faa93c276bb5756d8421990286e201.jpg",
-      "price_m2": 25.9
+      "image_url": "images/athome_9011226.jpg",
+      "price_m2": 25.9,
+      "local_image": "images/athome_9011226.jpg"
     },
     {
       "listing_id": "athome_7901304",
@@ -1714,8 +1761,9 @@
       "longitude": 6.1448228,
       "distance_km": 1.5,
       "created_at": "2026-03-05 18:32:58",
-      "image_url": "https://www.athome.lu/imageGallery/xl/87/09/87/cee9d5259b0df9e7b14703775281fe571206856c.jpg",
-      "price_m2": 26.2
+      "image_url": "images/athome_7901304.jpg",
+      "price_m2": 26.2,
+      "local_image": "images/athome_7901304.jpg"
     },
     {
       "listing_id": "athome_8994521",
@@ -1730,8 +1778,9 @@
       "longitude": 6.1070622,
       "distance_km": 2.1,
       "created_at": "2026-03-05 18:32:45",
-      "image_url": "https://www.athome.lu/imageGallery/xl/9d/e3/98/70aaf992d392e7980c2297a413f46c2ef17d7993.jpg",
-      "price_m2": 25.0
+      "image_url": "images/athome_8994521.jpg",
+      "price_m2": 25.0,
+      "local_image": "images/athome_8994521.jpg"
     },
     {
       "listing_id": "athome_8086234",
@@ -1746,8 +1795,9 @@
       "longitude": 5.9435467,
       "distance_km": 17.4,
       "created_at": "2026-03-05 18:32:32",
-      "image_url": "https://www.athome.lu/imageGallery/xl/ad/26/b7/b71a8fef69655ecb014202bedec9895abe535506.jpg",
-      "price_m2": 24.2
+      "image_url": "images/athome_8086234.jpg",
+      "price_m2": 24.2,
+      "local_image": "images/athome_8086234.jpg"
     },
     {
       "listing_id": "athome_8470343",
@@ -1762,8 +1812,9 @@
       "longitude": 6.1061192,
       "distance_km": 2.5,
       "created_at": "2026-03-05 18:32:19",
-      "image_url": "https://www.athome.lu/imageGallery/xl/74/f3/18/732b915f5bf46271ead63c57d711f06decec9432.jpg",
-      "price_m2": 27.2
+      "image_url": "images/athome_8470343.jpg",
+      "price_m2": 27.2,
+      "local_image": "images/athome_8470343.jpg"
     },
     {
       "listing_id": "athome_9012418",
@@ -1778,8 +1829,9 @@
       "longitude": 5.999560199999999,
       "distance_km": 11.6,
       "created_at": "2026-03-05 18:32:05",
-      "image_url": "https://www.athome.lu/imageGallery/xl/2c/48/98/f907cdae21a6f4ac18159f92f5cd84f00fd3a83d.jpg",
-      "price_m2": 28.8
+      "image_url": "images/athome_9012418.jpg",
+      "price_m2": 28.8,
+      "local_image": "images/athome_9012418.jpg"
     },
     {
       "listing_id": "athome_8976000",
@@ -1794,8 +1846,9 @@
       "longitude": 6.0732987,
       "distance_km": 4.4,
       "created_at": "2026-03-05 18:31:52",
-      "image_url": "https://www.athome.lu/imageGallery/xl/08/6f/88/374fd614ebbb9f8e205f208abf2023e313bea25f.jpg",
-      "price_m2": 25.8
+      "image_url": "images/athome_8976000.jpg",
+      "price_m2": 25.8,
+      "local_image": "images/athome_8976000.jpg"
     },
     {
       "listing_id": "athome_8114963",
@@ -1810,8 +1863,9 @@
       "longitude": 6.1441177,
       "distance_km": 1.1,
       "created_at": "2026-03-05 18:31:39",
-      "image_url": "https://www.athome.lu/imageGallery/xl/31/3d/b7/940914d6d9d4441357b32108c6e0633740f9a065.jpg",
-      "price_m2": 28.4
+      "image_url": "images/athome_8114963.jpg",
+      "price_m2": 28.4,
+      "local_image": "images/athome_8114963.jpg"
     },
     {
       "listing_id": "athome_9006017",
@@ -1826,8 +1880,9 @@
       "longitude": 6.083955899999999,
       "distance_km": 13.7,
       "created_at": "2026-03-05 18:31:26",
-      "image_url": "https://www.athome.lu/imageGallery/xl/1c/b6/98/2c73f49f7c269767d0c14406858c6302acd8d36a.jpg",
-      "price_m2": null
+      "image_url": "images/athome_9006017.jpg",
+      "price_m2": null,
+      "local_image": "images/athome_9006017.jpg"
     },
     {
       "listing_id": "athome_8221893",
@@ -1842,7 +1897,7 @@
       "longitude": 5.9753139,
       "distance_km": 16.2,
       "created_at": "2026-03-05 18:31:13",
-      "image_url": "https://www.athome.lu/imageGallery/xl/5c/47/d7/92e422cc79d59399f39ac56dc5979aecc11da1b0.jpg",
+      "image_url": "https://i1.static.athome.eu/images/annonces2/image_/5c/47/d7/92e422cc79d59399f39ac56dc5979aecc11da1b0.jpg",
       "price_m2": 19.4
     },
     {
@@ -1858,8 +1913,9 @@
       "longitude": 6.153422,
       "distance_km": 3.4,
       "created_at": "2026-03-05 18:30:59",
-      "image_url": "https://www.athome.lu/imageGallery/xl/db/a2/67/3158f8ae46313b226eba3a701ae8d244_1.jpg",
-      "price_m2": 30.0
+      "image_url": "images/athome_7744189.jpg",
+      "price_m2": 30.0,
+      "local_image": "images/athome_7744189.jpg"
     },
     {
       "listing_id": "athome_8706333",
@@ -1874,8 +1930,9 @@
       "longitude": 6.126248899999999,
       "distance_km": 1.5,
       "created_at": "2026-03-05 18:30:46",
-      "image_url": "https://www.athome.lu/imageGallery/xl/d1/9d/48/12504d95af36aace2cd35f6521898c3ad2015906.jpg",
-      "price_m2": 27.8
+      "image_url": "images/athome_8706333.jpg",
+      "price_m2": 27.8,
+      "local_image": "images/athome_8706333.jpg"
     },
     {
       "listing_id": "athome_7840995",
@@ -1890,8 +1947,9 @@
       "longitude": 6.1376927,
       "distance_km": 4.4,
       "created_at": "2026-03-05 18:30:33",
-      "image_url": "https://www.athome.lu/imageGallery/xl/3e/4a/77/03530bf3ae8e63e30bf95e839c2f53f7_1.jpg",
-      "price_m2": 22.3
+      "image_url": "images/athome_7840995.jpg",
+      "price_m2": 22.3,
+      "local_image": "images/athome_7840995.jpg"
     },
     {
       "listing_id": "athome_9001085",
@@ -1906,8 +1964,9 @@
       "longitude": 5.987866899999999,
       "distance_km": 14.7,
       "created_at": "2026-03-05 18:30:20",
-      "image_url": "https://www.athome.lu/imageGallery/xl/d7/85/98/68d235b2f8620ad7da2cc0d0db1ea54ad5117409.jpg",
-      "price_m2": 23.7
+      "image_url": "images/athome_9001085.jpg",
+      "price_m2": 23.7,
+      "local_image": "images/athome_9001085.jpg"
     },
     {
       "listing_id": "athome_9005576",
@@ -1922,8 +1981,9 @@
       "longitude": 5.988012899999999,
       "distance_km": 14.7,
       "created_at": "2026-03-05 18:30:07",
-      "image_url": "https://www.athome.lu/imageGallery/xl/80/a6/98/79b0c2a05d360fd8acb7ad8a27bfb1030402f797.jpg",
-      "price_m2": 23.8
+      "image_url": "images/athome_9005576.jpg",
+      "price_m2": 23.8,
+      "local_image": "images/athome_9005576.jpg"
     },
     {
       "listing_id": "athome_8950242",
@@ -1938,8 +1998,9 @@
       "longitude": 6.2560204,
       "distance_km": 15.3,
       "created_at": "2026-03-05 18:29:53",
-      "image_url": "https://www.athome.lu/imageGallery/xl/2e/19/88/07369ae46761ecb276237d48703541b908c688f3.jpg",
-      "price_m2": 25.3
+      "image_url": "images/athome_8950242.jpg",
+      "price_m2": 25.3,
+      "local_image": "images/athome_8950242.jpg"
     },
     {
       "listing_id": "athome_8927148",
@@ -1954,8 +2015,9 @@
       "longitude": 6.132985,
       "distance_km": 0.4,
       "created_at": "2026-03-05 18:29:40",
-      "image_url": "https://www.athome.lu/imageGallery/xl/ca/73/88/6b12093318f1ef40943b8ec669c114b655b92998.jpg",
-      "price_m2": 22.2
+      "image_url": "images/athome_8927148.jpg",
+      "price_m2": 22.2,
+      "local_image": "images/athome_8927148.jpg"
     },
     {
       "listing_id": "athome_9011668",
@@ -1970,8 +2032,9 @@
       "longitude": 5.9773295,
       "distance_km": 16.1,
       "created_at": "2026-03-05 18:29:26",
-      "image_url": "https://www.athome.lu/imageGallery/xl/4d/18/98/c8b5d2adf71bfa03e63e42c0b0487a30ac12abfe.png",
-      "price_m2": 18.8
+      "image_url": "images/athome_9011668.jpg",
+      "price_m2": 18.8,
+      "local_image": "images/athome_9011668.jpg"
     },
     {
       "listing_id": "athome_8908362",
@@ -1986,8 +2049,9 @@
       "longitude": 6.1321495,
       "distance_km": 7.6,
       "created_at": "2026-03-05 18:29:13",
-      "image_url": "https://www.athome.lu/imageGallery/xl/a4/ee/78/d5c07503a27a1e784ea124935803d45bff734ce4.jpg",
-      "price_m2": 30.1
+      "image_url": "images/athome_8908362.jpg",
+      "price_m2": 30.1,
+      "local_image": "images/athome_8908362.jpg"
     },
     {
       "listing_id": "athome_9002366",
@@ -2002,8 +2066,9 @@
       "longitude": 5.9873939,
       "distance_km": 14.5,
       "created_at": "2026-03-05 18:29:00",
-      "image_url": "https://www.athome.lu/imageGallery/xl/e7/d5/98/d7eda90ca7e7d23b7bbcafb4e70c5ee99bfc6ce9.jpg",
-      "price_m2": 22.9
+      "image_url": "images/athome_9002366.jpg",
+      "price_m2": 22.9,
+      "local_image": "images/athome_9002366.jpg"
     },
     {
       "listing_id": "athome_9002393",
@@ -2018,8 +2083,9 @@
       "longitude": 5.9873939,
       "distance_km": 14.5,
       "created_at": "2026-03-05 18:28:47",
-      "image_url": "https://www.athome.lu/imageGallery/xl/99/d5/98/d7eda90ca7e7d23b7bbcafb4e70c5ee99bfc6ce9.jpg",
-      "price_m2": 23.2
+      "image_url": "images/athome_9002393.jpg",
+      "price_m2": 23.2,
+      "local_image": "images/athome_9002393.jpg"
     },
     {
       "listing_id": "athome_8498529",
@@ -2034,8 +2100,9 @@
       "longitude": 6.3674222,
       "distance_km": 17.9,
       "created_at": "2026-03-05 18:28:34",
-      "image_url": "https://www.athome.lu/imageGallery/xl/16/da/18/c4aaaeced16c9b0215f4a59a3de2f42c894b8e8b.jpg",
-      "price_m2": 19.2
+      "image_url": "images/athome_8498529.jpg",
+      "price_m2": 19.2,
+      "local_image": "images/athome_8498529.jpg"
     },
     {
       "listing_id": "athome_8892284",
@@ -2050,8 +2117,9 @@
       "longitude": 5.955324099999999,
       "distance_km": 13.0,
       "created_at": "2026-03-05 18:28:21",
-      "image_url": "https://www.athome.lu/imageGallery/xl/c7/fa/78/7b9dd88682c9097f36adc35f1a23cbbcf8e70575.jpg",
-      "price_m2": 21.9
+      "image_url": "images/athome_8892284.jpg",
+      "price_m2": 21.9,
+      "local_image": "images/athome_8892284.jpg"
     },
     {
       "listing_id": "athome_7688108",
@@ -2066,8 +2134,9 @@
       "longitude": 6.0787532,
       "distance_km": 4.6,
       "created_at": "2026-03-05 18:28:07",
-      "image_url": "https://www.athome.lu/imageGallery/xl/ca/f4/57/fe66a6498436fa5eb613bab2059756c0d4887256.jpg",
-      "price_m2": 27.3
+      "image_url": "images/athome_7688108.jpg",
+      "price_m2": 27.3,
+      "local_image": "images/athome_7688108.jpg"
     },
     {
       "listing_id": "athome_8983034",
@@ -2082,8 +2151,9 @@
       "longitude": 6.1137785,
       "distance_km": 15.7,
       "created_at": "2026-03-05 18:27:54",
-      "image_url": "https://www.athome.lu/imageGallery/xl/af/11/98/ab1c87677ef788d6e7ad0ce4f54d4c23f2e34d27.jpg",
-      "price_m2": 21.5
+      "image_url": "images/athome_8983034.jpg",
+      "price_m2": 21.5,
+      "local_image": "images/athome_8983034.jpg"
     },
     {
       "listing_id": "athome_8992217",
@@ -2098,8 +2168,9 @@
       "longitude": 6.0197216,
       "distance_km": 9.0,
       "created_at": "2026-03-05 18:27:41",
-      "image_url": "https://www.athome.lu/imageGallery/xl/9d/53/98/3da6f5c275848161987436cda7d104f5885b12bb.jpg",
-      "price_m2": 24.0
+      "image_url": "images/athome_8992217.jpg",
+      "price_m2": 24.0,
+      "local_image": "images/athome_8992217.jpg"
     },
     {
       "listing_id": "athome_9001358",
@@ -2114,8 +2185,9 @@
       "longitude": 5.916589,
       "distance_km": 16.0,
       "created_at": "2026-03-05 18:27:28",
-      "image_url": "https://www.athome.lu/imageGallery/xl/e8/95/98/a6ccc2c4ee6cd8c5c12db357497f2b636273aede.jpg",
-      "price_m2": 18.3
+      "image_url": "images/athome_9001358.jpg",
+      "price_m2": 18.3,
+      "local_image": "images/athome_9001358.jpg"
     },
     {
       "listing_id": "athome_8948104",
@@ -2130,8 +2202,9 @@
       "longitude": 6.0502349,
       "distance_km": 6.2,
       "created_at": "2026-03-05 18:27:15",
-      "image_url": "https://www.athome.lu/imageGallery/xl/88/98/88/6afd010ed84c09b5734fd9a594357095c8c54b9b.jpg",
-      "price_m2": 29.8
+      "image_url": "images/athome_8948104.jpg",
+      "price_m2": 29.8,
+      "local_image": "images/athome_8948104.jpg"
     },
     {
       "listing_id": "athome_9003558",
@@ -2146,8 +2219,9 @@
       "longitude": 6.114701999999999,
       "distance_km": 1.4,
       "created_at": "2026-03-05 18:27:02",
-      "image_url": "https://www.athome.lu/imageGallery/xl/62/26/98/cc026351c2000e877862c5562e9be01a1ef68148.jpg",
-      "price_m2": 28.1
+      "image_url": "images/athome_9003558.jpg",
+      "price_m2": 28.1,
+      "local_image": "images/athome_9003558.jpg"
     },
     {
       "listing_id": "athome_8971722",
@@ -2162,8 +2236,9 @@
       "longitude": 6.126972500000001,
       "distance_km": 1.4,
       "created_at": "2026-03-05 18:26:49",
-      "image_url": "https://www.athome.lu/imageGallery/xl/ac/5e/88/30dac40163b1c819d361a8a48f0b8bfc4b43d3c0.jpg",
-      "price_m2": 25.3
+      "image_url": "images/athome_8971722.jpg",
+      "price_m2": 25.3,
+      "local_image": "images/athome_8971722.jpg"
     },
     {
       "listing_id": "athome_8958851",
@@ -2178,8 +2253,9 @@
       "longitude": 6.224731299999999,
       "distance_km": 6.7,
       "created_at": "2026-03-05 18:26:40",
-      "image_url": "https://www.athome.lu/imageGallery/xl/38/3b/88/7d2cbad6fbebd8f95da9a38f7c7868f66064786d.jpg",
-      "price_m2": 29.3
+      "image_url": "images/athome_8958851.jpg",
+      "price_m2": 29.3,
+      "local_image": "images/athome_8958851.jpg"
     }
   ]
 }

@@ -125,6 +125,13 @@ def read_listings(db_path='listings.db'):
         if listing.get('city'):
             listing['city'] = normalize_city_name(listing['city'])
 
+        # Corriger les anciennes URLs athome imageGallery → CDN static.athome.eu
+        img = listing.get('image_url') or ''
+        if img and 'athome.lu/imageGallery/' in img:
+            m = re.search(r'/imageGallery/\w+(.+)', img)
+            if m:
+                listing['image_url'] = f"https://i1.static.athome.eu/images/annonces2/image_{m.group(1)}"
+
         # Calculer prix/m²
         if listing['price'] and listing['surface'] and listing['surface'] > 0:
             listing['price_m2'] = round(listing['price'] / listing['surface'], 1)
