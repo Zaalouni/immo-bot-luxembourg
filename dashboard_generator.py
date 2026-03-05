@@ -402,6 +402,7 @@ def process_images_for_listings(listings, images_dir=IMAGES_DIR):
 
         if local_path:
             listing['local_image'] = local_path
+            listing['image_url'] = local_path  # chemin relatif pour le dashboard HTML
             downloaded += 1
         else:
             failed += 1
@@ -1132,11 +1133,8 @@ def main():
     os.makedirs(os.path.join(dashboards_dir, 'archives'), exist_ok=True)
     os.makedirs(images_dir, exist_ok=True)
 
-    # Etape 0 : Télécharger et compresser les images
-    if PIL_AVAILABLE:
-        downloaded, failed = process_images_for_listings(listings, images_dir)
-    else:
-        print("\n⚠️  Pillow non disponible - images non téléchargées")
+    # Etape 0 : Télécharger les images (avec ou sans Pillow)
+    downloaded, failed = process_images_for_listings(listings, images_dir)
 
     # Etape 1 : exporter donnees JS + JSON + archive quotidienne
     site_colors = export_data(listings, stats, data_dir)
