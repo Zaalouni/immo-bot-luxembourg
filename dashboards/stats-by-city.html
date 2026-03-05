@@ -163,7 +163,11 @@ fetch('data/city-transports.json')
         const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
         filteredCities.forEach((city, idx) => {
             const listings = byCity[city];
-            const transport = TRANSPORTS[city] || {};
+            // Lookup: essayer le nom normalisé, puis "Luxembourg-{ville}", puis "Luxembourg {ville}"
+            const transport = TRANSPORTS[city]
+                || TRANSPORTS['Luxembourg-' + city]
+                || TRANSPORTS['Luxembourg ' + city]
+                || {};
             const transportList = transport.transports || [];
             const isPriority = PC.includes(city);
 
