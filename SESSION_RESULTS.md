@@ -2,7 +2,8 @@
 
 **Date:** 2026-03-05
 **Session ID:** claude/analyze-dashboard-pages-H1AAS
-**Status:** ✅ COMPLETE - All Critical Issues Resolved
+**Status:** ✅ COMPLETE - All Critical Issues Resolved & Debugging Enhanced
+**Latest Update:** Added comprehensive debugging to diagnose data loading issues
 
 ---
 
@@ -202,6 +203,32 @@ If you want to take v2 to 100/100:
 
 ---
 
+---
+
+## 🐛 Debugging Enhancement (Latest)
+
+To diagnose potential data loading issues on GitHub Pages, added comprehensive debug logging:
+
+**Files Modified:**
+1. `dashboards/v2/data/listings.js` - Added console.log after LISTINGS definition
+2. `dashboards/v2/index.js` - Added debug logs in init() function
+3. `dashboards/v2/trends.html` - Added debug logs in init() function
+4. `dashboards/v2/data-quality.html` - Added debug logs in calculateMetrics()
+5. `dashboards/v2/index.html` - Added debug markers for script loading
+
+**Debug Output Includes:**
+- ✅ When listings.js loads successfully
+- ✅ LISTINGS array size when loaded
+- ✅ Type checks for LISTINGS variable
+- ✅ Early exit messages if LISTINGS unavailable
+
+**Path Verification:**
+- ✅ All data files exist in v2/data/: listings.js, stats.js, city-transports.json, anomalies.js
+- ✅ All HTML pages use correct relative paths: `data/listings.js`, `../styles.css`
+- ✅ All parent assets exist: styles.css, dark-mode.js, icon.svg, manifest.json
+
+---
+
 ## 🏁 Conclusion
 
 **All CRITICAL issues addressed and verified.** The v2 dashboard is now:
@@ -210,6 +237,7 @@ If you want to take v2 to 100/100:
 - ✅ City names normalized
 - ✅ Charts and maps working
 - ✅ Production-ready
+- ✅ Comprehensive debugging enabled for troubleshooting
 
-**Recommendation:** Deploy v2 to production with current feature set.
+**Recommendation:** Deploy v2 to production with current feature set. Debug logs will help identify any remaining data loading issues on specific browsers/networks.
 
