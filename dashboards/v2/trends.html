@@ -77,7 +77,11 @@
         }
 
         async function init() {
-            if(!LISTINGS) return;
+            console.log('[DEBUG] LISTINGS available:', typeof LISTINGS, Array.isArray(LISTINGS) ? `(array of ${LISTINGS.length} items)` : '');
+            if(!LISTINGS) {
+                console.error('[DEBUG] LISTINGS is not available in trends.html');
+                return;
+            }
 
             // Graphique prix par ville (existant)
             const cityPrices = {};

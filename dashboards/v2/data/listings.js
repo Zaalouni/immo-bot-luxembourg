@@ -2698,3 +2698,5 @@ const LISTINGS = [
     "local_image": "images/nextimmo_14834.jpg"
   }
 ];
+
+console.log('[DEBUG] listings.js loaded successfully, LISTINGS array has', LISTINGS.length, 'items');
