@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <!-- Version -->
+    <meta name="version" content="v2.0.0-beta">
+    <meta name="updated" content="2026-03-05">
+
+    <!-- Viewport & Mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ImmoLux">
+    <meta name="theme-color" content="#667eea">
+
+    <!-- SEO Meta Tags -->
+    <title>ImmoLux Dashboard - Annonces Immobilières Luxembourg | Tableau Complet</title>
+    <meta name="description" content="Dashboard ImmoLux: Annonces immobilières au Luxembourg. Visualisez 114+ annonces avec cartes interactives, filtres, statistiques par ville et prix.">
+    <meta name="keywords" content="immobilier, luxembourg, annonces, dashboard, analyse marché">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="fr-LU">
+
+    <!-- OpenGraph Tags (Social Media Preview) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://immo-bot-luxembourg.example.com/">
+    <meta property="og:title" content="ImmoLux Dashboard - Vue Complète du Marché Immobilier">
+    <meta property="og:description" content="Tableau interactif avec 114+ annonces immobilières du Luxembourg. Filtres, statistiques, cartes géospatiales.">
+    <meta property="og:image" content="https://immo-bot-luxembourg.example.com/og-image.png">
+    <meta property="og:site_name" content="ImmoLux">
+
+    <!-- Twitter Card Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="ImmoLux Dashboard - Annonces Immobilières">
+    <meta property="twitter:description" content="Explorez le marché immobilier luxembourgeois avec notre dashboard interactif.">
+    <meta property="twitter:image" content="https://immo-bot-luxembourg.example.com/og-image.png">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://immo-bot-luxembourg.example.com/">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon.svg">
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <!-- CSP without unsafe-inline - will use nonces or external scripts -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-ancestors 'none';">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="../manifest.json">
+
+    <!-- Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles.css">
+
+    <!-- Defer dark-mode script to avoid FOUC -->
+    <script src="../dark-mode.js" defer></script>
+
+    <style>
+        /* Prevent FOUC (Flash Of Unstyled Content) */
+        html {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header" role="banner">
+    <div class="header-content">
+        <div>
+            <h1>🏠 ImmoLux Dashboard</h1>
+            <small id="lastUpdate" aria-live="polite">Mis à jour: 27/02/2026</small>
+        </div>
+        <div class="header-stats" aria-label="Statistiques globales">
+            <div>📊 <strong id="totalCount" aria-label="Total annonces">114</strong> annonces</div>
+            <div>🏙️ <strong id="cityCount" aria-label="Nombre de villes">63</strong> villes</div>
+            <div>🌐 <strong id="siteCount" aria-label="Nombre de sites">7</strong> sites</div>
+        </div>
+    </div>
+</div>
+
+<div class="container-main">
+
+    <!-- KPIs -->
+    <section aria-label="Indicateurs clés de performance">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="statTotal">114</div>
+                <div class="stat-label">Annonces</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statAvgPrice">2187€</div>
+                <div class="stat-label">Prix Moyen</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statMinPrice">1400€</div>
+                <div class="stat-label">Prix Min</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statMaxPrice">2500€</div>
+                <div class="stat-label">Prix Max</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statAvgSurface">97m²</div>
+                <div class="stat-label">Surface Avg</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statCities">63</div>
+                <div class="stat-label">Villes</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sites Badges -->
+    <section class="filter-section" aria-label="Filtres par site">
+        <strong id="sites-label">📍 Sites :</strong>
+        <div id="siteBadges" style="margin-top: 0.8rem;" aria-labelledby="sites-label"></div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section class="filter-section" aria-label="Navigation vers autres vues">
+        <strong id="nav-label">🔗 Plus de vues :</strong>
+        <div style="margin-top: 0.8rem;" aria-labelledby="nav-label">
+            <a href="../v2/dashboard-summary.html" class="btn btn-sm btn-outline-primary ms-1" aria-label="Voir le résumé">📊 Résumé</a>
+            <a href="../v2/map.html" class="btn btn-sm btn-outline-primary ms-1" aria-label="Voir la carte">🗺️ Carte</a>
+            <a href="../v2/map-advanced.html" class="btn btn-sm btn-outline-primary ms-1" aria-label="Voir la carte avancée">🗺️ Carte+</a>
+            <a href="../v2/stats-by-city.html" class="btn btn-sm btn-outline-primary ms-1" aria-label="Voir statistiques par ville">📋 Stats Ville</a>
+            <a href="../v2/data-quality.html" class="btn btn-sm btn-outline-primary ms-1" aria-label="Voir la qualité des données">📊 Qualité</a>
+            <a href="../v2/trends.html" class="btn btn-sm btn-outline-primary ms-1" aria-label="Voir les tendances">📈 Tendances</a>
+            <a href="../v2/gallery.html" class="btn btn-sm btn-outline-primary ms-1" aria-label="Voir la galerie photo">✨ Galerie</a>
+            <a href="../v2/comparison.html" class="btn btn-sm btn-outline-success ms-1" aria-label="Utiliser le comparateur">🔄 Comparateur</a>
+        </div>
+    </section>
+
+    <!-- Tabs Navigation -->
+    <nav aria-label="Vues principales">
+        <ul class="nav nav-tabs mb-2" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-table-btn" data-bs-toggle="tab" data-bs-target="#tab-table" role="tab" aria-controls="tab-table" aria-selected="true">📋 Tableau</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-city-btn" data-bs-toggle="tab" data-bs-target="#tab-city" role="tab" aria-controls="tab-city" aria-selected="false">🏙️ Par Ville</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-price-btn" data-bs-toggle="tab" data-bs-target="#tab-price" role="tab" aria-controls="tab-price" aria-selected="false">💰 Par Prix</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-map-btn" data-bs-toggle="tab" data-bs-target="#tab-map" role="tab" aria-controls="tab-map" aria-selected="false">🗺️ Carte</button>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="tab-content">
+
+        <!-- TAB: Tableau -->
+        <div class="tab-pane fade show active" id="tab-table" role="tabpanel" aria-labelledby="tab-table-btn">
+            <section aria-label="Tableau des annonces">
+                <div class="filter-section">
+                    <form onsubmit="return false;" aria-label="Filtres du tableau">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-6 col-md-3">
+                                <label for="f-city" class="form-label form-label-sm mb-0">Ville</label>
+                                <select id="f-city" class="form-select form-select-sm" aria-label="Filtrer par ville">
+                                    <option value="">Toutes</option>
+                                </select>
+                            </div>
+                            <div class="col-3 col-md-2">
+                                <label for="f-pmin" class="form-label form-label-sm mb-0">Prix min</label>
+                                <input type="number" id="f-pmin" class="form-control form-control-sm" placeholder="0" aria-label="Prix minimum">
+                            </div>
+                            <div class="col-3 col-md-2">
+                                <label for="f-pmax" class="form-label form-label-sm mb-0">Prix max</label>
+                                <input type="number" id="f-pmax" class="form-control form-control-sm" placeholder="9999" aria-label="Prix maximum">
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <label for="f-site" class="form-label form-label-sm mb-0">Site</label>
+                                <select id="f-site" class="form-select form-select-sm" aria-label="Filtrer par site">
+                                    <option value="">Tous</option>
+                                </select>
+                            </div>
+                            <div class="col-3 col-md-2">
+                                <label for="f-smin" class="form-label form-label-sm mb-0">m² min</label>
+                                <input type="number" id="f-smin" class="form-control form-control-sm" placeholder="0" aria-label="Surface minimale">
+                            </div>
+                            <div class="col-3 col-md-1">
+                                <button class="btn btn-sm btn-outline-secondary w-100" onclick="resetFilters()" aria-label="Réinitialiser les filtres">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card mt-2">
+                    <div class="card-header d-flex justify-content-between py-2" role="doc-subtitle">
+                        <span>Annonces (<span id="table-count" aria-live="polite" aria-atomic="true">0</span>)</span>
+                        <div>
+                            <button class="btn btn-sm btn-outline-success me-2" onclick="exportCSV()" title="Exporter en CSV" aria-label="Exporter tableau en CSV">📥 CSV</button>
+                            <button class="btn btn-sm btn-outline-info me-2" id="shareBtn" title="Partager" aria-label="Partager cette page">🔗 Partager</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0" id="main-table" aria-label="Tableau des annonces immobilières">
+                            <caption class="visually-hidden">Tableau des annonces avec tri par colonne</caption>
+                            <thead>
+                                <tr>
+                                    <th data-col="site" role="columnheader" scope="col" style="cursor: pointer;">Site <span class="sort-arrow" aria-hidden="true">▲</span></th>
+                                    <th data-col="city" role="columnheader" scope="col" style="cursor: pointer;">Ville <span class="sort-arrow" aria-hidden="true">▲</span></th>
+                                    <th data-col="price" role="columnheader" scope="col" style="cursor: pointer;">Prix <span class="sort-arrow" aria-hidden="true">▲</span></th>
+                                    <th data-col="rooms" role="columnheader" scope="col" style="cursor: pointer;">Ch. <span class="sort-arrow" aria-hidden="true">▲</span></th>
+                                    <th data-col="surface" role="columnheader" scope="col" style="cursor: pointer;">m² <span class="sort-arrow" aria-hidden="true">▲</span></th>
+                                    <th data-col="price_m2" role="columnheader" scope="col" style="cursor: pointer;">€/m² <span class="sort-arrow" aria-hidden="true">▲</span></th>
+                                    <th data-col="distance_km" role="columnheader" scope="col" style="cursor: pointer;">Dist. <span class="sort-arrow" aria-hidden="true">▲</span></th>
+                                    <th role="columnheader" scope="col">Titre</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB: Par Ville -->
+        <div class="tab-pane fade" id="tab-city" role="tabpanel" aria-labelledby="tab-city-btn">
+            <section aria-label="Annonces par ville">
+                <div id="city-container" role="region"></div>
+            </section>
+        </div>
+
+        <!-- TAB: Par Prix -->
+        <div class="tab-pane fade" id="tab-price" role="tabpanel" aria-labelledby="tab-price-btn">
+            <section aria-label="Annonces par tranches de prix">
+                <div id="price-container" role="region"></div>
+            </section>
+        </div>
+
+        <!-- TAB: Carte -->
+        <div class="tab-pane fade" id="tab-map" role="tabpanel" aria-labelledby="tab-map-btn">
+            <section aria-label="Carte géospatiale">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div id="map" style="height: 500px;" aria-label="Carte interactive des annonces"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Dark Mode Toggle -->
+<button class="dark-mode-toggle" id="darkModeToggle" title="Basculer le mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
+
+<!-- Back to Top Button -->
+<button id="backToTop" title="Retour en haut" aria-label="Retour en haut de la page" style="display:none;position:fixed;bottom:5rem;right:2rem;width:45px;height:45px;border-radius:50%;background:#667eea;color:white;border:none;cursor:pointer;font-size:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:99;transition:all 0.3s;">↑</button>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous" defer></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous" defer></script>
+<script src="../data/listings.js" defer></script>
+<script src="../data/stats.js" defer></script>
+
+<!-- Main Application Script -->
+<script src="index.js" defer></script>
+
+<!-- Version Switcher -->
+<script src="../version-switcher.js" defer></script>
+
+<script>
+    // Restore visibility after fonts loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        document.documentElement.style.visibility = 'visible';
+    });
+</script>
+
+</body>
+</html>

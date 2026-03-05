@@ -2,526 +2,236 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="ImmoLux Dashboard - Annonces immobilières au Luxembourg">
-    <meta name="theme-color" content="#667eea">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="ImmoLux">
-    <!-- Security Headers -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <link rel="apple-touch-icon" href="icon.svg">
-    <title>ImmoLux Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
-    <script src="dark-mode.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImmoLux - Sélection de Version</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 3rem 2rem;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1rem;
+        }
+
+        .version-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .version-card {
+            padding: 2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .version-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .version-card.v1 {
+            background: #f5f5f5;
+        }
+
+        .version-card.v1:hover {
+            background: #fffbf0;
+        }
+
+        .version-card.v2 {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 2px solid #667eea;
+        }
+
+        .version-card.v2:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+        }
+
+        .version-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .version-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .badge-deprecated {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .badge-new {
+            background: #e8f5e9;
+            color: #2e7d32;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .features {
+            text-align: left;
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .features li {
+            list-style: none;
+            padding: 0.3rem 0;
+        }
+
+        .features li::before {
+            content: '✓ ';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-radius: 4px;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #1565c0;
+        }
+
+        .auto-redirect {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        @media (max-width: 600px) {
+            .version-selector {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<!-- Header -->
-<div class="header">
-    <div class="header-content">
-        <div>
-            <h1>🏠 ImmoLux Dashboard</h1>
-            <small id="lastUpdate">Mis à jour: 27/02/2026</small>
-        </div>
-        <div class="header-stats">
-            <div>📊 <strong id="totalCount">114</strong> annonces</div>
-            <div>🏙️ <strong id="cityCount">63</strong> villes</div>
-            <div>🌐 <strong id="siteCount">7</strong> sites</div>
-        </div>
+<div class="auto-redirect" id="redirectInfo"></div>
+
+<div class="container">
+    <h1>🏠 ImmoLux Dashboard</h1>
+    <p class="subtitle">Sélectionnez votre version</p>
+
+    <div class="version-selector">
+        <!-- V1: Production -->
+        <a href="v1/index.html" class="version-card v1" title="Accéder à la version 1 (production)">
+            <div class="version-title">📊 Version 1</div>
+            <div class="version-description">Version stable et éprouvée</div>
+            <span class="badge badge-deprecated">⚠️ Stable</span>
+
+            <ul class="features">
+                <li>Interface complète</li>
+                <li>Tableaux triables</li>
+                <li>Cartes interactives</li>
+                <li>Export CSV</li>
+            </ul>
+        </a>
+
+        <!-- V2: Beta -->
+        <a href="v2/index.html" class="version-card v2" title="Accéder à la version 2 (optimisée)">
+            <div class="version-title">⚡ Version 2</div>
+            <div class="version-description">Version optimisée avec améliorations</div>
+            <span class="badge badge-new">✨ NOUVEAU</span>
+
+            <ul class="features">
+                <li>Meilleure sécurité (CSP)</li>
+                <li>SEO optimisé</li>
+                <li>Accessibilité (WCAG 2.1)</li>
+                <li>Web Share API</li>
+                <li>URLs partageable</li>
+            </ul>
+        </a>
+    </div>
+
+    <div class="info-box">
+        💡 <strong>Astuce:</strong> Vous pouvez basculer entre les versions à tout moment via le bouton dans chaque page.
+        Les paramètres (filtres, tri) seront mémorisés.
     </div>
 </div>
 
-<div class="container-main">
-
-    <!-- Stats -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-value" id="statTotal">114</div>
-            <div class="stat-label">Annonces</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="statAvgPrice">2187€</div>
-            <div class="stat-label">Prix Moyen</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="statMinPrice">1400€</div>
-            <div class="stat-label">Prix Min</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="statMaxPrice">2500€</div>
-            <div class="stat-label">Prix Max</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="statAvgSurface">97m²</div>
-            <div class="stat-label">Surface Avg</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-value" id="statCities">63</div>
-            <div class="stat-label">Villes</div>
-        </div>
-    </div>
-
-    <!-- Sites Badges -->
-    <div class="filter-section">
-        <strong>📍 Sites :</strong>
-        <div id="siteBadges" style="margin-top: 0.8rem;"></div>
-    </div>
-
-    <!-- Navigation -->
-    <div class="filter-section">
-        <strong>🔗 Plus de vues :</strong>
-        <div style="margin-top: 0.8rem;">
-            <!-- Pages Principales -->
-            <a href="dashboard-summary.html" class="btn btn-sm btn-outline-primary ms-1">📊 Résumé</a>
-            <a href="map.html" class="btn btn-sm btn-outline-primary ms-1">🗺️ Carte</a>
-            <a href="map-advanced.html" class="btn btn-sm btn-outline-primary ms-1">🗺️ Carte+</a>
-            <a href="stats-by-city.html" class="btn btn-sm btn-outline-primary ms-1">📋 Stats Ville</a>
-            <a href="nearby.html" class="btn btn-sm btn-outline-primary ms-1">📍 Proche</a>
-            <a href="photos.html" class="btn btn-sm btn-outline-primary ms-1">📸 Photos</a>
-            <a href="gallery.html" class="btn btn-sm btn-outline-primary ms-1">✨ Galerie</a>
-            <a href="data-quality.html" class="btn btn-sm btn-outline-primary ms-1">📊 Qualité</a>
-            <a href="anomalies.html" class="btn btn-sm btn-outline-primary ms-1">⚠️ Anomalies</a>
-            <a href="new-listings.html" class="btn btn-sm btn-outline-primary ms-1">✨ Nouvelles</a>
-            <!-- Pages Avancées -->
-            <a href="comparison.html" class="btn btn-sm btn-outline-success ms-1">🔄 Comparateur</a>
-            <a href="trends.html" class="btn btn-sm btn-outline-success ms-1">📈 Tendances</a>
-            <a href="reports.html" class="btn btn-sm btn-outline-success ms-1">📄 Reports</a>
-            <a href="alerts.html" class="btn btn-sm btn-outline-success ms-1">⭐ Favoris</a>
-        </div>
-    </div>
-
-    <!-- Tabs -->
-    <ul class="nav nav-tabs mb-2" role="tablist">
-        <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-table">📋 Tableau</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-city">🏙️ Par Ville</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-price">💰 Par Prix</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-map">🗺️ Carte</button>
-        </li>
-    </ul>
-
-    <div class="tab-content">
-
-        <!-- TAB: Tableau -->
-        <div class="tab-pane fade show active" id="tab-table">
-            <div class="filter-section">
-                <div class="row g-2 align-items-end">
-                    <div class="col-6 col-md-3">
-                        <label class="form-label form-label-sm mb-0">Ville</label>
-                        <select id="f-city" class="form-select form-select-sm"><option value="">Toutes</option></select>
-                    </div>
-                    <div class="col-3 col-md-2">
-                        <label class="form-label form-label-sm mb-0">Prix min</label>
-                        <input type="number" id="f-pmin" class="form-control form-control-sm" placeholder="0">
-                    </div>
-                    <div class="col-3 col-md-2">
-                        <label class="form-label form-label-sm mb-0">Prix max</label>
-                        <input type="number" id="f-pmax" class="form-control form-control-sm" placeholder="9999">
-                    </div>
-                    <div class="col-6 col-md-2">
-                        <label class="form-label form-label-sm mb-0">Site</label>
-                        <select id="f-site" class="form-select form-select-sm"><option value="">Tous</option></select>
-                    </div>
-                    <div class="col-3 col-md-2">
-                        <label class="form-label form-label-sm mb-0">m² min</label>
-                        <input type="number" id="f-smin" class="form-control form-control-sm" placeholder="0">
-                    </div>
-                    <div class="col-3 col-md-1">
-                        <button class="btn btn-sm btn-outline-secondary w-100" onclick="resetFilters()">Reset</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-2">
-                <div class="card-header d-flex justify-content-between py-2">
-                    <span>Annonces</span>
-                    <div>
-                        <button class="btn btn-sm btn-outline-success me-2" onclick="exportCSV()" title="Exporter en CSV">📥 CSV</button>
-                        <span id="table-count" class="listing-count"></span>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0" id="main-table">
-                        <thead>
-                            <tr>
-                                <th data-col="site">Site <span class="sort-arrow">▲</span></th>
-                                <th data-col="city">Ville <span class="sort-arrow">▲</span></th>
-                                <th data-col="price">Prix <span class="sort-arrow">▲</span></th>
-                                <th data-col="rooms">Ch. <span class="sort-arrow">▲</span></th>
-                                <th data-col="surface">m² <span class="sort-arrow">▲</span></th>
-                                <th data-col="price_m2">€/m² <span class="sort-arrow">▲</span></th>
-                                <th data-col="distance_km">Dist. <span class="sort-arrow">▲</span></th>
-                                <th>Titre</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB: Par Ville -->
-        <div class="tab-pane fade" id="tab-city">
-            <div id="city-container"></div>
-        </div>
-
-        <!-- TAB: Par Prix -->
-        <div class="tab-pane fade" id="tab-price">
-            <div id="price-container"></div>
-        </div>
-
-        <!-- TAB: Carte -->
-        <div class="tab-pane fade" id="tab-map">
-            <div class="card">
-                <div class="card-body p-0">
-                    <div id="map"></div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
-<!-- Dark Mode Toggle -->
-<button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre">🌙</button>
-
-<!-- Back to Top Button -->
-<button id="backToTop" title="Retour en haut" style="display:none;position:fixed;bottom:5rem;right:2rem;width:45px;height:45px;border-radius:50%;background:#667eea;color:white;border:none;cursor:pointer;font-size:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:99;transition:all 0.3s;">↑</button>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
-<script src="data/listings.js"></script>
-<script src="data/stats.js"></script>
 <script>
-    // ==================== DARK MODE ====================
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    darkModeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    });
+    // Auto-redirect logic (optional)
+    // Uncomment to enable auto-redirect to v2
+    // const preferredVersion = localStorage.getItem('preferredVersion') || 'v2';
+    // const redirectDelay = 2000;
+    // const info = document.getElementById('redirectInfo');
+    // info.textContent = `Redirection vers ${preferredVersion} dans ${redirectDelay/1000}s...`;
+    // setTimeout(() => { window.location.href = `${preferredVersion}/index.html`; }, redirectDelay);
 
-    if (localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark-mode');
-    }
-
-    // ==================== UTILITAIRES ====================
-    function fmt(n) { return n ? n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '—'; }
-    function badge(site) {
-        const bg = SITE_COLORS[site] || '#888';
-        return `<span class="site-badge" style="background:${bg}">${site}</span>`;
-    }
-
-    // ==================== TABLEAU TRIABLE ====================
-    let sortCol = 'price';
-    let sortAsc = true;
-    let filtered = [...LISTINGS];
-
-    function applyFilters() {
-        const city = document.getElementById('f-city').value;
-        const pmin = parseInt(document.getElementById('f-pmin').value) || 0;
-        const pmax = parseInt(document.getElementById('f-pmax').value) || 999999;
-        const site = document.getElementById('f-site').value;
-        const smin = parseInt(document.getElementById('f-smin').value) || 0;
-
-        filtered = LISTINGS.filter(l => {
-            if (city && l.city !== city) return false;
-            if (l.price < pmin || l.price > pmax) return false;
-            if (site && l.site !== site) return false;
-            if (smin && (!l.surface || l.surface < smin)) return false;
-            return true;
-        });
-        sortAndRender();
-    }
-
-    function sortAndRender() {
-        filtered.sort((a, b) => {
-            let va = a[sortCol], vb = b[sortCol];
-            if (va == null) va = sortAsc ? Infinity : -Infinity;
-            if (vb == null) vb = sortAsc ? Infinity : -Infinity;
-            if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
-            return sortAsc ? va - vb : vb - va;
-        });
-        renderTable();
-    }
-
-    function renderTable() {
-        const tbody = document.getElementById('table-body');
-        document.getElementById('table-count').textContent = filtered.length + ' / ' + LISTINGS.length;
-        if (!filtered.length) {
-            tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-3">Aucune annonce</td></tr>';
-            return;
-        }
-        tbody.innerHTML = filtered.map(l => `
-            <tr>
-                <td>${badge(l.site)}</td>
-                <td>${l.city || '—'}</td>
-                <td><strong>${fmt(l.price)}€</strong></td>
-                <td>${l.rooms || '—'}</td>
-                <td>${l.surface || '—'}</td>
-                <td>${l.price_m2 ? `<span style="color:${l.price_m2 < 20 ? '#28a745' : l.price_m2 > 30 ? '#dc3545' : '#ffc107'}">${l.price_m2}€</span>` : '—'}</td>
-                <td>${l.distance_km != null ? l.distance_km + ' km' : '—'}</td>
-                <td>
-                    <a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 40)}</a>
-                    <a href="https://wa.me/?text=${encodeURIComponent(l.city + ' ' + l.price + '€ - ' + l.url)}" target="_blank" title="WhatsApp" style="margin-left:5px;text-decoration:none;">📱</a>
-                    <a href="https://t.me/share/url?url=${encodeURIComponent(l.url)}&text=${encodeURIComponent(l.city + ' ' + l.price + '€')}" target="_blank" title="Telegram" style="text-decoration:none;">✈️</a>
-                </td>
-            </tr>
-        `).join('');
-    }
-
-    function resetFilters() {
-        ['f-city','f-pmin','f-pmax','f-site','f-smin'].forEach(id => document.getElementById(id).value = '');
-        applyFilters();
-    }
-
-    // Tri au clic (avec mémorisation)
-    document.querySelectorAll('#main-table th[data-col]').forEach(th => {
-        th.addEventListener('click', () => {
-            const col = th.dataset.col;
-            if (sortCol === col) { sortAsc = !sortAsc; } else { sortCol = col; sortAsc = true; }
-            document.querySelectorAll('.sort-arrow').forEach(a => a.classList.remove('active'));
-            th.querySelector('.sort-arrow').classList.add('active');
-            th.querySelector('.sort-arrow').innerHTML = sortAsc ? '▲' : '▼';
-            saveSort();
-            sortAndRender();
-        });
-    });
-
-    // Filtres en temps reel
-    ['f-city', 'f-site'].forEach(id => document.getElementById(id).addEventListener('change', applyFilters));
-    ['f-pmin', 'f-pmax', 'f-smin'].forEach(id => document.getElementById(id).addEventListener('input', applyFilters));
-
-    function initFilters() {
-        const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
-        const sites = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
-        const citySelect = document.getElementById('f-city');
-        cities.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; citySelect.appendChild(o); });
-        const siteSelect = document.getElementById('f-site');
-        sites.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; siteSelect.appendChild(o); });
-
-        // Remplir les badges de sites
-        const badgesDiv = document.getElementById('siteBadges');
-        const siteCounts = {};
-        LISTINGS.forEach(l => siteCounts[l.site] = (siteCounts[l.site] || 0) + 1);
-        badgesDiv.innerHTML = Object.entries(siteCounts).sort((a, b) => b[1] - a[1]).map(([site, count]) => {
-            const bg = SITE_COLORS[site] || '#888';
-            return `<span class="site-badge" style="background:${bg}">${site} (${count})</span>`;
-        }).join(' ');
-    }
-
-    // ==================== VUE PAR VILLE ====================
-    function renderCityView() {
-        const container = document.getElementById('city-container');
-        const groups = {};
-        LISTINGS.forEach(l => { const c = l.city || 'N/A'; if (!groups[c]) groups[c] = []; groups[c].push(l); });
-        const sorted = Object.entries(groups).sort((a, b) => b[1].length - a[1].length);
-
-        container.innerHTML = sorted.map(([city, items]) => {
-            const prices = items.filter(l => l.price > 0).map(l => l.price);
-            const avg = prices.length ? Math.round(prices.reduce((a,b) => a+b, 0) / prices.length) : 0;
-            const mn = prices.length ? Math.min(...prices) : 0;
-            const mx = prices.length ? Math.max(...prices) : 0;
-            const rows = items.sort((a,b) => (a.price||0) - (b.price||0)).map(l => `
-                <tr>
-                    <td>${badge(l.site)}</td>
-                    <td><strong>${fmt(l.price)}€</strong></td>
-                    <td>${l.rooms || '—'} ch.</td>
-                    <td>${l.surface || '—'} m²</td>
-                    <td>${l.price_m2 ? l.price_m2 + ' €/m²' : '—'}</td>
-                    <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 45)}</a></td>
-                </tr>
-            `).join('');
-            return `
-                <div class="city-group">
-                    <h5>📍 ${city} <span class="listing-count">(${items.length} ann. | moy. ${fmt(avg)}€ | ${fmt(mn)}€ - ${fmt(mx)}€)</span></h5>
-                    <div class="table-responsive">
-                    <table class="table table-sm table-hover mb-0">
-                        <thead><tr><th>Site</th><th>Prix</th><th>Ch.</th><th>m²</th><th>€/m²</th><th>Titre</th></tr></thead>
-                        <tbody>${rows}</tbody>
-                    </table>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
-
-    // ==================== VUE PAR PRIX ====================
-    function renderPriceView() {
-        const container = document.getElementById('price-container');
-        const ranges = [
-            { label: 'Moins de 1 500 €', min: 0, max: 1499, color: '#2ECC71' },
-            { label: '1 500 - 2 000 €', min: 1500, max: 1999, color: '#36A2EB' },
-            { label: '2 000 - 2 500 €', min: 2000, max: 2499, color: '#FFCE56' },
-            { label: 'Plus de 2 500 €', min: 2500, max: 999999, color: '#FF6384' }
-        ];
-        container.innerHTML = ranges.map(r => {
-            const items = LISTINGS.filter(l => l.price >= r.min && l.price <= r.max).sort((a,b) => (a.price||0) - (b.price||0));
-            if (!items.length) return '';
-            const rows = items.map(l => `
-                <tr>
-                    <td>${badge(l.site)}</td>
-                    <td>${l.city || '—'}</td>
-                    <td><strong>${fmt(l.price)}€</strong></td>
-                    <td>${l.rooms || '—'} ch.</td>
-                    <td>${l.surface || '—'} m²</td>
-                    <td>${l.price_m2 ? l.price_m2 + ' €/m²' : '—'}</td>
-                    <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 45)}</a></td>
-                </tr>
-            `).join('');
-            return `
-                <div class="price-range-section">
-                    <h5><span class="price-badge" style="background:${r.color};color:white">${r.label}</span>
-                        <span class="listing-count ms-2">${items.length} annonces</span></h5>
-                    <div class="table-responsive">
-                    <table class="table table-sm table-hover mb-0">
-                        <thead><tr><th>Site</th><th>Ville</th><th>Prix</th><th>Ch.</th><th>m²</th><th>€/m²</th><th>Titre</th></tr></thead>
-                        <tbody>${rows}</tbody>
-                    </table>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
-
-    // ==================== CARTE LEAFLET ====================
-    let mapInit = false;
-    document.querySelector('[data-bs-target="#tab-map"]').addEventListener('shown.bs.tab', () => {
-        if (mapInit) return;
-        mapInit = true;
-        const withGPS = LISTINGS.filter(l => l.latitude && l.longitude);
-        if (!withGPS.length) {
-            document.getElementById('map').innerHTML = '<p class="text-center text-muted py-5">Aucune annonce avec coordonnées GPS</p>';
-            return;
-        }
-        const map = L.map('map').setView([49.6116, 6.1319], 10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
-        withGPS.forEach(l => {
-            const color = SITE_COLORS[l.site] || '#888';
-            L.circleMarker([l.latitude, l.longitude], {
-                radius: 7, fillColor: color, color: '#fff', weight: 2, fillOpacity: 0.85
-            }).addTo(map).bindPopup(`
-                <strong>${l.city || '—'}</strong><br>
-                ${fmt(l.price)}€ | ${l.rooms || '?'} ch. | ${l.surface || '?'} m²<br>
-                <a href="${l.url}" target="_blank">Voir l'annonce</a>
-            `);
-        });
-        map.fitBounds(withGPS.map(l => [l.latitude, l.longitude]), { padding: [30, 30] });
-    });
-
-    // ==================== SERVICE WORKER ====================
+    // Service Worker
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW not available'));
     }
 
-    // ==================== STATS DYNAMIQUES ====================
-    function updateStats() {
-        const total = LISTINGS.length;
-        const prices = LISTINGS.filter(l => l.price > 0).map(l => l.price);
-        const surfaces = LISTINGS.filter(l => l.surface > 0).map(l => l.surface);
-        const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))];
-        const sites = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))];
-
-        const avgPrice = prices.length ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
-        const minPrice = prices.length ? Math.min(...prices) : 0;
-        const maxPrice = prices.length ? Math.max(...prices) : 0;
-        const avgSurface = surfaces.length ? Math.round(surfaces.reduce((a, b) => a + b, 0) / surfaces.length) : 0;
-
-        // Header stats
-        document.getElementById('totalCount').textContent = total;
-        document.getElementById('cityCount').textContent = cities.length;
-        document.getElementById('siteCount').textContent = sites.length;
-
-        // Card stats
-        document.getElementById('statTotal').textContent = total;
-        document.getElementById('statAvgPrice').textContent = fmt(avgPrice) + '€';
-        document.getElementById('statMinPrice').textContent = fmt(minPrice) + '€';
-        document.getElementById('statMaxPrice').textContent = fmt(maxPrice) + '€';
-        document.getElementById('statAvgSurface').textContent = avgSurface + 'm²';
-        document.getElementById('statCities').textContent = cities.length;
-    }
-
-    // ==================== EXPORT CSV ====================
-    function exportCSV() {
-        const headers = ['Site', 'Ville', 'Prix', 'Chambres', 'Surface', 'Prix/m²', 'Distance', 'Titre', 'URL'];
-        const rows = filtered.map(l => [
-            l.site || '',
-            l.city || '',
-            l.price || '',
-            l.rooms || '',
-            l.surface || '',
-            l.price_m2 || '',
-            l.distance_km || '',
-            (l.title || '').replace(/[";]/g, ' '),
-            l.url || ''
-        ]);
-        const csv = [headers, ...rows].map(r => r.map(c => `"${c}"`).join(';')).join('\n');
-        const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `immolux_${new Date().toISOString().split('T')[0]}.csv`;
-        a.click();
-        URL.revokeObjectURL(url);
-    }
-
-    // ==================== BACK TO TOP ====================
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-        backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+    // Store version preference when user clicks
+    document.querySelectorAll('.version-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            const version = e.currentTarget.href.includes('v1') ? 'v1' : 'v2';
+            localStorage.setItem('preferredVersion', version);
+        });
     });
-    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    // ==================== TRI MÉMORISÉ ====================
-    const savedSort = localStorage.getItem('sortPreference');
-    if (savedSort) {
-        const [col, asc] = savedSort.split(':');
-        sortCol = col;
-        sortAsc = asc === 'true';
-    }
-    function saveSort() {
-        localStorage.setItem('sortPreference', `${sortCol}:${sortAsc}`);
-    }
-
-    // ==================== COMPTEUR NOUVELLES AUJOURD'HUI ====================
-    function countNewToday() {
-        const today = new Date().toISOString().split('T')[0];
-        const newToday = LISTINGS.filter(l => l.created_at && l.created_at.startsWith(today)).length;
-        if (newToday > 0) {
-            const badge = document.createElement('span');
-            badge.innerHTML = `<span style="background:#28a745;color:white;padding:2px 8px;border-radius:12px;font-size:0.75rem;margin-left:8px;">+${newToday} aujourd'hui</span>`;
-            document.getElementById('totalCount').parentNode.appendChild(badge);
-        }
-    }
-
-    // ==================== INIT ====================
-    document.getElementById('lastUpdate').textContent = `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
-    updateStats();
-    countNewToday();
-    initFilters();
-    applyFilters();
-    renderCityView();
-    renderPriceView();
 </script>
-<!-- Service Worker Registration -->
-<script>
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-        .then(reg => console.log('SW registered:', reg.scope))
-        .catch(err => console.log('SW registration failed:', err));
-}
-</script>
+
 </body>
 </html>

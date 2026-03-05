@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
+    <title>Qualité des Données - ImmoLux</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <script src="dark-mode.js" defer></script>
+</head>
+<body>
+
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+        <span id="darkModeIcon">🌙</span>
+    </button>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1>📊 Qualité des Données</h1>
+                    <p class="mb-0 opacity-75">Métriques et couverture des annonces</p>
+                </div>
+                <a href="index.html" class="back-link">← Retour au dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- MÉTRIQUES GLOBALES -->
+        <div class="row mb-4">
+            <div class="col-md-3 col-sm-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-label">Total Annonces</div>
+                    <div class="metric-value" id="totalListings">-</div>
+                    <div class="metric-change">Mise à jour aujourd'hui</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-label">Couverture Photos</div>
+                    <div class="metric-value status-warning" id="photoCoverage">-</div>
+                    <div class="metric-change" id="photoCount">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-label">GPS Disponible</div>
+                    <div class="metric-value status-good" id="gpsCoverage">-</div>
+                    <div class="metric-change" id="gpsCount">-</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3">
+                <div class="metric-card">
+                    <div class="metric-label">Surface Connue</div>
+                    <div class="metric-value status-excellent" id="surfaceCoverage">-</div>
+                    <div class="metric-change" id="surfaceCount">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COUVERTURE PAR CHAMP -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title mb-4">📈 Couverture par Champ</h3>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Photos (image_url)</span>
+                        <span id="photoPercentText">-</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-warning" id="photoProgress" style="width: 0%">0%</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>GPS (latitude/longitude)</span>
+                        <span id="gpsPercentText">-</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-info" id="gpsProgress" style="width: 0%">0%</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Surface (m²)</span>
+                        <span id="surfacePercentText">-</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" id="surfaceProgress" style="width: 0%">0%</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Chambres</span>
+                        <span id="roomsPercentText">-</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-primary" id="roomsProgress" style="width: 0%">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUALITÉ PAR SITE -->
+        <div class="mb-4">
+            <h3 class="mb-3">🏢 Qualité par Site Immobilier</h3>
+            <div id="sitesContainer"></div>
+        </div>
+
+        <!-- ALERTES & PROBLÈMES -->
+        <div class="mb-4">
+            <h3 class="mb-3">⚠️ Sites en Panne ou Problèmes</h3>
+            <div id="alertsContainer"></div>
+        </div>
+
+    </div>
+
+    <script src="data/listings.js"></script>
+    <script>
+        // Dark Mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('darkModeIcon');
+            icon.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Restore dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            toggleDarkMode();
+        }
+
+        // Calculer métriques
+        function calculateMetrics() {
+            const total = LISTINGS.length;
+
+            // Compter couvertures
+            let withPhotos = 0;
+            let withGPS = 0;
+            let withSurface = 0;
+            let withRooms = 0;
+
+            LISTINGS.forEach(listing => {
+                if (listing.image_url) withPhotos++;
+                if (listing.latitude && listing.longitude) withGPS++;
+                if (listing.surface && listing.surface > 0) withSurface++;
+                if (listing.rooms && listing.rooms > 0) withRooms++;
+            });
+
+            // Pourcentages
+            const photoPercent = Math.round((withPhotos / total) * 100);
+            const gpsPercent = Math.round((withGPS / total) * 100);
+            const surfacePercent = Math.round((withSurface / total) * 100);
+            const roomsPercent = Math.round((withRooms / total) * 100);
+
+            // Afficher métriques globales
+            document.getElementById('totalListings').textContent = total;
+            document.getElementById('photoCoverage').textContent = photoPercent + '%';
+            document.getElementById('photoCount').textContent = `${withPhotos} sur ${total} annonces`;
+            document.getElementById('gpsCoverage').textContent = gpsPercent + '%';
+            document.getElementById('gpsCount').textContent = `${withGPS} sur ${total} annonces`;
+            document.getElementById('surfaceCoverage').textContent = surfacePercent + '%';
+            document.getElementById('surfaceCount').textContent = `${withSurface} sur ${total} annonces`;
+
+            // Progress bars
+            updateProgress('photoProgress', 'photoPercentText', withPhotos, total, photoPercent);
+            updateProgress('gpsProgress', 'gpsPercentText', withGPS, total, gpsPercent);
+            updateProgress('surfaceProgress', 'surfacePercentText', withSurface, total, surfacePercent);
+            updateProgress('roomsProgress', 'roomsPercentText', withRooms, total, roomsPercent);
+
+            // Par site
+            generateSiteStats();
+
+            // Alertes
+            generateAlerts();
+        }
+
+        function updateProgress(barId, textId, count, total, percent) {
+            const bar = document.getElementById(barId);
+            const text = document.getElementById(textId);
+
+            bar.style.width = percent + '%';
+            bar.textContent = percent + '%';
+            text.textContent = `${count} / ${total}`;
+        }
+
+        function generateSiteStats() {
+            const siteStats = {};
+
+            LISTINGS.forEach(listing => {
+                const site = listing.site || 'Inconnu';
+                if (!siteStats[site]) {
+                    siteStats[site] = {
+                        total: 0,
+                        withPhotos: 0,
+                        withGPS: 0,
+                        withSurface: 0
+                    };
+                }
+
+                siteStats[site].total++;
+                if (listing.image_url) siteStats[site].withPhotos++;
+                if (listing.latitude && listing.longitude) siteStats[site].withGPS++;
+                if (listing.surface && listing.surface > 0) siteStats[site].withSurface++;
+            });
+
+            const container = document.getElementById('sitesContainer');
+            container.innerHTML = '';
+
+            Object.keys(siteStats).sort((a, b) => siteStats[b].total - siteStats[a].total).forEach(site => {
+                const stats = siteStats[site];
+                const photoPercent = Math.round((stats.withPhotos / stats.total) * 100);
+                const gpsPercent = Math.round((stats.withGPS / stats.total) * 100);
+                const surfacePercent = Math.round((stats.withSurface / stats.total) * 100);
+
+                let statusClass = 'status-excellent';
+                if (photoPercent < 30) statusClass = 'status-poor';
+                else if (photoPercent < 60) statusClass = 'status-warning';
+                else if (photoPercent < 80) statusClass = 'status-good';
+
+                const card = document.createElement('div');
+                card.className = 'site-card';
+                card.innerHTML = `
+                    <div class="site-name">${site}</div>
+                    <div class="site-stats">
+                        <div class="site-stat">
+                            <div class="site-stat-value">${stats.total}</div>
+                            <div class="site-stat-label">Annonces</div>
+                        </div>
+                        <div class="site-stat">
+                            <div class="site-stat-value ${statusClass}">${photoPercent}%</div>
+                            <div class="site-stat-label">Photos (${stats.withPhotos})</div>
+                        </div>
+                        <div class="site-stat">
+                            <div class="site-stat-value">${gpsPercent}%</div>
+                            <div class="site-stat-label">GPS (${stats.withGPS})</div>
+                        </div>
+                        <div class="site-stat">
+                            <div class="site-stat-value">${surfacePercent}%</div>
+                            <div class="site-stat-label">Surface (${stats.withSurface})</div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function generateAlerts() {
+            const alerts = [];
+            const siteStats = {};
+
+            // Calculer stats par site
+            LISTINGS.forEach(listing => {
+                const site = listing.site || 'Inconnu';
+                if (!siteStats[site]) {
+                    siteStats[site] = { total: 0, withPhotos: 0, withGPS: 0 };
+                }
+                siteStats[site].total++;
+                if (listing.image_url) siteStats[site].withPhotos++;
+                if (listing.latitude && listing.longitude) siteStats[site].withGPS++;
+            });
+
+            // Détecter problèmes dynamiquement
+            Object.entries(siteStats).forEach(([site, stats]) => {
+                const photoPercent = Math.round((stats.withPhotos / stats.total) * 100);
+                const gpsPercent = Math.round((stats.withGPS / stats.total) * 100);
+
+                if (stats.total === 0) {
+                    alerts.push({
+                        type: 'danger',
+                        icon: '🔴',
+                        title: site,
+                        message: 'Aucune annonce scrapée - Vérifier le scraper'
+                    });
+                } else if (photoPercent < 20) {
+                    alerts.push({
+                        type: 'warning',
+                        icon: '⚠️',
+                        title: site,
+                        message: `Faible couverture photos: ${photoPercent}% (${stats.withPhotos}/${stats.total})`
+                    });
+                } else if (gpsPercent < 30) {
+                    alerts.push({
+                        type: 'info',
+                        icon: 'ℹ️',
+                        title: site,
+                        message: `GPS limité: ${gpsPercent}% des annonces géolocalisées`
+                    });
+                }
+            });
+
+            // Sites connus avec problèmes CAPTCHA (info statique)
+            const knownIssues = ['Wortimmo.lu', 'Immoweb.be'];
+            knownIssues.forEach(site => {
+                if (!siteStats[site] || siteStats[site].total === 0) {
+                    alerts.push({
+                        type: 'danger',
+                        icon: '🔴',
+                        title: site,
+                        message: 'Site potentiellement bloqué (CAPTCHA/Cloudflare)'
+                    });
+                }
+            });
+
+            const container = document.getElementById('alertsContainer');
+            if (alerts.length === 0) {
+                container.innerHTML = '<div class="alert alert-success"><strong>✅ Aucun problème détecté</strong><p class="mb-0">Tous les scrapers fonctionnent normalement.</p></div>';
+            } else {
+                container.innerHTML = alerts.map(alert => `
+                    <div class="alert alert-${alert.type} alert-custom">
+                        <strong>${alert.icon} ${alert.title}</strong>
+                        <p class="mb-0">${alert.message}</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Initialiser au chargement
+        calculateMetrics();
+    </script>
+<!-- Service Worker -->
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js")
+        .then(reg => console.log("SW registered"))
+        .catch(err => console.log("SW failed:", err));
+}
+</script>
+</body>
+</html>

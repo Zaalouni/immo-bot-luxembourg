@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Résumé ImmoLux - Vue d'ensemble du marché immobilier">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <title>Résumé - ImmoLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <script src="dark-mode.js" defer></script>
+</head>
+<body>
+
+<div class="header">
+    <h1>📊 Résumé ImmoLux</h1>
+    <p style="opacity: 0.9; margin: 0;">Vue d'ensemble du marché immobilier luxembourgeois</p>
+</div>
+
+<div class="container-main">
+
+    <!-- KPIs Globaux -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value" id="kpiTotal">114</div>
+            <div class="stat-label">Annonces Total</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="kpiCities">63</div>
+            <div class="stat-label">Villes</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="kpiAvgPrice">2187€</div>
+            <div class="stat-label">Prix Moyen</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="kpiNewToday">—</div>
+            <div class="stat-label">Nouvelles (24h)</div>
+        </div>
+    </div>
+
+    <!-- Navigation vers autres pages -->
+    <div class="nav-section">
+        <h3 style="margin-bottom: 1.5rem; color: var(--primary);">🔗 Explorez le Dashboard</h3>
+        <div class="nav-links">
+            <a href="index.html">📊 Dashboard Principal</a>
+            <a href="stats-by-city.html">📋 Stats par Ville</a>
+            <a href="comparison.html">🔄 Comparateur</a>
+            <a href="map.html">🗺️ Carte</a>
+            <a href="photos.html">📸 Galerie</a>
+            <a href="anomalies.html">⚠️ Anomalies</a>
+            <a href="alerts.html">⭐ Favoris</a>
+            <a href="trends.html">📈 Tendances</a>
+            <a href="reports.html">📄 Reports</a>
+        </div>
+    </div>
+
+    <!-- Top 5 Villes -->
+    <div class="section">
+        <h2>🏙️ Top 5 Villes (par nombre d'annonces)</h2>
+        <div id="topCities"></div>
+    </div>
+
+    <!-- Top 5 Prix -->
+    <div class="section">
+        <h2>💰 Prix les Plus Hauts</h2>
+        <div id="topPrices"></div>
+    </div>
+
+    <!-- Dernières Annonces -->
+    <div class="section top-listings">
+        <h2>✨ Dernières Annonces (5 récentes)</h2>
+        <div id="recentListings"></div>
+    </div>
+
+</div>
+
+<!-- Dark Mode Toggle -->
+<button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre">🌙</button>
+
+<script src="data/listings.js"></script>
+<script>
+    // ==================== DARK MODE ====================
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    });
+
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+
+    // ==================== INIT ====================
+    function init() {
+        if (!LISTINGS) return;
+
+        // KPIs
+        document.getElementById('kpiTotal').textContent = LISTINGS.length;
+
+        const cities = new Set(LISTINGS.map(l => l.city));
+        document.getElementById('kpiCities').textContent = cities.size;
+
+        const prices = LISTINGS.filter(l => l.price > 0).map(l => l.price);
+        const avgPrice = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
+        document.getElementById('kpiAvgPrice').textContent = avgPrice.toLocaleString('fr-FR') + '€';
+
+        // Top 5 Villes
+        const cityCounts = {};
+        LISTINGS.forEach(l => {
+            cityCounts[l.city] = (cityCounts[l.city] || 0) + 1;
+        });
+
+        const topCities = Object.entries(cityCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5);
+
+        document.getElementById('topCities').innerHTML = topCities.map(([city, count]) => `
+            <div class="city-row">
+                <strong>${city}</strong>
+                <span style="background: var(--primary); color: white; padding: 0.3rem 0.8rem; border-radius: 10px; font-weight: 600;">${count} annonces</span>
+            </div>
+        `).join('');
+
+        // Top 5 Prix
+        const topPrices = LISTINGS
+            .filter(l => l.price > 0)
+            .sort((a, b) => b.price - a.price)
+            .slice(0, 5);
+
+        document.getElementById('topPrices').innerHTML = topPrices.map(l => `
+            <div class="city-row">
+                <div>
+                    <strong>${l.title.substring(0, 50)}</strong><br>
+                    <small style="color: #888;">${l.city} • ${l.site}</small>
+                </div>
+                <strong style="color: var(--primary); font-size: 1.1rem;">${l.price.toLocaleString('fr-FR')}€</strong>
+            </div>
+        `).join('');
+
+        // Dernières Annonces
+        const recent = LISTINGS.slice(0, 5);
+        document.getElementById('recentListings').innerHTML = recent.map(l => `
+            <div class="city-row">
+                <div>
+                    <strong>${l.title.substring(0, 50)}</strong><br>
+                    <small style="color: #888;">${l.city} • ${l.rooms || '—'} ch. • ${l.surface || '—'}m²</small>
+                </div>
+                <div style="text-align: right;">
+                    <strong style="color: var(--primary);">${l.price.toLocaleString('fr-FR')}€</strong><br>
+                    <small><a href="${l.url}" target="_blank" style="color: var(--primary); text-decoration: none;">Voir →</a></small>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
+    }
+
+    init();
+</script>
+</body>
+</html>

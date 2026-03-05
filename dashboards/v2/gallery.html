@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Galerie immobilière moderne - ImmoLux Luxembourg">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Galerie - ImmoLux</title>
+    <style>
+        :root {
+            --bg-dark: #0f0f1a;
+            --bg-card: #1a1a2e;
+            --bg-card-hover: #252542;
+            --accent: #667eea;
+            --accent-light: #818cf8;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6b6b80;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gradient-overlay: linear-gradient(180deg, transparent 0%, transparent 40%, rgba(15,15,26,0.7) 70%, rgba(15,15,26,0.95) 100%);
+            --card-radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #16213e 100%);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-primary);
+            background: rgba(102, 126, 234, 0.15);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--bg-card);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .stats-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .stats-left {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-light);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .view-btn.active, .view-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* Filters */
+        .filters-section {
+            background: var(--bg-card);
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .filters-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-label {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.4rem;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            background: var(--bg-dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .filter-btn.primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-1px);
+        }
+
+        .filter-btn.secondary {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-secondary);
+        }
+
+        .filter-btn.secondary:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Property Card */
+        .property-card {
+            position: relative;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            background: var(--bg-card);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .property-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .property-card:hover .card-image img {
+            transform: scale(1.08);
+        }
+
+        /* Card Image */
+        .card-image {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e1e3f 0%, #2d2d5a 100%);
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70%;
+            background: var(--gradient-overlay);
+            pointer-events: none;
+        }
+
+        /* Card Badges */
+        .card-badges {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            right: 1rem;
+            display: flex;
+            justify-content: space-between;
+            z-index: 2;
+        }
+
+        .badge {
+            padding: 0.4rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+        }
+
+        .badge-site {
+            background: rgba(102, 126, 234, 0.9);
+            color: white;
+        }
+
+        .badge-new {
+            background: rgba(34, 197, 94, 0.9);
+            color: white;
+        }
+
+        .badge-favorite {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            padding: 0.35rem 0.6rem;
+        }
+
+        .badge-favorite:hover {
+            background: rgba(239, 68, 68, 0.9);
+            transform: scale(1.1);
+        }
+
+        .badge-favorite.active {
+            background: rgba(239, 68, 68, 0.9);
+        }
+
+        /* Card Info (on image) - Ultra Compact */
+        .card-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.6rem 1rem;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+
+        .card-city {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .card-price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--accent-light);
+        }
+
+        /* Placeholder */
+        .card-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card-placeholder-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.4;
+        }
+
+        .card-placeholder-text {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-placeholder-link {
+            padding: 0.4rem 1rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .card-placeholder-link:hover {
+            background: var(--accent-light);
+        }
+
+        /* Voir button - aligned right */
+        .card-voir-btn {
+            padding: 0.4rem 1rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            white-space: nowrap;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .card-voir-btn:hover {
+            background: var(--accent-light);
+            color: white;
+            transform: translateX(3px);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            padding: 2rem 0;
+        }
+
+        .pagination-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination-info {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            overflow: auto;
+        }
+
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 1001;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-content {
+            display: flex;
+            max-width: 1000px;
+            width: 95%;
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .lightbox-image {
+            flex: 1;
+            min-height: 400px;
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-image img {
+            max-width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+        }
+
+        .lightbox-details {
+            width: 350px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lightbox-site {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            align-self: flex-start;
+        }
+
+        .lightbox-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .lightbox-location {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .lightbox-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .lightbox-specs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .lightbox-spec {
+            background: var(--bg-dark);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .lightbox-spec-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .lightbox-spec-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .lightbox-cta {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: var(--transition);
+            margin-top: auto;
+        }
+
+        .lightbox-cta:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+            transition: var(--transition);
+            display: none;
+            z-index: 99;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .lightbox-content {
+                flex-direction: column;
+            }
+
+            .lightbox-details {
+                width: 100%;
+            }
+
+            .lightbox-image {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .stats-bar, .filters-section {
+                padding: 1rem;
+            }
+
+            .stats-left {
+                gap: 1rem;
+            }
+
+            .stat-value {
+                font-size: 1.2rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .card-image {
+                height: 220px;
+            }
+
+            .card-city {
+                font-size: 1.1rem;
+            }
+
+            .card-price {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🏠</span>
+                <span class="logo-text">ImmoLux</span>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Dashboard</a>
+                <a href="map.html">Carte</a>
+                <a href="new-listings.html">Nouvelles</a>
+                <a href="photos.html">Photos</a>
+                <a href="gallery.html" class="active">Galerie</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stats-content">
+            <div class="stats-left">
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-total">—</div>
+                    <div class="stat-label">Annonces</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-photos">—</div>
+                    <div class="stat-label">Avec photos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="stat-favorites">0</div>
+                    <div class="stat-label">Favoris</div>
+                </div>
+            </div>
+            <div class="view-toggle">
+                <button class="view-btn active" onclick="setView('all')">Toutes</button>
+                <button class="view-btn" onclick="setView('favorites')">❤️ Favoris</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-section">
+        <div class="filters-content">
+            <div class="filter-group">
+                <label class="filter-label">Ville</label>
+                <select id="filter-city" class="filter-select" onchange="applyFilters()">
+                    <option value="">Toutes les villes</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Prix max</label>
+                <select id="filter-price" class="filter-select" onchange="applyFilters()">
+                    <option value="">Tous les prix</option>
+                    <option value="1500">≤ 1 500€</option>
+                    <option value="2000">≤ 2 000€</option>
+                    <option value="2500">≤ 2 500€</option>
+                    <option value="3000">≤ 3 000€</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Chambres</label>
+                <select id="filter-rooms" class="filter-select" onchange="applyFilters()">
+                    <option value="">Toutes</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Site</label>
+                <select id="filter-site" class="filter-select" onchange="applyFilters()">
+                    <option value="">Tous les sites</option>
+                </select>
+            </div>
+            <button class="filter-btn secondary" onclick="resetFilters()">↻ Reset</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div id="gallery" class="gallery-grid"></div>
+
+        <div class="pagination">
+            <button class="pagination-btn" id="prev-btn" onclick="prevPage()">← Précédent</button>
+            <span class="pagination-info" id="page-info">Page 1</span>
+            <button class="pagination-btn" id="next-btn" onclick="nextPage()">Suivant →</button>
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="if(event.target === this) closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <div class="lightbox-content">
+            <div class="lightbox-image" id="lightbox-image-container">
+                <img id="lightbox-img" src="" alt="">
+            </div>
+            <div class="lightbox-details">
+                <span class="lightbox-site" id="lightbox-site"></span>
+                <h2 class="lightbox-title" id="lightbox-title"></h2>
+                <p class="lightbox-location" id="lightbox-location"></p>
+                <div class="lightbox-price" id="lightbox-price"></div>
+                <div class="lightbox-specs">
+                    <div class="lightbox-spec">
+                        <div class="lightbox-spec-label">Chambres</div>
+                        <div class="lightbox-spec-value" id="lightbox-rooms">—</div>
+                    </div>
+                    <div class="lightbox-spec">
+                        <div class="lightbox-spec-label">Surface</div>
+                        <div class="lightbox-spec-value" id="lightbox-surface">—</div>
+                    </div>
+                    <div class="lightbox-spec">
+                        <div class="lightbox-spec-label">Prix/m²</div>
+                        <div class="lightbox-spec-value" id="lightbox-pricem2">—</div>
+                    </div>
+                    <div class="lightbox-spec">
+                        <div class="lightbox-spec-label">Distance</div>
+                        <div class="lightbox-spec-value" id="lightbox-distance">—</div>
+                    </div>
+                </div>
+                <a class="lightbox-cta" id="lightbox-link" href="#" target="_blank">
+                    Voir l'annonce complète →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script src="data/listings.js"></script>
+    <script src="data/stats.js"></script>
+    <script>
+        // Config
+        const ITEMS_PER_PAGE = 12;
+        let currentPage = 1;
+        let filtered = [];
+        let viewMode = 'all';
+        let favorites = JSON.parse(localStorage.getItem('immoFavorites') || '[]');
+
+        const SITE_COLORS_MAP = (typeof SITE_COLORS !== 'undefined') ? SITE_COLORS : {};
+
+        // Utilities
+        function formatPrice(price) {
+            if (!price) return '—';
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + '€';
+        }
+
+        function getBestImage(listing) {
+            if (listing.local_image) return listing.local_image;
+            if (listing.image_url && !listing.image_url.includes('badge') && !listing.image_url.includes('logo')) {
+                if (listing.image_url.includes('athome.lu/imageGallery')) return null;
+                if (listing.image_url.includes('immotop.lu')) return null;
+                return listing.image_url;
+            }
+            return null;
+        }
+
+        function isNew(dateStr) {
+            if (!dateStr) return false;
+            const created = new Date(dateStr);
+            const now = new Date();
+            const diffHours = (now - created) / (1000 * 60 * 60);
+            return diffHours < 48;
+        }
+
+        function toggleFavorite(listingId, event) {
+            event.stopPropagation();
+            const idx = favorites.indexOf(listingId);
+            if (idx > -1) {
+                favorites.splice(idx, 1);
+            } else {
+                favorites.push(listingId);
+            }
+            localStorage.setItem('immoFavorites', JSON.stringify(favorites));
+            updateStats();
+            if (viewMode === 'favorites') applyFilters();
+            renderGallery();
+        }
+
+        function isFavorite(listingId) {
+            return favorites.includes(listingId);
+        }
+
+        // Init
+        function init() {
+            if (typeof LISTINGS === 'undefined' || !LISTINGS.length) {
+                document.getElementById('gallery').innerHTML = '<div class="empty-state"><div class="empty-state-icon">❌</div><p>Données non disponibles</p></div>';
+                return;
+            }
+
+            // Populate filters
+            const cities = [...new Set(LISTINGS.map(l => l.city).filter(Boolean))].sort();
+            const sites = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
+
+            const citySelect = document.getElementById('filter-city');
+            cities.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c;
+                opt.textContent = c;
+                citySelect.appendChild(opt);
+            });
+
+            const siteSelect = document.getElementById('filter-site');
+            sites.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s;
+                opt.textContent = s;
+                siteSelect.appendChild(opt);
+            });
+
+            updateStats();
+            applyFilters();
+            setupScrollListener();
+        }
+
+        function updateStats() {
+            const total = LISTINGS.length;
+            const withPhotos = LISTINGS.filter(l => l.local_image || l.image_url).length;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-photos').textContent = withPhotos;
+            document.getElementById('stat-favorites').textContent = favorites.length;
+        }
+
+        function applyFilters() {
+            const city = document.getElementById('filter-city').value;
+            const maxPrice = parseInt(document.getElementById('filter-price').value) || 0;
+            const minRooms = parseInt(document.getElementById('filter-rooms').value) || 0;
+            const site = document.getElementById('filter-site').value;
+
+            filtered = LISTINGS.filter(l => {
+                if (viewMode === 'favorites' && !isFavorite(l.listing_id)) return false;
+                if (city && l.city !== city) return false;
+                if (maxPrice && l.price > maxPrice) return false;
+                if (minRooms && (!l.rooms || l.rooms < minRooms)) return false;
+                if (site && l.site !== site) return false;
+                return true;
+            });
+
+            // Sort by date (newest first)
+            filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+            currentPage = 1;
+            renderGallery();
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-city').value = '';
+            document.getElementById('filter-price').value = '';
+            document.getElementById('filter-rooms').value = '';
+            document.getElementById('filter-site').value = '';
+            applyFilters();
+        }
+
+        function setView(mode) {
+            viewMode = mode;
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            applyFilters();
+        }
+
+        function renderGallery() {
+            const gallery = document.getElementById('gallery');
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const page = filtered.slice(start, end);
+
+            if (!page.length) {
+                gallery.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><p>Aucune annonce trouvée</p></div>';
+                updatePagination();
+                return;
+            }
+
+            gallery.innerHTML = page.map((l, idx) => {
+                const imageUrl = getBestImage(l);
+                const siteColor = SITE_COLORS_MAP[l.site] || '#667eea';
+                const siteName = l.site ? l.site.replace('.lu', '') : 'Site';
+                const price = formatPrice(l.price);
+                const priceM2 = l.price_m2 ? `${l.price_m2.toFixed(0)}€/m²` : '';
+                const isNewListing = isNew(l.created_at);
+                const isFav = isFavorite(l.listing_id);
+
+                return `
+                    <article class="property-card" onclick="openLightbox(${start + idx})">
+                        <div class="card-image">
+                            ${imageUrl ? `
+                                <img src="${imageUrl}" alt="${l.title || 'Annonce'}" loading="lazy"
+                                     onerror="this.parentElement.innerHTML='<div class=\\'card-placeholder\\'><span class=\\'card-placeholder-icon\\'>🏠</span><span class=\\'card-placeholder-text\\'>${siteName}</span><a href=\\'${l.url}\\' class=\\'card-placeholder-link\\' target=\\'_blank\\' onclick=\\'event.stopPropagation()\\'>Voir</a></div>'">
+                            ` : `
+                                <div class="card-placeholder">
+                                    <span class="card-placeholder-icon">🏠</span>
+                                    <span class="card-placeholder-text">${siteName}</span>
+                                    <a href="${l.url}" class="card-placeholder-link" target="_blank" onclick="event.stopPropagation()">Voir</a>
+                                </div>
+                            `}
+                            <div class="card-badges">
+                                <div>
+                                    <span class="badge badge-site" style="background: ${siteColor}">${siteName}</span>
+                                    ${isNewListing ? '<span class="badge badge-new" style="margin-left: 0.4rem">NEW</span>' : ''}
+                                </div>
+                                <span class="badge badge-favorite ${isFav ? 'active' : ''}"
+                                      onclick="toggleFavorite('${l.listing_id}', event)">
+                                    ${isFav ? '❤️' : '🤍'}
+                                </span>
+                            </div>
+                            <div class="card-info">
+                                <div class="card-left">
+                                    <span class="card-city">📍 ${l.city || 'Luxembourg'}</span>
+                                    <span class="card-meta">${l.rooms || '—'}ch · ${l.surface || '—'}m² · <span class="card-price">${price}</span></span>
+                                </div>
+                                <a href="${l.url}" class="card-voir-btn" target="_blank" onclick="event.stopPropagation()">Voir →</a>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+            document.getElementById('page-info').textContent = `Page ${currentPage} / ${totalPages || 1} • ${filtered.length} annonces`;
+            document.getElementById('prev-btn').disabled = currentPage <= 1;
+            document.getElementById('next-btn').disabled = currentPage >= totalPages;
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderGallery();
+                scrollToTop();
+            }
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderGallery();
+                scrollToTop();
+            }
+        }
+
+        // Lightbox
+        function openLightbox(index) {
+            const l = filtered[index];
+            const imageUrl = getBestImage(l);
+            const siteColor = SITE_COLORS_MAP[l.site] || '#667eea';
+
+            const imgContainer = document.getElementById('lightbox-image-container');
+            const img = document.getElementById('lightbox-img');
+
+            if (imageUrl) {
+                img.src = imageUrl;
+                img.style.display = 'block';
+                img.onerror = () => {
+                    imgContainer.innerHTML = `<div class="card-placeholder"><span class="card-placeholder-icon">🏠</span><span class="card-placeholder-text">Photo sur le site source</span></div>`;
+                };
+            } else {
+                imgContainer.innerHTML = `<div class="card-placeholder"><span class="card-placeholder-icon">🏠</span><span class="card-placeholder-text">Photo sur le site source</span></div>`;
+            }
+
+            document.getElementById('lightbox-site').textContent = l.site || '—';
+            document.getElementById('lightbox-site').style.background = siteColor;
+            document.getElementById('lightbox-title').textContent = l.title || 'Annonce immobilière';
+            document.getElementById('lightbox-location').textContent = `📍 ${l.city || 'Luxembourg'}`;
+            document.getElementById('lightbox-price').textContent = formatPrice(l.price) + '/mois';
+            document.getElementById('lightbox-rooms').textContent = l.rooms ? `${l.rooms} ch` : '—';
+            document.getElementById('lightbox-surface').textContent = l.surface ? `${l.surface} m²` : '—';
+            document.getElementById('lightbox-pricem2').textContent = l.price_m2 ? `${l.price_m2.toFixed(0)}€` : '—';
+            document.getElementById('lightbox-distance').textContent = l.distance_km ? `${l.distance_km} km` : '—';
+            document.getElementById('lightbox-link').href = l.url;
+
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Scroll
+        function setupScrollListener() {
+            const btn = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => {
+                btn.style.display = window.scrollY > 400 ? 'block' : 'none';
+            });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Keyboard
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
