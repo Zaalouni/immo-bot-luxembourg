@@ -412,7 +412,7 @@
             document.getElementById('lastUpdate').textContent =
                 `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
 
-            if (!window.LISTINGS || LISTINGS.length === 0) {
+            if (typeof LISTINGS === 'undefined' || !LISTINGS || LISTINGS.length === 0) {
                 document.getElementById('sidebarListings').innerHTML =
                     '<div style="padding:1rem;color:#c00;">Données non disponibles</div>';
                 return;

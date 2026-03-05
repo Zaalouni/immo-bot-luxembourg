@@ -168,6 +168,12 @@ html, body { margin: 0; padding: 0; height: 100%; overflow: hidden;
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script src="data/listings.js"></script>
 <script>
+// Fallback normCity si version-display.js pas encore chargé
+if (typeof normCity === 'undefined') {
+    window.normCity = function(city) {
+        return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
+    };
+}
 const GEO = (typeof LISTINGS !== 'undefined' ? LISTINGS : []).filter(l => l.latitude && l.longitude);
 let mapObj, clusterGroup;
 

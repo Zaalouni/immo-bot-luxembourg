@@ -232,7 +232,7 @@
     }
 
     function init() {
-        if (!window.LISTINGS || LISTINGS.length === 0) {
+        if (typeof LISTINGS === 'undefined' || !LISTINGS || LISTINGS.length === 0) {
             document.getElementById('topCities').innerHTML =
                 '<div class="text-danger" style="font-size:0.85rem;">Données non disponibles</div>';
             return;
