@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="../icon.svg">
+    <link rel="icon" type="image/svg+xml" href="/dashboards/icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -10,8 +10,8 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
     <title>Nouvelles Offres - ImmoLux</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="/dashboards/styles.css">
+    <link rel="manifest" href="/dashboards/manifest.json">
     <meta name="theme-color" content="#667eea">
     <style>
         /* Timeline compact */
@@ -322,7 +322,7 @@
             margin-bottom: 0.5rem;
         }
     </style>
-    <script src="../dark-mode.js" defer></script>
+    <script src="/dashboards/dark-mode.js" defer></script>
 </head>
 <body>
     <div class="header">
@@ -372,7 +372,7 @@
 
     <button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
 
-    <script src="data/listings.js"></script>
+    <script src="/dashboards/v2/data/listings.js"></script>
     <script>
         let currentFilter = 'all';
 
