@@ -376,6 +376,13 @@
 
     <script src="data/listings.js"></script>
     <script>
+        if (typeof normCity === 'undefined') {
+            window.normCity = function(city) {
+                return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
+            };
+        }
+    </script>
+    <script>
         let currentFilter = 'all';
 
         function parseDate(dateStr) {

@@ -209,6 +209,12 @@
 <script src="data/listings.js"></script>
 <script src="data/stats.js"></script>
 <script>
+    // normCity: strip "Luxembourg-" prefix (fallback si version-display.js pas encore chargé)
+    if (typeof normCity === 'undefined') {
+        window.normCity = function(city) {
+            return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
+        };
+    }
     // ==================== DARK MODE ====================
     const darkModeToggle = document.getElementById('darkModeToggle');
     darkModeToggle.addEventListener('click', () => {

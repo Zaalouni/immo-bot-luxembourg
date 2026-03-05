@@ -52,6 +52,13 @@
 <script src="data/listings.js"></script>
 <script src="data/market-stats.js"></script>
 <script>
+    if (typeof normCity === 'undefined') {
+        window.normCity = function(city) {
+            return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
+        };
+    }
+</script>
+<script>
 // Load transport data
 let TRANSPORTS = {};
 fetch('data/city-transports.json')
