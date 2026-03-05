@@ -1,21 +1,21 @@
-// Genere le 04/03/2026 21:37
+// Genere le 05/03/2026 18:25
 const STATS = {
-  "total": 166,
-  "avg_price": 2141,
+  "total": 172,
+  "avg_price": 2144,
   "min_price": 1400,
   "max_price": 2500,
   "avg_surface": 107,
-  "cities": 84,
+  "cities": 87,
   "sites": {
+    "Nextimmo.lu": 36,
+    "Athome.lu": 70,
     "Remax.lu": 4,
     "SothebysRealty.lu": 6,
     "Luxhome.lu": 10,
-    "Athome.lu": 67,
     "Nexvia": 1,
     "Newimmo.lu": 7,
     "Immotop.lu": 5,
     "Rockenbrod.lu": 3,
-    "Nextimmo.lu": 33,
     "Weckbecker.lu": 3,
     "Accord-Immo.lu": 1,
     "DDImmo.lu": 5,
@@ -46,6 +46,11 @@ const STATS = {
       "avg_price": 2188
     },
     {
+      "city": "Luxembourg-Bonnevoie",
+      "count": 5,
+      "avg_price": 2230
+    },
+    {
       "city": "Dudelange",
       "count": 5,
       "avg_price": 2090
@@ -61,14 +66,14 @@ const STATS = {
       "avg_price": 1960
     },
     {
+      "city": "Luxembourg-Kirchberg",
+      "count": 4,
+      "avg_price": 2220
+    },
+    {
       "city": "Luxembourg-Limpertsberg",
       "count": 4,
       "avg_price": 2100
-    },
-    {
-      "city": "Luxembourg-Bonnevoie",
-      "count": 4,
-      "avg_price": 2237
     },
     {
       "city": "Luxembourg-Gare",
@@ -106,14 +111,14 @@ const STATS = {
       "avg_price": 2000
     },
     {
-      "city": "Luxembourg-Kirchberg",
-      "count": 3,
-      "avg_price": 2243
-    },
-    {
       "city": "Schouweiler",
       "count": 3,
       "avg_price": 2145
+    },
+    {
+      "city": "Moutfort",
+      "count": 2,
+      "avg_price": 2350
     },
     {
       "city": "Eich",
@@ -176,6 +181,21 @@ const STATS = {
       "avg_price": 1915
     },
     {
+      "city": "Al-Esch-(esch-Sur-Alzette)",
+      "count": 1,
+      "avg_price": 2330
+    },
+    {
+      "city": "Canach",
+      "count": 1,
+      "avg_price": 2300
+    },
+    {
+      "city": "Roeser",
+      "count": 1,
+      "avg_price": 2250
+    },
+    {
       "city": "Beringen-Mersch",
       "count": 1,
       "avg_price": 2500
@@ -209,11 +229,6 @@ const STATS = {
       "city": "Roussy-Le-Village",
       "count": 1,
       "avg_price": 1650
-    },
-    {
-      "city": "Moutfort",
-      "count": 1,
-      "avg_price": 2500
     },
     {
       "city": "Alzingen",
@@ -449,20 +464,20 @@ const STATS = {
   "by_price_range": {
     "< 1500": 2,
     "1500 - 2000": 46,
-    "2000 - 2500": 99,
+    "2000 - 2500": 105,
     "> 2500": 19
   }
 };
 const SITE_COLORS = {
-  "Remax.lu": "#FF6384",
-  "SothebysRealty.lu": "#36A2EB",
-  "Luxhome.lu": "#FFCE56",
-  "Athome.lu": "#4BC0C0",
-  "Nexvia": "#9966FF",
-  "Newimmo.lu": "#FF9F40",
-  "Immotop.lu": "#2ECC71",
-  "Rockenbrod.lu": "#E74C3C",
-  "Nextimmo.lu": "#3498DB",
+  "Nextimmo.lu": "#FF6384",
+  "Athome.lu": "#36A2EB",
+  "Remax.lu": "#FFCE56",
+  "SothebysRealty.lu": "#4BC0C0",
+  "Luxhome.lu": "#9966FF",
+  "Nexvia": "#FF9F40",
+  "Newimmo.lu": "#2ECC71",
+  "Immotop.lu": "#E74C3C",
+  "Rockenbrod.lu": "#3498DB",
   "Weckbecker.lu": "#FF6384",
   "Accord-Immo.lu": "#36A2EB",
   "DDImmo.lu": "#FFCE56",
