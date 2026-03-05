@@ -13,231 +13,393 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#667eea">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="ImmoLux">
     <script src="dark-mode.js" defer></script>
     <script src="data/version.js"></script>
     <script src="version-display.js" defer></script>
+    <style>
+        .container-map {
+            display: flex;
+            height: calc(100vh - 130px);
+            gap: 0;
+        }
+        .sidebar {
+            width: 320px;
+            min-width: 260px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border-color, #e5e7eb);
+            background: var(--card-bg, #fff);
+            overflow: hidden;
+        }
+        .sidebar-filters {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color, #e5e7eb);
+            flex-shrink: 0;
+        }
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.82rem;
+            color: #888;
+            border-bottom: 1px solid var(--border-color, #e5e7eb);
+            flex-shrink: 0;
+        }
+        #sidebarListings {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .listing-item {
+            padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid var(--border-color, #f0f0f0);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .listing-item:hover { background: rgba(102,126,234,0.06); }
+        .listing-item.active { background: rgba(102,126,234,0.13); border-left: 3px solid #667eea; }
+        .listing-item h6 {
+            margin: 0 0 0.2rem;
+            font-size: 0.82rem;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .listing-item-price {
+            font-weight: 700;
+            color: var(--primary, #667eea);
+            font-size: 0.95rem;
+        }
+        .listing-item .meta {
+            font-size: 0.72rem;
+            color: #888;
+            margin-top: 0.15rem;
+        }
+        .map {
+            flex: 1;
+            z-index: 1;
+        }
+        .map-legend {
+            position: absolute;
+            bottom: 24px;
+            right: 10px;
+            z-index: 500;
+            background: var(--card-bg, rgba(255,255,255,0.95));
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-size: 0.78rem;
+        }
+        .legend-dot {
+            display: inline-block;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+        .leaflet-popup-content { font-size: 0.85rem; min-width: 180px; }
+        .popup-price { font-size: 1.1rem; font-weight: 700; color: #667eea; }
+        .popup-img { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; margin-bottom: 0.4rem; }
+        @media (max-width: 640px) {
+            .container-map { flex-direction: column; height: auto; }
+            .sidebar { width: 100%; height: 220px; border-right: none; border-bottom: 1px solid #e5e7eb; }
+            .map { height: 55vh; }
+        }
+    </style>
 </head>
 <body>
     <div class="header">
         <h1>🗺️ Carte Avancée - ImmoLux</h1>
-        <div>
+        <small id="lastUpdate"></small>
+        <div style="margin-top: 0.8rem;">
             <a href="index.html" class="nav-link">📊 Dashboard</a>
-            <a href="new-listings.html" class="nav-link">⭐ New Offres</a>
+            <a href="new-listings.html" class="nav-link">⭐ New</a>
             <a href="anomalies.html" class="nav-link">🎯 Anomalies</a>
-            <a href="map-advanced.html" class="nav-link active">🗺️ Carte+</a>
-            <a href="stats-by-city.html" class="nav-link">📊 Stats Ville</a>
-            <a href="photos.html">🖼️ Photos</a>
-                <a href="gallery.html">✨ Galerie</a>
+            <a href="map-advanced.html" class="nav-link active">🗺️ Carte</a>
+            <a href="stats-by-city.html" class="nav-link">📊 Villes</a>
+            <a href="favorites.html" class="nav-link">⭐ Prioritaires</a>
+            <a href="photos.html" class="nav-link">🖼️ Photos</a>
+            <a href="gallery.html" class="nav-link">✨ Galerie</a>
         </div>
     </div>
 
     <div class="container-map">
+        <!-- Sidebar -->
         <div class="sidebar">
-            <div class="filters">
-                <select id="filterCity" class="form-select form-select-sm mb-2">
+            <div class="sidebar-filters">
+                <select id="filterCity" class="form-select form-select-sm mb-2" onchange="applyMapFilters()">
                     <option value="">Toutes les villes</option>
                 </select>
-                <select id="filterSite" class="form-select form-select-sm mb-2">
+                <select id="filterSite" class="form-select form-select-sm mb-2" onchange="applyMapFilters()">
                     <option value="">Tous les sites</option>
                 </select>
-                <button class="btn btn-sm btn-primary w-100" onclick="applyMapFilters()">Filtrer</button>
+                <div class="d-flex gap-2 mb-1">
+                    <input type="number" id="filterPriceMin" class="form-control form-control-sm"
+                        placeholder="Prix min €" oninput="applyMapFilters()">
+                    <input type="number" id="filterPriceMax" class="form-control form-control-sm"
+                        placeholder="Prix max €" oninput="applyMapFilters()">
+                </div>
+                <select id="filterAnomaly" class="form-select form-select-sm" onchange="applyMapFilters()">
+                    <option value="">Toutes anomalies</option>
+                    <option value="GOOD_DEAL">✅ Bonnes affaires</option>
+                    <option value="HIGH">⚠️ Prix hauts</option>
+                    <option value="NONE">💰 Prix normaux</option>
+                </select>
             </div>
-
-            <div id="listings" style="height: 100%;"></div>
+            <div class="sidebar-header">
+                <span id="listingCount">0 annonce(s)</span>
+                <span id="withGpsCount" style="color:#10b981;"></span>
+            </div>
+            <div id="sidebarListings"></div>
         </div>
 
-        <div id="map" class="map"></div>
+        <!-- Map -->
+        <div style="position:relative; flex:1;">
+            <div id="map" class="map"></div>
+            <div class="map-legend">
+                <div><span class="legend-dot" style="background:#10b981;"></span> Bonne affaire</div>
+                <div><span class="legend-dot" style="background:#667eea;"></span> Prix normal</div>
+                <div><span class="legend-dot" style="background:#ef4444;"></span> Prix haut</div>
+            </div>
+        </div>
     </div>
 
     <!-- Dark Mode Toggle -->
     <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
+
+    <!-- Service Worker -->
+    <script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js").then(() => {}).catch(() => {});
+    }
+    </script>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.5.1/dist/leaflet.markercluster.js"></script>
     <script src="data/listings.js"></script>
     <script src="data/anomalies.js"></script>
     <script>
-        // Fallback si ANOMALIES n'est pas chargé
-        if (typeof ANOMALIES === 'undefined') {
-            window.ANOMALIES = {};
+        // Fallback normCity si version-display.js pas encore chargé
+        if (typeof normCity === 'undefined') {
+            window.normCity = function(city) {
+                return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
+            };
         }
 
-        let map;
-        let markerClusterGroup;
-        let currentMarkers = {};
-        let allMarkers = [];
+        // Fallback ANOMALIES
+        if (typeof ANOMALIES === 'undefined') window.ANOMALIES = {};
 
-        const ANOMALY_COLORS = {
-            'GOOD_DEAL': '#28a745',
-            'HIGH': '#dc3545',
-            'NORMAL': '#667eea'
-        };
+        // ---- Calcul anomalies à la volée (même logique que anomalies.html) ----
+        const cityMedians = (function() {
+            const groups = {};
+            LISTINGS.forEach(l => {
+                const c = normCity(l.city || '');
+                if (!c || !l.price || l.price <= 0) return;
+                if (!groups[c]) groups[c] = [];
+                groups[c].push(l.price);
+            });
+            const medians = {};
+            Object.keys(groups).forEach(c => {
+                const sorted = groups[c].slice().sort((a, b) => a - b);
+                const mid = Math.floor(sorted.length / 2);
+                medians[c] = sorted.length % 2 === 0
+                    ? Math.round((sorted[mid - 1] + sorted[mid]) / 2)
+                    : sorted[mid];
+            });
+            return medians;
+        })();
 
-        function init() {
-            try {
-                // LISTINGS est déjà chargé via data/listings.js
-                if (!LISTINGS || LISTINGS.length === 0) {
-                    throw new Error('LISTINGS non disponible');
-                }
-
-                initMap();
-                populateFilters();
-                renderListings(LISTINGS);
-                addMarkersToMap(LISTINGS);
-            } catch (e) {
-                console.error('Erreur:', e);
-                document.getElementById('listings').innerHTML = '<div class="text-danger">Erreur chargement données</div>';
-            }
+        function getAnomalyType(listing) {
+            // Prefer static anomalies.js data if available
+            const staticAnomaly = ANOMALIES[listing.listing_id];
+            if (staticAnomaly && staticAnomaly !== 'NONE') return staticAnomaly;
+            // Compute on-the-fly
+            const city = normCity(listing.city || '');
+            const median = cityMedians[city];
+            if (!median || !listing.price || listing.price <= 0) return 'NONE';
+            const ratio = listing.price / median;
+            if (ratio < 0.7) return 'GOOD_DEAL';
+            if (ratio > 2.5) return 'HIGH';
+            return 'NONE';
         }
 
+        const ANOMALY_COLORS = { 'GOOD_DEAL': '#10b981', 'HIGH': '#ef4444', 'NONE': '#667eea' };
+
+        let map, markerClusterGroup;
+        let currentMarkers = {};   // listing_id → marker
+
+        // ---- Init carte ----
         function initMap() {
-            // Centrer sur Luxembourg
-            const centerLat = 49.6116;
-            const centerLng = 6.1319;
-
-            map = L.map('map').setView([centerLat, centerLng], 10);
-
+            map = L.map('map').setView([49.6116, 6.1319], 10);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap',
+                attribution: '© OpenStreetMap contributors',
                 maxZoom: 19
             }).addTo(map);
 
-            // Clustering
             markerClusterGroup = L.markerClusterGroup({
-                maxClusterRadius: 80,
-                iconCreateFunction: createClusterIcon
+                maxClusterRadius: 60,
+                iconCreateFunction: cluster => {
+                    const n = cluster.getChildCount();
+                    const size = n < 10 ? 36 : n < 50 ? 44 : 54;
+                    return L.divIcon({
+                        html: `<div style="background:#667eea;color:white;width:${size}px;height:${size}px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">${n}</div>`,
+                        iconSize: [size, size],
+                        className: ''
+                    });
+                }
             });
             map.addLayer(markerClusterGroup);
         }
 
-        function createClusterIcon(cluster) {
-            const count = cluster.getChildCount();
-            const size = count < 10 ? 40 : count < 50 ? 50 : 60;
-            return L.divIcon({
-                html: `<div style="background:#667eea; color:white; width:${size}px; height:${size}px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:0.85rem;">${count}</div>`,
-                iconSize: [size, size],
-                className: ''
-            });
-        }
-
+        // ---- Remplir filtres ----
         function populateFilters() {
-            const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c))].sort();
-            const sites = [...new Set(LISTINGS.map(l => l.site).filter(s => s))].sort();
+            const cities = [...new Set(LISTINGS.map(l => l.city).filter(Boolean))].sort();
+            const sites  = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
 
-            const citySelect = document.getElementById('filterCity');
-            cities.forEach(city => {
-                const opt = document.createElement('option');
-                opt.value = city;
-                opt.textContent = city;
-                citySelect.appendChild(opt);
+            const cityEl = document.getElementById('filterCity');
+            cities.forEach(c => {
+                const o = document.createElement('option');
+                o.value = c;
+                o.textContent = normCity(c) || c;
+                cityEl.appendChild(o);
             });
 
-            const siteSelect = document.getElementById('filterSite');
-            sites.forEach(site => {
-                const opt = document.createElement('option');
-                opt.value = site;
-                opt.textContent = site;
-                siteSelect.appendChild(opt);
+            const siteEl = document.getElementById('filterSite');
+            sites.forEach(s => {
+                const o = document.createElement('option');
+                o.value = o.textContent = s;
+                siteEl.appendChild(o);
             });
         }
 
+        // ---- Filtre + rendu ----
         function applyMapFilters() {
-            const city = document.getElementById('filterCity').value;
-            const site = document.getElementById('filterSite').value;
+            const city      = document.getElementById('filterCity').value;
+            const site      = document.getElementById('filterSite').value;
+            const priceMin  = parseInt(document.getElementById('filterPriceMin').value) || 0;
+            const priceMax  = parseInt(document.getElementById('filterPriceMax').value) || Infinity;
+            const anomalyF  = document.getElementById('filterAnomaly').value;
 
             const filtered = LISTINGS.filter(l => {
-                return (!city || l.city === city) && (!site || l.site === site);
+                if (city && l.city !== city) return false;
+                if (site && l.site !== site) return false;
+                if (l.price < priceMin || l.price > priceMax) return false;
+                if (anomalyF && getAnomalyType(l) !== anomalyF) return false;
+                return true;
             });
 
-            // Clear map
             markerClusterGroup.clearLayers();
-            document.getElementById('listings').innerHTML = '';
-            renderListings(filtered);
-            addMarkersToMap(filtered);
+            currentMarkers = {};
+            renderSidebar(filtered);
+            addMarkers(filtered);
         }
 
-        function renderListings(listings) {
-            const container = document.getElementById('listings');
+        // ---- Sidebar ----
+        function renderSidebar(listings) {
+            const withGps = listings.filter(l => l.latitude && l.longitude).length;
+            document.getElementById('listingCount').textContent = `${listings.length} annonce${listings.length > 1 ? 's' : ''}`;
+            document.getElementById('withGpsCount').textContent = withGps > 0 ? `📍 ${withGps} sur carte` : '';
+
+            const container = document.getElementById('sidebarListings');
             if (listings.length === 0) {
-                container.innerHTML = '<div class="text-muted">Aucune annonce</div>';
+                container.innerHTML = '<div style="padding:1rem;color:#888;text-align:center;">Aucune annonce</div>';
                 return;
             }
 
             container.innerHTML = listings.map(l => {
-                const anomaly = ANOMALIES[l.listing_id] || 'NORMAL';
-                const badgeClass = anomaly === 'GOOD_DEAL' ? 'badge-good' : anomaly === 'HIGH' ? 'badge-high' : '';
-                const badgeText = anomaly === 'GOOD_DEAL' ? '✅ Bon Affaire' : anomaly === 'HIGH' ? '⚠️ Prix Haut' : '';
-
+                const anomaly = getAnomalyType(l);
+                const badge = anomaly === 'GOOD_DEAL'
+                    ? '<span class="badge-anomaly badge-good" style="font-size:0.65rem;">✅ Affaire</span>'
+                    : anomaly === 'HIGH'
+                        ? '<span class="badge-anomaly badge-high" style="font-size:0.65rem;">⚠️ Haut</span>'
+                        : '';
+                const hasGps = l.latitude && l.longitude;
                 return `
-                    <div class="listing-item" onclick="selectListing('${l.listing_id}')">
-                        <h6>${l.title}</h6>
-                        <div class="listing-item-price">${l.price}€</div>
-                        <div class="small">
-                            <span class="badge bg-secondary">${l.city}</span>
-                            ${anomaly !== 'NORMAL' ? `<span class="badge-anomaly ${badgeClass}">${badgeText}</span>` : ''}
-                        </div>
-                        <div class="small text-muted mt-1">
-                            ${l.surface > 0 ? `${l.surface}m² | ` : ''}
-                            ${l.rooms > 0 ? `${l.rooms} ch | ` : ''}
-                            ${l.time_ago}
-                        </div>
+                <div class="listing-item" data-id="${l.listing_id}" onclick="selectListing('${l.listing_id}')">
+                    <h6 title="${(l.title || '').replace(/"/g, '&quot;')}">${l.title || 'Sans titre'}</h6>
+                    <div class="d-flex align-items-center gap-1 flex-wrap">
+                        <span class="listing-item-price">${(l.price || 0).toLocaleString('fr-FR')}€</span>
+                        ${badge}
+                        ${!hasGps ? '<span style="font-size:0.65rem;color:#bbb;" title="Pas de GPS">📍❌</span>' : ''}
                     </div>
-                `;
+                    <div class="meta">
+                        ${normCity(l.city) || l.city || ''}
+                        ${l.surface > 0 ? ` · ${l.surface}m²` : ''}
+                        ${l.rooms > 0 ? ` · ${l.rooms}ch` : ''}
+                        ${l.distance_km ? ` · ${parseFloat(l.distance_km).toFixed(1)}km` : ''}
+                    </div>
+                </div>`;
             }).join('');
         }
 
-        function addMarkersToMap(listings) {
-            currentMarkers = {};
+        // ---- Markers ----
+        function addMarkers(listings) {
+            listings.forEach(l => {
+                if (!l.latitude || !l.longitude) return;
 
-            listings.forEach(listing => {
-                if (!listing.latitude || !listing.longitude) return;
+                const anomaly = getAnomalyType(l);
+                const color   = ANOMALY_COLORS[anomaly] || '#667eea';
+                // Rayon proportionnel au prix (8–14px)
+                const prices = listings.map(x => x.price).filter(p => p > 0);
+                const maxP = Math.max(...prices) || 1;
+                const radius = l.price > 0 ? 8 + Math.round((l.price / maxP) * 6) : 8;
 
-                const anomaly = ANOMALIES[listing.listing_id] || 'NORMAL';
-                const color = ANOMALY_COLORS[anomaly];
+                const imgHtml = l.image_url
+                    ? `<img src="${l.image_url}" class="popup-img" alt="" onerror="this.style.display='none'">`
+                    : '';
+                const anomalyLabel = anomaly === 'GOOD_DEAL'
+                    ? '<span style="color:#10b981;font-weight:600;">✅ Bonne affaire</span><br>'
+                    : anomaly === 'HIGH'
+                        ? '<span style="color:#ef4444;font-weight:600;">⚠️ Prix haut</span><br>'
+                        : '';
 
-                const marker = L.circleMarker([listing.latitude, listing.longitude], {
-                    radius: 8,
+                const marker = L.circleMarker([l.latitude, l.longitude], {
+                    radius,
                     fillColor: color,
                     color: '#fff',
                     weight: 2,
-                    opacity: 0.8,
-                    fillOpacity: 0.7
+                    opacity: 1,
+                    fillOpacity: 0.85
                 }).bindPopup(`
-                    <strong>${listing.title}</strong><br/>
-                    <strong>${listing.price}€</strong><br/>
-                    ${listing.surface > 0 ? listing.surface + 'm² | ' : ''}
-                    ${listing.rooms > 0 ? listing.rooms + ' ch' : ''}<br/>
-                    <small>${listing.city}</small><br/>
-                    <a href="${listing.url}" target="_blank" class="btn btn-sm btn-primary mt-2">Voir</a>
-                `);
+                    ${imgHtml}
+                    ${anomalyLabel}
+                    <strong style="font-size:0.85rem;">${(l.title || 'Sans titre').substring(0, 60)}</strong><br>
+                    <span class="popup-price">${(l.price || 0).toLocaleString('fr-FR')}€</span><br>
+                    <span style="font-size:0.78rem;color:#666;">
+                        ${normCity(l.city) || l.city || ''}
+                        ${l.surface > 0 ? ` · ${l.surface}m²` : ''}
+                        ${l.rooms > 0 ? ` · ${l.rooms} ch.` : ''}
+                        ${l.distance_km ? ` · ${parseFloat(l.distance_km).toFixed(1)}km` : ''}
+                    </span><br>
+                    <small style="color:#999;">${l.site || ''}</small><br>
+                    <a href="${l.url}" target="_blank" rel="noopener"
+                       class="btn btn-sm btn-primary mt-2" style="width:100%;">Voir l'annonce →</a>
+                `, { maxWidth: 220 });
 
-                marker.on('click', () => selectListing(listing.listing_id));
+                marker.on('click', () => selectListing(l.listing_id));
                 markerClusterGroup.addLayer(marker);
-                currentMarkers[listing.listing_id] = marker;
+                currentMarkers[l.listing_id] = marker;
             });
         }
 
+        // ---- Sélection annonce ----
         function selectListing(listingId) {
-            // Highlight item in sidebar
+            // Highlight sidebar item via data-id (fiable, pas textContent)
             document.querySelectorAll('.listing-item').forEach(el => el.classList.remove('active'));
-            const items = document.querySelectorAll('.listing-item');
-            const listing = LISTINGS.find(l => l.listing_id === listingId);
-            if (listing) {
-                items.forEach(el => {
-                    if (el.textContent.includes(listing.title)) {
-                        el.classList.add('active');
-                        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    }
-                });
+            const item = document.querySelector(`.listing-item[data-id="${listingId}"]`);
+            if (item) {
+                item.classList.add('active');
+                item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
-            // Center map on marker
+            // Centrer carte + ouvrir popup
             const marker = currentMarkers[listingId];
             if (marker) {
                 map.setView(marker.getLatLng(), 14);
@@ -245,26 +407,23 @@
             }
         }
 
-        // ==================== DARK MODE ====================
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        darkModeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        });
+        // ---- Init ----
+        function init() {
+            document.getElementById('lastUpdate').textContent =
+                `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
 
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
+            if (!window.LISTINGS || LISTINGS.length === 0) {
+                document.getElementById('sidebarListings').innerHTML =
+                    '<div style="padding:1rem;color:#c00;">Données non disponibles</div>';
+                return;
+            }
+
+            initMap();
+            populateFilters();
+            applyMapFilters();
         }
 
-        document.addEventListener('DOMContentLoaded', init);
+        window.addEventListener('DOMContentLoaded', init);
     </script>
-<!-- Service Worker -->
-<script>
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js")
-        .then(reg => console.log("SW registered"))
-        .catch(err => console.log("SW failed:", err));
-}
-</script>
 </body>
 </html>
