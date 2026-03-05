@@ -21,11 +21,17 @@
 import sqlite3
 import json
 import os
+import re
 import shutil
 import hashlib
 import urllib.request
 from datetime import datetime
 from database import db
+
+# =============================================================================
+# VERSION DU DASHBOARD — incrémenter manuellement à chaque release notable
+# =============================================================================
+DASHBOARD_VERSION = "2.7"
 
 # Image compression settings
 IMAGE_MAX_WIDTH = 400  # Max width for thumbnails
@@ -1039,6 +1045,53 @@ def sync_data_to_dashboard2(data_dir):
         print(f"⚠️  Dashboard2 sync skipped: {e}")
 
 
+def generate_version_js(data_dir, total_listings):
+    """Générer data/version.js avec version, date de build et token de cache busting"""
+    now = datetime.now()
+    build_token = now.strftime("%Y%m%d-%H%M")
+    built_at = now.strftime("%d/%m/%Y %H:%M")
+
+    version_info = {
+        "version": DASHBOARD_VERSION,
+        "built_at": built_at,
+        "build_token": build_token,
+        "total_listings": total_listings
+    }
+    version_json = json.dumps(version_info, ensure_ascii=False, indent=2)
+
+    with open(os.path.join(data_dir, 'version.js'), 'w', encoding='utf-8') as f:
+        f.write(f'// Genere le {built_at}\n')
+        f.write(f'const VERSION_INFO = {version_json};\n')
+
+    return build_token
+
+
+def update_sw_cache_version(dashboards_dir, build_token):
+    """Mettre à jour CACHE_NAME dans sw.js pour invalider le cache navigateur"""
+    sw_path = os.path.join(dashboards_dir, 'sw.js')
+    if not os.path.exists(sw_path):
+        return
+
+    with open(sw_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    # Remplacer la ligne CACHE_NAME avec le nouveau build token
+    new_content = re.sub(
+        r"const CACHE_NAME = 'immo-lux-v[^']*';",
+        f"const CACHE_NAME = 'immo-lux-v{build_token}';",
+        content
+    )
+    # Mettre à jour aussi le commentaire de version en haut
+    new_content = re.sub(
+        r'// Version: [\d-]+',
+        f'// Version: {build_token}',
+        new_content
+    )
+
+    with open(sw_path, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+
+
 def main():
     """Point d'entree principal"""
     print("Initialisation de la base de donnees...")
@@ -1075,6 +1128,12 @@ def main():
     print(f"  -> {data_dir}/stats.js")
     print(f"  -> {data_dir}/listings.json")
     print(f"  -> {data_dir}/history/{today}.json")
+
+    # Etape 1b : version.js + cache busting sw.js
+    build_token = generate_version_js(data_dir, stats['total'])
+    print(f"  -> {data_dir}/version.js (v{DASHBOARD_VERSION} token:{build_token})")
+    update_sw_cache_version(dashboards_dir, build_token)
+    print(f"  -> {dashboards_dir}/sw.js (cache version: {build_token})")
 
     # Etape 2 : manifest PWA
     generate_manifest(dashboards_dir)
@@ -1116,6 +1175,8 @@ def main():
     print(f"\n📈 Données exportées:")
     print(f"   ✅ listings.js (avec {stats['total']} annonces)")
     print(f"   ✅ stats.js")
+    print(f"   ✅ version.js (v{DASHBOARD_VERSION} — token: {build_token})")
+    print(f"   ✅ sw.js mis à jour (cache invalidé: {build_token})")
     print(f"   ✅ manifest.json")
     print(f"   📸 {local_images}/{stats['total']} images locales dans {images_dir}/")
 
