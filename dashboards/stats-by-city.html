@@ -153,17 +153,19 @@ fetch('data/city-transports.json')
 
         let html = '';
 
+        const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
         filteredCities.forEach((city, idx) => {
             const listings = byCity[city];
             const transport = TRANSPORTS[city] || {};
             const transportList = transport.transports || [];
+            const isPriority = PC.includes(city);
 
             html += `
                 <div class="accordion" id="accordion-${idx}">
-                    <div class="accordion-item" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1); margin-bottom: 0.5rem; border-radius: 10px;">
+                    <div class="accordion-item" style="background: rgba(255,255,255,0.7); border: 1px solid ${isPriority ? '#f59e0b' : 'rgba(0,0,0,0.1)'}; margin-bottom: 0.5rem; border-radius: 10px;${isPriority ? ' box-shadow: 0 0 0 2px rgba(245,158,11,0.15);' : ''}">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#city-${idx}">
-                                <strong style="color: var(--primary); margin-right: 1rem;">📍 ${city}</strong>
+                                <strong style="color: var(--primary); margin-right: 1rem;">${isPriority ? '⭐' : '📍'} ${city}</strong>
                                 <span style="background: #667eea; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.85rem; margin-right: 1rem;">${listings.length} annonces</span>
                                 <span style="color: #666; font-size: 0.9rem;">
                                     ${transportList.length > 0 ?

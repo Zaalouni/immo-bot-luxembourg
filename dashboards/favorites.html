@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Villes prioritaires - ImmoLux">
+    <meta name="theme-color" content="#f59e0b">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <title>⭐ Villes Prioritaires - ImmoLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <script src="dark-mode.js" defer></script>
+    <script src="data/version.js"></script>
+    <script src="version-display.js" defer></script>
+    <style>
+        .header { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+
+        .priority-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .stat-card-gold { border-top: 3px solid #f59e0b; }
+
+        .listing-row {
+            background: white;
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+            margin-bottom: 0.4rem;
+            border-left: 4px solid #f59e0b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .listing-row:hover {
+            transform: translateX(3px);
+            box-shadow: 0 2px 10px rgba(245,158,11,0.2);
+        }
+
+        body.dark-mode .listing-row {
+            background: #2d3748;
+            border-left-color: #d97706;
+        }
+
+        .listing-info { display: flex; align-items: center; gap: 1.2rem; flex: 1; flex-wrap: wrap; }
+
+        .info-chip {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .chip-label { font-size: 0.65rem; color: #9ca3af; font-weight: 500; }
+        .chip-value { font-size: 0.95rem; font-weight: 600; color: #1f2937; }
+        body.dark-mode .chip-value { color: #f3f4f6; }
+        .chip-price { color: #d97706; font-size: 1.1rem; }
+
+        .city-section { margin-bottom: 2rem; }
+
+        .city-header {
+            background: linear-gradient(90deg, rgba(245,158,11,0.15), transparent);
+            border-left: 4px solid #f59e0b;
+            padding: 0.6rem 1rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        body.dark-mode .city-header { background: linear-gradient(90deg, rgba(245,158,11,0.1), transparent); }
+
+        .sort-controls {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .sort-btn {
+            padding: 0.35rem 0.9rem;
+            border-radius: 20px;
+            border: 1.5px solid #f59e0b;
+            background: white;
+            color: #d97706;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .sort-btn.active, .sort-btn:hover {
+            background: #f59e0b;
+            color: white;
+        }
+
+        body.dark-mode .sort-btn {
+            background: #374151;
+            color: #fbbf24;
+            border-color: #d97706;
+        }
+
+        body.dark-mode .sort-btn.active, body.dark-mode .sort-btn:hover {
+            background: #d97706;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #9ca3af;
+        }
+
+        .site-chip {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        body.dark-mode .site-chip { background: #451a03; color: #fbbf24; }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="header-content">
+        <div>
+            <h1>⭐ Villes Prioritaires</h1>
+            <small id="lastUpdate">Mis à jour: —</small>
+        </div>
+        <div class="header-stats">
+            <div>📊 <strong id="totalCount">—</strong> annonces</div>
+            <div>🏙️ <strong id="cityCount">—</strong> villes</div>
+            <div>💰 <strong id="avgPrice">—</strong> moy.</div>
+        </div>
+    </div>
+</div>
+
+<div class="container-main">
+
+    <!-- Stats rapides -->
+    <div class="stats-grid" id="quickStats" style="margin-bottom:1.5rem;"></div>
+
+    <!-- Villes badges -->
+    <div style="background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:12px;padding:1rem;margin-bottom:1rem;">
+        <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+            <span style="font-weight:600;color:#92400e;">⭐ Villes surveillées :</span>
+            <span id="cityBadges"></span>
+        </div>
+    </div>
+
+    <!-- Tri + Filtre ville -->
+    <div style="background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:12px;padding:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <div class="sort-controls" style="margin-bottom:0;">
+            <button class="sort-btn active" onclick="setSort('date')">📅 Date</button>
+            <button class="sort-btn" onclick="setSort('price_asc')">💰 Prix ↑</button>
+            <button class="sort-btn" onclick="setSort('price_desc')">💰 Prix ↓</button>
+            <button class="sort-btn" onclick="setSort('surface')">📐 Surface</button>
+        </div>
+        <select id="filterCity" onchange="render()" style="border:1.5px solid #f59e0b;border-radius:20px;padding:0.35rem 0.8rem;font-size:0.85rem;background:white;color:#92400e;cursor:pointer;">
+            <option value="">Toutes les villes</option>
+        </select>
+    </div>
+
+    <!-- Annonces -->
+    <div id="listingsContainer"></div>
+
+    <!-- Retour -->
+    <div style="text-align:center;margin-top:1.5rem;">
+        <a href="index.html" class="btn btn-outline-secondary">← Retour dashboard</a>
+    </div>
+</div>
+
+<!-- Dark Mode Toggle -->
+<button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="data/listings.js"></script>
+<script>
+    // Dark mode
+    const dmToggle = document.getElementById('darkModeToggle');
+    dmToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        dmToggle.setAttribute('aria-pressed', document.body.classList.contains('dark-mode'));
+    });
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        dmToggle.setAttribute('aria-pressed', 'true');
+    }
+
+    const fmt = n => n ? n.toLocaleString('fr-FR') : '—';
+
+    let currentSort = 'date';
+
+    function setSort(s) {
+        currentSort = s;
+        document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        render();
+    }
+
+    function init() {
+        if (!LISTINGS || !Array.isArray(LISTINGS)) return;
+
+        const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
+
+        // Afficher les badges des villes prioritaires
+        document.getElementById('cityBadges').innerHTML = PC.map(c =>
+            `<span class="priority-badge">${c}</span>`
+        ).join(' ');
+
+        // Peupler filtre ville
+        const citySelect = document.getElementById('filterCity');
+        PC.forEach(c => {
+            const count = LISTINGS.filter(l => (typeof normCity !== 'undefined' ? normCity(l.city) : l.city) === c).length;
+            if (count > 0) {
+                const o = document.createElement('option');
+                o.value = c;
+                o.textContent = `${c} (${count})`;
+                citySelect.appendChild(o);
+            }
+        });
+
+        render();
+    }
+
+    function getFiltered() {
+        const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
+        const nc = (typeof normCity !== 'undefined') ? normCity : c => c;
+        const filterCity = document.getElementById('filterCity').value;
+
+        let items = LISTINGS.filter(l => {
+            const city = nc(l.city || '');
+            return PC.includes(city) && (filterCity === '' || city === filterCity);
+        });
+
+        // Tri
+        if (currentSort === 'date') {
+            items = items.sort((a, b) => (b.created_at || '').localeCompare(a.created_at || ''));
+        } else if (currentSort === 'price_asc') {
+            items = items.sort((a, b) => (a.price || 0) - (b.price || 0));
+        } else if (currentSort === 'price_desc') {
+            items = items.sort((a, b) => (b.price || 0) - (a.price || 0));
+        } else if (currentSort === 'surface') {
+            items = items.sort((a, b) => (b.surface || 0) - (a.surface || 0));
+        }
+        return items;
+    }
+
+    function render() {
+        const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
+        const nc = (typeof normCity !== 'undefined') ? normCity : c => c;
+        const items = getFiltered();
+        const container = document.getElementById('listingsContainer');
+
+        // Stats rapides
+        const prices = items.filter(l => l.price > 0).map(l => l.price);
+        const avg = prices.length ? Math.round(prices.reduce((a,b) => a+b,0) / prices.length) : 0;
+        const mn = prices.length ? Math.min(...prices) : 0;
+        const mx = prices.length ? Math.max(...prices) : 0;
+        const citiesPresent = [...new Set(items.map(l => nc(l.city)))];
+
+        document.getElementById('totalCount').textContent = items.length;
+        document.getElementById('cityCount').textContent = citiesPresent.length;
+        document.getElementById('avgPrice').textContent = avg ? fmt(avg) + '€' : '—';
+
+        document.getElementById('quickStats').innerHTML = [
+            { label: 'Annonces', value: items.length, icon: '📊' },
+            { label: 'Villes actives', value: citiesPresent.length + ' / ' + PC.length, icon: '🏙️' },
+            { label: 'Prix moyen', value: avg ? fmt(avg) + '€' : '—', icon: '💰' },
+            { label: 'Min — Max', value: mn ? fmt(mn) + '€ — ' + fmt(mx) + '€' : '—', icon: '📉' },
+        ].map(s => `
+            <div class="stat-card stat-card-gold">
+                <div class="stat-value" style="font-size:1.2rem;">${s.value}</div>
+                <div class="stat-label">${s.icon} ${s.label}</div>
+            </div>
+        `).join('');
+
+        if (!items.length) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div style="font-size:3rem;">🏠</div>
+                    <h4>Aucune annonce trouvée</h4>
+                    <p>Aucune annonce dans les villes prioritaires pour le moment.</p>
+                </div>`;
+            return;
+        }
+
+        // Grouper par ville si pas de filtre actif, sinon liste directe
+        const filterCity = document.getElementById('filterCity').value;
+        if (filterCity) {
+            // Vue liste simple
+            container.innerHTML = `<div class="city-section">${items.map(l => listingRow(l, nc)).join('')}</div>`;
+        } else {
+            // Vue groupée par ville
+            const groups = {};
+            PC.forEach(c => { groups[c] = []; });
+            items.forEach(l => {
+                const c = nc(l.city || '');
+                if (groups[c] !== undefined) groups[c].push(l);
+            });
+
+            container.innerHTML = PC.map(city => {
+                const cityItems = groups[city] || [];
+                if (!cityItems.length) return '';
+                const cityPrices = cityItems.filter(l => l.price > 0).map(l => l.price);
+                const cityAvg = cityPrices.length ? Math.round(cityPrices.reduce((a,b)=>a+b,0)/cityPrices.length) : 0;
+                return `
+                    <div class="city-section">
+                        <div class="city-header">
+                            <span style="font-weight:700;font-size:1rem;">⭐ ${city}
+                                <span class="priority-badge ms-2">${cityItems.length} annonce${cityItems.length > 1 ? 's' : ''}</span>
+                            </span>
+                            ${cityAvg ? `<span style="color:#92400e;font-size:0.9rem;">Moy. <strong>${fmt(cityAvg)}€</strong></span>` : ''}
+                        </div>
+                        ${cityItems.map(l => listingRow(l, nc)).join('')}
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    function listingRow(l, nc) {
+        const createdAt = l.created_at ? new Date(l.created_at) : null;
+        const dateStr = createdAt ? createdAt.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'2-digit' }) : '—';
+        const timeStr = createdAt ? createdAt.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' }) : '';
+        const ageHours = createdAt ? Math.round((Date.now() - createdAt.getTime()) / 3600000) : null;
+        const isRecent = ageHours !== null && ageHours < 24;
+
+        return `
+            <div class="listing-row">
+                <div class="listing-info">
+                    <div class="info-chip">
+                        <span class="chip-label">📍 Ville</span>
+                        <span class="chip-value">⭐ ${nc(l.city) || '—'}</span>
+                    </div>
+                    <div class="info-chip">
+                        <span class="chip-label">💰 Prix</span>
+                        <span class="chip-value chip-price">${l.price ? fmt(l.price) + '€' : '—'}</span>
+                    </div>
+                    <div class="info-chip">
+                        <span class="chip-label">📐 Surface</span>
+                        <span class="chip-value">${l.surface ? l.surface + ' m²' : '—'}</span>
+                    </div>
+                    <div class="info-chip">
+                        <span class="chip-label">🛏️ Ch.</span>
+                        <span class="chip-value">${l.rooms || '—'}</span>
+                    </div>
+                    ${l.price_m2 ? `<div class="info-chip">
+                        <span class="chip-label">€/m²</span>
+                        <span class="chip-value">${l.price_m2}</span>
+                    </div>` : ''}
+                    ${l.distance_km != null ? `<div class="info-chip">
+                        <span class="chip-label">📏 Dist.</span>
+                        <span class="chip-value">${l.distance_km} km</span>
+                    </div>` : ''}
+                    <span class="site-chip">${(l.site || '').replace('.lu','')}</span>
+                    ${isRecent ? '<span class="badge bg-warning text-dark" style="font-size:0.65rem;">🆕 Nouveau</span>' : ''}
+                </div>
+                <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
+                    <span style="font-size:0.75rem;color:#9ca3af;text-align:right;">${dateStr}<br>${timeStr}</span>
+                    <a href="${l.url}" target="_blank" class="btn btn-sm" style="background:#f59e0b;color:white;white-space:nowrap;">Voir →</a>
+                </div>
+            </div>
+        `;
+    }
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+
+    // Init après chargement
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+</script>
+</body>
+</html>

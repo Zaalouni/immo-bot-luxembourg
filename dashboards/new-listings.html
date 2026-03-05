@@ -535,12 +535,14 @@
                     </div>
                     ${group.listings.map(l => {
                         const isNewListing = isNew(l.created_at);
+                        const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
+                        const isPriority = PC.includes(normCity(l.city));
                         return `
-                            <div class="listing-card ${isNewListing ? 'is-new' : ''}">
+                            <div class="listing-card ${isNewListing ? 'is-new' : ''}${isPriority ? ' priority-card' : ''}" style="${isPriority ? 'border-left-color:#f59e0b;' : ''}">
                                 <div class="listing-info">
                                     <div class="info-item">
                                         <span class="info-label">📍</span>
-                                        <span class="info-value">${normCity(l.city) || 'N/A'}</span>
+                                        <span class="info-value">${isPriority ? '⭐ ' : ''}${normCity(l.city) || 'N/A'}</span>
                                     </div>
                                     <div class="info-item">
                                         <span class="info-label">💰</span>

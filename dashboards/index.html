@@ -96,6 +96,7 @@
             <a href="trends.html" class="btn btn-sm btn-outline-success ms-1">📈 Tendances</a>
             <a href="reports.html" class="btn btn-sm btn-outline-success ms-1">📄 Reports</a>
             <a href="alerts.html" class="btn btn-sm btn-outline-success ms-1">⭐ Favoris</a>
+            <a href="favorites.html" class="btn btn-sm ms-1" style="background:#f59e0b;color:white;font-weight:600;">⭐ Prioritaires</a>
         </div>
     </div>
 
@@ -266,10 +267,13 @@
             tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-3">Aucune annonce</td></tr>';
             return;
         }
-        tbody.innerHTML = filtered.map(l => `
-            <tr>
+        const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
+        tbody.innerHTML = filtered.map(l => {
+            const isPriority = PC.includes(normCity(l.city));
+            return `
+            <tr${isPriority ? ' style="background:linear-gradient(90deg,rgba(255,215,0,0.08),transparent)"' : ''}>
                 <td>${badge(l.site)}</td>
-                <td>${normCity(l.city) || '—'}</td>
+                <td>${isPriority ? '<span title="Ville prioritaire" style="color:#f59e0b;font-size:1rem;margin-right:3px;">⭐</span>' : ''}${normCity(l.city) || '—'}</td>
                 <td><strong>${fmt(l.price)}€</strong></td>
                 <td>${l.rooms || '—'}</td>
                 <td>${l.surface || '—'}</td>
@@ -281,7 +285,7 @@
                     <a href="https://t.me/share/url?url=${encodeURIComponent(l.url)}&text=${encodeURIComponent(l.city + ' ' + l.price + '€')}" target="_blank" title="Telegram" style="text-decoration:none;">✈️</a>
                 </td>
             </tr>
-        `).join('');
+        `; }).join('');
     }
 
     function resetFilters() {
@@ -331,7 +335,9 @@
         LISTINGS.forEach(l => { const c = normCity(l.city || 'N/A'); if (!groups[c]) groups[c] = []; groups[c].push(l); });
         const sorted = Object.entries(groups).sort((a, b) => b[1].length - a[1].length);
 
+        const PC2 = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
         container.innerHTML = sorted.map(([city, items]) => {
+            const isPriorityCity = PC2.includes(city);
             const prices = items.filter(l => l.price > 0).map(l => l.price);
             const avg = prices.length ? Math.round(prices.reduce((a,b) => a+b, 0) / prices.length) : 0;
             const mn = prices.length ? Math.min(...prices) : 0;
@@ -347,8 +353,8 @@
                 </tr>
             `).join('');
             return `
-                <div class="city-group">
-                    <h5>📍 ${city} <span class="listing-count">(${items.length} ann. | moy. ${fmt(avg)}€ | ${fmt(mn)}€ - ${fmt(mx)}€)</span></h5>
+                <div class="city-group"${isPriorityCity ? ' style="border-left:3px solid #f59e0b;"' : ''}>
+                    <h5>${isPriorityCity ? '<span title="Ville prioritaire" style="color:#f59e0b;">⭐</span> ' : '📍 '}${city} <span class="listing-count">(${items.length} ann. | moy. ${fmt(avg)}€ | ${fmt(mn)}€ - ${fmt(mx)}€)</span></h5>
                     <div class="table-responsive">
                     <table class="table table-sm table-hover mb-0">
                         <thead><tr><th>Site</th><th>Prix</th><th>Ch.</th><th>m²</th><th>€/m²</th><th>Titre</th></tr></thead>
@@ -372,17 +378,20 @@
         container.innerHTML = ranges.map(r => {
             const items = LISTINGS.filter(l => l.price >= r.min && l.price <= r.max).sort((a,b) => (a.price||0) - (b.price||0));
             if (!items.length) return '';
-            const rows = items.map(l => `
-                <tr>
+            const PC3 = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
+            const rows = items.map(l => {
+                const ip = PC3.includes(normCity(l.city));
+                return `
+                <tr${ip ? ' style="background:linear-gradient(90deg,rgba(255,215,0,0.08),transparent)"' : ''}>
                     <td>${badge(l.site)}</td>
-                    <td>${normCity(l.city) || '—'}</td>
+                    <td>${ip ? '<span style="color:#f59e0b;">⭐</span> ' : ''}${normCity(l.city) || '—'}</td>
                     <td><strong>${fmt(l.price)}€</strong></td>
                     <td>${l.rooms || '—'} ch.</td>
                     <td>${l.surface || '—'} m²</td>
                     <td>${l.price_m2 ? l.price_m2 + ' €/m²' : '—'}</td>
                     <td><a href="${l.url}" target="_blank">${(l.title || 'Voir').substring(0, 45)}</a></td>
                 </tr>
-            `).join('');
+            `; }).join('');
             return `
                 <div class="price-range-section">
                     <h5><span class="price-badge" style="background:${r.color};color:white">${r.label}</span>

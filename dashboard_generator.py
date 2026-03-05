@@ -33,6 +33,13 @@ from database import db
 # =============================================================================
 DASHBOARD_VERSION = "2.7"
 
+# Villes prioritaires — chargées depuis .env (fallback hardcodé)
+import dotenv as _dotenv_module
+_dotenv_module.load_dotenv()
+PRIORITY_CITIES = [c.strip() for c in os.getenv(
+    'PRIORITY_CITIES', 'Luxembourg,Belair,Gare,Merl,Bonnevoie,Bertrange,Mamer,Strassen'
+).split(',') if c.strip()]
+
 # Image compression settings
 IMAGE_MAX_WIDTH = 400  # Max width for thumbnails
 IMAGE_QUALITY = 75     # JPEG quality (1-100)
@@ -1065,10 +1072,12 @@ def generate_version_js(data_dir, total_listings):
         "total_listings": total_listings
     }
     version_json = json.dumps(version_info, ensure_ascii=False, indent=2)
+    priority_json = json.dumps(PRIORITY_CITIES, ensure_ascii=False)
 
     with open(os.path.join(data_dir, 'version.js'), 'w', encoding='utf-8') as f:
         f.write(f'// Genere le {built_at}\n')
         f.write(f'const VERSION_INFO = {version_json};\n')
+        f.write(f'const PRIORITY_CITIES = {priority_json};\n')
 
     return build_token
 
