@@ -1,13 +1,14 @@
-// Genere le 05/03/2026 20:58
+// Genere le 06/03/2026 08:39
 const STATS = {
-  "total": 114,
-  "avg_price": 2215,
+  "total": 116,
+  "avg_price": 2219,
   "min_price": 1500,
   "max_price": 2500,
-  "avg_surface": 96,
-  "cities": 58,
+  "avg_surface": 97,
+  "cities": 59,
   "sites": {
-    "Weckbecker.lu": 3,
+    "Weckbecker.lu": 4,
+    "VIVI.lu": 2,
     "DDImmo.lu": 1,
     "Remax.lu": 2,
     "PropertyInvest.lu": 1,
@@ -16,7 +17,6 @@ const STATS = {
     "Luxhome.lu": 10,
     "Nextimmo.lu": 10,
     "Newimmo.lu": 4,
-    "VIVI.lu": 1,
     "Immotop.lu": 2,
     "Accord-Immo.lu": 1,
     "Athome.lu": 77
@@ -58,14 +58,14 @@ const STATS = {
       "avg_price": 1960
     },
     {
+      "city": "Limpertsberg",
+      "count": 4,
+      "avg_price": 2050
+    },
+    {
       "city": "Strassen",
       "count": 4,
       "avg_price": 2367
-    },
-    {
-      "city": "Limpertsberg",
-      "count": 3,
-      "avg_price": 1966
     },
     {
       "city": "Mamer",
@@ -151,6 +151,11 @@ const STATS = {
       "city": "Lallange",
       "count": 2,
       "avg_price": 2075
+    },
+    {
+      "city": "Weiler-La-Tour",
+      "count": 1,
+      "avg_price": 2500
     },
     {
       "city": "Rollingergrund",
@@ -316,21 +321,21 @@ const STATS = {
   "by_price_range": {
     "< 1500": 0,
     "1500 - 2000": 23,
-    "2000 - 2500": 77,
-    "> 2500": 14
+    "2000 - 2500": 78,
+    "> 2500": 15
   }
 };
 const SITE_COLORS = {
   "Weckbecker.lu": "#FF6384",
-  "DDImmo.lu": "#36A2EB",
-  "Remax.lu": "#FFCE56",
-  "PropertyInvest.lu": "#4BC0C0",
-  "Rockenbrod.lu": "#9966FF",
-  "SothebysRealty.lu": "#FF9F40",
-  "Luxhome.lu": "#2ECC71",
-  "Nextimmo.lu": "#E74C3C",
-  "Newimmo.lu": "#3498DB",
-  "VIVI.lu": "#FF6384",
+  "VIVI.lu": "#36A2EB",
+  "DDImmo.lu": "#FFCE56",
+  "Remax.lu": "#4BC0C0",
+  "PropertyInvest.lu": "#9966FF",
+  "Rockenbrod.lu": "#FF9F40",
+  "SothebysRealty.lu": "#2ECC71",
+  "Luxhome.lu": "#E74C3C",
+  "Nextimmo.lu": "#3498DB",
+  "Newimmo.lu": "#FF6384",
   "Immotop.lu": "#36A2EB",
   "Accord-Immo.lu": "#FFCE56",
   "Athome.lu": "#4BC0C0"

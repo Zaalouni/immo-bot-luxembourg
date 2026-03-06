@@ -1,8 +1,8 @@
-// Genere le 05/03/2026 20:58
+// Genere le 06/03/2026 08:39
 const VERSION_INFO = {
   "version": "2.7",
-  "built_at": "05/03/2026 20:58",
-  "build_token": "20260305-2058",
-  "total_listings": 114
+  "built_at": "06/03/2026 08:39",
+  "build_token": "20260306-0839",
+  "total_listings": 116
 };
 const PRIORITY_CITIES = ["Luxembourg", "Belair", "Gare", "Merl", "Bonnevoie", "Bertrange", "Mamer", "Strassen", "Bonnevoie"];
