@@ -5,9 +5,12 @@
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carte Avancée - ImmoLux</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
     <link href="https://unpkg.com/leaflet.markercluster@1.5.1/dist/MarkerCluster.css" rel="stylesheet">
     <link href="https://unpkg.com/leaflet.markercluster@1.5.1/dist/MarkerCluster.Default.css" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
@@ -23,110 +26,463 @@
     <script src="data/version.js"></script>
     <script src="version-display.js" defer></script>
     <style>
-        .container-map {
-            display: flex;
-            height: calc(100vh - 130px);
-            gap: 0;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .sidebar {
-            width: 320px;
-            min-width: 260px;
-            display: flex;
-            flex-direction: column;
-            border-right: 1px solid var(--border-color, #e5e7eb);
-            background: var(--card-bg, #fff);
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             overflow: hidden;
         }
-        .sidebar-filters {
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--border-color, #e5e7eb);
-            flex-shrink: 0;
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         }
+
+        .header-modern {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            animation: fadeInDown 0.6s ease;
+        }
+
+        body.dark-mode .header-modern {
+            background: rgba(30, 30, 50, 0.95);
+            color: white;
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 0;
+        }
+
+        body.dark-mode .header-title h1 {
+            color: #8b9cff;
+        }
+
+        .header-title small {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        body.dark-mode .header-title small {
+            color: #aaa;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            background: rgba(102, 126, 234, 0.08);
+            color: #2d3748;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        body.dark-mode .nav-link {
+            background: rgba(139, 156, 255, 0.1);
+            color: white;
+        }
+
+        .nav-link:hover {
+            background: rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            font-weight: 600;
+        }
+
+        .container-map {
+            display: flex;
+            height: calc(100vh - 120px);
+            gap: 1rem;
+            padding: 1rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            width: 350px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: fadeInLeft 0.6s ease 0.1s both;
+        }
+
+        body.dark-mode .sidebar {
+            background: rgba(30, 30, 50, 0.95);
+            color: white;
+        }
+
+        .sidebar-filters {
+            padding: 1.5rem;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+        }
+
+        body.dark-mode .sidebar-filters {
+            border-bottom-color: rgba(139, 156, 255, 0.2);
+        }
+
+        .filter-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        body.dark-mode .filter-label {
+            color: #e2e8f0;
+        }
+
+        .form-select, .form-control {
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
+            padding: 0.65rem 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        body.dark-mode .form-select,
+        body.dark-mode .form-control {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(139, 156, 255, 0.2);
+            color: white;
+        }
+
+        .form-select:focus, .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
         .sidebar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.82rem;
-            color: #888;
-            border-bottom: 1px solid var(--border-color, #e5e7eb);
-            flex-shrink: 0;
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+            background: rgba(102, 126, 234, 0.03);
         }
+
+        body.dark-mode .sidebar-header {
+            background: rgba(139, 156, 255, 0.05);
+            border-bottom-color: rgba(139, 156, 255, 0.2);
+            color: #aaa;
+        }
+
         #sidebarListings {
             flex: 1;
             overflow-y: auto;
+            padding: 0.5rem;
         }
+
         .listing-item {
-            padding: 0.6rem 0.75rem;
-            border-bottom: 1px solid var(--border-color, #f0f0f0);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
             cursor: pointer;
-            transition: background 0.15s;
+            transition: all 0.3s ease;
+            background: rgba(102, 126, 234, 0.03);
+            border-left: 3px solid transparent;
         }
-        .listing-item:hover { background: rgba(102,126,234,0.06); }
-        .listing-item.active { background: rgba(102,126,234,0.13); border-left: 3px solid #667eea; }
+
+        .listing-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+
+        .listing-item.active {
+            background: rgba(102, 126, 234, 0.15);
+            border-left-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        body.dark-mode .listing-item {
+            background: rgba(139, 156, 255, 0.05);
+        }
+
+        body.dark-mode .listing-item:hover {
+            background: rgba(139, 156, 255, 0.15);
+        }
+
+        body.dark-mode .listing-item.active {
+            background: rgba(139, 156, 255, 0.2);
+            border-left-color: #8b9cff;
+        }
+
         .listing-item h6 {
-            margin: 0 0 0.2rem;
-            font-size: 0.82rem;
-            line-height: 1.3;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            margin: 0 0 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #2d3748;
         }
+
+        body.dark-mode .listing-item h6 {
+            color: white;
+        }
+
         .listing-item-price {
             font-weight: 700;
-            color: var(--primary, #667eea);
-            font-size: 0.95rem;
+            color: #667eea;
+            font-size: 1.1rem;
+            font-family: 'JetBrains Mono', monospace;
         }
+
+        body.dark-mode .listing-item-price {
+            color: #8b9cff;
+        }
+
         .listing-item .meta {
-            font-size: 0.72rem;
+            font-size: 0.8rem;
             color: #888;
-            margin-top: 0.15rem;
+            margin-top: 0.5rem;
         }
-        .map {
+
+        body.dark-mode .listing-item .meta {
+            color: #aaa;
+        }
+
+        .badge-anomaly {
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .badge-good {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .badge-high {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
+        .map-container {
             flex: 1;
-            z-index: 1;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: fadeInRight 0.6s ease 0.1s both;
         }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
         .map-legend {
             position: absolute;
-            bottom: 24px;
-            right: 10px;
+            bottom: 20px;
+            right: 15px;
             z-index: 500;
-            background: var(--card-bg, rgba(255,255,255,0.95));
-            border-radius: 8px;
-            padding: 0.5rem 0.75rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            font-size: 0.78rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            font-size: 0.85rem;
+            font-weight: 600;
         }
+
+        body.dark-mode .map-legend {
+            background: rgba(30, 30, 50, 0.95);
+            color: white;
+        }
+
         .legend-dot {
             display: inline-block;
-            width: 12px; height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
-            margin-right: 4px;
+            margin-right: 0.5rem;
             vertical-align: middle;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
-        .leaflet-popup-content { font-size: 0.85rem; min-width: 180px; }
-        .popup-price { font-size: 1.1rem; font-weight: 700; color: #667eea; }
-        .popup-img { width: 100%; height: 100px; object-fit: cover; border-radius: 6px; margin-bottom: 0.4rem; }
-        @media (max-width: 640px) {
-            .container-map { flex-direction: column; height: auto; }
-            .sidebar { width: 100%; height: 220px; border-right: none; border-bottom: 1px solid #e5e7eb; }
-            .map { height: 55vh; }
+
+        .legend-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .legend-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .leaflet-popup-content {
+            font-size: 0.9rem;
+            min-width: 200px;
+        }
+
+        .popup-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #667eea;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .popup-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: rgba(30, 30, 50, 0.9);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .container-map {
+                flex-direction: column;
+                height: calc(100vh - 180px);
+            }
+
+            .sidebar {
+                width: 100%;
+                height: 250px;
+            }
+
+            .map-container {
+                height: 400px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🗺️ Carte Avancée - ImmoLux</h1>
-        <small id="lastUpdate"></small>
-        <div style="margin-top: 0.8rem;">
-            <a href="index.html" class="nav-link">📊 Dashboard</a>
-            <a href="new-listings.html" class="nav-link">⭐ New</a>
-            <a href="anomalies.html" class="nav-link">🎯 Anomalies</a>
-            <a href="map-advanced.html" class="nav-link active">🗺️ Carte</a>
-            <a href="stats-by-city.html" class="nav-link">📊 Villes</a>
-            <a href="favorites.html" class="nav-link">⭐ Prioritaires</a>
-            <a href="photos.html" class="nav-link">🖼️ Photos</a>
-            <a href="gallery.html" class="nav-link">✨ Galerie</a>
+    <div class="header-modern">
+        <div class="header-content">
+            <div class="header-title">
+                <h1>🗺️ Carte Avancée</h1>
+                <small id="lastUpdate">Chargement...</small>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">📊 Dashboard</a>
+                <a href="new-listings.html" class="nav-link">⭐ Nouvelles</a>
+                <a href="anomalies.html" class="nav-link">🎯 Anomalies</a>
+                <a href="map-advanced.html" class="nav-link active">🗺️ Carte</a>
+                <a href="stats-by-city.html" class="nav-link">📊 Villes</a>
+            </div>
         </div>
     </div>
 
@@ -134,69 +490,89 @@
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar-filters">
-                <select id="filterCity" class="form-select form-select-sm mb-2" onchange="applyMapFilters()">
-                    <option value="">Toutes les villes</option>
-                </select>
-                <select id="filterSite" class="form-select form-select-sm mb-2" onchange="applyMapFilters()">
-                    <option value="">Tous les sites</option>
-                </select>
-                <div class="d-flex gap-2 mb-1">
-                    <input type="number" id="filterPriceMin" class="form-control form-control-sm"
-                        placeholder="Prix min €" oninput="applyMapFilters()">
-                    <input type="number" id="filterPriceMax" class="form-control form-control-sm"
-                        placeholder="Prix max €" oninput="applyMapFilters()">
+                <div class="mb-3">
+                    <label class="filter-label">🏙️ Ville</label>
+                    <select id="filterCity" class="form-select" onchange="applyMapFilters()">
+                        <option value="">Toutes les villes</option>
+                    </select>
                 </div>
-                <select id="filterAnomaly" class="form-select form-select-sm" onchange="applyMapFilters()">
-                    <option value="">Toutes anomalies</option>
-                    <option value="GOOD_DEAL">✅ Bonnes affaires</option>
-                    <option value="HIGH">⚠️ Prix hauts</option>
-                    <option value="NONE">💰 Prix normaux</option>
-                </select>
+                <div class="mb-3">
+                    <label class="filter-label">🌐 Site</label>
+                    <select id="filterSite" class="form-select" onchange="applyMapFilters()">
+                        <option value="">Tous les sites</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="filter-label">💰 Prix</label>
+                    <div class="d-flex gap-2">
+                        <input type="number" id="filterPriceMin" class="form-control" placeholder="Min €" oninput="applyMapFilters()">
+                        <input type="number" id="filterPriceMax" class="form-control" placeholder="Max €" oninput="applyMapFilters()">
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label class="filter-label">🎯 Anomalie</label>
+                    <select id="filterAnomaly" class="form-select" onchange="applyMapFilters()">
+                        <option value="">Toutes anomalies</option>
+                        <option value="GOOD_DEAL">✅ Bonnes affaires</option>
+                        <option value="HIGH">⚠️ Prix hauts</option>
+                        <option value="NONE">💰 Prix normaux</option>
+                    </select>
+                </div>
             </div>
             <div class="sidebar-header">
                 <span id="listingCount">0 annonce(s)</span>
-                <span id="withGpsCount" style="color:#10b981;"></span>
+                <span id="withGpsCount"></span>
             </div>
             <div id="sidebarListings"></div>
         </div>
 
         <!-- Map -->
-        <div style="position:relative; flex:1;">
-            <div id="map" class="map"></div>
+        <div class="map-container">
+            <div id="map"></div>
             <div class="map-legend">
-                <div><span class="legend-dot" style="background:#10b981;"></span> Bonne affaire</div>
-                <div><span class="legend-dot" style="background:#667eea;"></span> Prix normal</div>
-                <div><span class="legend-dot" style="background:#ef4444;"></span> Prix haut</div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background:#10b981;"></span>
+                    Bonne affaire
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background:#667eea;"></span>
+                    Prix normal
+                </div>
+                <div class="legend-item">
+                    <span class="legend-dot" style="background:#ef4444;"></span>
+                    Prix haut
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Dark Mode Toggle -->
-    <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Mode sombre/clair">🌙</button>
 
-    <!-- Service Worker -->
-    <script>
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js").then(() => {}).catch(() => {});
-    }
-    </script>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.5.1/dist/leaflet.markercluster.js"></script>
     <script src="data/listings.js"></script>
     <script src="data/anomalies.js"></script>
     <script>
-        // Fallback normCity si version-display.js pas encore chargé
+        // Dark mode
+        const dm = document.getElementById("darkModeToggle");
+        dm.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            dm.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+        });
+        if(localStorage.getItem("darkMode") === "true") {
+            document.body.classList.add("dark-mode");
+            dm.textContent = "☀️";
+        }
+
         if (typeof normCity === 'undefined') {
             window.normCity = function(city) {
                 return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
             };
         }
 
-        // Fallback ANOMALIES
         if (typeof ANOMALIES === 'undefined') window.ANOMALIES = {};
 
-        // ---- Calcul anomalies à la volée (même logique que anomalies.html) ----
         const cityMedians = (function() {
             const groups = {};
             LISTINGS.forEach(l => {
@@ -217,10 +593,8 @@
         })();
 
         function getAnomalyType(listing) {
-            // Prefer static anomalies.js data if available
             const staticAnomaly = ANOMALIES[listing.listing_id];
             if (staticAnomaly && staticAnomaly !== 'NONE') return staticAnomaly;
-            // Compute on-the-fly
             const city = normCity(listing.city || '');
             const median = cityMedians[city];
             if (!median || !listing.price || listing.price <= 0) return 'NONE';
@@ -233,9 +607,8 @@
         const ANOMALY_COLORS = { 'GOOD_DEAL': '#10b981', 'HIGH': '#ef4444', 'NONE': '#667eea' };
 
         let map, markerClusterGroup;
-        let currentMarkers = {};   // listing_id → marker
+        let currentMarkers = {};
 
-        // ---- Init carte ----
         function initMap() {
             map = L.map('map').setView([49.6116, 6.1319], 10);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -249,7 +622,7 @@
                     const n = cluster.getChildCount();
                     const size = n < 10 ? 36 : n < 50 ? 44 : 54;
                     return L.divIcon({
-                        html: `<div style="background:#667eea;color:white;width:${size}px;height:${size}px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.2);">${n}</div>`,
+                        html: `<div style="background:#667eea;color:white;width:${size}px;height:${size}px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;border:3px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,0.2);font-family:'JetBrains Mono',monospace;">${n}</div>`,
                         iconSize: [size, size],
                         className: ''
                     });
@@ -258,7 +631,6 @@
             map.addLayer(markerClusterGroup);
         }
 
-        // ---- Remplir filtres ----
         function populateFilters() {
             const cities = [...new Set(LISTINGS.map(l => l.city).filter(Boolean))].sort();
             const sites  = [...new Set(LISTINGS.map(l => l.site).filter(Boolean))].sort();
@@ -279,7 +651,6 @@
             });
         }
 
-        // ---- Filtre + rendu ----
         function applyMapFilters() {
             const city      = document.getElementById('filterCity').value;
             const site      = document.getElementById('filterSite').value;
@@ -301,33 +672,32 @@
             addMarkers(filtered);
         }
 
-        // ---- Sidebar ----
         function renderSidebar(listings) {
             const withGps = listings.filter(l => l.latitude && l.longitude).length;
             document.getElementById('listingCount').textContent = `${listings.length} annonce${listings.length > 1 ? 's' : ''}`;
-            document.getElementById('withGpsCount').textContent = withGps > 0 ? `📍 ${withGps} sur carte` : '';
+            document.getElementById('withGpsCount').textContent = withGps > 0 ? `📍 ${withGps}` : '';
 
             const container = document.getElementById('sidebarListings');
             if (listings.length === 0) {
-                container.innerHTML = '<div style="padding:1rem;color:#888;text-align:center;">Aucune annonce</div>';
+                container.innerHTML = '<div style="padding:1.5rem;color:#888;text-align:center;">Aucune annonce</div>';
                 return;
             }
 
             container.innerHTML = listings.map(l => {
                 const anomaly = getAnomalyType(l);
                 const badge = anomaly === 'GOOD_DEAL'
-                    ? '<span class="badge-anomaly badge-good" style="font-size:0.65rem;">✅ Affaire</span>'
+                    ? '<span class="badge-anomaly badge-good">✅ Affaire</span>'
                     : anomaly === 'HIGH'
-                        ? '<span class="badge-anomaly badge-high" style="font-size:0.65rem;">⚠️ Haut</span>'
+                        ? '<span class="badge-anomaly badge-high">⚠️ Haut</span>'
                         : '';
                 const hasGps = l.latitude && l.longitude;
                 return `
                 <div class="listing-item" data-id="${l.listing_id}" onclick="selectListing('${l.listing_id}')">
                     <h6 title="${(l.title || '').replace(/"/g, '&quot;')}">${l.title || 'Sans titre'}</h6>
-                    <div class="d-flex align-items-center gap-1 flex-wrap">
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
                         <span class="listing-item-price">${(l.price || 0).toLocaleString('fr-FR')}€</span>
                         ${badge}
-                        ${!hasGps ? '<span style="font-size:0.65rem;color:#bbb;" title="Pas de GPS">📍❌</span>' : ''}
+                        ${!hasGps ? '<span style="font-size:0.7rem;color:#bbb;" title="Pas de GPS">📍❌</span>' : ''}
                     </div>
                     <div class="meta">
                         ${normCity(l.city) || l.city || ''}
@@ -339,14 +709,12 @@
             }).join('');
         }
 
-        // ---- Markers ----
         function addMarkers(listings) {
             listings.forEach(l => {
                 if (!l.latitude || !l.longitude) return;
 
                 const anomaly = getAnomalyType(l);
                 const color   = ANOMALY_COLORS[anomaly] || '#667eea';
-                // Rayon proportionnel au prix (8–14px)
                 const prices = listings.map(x => x.price).filter(p => p > 0);
                 const maxP = Math.max(...prices) || 1;
                 const radius = l.price > 0 ? 8 + Math.round((l.price / maxP) * 6) : 8;
@@ -355,9 +723,9 @@
                     ? `<img src="${l.image_url}" class="popup-img" alt="" onerror="this.style.display='none'">`
                     : '';
                 const anomalyLabel = anomaly === 'GOOD_DEAL'
-                    ? '<span style="color:#10b981;font-weight:600;">✅ Bonne affaire</span><br>'
+                    ? '<span style="color:#10b981;font-weight:700;">✅ Bonne affaire</span><br>'
                     : anomaly === 'HIGH'
-                        ? '<span style="color:#ef4444;font-weight:600;">⚠️ Prix haut</span><br>'
+                        ? '<span style="color:#ef4444;font-weight:700;">⚠️ Prix haut</span><br>'
                         : '';
 
                 const marker = L.circleMarker([l.latitude, l.longitude], {
@@ -370,9 +738,9 @@
                 }).bindPopup(`
                     ${imgHtml}
                     ${anomalyLabel}
-                    <strong style="font-size:0.85rem;">${(l.title || 'Sans titre').substring(0, 60)}</strong><br>
+                    <strong style="font-size:0.9rem;">${(l.title || 'Sans titre').substring(0, 60)}</strong><br>
                     <span class="popup-price">${(l.price || 0).toLocaleString('fr-FR')}€</span><br>
-                    <span style="font-size:0.78rem;color:#666;">
+                    <span style="font-size:0.85rem;color:#666;">
                         ${normCity(l.city) || l.city || ''}
                         ${l.surface > 0 ? ` · ${l.surface}m²` : ''}
                         ${l.rooms > 0 ? ` · ${l.rooms} ch.` : ''}
@@ -381,7 +749,7 @@
                     <small style="color:#999;">${l.site || ''}</small><br>
                     <a href="${l.url}" target="_blank" rel="noopener"
                        class="btn btn-sm btn-primary mt-2" style="width:100%;">Voir l'annonce →</a>
-                `, { maxWidth: 220 });
+                `, { maxWidth: 240 });
 
                 marker.on('click', () => selectListing(l.listing_id));
                 markerClusterGroup.addLayer(marker);
@@ -389,9 +757,7 @@
             });
         }
 
-        // ---- Sélection annonce ----
         function selectListing(listingId) {
-            // Highlight sidebar item via data-id (fiable, pas textContent)
             document.querySelectorAll('.listing-item').forEach(el => el.classList.remove('active'));
             const item = document.querySelector(`.listing-item[data-id="${listingId}"]`);
             if (item) {
@@ -399,7 +765,6 @@
                 item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
 
-            // Centrer carte + ouvrir popup
             const marker = currentMarkers[listingId];
             if (marker) {
                 map.setView(marker.getLatLng(), 14);
@@ -407,20 +772,24 @@
             }
         }
 
-        // ---- Init ----
         function init() {
             document.getElementById('lastUpdate').textContent =
                 `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
 
             if (typeof LISTINGS === 'undefined' || !LISTINGS || LISTINGS.length === 0) {
                 document.getElementById('sidebarListings').innerHTML =
-                    '<div style="padding:1rem;color:#c00;">Données non disponibles</div>';
+                    '<div style="padding:1.5rem;color:#dc3545;">Données non disponibles</div>';
                 return;
             }
 
             initMap();
             populateFilters();
             applyMapFilters();
+        }
+
+        // Service Worker
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("sw.js").then(() => {}).catch(() => {});
         }
 
         window.addEventListener('DOMContentLoaded', init);
