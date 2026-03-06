@@ -14,260 +14,651 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
     <title>Stats par Ville - ImmoLux</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="dark-mode.js" defer></script>
     <script src="data/version.js"></script>
     <script src="version-display.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .container-modern {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-modern {
+            text-align: center;
+            color: white;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .header-modern h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .header-modern small {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .search-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+
+        body.dark-mode .search-card {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: white;
+            color: #2d3748;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(139, 156, 255, 0.2);
+            color: white;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-info {
+            text-align: center;
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        body.dark-mode .search-info {
+            color: #aaa;
+        }
+
+        .accordion {
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.4s ease both;
+        }
+
+        .accordion:nth-child(n) {
+            animation-delay: calc(0.03s * var(--index));
+        }
+
+        .accordion-item {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(102, 126, 234, 0.2) !important;
+            border-radius: 16px !important;
+            margin-bottom: 1rem !important;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .accordion-item {
+            background: rgba(30, 30, 50, 0.9) !important;
+            border-color: rgba(139, 156, 255, 0.2) !important;
+        }
+
+        .accordion-item:hover {
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .accordion-item.priority {
+            border-color: #f59e0b !important;
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15), 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        .accordion-button {
+            background: transparent !important;
+            color: inherit !important;
+            padding: 1.25rem 1.5rem !important;
+            font-weight: 600;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background: rgba(102, 126, 234, 0.05) !important;
+        }
+
+        body.dark-mode .accordion-button:not(.collapsed) {
+            background: rgba(139, 156, 255, 0.1) !important;
+        }
+
+        .city-name {
+            font-size: 1.2rem;
+            color: #667eea;
+            margin-right: 1rem;
+            font-weight: 700;
+        }
+
+        body.dark-mode .city-name {
+            color: #8b9cff;
+        }
+
+        .city-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-right: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .transport-icons {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        body.dark-mode .transport-icons {
+            color: #aaa;
+        }
+
+        .accordion-body {
+            padding: 1.5rem !important;
+            background: rgba(102, 126, 234, 0.02) !important;
+        }
+
+        body.dark-mode .accordion-body {
+            background: rgba(139, 156, 255, 0.05) !important;
+        }
+
+        .transport-card {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #667eea;
+        }
+
+        body.dark-mode .transport-card {
+            background: rgba(139, 156, 255, 0.15);
+            border-left-color: #8b9cff;
+        }
+
+        .transport-item {
+            margin-top: 0.75rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        body.dark-mode .transport-item {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .market-stats {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .stat-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 2px solid;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-badge.median {
+            background: rgba(67, 56, 202, 0.1);
+            border-color: rgba(67, 56, 202, 0.3);
+            color: #4338ca;
+        }
+
+        .stat-badge.avg {
+            background: rgba(22, 101, 52, 0.1);
+            border-color: rgba(22, 101, 52, 0.3);
+            color: #166534;
+        }
+
+        .stat-badge.m2 {
+            background: rgba(154, 52, 18, 0.1);
+            border-color: rgba(154, 52, 18, 0.3);
+            color: #9a3412;
+        }
+
+        .table {
+            margin-bottom: 0 !important;
+            font-size: 0.95rem;
+        }
+
+        .table thead {
+            background: rgba(102, 126, 234, 0.1) !important;
+        }
+
+        body.dark-mode .table thead {
+            background: rgba(139, 156, 255, 0.15) !important;
+            color: white;
+        }
+
+        .table thead th {
+            font-weight: 700;
+            padding: 0.85rem;
+            border: none !important;
+        }
+
+        .table tbody td {
+            padding: 0.75rem 0.85rem;
+            vertical-align: middle;
+            border-color: rgba(0,0,0,0.05) !important;
+        }
+
+        body.dark-mode .table tbody td {
+            border-color: rgba(255,255,255,0.1) !important;
+            color: white;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        body.dark-mode .table tbody tr:hover {
+            background: rgba(139, 156, 255, 0.1);
+        }
+
+        .btn-voir {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.4rem 0.9rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-voir:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .btn-back {
+            background: rgba(30, 30, 50, 0.9);
+            color: #8b9cff;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            color: #764ba2;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: rgba(30, 30, 50, 0.9);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-modern h1 {
+                font-size: 2rem;
+            }
+
+            .transport-icons {
+                font-size: 0.8rem;
+            }
+
+            .table {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container-modern">
+        <div class="header-modern">
+            <h1>📊 Statistiques par Ville</h1>
+            <small id="lastUpdate">Mis à jour: —</small>
+        </div>
 
-<!-- Header -->
-<div class="header">
-    <div class="header-content">
-        <h1>📊 Statistiques par Ville</h1>
-        <small id="lastUpdate">Mis à jour: 27/02/2026</small>
-    </div>
-</div>
+        <!-- Search -->
+        <div class="search-card">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 Filtrer par ville (ex: Luxembourg, Esch...)" onkeyup="filterCities()">
+            <div class="search-info" id="cityCount"></div>
+        </div>
 
-<div class="container-main">
+        <!-- Content -->
+        <div id="listingsByCityContainer"></div>
 
-    <!-- Search -->
-    <div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Filtrer par ville (ex: Luxembourg, Esch...)" onkeyup="filterCities()">
-        <div style="text-align: center; margin-top: 0.5rem; color: #666; font-size: 0.9rem;">
-            <span id="cityCount"></span>
+        <div style="text-align:center; margin-top:2rem;">
+            <a href="index.html" class="btn-back">
+                <span>←</span>
+                <span>Retour au Dashboard</span>
+            </a>
         </div>
     </div>
 
-    <!-- Content: Annonces par Ville -->
-    <div id="listingsByCityContainer" style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1rem;"></div>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Mode sombre/clair">🌙</button>
 
-</div>
-
-<!-- Dark Mode Toggle -->
-<button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script src="data/listings.js"></script>
-<script src="data/market-stats.js"></script>
-<script>
-    if (typeof normCity === 'undefined') {
-        window.normCity = function(city) {
-            return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
-        };
-    }
-</script>
-<script>
-// Load transport data
-let TRANSPORTS = {};
-fetch('data/city-transports.json')
-    .then(r => r.json())
-    .then(data => {
-        TRANSPORTS = data.cities || {};
-        console.log('✅ Transports loaded:', Object.keys(TRANSPORTS).length, 'cities');
-    })
-    .catch(err => console.log('Transport data not available:', err));
-</script>
-<script>
-    // ==================== DARK MODE ====================
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    darkModeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-    });
-
-    if (localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark-mode');
-    }
-
-    // ==================== DATA PROCESSING ====================
-    let allCities = [];
-    let cityStats = {};
-
-    function init() {
-        if (!LISTINGS || LISTINGS.length === 0) {
-            console.error('❌ LISTINGS not loaded');
-            return;
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data/listings.js"></script>
+    <script src="data/market-stats.js"></script>
+    <script>
+        // Dark mode
+        const dm = document.getElementById("darkModeToggle");
+        dm.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            dm.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+        });
+        if(localStorage.getItem("darkMode") === "true") {
+            document.body.classList.add("dark-mode");
+            dm.textContent = "☀️";
         }
 
-        document.getElementById('lastUpdate').textContent = `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
-
-        // Group by city (normalisé)
-        const byCity = {};
-        LISTINGS.forEach(l => {
-            const city = normCity(l.city || 'N/A');
-            if (!byCity[city]) byCity[city] = [];
-            byCity[city].push(l);
-        });
-
-        allCities = Object.keys(byCity).sort();
-
-        // Calculate stats
-        allCities.forEach(city => {
-            const listings = byCity[city];
-            const prices = listings.filter(l => l.price > 0).map(l => l.price);
-            const surfaces = listings.filter(l => l.surface > 0).map(l => l.surface);
-            const rooms = listings.filter(l => l.rooms > 0).map(l => l.rooms);
-
-            const minPrice = prices.length ? Math.min(...prices) : 0;
-            const maxPrice = prices.length ? Math.max(...prices) : 0;
-            const avgPrice = prices.length ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
-            const avgSurface = surfaces.length ? Math.round(surfaces.reduce((a, b) => a + b, 0) / surfaces.length) : 0;
-            const avgRooms = rooms.length ? (rooms.reduce((a, b) => a + b, 0) / rooms.length).toFixed(1) : 0;
-
-            cityStats[city] = {
-                count: listings.length,
-                minPrice,
-                maxPrice,
-                avgPrice,
-                avgSurface,
-                avgRooms,
-                listings: listings
+        if (typeof normCity === 'undefined') {
+            window.normCity = function(city) {
+                return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
             };
-        });
+        }
 
-        // Render listings by city after a short delay to ensure transports are loaded
-        setTimeout(() => renderListingsByCity(), 500);
-    }
+        // Load transport data
+        let TRANSPORTS = {};
+        fetch('data/city-transports.json')
+            .then(r => r.json())
+            .then(data => {
+                TRANSPORTS = data.cities || {};
+                console.log('✅ Transports loaded:', Object.keys(TRANSPORTS).length, 'cities');
+            })
+            .catch(err => console.log('Transport data not available:', err));
 
-    function filterCities() {
-        renderListingsByCity();
-    }
+        let allCities = [];
+        let cityStats = {};
 
-    function renderListingsByCity() {
-        const container = document.getElementById('listingsByCityContainer');
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const byCity = {};
+        function init() {
+            if (!LISTINGS || LISTINGS.length === 0) {
+                console.error('❌ LISTINGS not loaded');
+                return;
+            }
 
-        LISTINGS.forEach(l => {
-            const city = normCity(l.city || 'N/A');
-            if (!byCity[city]) byCity[city] = [];
-            byCity[city].push(l);
-        });
+            document.getElementById('lastUpdate').textContent = `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
 
-        const cities = Object.keys(byCity).sort();
+            const byCity = {};
+            LISTINGS.forEach(l => {
+                const city = normCity(l.city || 'N/A');
+                if (!byCity[city]) byCity[city] = [];
+                byCity[city].push(l);
+            });
 
-        // Filter cities based on search term
-        const filteredCities = cities.filter(city =>
-            city.toLowerCase().includes(searchTerm)
-        );
+            allCities = Object.keys(byCity).sort();
 
-        // Update city count
-        const totalListings = filteredCities.reduce((sum, city) => sum + byCity[city].length, 0);
-        document.getElementById('cityCount').textContent =
-            `📊 ${filteredCities.length} villes • ${totalListings} annonces`;
+            allCities.forEach(city => {
+                const listings = byCity[city];
+                const prices = listings.filter(l => l.price > 0).map(l => l.price);
+                const surfaces = listings.filter(l => l.surface > 0).map(l => l.surface);
+                const rooms = listings.filter(l => l.rooms > 0).map(l => l.rooms);
 
-        let html = '';
+                const minPrice = prices.length ? Math.min(...prices) : 0;
+                const maxPrice = prices.length ? Math.max(...prices) : 0;
+                const avgPrice = prices.length ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
+                const avgSurface = surfaces.length ? Math.round(surfaces.reduce((a, b) => a + b, 0) / surfaces.length) : 0;
+                const avgRooms = rooms.length ? (rooms.reduce((a, b) => a + b, 0) / rooms.length).toFixed(1) : 0;
 
-        const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
-        filteredCities.forEach((city, idx) => {
-            const listings = byCity[city];
-            // Lookup: essayer le nom normalisé, puis "Luxembourg-{ville}", puis "Luxembourg {ville}"
-            const transport = TRANSPORTS[city]
-                || TRANSPORTS['Luxembourg-' + city]
-                || TRANSPORTS['Luxembourg ' + city]
-                || {};
-            const transportList = transport.transports || [];
-            const isPriority = PC.includes(city);
+                cityStats[city] = {
+                    count: listings.length,
+                    minPrice,
+                    maxPrice,
+                    avgPrice,
+                    avgSurface,
+                    avgRooms,
+                    listings: listings
+                };
+            });
 
-            html += `
-                <div class="accordion" id="accordion-${idx}">
-                    <div class="accordion-item" style="background: rgba(255,255,255,0.7); border: 1px solid ${isPriority ? '#f59e0b' : 'rgba(0,0,0,0.1)'}; margin-bottom: 0.5rem; border-radius: 10px;${isPriority ? ' box-shadow: 0 0 0 2px rgba(245,158,11,0.15);' : ''}">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#city-${idx}">
-                                <strong style="color: var(--primary); margin-right: 1rem;">${isPriority ? '⭐' : '📍'} ${city}</strong>
-                                <span style="background: #667eea; color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.85rem; margin-right: 1rem;">${listings.length} annonces</span>
-                                <span style="color: #666; font-size: 0.9rem;">
-                                    ${transportList.length > 0 ?
-                                        transportList.map(t => {
-                                            const icon = t.type === 'gare' ? '🚉' :
-                                                        t.type === 'train' ? '🚂' :
-                                                        t.type === 'bus' ? '🚌' :
-                                                        t.type === 'tram' ? '🚊' :
-                                                        t.type === 'pied' ? '🚶' : '🚇';
-                                            return `${icon} ${t.number}`;
-                                        }).join(' • ')
-                                        : '⚠️ Transports non disponibles'}
-                                </span>
-                            </button>
-                        </h2>
-                        <div id="city-${idx}" class="accordion-collapse collapse" data-bs-parent="#accordion-${idx}">
-                            <div class="accordion-body" style="padding: 1rem; background: rgba(255,255,255,0.5);">
-                                ${transportList.length > 0 ? `
-                                    <div style="background: #e8f4f8; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid #667eea;">
-                                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                            <strong>🚊 Moyens de transport vers Gare Centrale</strong>
-                                            ${transport.distance_km != null ? `<span style="color: #666; font-size: 0.9rem;">📏 ${transport.distance_km} km${transport.region ? ` • ${transport.region}` : ''}</span>` : ''}
+            setTimeout(() => renderListingsByCity(), 500);
+        }
+
+        function filterCities() {
+            renderListingsByCity();
+        }
+
+        function renderListingsByCity() {
+            const container = document.getElementById('listingsByCityContainer');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const byCity = {};
+
+            LISTINGS.forEach(l => {
+                const city = normCity(l.city || 'N/A');
+                if (!byCity[city]) byCity[city] = [];
+                byCity[city].push(l);
+            });
+
+            const cities = Object.keys(byCity).sort();
+            const filteredCities = cities.filter(city => city.toLowerCase().includes(searchTerm));
+
+            const totalListings = filteredCities.reduce((sum, city) => sum + byCity[city].length, 0);
+            document.getElementById('cityCount').textContent =
+                `📊 ${filteredCities.length} villes • ${totalListings} annonces`;
+
+            let html = '';
+            const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
+
+            filteredCities.forEach((city, idx) => {
+                const listings = byCity[city];
+                const transport = TRANSPORTS[city]
+                    || TRANSPORTS['Luxembourg-' + city]
+                    || TRANSPORTS['Luxembourg ' + city]
+                    || {};
+                const transportList = transport.transports || [];
+                const isPriority = PC.includes(city);
+
+                html += `
+                    <div class="accordion" id="accordion-${idx}" style="--index:${idx}">
+                        <div class="accordion-item${isPriority ? ' priority' : ''}">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#city-${idx}">
+                                    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem;width:100%;">
+                                        <span class="city-name">${isPriority ? '⭐' : '📍'} ${city}</span>
+                                        <span class="city-badge">${listings.length}</span>
+                                        <div class="transport-icons">
+                                            ${transportList.length > 0 ?
+                                                transportList.map(t => {
+                                                    const icon = t.type === 'gare' ? '🚉' :
+                                                                t.type === 'train' ? '🚂' :
+                                                                t.type === 'bus' ? '🚌' :
+                                                                t.type === 'tram' ? '🚊' :
+                                                                t.type === 'pied' ? '🚶' : '🚇';
+                                                    return `<span>${icon} ${t.number}</span>`;
+                                                }).join('')
+                                                : '<span>⚠️ Transport non disponible</span>'}
                                         </div>
-                                        ${transportList.map(t => {
-                                            const icon = t.type === 'gare' ? '🚉' :
-                                                        t.type === 'train' ? '🚂' :
-                                                        t.type === 'bus' ? '🚌' :
-                                                        t.type === 'tram' ? '🚊' :
-                                                        t.type === 'pied' ? '🚶' : '🚇';
-                                            return `
-                                            <div style="margin-top: 0.5rem;">
-                                                ${icon}
-                                                <strong>${t.number}</strong> - ${t.description}
-                                                <span style="color: #666;">(${t.duration_min} min)</span>
+                                    </div>
+                                </button>
+                            </h2>
+                            <div id="city-${idx}" class="accordion-collapse collapse" data-bs-parent="#accordion-${idx}">
+                                <div class="accordion-body">
+                                    ${transportList.length > 0 ? `
+                                        <div class="transport-card">
+                                            <div style="display:flex;justify-content:space-between;margin-bottom:0.75rem;">
+                                                <strong>🚊 Moyens de transport vers Gare Centrale</strong>
+                                                ${transport.distance_km != null ? `<span style="font-size:0.9rem;color:#666;">📏 ${transport.distance_km} km${transport.region ? ` • ${transport.region}` : ''}</span>` : ''}
                                             </div>
-                                            `;
-                                        }).join('')}
-                                    </div>
-                                ` : ''}
-                                ${(typeof MARKET_STATS !== 'undefined' && MARKET_STATS[city]) ? `
-                                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.75rem;">
-                                        <span style="background:#f0f4ff;border:1px solid #c7d2fe;border-radius:6px;padding:0.25rem 0.6rem;font-size:0.8rem;color:#4338ca;">
-                                            📊 Médiane: <strong>${MARKET_STATS[city].median_price?.toLocaleString('fr-FR')}€</strong>
-                                        </span>
-                                        <span style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:0.25rem 0.6rem;font-size:0.8rem;color:#166534;">
-                                            💶 Moy: <strong>${MARKET_STATS[city].avg_price?.toLocaleString('fr-FR')}€</strong>
-                                        </span>
-                                        ${MARKET_STATS[city].avg_price_m2 ? `<span style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:0.25rem 0.6rem;font-size:0.8rem;color:#9a3412;">
-                                            📐 Prix/m²: <strong>${MARKET_STATS[city].avg_price_m2}€</strong>
-                                        </span>` : ''}
-                                    </div>
-                                ` : ''}
-                                <table class="table table-sm mb-0">
-                                    <thead style="background: #f5f5f5;">
-                                        <tr>
-                                            <th>Titre</th>
-                                            <th>Prix</th>
-                                            <th>Chambres</th>
-                                            <th>Surface</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${listings.map(l => `
+                                            ${transportList.map(t => {
+                                                const icon = t.type === 'gare' ? '🚉' :
+                                                            t.type === 'train' ? '🚂' :
+                                                            t.type === 'bus' ? '🚌' :
+                                                            t.type === 'tram' ? '🚊' :
+                                                            t.type === 'pied' ? '🚶' : '🚇';
+                                                return `
+                                                <div class="transport-item">
+                                                    ${icon}
+                                                    <strong>${t.number}</strong> - ${t.description}
+                                                    <span style="color:#666;font-weight:600;">(${t.duration_min} min)</span>
+                                                </div>
+                                                `;
+                                            }).join('')}
+                                        </div>
+                                    ` : ''}
+                                    ${(typeof MARKET_STATS !== 'undefined' && MARKET_STATS[city]) ? `
+                                        <div class="market-stats">
+                                            <span class="stat-badge median">
+                                                📊 Médiane: <strong>${MARKET_STATS[city].median_price?.toLocaleString('fr-FR')}€</strong>
+                                            </span>
+                                            <span class="stat-badge avg">
+                                                💶 Moyenne: <strong>${MARKET_STATS[city].avg_price?.toLocaleString('fr-FR')}€</strong>
+                                            </span>
+                                            ${MARKET_STATS[city].avg_price_m2 ? `<span class="stat-badge m2">
+                                                📐 Prix/m²: <strong>${MARKET_STATS[city].avg_price_m2}€</strong>
+                                            </span>` : ''}
+                                        </div>
+                                    ` : ''}
+                                    <table class="table table-sm mb-0">
+                                        <thead>
                                             <tr>
-                                                <td><small><strong>${l.title.substring(0, 35)}</strong></small></td>
-                                                <td><strong>${l.price.toLocaleString('fr-FR')}€</strong></td>
-                                                <td>${l.rooms}</td>
-                                                <td>${l.surface}m²</td>
-                                                <td><a href="${l.url}" target="_blank" class="btn btn-xs btn-primary" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;">Voir</a></td>
+                                                <th>Titre</th>
+                                                <th>Prix</th>
+                                                <th>Chambres</th>
+                                                <th>Surface</th>
+                                                <th>Action</th>
                                             </tr>
-                                        `).join('')}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            ${listings.map(l => `
+                                                <tr>
+                                                    <td><strong>${l.title.substring(0, 40)}</strong></td>
+                                                    <td style="font-family:'JetBrains Mono',monospace;"><strong>${l.price.toLocaleString('fr-FR')}€</strong></td>
+                                                    <td>${l.rooms || '-'}</td>
+                                                    <td>${l.surface || '-'}m²</td>
+                                                    <td><a href="${l.url}" target="_blank" class="btn-voir">Voir</a></td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            `;
-        });
+                `;
+            });
 
-        container.innerHTML = html;
-    }
+            container.innerHTML = html;
+        }
 
-    // ==================== SERVICE WORKER ====================
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
-    }
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed'));
+        }
 
-    // ==================== INIT ====================
-    init();
-</script>
+        init();
+    </script>
 </body>
 </html>
