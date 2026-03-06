@@ -9,115 +9,314 @@
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
     <title>Nouvelles Offres - ImmoLux</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#667eea">
+    <script src="dark-mode.js" defer></script>
+    <script src="data/version.js"></script>
+    <script src="version-display.js" defer></script>
     <style>
-        /* Timeline compact */
-        .timeline-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        * {
+            margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .container-modern {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-modern {
+            text-align: center;
+            color: white;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .header-modern h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .header-modern small {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.8s ease 0.1s both;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.75rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        body.dark-mode .stat-card {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark-mode .stat-value {
+            color: #8b9cff;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        body.dark-mode .stat-label {
+            color: #aaa;
+        }
+
+        .filters-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+
+        body.dark-mode .filters-card {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .filters {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        body.dark-mode .filter-label {
+            color: #e2e8f0;
+        }
+
+        .filter-btn {
+            background: rgba(102, 126, 234, 0.08);
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            color: #2d3748;
+            padding: 0.6rem 1.25rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .filter-btn {
+            background: rgba(139, 156, 255, 0.1);
+            border-color: rgba(139, 156, 255, 0.2);
+            color: white;
+        }
+
+        .filter-btn:hover {
+            background: rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .results-info {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #2d3748;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        body.dark-mode .results-info {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+            border-left-color: #8b9cff;
+        }
+
+        .timeline-container {
+            max-width: 100%;
         }
 
         .date-section {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.4s ease both;
+        }
+
+        .date-section:nth-child(n) {
+            animation-delay: calc(0.05s * var(--index));
         }
 
         .date-header {
             position: sticky;
-            top: 0;
+            top: 10px;
             z-index: 10;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         body.dark-mode .date-header {
-            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
         }
 
         .date-title {
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
         }
 
         .date-count {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
         .listing-card {
-            background: white;
-            border-radius: 8px;
-            padding: 0.6rem 0.8rem;
-            margin-bottom: 0.4rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            border-left: 3px solid #667eea;
-            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1.5rem;
         }
 
         body.dark-mode .listing-card {
-            background: #2d3748;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-            border-left-color: #4a5568;
+            background: rgba(30, 30, 50, 0.9);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border-left-color: #8b9cff;
+            color: white;
         }
 
         .listing-card:hover {
-            transform: translateX(3px);
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+            transform: translateX(5px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
         }
 
         .listing-card.is-new {
             border-left-color: #f59e0b;
-            background: #fffbeb;
+            background: rgba(255, 251, 235, 0.95);
         }
 
         body.dark-mode .listing-card.is-new {
-            background: #451a03;
+            background: rgba(69, 26, 3, 0.6);
+            border-left-color: #fbbf24;
+        }
+
+        .listing-card.priority-card {
+            border-left-color: #f59e0b;
         }
 
         .listing-info {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 2rem;
             flex: 1;
+            flex-wrap: wrap;
         }
 
         .info-item {
             display: inline-flex;
-            align-items: baseline;
-            gap: 0.3rem;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .info-label {
-            font-size: 0.7rem;
-            color: #9ca3af;
-            font-weight: 500;
-        }
-
-        body.dark-mode .info-label {
-            color: #6b7280;
+            font-size: 1.1rem;
         }
 
         .info-value {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
-            color: #1f2937;
+            color: #2d3748;
         }
 
         body.dark-mode .info-value {
@@ -126,263 +325,272 @@
 
         .price-value {
             color: #667eea;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         body.dark-mode .price-value {
-            color: #818cf8;
+            color: #8b9cff;
         }
 
         .listing-actions {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             flex-shrink: 0;
         }
 
         .badge-new {
-            background: #f59e0b;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
             color: white;
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.65rem;
-            font-weight: 600;
-        }
-
-        .btn-voir {
-            background: #667eea;
-            color: white;
-            padding: 0.35rem 0.8rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn-voir:hover {
-            background: #5568d3;
-            color: white;
-        }
-
-        .site-badge {
-            background: #e5e7eb;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            color: #6b7280;
-        }
-
-        body.dark-mode .site-badge {
-            background: #374151;
-            color: #9ca3af;
+            padding: 0.35rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
         }
 
         .time-badge {
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 500;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 0.35rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         body.dark-mode .time-badge {
-            background: #1e3a8a;
-            color: #93c5fd;
+            background: rgba(139, 156, 255, 0.2);
+            color: #8b9cff;
         }
 
-        /* Stats compacts */
-        .stats-grid {
-            display: flex;
-            gap: 0.6rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            flex: 1;
-            min-width: 120px;
-        }
-
-        body.dark-mode .stat-card {
-            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-        }
-
-        .stat-value {
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
-
-        .stat-label {
+        .site-badge {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 0.35rem 0.75rem;
+            border-radius: 12px;
             font-size: 0.8rem;
-            opacity: 0.9;
-        }
-
-        /* Filtres compacts */
-        .filters {
-            background: white;
-            padding: 0.6rem 0.8rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        body.dark-mode .filters {
-            background: #2d3748;
-        }
-
-        .filter-btn {
-            background: #f3f4f6;
-            border: 1px solid transparent;
-            color: #4b5563;
-            padding: 0.4rem 0.9rem;
-            border-radius: 6px;
-            cursor: pointer;
+            color: #6b7280;
             font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
         }
 
-        body.dark-mode .filter-btn {
-            background: #374151;
+        body.dark-mode .site-badge {
+            background: rgba(255, 255, 255, 0.1);
             color: #9ca3af;
         }
 
-        .filter-btn:hover {
-            background: #e5e7eb;
-        }
-
-        .filter-btn.active {
-            background: #667eea;
+        .btn-voir {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border-color: #667eea;
-        }
-
-        .results-info {
-            background: #f0f9ff;
-            color: #0369a1;
-            padding: 0.5rem 0.8rem;
-            border-radius: 6px;
-            margin-bottom: 1rem;
-            border-left: 3px solid #0ea5e9;
-            font-weight: 500;
+            padding: 0.6rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
 
-        body.dark-mode .results-info {
-            background: #0c4a6e;
-            color: #7dd3fc;
+        .btn-voir:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+            color: white;
         }
 
-        /* Responsive */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            margin: 2rem 0;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .btn-back {
+            background: rgba(30, 30, 50, 0.9);
+            color: #8b9cff;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            color: #764ba2;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: rgba(30, 30, 50, 0.9);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @media (max-width: 768px) {
+            .header-modern h1 {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
             .listing-card {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 0.5rem;
+                gap: 1rem;
             }
 
             .listing-info {
-                flex-wrap: wrap;
-                gap: 0.8rem;
+                gap: 1rem;
             }
 
             .listing-actions {
                 width: 100%;
-                justify-content: flex-end;
+                justify-content: space-between;
             }
-
-            .info-item {
-                font-size: 0.85rem;
-            }
-        }
-
-        /* Empty state */
-        .empty-state {
-            text-align: center;
-            padding: 2rem 1rem;
-            color: #6b7280;
-        }
-
-        .empty-state-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
         }
     </style>
-    <script src="dark-mode.js" defer></script>
-    <script src="data/version.js"></script>
-    <script src="version-display.js" defer></script>
 </head>
 <body>
-    <div class="header">
-        <h1>⭐ Nouvelles Offres</h1>
-        <small id="lastUpdate"></small>
-        <div style="margin-top: 0.5rem;">
-            <a href="index.html" class="nav-link">📊 Dashboard</a>
-            <a href="new-listings.html" class="nav-link active">⭐ New</a>
-            <a href="anomalies.html" class="nav-link">🎯 Anomalies</a>
-            <a href="map-advanced.html" class="nav-link">🗺️ Carte</a>
-            <a href="stats-by-city.html" class="nav-link">📊 Villes</a>
+    <div class="container-modern">
+        <div class="header-modern">
+            <h1>⭐ Nouvelles Offres</h1>
+            <small id="lastUpdate">Chargement...</small>
         </div>
-    </div>
 
-    <div class="container-fluid p-2">
-        <!-- Stats compacts -->
+        <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card">
-                <span class="stat-value" id="todayCount">0</span>
-                <span class="stat-label">Aujourd'hui</span>
+                <div class="stat-value" id="todayCount">0</div>
+                <div class="stat-label">Aujourd'hui</div>
             </div>
             <div class="stat-card">
-                <span class="stat-value" id="weekCount">0</span>
-                <span class="stat-label">7 jours</span>
+                <div class="stat-value" id="weekCount">0</div>
+                <div class="stat-label">7 jours</div>
             </div>
             <div class="stat-card">
-                <span class="stat-value" id="totalCount">0</span>
-                <span class="stat-label">Total</span>
+                <div class="stat-value" id="totalCount">0</div>
+                <div class="stat-label">Total</div>
             </div>
         </div>
 
         <!-- Filtres -->
-        <div class="filters">
-            <strong style="font-size: 0.85rem; color: #6b7280;">📅</strong>
-            <button class="filter-btn active" data-period="all">Toutes</button>
-            <button class="filter-btn" data-period="today">Aujourd'hui</button>
-            <button class="filter-btn" data-period="3days">3 jours</button>
-            <button class="filter-btn" data-period="7days">7 jours</button>
+        <div class="filters-card">
+            <div class="filters">
+                <span class="filter-label">📅 Période:</span>
+                <button class="filter-btn active" data-period="all">Toutes</button>
+                <button class="filter-btn" data-period="today">Aujourd'hui</button>
+                <button class="filter-btn" data-period="3days">3 jours</button>
+                <button class="filter-btn" data-period="7days">7 jours</button>
+            </div>
         </div>
 
         <!-- Info résultats -->
         <div class="results-info" id="resultsInfo">Chargement...</div>
 
-        <!-- Timeline des annonces -->
+        <!-- Timeline -->
         <div class="timeline-container" id="timelineContainer"></div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" class="btn-back">
+                <span>←</span>
+                <span>Retour au Dashboard</span>
+            </a>
+        </div>
     </div>
 
-    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Mode sombre/clair">🌙</button>
 
     <script src="data/listings.js"></script>
     <script>
+        // Dark mode
+        const dm = document.getElementById("darkModeToggle");
+        dm.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            dm.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+        });
+        if(localStorage.getItem("darkMode") === "true") {
+            document.body.classList.add("dark-mode");
+            dm.textContent = "☀️";
+        }
+
         if (typeof normCity === 'undefined') {
             window.normCity = function(city) {
                 return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
             };
         }
-    </script>
-    <script>
+
         let currentFilter = 'all';
 
         function parseDate(dateStr) {
@@ -471,8 +679,8 @@
 
             document.getElementById('todayCount').textContent = todayCount;
             document.getElementById('weekCount').textContent = weekCount;
-            document.getElementById('totalCount').textContent = LISTINGS.length;
-            document.getElementById('lastUpdate').textContent = new Date().toLocaleString('fr-FR');
+            document.getElementById('totalCount').textContent = LISTINGS.length.toLocaleString();
+            document.getElementById('lastUpdate').textContent = 'Mis à jour: ' + new Date().toLocaleString('fr-FR');
 
             // Event listeners
             document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -503,14 +711,12 @@
                 return true;
             });
 
-            // Trier par date décroissante
             filtered.sort((a, b) => {
                 const da = parseDate(a.created_at) || new Date(0);
                 const db = parseDate(b.created_at) || new Date(0);
                 return db - da;
             });
 
-            // Mettre à jour l'info
             const periodNames = {
                 'all': 'toutes les annonces',
                 'today': "aujourd'hui",
@@ -534,8 +740,8 @@
 
             const groups = groupByDate(listings);
 
-            container.innerHTML = groups.map(group => `
-                <div class="date-section">
+            container.innerHTML = groups.map((group, index) => `
+                <div class="date-section" style="--index: ${index}">
                     <div class="date-header">
                         <div class="date-title">${group.label}</div>
                         <div class="date-count">${group.listings.length} annonce${group.listings.length > 1 ? 's' : ''}</div>
@@ -545,7 +751,7 @@
                         const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
                         const isPriority = PC.includes(normCity(l.city));
                         return `
-                            <div class="listing-card ${isNewListing ? 'is-new' : ''}${isPriority ? ' priority-card' : ''}" style="${isPriority ? 'border-left-color:#f59e0b;' : ''}">
+                            <div class="listing-card ${isNewListing ? 'is-new' : ''}${isPriority ? ' priority-card' : ''}">
                                 <div class="listing-info">
                                     <div class="info-item">
                                         <span class="info-label">📍</span>
@@ -577,23 +783,16 @@
             `).join('');
         }
 
-        // Dark Mode
-        document.getElementById('darkModeToggle').addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        });
-        if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
-
-        // Init
         window.addEventListener('DOMContentLoaded', init);
     </script>
-<!-- Service Worker -->
-<script>
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js")
-        .then(reg => console.log("SW registered"))
-        .catch(err => console.log("SW failed:", err));
-}
-</script>
+
+    <!-- Service Worker -->
+    <script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js")
+            .then(reg => console.log("SW registered"))
+            .catch(err => console.log("SW failed:", err));
+    }
+    </script>
 </body>
 </html>
