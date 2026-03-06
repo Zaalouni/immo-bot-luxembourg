@@ -261,6 +261,76 @@
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
 
+        /* Navigation Links Grid */
+        .nav-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .nav-link-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.4s ease;
+        }
+
+        .nav-link-badge:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            color: white;
+        }
+
+        .nav-link-badge:hover::before {
+            left: 100%;
+        }
+
+        .nav-link-badge.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .nav-link-badge.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .nav-link-badge.warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 0.6rem;
+            }
+
+            .nav-link-badge {
+                padding: 0.7rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
         /* Buttons */
         .btn {
             border-radius: 12px;
@@ -664,24 +734,24 @@
     <!-- Navigation -->
     <div class="filter-section">
         <strong>🔗 Plus de vues :</strong>
-        <div style="margin-top: 0.8rem;">
+        <div class="nav-links-grid">
             <!-- Pages Principales -->
-            <a href="dashboard-summary.html" class="btn btn-sm btn-outline-primary ms-1">📊 Résumé</a>
-            <a href="map.html" class="btn btn-sm btn-outline-primary ms-1">🗺️ Carte</a>
-            <a href="map-advanced.html" class="btn btn-sm btn-outline-primary ms-1">🗺️ Carte+</a>
-            <a href="stats-by-city.html" class="btn btn-sm btn-outline-primary ms-1">📋 Stats Ville</a>
-            <a href="nearby.html" class="btn btn-sm btn-outline-primary ms-1">📍 Proche</a>
-            <a href="photos.html" class="btn btn-sm btn-outline-primary ms-1">📸 Photos</a>
-            <a href="gallery.html" class="btn btn-sm btn-outline-primary ms-1">✨ Galerie</a>
-            <a href="data-quality.html" class="btn btn-sm btn-outline-primary ms-1">📊 Qualité</a>
-            <a href="anomalies.html" class="btn btn-sm btn-outline-primary ms-1">⚠️ Anomalies</a>
-            <a href="new-listings.html" class="btn btn-sm btn-outline-primary ms-1">✨ Nouvelles</a>
+            <a href="dashboard-summary.html" class="nav-link-badge primary">📊 Résumé</a>
+            <a href="map.html" class="nav-link-badge primary">🗺️ Carte</a>
+            <a href="map-advanced.html" class="nav-link-badge primary">🗺️ Carte+</a>
+            <a href="stats-by-city.html" class="nav-link-badge primary">📋 Stats Ville</a>
+            <a href="nearby.html" class="nav-link-badge primary">📍 Proche</a>
+            <a href="photos.html" class="nav-link-badge primary">📸 Photos</a>
+            <a href="gallery.html" class="nav-link-badge primary">✨ Galerie</a>
+            <a href="data-quality.html" class="nav-link-badge primary">📊 Qualité</a>
+            <a href="anomalies.html" class="nav-link-badge primary">⚠️ Anomalies</a>
+            <a href="new-listings.html" class="nav-link-badge primary">✨ Nouvelles</a>
             <!-- Pages Avancées -->
-            <a href="comparison.html" class="btn btn-sm btn-outline-success ms-1">🔄 Comparateur</a>
-            <a href="trends.html" class="btn btn-sm btn-outline-success ms-1">📈 Tendances</a>
-            <a href="reports.html" class="btn btn-sm btn-outline-success ms-1">📄 Reports</a>
-            <a href="alerts.html" class="btn btn-sm btn-outline-success ms-1">⭐ Favoris</a>
-            <a href="favorites.html" class="btn btn-sm ms-1" style="background:#f59e0b;color:white;font-weight:600;">⭐ Prioritaires</a>
+            <a href="comparison.html" class="nav-link-badge success">🔄 Comparateur</a>
+            <a href="trends.html" class="nav-link-badge success">📈 Tendances</a>
+            <a href="reports.html" class="nav-link-badge success">📄 Reports</a>
+            <a href="alerts.html" class="nav-link-badge success">⭐ Favoris</a>
+            <a href="favorites.html" class="nav-link-badge warning">⭐ Prioritaires</a>
         </div>
     </div>
 
