@@ -4,230 +4,862 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anomalies Prix - ImmoLux</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Bonnes Affaires - ImmoLux</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="dark-mode.js" defer></script>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#667eea">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#10b981">
+
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="ImmoLux">
-    <script src="data/version.js"></script>
-    <script src="version-display.js" defer></script>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
     <style>
-        .anomaly-hero {
+        :root {
+            --bg-gradient-start: #0f172a;
+            --bg-gradient-end: #1e293b;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --emerald: #10b981;
+            --emerald-glow: rgba(16, 185, 129, 0.3);
+            --coral: #fb7185;
+            --coral-glow: rgba(251, 113, 133, 0.3);
+            --amber: #f59e0b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        body.dark-mode {
+            --bg-gradient-start: #0f172a;
+            --bg-gradient-end: #1e293b;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --text-primary: #f1f5f9;
+        }
+
+        body:not(.dark-mode) {
+            --bg-gradient-start: #f8fafc;
+            --bg-gradient-end: #e2e8f0;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(148, 163, 184, 0.3);
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .page-container {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .hero-header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 2rem 0 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-title {
+            font-family: 'Sora', sans-serif;
+            font-weight: 800;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--emerald) 0%, var(--amber) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: slideUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+        .stat-card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-card.highlight-good {
+            border-left: 4px solid var(--emerald);
+            box-shadow: 0 0 20px var(--emerald-glow);
+        }
+
+        .stat-card.highlight-high {
+            border-left: 4px solid var(--coral);
+            box-shadow: 0 0 20px var(--coral-glow);
+        }
+
+        .stat-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-family: 'Manrope', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--text-primary);
+        }
+
+        .stat-value.emerald { color: var(--emerald); }
+        .stat-value.coral { color: var(--coral); }
+        .stat-value.amber { color: var(--amber); }
+
+        /* City Comparison Table */
+        .section-header {
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin: 2.5rem 0 1rem;
+            display: flex;
+            align-items: center;
             gap: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .section-header::before {
+            content: '';
+            width: 4px;
+            height: 1.8rem;
+            background: linear-gradient(180deg, var(--emerald), var(--amber));
+            border-radius: 2px;
+        }
+
+        .table-glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .table-glass table {
+            width: 100%;
+            margin: 0;
+        }
+
+        .table-glass thead {
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .table-glass th {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 1rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--glass-border);
+            text-align: left;
+        }
+
+        .table-glass td {
+            font-family: 'Manrope', sans-serif;
+            padding: 1rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .table-glass tbody tr {
+            transition: background 0.2s;
+        }
+
+        .table-glass tbody tr:hover {
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .city-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .price-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .price-badge.good {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--emerald);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .chart-title {
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        /* Filters */
+        .filters-bar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-label {
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .filter-select:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--emerald);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--emerald);
+            box-shadow: 0 0 0 3px var(--emerald-glow);
+        }
+
+        /* Collapsible Sections */
+        .collapsible-section {
+            margin: 2rem 0;
+        }
+
+        .section-toggle {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s;
             margin-bottom: 1rem;
         }
-        .anomaly-card-grid {
+
+        .section-toggle:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(4px);
+        }
+
+        .section-toggle-title {
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .section-toggle.collapsed .section-toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .section-content {
+            max-height: 5000px;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+            opacity: 1;
+        }
+
+        .section-content.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        /* Listing Cards Grid */
+        .listings-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
             margin-top: 1rem;
         }
-.ratio-bar {
-            height: 6px;
-            border-radius: 3px;
-            background: #e2e8f0;
-            margin: 0.4rem 0 0.6rem;
+
+        .listing-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: visible;
+            overflow: hidden;
         }
+
+        .listing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--emerald), var(--amber));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+            border-color: var(--emerald);
+        }
+
+        .listing-card:hover::before {
+            opacity: 1;
+        }
+
+        .listing-card.good-deal {
+            border-left: 4px solid var(--emerald);
+            box-shadow: 0 0 25px var(--emerald-glow);
+        }
+
+        .listing-card.high-price {
+            border-left: 4px solid var(--coral);
+        }
+
+        .listing-title {
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .listing-price {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            color: var(--emerald);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-context {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid var(--emerald);
+        }
+
+        .price-context.normal {
+            background: rgba(148, 163, 184, 0.1);
+            border-left-color: var(--text-muted);
+        }
+
+        .price-context.high {
+            background: rgba(251, 113, 133, 0.1);
+            border-left-color: var(--coral);
+        }
+
+        .ratio-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 0.75rem 0;
+            overflow: hidden;
+        }
+
         .ratio-fill {
             height: 100%;
             border-radius: 3px;
-            transition: width 0.4s ease;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .ratio-fill.good { background: #10b981; }
-        .ratio-fill.normal { background: #667eea; }
-        .ratio-fill.high { background: #ef4444; }
-        .ratio-label {
-            font-size: 0.7rem;
-            color: #888;
-            margin-bottom: 0.6rem;
-        }
-        .chart-box {
-            background: var(--card-bg, #fff);
-            border-radius: 12px;
-            padding: 1rem 1rem 0.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
-        }
-        .section-title {
-            font-weight: 700;
-            font-size: 1rem;
-            margin: 1.2rem 0 0.5rem;
-            padding-bottom: 0.3rem;
-            border-bottom: 2px solid var(--primary, #667eea);
+
+        .ratio-fill.good { background: var(--emerald); }
+        .ratio-fill.normal { background: var(--text-muted); }
+        .ratio-fill.high { background: var(--coral); }
+
+        .listing-badges {
             display: flex;
-            align-items: center;
-            gap: 0.4rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
         }
-        .filters { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; margin-bottom: 1rem; }
-        .no-results { text-align: center; padding: 2rem; color: #888; font-size: 1.1rem; }
+
+        .badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.35rem 0.75rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-site {
+            background: rgba(148, 163, 184, 0.2);
+            color: var(--text-secondary);
+        }
+
+        .badge-city {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--amber);
+        }
+
+        .badge-deal {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--emerald);
+            font-weight: 600;
+        }
+
+        .badge-high {
+            background: rgba(251, 113, 133, 0.2);
+            color: var(--coral);
+            font-weight: 600;
+        }
+
+        .listing-details {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .listing-btn {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--emerald), rgba(16, 185, 129, 0.8));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .listing-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px var(--emerald-glow);
+            color: white;
+        }
+
+        /* Navigation */
+        .nav-pills {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--emerald);
+            color: white;
+            border-color: var(--emerald);
+            transform: translateY(-2px);
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 1000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            font-family: 'Sora', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+            }
+
+            .listings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                font-size: 1.2rem;
+            }
+
+            .filters-bar {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🎯 Anomalies Prix - ImmoLux</h1>
-        <small id="lastUpdate"></small>
-        <div style="margin-top: 0.8rem;">
-            <a href="index.html" class="nav-link">📊 Dashboard</a>
-            <a href="new-listings.html" class="nav-link">⭐ New</a>
-            <a href="anomalies.html" class="nav-link active">🎯 Anomalies</a>
-            <a href="map-advanced.html" class="nav-link">🗺️ Carte</a>
-            <a href="stats-by-city.html" class="nav-link">📊 Villes</a>
-            <a href="favorites.html" class="nav-link">⭐ Prioritaires</a>
-            <a href="photos.html" class="nav-link">🖼️ Photos</a>
-            <a href="gallery.html" class="nav-link">✨ Galerie</a>
-        </div>
-    </div>
+    <div class="page-container">
+        <!-- Hero Header -->
+        <div class="hero-header">
+            <div class="container-fluid px-4">
+                <h1 class="hero-title">Bonnes Affaires Immobilier</h1>
+                <p class="hero-subtitle">Trouvez les meilleures opportunités - Prix inférieurs à 70% du marché local</p>
 
-    <div class="container-fluid p-3">
-
-        <!-- Stats hero -->
-        <div class="anomaly-hero" id="statsHero">
-            <div class="stat-card">
-                <div class="stat-value" id="totalCount">—</div>
-                <div class="stat-label">Total annonces</div>
-            </div>
-            <div class="stat-card" style="border-left: 4px solid #10b981;">
-                <div class="stat-value" id="goodDealsCount" style="color:#10b981;">—</div>
-                <div class="stat-label">✅ Bonnes affaires</div>
-            </div>
-            <div class="stat-card" style="border-left: 4px solid #ef4444;">
-                <div class="stat-value" id="highPriceCount" style="color:#ef4444;">—</div>
-                <div class="stat-label">⚠️ Prix hauts</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="avgPrice">—</div>
-                <div class="stat-label">Prix moyen</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="medianPrice">—</div>
-                <div class="stat-label">Prix médian</div>
+                <div class="nav-pills">
+                    <a href="index.html" class="nav-link">📊 Dashboard</a>
+                    <a href="new-listings.html" class="nav-link">⭐ Nouveautés</a>
+                    <a href="anomalies.html" class="nav-link active">💎 Bonnes Affaires</a>
+                    <a href="map-advanced.html" class="nav-link">🗺️ Carte</a>
+                    <a href="stats-by-city.html" class="nav-link">📈 Stats Villes</a>
+                    <a href="gallery.html" class="nav-link">✨ Galerie</a>
+                </div>
             </div>
         </div>
 
-        <!-- Chart -->
-        <div class="chart-box">
-            <div style="font-weight:600; margin-bottom:0.5rem; font-size:0.9rem;">📊 Répartition prix/médian par ville</div>
-            <canvas id="anomalyChart" height="90"></canvas>
-        </div>
-
-        <!-- Filtres -->
-        <div class="filters">
-            <div>
-                <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.3rem;">Ville</label>
-                <select id="filterCity" class="form-select form-select-sm" style="min-width:180px;" onchange="applyFilters()">
-                    <option value="">Toutes les villes</option>
-                </select>
+        <div class="container-fluid px-4 py-4">
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Annonces</div>
+                    <div class="stat-value" id="totalCount">—</div>
+                </div>
+                <div class="stat-card highlight-good">
+                    <div class="stat-label">💎 Bonnes Affaires</div>
+                    <div class="stat-value emerald" id="goodDealsCount">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">💰 Prix Normaux</div>
+                    <div class="stat-value" id="normalCount">—</div>
+                </div>
+                <div class="stat-card highlight-high">
+                    <div class="stat-label">⚠️ Prix Élevés</div>
+                    <div class="stat-value coral" id="highPriceCount">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Prix Médian Global</div>
+                    <div class="stat-value amber" id="medianPrice">—</div>
+                </div>
             </div>
-            <div>
-                <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.3rem;">Anomalie</label>
-                <select id="filterAnomaly" class="form-select form-select-sm" style="min-width:200px;" onchange="applyFilters()">
-                    <option value="">Toutes</option>
-                    <option value="GOOD_DEAL">✅ Bonne affaire (&lt; 0.7× médian)</option>
-                    <option value="HIGH">⚠️ Prix haut (&gt; 2.5× médian)</option>
-                    <option value="NONE">💰 Prix normal</option>
-                </select>
+
+            <!-- City Comparison Table -->
+            <div class="section-header">📊 Comparaison des Prix par Ville</div>
+            <div class="table-glass">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ville</th>
+                            <th>Annonces</th>
+                            <th>Prix Médian</th>
+                            <th>Prix Moyen</th>
+                            <th>Fourchette</th>
+                            <th>💎 Bonnes Affaires</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cityStatsTable">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
             </div>
-            <div>
-                <label style="font-weight:600; font-size:0.85rem; display:block; margin-bottom:0.3rem;">Tri</label>
-                <select id="filterSort" class="form-select form-select-sm" style="min-width:170px;" onchange="applyFilters()">
-                    <option value="anomaly">Anomalies d'abord</option>
-                    <option value="price_asc">Prix croissant</option>
-                    <option value="price_desc">Prix décroissant</option>
-                    <option value="ratio_asc">Ratio vs médian ↑</option>
-                </select>
+
+            <!-- Chart -->
+            <div class="chart-container">
+                <div class="chart-title">📈 Répartition Prix par Ville (Top 12)</div>
+                <canvas id="priceChart" height="80"></canvas>
             </div>
-            <div style="align-self:flex-end;">
-                <span id="resultCount" style="font-size:0.85rem; color:#888;"></span>
+
+            <!-- Filters -->
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label class="filter-label">Ville</label>
+                    <select id="filterCity" class="filter-select" onchange="applyFilters()">
+                        <option value="">Toutes les villes</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Type</label>
+                    <select id="filterType" class="filter-select" onchange="applyFilters()">
+                        <option value="GOOD_DEAL">💎 Bonnes affaires uniquement</option>
+                        <option value="">Toutes les annonces</option>
+                        <option value="NONE">💰 Prix normaux</option>
+                        <option value="HIGH">⚠️ Prix élevés</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Tri</label>
+                    <select id="filterSort" class="filter-select" onchange="applyFilters()">
+                        <option value="best_deal">💎 Meilleures affaires d'abord</option>
+                        <option value="price_asc">Prix croissant</option>
+                        <option value="price_desc">Prix décroissant</option>
+                        <option value="ratio_asc">Ratio vs médian ↑</option>
+                    </select>
+                </div>
+                <div class="filter-group" style="display: flex; align-items: flex-end;">
+                    <div style="padding: 0.75rem; color: var(--text-secondary); font-family: 'Manrope', sans-serif; font-weight: 600;">
+                        <span id="resultCount">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Good Deals Section (Always Expanded) -->
+            <div class="collapsible-section" id="sectionGoodDeals">
+                <div class="section-content" id="contentGoodDeals">
+                    <div class="section-header" style="color: var(--emerald);">💎 Bonnes Affaires - Prix &lt; 70% du médian</div>
+                    <div class="listings-grid" id="gridGoodDeals"></div>
+                </div>
+            </div>
+
+            <!-- Normal Prices Section (Collapsible) -->
+            <div class="collapsible-section" id="sectionNormal">
+                <button class="section-toggle" onclick="toggleSection('contentNormal', this)">
+                    <span class="section-toggle-title">
+                        <span class="section-toggle-icon">▼</span>
+                        💰 Prix Normaux
+                    </span>
+                    <span id="countNormal" style="font-family: 'Manrope', sans-serif; font-weight: 600; color: var(--text-secondary);">—</span>
+                </button>
+                <div class="section-content collapsed" id="contentNormal">
+                    <div class="listings-grid" id="gridNormal"></div>
+                </div>
+            </div>
+
+            <!-- High Prices Section (Collapsible) -->
+            <div class="collapsible-section" id="sectionHigh">
+                <button class="section-toggle" onclick="toggleSection('contentHigh', this)">
+                    <span class="section-toggle-title">
+                        <span class="section-toggle-icon">▼</span>
+                        ⚠️ Prix Élevés
+                    </span>
+                    <span id="countHigh" style="font-family: 'Manrope', sans-serif; font-weight: 600; color: var(--coral);">—</span>
+                </button>
+                <div class="section-content collapsed" id="contentHigh">
+                    <div class="listings-grid" id="gridHigh"></div>
+                </div>
+            </div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                Aucune annonce ne correspond à vos critères
             </div>
         </div>
-
-        <!-- Section bonnes affaires -->
-        <div id="sectionGood" style="display:none;">
-            <div class="section-title" style="color:#10b981; border-color:#10b981;">✅ Bonnes affaires — prix &lt; 70% du médian de la ville</div>
-            <div class="anomaly-card-grid" id="gridGood"></div>
-        </div>
-
-        <!-- Section prix normaux -->
-        <div id="sectionNormal" style="display:none;">
-            <div class="section-title">💰 Prix normaux</div>
-            <div class="anomaly-card-grid" id="gridNormal"></div>
-        </div>
-
-        <!-- Section prix hauts -->
-        <div id="sectionHigh" style="display:none;">
-            <div class="section-title" style="color:#ef4444; border-color:#ef4444;">⚠️ Prix hauts — prix &gt; 250% du médian de la ville</div>
-            <div class="anomaly-card-grid" id="gridHigh"></div>
-        </div>
-
-        <div class="no-results" id="noResults" style="display:none;">Aucune annonce trouvée</div>
     </div>
 
     <!-- Dark Mode Toggle -->
-    <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
 
     <!-- Service Worker -->
     <script>
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("sw.js")
-            .then(() => {}).catch(() => {});
-    }
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("sw.js").catch(() => {});
+        }
     </script>
 
     <script src="data/listings.js"></script>
     <script>
-        // Fallback normCity si version-display.js pas encore chargé
-        if (typeof normCity === 'undefined') {
-            window.normCity = function(city) {
-                return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
-            };
-        }
+        // City normalization
+        window.normCity = function(city) {
+            return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
+        };
 
         let cityStats = {};
-        let filtered = [];
+        let filteredListings = [];
         let chartInstance = null;
 
-        // ---- Stats par ville ----
+        // Calculate city statistics
         function calculateCityStats() {
             const groups = {};
             LISTINGS.forEach(l => {
-                const city = normCity(l.city || '');
+                const city = l.city || '';
                 if (!city) return;
                 if (!groups[city]) groups[city] = [];
-                if (l.price > 0) groups[city].push(l.price);
+                if (l.price > 0) groups[city].push(l);
             });
 
             const stats = {};
             Object.keys(groups).forEach(city => {
-                const prices = groups[city].slice().sort((a, b) => a - b);
+                const listings = groups[city];
+                const prices = listings.map(l => l.price).sort((a, b) => a - b);
                 const mid = Math.floor(prices.length / 2);
+
+                // Count good deals
+                const median = prices.length % 2 === 0
+                    ? Math.round((prices[mid - 1] + prices[mid]) / 2)
+                    : prices[mid];
+
+                const goodDeals = listings.filter(l => {
+                    const ratio = l.price / median;
+                    return ratio < 0.7;
+                }).length;
+
                 stats[city] = {
-                    median: prices.length % 2 === 0
-                        ? Math.round((prices[mid - 1] + prices[mid]) / 2)
-                        : prices[mid],
+                    median: median,
                     avg: Math.round(prices.reduce((a, b) => a + b, 0) / prices.length),
                     min: prices[0],
                     max: prices[prices.length - 1],
-                    count: prices.length
+                    count: prices.length,
+                    goodDeals: goodDeals
                 };
             });
             return stats;
         }
 
+        // Get anomaly type
         function getAnomaly(listing) {
-            const city = normCity(listing.city || '');
+            const city = listing.city || '';
             if (!city || !listing.price || listing.price <= 0) return { type: 'NONE', ratio: 1 };
             const stats = cityStats[city];
             if (!stats || !stats.median) return { type: 'NONE', ratio: 1 };
@@ -237,13 +869,41 @@
             return { type: 'NONE', ratio };
         }
 
-        function computePriceM2(l) {
-            if (l.price_m2 && l.price_m2 > 0) return l.price_m2;
-            if (l.price > 0 && l.surface > 0) return Math.round(l.price / l.surface);
+        // Calculate price per m2
+        function computePriceM2(listing) {
+            if (listing.price_m2 && listing.price_m2 > 0) return listing.price_m2;
+            if (listing.price > 0 && listing.surface > 0) return Math.round(listing.price / listing.surface);
             return 0;
         }
 
-        // ---- Chart ----
+        // Build city stats table
+        function buildCityStatsTable() {
+            const tbody = document.getElementById('cityStatsTable');
+            const cities = Object.keys(cityStats)
+                .filter(c => cityStats[c].count >= 2)
+                .sort((a, b) => cityStats[b].median - cityStats[a].median);
+
+            tbody.innerHTML = cities.map(city => {
+                const stats = cityStats[city];
+                const displayCity = normCity(city) || city;
+                return `
+                    <tr>
+                        <td class="city-name">${displayCity}</td>
+                        <td>${stats.count}</td>
+                        <td style="font-weight: 600;">${stats.median.toLocaleString('fr-FR')}€</td>
+                        <td>${stats.avg.toLocaleString('fr-FR')}€</td>
+                        <td style="font-size: 0.85rem;">${stats.min.toLocaleString('fr-FR')}€ - ${stats.max.toLocaleString('fr-FR')}€</td>
+                        <td>
+                            ${stats.goodDeals > 0
+                                ? `<span class="price-badge good">${stats.goodDeals}</span>`
+                                : '<span style="color: var(--text-muted);">—</span>'}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Build chart
         function buildChart() {
             const cities = Object.keys(cityStats)
                 .filter(c => cityStats[c].count >= 2)
@@ -251,51 +911,72 @@
                 .slice(0, 12);
 
             const medians = cities.map(c => cityStats[c].median);
-            const avgs    = cities.map(c => cityStats[c].avg);
+            const avgs = cities.map(c => cityStats[c].avg);
+            const labels = cities.map(c => normCity(c) || c);
 
-            const ctx = document.getElementById('anomalyChart').getContext('2d');
+            const ctx = document.getElementById('priceChart').getContext('2d');
             if (chartInstance) chartInstance.destroy();
 
             const isDark = document.body.classList.contains('dark-mode');
-            const textColor = isDark ? '#cbd5e1' : '#374151';
-            const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+            const textColor = isDark ? '#94a3b8' : '#475569';
+            const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
 
             chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: cities,
+                    labels: labels,
                     datasets: [
                         {
-                            label: 'Médiane (€)',
+                            label: 'Prix Médian',
                             data: medians,
-                            backgroundColor: 'rgba(102,126,234,0.75)',
-                            borderRadius: 4
+                            backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                            borderRadius: 6,
+                            borderSkipped: false
                         },
                         {
-                            label: 'Moyenne (€)',
+                            label: 'Prix Moyen',
                             data: avgs,
-                            backgroundColor: 'rgba(240,147,43,0.7)',
-                            borderRadius: 4,
-                            type: 'bar'
+                            backgroundColor: 'rgba(245, 158, 11, 0.6)',
+                            borderRadius: 6,
+                            borderSkipped: false
                         }
                     ]
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: true,
                     plugins: {
-                        legend: { labels: { color: textColor, font: { size: 11 } } },
+                        legend: {
+                            labels: {
+                                color: textColor,
+                                font: { family: "'Manrope', sans-serif", size: 12, weight: '600' },
+                                padding: 15
+                            }
+                        },
                         tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                            titleFont: { family: "'Sora', sans-serif", size: 14, weight: '600' },
+                            bodyFont: { family: "'Manrope', sans-serif", size: 13 },
+                            padding: 12,
+                            borderColor: 'rgba(16, 185, 129, 0.5)',
+                            borderWidth: 1,
                             callbacks: {
                                 label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString('fr-FR')}€`
                             }
                         }
                     },
                     scales: {
-                        x: { ticks: { color: textColor, font: { size: 10 } }, grid: { color: gridColor } },
+                        x: {
+                            ticks: {
+                                color: textColor,
+                                font: { family: "'Inter', sans-serif", size: 11 }
+                            },
+                            grid: { color: gridColor }
+                        },
                         y: {
                             ticks: {
                                 color: textColor,
-                                font: { size: 10 },
+                                font: { family: "'Manrope', sans-serif", size: 11 },
                                 callback: v => v.toLocaleString('fr-FR') + '€'
                             },
                             grid: { color: gridColor }
@@ -305,69 +986,104 @@
             });
         }
 
-        // ---- Rendu card ----
-        function renderCard(l) {
-            const { type, ratio } = getAnomaly(l);
-            const city = normCity(l.city) || 'N/A';
-            const pm2 = computePriceM2(l);
-            const median = cityStats[city] ? cityStats[city].median : 0;
+        // Render listing card
+        function renderCard(listing) {
+            const { type, ratio } = getAnomaly(listing);
+            const city = normCity(listing.city) || 'N/A';
+            const pm2 = computePriceM2(listing);
+            const stats = cityStats[listing.city];
+            const median = stats ? stats.median : 0;
 
             const cardClass = type === 'GOOD_DEAL' ? 'good-deal' : type === 'HIGH' ? 'high-price' : '';
             const badgeHtml = type === 'GOOD_DEAL'
-                ? '<span class="badge-anomaly badge-good">✅ Bonne affaire</span>'
+                ? '<span class="badge badge-deal">💎 Bonne affaire</span>'
                 : type === 'HIGH'
-                    ? '<span class="badge-anomaly badge-high">⚠️ Prix haut</span>'
+                    ? '<span class="badge badge-high">⚠️ Prix élevé</span>'
                     : '';
 
-            const ratioPercent = Math.min(ratio * 50, 100); // scale: 100% = ratio 2.0
+            const ratioPercent = Math.min(ratio * 50, 100);
             const ratioClass = type === 'GOOD_DEAL' ? 'good' : type === 'HIGH' ? 'high' : 'normal';
 
+            let contextText = '';
+            let contextClass = 'normal';
+            if (type === 'GOOD_DEAL' && median > 0) {
+                const savings = median - listing.price;
+                const savingsPercent = Math.round((1 - ratio) * 100);
+                contextText = `Prix médian ville: ${median.toLocaleString('fr-FR')}€ · Économie: ${savings.toLocaleString('fr-FR')}€ (-${savingsPercent}%)`;
+                contextClass = 'good';
+            } else if (type === 'HIGH' && median > 0) {
+                const excess = listing.price - median;
+                const excessPercent = Math.round((ratio - 1) * 100);
+                contextText = `Prix médian ville: ${median.toLocaleString('fr-FR')}€ · Surplus: +${excess.toLocaleString('fr-FR')}€ (+${excessPercent}%)`;
+                contextClass = 'high';
+            } else if (median > 0) {
+                contextText = `Prix médian ville: ${median.toLocaleString('fr-FR')}€ · ${(ratio * 100).toFixed(0)}% du médian`;
+            }
+
             return `
-            <div class="listing-card ${cardClass}">
-                <h6 style="margin:0 0 0.35rem; font-size:0.9rem; line-height:1.3;">${l.title || 'Sans titre'}</h6>
-                <div style="font-size:1.25rem; font-weight:700; color:var(--primary); margin-bottom:0.2rem;">
-                    ${(l.price || 0).toLocaleString('fr-FR')}€
+                <div class="listing-card ${cardClass}">
+                    <h3 class="listing-title">${listing.title || 'Sans titre'}</h3>
+                    <div class="listing-price">${(listing.price || 0).toLocaleString('fr-FR')}€</div>
+
+                    ${contextText ? `<div class="price-context ${contextClass}">${contextText}</div>` : ''}
+
+                    <div class="ratio-bar">
+                        <div class="ratio-fill ${ratioClass}" style="width: ${ratioPercent}%;"></div>
+                    </div>
+
+                    <div class="listing-badges">
+                        <span class="badge badge-site">${listing.site || 'N/A'}</span>
+                        <span class="badge badge-city">${city}</span>
+                        ${badgeHtml}
+                    </div>
+
+                    <div class="listing-details">
+                        ${listing.surface > 0 ? `<span>${listing.surface} m²</span>` : ''}
+                        ${listing.rooms > 0 ? `<span>${listing.rooms} chambres</span>` : ''}
+                        ${pm2 > 0 ? `<span>${pm2.toLocaleString('fr-FR')} €/m²</span>` : ''}
+                    </div>
+
+                    <a href="${listing.url}" target="_blank" rel="noopener" class="listing-btn">
+                        Voir l'annonce →
+                    </a>
                 </div>
-                <div class="ratio-bar" title="Ratio vs médian: ${(ratio * 100).toFixed(0)}%">
-                    <div class="ratio-fill ${ratioClass}" style="width:${ratioPercent}%;"></div>
-                </div>
-                <div class="ratio-label">
-                    ${ratio.toFixed(2)}× médian (${median ? median.toLocaleString('fr-FR') + '€' : 'N/A'})
-                </div>
-                <div style="margin-bottom:0.5rem; display:flex; flex-wrap:wrap; gap:0.3rem; align-items:center;">
-                    <span class="badge bg-secondary" style="font-size:0.7rem;">${l.site || 'N/A'}</span>
-                    <span class="badge bg-light" style="color:#555; font-size:0.7rem;">${city}</span>
-                    ${badgeHtml}
-                </div>
-                <div style="font-size:0.78rem; color:#888; margin-bottom:0.7rem;">
-                    ${l.surface > 0 ? `${l.surface} m²` : ''}${l.surface > 0 && l.rooms > 0 ? ' · ' : ''}${l.rooms > 0 ? `${l.rooms} ch.` : ''}${pm2 > 0 ? ` · ${pm2.toLocaleString('fr-FR')} €/m²` : ''}
-                </div>
-                <a href="${l.url}" target="_blank" rel="noopener" class="btn btn-sm btn-primary" style="width:100%;">
-                    Voir l'annonce →
-                </a>
-            </div>`;
+            `;
         }
 
-        // ---- Filtres + rendu ----
+        // Toggle collapsible section
+        function toggleSection(contentId, button) {
+            const content = document.getElementById(contentId);
+            const isCollapsed = content.classList.contains('collapsed');
+
+            if (isCollapsed) {
+                content.classList.remove('collapsed');
+                button.classList.remove('collapsed');
+            } else {
+                content.classList.add('collapsed');
+                button.classList.add('collapsed');
+            }
+        }
+
+        // Apply filters
         function applyFilters() {
-            const cityFilter   = document.getElementById('filterCity').value;
-            const anomalyFilter = document.getElementById('filterAnomaly').value;
-            const sortBy       = document.getElementById('filterSort').value;
+            const cityFilter = document.getElementById('filterCity').value;
+            const typeFilter = document.getElementById('filterType').value;
+            const sortBy = document.getElementById('filterSort').value;
 
             let list = LISTINGS.filter(l => {
                 if (cityFilter && l.city !== cityFilter) return false;
                 const { type } = getAnomaly(l);
-                if (anomalyFilter && type !== anomalyFilter) return false;
+                if (typeFilter && type !== typeFilter) return false;
                 return true;
             });
 
-            // Tri
+            // Sort
             const sortOrder = { GOOD_DEAL: 0, NONE: 1, HIGH: 2 };
-            if (sortBy === 'anomaly') {
+            if (sortBy === 'best_deal') {
                 list.sort((a, b) => {
-                    const ta = getAnomaly(a).type, tb = getAnomaly(b).type;
-                    if (ta !== tb) return (sortOrder[ta] || 1) - (sortOrder[tb] || 1);
-                    return a.price - b.price;
+                    const ratioA = getAnomaly(a).ratio;
+                    const ratioB = getAnomaly(b).ratio;
+                    return ratioA - ratioB;
                 });
             } else if (sortBy === 'price_asc') {
                 list.sort((a, b) => a.price - b.price);
@@ -377,86 +1093,75 @@
                 list.sort((a, b) => getAnomaly(a).ratio - getAnomaly(b).ratio);
             }
 
-            filtered = list;
+            filteredListings = list;
+            document.getElementById('resultCount').textContent = `${filteredListings.length} annonce${filteredListings.length > 1 ? 's' : ''}`;
 
-            document.getElementById('resultCount').textContent = `${filtered.length} annonce${filtered.length > 1 ? 's' : ''}`;
+            // Separate by type
+            const goodDeals = filteredListings.filter(l => getAnomaly(l).type === 'GOOD_DEAL');
+            const normal = filteredListings.filter(l => getAnomaly(l).type === 'NONE');
+            const high = filteredListings.filter(l => getAnomaly(l).type === 'HIGH');
 
-            // Sections
-            const good   = filtered.filter(l => getAnomaly(l).type === 'GOOD_DEAL');
-            const normal = filtered.filter(l => getAnomaly(l).type === 'NONE');
-            const high   = filtered.filter(l => getAnomaly(l).type === 'HIGH');
+            // Render sections
+            document.getElementById('gridGoodDeals').innerHTML = goodDeals.map(renderCard).join('');
+            document.getElementById('gridNormal').innerHTML = normal.map(renderCard).join('');
+            document.getElementById('gridHigh').innerHTML = high.map(renderCard).join('');
 
-            const showSections = !anomalyFilter || anomalyFilter === '';
+            // Update counters
+            document.getElementById('countNormal').textContent = `${normal.length} annonces`;
+            document.getElementById('countHigh').textContent = `${high.length} annonces`;
 
-            if (showSections) {
-                renderSection('sectionGood',   'gridGood',   good,   good.length > 0);
-                renderSection('sectionNormal', 'gridNormal', normal, normal.length > 0);
-                renderSection('sectionHigh',   'gridHigh',   high,   high.length > 0);
-            } else {
-                // Filtre spécifique: tout dans la section correspondante
-                document.getElementById('sectionGood').style.display   = 'none';
-                document.getElementById('sectionNormal').style.display = 'none';
-                document.getElementById('sectionHigh').style.display   = 'none';
-                if (anomalyFilter === 'GOOD_DEAL') renderSection('sectionGood',   'gridGood',   filtered, filtered.length > 0);
-                if (anomalyFilter === 'NONE')       renderSection('sectionNormal', 'gridNormal', filtered, filtered.length > 0);
-                if (anomalyFilter === 'HIGH')       renderSection('sectionHigh',   'gridHigh',   filtered, filtered.length > 0);
-            }
+            // Show/hide sections
+            document.getElementById('sectionGoodDeals').style.display = goodDeals.length > 0 ? 'block' : 'none';
+            document.getElementById('sectionNormal').style.display = normal.length > 0 ? 'block' : 'none';
+            document.getElementById('sectionHigh').style.display = high.length > 0 ? 'block' : 'none';
 
-            document.getElementById('noResults').style.display = filtered.length === 0 ? 'block' : 'none';
+            document.getElementById('noResults').style.display = filteredListings.length === 0 ? 'block' : 'none';
         }
 
-        function renderSection(sectionId, gridId, items, visible) {
-            const section = document.getElementById(sectionId);
-            const grid    = document.getElementById(gridId);
-            section.style.display = visible ? 'block' : 'none';
-            if (visible) grid.innerHTML = items.map(renderCard).join('');
-        }
-
-        // ---- Init ----
+        // Initialize
         function init() {
-            document.getElementById('lastUpdate').textContent =
-                `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
-
             cityStats = calculateCityStats();
 
-            // Stats globales
+            // Global stats
             const prices = LISTINGS.map(l => l.price).filter(p => p > 0).sort((a, b) => a - b);
             const anomalies = LISTINGS.map(l => getAnomaly(l).type);
             const goodDeals = anomalies.filter(a => a === 'GOOD_DEAL').length;
+            const normalPrices = anomalies.filter(a => a === 'NONE').length;
             const highPrices = anomalies.filter(a => a === 'HIGH').length;
 
-            document.getElementById('totalCount').textContent    = LISTINGS.length;
+            document.getElementById('totalCount').textContent = LISTINGS.length;
             document.getElementById('goodDealsCount').textContent = goodDeals;
+            document.getElementById('normalCount').textContent = normalPrices;
             document.getElementById('highPriceCount').textContent = highPrices;
 
             if (prices.length > 0) {
-                const avg    = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length);
                 const midIdx = Math.floor(prices.length / 2);
                 const median = prices.length % 2 === 0
                     ? Math.round((prices[midIdx - 1] + prices[midIdx]) / 2)
                     : prices[midIdx];
-                document.getElementById('avgPrice').textContent    = avg.toLocaleString('fr-FR') + '€';
                 document.getElementById('medianPrice').textContent = median.toLocaleString('fr-FR') + '€';
-            } else {
-                document.getElementById('avgPrice').textContent    = '—';
-                document.getElementById('medianPrice').textContent = '—';
             }
 
-            // Select villes (valeur brute pour le filtre)
-            const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c && c !== 'N/A'))].sort();
-            const sel = document.getElementById('filterCity');
+            // Populate city filter
+            const cities = [...new Set(LISTINGS.map(l => l.city).filter(c => c))].sort();
+            const select = document.getElementById('filterCity');
             cities.forEach(city => {
                 const opt = document.createElement('option');
                 opt.value = city;
                 opt.textContent = normCity(city) || city;
-                sel.appendChild(opt);
+                select.appendChild(opt);
             });
 
+            buildCityStatsTable();
             buildChart();
+            applyFilters();
+
+            // Set default filter to good deals
+            document.getElementById('filterType').value = 'GOOD_DEAL';
             applyFilters();
         }
 
-        // Rebuildchart on dark mode toggle
+        // Rebuild chart on dark mode change
         document.addEventListener('darkModeChanged', buildChart);
 
         window.addEventListener('DOMContentLoaded', init);

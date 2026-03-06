@@ -1,4 +1,4 @@
-// Genere le 06/03/2026 08:39
+// Genere le 06/03/2026 08:53
 // 116 annonces depuis listings.db
 const LISTINGS = [
   {
@@ -30,8 +30,9 @@ const LISTINGS = [
     "longitude": 6.19,
     "distance_km": 7.8,
     "created_at": "2026-03-06 07:39:20",
-    "image_url": "https://www.vivi.lu/shared/media/icons/content-icons/bed.svg",
-    "price_m2": 19.2
+    "image_url": "images/vivi_188402.jpg",
+    "price_m2": 19.2,
+    "local_image": "images/vivi_188402.jpg"
   },
   {
     "listing_id": "weckbecker_14103",
