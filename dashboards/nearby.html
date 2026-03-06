@@ -5,7 +5,10 @@
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autour de Moi - ImmoLux</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
     <link rel="manifest" href="manifest.json">
@@ -20,92 +23,537 @@
     <script src="dark-mode.js" defer></script>
     <script src="data/version.js"></script>
     <script src="version-display.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .container-modern {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-modern {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .header-modern h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .header-modern p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .status {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+            animation: fadeIn 0.5s ease;
+        }
+
+        body.dark-mode .status {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .status.success { border-left: 4px solid #28a745; }
+        .status.error { border-left: 4px solid #dc3545; }
+        .status.info { border-left: 4px solid #667eea; }
+
+        .location-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+
+        body.dark-mode .location-box {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .location-box h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+        }
+
+        body.dark-mode .location-box h5 {
+            color: white;
+        }
+
+        .location-button {
+            padding: 0.75rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+        }
+
+        .location-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .location-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #locationInfo {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .radius-control {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 12px;
+        }
+
+        .radius-control label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        body.dark-mode .radius-control label {
+            color: #e2e8f0;
+        }
+
+        #radiusValue {
+            color: #667eea;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        body.dark-mode #radiusValue {
+            color: #8b9cff;
+        }
+
+        #radiusSlider {
+            width: 100%;
+            max-width: 400px;
+            height: 8px;
+            border-radius: 5px;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        #radiusSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        #radiusSlider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.8s ease 0.2s both;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.25rem;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        body.dark-mode .stat-card {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #667eea;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        body.dark-mode .stat-value {
+            color: #8b9cff;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+
+        body.dark-mode .stat-label {
+            color: #aaa;
+        }
+
+        #map {
+            height: 500px;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+
+        .listing-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.4s ease both;
+        }
+
+        .listing-card:nth-child(n) {
+            animation-delay: calc(0.05s * var(--index));
+        }
+
+        body.dark-mode .listing-card {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .listing-card h6 {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.75rem;
+        }
+
+        body.dark-mode .listing-card h6 {
+            color: white;
+        }
+
+        .distance-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .badge-success {
+            background: linear-gradient(135deg, #28a745, #20c997) !important;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .badge-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333) !important;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .badge-warning {
+            background: linear-gradient(135deg, #ff9800, #ff6f00) !important;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .btn-back {
+            background: rgba(30, 30, 50, 0.9);
+            color: #8b9cff;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            color: #764ba2;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: rgba(30, 30, 50, 0.9);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-modern h1 {
+                font-size: 1.8rem;
+            }
+
+            .stats-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            #map {
+                height: 350px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <h1>📍 Autour de Moi - ImmoLux</h1>
-        <div style="margin-top: 0.8rem;">
-            <a href="index.html" class="nav-link">📊 Dashboard</a>
-            <a href="new-listings.html" class="nav-link">⭐ New Offres</a>
-            <a href="anomalies.html" class="nav-link">🎯 Anomalies</a>
-            <a href="map-advanced.html" class="nav-link">🗺️ Carte+</a>
-            <a href="nearby.html" class="nav-link active">📍 Proche</a>
+    <div class="container-modern">
+        <div class="header-modern">
+            <h1>📍 Autour de Moi</h1>
+            <p>Trouvez les annonces proches de votre position</p>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">📊 Dashboard</a>
+                <a href="new-listings.html" class="nav-link">⭐ Nouvelles</a>
+                <a href="anomalies.html" class="nav-link">🎯 Anomalies</a>
+                <a href="map-advanced.html" class="nav-link">🗺️ Carte+</a>
+                <a href="nearby.html" class="nav-link active">📍 Proche</a>
+            </div>
         </div>
-    </div>
 
-    <div class="container-fluid p-3">
-        <!-- Status message -->
         <div id="status" class="status"></div>
 
-        <!-- Location controls -->
         <div class="location-box">
-            <h5>Localisation</h5>
-            <button class="location-button" onclick="getLocation()">📍 Localiser</button>
-            <div id="locationInfo" class="text-muted small"></div>
+            <h5>📍 Localisation</h5>
+            <button class="location-button" onclick="getLocation()">📍 Localiser ma position</button>
+            <div id="locationInfo"></div>
 
-            <div class="mt-3">
-                <label>Rayon de recherche: <strong id="radiusValue">2 km</strong></label><br/>
-                <input type="range" id="radiusSlider" min="0.5" max="10" step="0.5" value="2"
-                       onchange="updateRadius()" style="width:100%; max-width:300px;">
+            <div class="radius-control">
+                <label>Rayon de recherche: <strong id="radiusValue">2 km</strong></label>
+                <input type="range" id="radiusSlider" min="0.5" max="10" step="0.5" value="2" onchange="updateRadius()">
             </div>
         </div>
 
-        <!-- Stats -->
-        <div class="row g-2 mb-3" id="statsContainer">
-            <div class="col-6 col-md-3">
-                <div class="stat-card">
-                    <div class="stat-value" id="countNearby">0</div>
-                    <div class="stat-label">Annonces Proches</div>
-                </div>
+        <div class="stats-overview" id="statsContainer" style="display: none;">
+            <div class="stat-card">
+                <div class="stat-value" id="countNearby">0</div>
+                <div class="stat-label">Annonces Proches</div>
             </div>
-            <div class="col-6 col-md-3">
-                <div class="stat-card">
-                    <div class="stat-value" id="avgPriceNearby">0€</div>
-                    <div class="stat-label">Prix Moyen</div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgPriceNearby">0€</div>
+                <div class="stat-label">Prix Moyen</div>
             </div>
-            <div class="col-6 col-md-3">
-                <div class="stat-card">
-                    <div class="stat-value" id="minDistance">0 km</div>
-                    <div class="stat-label">Plus Proche</div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-value" id="minDistance">0 km</div>
+                <div class="stat-label">Plus Proche</div>
             </div>
-            <div class="col-6 col-md-3">
-                <div class="stat-card">
-                    <div class="stat-value" id="maxDistance">0 km</div>
-                    <div class="stat-label">Plus Loin</div>
-                </div>
+            <div class="stat-card">
+                <div class="stat-value" id="maxDistance">0 km</div>
+                <div class="stat-label">Plus Loin</div>
             </div>
         </div>
 
-        <!-- Map -->
-        <div id="map"></div>
+        <div id="map" style="display: none;"></div>
 
-        <!-- Listings nearby -->
         <div id="listings"></div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" class="btn-back">
+                <span>←</span>
+                <span>Retour au Dashboard</span>
+            </a>
+        </div>
     </div>
 
-    <!-- Dark Mode Toggle -->
-    <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Mode sombre/clair">🌙</button>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
     <script src="data/listings.js"></script>
     <script src="data/anomalies.js"></script>
     <script>
-        // Fallback si ANOMALIES n'est pas chargé
+        // Fallback
         if (typeof ANOMALIES === 'undefined') {
             window.ANOMALIES = {};
+        }
+
+        function normCity(city) {
+            return city || 'Unknown';
         }
 
         let map;
         let userLocation = null;
         let userMarker = null;
         let nearbyListings = [];
-        let currentRadius = 2; // km
+        let currentRadius = 2;
 
-        // Haversine distance calculation
         function haversineDistance(lat1, lng1, lat2, lng2) {
-            const R = 6371; // Earth radius in km
+            const R = 6371;
             const dLat = (lat2 - lat1) * Math.PI / 180;
             const dLng = (lng2 - lng1) * Math.PI / 180;
             const a =
@@ -120,12 +568,13 @@
             const status = document.getElementById('status');
             status.textContent = msg;
             status.className = 'status ' + type;
+            status.style.display = 'block';
         }
 
         function getLocation() {
             const btn = event.target;
             btn.disabled = true;
-            btn.textContent = '⏳ Localisation...';
+            btn.textContent = '⏳ Localisation en cours...';
 
             navigator.geolocation.getCurrentPosition(
                 position => {
@@ -133,16 +582,16 @@
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     };
-                    showStatus('✅ Position trouvée', 'success');
+                    showStatus('✅ Position trouvée avec succès!', 'success');
                     document.getElementById('locationInfo').innerHTML =
-                        `Lat: ${userLocation.lat.toFixed(4)}, Lng: ${userLocation.lng.toFixed(4)}`;
-                    btn.textContent = '📍 Localiser';
+                        `<strong>Coordonnées:</strong> Lat: ${userLocation.lat.toFixed(4)}, Lng: ${userLocation.lng.toFixed(4)}`;
+                    btn.textContent = '📍 Localiser ma position';
                     btn.disabled = false;
                     renderNearby();
                 },
                 error => {
-                    showStatus('❌ Erreur: ' + error.message, 'error');
-                    btn.textContent = '📍 Localiser';
+                    showStatus('❌ Erreur de géolocalisation: ' + error.message, 'error');
+                    btn.textContent = '📍 Localiser ma position';
                     btn.disabled = false;
                 }
             );
@@ -160,7 +609,6 @@
                 return;
             }
 
-            // Filter listings within radius
             nearbyListings = LISTINGS
                 .filter(l => l.latitude && l.longitude)
                 .map(l => ({
@@ -171,20 +619,26 @@
                 .sort((a, b) => a.distance - b.distance);
 
             if (nearbyListings.length === 0) {
-                document.getElementById('listings').innerHTML = '<div class="alert alert-info">Aucune annonce trouvée dans le rayon défini</div>';
+                document.getElementById('listings').innerHTML = `
+                    <div class="location-box" style="text-align: center;">
+                        <h5>🔍 Aucune annonce trouvée</h5>
+                        <p>Essayez d'augmenter le rayon de recherche</p>
+                    </div>
+                `;
                 document.getElementById('statsContainer').style.display = 'none';
+                document.getElementById('map').style.display = 'none';
                 return;
             }
 
-            // Update stats
             const prices = nearbyListings.map(l => l.price);
             const distances = nearbyListings.map(l => l.distance);
 
             document.getElementById('countNearby').textContent = nearbyListings.length;
-            document.getElementById('avgPriceNearby').textContent = Math.round(prices.reduce((a, b) => a + b) / prices.length) + '€';
+            document.getElementById('avgPriceNearby').textContent = Math.round(prices.reduce((a, b) => a + b) / prices.length).toLocaleString() + '€';
             document.getElementById('minDistance').textContent = Math.min(...distances).toFixed(1) + ' km';
             document.getElementById('maxDistance').textContent = Math.max(...distances).toFixed(1) + ' km';
             document.getElementById('statsContainer').style.display = 'grid';
+            document.getElementById('map').style.display = 'block';
 
             renderMap();
             renderListings();
@@ -200,14 +654,12 @@
                 map.setView([userLocation.lat, userLocation.lng], 12);
             }
 
-            // Clear existing markers
             map.eachLayer(layer => {
-                if (layer instanceof L.CircleMarker || layer instanceof L.Marker) {
+                if (layer instanceof L.CircleMarker || layer instanceof L.Marker || layer instanceof L.Circle) {
                     map.removeLayer(layer);
                 }
             });
 
-            // User position
             if (userMarker) map.removeLayer(userMarker);
             userMarker = L.circleMarker([userLocation.lat, userLocation.lng], {
                 radius: 10,
@@ -216,9 +668,8 @@
                 weight: 3,
                 opacity: 1,
                 fillOpacity: 0.8
-            }).bindPopup('Votre position').addTo(map);
+            }).bindPopup('<strong>📍 Votre position</strong>').addTo(map);
 
-            // Search radius circle
             L.circle([userLocation.lat, userLocation.lng], {
                 radius: currentRadius * 1000,
                 color: '#667eea',
@@ -228,7 +679,6 @@
                 opacity: 0.5
             }).addTo(map);
 
-            // Nearby listings
             nearbyListings.forEach(listing => {
                 const color = ANOMALIES[listing.listing_id] === 'GOOD_DEAL' ? '#28a745' :
                               ANOMALIES[listing.listing_id] === 'HIGH' ? '#dc3545' : '#ff9800';
@@ -242,26 +692,26 @@
                     fillOpacity: 0.7
                 }).bindPopup(`
                     <strong>${listing.title}</strong><br/>
-                    ${listing.price}€ | ${listing.distance.toFixed(1)} km<br/>
+                    <strong style="color:#667eea;">${listing.price.toLocaleString()}€</strong> | ${listing.distance.toFixed(1)} km<br/>
                     <small>${normCity(listing.city)}</small><br/>
-                    <a href="${listing.url}" target="_blank" class="btn btn-sm btn-primary mt-2">Voir</a>
+                    <a href="${listing.url}" target="_blank" class="btn btn-sm btn-primary mt-2">Voir l'annonce</a>
                 `).addTo(map);
             });
         }
 
         function renderListings() {
             const container = document.getElementById('listings');
-            container.innerHTML = nearbyListings.map(l => {
+            container.innerHTML = nearbyListings.map((l, index) => {
                 const anomaly = ANOMALIES[l.listing_id];
                 const badgeClass = anomaly === 'GOOD_DEAL' ? 'badge-success' : anomaly === 'HIGH' ? 'badge-danger' : 'badge-warning';
 
                 return `
-                    <div class="listing-card">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h6 class="mb-1">${l.title}</h6>
+                    <div class="listing-card" style="--index: ${index}">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div style="flex: 1;">
+                                <h6>${l.title}</h6>
                                 <div class="mb-2">
-                                    <strong style="font-size:1.1rem; color:var(--primary);">${l.price}€</strong>
+                                    <strong style="font-size:1.2rem; color:#667eea;">${l.price.toLocaleString()}€</strong>
                                     ${anomaly ? `<span class="badge ${badgeClass}" style="margin-left:0.5rem;">${anomaly}</span>` : ''}
                                 </div>
                                 <small class="text-muted d-block">
@@ -274,35 +724,39 @@
                                 📍 ${l.distance.toFixed(1)} km
                             </div>
                         </div>
-                        <small class="badge bg-secondary">${normCity(l.city)}</small>
-                        <a href="${l.url}" target="_blank" class="btn btn-sm btn-primary mt-2">Voir l'annonce</a>
+                        <div class="mb-2">
+                            <span class="badge bg-secondary">${normCity(l.city)}</span>
+                        </div>
+                        <a href="${l.url}" target="_blank" class="btn btn-sm btn-primary">Voir l'annonce →</a>
                     </div>
                 `;
             }).join('');
         }
 
-        // ==================== DARK MODE ====================
         const darkModeToggle = document.getElementById('darkModeToggle');
         darkModeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
+            darkModeToggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
             localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         });
 
         if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            showStatus('ℹ️ Cliquez sur "Localiser" pour démarrer', 'info');
+            showStatus('ℹ️ Cliquez sur "Localiser ma position" pour trouver les annonces proches', 'info');
         });
     </script>
-<!-- Service Worker -->
-<script>
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js")
-        .then(reg => console.log("SW registered"))
-        .catch(err => console.log("SW failed:", err));
-}
-</script>
+
+    <!-- Service Worker -->
+    <script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js")
+            .then(reg => console.log("SW registered"))
+            .catch(err => console.log("SW failed:", err));
+    }
+    </script>
 </body>
 </html>
