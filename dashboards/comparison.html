@@ -11,39 +11,484 @@
     <meta name="theme-color" content="#667eea">
     <link rel="manifest" href="manifest.json">
     <title>Comparateur - ImmoLux</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="dark-mode.js" defer></script>
     <script src="data/version.js"></script>
     <script src="version-display.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .container-modern {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-modern {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .header-modern h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .header-modern p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .selector-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+
+        body.dark-mode .selector-card {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .selector-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #2d3748;
+        }
+
+        body.dark-mode .selector-title {
+            color: white;
+        }
+
+        .selector-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .city-select-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .city-select-group label {
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        body.dark-mode .city-select-group label {
+            color: #e2e8f0;
+        }
+
+        .city-select {
+            padding: 1rem 1.25rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: white;
+            color: #2d3748;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body.dark-mode .city-select {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .city-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .vs-icon {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            text-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        body.dark-mode .vs-icon {
+            color: #8b9cff;
+        }
+
+        .comparison-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+
+        body.dark-mode .comparison-card {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .comparison-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        body.dark-mode .comparison-title {
+            color: white;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .comparison-table thead th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            text-align: left;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .comparison-table thead th:first-child {
+            border-radius: 12px 0 0 0;
+        }
+
+        .comparison-table thead th:last-child {
+            border-radius: 0 12px 0 0;
+        }
+
+        .comparison-table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        body.dark-mode .comparison-table tbody tr:hover {
+            background: rgba(139, 156, 255, 0.1);
+        }
+
+        .comparison-table tbody td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 1rem;
+        }
+
+        body.dark-mode .comparison-table tbody td {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+
+        .comparison-table tbody td:first-child {
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        body.dark-mode .comparison-table tbody td:first-child {
+            color: #e2e8f0;
+        }
+
+        .comparison-table tbody td:nth-child(2),
+        .comparison-table tbody td:nth-child(3) {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: #667eea;
+            font-size: 1.05rem;
+        }
+
+        body.dark-mode .comparison-table tbody td:nth-child(2),
+        body.dark-mode .comparison-table tbody td:nth-child(3) {
+            color: #8b9cff;
+        }
+
+        .comparison-table tbody td:last-child {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .diff-positive {
+            color: #dc3545;
+        }
+
+        .diff-negative {
+            color: #28a745;
+        }
+
+        .diff-equal {
+            color: #6c757d;
+        }
+
+        .city-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.8s ease 0.3s both;
+        }
+
+        .summary-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        body.dark-mode .summary-card {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .summary-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+
+        body.dark-mode .summary-card h4 {
+            color: #e2e8f0;
+        }
+
+        .summary-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        body.dark-mode .summary-value {
+            color: #8b9cff;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .btn-back {
+            background: rgba(30, 30, 50, 0.9);
+            color: #8b9cff;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            color: #764ba2;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: rgba(30, 30, 50, 0.9);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-modern h1 {
+                font-size: 2rem;
+            }
+
+            .selector-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .vs-icon {
+                display: none;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table thead th,
+            .comparison-table tbody td {
+                padding: 0.75rem 1rem;
+            }
+
+            .selector-card,
+            .comparison-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🔄 Comparateur de Villes</h1>
-        <p style="margin: 0; opacity: 0.9;">Comparez les prix et statistiques par ville</p>
-    </div>
+    <div class="container-modern">
+        <div class="header-modern">
+            <h1>🔄 Comparateur de Villes</h1>
+            <p>Comparez les prix et statistiques immobilières entre deux villes</p>
+        </div>
 
-    <div class="container-main">
-        <div class="controls">
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Ville 1:</label>
-                    <select id="city1" class="form-select form-select-sm" onchange="compare()"></select>
+        <div class="selector-card">
+            <h3 class="selector-title">Sélectionnez deux villes à comparer</h3>
+            <div class="selector-grid">
+                <div class="city-select-group">
+                    <label for="city1">Ville 1</label>
+                    <select id="city1" class="city-select" onchange="compare()">
+                        <option value="">Choisir une ville...</option>
+                    </select>
                 </div>
-                <div class="col-md-6">
-                    <label>Ville 2:</label>
-                    <select id="city2" class="form-select form-select-sm" onchange="compare()"></select>
+                <div class="vs-icon">VS</div>
+                <div class="city-select-group">
+                    <label for="city2">Ville 2</label>
+                    <select id="city2" class="city-select" onchange="compare()">
+                        <option value="">Choisir une ville...</option>
+                    </select>
                 </div>
             </div>
         </div>
 
-        <div class="comparison-table">
-            <table class="table">
+        <div id="summarySection" style="display: none;">
+            <div class="city-summary">
+                <div class="summary-card">
+                    <h4 id="city1Name">—</h4>
+                    <div class="summary-value" id="city1Count">0</div>
+                    <small style="color: #666;">annonces</small>
+                </div>
+                <div class="summary-card">
+                    <h4 id="city2Name">—</h4>
+                    <div class="summary-value" id="city2Count">0</div>
+                    <small style="color: #666;">annonces</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-card" id="comparisonSection" style="display: none;">
+            <h3 class="comparison-title">
+                <span>📊</span>
+                <span>Tableau Comparatif</span>
+            </h3>
+            <table class="comparison-table">
                 <thead>
                     <tr>
                         <th>Métrique</th>
-                        <th id="h1">—</th>
-                        <th id="h2">—</th>
+                        <th id="h1">Ville 1</th>
+                        <th id="h2">Ville 2</th>
                         <th>Différence</th>
                     </tr>
                 </thead>
@@ -52,22 +497,28 @@
         </div>
 
         <div style="text-align: center; margin-top: 2rem;">
-            <a href="index.html" class="btn btn-primary">← Retour</a>
+            <a href="index.html" class="btn-back">
+                <span>←</span>
+                <span>Retour au Dashboard</span>
+            </a>
         </div>
     </div>
 
-    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Mode sombre/clair">🌙</button>
 
     <script src="data/listings.js"></script>
     <script>
         const dm = document.getElementById("darkModeToggle");
         dm.addEventListener("click", () => {
             document.body.classList.toggle("dark-mode");
+            dm.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
             localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
         });
-        if(localStorage.getItem("darkMode") === "true") document.body.classList.add("dark-mode");
+        if(localStorage.getItem("darkMode") === "true") {
+            document.body.classList.add("dark-mode");
+            dm.textContent = "☀️";
+        }
 
-        // Fonction pour normaliser les noms de ville
         function normCity(city) {
             if (!city) return 'Unknown';
             return city.toString().trim();
@@ -77,10 +528,12 @@
             const cities = [...new Set(LISTINGS.map(l => normCity(l.city)))].sort();
             const s1 = document.getElementById('city1');
             const s2 = document.getElementById('city2');
+
             cities.forEach(c => {
                 s1.innerHTML += `<option value="${c}">${c}</option>`;
                 s2.innerHTML += `<option value="${c}">${c}</option>`;
             });
+
             if(cities.length > 1) {
                 s1.value = cities[0];
                 s2.value = cities[1];
@@ -91,7 +544,12 @@
         function compare() {
             const c1 = document.getElementById('city1').value;
             const c2 = document.getElementById('city2').value;
-            if(!c1 || !c2) return;
+
+            if(!c1 || !c2) {
+                document.getElementById('summarySection').style.display = 'none';
+                document.getElementById('comparisonSection').style.display = 'none';
+                return;
+            }
 
             document.getElementById('h1').textContent = c1;
             document.getElementById('h2').textContent = c2;
@@ -99,20 +557,27 @@
             const l1 = LISTINGS.filter(l => normCity(l.city) === c1);
             const l2 = LISTINGS.filter(l => normCity(l.city) === c2);
 
+            // Update summary cards
+            document.getElementById('city1Name').textContent = c1;
+            document.getElementById('city2Name').textContent = c2;
+            document.getElementById('city1Count').textContent = l1.length;
+            document.getElementById('city2Count').textContent = l2.length;
+            document.getElementById('summarySection').style.display = 'block';
+            document.getElementById('comparisonSection').style.display = 'block';
+
             const getAvg = (arr, field) => {
                 const vals = arr.filter(l => l[field] > 0).map(l => l[field]);
                 return vals.length ? Math.round(vals.reduce((a,b) => a+b) / vals.length) : 0;
             };
 
-            // Fonction pour calculer la différence en %
             const calcDiff = (v1, v2) => {
                 const n1 = parseInt(String(v1).replace(/[^\d]/g, '')) || 0;
                 const n2 = parseInt(String(v2).replace(/[^\d]/g, '')) || 0;
-                if (n2 === 0) return '—';
+                if (n2 === 0) return '<span class="diff-equal">—</span>';
                 const pct = Math.round((n1 - n2) / n2 * 100);
-                if (pct > 0) return `<span style="color: #dc3545;">+${pct}%</span>`;
-                if (pct < 0) return `<span style="color: #28a745;">${pct}%</span>`;
-                return '=';
+                if (pct > 0) return `<span class="diff-positive">+${pct}%</span>`;
+                if (pct < 0) return `<span class="diff-negative">${pct}%</span>`;
+                return '<span class="diff-equal">=</span>';
             };
 
             const avg1 = getAvg(l1, 'price');
@@ -123,34 +588,38 @@
             const max2 = l2.length ? Math.max(...l2.map(l => l.price)) : 0;
             const surf1 = getAvg(l1, 'surface');
             const surf2 = getAvg(l2, 'surface');
+            const rooms1 = getAvg(l1, 'rooms');
+            const rooms2 = getAvg(l2, 'rooms');
 
             const data = [
-                ['Annonces', l1.length, l2.length, calcDiff(l1.length, l2.length)],
-                ['Prix Moyen', avg1 + '€', avg2 + '€', calcDiff(avg1, avg2)],
-                ['Min', min1 + '€', min2 + '€', calcDiff(min1, min2)],
-                ['Max', max1 + '€', max2 + '€', calcDiff(max1, max2)],
-                ['Surface Avg', surf1 + 'm²', surf2 + 'm²', calcDiff(surf1, surf2)],
+                ['📊 Annonces', l1.length, l2.length, calcDiff(l1.length, l2.length)],
+                ['💰 Prix Moyen', avg1.toLocaleString() + '€', avg2.toLocaleString() + '€', calcDiff(avg1, avg2)],
+                ['📉 Prix Min', min1.toLocaleString() + '€', min2.toLocaleString() + '€', calcDiff(min1, min2)],
+                ['📈 Prix Max', max1.toLocaleString() + '€', max2.toLocaleString() + '€', calcDiff(max1, max2)],
+                ['📏 Surface Moy.', surf1 + 'm²', surf2 + 'm²', calcDiff(surf1, surf2)],
+                ['🛏️ Chambres Moy.', rooms1, rooms2, calcDiff(rooms1, rooms2)]
             ];
 
             document.getElementById('compBody').innerHTML = data.map(row => `
                 <tr>
-                    <td><strong>${row[0]}</strong></td>
+                    <td>${row[0]}</td>
                     <td>${row[1]}</td>
                     <td>${row[2]}</td>
-                    <td style="font-size: 0.9rem;">${row[3]}</td>
+                    <td>${row[3]}</td>
                 </tr>
             `).join('');
         }
 
         init();
     </script>
-<!-- Service Worker -->
-<script>
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js")
-        .then(reg => console.log("SW registered"))
-        .catch(err => console.log("SW failed:", err));
-}
-</script>
+
+    <!-- Service Worker -->
+    <script>
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js")
+            .then(reg => console.log("SW registered"))
+            .catch(err => console.log("SW failed:", err));
+    }
+    </script>
 </body>
 </html>
