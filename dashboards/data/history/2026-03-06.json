@@ -1,17 +1,19 @@
 {
   "date": "2026-03-06",
-  "generated_at": "06/03/2026 16:37",
+  "generated_at": "06/03/2026 17:34",
   "stats": {
-    "total": 149,
-    "avg_price": 2296,
+    "total": 154,
+    "avg_price": 2288,
     "min_price": 1500,
     "max_price": 2700,
-    "avg_surface": 97,
-    "cities": 66,
+    "avg_surface": 98,
+    "cities": 69,
     "sites": {
+      "ImmoSolutions.lu": 3,
+      "Wortimmo.lu": 1,
+      "Athome.lu": 107,
       "DDImmo.lu": 2,
       "Luxhome.lu": 12,
-      "Athome.lu": 106,
       "Nextimmo.lu": 11,
       "Weckbecker.lu": 4,
       "VIVI.lu": 2,
@@ -30,6 +32,11 @@
         "avg_price": 2408
       },
       {
+        "city": "Limpertsberg",
+        "count": 7,
+        "avg_price": 2207
+      },
+      {
         "city": "Esch-Sur-Alzette",
         "count": 7,
         "avg_price": 2150
@@ -43,11 +50,6 @@
         "city": "Hollerich",
         "count": 6,
         "avg_price": 2366
-      },
-      {
-        "city": "Limpertsberg",
-        "count": 6,
-        "avg_price": 2241
       },
       {
         "city": "Bonnevoie",
@@ -68,6 +70,11 @@
         "city": "Bertrange",
         "count": 5,
         "avg_price": 2180
+      },
+      {
+        "city": "Luxembourg",
+        "count": 4,
+        "avg_price": 2050
       },
       {
         "city": "Cessange",
@@ -103,11 +110,6 @@
         "city": "Bettembourg",
         "count": 3,
         "avg_price": 2350
-      },
-      {
-        "city": "Luxembourg",
-        "count": 3,
-        "avg_price": 2166
       },
       {
         "city": "Belvaux",
@@ -193,6 +195,21 @@
         "city": "Belval",
         "count": 2,
         "avg_price": 2237
+      },
+      {
+        "city": "Schifflange",
+        "count": 1,
+        "avg_price": 1600
+      },
+      {
+        "city": "Alzette",
+        "count": 1,
+        "avg_price": 2500
+      },
+      {
+        "city": "Angelsberg",
+        "count": 1,
+        "avg_price": 2500
       },
       {
         "city": "Findel",
@@ -357,12 +374,93 @@
     ],
     "by_price_range": {
       "< 1500": 0,
-      "1500 - 2000": 24,
-      "2000 - 2500": 81,
-      "> 2500": 44
+      "1500 - 2000": 26,
+      "2000 - 2500": 82,
+      "> 2500": 46
     }
   },
   "listings": [
+    {
+      "listing_id": "immosolutions_2075",
+      "site": "ImmoSolutions.lu",
+      "title": "Location Schifflange",
+      "city": "Schifflange",
+      "price": 1600,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.immosolutions.lu/fr/a-louer_10/appartement-a-louer-schifflange-sud_2075",
+      "latitude": 49.505,
+      "longitude": 6.015,
+      "distance_km": 13.6,
+      "created_at": "2026-03-06 16:33:56",
+      "image_url": null,
+      "price_m2": null
+    },
+    {
+      "listing_id": "immosolutions_2126",
+      "site": "ImmoSolutions.lu",
+      "title": "Location Limpertsberg",
+      "city": "Limpertsberg",
+      "price": 2000,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.immosolutions.lu/fr/a-louer_10/appartement-a-louer-limpertsberg-centre_2126",
+      "latitude": 49.62,
+      "longitude": 6.125,
+      "distance_km": 2.3,
+      "created_at": "2026-03-06 16:33:45",
+      "image_url": null,
+      "price_m2": null
+    },
+    {
+      "listing_id": "immosolutions_2124",
+      "site": "ImmoSolutions.lu",
+      "title": "Location Luxembourg",
+      "city": "Luxembourg",
+      "price": 1700,
+      "rooms": 0,
+      "surface": 0,
+      "url": "https://www.immosolutions.lu/fr/a-louer_10/appartement-a-louer-munsbach-centre_2124",
+      "latitude": 49.6116,
+      "longitude": 6.1319,
+      "distance_km": 1.3,
+      "created_at": "2026-03-06 16:33:35",
+      "image_url": null,
+      "price_m2": null
+    },
+    {
+      "listing_id": "wortimmo_509527",
+      "site": "Wortimmo.lu",
+      "title": "Local pour professions libérales 3 chambre(s) à louer à Esch-sur-Alzette",
+      "city": "Alzette",
+      "price": 2500,
+      "rooms": 3,
+      "surface": 105,
+      "url": "https://www.wortimmo.lu/fr/location-local-pour-professions-liberales-sud-esch-sur-alzette-id_509527",
+      "latitude": 49.5008805,
+      "longitude": 5.9860925,
+      "distance_km": 15.4,
+      "created_at": "2026-03-06 16:33:24",
+      "image_url": null,
+      "price_m2": 23.8
+    },
+    {
+      "listing_id": "athome_9016281",
+      "site": "Athome.lu",
+      "title": "Découvrez cette charmante maison de coin à louer dans le paisible vill",
+      "city": "Angelsberg",
+      "price": 2500,
+      "rooms": 4,
+      "surface": 150,
+      "url": "https://www.athome.lu/location/semi-detached house/angelsberg/id-9016281.html",
+      "latitude": 49.7604674,
+      "longitude": 6.1539888,
+      "distance_km": 17.9,
+      "created_at": "2026-03-06 16:33:18",
+      "image_url": "images/athome_9016281.jpg",
+      "price_m2": 16.7,
+      "local_image": "images/athome_9016281.jpg"
+    },
     {
       "listing_id": "ddimmo_851603",
       "site": "DDImmo.lu",

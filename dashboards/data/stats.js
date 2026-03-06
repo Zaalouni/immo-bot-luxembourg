@@ -1,15 +1,17 @@
-// Genere le 06/03/2026 16:37
+// Genere le 06/03/2026 17:34
 const STATS = {
-  "total": 149,
-  "avg_price": 2296,
+  "total": 154,
+  "avg_price": 2288,
   "min_price": 1500,
   "max_price": 2700,
-  "avg_surface": 97,
-  "cities": 66,
+  "avg_surface": 98,
+  "cities": 69,
   "sites": {
+    "ImmoSolutions.lu": 3,
+    "Wortimmo.lu": 1,
+    "Athome.lu": 107,
     "DDImmo.lu": 2,
     "Luxhome.lu": 12,
-    "Athome.lu": 106,
     "Nextimmo.lu": 11,
     "Weckbecker.lu": 4,
     "VIVI.lu": 2,
@@ -28,6 +30,11 @@ const STATS = {
       "avg_price": 2408
     },
     {
+      "city": "Limpertsberg",
+      "count": 7,
+      "avg_price": 2207
+    },
+    {
       "city": "Esch-Sur-Alzette",
       "count": 7,
       "avg_price": 2150
@@ -41,11 +48,6 @@ const STATS = {
       "city": "Hollerich",
       "count": 6,
       "avg_price": 2366
-    },
-    {
-      "city": "Limpertsberg",
-      "count": 6,
-      "avg_price": 2241
     },
     {
       "city": "Bonnevoie",
@@ -66,6 +68,11 @@ const STATS = {
       "city": "Bertrange",
       "count": 5,
       "avg_price": 2180
+    },
+    {
+      "city": "Luxembourg",
+      "count": 4,
+      "avg_price": 2050
     },
     {
       "city": "Cessange",
@@ -101,11 +108,6 @@ const STATS = {
       "city": "Bettembourg",
       "count": 3,
       "avg_price": 2350
-    },
-    {
-      "city": "Luxembourg",
-      "count": 3,
-      "avg_price": 2166
     },
     {
       "city": "Belvaux",
@@ -191,6 +193,21 @@ const STATS = {
       "city": "Belval",
       "count": 2,
       "avg_price": 2237
+    },
+    {
+      "city": "Schifflange",
+      "count": 1,
+      "avg_price": 1600
+    },
+    {
+      "city": "Alzette",
+      "count": 1,
+      "avg_price": 2500
+    },
+    {
+      "city": "Angelsberg",
+      "count": 1,
+      "avg_price": 2500
     },
     {
       "city": "Findel",
@@ -355,23 +372,25 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 24,
-    "2000 - 2500": 81,
-    "> 2500": 44
+    "1500 - 2000": 26,
+    "2000 - 2500": 82,
+    "> 2500": 46
   }
 };
 const SITE_COLORS = {
-  "DDImmo.lu": "#FF6384",
-  "Luxhome.lu": "#36A2EB",
+  "ImmoSolutions.lu": "#FF6384",
+  "Wortimmo.lu": "#36A2EB",
   "Athome.lu": "#FFCE56",
-  "Nextimmo.lu": "#4BC0C0",
-  "Weckbecker.lu": "#9966FF",
-  "VIVI.lu": "#FF9F40",
-  "Remax.lu": "#2ECC71",
-  "PropertyInvest.lu": "#E74C3C",
-  "Rockenbrod.lu": "#3498DB",
-  "SothebysRealty.lu": "#FF6384",
-  "Newimmo.lu": "#36A2EB",
-  "Immotop.lu": "#FFCE56",
-  "Accord-Immo.lu": "#4BC0C0"
+  "DDImmo.lu": "#4BC0C0",
+  "Luxhome.lu": "#9966FF",
+  "Nextimmo.lu": "#FF9F40",
+  "Weckbecker.lu": "#2ECC71",
+  "VIVI.lu": "#E74C3C",
+  "Remax.lu": "#3498DB",
+  "PropertyInvest.lu": "#FF6384",
+  "Rockenbrod.lu": "#36A2EB",
+  "SothebysRealty.lu": "#FFCE56",
+  "Newimmo.lu": "#4BC0C0",
+  "Immotop.lu": "#9966FF",
+  "Accord-Immo.lu": "#FF9F40"
 };
