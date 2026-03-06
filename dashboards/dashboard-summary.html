@@ -14,338 +14,678 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
     <title>Résumé - ImmoLux</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="dark-mode.js" defer></script>
     <script src="data/version.js"></script>
     <script src="version-display.js" defer></script>
     <style>
-        .summary-section {
-            background: var(--card-bg, #fff);
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .summary-section h2 {
-            font-size: 1rem;
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .container-modern {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-modern {
+            text-align: center;
+            color: white;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .header-modern h1 {
+            font-size: 3rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--primary, #667eea);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+        }
+
+        .header-modern small {
+            opacity: 0.9;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+            animation: fadeIn 0.8s ease 0.1s both;
+        }
+
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.75rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .kpi-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        body.dark-mode .kpi-card {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark-mode .kpi-value {
+            color: #8b9cff;
+        }
+
+        .kpi-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        body.dark-mode .kpi-label {
+            color: #aaa;
+        }
+
+        .section-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.6s ease both;
+        }
+
+        .section-card:nth-child(n) {
+            animation-delay: calc(0.05s * var(--index));
+        }
+
+        body.dark-mode .section-card {
+            background: rgba(30, 30, 50, 0.9);
+            color: white;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.75rem;
         }
+
+        body.dark-mode .section-title {
+            color: white;
+        }
+
+        .page-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .page-link-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            background: rgba(102, 126, 234, 0.05);
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            text-decoration: none;
+            color: #2d3748;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .page-link-card {
+            background: rgba(139, 156, 255, 0.1);
+            border-color: rgba(139, 156, 255, 0.2);
+            color: white;
+        }
+
+        .page-link-card:hover {
+            background: rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        body.dark-mode .page-link-card:hover {
+            color: #8b9cff;
+        }
+
         .data-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.55rem 0;
-            border-bottom: 1px solid var(--border-color, #f0f0f0);
-            gap: 0.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            gap: 1rem;
+            transition: all 0.3s ease;
         }
-        .data-row:last-child { border-bottom: none; }
+
+        body.dark-mode .data-row {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+
+        .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .data-row:hover {
+            background: rgba(102, 126, 234, 0.03);
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+            margin-left: -0.5rem;
+            margin-right: -0.5rem;
+            border-radius: 8px;
+        }
+
+        body.dark-mode .data-row:hover {
+            background: rgba(139, 156, 255, 0.05);
+        }
+
         .data-row-left {
             flex: 1;
             min-width: 0;
         }
+
         .data-row-left strong {
             display: block;
-            font-size: 0.88rem;
-            white-space: nowrap;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 0.25rem;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-        .data-row-left small { color: #888; font-size: 0.76rem; }
-        .data-row-right {
-            font-weight: 700;
-            color: var(--primary, #667eea);
-            font-size: 0.95rem;
             white-space: nowrap;
         }
-        .progress-bar-wrap {
-            height: 6px;
-            background: #e5e7eb;
-            border-radius: 3px;
-            margin-top: 0.3rem;
+
+        body.dark-mode .data-row-left strong {
+            color: white;
         }
+
+        .data-row-left small {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        body.dark-mode .data-row-left small {
+            color: #aaa;
+        }
+
+        .data-row-right {
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+        }
+
+        body.dark-mode .data-row-right {
+            color: #8b9cff;
+        }
+
+        .progress-bar-wrap {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        body.dark-mode .progress-bar-wrap {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         .progress-bar-fill {
             height: 100%;
-            border-radius: 3px;
+            border-radius: 4px;
             background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.4s ease;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .page-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 0.6rem;
+
+        .price-high {
+            color: #dc3545;
         }
-        .page-link-card {
-            display: flex;
+
+        .price-low {
+            color: #10b981;
+        }
+
+        .link-view {
+            font-size: 0.8rem;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .link-view:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        body.dark-mode .link-view {
+            color: #8b9cff;
+        }
+
+        .btn-back {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.65rem 0.85rem;
-            border-radius: 8px;
-            background: var(--bg, #f8f9fa);
-            border: 1px solid var(--border-color, #e5e7eb);
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-weight: 600;
             text-decoration: none;
-            color: inherit;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: all 0.15s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
         }
-        .page-link-card:hover {
-            background: rgba(102,126,234,0.08);
-            border-color: #667eea;
-            color: var(--primary, #667eea);
-            transform: translateY(-1px);
+
+        body.dark-mode .btn-back {
+            background: rgba(30, 30, 50, 0.9);
+            color: #8b9cff;
         }
-        .kpi-delta {
-            font-size: 0.72rem;
-            font-weight: 500;
-            padding: 0.1rem 0.4rem;
-            border-radius: 4px;
-            margin-left: 0.3rem;
+
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            color: #764ba2;
         }
-        .kpi-delta.positive { background: #d1fae5; color: #065f46; }
-        .kpi-delta.neutral  { background: #f3f4f6; color: #6b7280; }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: rgba(30, 30, 50, 0.9);
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(20deg);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-modern h1 {
+                font-size: 2rem;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .page-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-card {
+                padding: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>
-
-<div class="header">
-    <h1>📊 Résumé ImmoLux</h1>
-    <small id="lastUpdate"></small>
-    <div style="margin-top: 0.8rem;">
-        <a href="index.html" class="nav-link">📊 Dashboard</a>
-        <a href="new-listings.html" class="nav-link">⭐ New</a>
-        <a href="anomalies.html" class="nav-link">🎯 Anomalies</a>
-        <a href="map-advanced.html" class="nav-link">🗺️ Carte</a>
-        <a href="stats-by-city.html" class="nav-link">📊 Villes</a>
-        <a href="favorites.html" class="nav-link">⭐ Prioritaires</a>
-        <a href="photos.html" class="nav-link">🖼️ Photos</a>
-        <a href="gallery.html" class="nav-link">✨ Galerie</a>
-    </div>
-</div>
-
-<div class="container-main">
-
-    <!-- KPIs -->
-    <div class="stats-grid" id="kpiGrid">
-        <div class="stat-card">
-            <div class="stat-value" id="kpiTotal">—</div>
-            <div class="stat-label">Total annonces</div>
+    <div class="container-modern">
+        <div class="header-modern">
+            <h1>📊 Résumé ImmoLux</h1>
+            <small id="lastUpdate">Chargement...</small>
         </div>
-        <div class="stat-card">
-            <div class="stat-value" id="kpiCities">—</div>
-            <div class="stat-label">Villes</div>
+
+        <!-- KPIs -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiTotal">—</div>
+                <div class="kpi-label">Total annonces</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiCities">—</div>
+                <div class="kpi-label">Villes</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiAvgPrice">—</div>
+                <div class="kpi-label">Prix moyen</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiNewToday">—</div>
+                <div class="kpi-label">Nouvelles (24h)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiMedian">—</div>
+                <div class="kpi-label">Prix médian</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" id="kpiWithGps">—</div>
+                <div class="kpi-label">Avec GPS</div>
+            </div>
         </div>
-        <div class="stat-card">
-            <div class="stat-value" id="kpiAvgPrice">—</div>
-            <div class="stat-label">Prix moyen</div>
+
+        <!-- Navigation -->
+        <div class="section-card" style="--index: 1">
+            <h2 class="section-title">
+                <span>🔗</span>
+                <span>Explorer le Dashboard</span>
+            </h2>
+            <div class="page-links">
+                <a href="index.html" class="page-link-card">📊 Dashboard</a>
+                <a href="new-listings.html" class="page-link-card">⭐ Nouvelles</a>
+                <a href="anomalies.html" class="page-link-card">🎯 Anomalies</a>
+                <a href="map-advanced.html" class="page-link-card">🗺️ Carte</a>
+                <a href="stats-by-city.html" class="page-link-card">📋 Par ville</a>
+                <a href="favorites.html" class="page-link-card">⭐ Prioritaires</a>
+                <a href="photos.html" class="page-link-card">🖼️ Photos</a>
+                <a href="gallery.html" class="page-link-card">✨ Galerie</a>
+                <a href="data-quality.html" class="page-link-card">🔍 Qualité</a>
+                <a href="nearby.html" class="page-link-card">📍 Proximité</a>
+                <a href="comparison.html" class="page-link-card">🔄 Comparateur</a>
+                <a href="trends.html" class="page-link-card">📈 Tendances</a>
+            </div>
         </div>
-        <div class="stat-card">
-            <div class="stat-value" id="kpiNewToday">—</div>
-            <div class="stat-label">Nouvelles (24h)</div>
+
+        <!-- Top villes -->
+        <div class="section-card" style="--index: 2">
+            <h2 class="section-title">
+                <span>🏙️</span>
+                <span>Top 8 villes (nombre d'annonces)</span>
+            </h2>
+            <div id="topCities">
+                <div style="color:#888; font-size:0.9rem;">Chargement…</div>
+            </div>
         </div>
-        <div class="stat-card">
-            <div class="stat-value" id="kpiMedian">—</div>
-            <div class="stat-label">Prix médian</div>
+
+        <!-- Répartition par site -->
+        <div class="section-card" style="--index: 3">
+            <h2 class="section-title">
+                <span>🌐</span>
+                <span>Annonces par site</span>
+            </h2>
+            <div id="bySite">
+                <div style="color:#888; font-size:0.9rem;">Chargement…</div>
+            </div>
         </div>
-        <div class="stat-card">
-            <div class="stat-value" id="kpiWithGps">—</div>
-            <div class="stat-label">Avec GPS</div>
+
+        <!-- Prix les plus hauts -->
+        <div class="section-card" style="--index: 4">
+            <h2 class="section-title">
+                <span>💰</span>
+                <span>Prix les plus hauts</span>
+            </h2>
+            <div id="topPrices">
+                <div style="color:#888; font-size:0.9rem;">Chargement…</div>
+            </div>
+        </div>
+
+        <!-- Prix les plus bas -->
+        <div class="section-card" style="--index: 5">
+            <h2 class="section-title">
+                <span>✅</span>
+                <span>Meilleures affaires (prix les plus bas)</span>
+            </h2>
+            <div id="topDeals">
+                <div style="color:#888; font-size:0.9rem;">Chargement…</div>
+            </div>
+        </div>
+
+        <!-- Annonces récentes -->
+        <div class="section-card" style="--index: 6">
+            <h2 class="section-title">
+                <span>✨</span>
+                <span>Annonces récentes</span>
+            </h2>
+            <div id="recentListings">
+                <div style="color:#888; font-size:0.9rem;">Chargement…</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" class="btn-back">
+                <span>←</span>
+                <span>Retour au Dashboard</span>
+            </a>
         </div>
     </div>
 
-    <!-- Navigation -->
-    <div class="summary-section">
-        <h2>🔗 Explorer le Dashboard</h2>
-        <div class="page-links">
-            <a href="index.html" class="page-link-card">📊 Dashboard</a>
-            <a href="new-listings.html" class="page-link-card">⭐ Nouvelles</a>
-            <a href="anomalies.html" class="page-link-card">🎯 Anomalies</a>
-            <a href="map-advanced.html" class="page-link-card">🗺️ Carte</a>
-            <a href="stats-by-city.html" class="page-link-card">📋 Par ville</a>
-            <a href="favorites.html" class="page-link-card">⭐ Prioritaires</a>
-            <a href="photos.html" class="page-link-card">🖼️ Photos</a>
-            <a href="gallery.html" class="page-link-card">✨ Galerie</a>
-            <a href="data-quality.html" class="page-link-card">🔍 Qualité</a>
-            <a href="nearby.html" class="page-link-card">📍 À proximité</a>
-            <a href="comparison.html" class="page-link-card">🔄 Comparateur</a>
-            <a href="trends.html" class="page-link-card">📈 Tendances</a>
-        </div>
-    </div>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Mode sombre/clair">🌙</button>
 
-    <!-- Top villes -->
-    <div class="summary-section">
-        <h2>🏙️ Top 8 villes (nombre d'annonces)</h2>
-        <div id="topCities"><div class="text-muted" style="font-size:0.85rem;">Chargement…</div></div>
-    </div>
-
-    <!-- Répartition par site -->
-    <div class="summary-section">
-        <h2>🌐 Annonces par site</h2>
-        <div id="bySite"><div class="text-muted" style="font-size:0.85rem;">Chargement…</div></div>
-    </div>
-
-    <!-- Prix les plus hauts -->
-    <div class="summary-section">
-        <h2>💰 Prix les plus hauts</h2>
-        <div id="topPrices"><div class="text-muted" style="font-size:0.85rem;">Chargement…</div></div>
-    </div>
-
-    <!-- Prix les plus bas (bonnes affaires) -->
-    <div class="summary-section">
-        <h2>✅ Meilleures affaires (prix les plus bas)</h2>
-        <div id="topDeals"><div class="text-muted" style="font-size:0.85rem;">Chargement…</div></div>
-    </div>
-
-    <!-- Annonces récentes -->
-    <div class="summary-section">
-        <h2>✨ Annonces récentes</h2>
-        <div id="recentListings"><div class="text-muted" style="font-size:0.85rem;">Chargement…</div></div>
-    </div>
-
-</div>
-
-<!-- Dark Mode Toggle -->
-<button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
-
-<!-- listings.js sans defer pour garantir LISTINGS disponible avant init() -->
-<script src="data/listings.js"></script>
-<script>
-    // Fallback normCity
-    if (typeof normCity === 'undefined') {
-        window.normCity = function(city) {
-            return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
-        };
-    }
-
-    // Service Worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').catch(() => {});
-    }
-
-    function safeTitle(t, max) {
-        return (t || 'Sans titre').substring(0, max || 60);
-    }
-
-    function init() {
-        if (typeof LISTINGS === 'undefined' || !LISTINGS || LISTINGS.length === 0) {
-            document.getElementById('topCities').innerHTML =
-                '<div class="text-danger" style="font-size:0.85rem;">Données non disponibles</div>';
-            return;
+    <script src="data/listings.js"></script>
+    <script>
+        // Dark mode
+        const dm = document.getElementById("darkModeToggle");
+        dm.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            dm.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+        });
+        if(localStorage.getItem("darkMode") === "true") {
+            document.body.classList.add("dark-mode");
+            dm.textContent = "☀️";
         }
 
-        document.getElementById('lastUpdate').textContent =
-            `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
+        // Fallback normCity
+        if (typeof normCity === 'undefined') {
+            window.normCity = function(city) {
+                return city ? city.replace(/^Luxembourg[-\s]/i, '') : city;
+            };
+        }
 
-        // ---- KPIs ----
-        const prices = LISTINGS.filter(l => l.price > 0).map(l => l.price).sort((a, b) => a - b);
-        const cities = new Set(LISTINGS.map(l => l.city).filter(Boolean));
-        const withGps = LISTINGS.filter(l => l.latitude && l.longitude).length;
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
+        }
 
-        const avg = prices.length > 0
-            ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
-            : 0;
-        const mid = Math.floor(prices.length / 2);
-        const median = prices.length > 0
-            ? (prices.length % 2 === 0 ? Math.round((prices[mid - 1] + prices[mid]) / 2) : prices[mid])
-            : 0;
+        function safeTitle(t, max) {
+            return (t || 'Sans titre').substring(0, max || 60);
+        }
 
-        // Nouvelles dernières 24h
-        const cutoff = Date.now() - 24 * 3600 * 1000;
-        const newToday = LISTINGS.filter(l => {
-            if (!l.created_at) return false;
-            try { return new Date(l.created_at).getTime() > cutoff; } catch { return false; }
-        }).length;
+        function init() {
+            if (typeof LISTINGS === 'undefined' || !LISTINGS || LISTINGS.length === 0) {
+                document.getElementById('topCities').innerHTML =
+                    '<div style="color:#dc3545; font-size:0.9rem;">Données non disponibles</div>';
+                return;
+            }
 
-        document.getElementById('kpiTotal').textContent    = LISTINGS.length;
-        document.getElementById('kpiCities').textContent   = cities.size;
-        document.getElementById('kpiAvgPrice').textContent = avg > 0 ? avg.toLocaleString('fr-FR') + '€' : '—';
-        document.getElementById('kpiMedian').textContent   = median > 0 ? median.toLocaleString('fr-FR') + '€' : '—';
-        document.getElementById('kpiNewToday').textContent = newToday > 0 ? '+' + newToday : '0';
-        document.getElementById('kpiWithGps').textContent  = withGps + ' / ' + LISTINGS.length;
+            document.getElementById('lastUpdate').textContent =
+                `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
 
-        // ---- Top villes ----
-        const cityCounts = {};
-        LISTINGS.forEach(l => { const c = normCity(l.city); if (c) cityCounts[c] = (cityCounts[c] || 0) + 1; });
-        const maxCityCount = Math.max(...Object.values(cityCounts));
-        const topCities = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
+            // ---- KPIs ----
+            const prices = LISTINGS.filter(l => l.price > 0).map(l => l.price).sort((a, b) => a - b);
+            const cities = new Set(LISTINGS.map(l => l.city).filter(Boolean));
+            const withGps = LISTINGS.filter(l => l.latitude && l.longitude).length;
 
-        document.getElementById('topCities').innerHTML = topCities.map(([city, count]) => `
-            <div class="data-row">
-                <div class="data-row-left">
-                    <strong>${city}</strong>
-                    <div class="progress-bar-wrap">
-                        <div class="progress-bar-fill" style="width:${Math.round(count / maxCityCount * 100)}%;"></div>
+            const avg = prices.length > 0
+                ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
+                : 0;
+            const mid = Math.floor(prices.length / 2);
+            const median = prices.length > 0
+                ? (prices.length % 2 === 0 ? Math.round((prices[mid - 1] + prices[mid]) / 2) : prices[mid])
+                : 0;
+
+            // Nouvelles dernières 24h
+            const cutoff = Date.now() - 24 * 3600 * 1000;
+            const newToday = LISTINGS.filter(l => {
+                if (!l.created_at) return false;
+                try { return new Date(l.created_at).getTime() > cutoff; } catch { return false; }
+            }).length;
+
+            document.getElementById('kpiTotal').textContent    = LISTINGS.length.toLocaleString();
+            document.getElementById('kpiCities').textContent   = cities.size;
+            document.getElementById('kpiAvgPrice').textContent = avg > 0 ? avg.toLocaleString('fr-FR') + '€' : '—';
+            document.getElementById('kpiMedian').textContent   = median > 0 ? median.toLocaleString('fr-FR') + '€' : '—';
+            document.getElementById('kpiNewToday').textContent = newToday > 0 ? '+' + newToday : '0';
+            document.getElementById('kpiWithGps').textContent  = withGps + ' / ' + LISTINGS.length;
+
+            // ---- Top villes ----
+            const cityCounts = {};
+            LISTINGS.forEach(l => { const c = normCity(l.city); if (c) cityCounts[c] = (cityCounts[c] || 0) + 1; });
+            const maxCityCount = Math.max(...Object.values(cityCounts));
+            const topCities = Object.entries(cityCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
+
+            document.getElementById('topCities').innerHTML = topCities.map(([city, count]) => `
+                <div class="data-row">
+                    <div class="data-row-left">
+                        <strong>${city}</strong>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-fill" style="width:${Math.round(count / maxCityCount * 100)}%;"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="data-row-right">${count} annonce${count > 1 ? 's' : ''}</div>
-            </div>`).join('');
+                    <div class="data-row-right">${count}</div>
+                </div>`).join('');
 
-        // ---- Par site ----
-        const siteCounts = {};
-        LISTINGS.forEach(l => { if (l.site) siteCounts[l.site] = (siteCounts[l.site] || 0) + 1; });
-        const maxSiteCount = Math.max(...Object.values(siteCounts));
-        const siteEntries = Object.entries(siteCounts).sort((a, b) => b[1] - a[1]);
+            // ---- Par site ----
+            const siteCounts = {};
+            LISTINGS.forEach(l => { if (l.site) siteCounts[l.site] = (siteCounts[l.site] || 0) + 1; });
+            const maxSiteCount = Math.max(...Object.values(siteCounts));
+            const siteEntries = Object.entries(siteCounts).sort((a, b) => b[1] - a[1]);
 
-        document.getElementById('bySite').innerHTML = siteEntries.map(([site, count]) => `
-            <div class="data-row">
-                <div class="data-row-left">
-                    <strong>${site}</strong>
-                    <div class="progress-bar-wrap">
-                        <div class="progress-bar-fill" style="width:${Math.round(count / maxSiteCount * 100)}%; background:linear-gradient(90deg,#10b981,#059669);"></div>
+            document.getElementById('bySite').innerHTML = siteEntries.map(([site, count]) => `
+                <div class="data-row">
+                    <div class="data-row-left">
+                        <strong>${site}</strong>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar-fill" style="width:${Math.round(count / maxSiteCount * 100)}%; background:linear-gradient(90deg,#10b981,#059669);"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="data-row-right">${count}</div>
-            </div>`).join('');
+                    <div class="data-row-right">${count}</div>
+                </div>`).join('');
 
-        // ---- Top prix (5 plus chers) ----
-        const topPrices = LISTINGS.filter(l => l.price > 0).sort((a, b) => b.price - a.price).slice(0, 5);
-        document.getElementById('topPrices').innerHTML = topPrices.map(l => `
-            <div class="data-row">
-                <div class="data-row-left">
-                    <strong>${safeTitle(l.title, 55)}</strong>
-                    <small>${normCity(l.city) || l.city || '—'} · ${l.site || ''}${l.surface > 0 ? ' · ' + l.surface + 'm²' : ''}${l.rooms > 0 ? ' · ' + l.rooms + 'ch' : ''}</small>
-                </div>
-                <div style="text-align:right; flex-shrink:0;">
-                    <div class="data-row-right">${l.price.toLocaleString('fr-FR')}€</div>
-                    <a href="${l.url}" target="_blank" rel="noopener" style="font-size:0.72rem; color:var(--primary);">Voir →</a>
-                </div>
-            </div>`).join('');
+            // ---- Top prix (5 plus chers) ----
+            const topPrices = LISTINGS.filter(l => l.price > 0).sort((a, b) => b.price - a.price).slice(0, 5);
+            document.getElementById('topPrices').innerHTML = topPrices.map(l => `
+                <div class="data-row">
+                    <div class="data-row-left">
+                        <strong>${safeTitle(l.title, 55)}</strong>
+                        <small>${normCity(l.city) || l.city || '—'} · ${l.site || ''}${l.surface > 0 ? ' · ' + l.surface + 'm²' : ''}${l.rooms > 0 ? ' · ' + l.rooms + 'ch' : ''}</small>
+                    </div>
+                    <div style="text-align:right; flex-shrink:0;">
+                        <div class="data-row-right price-high">${l.price.toLocaleString('fr-FR')}€</div>
+                        <a href="${l.url}" target="_blank" rel="noopener" class="link-view">Voir →</a>
+                    </div>
+                </div>`).join('');
 
-        // ---- Top deals (5 moins chers) ----
-        const topDeals = LISTINGS.filter(l => l.price > 0).sort((a, b) => a.price - b.price).slice(0, 5);
-        document.getElementById('topDeals').innerHTML = topDeals.map(l => `
-            <div class="data-row">
-                <div class="data-row-left">
-                    <strong>${safeTitle(l.title, 55)}</strong>
-                    <small>${normCity(l.city) || l.city || '—'} · ${l.site || ''}${l.surface > 0 ? ' · ' + l.surface + 'm²' : ''}${l.rooms > 0 ? ' · ' + l.rooms + 'ch' : ''}</small>
-                </div>
-                <div style="text-align:right; flex-shrink:0;">
-                    <div class="data-row-right" style="color:#10b981;">${l.price.toLocaleString('fr-FR')}€</div>
-                    <a href="${l.url}" target="_blank" rel="noopener" style="font-size:0.72rem; color:#10b981;">Voir →</a>
-                </div>
-            </div>`).join('');
+            // ---- Top deals (5 moins chers) ----
+            const topDeals = LISTINGS.filter(l => l.price > 0).sort((a, b) => a.price - b.price).slice(0, 5);
+            document.getElementById('topDeals').innerHTML = topDeals.map(l => `
+                <div class="data-row">
+                    <div class="data-row-left">
+                        <strong>${safeTitle(l.title, 55)}</strong>
+                        <small>${normCity(l.city) || l.city || '—'} · ${l.site || ''}${l.surface > 0 ? ' · ' + l.surface + 'm²' : ''}${l.rooms > 0 ? ' · ' + l.rooms + 'ch' : ''}</small>
+                    </div>
+                    <div style="text-align:right; flex-shrink:0;">
+                        <div class="data-row-right price-low">${l.price.toLocaleString('fr-FR')}€</div>
+                        <a href="${l.url}" target="_blank" rel="noopener" class="link-view" style="color:#10b981;">Voir →</a>
+                    </div>
+                </div>`).join('');
 
-        // ---- Récentes (5 premières dans l'ordre du fichier) ----
-        const recent = LISTINGS.slice(0, 5);
-        document.getElementById('recentListings').innerHTML = recent.map(l => `
-            <div class="data-row">
-                <div class="data-row-left">
-                    <strong>${safeTitle(l.title, 55)}</strong>
-                    <small>${normCity(l.city) || l.city || '—'}${l.rooms > 0 ? ' · ' + l.rooms + ' ch.' : ''}${l.surface > 0 ? ' · ' + l.surface + 'm²' : ''}</small>
-                </div>
-                <div style="text-align:right; flex-shrink:0;">
-                    <div class="data-row-right">${l.price > 0 ? l.price.toLocaleString('fr-FR') + '€' : '—'}</div>
-                    <a href="${l.url}" target="_blank" rel="noopener" style="font-size:0.72rem; color:var(--primary);">Voir →</a>
-                </div>
-            </div>`).join('');
-    }
+            // ---- Récentes (5 premières) ----
+            const recent = LISTINGS.slice(0, 5);
+            document.getElementById('recentListings').innerHTML = recent.map(l => `
+                <div class="data-row">
+                    <div class="data-row-left">
+                        <strong>${safeTitle(l.title, 55)}</strong>
+                        <small>${normCity(l.city) || l.city || '—'}${l.rooms > 0 ? ' · ' + l.rooms + ' ch.' : ''}${l.surface > 0 ? ' · ' + l.surface + 'm²' : ''}</small>
+                    </div>
+                    <div style="text-align:right; flex-shrink:0;">
+                        <div class="data-row-right">${l.price > 0 ? l.price.toLocaleString('fr-FR') + '€' : '—'}</div>
+                        <a href="${l.url}" target="_blank" rel="noopener" class="link-view">Voir →</a>
+                    </div>
+                </div>`).join('');
+        }
 
-    window.addEventListener('DOMContentLoaded', init);
-</script>
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
