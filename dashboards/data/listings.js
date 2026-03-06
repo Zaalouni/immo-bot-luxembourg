@@ -1,6 +1,57 @@
-// Genere le 06/03/2026 17:34
-// 154 annonces depuis listings.db
+// Genere le 06/03/2026 21:19
+// 157 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "immotop_1887083",
+    "site": "Immotop.lu",
+    "title": "Appartement 6 Rue Grande-Duchesse Charlotte, Mersch Localité, Mersch",
+    "city": "Mersch",
+    "price": 1650,
+    "rooms": 0,
+    "surface": 90,
+    "url": "https://www.immotop.lu/annonces/1887083/",
+    "latitude": 49.75,
+    "longitude": 6.105,
+    "distance_km": 16.8,
+    "created_at": "2026-03-06 20:19:19",
+    "image_url": "images/immotop_1887083.jpg",
+    "price_m2": 18.3,
+    "local_image": "images/immotop_1887083.jpg"
+  },
+  {
+    "listing_id": "athome_9016388",
+    "site": "Athome.lu",
+    "title": "Très bel appartement rénové et lumineux, idéalement situé à quelques m",
+    "city": "Belair",
+    "price": 2200,
+    "rooms": 2,
+    "surface": 92,
+    "url": "https://www.athome.lu/location/appartement/luxembourg-belair/id-9016388.html",
+    "latitude": 49.6106372,
+    "longitude": 6.1089059,
+    "distance_km": 2.2,
+    "created_at": "2026-03-06 20:19:08",
+    "image_url": "images/athome_9016388.jpg",
+    "price_m2": 23.9,
+    "local_image": "images/athome_9016388.jpg"
+  },
+  {
+    "listing_id": "athome_7582191",
+    "site": "Athome.lu",
+    "title": "A louer, superbe penthouse de 2 chambres sur 92 m2 à Leudelange.\n\nSitu",
+    "city": "Leudelange",
+    "price": 2400,
+    "rooms": 2,
+    "surface": 92,
+    "url": "https://www.athome.lu/location/penthouse/leudelange/id-7582191.html",
+    "latitude": 49.5672187,
+    "longitude": 6.060295,
+    "distance_km": 6.5,
+    "created_at": "2026-03-06 20:19:02",
+    "image_url": "images/athome_7582191.jpg",
+    "price_m2": 26.1,
+    "local_image": "images/athome_7582191.jpg"
+  },
   {
     "listing_id": "immosolutions_2075",
     "site": "ImmoSolutions.lu",

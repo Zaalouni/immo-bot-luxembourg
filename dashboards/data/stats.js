@@ -1,15 +1,16 @@
-// Genere le 06/03/2026 17:34
+// Genere le 06/03/2026 21:19
 const STATS = {
-  "total": 154,
-  "avg_price": 2288,
+  "total": 157,
+  "avg_price": 2284,
   "min_price": 1500,
   "max_price": 2700,
   "avg_surface": 98,
-  "cities": 69,
+  "cities": 71,
   "sites": {
+    "Immotop.lu": 3,
+    "Athome.lu": 109,
     "ImmoSolutions.lu": 3,
     "Wortimmo.lu": 1,
-    "Athome.lu": 107,
     "DDImmo.lu": 2,
     "Luxhome.lu": 12,
     "Nextimmo.lu": 11,
@@ -20,14 +21,13 @@ const STATS = {
     "Rockenbrod.lu": 1,
     "SothebysRealty.lu": 1,
     "Newimmo.lu": 4,
-    "Immotop.lu": 2,
     "Accord-Immo.lu": 1
   },
   "by_city": [
     {
       "city": "Belair",
-      "count": 9,
-      "avg_price": 2408
+      "count": 10,
+      "avg_price": 2387
     },
     {
       "city": "Limpertsberg",
@@ -193,6 +193,16 @@ const STATS = {
       "city": "Belval",
       "count": 2,
       "avg_price": 2237
+    },
+    {
+      "city": "Mersch",
+      "count": 1,
+      "avg_price": 1650
+    },
+    {
+      "city": "Leudelange",
+      "count": 1,
+      "avg_price": 2400
     },
     {
       "city": "Schifflange",
@@ -372,25 +382,25 @@ const STATS = {
   ],
   "by_price_range": {
     "< 1500": 0,
-    "1500 - 2000": 26,
-    "2000 - 2500": 82,
+    "1500 - 2000": 27,
+    "2000 - 2500": 84,
     "> 2500": 46
   }
 };
 const SITE_COLORS = {
-  "ImmoSolutions.lu": "#FF6384",
-  "Wortimmo.lu": "#36A2EB",
-  "Athome.lu": "#FFCE56",
-  "DDImmo.lu": "#4BC0C0",
-  "Luxhome.lu": "#9966FF",
-  "Nextimmo.lu": "#FF9F40",
-  "Weckbecker.lu": "#2ECC71",
-  "VIVI.lu": "#E74C3C",
-  "Remax.lu": "#3498DB",
-  "PropertyInvest.lu": "#FF6384",
-  "Rockenbrod.lu": "#36A2EB",
-  "SothebysRealty.lu": "#FFCE56",
-  "Newimmo.lu": "#4BC0C0",
-  "Immotop.lu": "#9966FF",
+  "Immotop.lu": "#FF6384",
+  "Athome.lu": "#36A2EB",
+  "ImmoSolutions.lu": "#FFCE56",
+  "Wortimmo.lu": "#4BC0C0",
+  "DDImmo.lu": "#9966FF",
+  "Luxhome.lu": "#FF9F40",
+  "Nextimmo.lu": "#2ECC71",
+  "Weckbecker.lu": "#E74C3C",
+  "VIVI.lu": "#3498DB",
+  "Remax.lu": "#FF6384",
+  "PropertyInvest.lu": "#36A2EB",
+  "Rockenbrod.lu": "#FFCE56",
+  "SothebysRealty.lu": "#4BC0C0",
+  "Newimmo.lu": "#9966FF",
   "Accord-Immo.lu": "#FF9F40"
 };
