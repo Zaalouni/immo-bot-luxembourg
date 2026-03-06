@@ -67,6 +67,12 @@
         });
         if(localStorage.getItem("darkMode") === "true") document.body.classList.add("dark-mode");
 
+        // Fonction pour normaliser les noms de ville
+        function normCity(city) {
+            if (!city) return 'Unknown';
+            return city.toString().trim();
+        }
+
         function init() {
             const cities = [...new Set(LISTINGS.map(l => normCity(l.city)))].sort();
             const s1 = document.getElementById('city1');
