@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Favoris & Alertes - ImmoLux">
-    <meta name="theme-color" content="#dc2626">
+    <meta name="description" content="Centre de Contrôle - ImmoLux">
+    <meta name="theme-color" content="#1e293b">
     <meta name="mobile-web-app-capable" content="yes">
-    <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
-    <title>🔔 Alertes & Favoris - ImmoLux</title>
+    <title>🎯 Centre de Contrôle - ImmoLux</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -27,20 +26,16 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 50%, #dc2626 100%);
+            background: linear-gradient(160deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
             min-height: 100vh;
-            padding: 2rem 1rem;
-            transition: background 0.3s ease;
+            padding: 2rem 1rem 4rem;
         }
 
         body.dark-mode {
-            background: linear-gradient(135deg, #1a0505 0%, #2d0a0a 50%, #3d0f0f 100%);
+            background: linear-gradient(160deg, #080c14 0%, #101828 50%, #080c14 100%);
         }
 
-        .container-modern {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .container-modern { max-width: 1200px; margin: 0 auto; }
 
         /* ── Header ── */
         .header-modern {
@@ -51,39 +46,344 @@
         }
 
         .header-modern h1 {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             font-weight: 700;
             margin-bottom: 0.4rem;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #f8fafc, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .header-modern .header-meta {
+        .header-modern .subtitle {
+            color: rgba(255,255,255,0.6);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .header-meta {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
-            opacity: 0.92;
-            font-size: 0.95rem;
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.65);
             font-weight: 500;
-            margin-top: 0.5rem;
+        }
+
+        .header-meta span strong { color: white; }
+
+        /* ── Section titles ── */
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-label .badge-pill {
+            padding: 0.3rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .section-label h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .badge-red   { background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+        .badge-indigo { background: rgba(99,102,241,0.2); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
+
+        /* ── Glass panel ── */
+        .glass-panel {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+            transition: border-color 0.3s;
+        }
+
+        .glass-panel:hover { border-color: rgba(255,255,255,0.18); }
+
+        body.dark-mode .glass-panel {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.07);
+        }
+
+        .glass-panel-red {
+            background: rgba(239,68,68,0.06);
+            border-color: rgba(239,68,68,0.2);
+        }
+
+        .glass-panel-indigo {
+            background: rgba(99,102,241,0.06);
+            border-color: rgba(99,102,241,0.2);
+        }
+
+        .panel-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .panel-title.red    { color: #f87171; }
+        .panel-title.indigo { color: #a5b4fc; }
+        .panel-title.white  { color: #f1f5f9; }
+
+        /* ── Alert form ── */
+        .alert-form-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 0.75rem;
+            align-items: end;
+        }
+
+        @media (max-width: 900px) {
+            .alert-form-grid { grid-template-columns: 1fr 1fr; }
+            .alert-form-grid .btn-add { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 500px) {
+            .alert-form-grid { grid-template-columns: 1fr; }
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.6rem 0.85rem;
+            border: 1.5px solid rgba(239,68,68,0.25);
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-family: 'Inter', sans-serif;
+            background: rgba(15,23,42,0.7);
+            color: #f1f5f9;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239,68,68,0.12);
+        }
+
+        .form-input::placeholder { color: rgba(255,255,255,0.25); }
+
+        .form-input-indigo {
+            border-color: rgba(99,102,241,0.25);
+        }
+
+        .form-input-indigo:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+        }
+
+        .btn-add {
+            padding: 0.6rem 1.4rem;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(239,68,68,0.3);
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239,68,68,0.4);
+        }
+
+        .btn-add-indigo {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+        }
+
+        .btn-add-indigo:hover {
+            box-shadow: 0 6px 20px rgba(99,102,241,0.4);
+        }
+
+        /* ── Saved alert chips ── */
+        .alert-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(239,68,68,0.12);
+            border: 1px solid rgba(239,68,68,0.25);
+            border-radius: 10px;
+            padding: 0.45rem 0.75rem 0.45rem 1rem;
+            font-size: 0.82rem;
+            color: #fca5a5;
+            font-weight: 500;
+            margin: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .alert-chip:hover { background: rgba(239,68,68,0.18); }
+
+        .alert-chip .chip-count {
+            background: rgba(239,68,68,0.25);
+            color: #f87171;
+            padding: 0.1rem 0.45rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .alert-chip .chip-count.green {
+            background: rgba(34,197,94,0.2);
+            color: #4ade80;
+        }
+
+        .btn-chip-remove {
+            background: none;
+            border: none;
+            color: rgba(239,68,68,0.6);
+            cursor: pointer;
+            font-size: 0.9rem;
+            line-height: 1;
+            padding: 0 0.1rem;
+            transition: color 0.15s;
+        }
+
+        .btn-chip-remove:hover { color: #ef4444; }
+
+        /* ── Match listing rows ── */
+        .match-row {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 0.9rem 1.1rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.25s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .match-row:hover {
+            background: rgba(255,255,255,0.07);
+            transform: translateX(3px);
+        }
+
+        .match-row.score-excellent { border-left-color: #ef4444; }
+        .match-row.score-good      { border-left-color: #f59e0b; }
+        .match-row.score-ok        { border-left-color: #22c55e; }
+
+        .match-info { display: flex; align-items: center; gap: 1rem; flex: 1; flex-wrap: wrap; }
+
+        .info-chip {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chip-label {
+            font-size: 0.62rem;
+            color: rgba(255,255,255,0.35);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .chip-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .chip-price { color: #f87171; font-family: 'JetBrains Mono', monospace; font-size: 1rem; }
+        .chip-price-indigo { color: #a5b4fc; font-family: 'JetBrains Mono', monospace; font-size: 1rem; }
+
+        .score-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .score-badge.excellent { background: rgba(239,68,68,0.2); color: #f87171; }
+        .score-badge.good      { background: rgba(245,158,11,0.2); color: #fbbf24; }
+        .score-badge.ok        { background: rgba(34,197,94,0.2); color: #4ade80; }
+
+        .site-tag {
+            padding: 0.15rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-voir {
+            padding: 0.42rem 1rem;
+            border-radius: 9px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s;
+            background: rgba(239,68,68,0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239,68,68,0.25);
+        }
+
+        .btn-voir:hover {
+            background: rgba(239,68,68,0.3);
+            color: white;
+        }
+
+        .btn-voir-indigo {
+            background: rgba(99,102,241,0.15);
+            color: #c7d2fe;
+            border: 1px solid rgba(99,102,241,0.25);
+        }
+
+        .btn-voir-indigo:hover {
+            background: rgba(99,102,241,0.3);
+            color: white;
         }
 
         /* ── Stats grid ── */
-        .stats-grid {
+        .stats-grid-4 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 2rem;
-            animation: fadeIn 0.8s ease 0.1s both;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.25rem;
         }
 
         .stat-card {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.25rem 1rem;
             text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -92,322 +392,110 @@
         .stat-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 4px;
-            background: linear-gradient(90deg, #dc2626, #ef4444);
+            top: 0; left: 0; right: 0;
+            height: 3px;
         }
 
-        body.dark-mode .stat-card {
-            background: rgba(45, 10, 10, 0.92);
-            color: white;
-        }
+        .stat-card.red::before   { background: linear-gradient(90deg, #ef4444, #f87171); }
+        .stat-card.indigo::before { background: linear-gradient(90deg, #6366f1, #818cf8); }
+        .stat-card.amber::before  { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .stat-card.green::before  { background: linear-gradient(90deg, #22c55e, #4ade80); }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 48px rgba(0,0,0,0.18);
-        }
+        .stat-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.18); }
 
         .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #dc2626;
             font-family: 'JetBrains Mono', monospace;
-            margin-bottom: 0.3rem;
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
         }
 
-        body.dark-mode .stat-value { color: #f87171; }
+        .stat-value.red    { color: #f87171; }
+        .stat-value.indigo { color: #a5b4fc; }
+        .stat-value.amber  { color: #fbbf24; }
+        .stat-value.green  { color: #4ade80; }
 
         .stat-label {
-            font-size: 0.85rem;
-            color: #6b7280;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.45);
             font-weight: 500;
         }
 
-        body.dark-mode .stat-label { color: #9ca3af; }
-
-        /* ── Glass panel ── */
-        .glass-panel {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            animation: fadeInUp 0.6s ease 0.2s both;
-        }
-
-        body.dark-mode .glass-panel {
-            background: rgba(45, 10, 10, 0.92);
-            color: white;
-        }
-
-        .panel-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #991b1b;
-            margin-bottom: 1.25rem;
+        /* ── City badges (profil) ── */
+        .city-badge-grid {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 0.5rem;
+            margin-top: 0.5rem;
         }
 
-        body.dark-mode .panel-title { color: #f87171; }
-
-        /* ── Alert form ── */
-        .alert-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 1rem;
-            align-items: end;
-        }
-
-        @media (max-width: 640px) {
-            .alert-form { grid-template-columns: 1fr; }
-        }
-
-        .form-group label {
-            display: block;
+        .city-badge {
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            border: 1.5px solid rgba(99,102,241,0.3);
+            background: rgba(99,102,241,0.08);
+            color: rgba(255,255,255,0.55);
             font-size: 0.82rem;
-            font-weight: 600;
-            color: #4b5563;
-            margin-bottom: 0.4rem;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-        }
-
-        body.dark-mode .form-group label { color: #9ca3af; }
-
-        .form-input {
-            width: 100%;
-            padding: 0.6rem 0.9rem;
-            border: 2px solid rgba(220,38,38,0.25);
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-family: 'Inter', sans-serif;
-            background: rgba(255,255,255,0.9);
-            color: #1f2937;
-            transition: all 0.2s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: #dc2626;
-            box-shadow: 0 0 0 3px rgba(220,38,38,0.12);
-        }
-
-        body.dark-mode .form-input {
-            background: rgba(60,15,15,0.9);
-            color: #f3f4f6;
-            border-color: rgba(220,38,38,0.3);
-        }
-
-        .btn-add {
-            padding: 0.6rem 1.5rem;
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(220,38,38,0.3);
-        }
-
-        .btn-add:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(220,38,38,0.4);
-        }
-
-        /* ── Alert row ── */
-        .alert-row {
-            background: rgba(254,242,242,0.8);
-            border-left: 4px solid #dc2626;
-            border-radius: 12px;
-            padding: 0.9rem 1.1rem;
-            margin-bottom: 0.6rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            transition: all 0.25s ease;
-        }
-
-        .alert-row:hover {
-            transform: translateX(4px);
-            box-shadow: 0 4px 16px rgba(220,38,38,0.15);
-        }
-
-        body.dark-mode .alert-row {
-            background: rgba(127,29,29,0.25);
-            border-left-color: #ef4444;
-        }
-
-        .alert-row-text { font-size: 0.92rem; color: #1f2937; }
-        body.dark-mode .alert-row-text { color: #f3f4f6; }
-
-        .btn-remove {
-            width: 28px; height: 28px;
-            border-radius: 8px;
-            border: none;
-            background: rgba(220,38,38,0.1);
-            color: #dc2626;
-            font-size: 0.85rem;
-            font-weight: 700;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            flex-shrink: 0;
+            user-select: none;
         }
 
-        .btn-remove:hover {
-            background: #dc2626;
-            color: white;
+        .city-badge:hover {
+            border-color: rgba(99,102,241,0.5);
+            color: rgba(255,255,255,0.8);
         }
 
-        /* ── Match banner ── */
-        .match-banner {
-            background: rgba(220,252,231,0.9);
-            border-left: 4px solid #16a34a;
+        .city-badge.selected {
+            background: rgba(99,102,241,0.25);
+            border-color: #6366f1;
+            color: #c7d2fe;
+            font-weight: 600;
+        }
+
+        /* ── Divider ── */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 2.5rem 0;
+        }
+
+        /* ── vs comparison bar ── */
+        .compare-bar {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
             border-radius: 12px;
-            padding: 0.9rem 1.1rem;
-            margin-bottom: 0.6rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            transition: all 0.25s ease;
-        }
-
-        body.dark-mode .match-banner {
-            background: rgba(20,83,45,0.3);
-        }
-
-        .match-banner:hover {
-            transform: translateX(4px);
-            box-shadow: 0 4px 16px rgba(22,163,74,0.15);
-        }
-
-        /* ── Listing row (favoris) ── */
-        .listing-row {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 14px;
             padding: 1rem 1.25rem;
-            margin-bottom: 0.75rem;
-            border-left: 4px solid #dc2626;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-            transition: all 0.3s ease;
+            flex-wrap: wrap;
         }
 
-        .listing-row:hover {
-            transform: translateX(4px);
-            box-shadow: 0 6px 24px rgba(220,38,38,0.18);
-        }
-
-        body.dark-mode .listing-row {
-            background: rgba(45,10,10,0.9);
-            border-left-color: #ef4444;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-            color: white;
-        }
-
-        .listing-info { display: flex; align-items: center; gap: 1.2rem; flex: 1; flex-wrap: wrap; }
-
-        .info-chip {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .chip-label { font-size: 0.65rem; color: #9ca3af; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
-        .chip-value { font-size: 0.95rem; font-weight: 600; color: #1f2937; }
-        body.dark-mode .chip-value { color: #f3f4f6; }
-        .chip-price { color: #dc2626; font-size: 1.05rem; }
-        body.dark-mode .chip-price { color: #f87171; }
-
-        .site-chip {
-            background: rgba(220,38,38,0.1);
-            color: #991b1b;
-            padding: 0.2rem 0.6rem;
-            border-radius: 8px;
-            font-size: 0.72rem;
-            font-weight: 600;
-            border: 1px solid rgba(220,38,38,0.2);
-        }
-
-        body.dark-mode .site-chip {
-            background: rgba(220,38,38,0.15);
-            color: #f87171;
-            border-color: rgba(220,38,38,0.3);
-        }
-
-        .btn-see {
-            padding: 0.45rem 1rem;
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .btn-see:hover {
-            background: #b91c1c;
-            color: white;
-            transform: translateY(-1px);
-        }
-
-        .btn-unfav {
-            padding: 0.4rem 0.8rem;
-            background: transparent;
-            color: #dc2626;
-            border: 2px solid rgba(220,38,38,0.3);
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .btn-unfav:hover {
-            background: rgba(220,38,38,0.08);
-            border-color: #dc2626;
-        }
-
-        body.dark-mode .btn-unfav {
-            color: #f87171;
-            border-color: rgba(239,68,68,0.3);
-        }
+        .compare-item { text-align: center; }
+        .compare-label { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-bottom: 0.25rem; }
+        .compare-value { font-size: 1.2rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: #f1f5f9; }
+        .compare-sub { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-top: 0.15rem; }
+        .compare-vs { color: rgba(255,255,255,0.2); font-size: 1.5rem; font-weight: 300; }
 
         /* ── Empty state ── */
         .empty-state {
             text-align: center;
-            padding: 2.5rem 1rem;
-            color: #9ca3af;
+            padding: 2rem 1rem;
+            color: rgba(255,255,255,0.25);
         }
 
-        body.dark-mode .empty-state { color: #6b7280; }
-
-        .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        .empty-state p { font-size: 0.9rem; }
+        .empty-state .icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .empty-state p { font-size: 0.88rem; }
 
         /* ── Back link ── */
         .back-link {
             display: inline-block;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.7);
+            border: 1px solid rgba(255,255,255,0.15);
             padding: 0.6rem 1.5rem;
             border-radius: 12px;
             text-decoration: none;
@@ -417,10 +505,91 @@
         }
 
         .back-link:hover {
-            background: rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.14);
             color: white;
             transform: translateY(-2px);
         }
+
+        /* ── Accordion ── */
+        .alert-block { margin-bottom: 1rem; }
+
+        .alert-block-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 0.85rem 1.1rem;
+            background: rgba(239,68,68,0.08);
+            border: 1px solid rgba(239,68,68,0.18);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .alert-block-header:hover { background: rgba(239,68,68,0.13); }
+
+        .alert-block-header.open {
+            border-radius: 12px 12px 0 0;
+            border-bottom-color: transparent;
+        }
+
+        .alert-block-body {
+            background: rgba(239,68,68,0.04);
+            border: 1px solid rgba(239,68,68,0.15);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            padding: 0.75rem 1rem;
+            display: none;
+        }
+
+        .alert-block-body.open { display: block; }
+
+        .alert-block-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            flex-wrap: wrap;
+        }
+
+        .alert-criteria-tag {
+            background: rgba(239,68,68,0.12);
+            color: #fca5a5;
+            border-radius: 6px;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .alert-block-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .match-count-pill {
+            background: rgba(34,197,94,0.15);
+            color: #4ade80;
+            border-radius: 20px;
+            padding: 0.15rem 0.6rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .match-count-pill.zero {
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.3);
+        }
+
+        .chevron {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+
+        .chevron.open { transform: rotate(180deg); }
 
         /* ── Animations ── */
         @keyframes fadeInDown {
@@ -439,8 +608,8 @@
         }
 
         @media (max-width: 768px) {
-            .header-modern h1 { font-size: 2rem; }
-            .header-modern .header-meta { gap: 1rem; font-size: 0.85rem; }
+            .header-modern h1 { font-size: 1.9rem; }
+            .match-info { gap: 0.7rem; }
         }
     </style>
 </head>
@@ -448,65 +617,131 @@
 
 <!-- Header -->
 <div class="header-modern">
-    <h1>🔔 Alertes & Favoris</h1>
+    <h1>🎯 Centre de Contrôle</h1>
+    <p class="subtitle">Alertes intelligentes · Tableau de bord personnel</p>
     <div class="header-meta">
-        <span>⭐ <strong id="favCount">—</strong> favoris</span>
-        <span>🔔 <strong id="alertCount">—</strong> alertes</span>
-        <span>✅ <strong id="matchCount">—</strong> correspondances</span>
-        <span>📋 <strong id="totalListings">—</strong> annonces dispo</span>
+        <span>🔔 <strong id="hdrAlerts">—</strong> alertes actives</span>
+        <span>✅ <strong id="hdrMatches">—</strong> correspondances</span>
+        <span>📋 <strong id="hdrTotal">—</strong> annonces dispo</span>
+        <span>📅 <span id="lastUpdate">—</span></span>
     </div>
 </div>
 
 <div class="container-modern">
 
-    <!-- Stats rapides -->
-    <div class="stats-grid" id="quickStats"></div>
+    <!-- ══════════════════════════════════════════
+         SECTION 1 : ALERTES MULTI-CRITÈRES
+    ══════════════════════════════════════════ -->
+    <div class="section-label">
+        <span class="badge-pill badge-red">Section 1</span>
+        <h2>🔔 Centre d'Alertes Multi-Critères</h2>
+    </div>
 
-    <!-- Configuration alertes -->
-    <div class="glass-panel">
-        <div class="panel-title">🔔 Nouvelle Alerte Prix</div>
-        <div class="alert-form">
+    <!-- Formulaire nouvelle alerte -->
+    <div class="glass-panel glass-panel-red">
+        <div class="panel-title red">➕ Nouvelle Alerte</div>
+        <div class="alert-form-grid">
             <div class="form-group">
-                <label>Prix maximum (€)</label>
-                <input type="number" id="alertPrice" class="form-input" placeholder="ex: 1 500">
+                <label>Ville cible</label>
+                <select id="alertCity" class="form-input">
+                    <option value="">Toutes les villes</option>
+                </select>
             </div>
             <div class="form-group">
-                <label>Ville</label>
-                <select id="alertCity" class="form-input"></select>
+                <label>Prix max (€)</label>
+                <input type="number" id="alertPrice" class="form-input" placeholder="ex: 1800" min="0" step="50">
             </div>
-            <button class="btn-add" onclick="setAlert()">💾 Ajouter</button>
+            <div class="form-group">
+                <label>Surface min (m²)</label>
+                <input type="number" id="alertSurface" class="form-input" placeholder="ex: 60" min="0" step="5">
+            </div>
+            <div class="form-group">
+                <label>Chambres min</label>
+                <select id="alertRooms" class="form-input">
+                    <option value="">Peu importe</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                </select>
+            </div>
+            <button class="btn-add" onclick="addAlert()">💾 Ajouter</button>
+        </div>
+        <div id="formError" style="color:#f87171;font-size:0.82rem;margin-top:0.5rem;display:none;"></div>
+    </div>
+
+    <!-- Alertes sauvegardées + leurs matches -->
+    <div id="alertsContainer">
+        <div class="empty-state">
+            <div class="icon">🔕</div>
+            <p>Aucune alerte configurée.<br>Ajoutez votre première alerte ci-dessus.</p>
         </div>
     </div>
 
-    <!-- Alertes sauvegardées -->
-    <div class="glass-panel">
-        <div class="panel-title">📋 Mes Alertes Sauvegardées</div>
-        <div id="savedAlerts">
+
+    <!-- ══════════════════════════════════════════
+         SECTION 2 : TABLEAU DE BORD PERSONNEL
+    ══════════════════════════════════════════ -->
+    <div class="section-divider"></div>
+
+    <div class="section-label">
+        <span class="badge-pill badge-indigo">Section 2</span>
+        <h2>👤 Mon Tableau de Bord Personnel</h2>
+    </div>
+
+    <!-- Profil perso -->
+    <div class="glass-panel glass-panel-indigo">
+        <div class="panel-title indigo">⚙️ Mon Profil Immo</div>
+        <div class="alert-form-grid">
+            <div class="form-group">
+                <label>Budget max (€/mois)</label>
+                <input type="number" id="profBudget" class="form-input form-input-indigo" placeholder="ex: 2000" min="0" step="50">
+            </div>
+            <div class="form-group">
+                <label>Surface min (m²)</label>
+                <input type="number" id="profSurface" class="form-input form-input-indigo" placeholder="ex: 70" min="0" step="5">
+            </div>
+            <div class="form-group">
+                <label>Chambres min</label>
+                <select id="profRooms" class="form-input form-input-indigo">
+                    <option value="">Peu importe</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                </select>
+            </div>
+            <div></div>
+            <button class="btn-add btn-add-indigo" onclick="saveProfile()">💾 Sauvegarder</button>
+        </div>
+
+        <div style="margin-top:1.25rem;">
+            <div style="font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.6rem;">
+                🏙️ Mes villes cibles <span style="font-size:0.7rem;font-weight:400;">(cliquer pour sélectionner)</span>
+            </div>
+            <div class="city-badge-grid" id="cityBadgeGrid"></div>
+        </div>
+    </div>
+
+    <!-- Stats personnelles -->
+    <div class="stats-grid-4" id="profileStats"></div>
+
+    <!-- Comparaison Mon marché vs Global -->
+    <div class="glass-panel" style="margin-bottom:1.25rem;" id="comparePanel"></div>
+
+    <!-- Top 5 meilleures affaires selon mon profil -->
+    <div class="glass-panel glass-panel-indigo">
+        <div class="panel-title indigo">🏆 Top Affaires pour Mon Profil</div>
+        <div id="topDeals">
             <div class="empty-state">
-                <div class="empty-icon">🔕</div>
-                <p>Aucune alerte configurée</p>
+                <div class="icon">⚙️</div>
+                <p>Configurez votre profil pour voir les meilleures affaires.</p>
             </div>
-        </div>
-    </div>
-
-    <!-- Correspondances -->
-    <div class="glass-panel" id="matchesPanel" style="display:none;">
-        <div class="panel-title" style="color:#16a34a;">✅ Annonces Correspondantes</div>
-        <div id="alertMatches"></div>
-    </div>
-
-    <!-- Favoris -->
-    <div class="glass-panel">
-        <div class="panel-title">⭐ Mes Favoris</div>
-        <div id="favoritesList"></div>
-        <div id="noFavs" class="empty-state" style="display:none;">
-            <div class="empty-icon">💔</div>
-            <p>Aucun favori sauvegardé.<br>Cliquez sur ⭐ dans les annonces pour en ajouter.</p>
         </div>
     </div>
 
     <!-- Retour -->
-    <div style="text-align:center; margin-top:1rem; padding-bottom:2rem;">
+    <div style="text-align:center; margin-top:2rem;">
         <a href="index.html" class="back-link">← Retour dashboard</a>
     </div>
 
@@ -515,10 +750,22 @@
 <!-- Dark Mode Toggle -->
 <button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="data/listings.js"></script>
 <script>
-    // Dark mode
+    /* ── Normalisation villes (fallback si version-display.js pas encore chargé) ── */
+    function nc(city) {
+        if (!city) return '—';
+        if (typeof window.normCity === 'function') return window.normCity(city);
+        return city.replace(/^Luxembourg[-\s]/i, '');
+    }
+
+    const fmt = n => (n != null && n !== '' && !isNaN(n)) ? Number(n).toLocaleString('fr-FR') : '—';
+
+    /* ── État ── */
+    let alerts  = JSON.parse(localStorage.getItem('immo_alerts_v2') || '[]');
+    let profile = JSON.parse(localStorage.getItem('immo_profile_v2') || '{}');
+
+    /* ── Dark mode ── */
     const dmToggle = document.getElementById('darkModeToggle');
     dmToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
@@ -533,170 +780,349 @@
         dmToggle.setAttribute('aria-pressed', 'true');
     }
 
-    const fmt = n => n ? n.toLocaleString('fr-FR') : '—';
-
-    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    let alerts    = JSON.parse(localStorage.getItem('priceAlerts') || '[]');
-
+    /* ═══════════════════════════════════
+       INITIALISATION
+    ═══════════════════════════════════ */
     function init() {
-        if (!LISTINGS || !Array.isArray(LISTINGS)) return;
+        if (!window.LISTINGS || !Array.isArray(LISTINGS)) return;
 
-        // Peupler filtre ville
-        const cities = [...new Set(LISTINGS.map(l => normCity ? normCity(l.city) : l.city))].sort();
-        const select = document.getElementById('alertCity');
-        select.innerHTML = '<option value="">-- Choisir une ville --</option>';
+        // Peupler select villes (tri alphabétique, noms normalisés)
+        const citySet = new Set(LISTINGS.map(l => nc(l.city)).filter(Boolean));
+        const cities  = [...citySet].sort();
+        const sel = document.getElementById('alertCity');
         cities.forEach(c => {
             const o = document.createElement('option');
             o.value = c;
             o.textContent = c;
-            select.appendChild(o);
+            sel.appendChild(o);
         });
 
-        renderStats();
+        // Peupler city badges profil
+        const grid = document.getElementById('cityBadgeGrid');
+        const selCities = profile.cities || [];
+        cities.forEach(c => {
+            const b = document.createElement('button');
+            b.className = 'city-badge' + (selCities.includes(c) ? ' selected' : '');
+            b.textContent = c;
+            b.onclick = () => toggleCity(c, b);
+            grid.appendChild(b);
+        });
+
+        // Restaurer profil dans les inputs
+        if (profile.budget)  document.getElementById('profBudget').value  = profile.budget;
+        if (profile.surface) document.getElementById('profSurface').value = profile.surface;
+        if (profile.rooms)   document.getElementById('profRooms').value   = profile.rooms;
+
+        // Header meta
+        document.getElementById('hdrTotal').textContent = LISTINGS.length;
+        updateHeader();
+
+        // Render
         renderAlerts();
-        checkAlerts();
-        renderFavorites();
+        renderProfile();
     }
 
-    function renderStats() {
-        const favListings = LISTINGS.filter(l => favorites.includes(l.listing_id));
-        const matches = getMatches();
-        const prices = favListings.filter(l => l.price > 0).map(l => l.price);
-        const avgFav = prices.length ? Math.round(prices.reduce((a,b) => a+b, 0) / prices.length) : 0;
+    /* ═══════════════════════════════════
+       SECTION 1 : ALERTES
+    ═══════════════════════════════════ */
+    function addAlert() {
+        const city    = document.getElementById('alertCity').value;
+        const price   = parseInt(document.getElementById('alertPrice').value) || 0;
+        const surface = parseInt(document.getElementById('alertSurface').value) || 0;
+        const rooms   = parseInt(document.getElementById('alertRooms').value) || 0;
+        const errEl   = document.getElementById('formError');
 
-        document.getElementById('favCount').textContent    = favorites.length;
-        document.getElementById('alertCount').textContent  = alerts.length;
-        document.getElementById('matchCount').textContent  = matches.length;
-        document.getElementById('totalListings').textContent = LISTINGS.length;
+        if (!price && !surface && !rooms && !city) {
+            errEl.textContent = '⚠️ Renseignez au moins un critère en plus de la ville.';
+            errEl.style.display = 'block';
+            setTimeout(() => errEl.style.display = 'none', 3000);
+            return;
+        }
 
-        document.getElementById('quickStats').innerHTML = [
-            { label: 'Favoris sauvegardés', value: favorites.length,  icon: '⭐' },
-            { label: 'Alertes actives',      value: alerts.length,     icon: '🔔' },
-            { label: 'Correspondances',      value: matches.length,    icon: '✅' },
-            { label: 'Prix moy. favoris',    value: avgFav ? fmt(avgFav) + '€' : '—', icon: '💰' },
-        ].map(s => `
-            <div class="stat-card">
-                <div class="stat-value">${s.value}</div>
-                <div class="stat-label">${s.icon} ${s.label}</div>
-            </div>
-        `).join('');
-    }
+        errEl.style.display = 'none';
+        alerts.push({ id: Date.now(), city, price, surface, rooms });
+        localStorage.setItem('immo_alerts_v2', JSON.stringify(alerts));
 
-    /* ── Alertes ── */
-    function setAlert() {
-        const price = parseInt(document.getElementById('alertPrice').value);
-        const city  = document.getElementById('alertCity').value;
-        if (!price || !city) return;
-        alerts.push({ id: Date.now(), price, city });
-        localStorage.setItem('priceAlerts', JSON.stringify(alerts));
-        document.getElementById('alertPrice').value = '';
-        renderStats();
+        // Reset form
+        document.getElementById('alertPrice').value   = '';
+        document.getElementById('alertSurface').value = '';
+        document.getElementById('alertCity').value    = '';
+        document.getElementById('alertRooms').value   = '';
+
+        updateHeader();
         renderAlerts();
-        checkAlerts();
     }
 
     function removeAlert(id) {
         alerts = alerts.filter(a => a.id !== id);
-        localStorage.setItem('priceAlerts', JSON.stringify(alerts));
-        renderStats();
+        localStorage.setItem('immo_alerts_v2', JSON.stringify(alerts));
+        updateHeader();
         renderAlerts();
-        checkAlerts();
+    }
+
+    function getAlertMatches(a) {
+        return LISTINGS.filter(l => {
+            if (a.city && nc(l.city) !== a.city) return false;
+            if (a.price   && l.price   > 0 && l.price   > a.price)   return false;
+            if (a.surface && l.surface > 0 && l.surface < a.surface) return false;
+            if (a.rooms   && l.rooms   > 0 && l.rooms   < a.rooms)   return false;
+            return true;
+        });
+    }
+
+    function scoreMatch(l, a) {
+        // Score basé sur l'économie vs le seuil prix
+        if (!a.price || !l.price) return 'ok';
+        const ratio = (a.price - l.price) / a.price;
+        if (ratio >= 0.15) return 'excellent';
+        if (ratio >= 0.05) return 'good';
+        return 'ok';
+    }
+
+    function scoreBadge(score) {
+        if (score === 'excellent') return '<span class="score-badge excellent">🔴 Excellent deal</span>';
+        if (score === 'good')      return '<span class="score-badge good">🟡 Intéressant</span>';
+        return '<span class="score-badge ok">🟢 Correct</span>';
+    }
+
+    function alertCriteriaTags(a) {
+        const tags = [];
+        if (a.city)    tags.push(`📍 ${a.city}`);
+        if (a.price)   tags.push(`💰 ≤${fmt(a.price)}€`);
+        if (a.surface) tags.push(`📐 ≥${a.surface}m²`);
+        if (a.rooms)   tags.push(`🛏️ ≥${a.rooms} ch.`);
+        return tags.map(t => `<span class="alert-criteria-tag">${t}</span>`).join('');
+    }
+
+    function matchRow(l, a) {
+        const score = scoreMatch(l, a);
+        const createdAt = l.created_at ? new Date(l.created_at) : null;
+        const ageH = createdAt ? Math.round((Date.now() - createdAt.getTime()) / 3600000) : null;
+        const isNew = ageH !== null && ageH < 24;
+        return `
+            <div class="match-row score-${score}">
+                <div class="match-info">
+                    <div class="info-chip">
+                        <span class="chip-label">📍 Ville</span>
+                        <span class="chip-value">${nc(l.city)}</span>
+                    </div>
+                    <div class="info-chip">
+                        <span class="chip-label">💰 Prix</span>
+                        <span class="chip-value chip-price">${l.price ? fmt(l.price)+'€' : '—'}</span>
+                    </div>
+                    ${l.surface ? `<div class="info-chip">
+                        <span class="chip-label">📐 Surface</span>
+                        <span class="chip-value">${l.surface} m²</span>
+                    </div>` : ''}
+                    ${l.rooms ? `<div class="info-chip">
+                        <span class="chip-label">🛏️ Ch.</span>
+                        <span class="chip-value">${l.rooms}</span>
+                    </div>` : ''}
+                    ${l.price_m2 ? `<div class="info-chip">
+                        <span class="chip-label">€/m²</span>
+                        <span class="chip-value">${l.price_m2}</span>
+                    </div>` : ''}
+                    ${scoreBadge(score)}
+                    ${isNew ? '<span class="score-badge" style="background:rgba(99,102,241,0.2);color:#a5b4fc;">🆕 Nouveau</span>' : ''}
+                    <span class="site-tag">${(l.site||'').replace('.lu','')}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
+                    <a href="${l.url}" target="_blank" class="btn-voir">Voir →</a>
+                </div>
+            </div>
+        `;
     }
 
     function renderAlerts() {
-        const container = document.getElementById('savedAlerts');
+        const container = document.getElementById('alertsContainer');
         if (!alerts.length) {
             container.innerHTML = `
                 <div class="empty-state">
-                    <div class="empty-icon">🔕</div>
-                    <p>Aucune alerte configurée</p>
+                    <div class="icon">🔕</div>
+                    <p>Aucune alerte configurée.<br>Ajoutez votre première alerte ci-dessus.</p>
                 </div>`;
             return;
         }
-        container.innerHTML = alerts.map(a => `
-            <div class="alert-row">
-                <span class="alert-row-text">
-                    🔔 Prix &lt; <strong>${fmt(a.price)}€</strong> &nbsp;à&nbsp; <strong>${a.city}</strong>
-                </span>
-                <button class="btn-remove" onclick="removeAlert(${a.id})" title="Supprimer">✕</button>
+
+        container.innerHTML = alerts.map(a => {
+            const matches = getAlertMatches(a);
+            const sorted  = [...matches].sort((x,y) => {
+                const sx = scoreMatch(x,a), sy = scoreMatch(y,a);
+                const ord = {excellent:0, good:1, ok:2};
+                return ord[sx] - ord[sy];
+            });
+            const countClass = matches.length > 0 ? '' : ' zero';
+            const preview = sorted.slice(0, 5);
+
+            return `
+                <div class="alert-block" id="block-${a.id}">
+                    <div class="alert-block-header" onclick="toggleBlock(${a.id})">
+                        <div class="alert-block-title">
+                            ${alertCriteriaTags(a)}
+                        </div>
+                        <div class="alert-block-actions">
+                            <span class="match-count-pill${countClass}">${matches.length} résultat${matches.length>1?'s':''}</span>
+                            <button class="btn-chip-remove" onclick="event.stopPropagation();removeAlert(${a.id})" title="Supprimer cette alerte">✕</button>
+                            <span class="chevron" id="chev-${a.id}">▼</span>
+                        </div>
+                    </div>
+                    <div class="alert-block-body" id="body-${a.id}">
+                        ${preview.length ? preview.map(l => matchRow(l, a)).join('') : `
+                            <div class="empty-state" style="padding:1.25rem;">
+                                <p>Aucune annonce ne correspond à ces critères pour le moment.</p>
+                            </div>`}
+                        ${sorted.length > 5 ? `<div style="text-align:center;margin-top:0.5rem;">
+                            <span style="font-size:0.8rem;color:rgba(255,255,255,0.35);">... et ${sorted.length - 5} autres annonces</span>
+                        </div>` : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function toggleBlock(id) {
+        const body = document.getElementById('body-' + id);
+        const chev = document.getElementById('chev-' + id);
+        const hdr  = body.previousElementSibling;
+        const isOpen = body.classList.contains('open');
+        body.classList.toggle('open', !isOpen);
+        hdr.classList.toggle('open', !isOpen);
+        chev.classList.toggle('open', !isOpen);
+    }
+
+    /* ═══════════════════════════════════
+       SECTION 2 : PROFIL PERSO
+    ═══════════════════════════════════ */
+    function toggleCity(city, btn) {
+        profile.cities = profile.cities || [];
+        const idx = profile.cities.indexOf(city);
+        if (idx === -1) {
+            profile.cities.push(city);
+            btn.classList.add('selected');
+        } else {
+            profile.cities.splice(idx, 1);
+            btn.classList.remove('selected');
+        }
+        localStorage.setItem('immo_profile_v2', JSON.stringify(profile));
+        renderProfile();
+    }
+
+    function saveProfile() {
+        profile.budget  = parseInt(document.getElementById('profBudget').value)  || 0;
+        profile.surface = parseInt(document.getElementById('profSurface').value) || 0;
+        profile.rooms   = parseInt(document.getElementById('profRooms').value)   || 0;
+        localStorage.setItem('immo_profile_v2', JSON.stringify(profile));
+        renderProfile();
+
+        // Feedback visuel
+        const btn = document.querySelector('.btn-add-indigo');
+        const orig = btn.textContent;
+        btn.textContent = '✅ Sauvegardé!';
+        setTimeout(() => btn.textContent = orig, 1500);
+    }
+
+    function getProfileMatches() {
+        return LISTINGS.filter(l => {
+            if (profile.budget  && l.price   > 0 && l.price   > profile.budget)   return false;
+            if (profile.surface && l.surface > 0 && l.surface < profile.surface)  return false;
+            if (profile.rooms   && l.rooms   > 0 && l.rooms   < profile.rooms)    return false;
+            const cities = profile.cities || [];
+            if (cities.length && !cities.includes(nc(l.city))) return false;
+            return true;
+        });
+    }
+
+    function renderProfile() {
+        const matches = getProfileMatches();
+        const hasCriteria = profile.budget || profile.surface || profile.rooms || (profile.cities || []).length;
+
+        // Stats cards
+        const prices = matches.filter(l => l.price > 0).map(l => l.price);
+        const avgMatch = prices.length ? Math.round(prices.reduce((a,b)=>a+b,0)/prices.length) : 0;
+        const minMatch = prices.length ? Math.min(...prices) : 0;
+        const allPrices = LISTINGS.filter(l=>l.price>0).map(l=>l.price);
+        const avgGlobal = allPrices.length ? Math.round(allPrices.reduce((a,b)=>a+b,0)/allPrices.length) : 0;
+        const economy   = avgGlobal && avgMatch ? Math.round(((avgGlobal - avgMatch) / avgGlobal) * 100) : 0;
+
+        document.getElementById('profileStats').innerHTML = [
+            { label: 'Annonces compatibles', value: matches.length,              color: 'indigo', icon: '📊' },
+            { label: 'Prix moyen (mon profil)', value: avgMatch ? fmt(avgMatch)+'€' : '—', color: 'amber',  icon: '💰' },
+            { label: 'Meilleure affaire',      value: minMatch ? fmt(minMatch)+'€' : '—', color: 'green',  icon: '🏆' },
+            { label: 'Économie vs marché',     value: economy > 0 ? economy+'%' : '—',   color: 'indigo', icon: '📉' },
+        ].map(s => `
+            <div class="stat-card ${s.color}">
+                <div class="stat-value ${s.color}">${s.value}</div>
+                <div class="stat-label">${s.icon} ${s.label}</div>
             </div>
         `).join('');
-    }
 
-    function getMatches() {
-        const nc = typeof normCity !== 'undefined' ? normCity : c => c;
-        const matched = [];
-        alerts.forEach(a => {
-            LISTINGS.forEach(l => {
-                if (nc(l.city) === a.city && l.price > 0 && l.price < a.price) {
-                    matched.push({ alert: a, listing: l });
-                }
-            });
-        });
-        return matched;
-    }
+        // Comparaison mon marché vs global
+        const comparePanel = document.getElementById('comparePanel');
+        if (hasCriteria && avgMatch) {
+            const citiesLabel = (profile.cities||[]).length ? (profile.cities||[]).slice(0,3).join(', ') + ((profile.cities||[]).length > 3 ? '…' : '') : 'Toutes';
+            comparePanel.innerHTML = `
+                <div class="panel-title white">📊 Mon Marché vs Marché Global</div>
+                <div class="compare-bar">
+                    <div class="compare-item">
+                        <div class="compare-label">MON PROFIL (${matches.length} annonces)</div>
+                        <div class="compare-value" style="color:#a5b4fc;">${fmt(avgMatch)}€</div>
+                        <div class="compare-sub">Villes: ${citiesLabel}</div>
+                    </div>
+                    <div class="compare-vs">vs</div>
+                    <div class="compare-item">
+                        <div class="compare-label">MARCHÉ GLOBAL (${LISTINGS.length} annonces)</div>
+                        <div class="compare-value" style="color:#f1f5f9;">${fmt(avgGlobal)}€</div>
+                        <div class="compare-sub">Toutes villes confondues</div>
+                    </div>
+                    <div class="compare-item" style="text-align:right;">
+                        <div class="compare-label">DIFFÉRENCE</div>
+                        <div class="compare-value" style="color:${economy >= 0 ? '#4ade80' : '#f87171'};">
+                            ${economy >= 0 ? '−' : '+'}${Math.abs(economy)}%
+                        </div>
+                        <div class="compare-sub">${economy >= 0 ? 'en dessous du marché' : 'au-dessus du marché'}</div>
+                    </div>
+                </div>
+            `;
+        } else {
+            comparePanel.innerHTML = '';
+        }
 
-    function checkAlerts() {
-        const matches = getMatches();
-        const panel   = document.getElementById('matchesPanel');
-        const container = document.getElementById('alertMatches');
+        // Top 5 affaires
+        const topDeals = document.getElementById('topDeals');
+        if (!hasCriteria) {
+            topDeals.innerHTML = `<div class="empty-state"><div class="icon">⚙️</div><p>Configurez votre profil pour voir les meilleures affaires.</p></div>`;
+            return;
+        }
 
         if (!matches.length) {
-            panel.style.display = 'none';
+            topDeals.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>Aucune annonce ne correspond à votre profil.<br>Essayez d'assouplir vos critères.</p></div>`;
             return;
         }
 
-        panel.style.display = 'block';
-        container.innerHTML = matches.slice(0, 8).map(m => `
-            <div class="match-banner">
-                <div>
-                    <strong style="font-size:0.92rem;">${m.listing.title.substring(0, 60)}</strong><br>
-                    <small style="color:#6b7280;">
-                        ${m.listing.city} &bull;
-                        <strong style="color:#16a34a;">${fmt(m.listing.price)}€</strong>
-                        &nbsp;(alerte &lt;${fmt(m.alert.price)}€)
-                    </small>
-                </div>
-                <a href="${m.listing.url}" target="_blank" class="btn-see" style="background:#16a34a;">Voir →</a>
-            </div>
-        `).join('');
-    }
+        // Trier: annonces récentes + prix bas en premier
+        const sorted = [...matches].sort((a,b) => {
+            const scoreA = (a.price > 0 ? -a.price : 0) + (a.created_at ? new Date(a.created_at).getTime() / 100000 : 0);
+            const scoreB = (b.price > 0 ? -b.price : 0) + (b.created_at ? new Date(b.created_at).getTime() / 100000 : 0);
+            return scoreB - scoreA;
+        });
 
-    /* ── Favoris ── */
-    function toggleFavorite(id) {
-        const idx = favorites.indexOf(id);
-        if (idx === -1) favorites.push(id);
-        else favorites.splice(idx, 1);
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        renderStats();
-        renderFavorites();
-    }
-
-    function renderFavorites() {
-        const nc = typeof normCity !== 'undefined' ? normCity : c => c;
-        const favListings = LISTINGS.filter(l => favorites.includes(l.listing_id));
-        const noFavs = document.getElementById('noFavs');
-        const list   = document.getElementById('favoritesList');
-
-        if (!favListings.length) {
-            list.innerHTML  = '';
-            noFavs.style.display = 'block';
-            return;
-        }
-        noFavs.style.display = 'none';
-        list.innerHTML = favListings.map(l => {
+        const top = sorted.slice(0, 5);
+        topDeals.innerHTML = top.map((l, idx) => {
             const createdAt = l.created_at ? new Date(l.created_at) : null;
-            const dateStr   = createdAt ? createdAt.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'2-digit' }) : '—';
+            const ageH = createdAt ? Math.round((Date.now() - createdAt.getTime()) / 3600000) : null;
+            const isNew = ageH !== null && ageH < 24;
+            const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx+1}`;
             return `
-                <div class="listing-row">
-                    <div class="listing-info">
+                <div class="match-row" style="border-left-color: #6366f1;">
+                    <div class="match-info">
+                        <span style="font-size:1.1rem;flex-shrink:0;">${medal}</span>
                         <div class="info-chip">
                             <span class="chip-label">📍 Ville</span>
-                            <span class="chip-value">${nc(l.city) || '—'}</span>
+                            <span class="chip-value">${nc(l.city)}</span>
                         </div>
                         <div class="info-chip">
                             <span class="chip-label">💰 Prix</span>
-                            <span class="chip-value chip-price">${l.price ? fmt(l.price) + '€' : '—'}</span>
+                            <span class="chip-value chip-price-indigo">${l.price ? fmt(l.price)+'€' : '—'}</span>
                         </div>
                         ${l.surface ? `<div class="info-chip">
                             <span class="chip-label">📐 Surface</span>
@@ -706,24 +1132,31 @@
                             <span class="chip-label">🛏️ Ch.</span>
                             <span class="chip-value">${l.rooms}</span>
                         </div>` : ''}
-                        <span class="site-chip">${(l.site || '').replace('.lu','')}</span>
+                        ${l.price_m2 ? `<div class="info-chip">
+                            <span class="chip-label">€/m²</span>
+                            <span class="chip-value">${l.price_m2}</span>
+                        </div>` : ''}
+                        ${isNew ? '<span class="score-badge" style="background:rgba(99,102,241,0.2);color:#a5b4fc;">🆕 Nouveau</span>' : ''}
+                        <span class="site-tag">${(l.site||'').replace('.lu','')}</span>
                     </div>
-                    <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
-                        <span style="font-size:0.75rem;color:#9ca3af;">${dateStr}</span>
-                        <button class="btn-unfav" onclick="toggleFavorite('${l.listing_id}')">✕ Retirer</button>
-                        <a href="${l.url}" target="_blank" class="btn-see">Voir →</a>
-                    </div>
+                    <a href="${l.url}" target="_blank" class="btn-voir btn-voir-indigo">Voir →</a>
                 </div>
             `;
         }).join('');
     }
 
-    // Service Worker
+    function updateHeader() {
+        const total = alerts.reduce((acc, a) => acc + getAlertMatches(a).length, 0);
+        document.getElementById('hdrAlerts').textContent  = alerts.length;
+        document.getElementById('hdrMatches').textContent = total;
+    }
+
+    /* ── Service Worker ── */
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('sw.js').catch(() => {});
     }
 
-    // Init
+    /* ── Init ── */
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
