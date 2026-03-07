@@ -3,177 +3,732 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="icon.svg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Favoris & Alertes - ImmoLux">
+    <meta name="theme-color" content="#dc2626">
+    <meta name="mobile-web-app-capable" content="yes">
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:;">
-    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
-    <title>Favoris & Alertes - ImmoLux</title>
+    <title>🔔 Alertes & Favoris - ImmoLux</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <script src="dark-mode.js" defer></script>
     <script src="data/version.js"></script>
     <script src="version-display.js" defer></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 50%, #dc2626 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a0505 0%, #2d0a0a 50%, #3d0f0f 100%);
+        }
+
+        .container-modern {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ── Header ── */
+        .header-modern {
+            text-align: center;
+            color: white;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .header-modern h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .header-modern .header-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            opacity: 0.92;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        /* ── Stats grid ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.8s ease 0.1s both;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, #dc2626, #ef4444);
+        }
+
+        body.dark-mode .stat-card {
+            background: rgba(45, 10, 10, 0.92);
+            color: white;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #dc2626;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.3rem;
+        }
+
+        body.dark-mode .stat-value { color: #f87171; }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        body.dark-mode .stat-label { color: #9ca3af; }
+
+        /* ── Glass panel ── */
+        .glass-panel {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+
+        body.dark-mode .glass-panel {
+            background: rgba(45, 10, 10, 0.92);
+            color: white;
+        }
+
+        .panel-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #991b1b;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        body.dark-mode .panel-title { color: #f87171; }
+
+        /* ── Alert form ── */
+        .alert-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        @media (max-width: 640px) {
+            .alert-form { grid-template-columns: 1fr; }
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #4b5563;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        body.dark-mode .form-group label { color: #9ca3af; }
+
+        .form-input {
+            width: 100%;
+            padding: 0.6rem 0.9rem;
+            border: 2px solid rgba(220,38,38,0.25);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            background: rgba(255,255,255,0.9);
+            color: #1f2937;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220,38,38,0.12);
+        }
+
+        body.dark-mode .form-input {
+            background: rgba(60,15,15,0.9);
+            color: #f3f4f6;
+            border-color: rgba(220,38,38,0.3);
+        }
+
+        .btn-add {
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(220,38,38,0.3);
+        }
+
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220,38,38,0.4);
+        }
+
+        /* ── Alert row ── */
+        .alert-row {
+            background: rgba(254,242,242,0.8);
+            border-left: 4px solid #dc2626;
+            border-radius: 12px;
+            padding: 0.9rem 1.1rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.25s ease;
+        }
+
+        .alert-row:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 16px rgba(220,38,38,0.15);
+        }
+
+        body.dark-mode .alert-row {
+            background: rgba(127,29,29,0.25);
+            border-left-color: #ef4444;
+        }
+
+        .alert-row-text { font-size: 0.92rem; color: #1f2937; }
+        body.dark-mode .alert-row-text { color: #f3f4f6; }
+
+        .btn-remove {
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(220,38,38,0.1);
+            color: #dc2626;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-remove:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        /* ── Match banner ── */
+        .match-banner {
+            background: rgba(220,252,231,0.9);
+            border-left: 4px solid #16a34a;
+            border-radius: 12px;
+            padding: 0.9rem 1.1rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.25s ease;
+        }
+
+        body.dark-mode .match-banner {
+            background: rgba(20,83,45,0.3);
+        }
+
+        .match-banner:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 16px rgba(22,163,74,0.15);
+        }
+
+        /* ── Listing row (favoris) ── */
+        .listing-row {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid #dc2626;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+            transition: all 0.3s ease;
+        }
+
+        .listing-row:hover {
+            transform: translateX(4px);
+            box-shadow: 0 6px 24px rgba(220,38,38,0.18);
+        }
+
+        body.dark-mode .listing-row {
+            background: rgba(45,10,10,0.9);
+            border-left-color: #ef4444;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        .listing-info { display: flex; align-items: center; gap: 1.2rem; flex: 1; flex-wrap: wrap; }
+
+        .info-chip {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .chip-label { font-size: 0.65rem; color: #9ca3af; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+        .chip-value { font-size: 0.95rem; font-weight: 600; color: #1f2937; }
+        body.dark-mode .chip-value { color: #f3f4f6; }
+        .chip-price { color: #dc2626; font-size: 1.05rem; }
+        body.dark-mode .chip-price { color: #f87171; }
+
+        .site-chip {
+            background: rgba(220,38,38,0.1);
+            color: #991b1b;
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            border: 1px solid rgba(220,38,38,0.2);
+        }
+
+        body.dark-mode .site-chip {
+            background: rgba(220,38,38,0.15);
+            color: #f87171;
+            border-color: rgba(220,38,38,0.3);
+        }
+
+        .btn-see {
+            padding: 0.45rem 1rem;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-see:hover {
+            background: #b91c1c;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-unfav {
+            padding: 0.4rem 0.8rem;
+            background: transparent;
+            color: #dc2626;
+            border: 2px solid rgba(220,38,38,0.3);
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-unfav:hover {
+            background: rgba(220,38,38,0.08);
+            border-color: #dc2626;
+        }
+
+        body.dark-mode .btn-unfav {
+            color: #f87171;
+            border-color: rgba(239,68,68,0.3);
+        }
+
+        /* ── Empty state ── */
+        .empty-state {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #9ca3af;
+        }
+
+        body.dark-mode .empty-state { color: #6b7280; }
+
+        .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .empty-state p { font-size: 0.9rem; }
+
+        /* ── Back link ── */
+        .back-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 0.6rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.25s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.25);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .header-modern h1 { font-size: 2rem; }
+            .header-modern .header-meta { gap: 1rem; font-size: 0.85rem; }
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <h1>⭐ Favoris & Alertes</h1>
-        <p style="margin: 0; opacity: 0.9;">Sauvegardez vos annonces préférées et recevez des alertes</p>
-    </div>
 
-    <div class="container-main">
-        <div class="alert-control">
-            <h3 style="color: var(--primary); margin-bottom: 1rem;">🔔 Configuration des Alertes</h3>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Alerte si prix < (€):</label>
-                    <input type="number" id="alertPrice" class="form-control form-control-sm" placeholder="1500">
-                </div>
-                <div class="col-md-6">
-                    <label>Ville:</label>
-                    <select id="alertCity" class="form-select form-select-sm"></select>
-                </div>
+<!-- Header -->
+<div class="header-modern">
+    <h1>🔔 Alertes & Favoris</h1>
+    <div class="header-meta">
+        <span>⭐ <strong id="favCount">—</strong> favoris</span>
+        <span>🔔 <strong id="alertCount">—</strong> alertes</span>
+        <span>✅ <strong id="matchCount">—</strong> correspondances</span>
+        <span>📋 <strong id="totalListings">—</strong> annonces dispo</span>
+    </div>
+</div>
+
+<div class="container-modern">
+
+    <!-- Stats rapides -->
+    <div class="stats-grid" id="quickStats"></div>
+
+    <!-- Configuration alertes -->
+    <div class="glass-panel">
+        <div class="panel-title">🔔 Nouvelle Alerte Prix</div>
+        <div class="alert-form">
+            <div class="form-group">
+                <label>Prix maximum (€)</label>
+                <input type="number" id="alertPrice" class="form-input" placeholder="ex: 1 500">
             </div>
-            <button class="btn btn-primary mt-2" onclick="setAlert()">💾 Sauvegarder Alerte</button>
-        </div>
-
-        <div style="background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
-            <h3 style="color: var(--primary); margin-bottom: 1rem;">📋 Mes Alertes Sauvegardées</h3>
-            <div id="savedAlerts"></div>
-        </div>
-
-        <div id="alertMatches" style="background: rgba(40, 167, 69, 0.1); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;"></div>
-
-        <div>
-            <h3 style="color: var(--primary); margin-bottom: 1rem;">⭐ Mes Favoris</h3>
-            <div id="favoritesList"></div>
-            <p id="noFavs" class="text-muted text-center" style="padding: 2rem;">Aucun favori sauvegardé. Cliquez sur ⭐ pour ajouter une annonce!</p>
-        </div>
-
-        <div style="text-align: center; margin-top: 2rem;">
-            <a href="index.html" class="btn btn-primary">← Retour</a>
+            <div class="form-group">
+                <label>Ville</label>
+                <select id="alertCity" class="form-input"></select>
+            </div>
+            <button class="btn-add" onclick="setAlert()">💾 Ajouter</button>
         </div>
     </div>
 
-    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
+    <!-- Alertes sauvegardées -->
+    <div class="glass-panel">
+        <div class="panel-title">📋 Mes Alertes Sauvegardées</div>
+        <div id="savedAlerts">
+            <div class="empty-state">
+                <div class="empty-icon">🔕</div>
+                <p>Aucune alerte configurée</p>
+            </div>
+        </div>
+    </div>
 
-    <script src="data/listings.js"></script>
-    <script>
-        const dm = document.getElementById("darkModeToggle");
-        dm.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    <!-- Correspondances -->
+    <div class="glass-panel" id="matchesPanel" style="display:none;">
+        <div class="panel-title" style="color:#16a34a;">✅ Annonces Correspondantes</div>
+        <div id="alertMatches"></div>
+    </div>
+
+    <!-- Favoris -->
+    <div class="glass-panel">
+        <div class="panel-title">⭐ Mes Favoris</div>
+        <div id="favoritesList"></div>
+        <div id="noFavs" class="empty-state" style="display:none;">
+            <div class="empty-icon">💔</div>
+            <p>Aucun favori sauvegardé.<br>Cliquez sur ⭐ dans les annonces pour en ajouter.</p>
+        </div>
+    </div>
+
+    <!-- Retour -->
+    <div style="text-align:center; margin-top:1rem; padding-bottom:2rem;">
+        <a href="index.html" class="back-link">← Retour dashboard</a>
+    </div>
+
+</div>
+
+<!-- Dark Mode Toggle -->
+<button class="dark-mode-toggle" id="darkModeToggle" title="Mode sombre" aria-label="Mode sombre/clair" aria-pressed="false">🌙</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="data/listings.js"></script>
+<script>
+    // Dark mode
+    const dmToggle = document.getElementById('darkModeToggle');
+    dmToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDark);
+        dmToggle.textContent = isDark ? '☀️' : '🌙';
+        dmToggle.setAttribute('aria-pressed', isDark);
+    });
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        dmToggle.textContent = '☀️';
+        dmToggle.setAttribute('aria-pressed', 'true');
+    }
+
+    const fmt = n => n ? n.toLocaleString('fr-FR') : '—';
+
+    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    let alerts    = JSON.parse(localStorage.getItem('priceAlerts') || '[]');
+
+    function init() {
+        if (!LISTINGS || !Array.isArray(LISTINGS)) return;
+
+        // Peupler filtre ville
+        const cities = [...new Set(LISTINGS.map(l => normCity ? normCity(l.city) : l.city))].sort();
+        const select = document.getElementById('alertCity');
+        select.innerHTML = '<option value="">-- Choisir une ville --</option>';
+        cities.forEach(c => {
+            const o = document.createElement('option');
+            o.value = c;
+            o.textContent = c;
+            select.appendChild(o);
         });
-        if(localStorage.getItem("darkMode") === "true") document.body.classList.add("dark-mode");
 
-        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-
-        function init() {
-            const cities = [...new Set(LISTINGS.map(l => l.city))].sort();
-            const select = document.getElementById('alertCity');
-            cities.forEach(c => {
-                select.innerHTML += `<option value="${c}">${c}</option>`;
-            });
-            renderFavorites();
-        }
-
-        function toggleFavorite(id) {
-            const idx = favorites.indexOf(id);
-            if(idx === -1) favorites.push(id);
-            else favorites.splice(idx, 1);
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            renderFavorites();
-        }
-
-        function renderFavorites() {
-            const favListings = LISTINGS.filter(l => favorites.includes(l.listing_id));
-            document.getElementById('noFavs').style.display = favListings.length ? 'none' : 'block';
-            document.getElementById('favoritesList').innerHTML = favListings.map(l => `
-                <div class="card-item">
-                    <div>
-                        <strong>${l.title.substring(0, 50)}</strong><br>
-                        <small style="color: #888;">${normCity(l.city)} • ${l.price.toLocaleString('fr-FR')}€ • ${l.site}</small>
-                    </div>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <button class="btn-action btn-fav" onclick="toggleFavorite('${l.listing_id}')">⭐ Favori</button>
-                        <a href="${l.url}" target="_blank" class="btn-action" style="background: var(--primary); color: white;">Voir</a>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        let alerts = JSON.parse(localStorage.getItem('priceAlerts') || '[]');
-
-        function setAlert() {
-            const price = document.getElementById('alertPrice').value;
-            const city = document.getElementById('alertCity').value;
-            if(price && city) {
-                const newAlert = { id: Date.now(), price: parseInt(price), city: city };
-                alerts.push(newAlert);
-                localStorage.setItem('priceAlerts', JSON.stringify(alerts));
-                document.getElementById('alertPrice').value = '';
-                renderAlerts();
-                checkAlerts();
-            }
-        }
-
-        function removeAlert(id) {
-            alerts = alerts.filter(a => a.id !== id);
-            localStorage.setItem('priceAlerts', JSON.stringify(alerts));
-            renderAlerts();
-        }
-
-        function renderAlerts() {
-            const container = document.getElementById('savedAlerts');
-            if (!alerts.length) {
-                container.innerHTML = '<p class="text-muted text-center">Aucune alerte configurée</p>';
-                return;
-            }
-            container.innerHTML = alerts.map(a => `
-                <div class="card-item" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span>🔔 Prix &lt; <strong>${a.price}€</strong> à <strong>${normCity(a.city)}</strong></span>
-                    <button class="btn btn-sm btn-outline-danger" onclick="removeAlert(${a.id})">✕</button>
-                </div>
-            `).join('');
-        }
-
-        function checkAlerts() {
-            const matchingListings = [];
-            alerts.forEach(a => {
-                LISTINGS.forEach(l => {
-                    if (l.city === a.city && l.price > 0 && l.price < a.price) {
-                        matchingListings.push({ alert: a, listing: l });
-                    }
-                });
-            });
-            if (matchingListings.length > 0) {
-                const alertMatches = document.getElementById('alertMatches');
-                alertMatches.innerHTML = '<h4 style="color: #28a745; margin-bottom: 1rem;">✅ Annonces correspondantes</h4>' +
-                    matchingListings.slice(0, 5).map(m => `
-                        <div class="card-item">
-                            <div>
-                                <strong>${m.listing.title.substring(0, 50)}</strong><br>
-                                <small style="color: #888;">${normCity(m.listing.city)} • ${m.listing.price.toLocaleString('fr-FR')}€ (alerte: &lt;${m.alert.price}€)</small>
-                            </div>
-                            <a href="${m.listing.url}" target="_blank" class="btn-action" style="background: var(--primary); color: white;">Voir</a>
-                        </div>
-                    `).join('');
-            }
-        }
-
-        init();
+        renderStats();
         renderAlerts();
         checkAlerts();
-    </script>
-<!-- Service Worker -->
-<script>
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js")
-        .then(reg => console.log("SW registered"))
-        .catch(err => console.log("SW failed:", err));
-}
+        renderFavorites();
+    }
+
+    function renderStats() {
+        const favListings = LISTINGS.filter(l => favorites.includes(l.listing_id));
+        const matches = getMatches();
+        const prices = favListings.filter(l => l.price > 0).map(l => l.price);
+        const avgFav = prices.length ? Math.round(prices.reduce((a,b) => a+b, 0) / prices.length) : 0;
+
+        document.getElementById('favCount').textContent    = favorites.length;
+        document.getElementById('alertCount').textContent  = alerts.length;
+        document.getElementById('matchCount').textContent  = matches.length;
+        document.getElementById('totalListings').textContent = LISTINGS.length;
+
+        document.getElementById('quickStats').innerHTML = [
+            { label: 'Favoris sauvegardés', value: favorites.length,  icon: '⭐' },
+            { label: 'Alertes actives',      value: alerts.length,     icon: '🔔' },
+            { label: 'Correspondances',      value: matches.length,    icon: '✅' },
+            { label: 'Prix moy. favoris',    value: avgFav ? fmt(avgFav) + '€' : '—', icon: '💰' },
+        ].map(s => `
+            <div class="stat-card">
+                <div class="stat-value">${s.value}</div>
+                <div class="stat-label">${s.icon} ${s.label}</div>
+            </div>
+        `).join('');
+    }
+
+    /* ── Alertes ── */
+    function setAlert() {
+        const price = parseInt(document.getElementById('alertPrice').value);
+        const city  = document.getElementById('alertCity').value;
+        if (!price || !city) return;
+        alerts.push({ id: Date.now(), price, city });
+        localStorage.setItem('priceAlerts', JSON.stringify(alerts));
+        document.getElementById('alertPrice').value = '';
+        renderStats();
+        renderAlerts();
+        checkAlerts();
+    }
+
+    function removeAlert(id) {
+        alerts = alerts.filter(a => a.id !== id);
+        localStorage.setItem('priceAlerts', JSON.stringify(alerts));
+        renderStats();
+        renderAlerts();
+        checkAlerts();
+    }
+
+    function renderAlerts() {
+        const container = document.getElementById('savedAlerts');
+        if (!alerts.length) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">🔕</div>
+                    <p>Aucune alerte configurée</p>
+                </div>`;
+            return;
+        }
+        container.innerHTML = alerts.map(a => `
+            <div class="alert-row">
+                <span class="alert-row-text">
+                    🔔 Prix &lt; <strong>${fmt(a.price)}€</strong> &nbsp;à&nbsp; <strong>${a.city}</strong>
+                </span>
+                <button class="btn-remove" onclick="removeAlert(${a.id})" title="Supprimer">✕</button>
+            </div>
+        `).join('');
+    }
+
+    function getMatches() {
+        const nc = typeof normCity !== 'undefined' ? normCity : c => c;
+        const matched = [];
+        alerts.forEach(a => {
+            LISTINGS.forEach(l => {
+                if (nc(l.city) === a.city && l.price > 0 && l.price < a.price) {
+                    matched.push({ alert: a, listing: l });
+                }
+            });
+        });
+        return matched;
+    }
+
+    function checkAlerts() {
+        const matches = getMatches();
+        const panel   = document.getElementById('matchesPanel');
+        const container = document.getElementById('alertMatches');
+
+        if (!matches.length) {
+            panel.style.display = 'none';
+            return;
+        }
+
+        panel.style.display = 'block';
+        container.innerHTML = matches.slice(0, 8).map(m => `
+            <div class="match-banner">
+                <div>
+                    <strong style="font-size:0.92rem;">${m.listing.title.substring(0, 60)}</strong><br>
+                    <small style="color:#6b7280;">
+                        ${m.listing.city} &bull;
+                        <strong style="color:#16a34a;">${fmt(m.listing.price)}€</strong>
+                        &nbsp;(alerte &lt;${fmt(m.alert.price)}€)
+                    </small>
+                </div>
+                <a href="${m.listing.url}" target="_blank" class="btn-see" style="background:#16a34a;">Voir →</a>
+            </div>
+        `).join('');
+    }
+
+    /* ── Favoris ── */
+    function toggleFavorite(id) {
+        const idx = favorites.indexOf(id);
+        if (idx === -1) favorites.push(id);
+        else favorites.splice(idx, 1);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        renderStats();
+        renderFavorites();
+    }
+
+    function renderFavorites() {
+        const nc = typeof normCity !== 'undefined' ? normCity : c => c;
+        const favListings = LISTINGS.filter(l => favorites.includes(l.listing_id));
+        const noFavs = document.getElementById('noFavs');
+        const list   = document.getElementById('favoritesList');
+
+        if (!favListings.length) {
+            list.innerHTML  = '';
+            noFavs.style.display = 'block';
+            return;
+        }
+        noFavs.style.display = 'none';
+        list.innerHTML = favListings.map(l => {
+            const createdAt = l.created_at ? new Date(l.created_at) : null;
+            const dateStr   = createdAt ? createdAt.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'2-digit' }) : '—';
+            return `
+                <div class="listing-row">
+                    <div class="listing-info">
+                        <div class="info-chip">
+                            <span class="chip-label">📍 Ville</span>
+                            <span class="chip-value">${nc(l.city) || '—'}</span>
+                        </div>
+                        <div class="info-chip">
+                            <span class="chip-label">💰 Prix</span>
+                            <span class="chip-value chip-price">${l.price ? fmt(l.price) + '€' : '—'}</span>
+                        </div>
+                        ${l.surface ? `<div class="info-chip">
+                            <span class="chip-label">📐 Surface</span>
+                            <span class="chip-value">${l.surface} m²</span>
+                        </div>` : ''}
+                        ${l.rooms ? `<div class="info-chip">
+                            <span class="chip-label">🛏️ Ch.</span>
+                            <span class="chip-value">${l.rooms}</span>
+                        </div>` : ''}
+                        <span class="site-chip">${(l.site || '').replace('.lu','')}</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:0.5rem;flex-shrink:0;">
+                        <span style="font-size:0.75rem;color:#9ca3af;">${dateStr}</span>
+                        <button class="btn-unfav" onclick="toggleFavorite('${l.listing_id}')">✕ Retirer</button>
+                        <a href="${l.url}" target="_blank" class="btn-see">Voir →</a>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+
+    // Init
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
 </script>
 </body>
 </html>
