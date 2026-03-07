@@ -1,6 +1,23 @@
-// Genere le 07/03/2026 10:58
-// 160 annonces depuis listings.db
+// Genere le 07/03/2026 12:17
+// 161 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "athome_9017189",
+    "site": "Athome.lu",
+    "title": "DISPONIBLE IMMÉDIATEMENT !!! \n\nELHORRY ( +352 691 807 888 ) \nvous prop",
+    "city": "Limpertsberg",
+    "price": 2300,
+    "rooms": 2,
+    "surface": 80,
+    "url": "https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-9017189.html",
+    "latitude": 49.6202879,
+    "longitude": 6.116749,
+    "distance_km": 2.6,
+    "created_at": "2026-03-07 11:17:23",
+    "image_url": "images/athome_9017189.jpg",
+    "price_m2": 28.8,
+    "local_image": "images/athome_9017189.jpg"
+  },
   {
     "listing_id": "luxexpats_1100001657",
     "site": "LuxExpats.lu",

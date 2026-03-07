@@ -1,18 +1,18 @@
 {
   "date": "2026-03-07",
-  "generated_at": "07/03/2026 10:58",
+  "generated_at": "07/03/2026 12:17",
   "stats": {
-    "total": 160,
+    "total": 161,
     "avg_price": 2289,
     "min_price": 1500,
     "max_price": 2700,
     "avg_surface": 98,
     "cities": 71,
     "sites": {
+      "Athome.lu": 110,
       "LuxExpats.lu": 2,
       "Wortimmo.lu": 2,
       "Immotop.lu": 3,
-      "Athome.lu": 109,
       "ImmoSolutions.lu": 3,
       "DDImmo.lu": 2,
       "Luxhome.lu": 12,
@@ -33,14 +33,14 @@
         "avg_price": 2387
       },
       {
+        "city": "Limpertsberg",
+        "count": 8,
+        "avg_price": 2218
+      },
+      {
         "city": "Hollerich",
         "count": 8,
         "avg_price": 2425
-      },
-      {
-        "city": "Limpertsberg",
-        "count": 7,
-        "avg_price": 2207
       },
       {
         "city": "Esch-Sur-Alzette",
@@ -386,11 +386,28 @@
     "by_price_range": {
       "< 1500": 0,
       "1500 - 2000": 27,
-      "2000 - 2500": 85,
+      "2000 - 2500": 86,
       "> 2500": 48
     }
   },
   "listings": [
+    {
+      "listing_id": "athome_9017189",
+      "site": "Athome.lu",
+      "title": "DISPONIBLE IMMÉDIATEMENT !!! \n\nELHORRY ( +352 691 807 888 ) \nvous prop",
+      "city": "Limpertsberg",
+      "price": 2300,
+      "rooms": 2,
+      "surface": 80,
+      "url": "https://www.athome.lu/location/appartement/luxembourg-limpertsberg/id-9017189.html",
+      "latitude": 49.6202879,
+      "longitude": 6.116749,
+      "distance_km": 2.6,
+      "created_at": "2026-03-07 11:17:23",
+      "image_url": "images/athome_9017189.jpg",
+      "price_m2": 28.8,
+      "local_image": "images/athome_9017189.jpg"
+    },
     {
       "listing_id": "luxexpats_1100001657",
       "site": "LuxExpats.lu",

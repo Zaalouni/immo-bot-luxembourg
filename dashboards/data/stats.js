@@ -1,16 +1,16 @@
-// Genere le 07/03/2026 10:58
+// Genere le 07/03/2026 12:17
 const STATS = {
-  "total": 160,
+  "total": 161,
   "avg_price": 2289,
   "min_price": 1500,
   "max_price": 2700,
   "avg_surface": 98,
   "cities": 71,
   "sites": {
+    "Athome.lu": 110,
     "LuxExpats.lu": 2,
     "Wortimmo.lu": 2,
     "Immotop.lu": 3,
-    "Athome.lu": 109,
     "ImmoSolutions.lu": 3,
     "DDImmo.lu": 2,
     "Luxhome.lu": 12,
@@ -31,14 +31,14 @@ const STATS = {
       "avg_price": 2387
     },
     {
+      "city": "Limpertsberg",
+      "count": 8,
+      "avg_price": 2218
+    },
+    {
       "city": "Hollerich",
       "count": 8,
       "avg_price": 2425
-    },
-    {
-      "city": "Limpertsberg",
-      "count": 7,
-      "avg_price": 2207
     },
     {
       "city": "Esch-Sur-Alzette",
@@ -384,15 +384,15 @@ const STATS = {
   "by_price_range": {
     "< 1500": 0,
     "1500 - 2000": 27,
-    "2000 - 2500": 85,
+    "2000 - 2500": 86,
     "> 2500": 48
   }
 };
 const SITE_COLORS = {
-  "LuxExpats.lu": "#FF6384",
-  "Wortimmo.lu": "#36A2EB",
-  "Immotop.lu": "#FFCE56",
-  "Athome.lu": "#4BC0C0",
+  "Athome.lu": "#FF6384",
+  "LuxExpats.lu": "#36A2EB",
+  "Wortimmo.lu": "#FFCE56",
+  "Immotop.lu": "#4BC0C0",
   "ImmoSolutions.lu": "#9966FF",
   "DDImmo.lu": "#FF9F40",
   "Luxhome.lu": "#2ECC71",
