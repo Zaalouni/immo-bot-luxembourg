@@ -408,18 +408,110 @@
             }
         }
 
+        /* ── Sort & View buttons ── */
+        .controls-row {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(102,126,234,0.12);
+        }
+
+        .controls-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .controls-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #667eea;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        body.dark-mode .controls-label { color: #8b9cff; }
+
+        .ctrl-btn {
+            padding: 0.45rem 1rem;
+            border-radius: 10px;
+            border: 2px solid rgba(102,126,234,0.25);
+            background: rgba(102,126,234,0.07);
+            color: #4a5568;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .ctrl-btn:hover {
+            background: rgba(102,126,234,0.15);
+            border-color: #667eea;
+            transform: translateY(-1px);
+        }
+
+        .ctrl-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(102,126,234,0.3);
+        }
+
+        body.dark-mode .ctrl-btn {
+            background: rgba(139,156,255,0.1);
+            border-color: rgba(139,156,255,0.2);
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .ctrl-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        /* ── Region header ── */
+        .region-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1.75rem 0 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 16px rgba(102,126,234,0.3);
+            font-weight: 700;
+            font-size: 1.05rem;
+            position: sticky;
+            top: 10px;
+            z-index: 20;
+        }
+
+        body.dark-mode .region-header {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        }
+
+        .region-header:first-child { margin-top: 0; }
+
+        .region-count-badge {
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            padding: 0.3rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
         @media (max-width: 768px) {
-            .header-modern h1 {
-                font-size: 2rem;
-            }
-
-            .transport-icons {
-                font-size: 0.8rem;
-            }
-
-            .table {
-                font-size: 0.85rem;
-            }
+            .header-modern h1 { font-size: 2rem; }
+            .transport-icons { font-size: 0.8rem; }
+            .table { font-size: 0.85rem; }
+            .controls-row { gap: 0.75rem; }
         }
     </style>
 </head>
@@ -430,10 +522,25 @@
             <small id="lastUpdate">Mis à jour: —</small>
         </div>
 
-        <!-- Search -->
+        <!-- Search + Controls -->
         <div class="search-card">
             <input type="text" id="searchInput" class="search-input" placeholder="🔍 Filtrer par ville (ex: Luxembourg, Esch...)" onkeyup="filterCities()">
             <div class="search-info" id="cityCount"></div>
+
+            <div class="controls-row">
+                <div class="controls-group">
+                    <span class="controls-label">Trier par</span>
+                    <button class="ctrl-btn active" id="sort-alpha"     onclick="setSort('alpha')">🔤 A–Z</button>
+                    <button class="ctrl-btn"        id="sort-distance"  onclick="setSort('distance')">📏 Distance gare</button>
+                    <button class="ctrl-btn"        id="sort-price"     onclick="setSort('price')">💰 Prix moyen</button>
+                    <button class="ctrl-btn"        id="sort-count"     onclick="setSort('count')">📊 Annonces</button>
+                </div>
+                <div class="controls-group">
+                    <span class="controls-label">Vue</span>
+                    <button class="ctrl-btn active" id="view-list"   onclick="setView('list')">📋 Liste</button>
+                    <button class="ctrl-btn"        id="view-region" onclick="setView('region')">🗺️ Régions</button>
+                </div>
+            </div>
         </div>
 
         <!-- Content -->
@@ -483,14 +590,143 @@
 
         let allCities = [];
         let cityStats = {};
+        let currentSort = 'alpha';
+        let currentView = 'list';
+
+        const REGION_ORDER = ['Centre','Nord-Ouest','Nord','Nord-Est','Ouest','Est','Sud-Ouest','Sud','Sud-Est','Autres'];
+        const REGION_ICONS = {
+            'Centre':'🏙️','Nord':'⬆️','Sud':'⬇️','Est':'🌅','Ouest':'🌄',
+            'Nord-Est':'↗️','Nord-Ouest':'↖️','Sud-Est':'↘️','Sud-Ouest':'↙️','Autres':'📍'
+        };
+
+        function setSort(s) {
+            currentSort = s;
+            document.querySelectorAll('[id^="sort-"]').forEach(b => b.classList.remove('active'));
+            document.getElementById('sort-' + s).classList.add('active');
+            renderListingsByCity();
+        }
+
+        function setView(v) {
+            currentView = v;
+            document.querySelectorAll('[id^="view-"]').forEach(b => b.classList.remove('active'));
+            document.getElementById('view-' + v).classList.add('active');
+            renderListingsByCity();
+        }
+
+        function getTransport(city) {
+            return TRANSPORTS[city]
+                || TRANSPORTS['Luxembourg-' + city]
+                || TRANSPORTS['Luxembourg ' + city]
+                || {};
+        }
+
+        function sortCities(cities) {
+            switch(currentSort) {
+                case 'distance':
+                    return [...cities].sort((a, b) => {
+                        const da = getTransport(a).distance_km;
+                        const db = getTransport(b).distance_km;
+                        if (da == null && db == null) return a.localeCompare(b);
+                        if (da == null) return 1;
+                        if (db == null) return -1;
+                        return da - db;
+                    });
+                case 'price':
+                    return [...cities].sort((a, b) =>
+                        (cityStats[b]?.avgPrice || 0) - (cityStats[a]?.avgPrice || 0));
+                case 'count':
+                    return [...cities].sort((a, b) =>
+                        (cityStats[b]?.count || 0) - (cityStats[a]?.count || 0));
+                default:
+                    return [...cities].sort((a, b) => a.localeCompare(b));
+            }
+        }
+
+        function transportIcon(type) {
+            return type === 'gare' ? '🚉' : type === 'train' ? '🚂' :
+                   type === 'bus'  ? '🚌' : type === 'tram'  ? '🚊' :
+                   type === 'pied' ? '🚶' : '🚇';
+        }
+
+        function renderCityAccordion(city, listings, idx, PC) {
+            const transport = getTransport(city);
+            const transportList = transport.transports || [];
+            const isPriority = PC.includes(city);
+            const dist = transport.distance_km;
+            const distLabel = dist != null ? `📏 ${dist} km` : '';
+            const avgP = cityStats[city]?.avgPrice;
+
+            return `
+                <div class="accordion" id="accordion-${idx}" style="--index:${idx}">
+                    <div class="accordion-item${isPriority ? ' priority' : ''}">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#city-${idx}">
+                                <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem;width:100%;">
+                                    <span class="city-name">${isPriority ? '⭐' : '📍'} ${city}</span>
+                                    <span class="city-badge">${listings.length}</span>
+                                    ${distLabel ? `<span style="font-size:0.82rem;color:#667eea;font-weight:600;">${distLabel}</span>` : ''}
+                                    ${avgP ? `<span style="font-size:0.82rem;color:#666;font-weight:600;">~${avgP.toLocaleString('fr-FR')}€</span>` : ''}
+                                    <div class="transport-icons">
+                                        ${transportList.length > 0
+                                            ? transportList.map(t => `<span>${transportIcon(t.type)} ${t.number}</span>`).join('')
+                                            : '<span style="color:#aaa;">⚠️ Transport N/D</span>'}
+                                    </div>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="city-${idx}" class="accordion-collapse collapse" data-bs-parent="#accordion-${idx}">
+                            <div class="accordion-body">
+                                ${transportList.length > 0 ? `
+                                    <div class="transport-card">
+                                        <div style="display:flex;justify-content:space-between;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.5rem;">
+                                            <strong>🚊 Transport vers Gare Centrale</strong>
+                                            ${dist != null ? `<span style="font-size:0.9rem;color:#667eea;font-weight:600;">📏 ${dist} km${transport.region ? ` • ${transport.region}` : ''}</span>` : ''}
+                                        </div>
+                                        ${transportList.map(t => `
+                                            <div class="transport-item">
+                                                ${transportIcon(t.type)}
+                                                <strong>${t.number}</strong> — ${t.description}
+                                                <span style="color:#667eea;font-weight:600;">(${t.duration_min} min)</span>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                ` : ''}
+                                ${(typeof MARKET_STATS !== 'undefined' && MARKET_STATS[city]) ? `
+                                    <div class="market-stats">
+                                        <span class="stat-badge median">📊 Médiane: <strong>${MARKET_STATS[city].median_price?.toLocaleString('fr-FR')}€</strong></span>
+                                        <span class="stat-badge avg">💶 Moyenne: <strong>${MARKET_STATS[city].avg_price?.toLocaleString('fr-FR')}€</strong></span>
+                                        ${MARKET_STATS[city].avg_price_m2 ? `<span class="stat-badge m2">📐 Prix/m²: <strong>${MARKET_STATS[city].avg_price_m2}€</strong></span>` : ''}
+                                    </div>
+                                ` : ''}
+                                <table class="table table-sm mb-0">
+                                    <thead><tr>
+                                        <th>Titre</th><th>Prix</th><th>Ch.</th><th>Surface</th><th></th>
+                                    </tr></thead>
+                                    <tbody>
+                                        ${listings.map(l => `
+                                            <tr>
+                                                <td><strong>${l.title.substring(0,40)}</strong></td>
+                                                <td style="font-family:'JetBrains Mono',monospace;font-weight:700;">${l.price.toLocaleString('fr-FR')}€</td>
+                                                <td>${l.rooms || '—'}</td>
+                                                <td>${l.surface ? l.surface + ' m²' : '—'}</td>
+                                                <td><a href="${l.url}" target="_blank" class="btn-voir">Voir →</a></td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
 
         function init() {
-            if (!LISTINGS || LISTINGS.length === 0) {
-                console.error('❌ LISTINGS not loaded');
-                return;
-            }
+            if (!LISTINGS || LISTINGS.length === 0) return;
 
-            document.getElementById('lastUpdate').textContent = `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
+            document.getElementById('lastUpdate').textContent =
+                `Mis à jour: ${new Date().toLocaleString('fr-FR')}`;
 
             const byCity = {};
             LISTINGS.forEach(l => {
@@ -499,156 +735,83 @@
                 byCity[city].push(l);
             });
 
-            allCities = Object.keys(byCity).sort();
-
+            allCities = Object.keys(byCity);
             allCities.forEach(city => {
                 const listings = byCity[city];
-                const prices = listings.filter(l => l.price > 0).map(l => l.price);
+                const prices   = listings.filter(l => l.price > 0).map(l => l.price);
                 const surfaces = listings.filter(l => l.surface > 0).map(l => l.surface);
-                const rooms = listings.filter(l => l.rooms > 0).map(l => l.rooms);
-
-                const minPrice = prices.length ? Math.min(...prices) : 0;
-                const maxPrice = prices.length ? Math.max(...prices) : 0;
-                const avgPrice = prices.length ? Math.round(prices.reduce((a, b) => a + b, 0) / prices.length) : 0;
-                const avgSurface = surfaces.length ? Math.round(surfaces.reduce((a, b) => a + b, 0) / surfaces.length) : 0;
-                const avgRooms = rooms.length ? (rooms.reduce((a, b) => a + b, 0) / rooms.length).toFixed(1) : 0;
-
+                const rooms    = listings.filter(l => l.rooms > 0).map(l => l.rooms);
                 cityStats[city] = {
                     count: listings.length,
-                    minPrice,
-                    maxPrice,
-                    avgPrice,
-                    avgSurface,
-                    avgRooms,
-                    listings: listings
+                    minPrice:   prices.length ? Math.min(...prices) : 0,
+                    maxPrice:   prices.length ? Math.max(...prices) : 0,
+                    avgPrice:   prices.length ? Math.round(prices.reduce((a,b)=>a+b,0)/prices.length) : 0,
+                    avgSurface: surfaces.length ? Math.round(surfaces.reduce((a,b)=>a+b,0)/surfaces.length) : 0,
+                    avgRooms:   rooms.length ? (rooms.reduce((a,b)=>a+b,0)/rooms.length).toFixed(1) : 0,
+                    listings
                 };
             });
 
             setTimeout(() => renderListingsByCity(), 500);
         }
 
-        function filterCities() {
-            renderListingsByCity();
-        }
+        function filterCities() { renderListingsByCity(); }
 
         function renderListingsByCity() {
-            const container = document.getElementById('listingsByCityContainer');
+            const container  = document.getElementById('listingsByCityContainer');
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const byCity = {};
+            const PC         = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
 
+            const byCity = {};
             LISTINGS.forEach(l => {
                 const city = normCity(l.city || 'N/A');
                 if (!byCity[city]) byCity[city] = [];
                 byCity[city].push(l);
             });
 
-            const cities = Object.keys(byCity).sort();
-            const filteredCities = cities.filter(city => city.toLowerCase().includes(searchTerm));
+            const allC = Object.keys(byCity);
+            const filtered = sortCities(
+                allC.filter(c => c.toLowerCase().includes(searchTerm))
+            );
 
-            const totalListings = filteredCities.reduce((sum, city) => sum + byCity[city].length, 0);
+            const total = filtered.reduce((s, c) => s + byCity[c].length, 0);
             document.getElementById('cityCount').textContent =
-                `📊 ${filteredCities.length} villes • ${totalListings} annonces`;
+                `📊 ${filtered.length} villes • ${total} annonces`;
 
             let html = '';
-            const PC = (typeof PRIORITY_CITIES !== 'undefined') ? PRIORITY_CITIES : [];
 
-            filteredCities.forEach((city, idx) => {
-                const listings = byCity[city];
-                const transport = TRANSPORTS[city]
-                    || TRANSPORTS['Luxembourg-' + city]
-                    || TRANSPORTS['Luxembourg ' + city]
-                    || {};
-                const transportList = transport.transports || [];
-                const isPriority = PC.includes(city);
+            if (currentView === 'region') {
+                // ── Vue par régions ──
+                const byRegion = {};
+                filtered.forEach(city => {
+                    const t = getTransport(city);
+                    const r = t.region || 'Autres';
+                    if (!byRegion[r]) byRegion[r] = [];
+                    byRegion[r].push(city);
+                });
 
-                html += `
-                    <div class="accordion" id="accordion-${idx}" style="--index:${idx}">
-                        <div class="accordion-item${isPriority ? ' priority' : ''}">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#city-${idx}">
-                                    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem;width:100%;">
-                                        <span class="city-name">${isPriority ? '⭐' : '📍'} ${city}</span>
-                                        <span class="city-badge">${listings.length}</span>
-                                        <div class="transport-icons">
-                                            ${transportList.length > 0 ?
-                                                transportList.map(t => {
-                                                    const icon = t.type === 'gare' ? '🚉' :
-                                                                t.type === 'train' ? '🚂' :
-                                                                t.type === 'bus' ? '🚌' :
-                                                                t.type === 'tram' ? '🚊' :
-                                                                t.type === 'pied' ? '🚶' : '🚇';
-                                                    return `<span>${icon} ${t.number}</span>`;
-                                                }).join('')
-                                                : '<span>⚠️ Transport non disponible</span>'}
-                                        </div>
-                                    </div>
-                                </button>
-                            </h2>
-                            <div id="city-${idx}" class="accordion-collapse collapse" data-bs-parent="#accordion-${idx}">
-                                <div class="accordion-body">
-                                    ${transportList.length > 0 ? `
-                                        <div class="transport-card">
-                                            <div style="display:flex;justify-content:space-between;margin-bottom:0.75rem;">
-                                                <strong>🚊 Moyens de transport vers Gare Centrale</strong>
-                                                ${transport.distance_km != null ? `<span style="font-size:0.9rem;color:#666;">📏 ${transport.distance_km} km${transport.region ? ` • ${transport.region}` : ''}</span>` : ''}
-                                            </div>
-                                            ${transportList.map(t => {
-                                                const icon = t.type === 'gare' ? '🚉' :
-                                                            t.type === 'train' ? '🚂' :
-                                                            t.type === 'bus' ? '🚌' :
-                                                            t.type === 'tram' ? '🚊' :
-                                                            t.type === 'pied' ? '🚶' : '🚇';
-                                                return `
-                                                <div class="transport-item">
-                                                    ${icon}
-                                                    <strong>${t.number}</strong> - ${t.description}
-                                                    <span style="color:#666;font-weight:600;">(${t.duration_min} min)</span>
-                                                </div>
-                                                `;
-                                            }).join('')}
-                                        </div>
-                                    ` : ''}
-                                    ${(typeof MARKET_STATS !== 'undefined' && MARKET_STATS[city]) ? `
-                                        <div class="market-stats">
-                                            <span class="stat-badge median">
-                                                📊 Médiane: <strong>${MARKET_STATS[city].median_price?.toLocaleString('fr-FR')}€</strong>
-                                            </span>
-                                            <span class="stat-badge avg">
-                                                💶 Moyenne: <strong>${MARKET_STATS[city].avg_price?.toLocaleString('fr-FR')}€</strong>
-                                            </span>
-                                            ${MARKET_STATS[city].avg_price_m2 ? `<span class="stat-badge m2">
-                                                📐 Prix/m²: <strong>${MARKET_STATS[city].avg_price_m2}€</strong>
-                                            </span>` : ''}
-                                        </div>
-                                    ` : ''}
-                                    <table class="table table-sm mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>Titre</th>
-                                                <th>Prix</th>
-                                                <th>Chambres</th>
-                                                <th>Surface</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            ${listings.map(l => `
-                                                <tr>
-                                                    <td><strong>${l.title.substring(0, 40)}</strong></td>
-                                                    <td style="font-family:'JetBrains Mono',monospace;"><strong>${l.price.toLocaleString('fr-FR')}€</strong></td>
-                                                    <td>${l.rooms || '-'}</td>
-                                                    <td>${l.surface || '-'}m²</td>
-                                                    <td><a href="${l.url}" target="_blank" class="btn-voir">Voir</a></td>
-                                                </tr>
-                                            `).join('')}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                let idx = 0;
+                REGION_ORDER.forEach(region => {
+                    const cities = byRegion[region];
+                    if (!cities || cities.length === 0) return;
+                    const regionCount = cities.reduce((s, c) => s + (byCity[c]?.length || 0), 0);
+                    html += `
+                        <div class="region-header">
+                            <span>${REGION_ICONS[region] || '📍'} ${region}</span>
+                            <span class="region-count-badge">${cities.length} villes · ${regionCount} annonces</span>
                         </div>
-                    </div>
-                `;
-            });
+                    `;
+                    cities.forEach(city => {
+                        html += renderCityAccordion(city, byCity[city], idx++, PC);
+                    });
+                });
+
+            } else {
+                // ── Vue liste ──
+                filtered.forEach((city, idx) => {
+                    html += renderCityAccordion(city, byCity[city], idx, PC);
+                });
+            }
 
             container.innerHTML = html;
         }
