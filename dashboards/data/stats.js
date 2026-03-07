@@ -1,13 +1,13 @@
-// Genere le 07/03/2026 12:17
+// Genere le 07/03/2026 15:42
 const STATS = {
-  "total": 161,
+  "total": 162,
   "avg_price": 2289,
   "min_price": 1500,
   "max_price": 2700,
   "avg_surface": 98,
   "cities": 71,
   "sites": {
-    "Athome.lu": 110,
+    "Athome.lu": 111,
     "LuxExpats.lu": 2,
     "Wortimmo.lu": 2,
     "Immotop.lu": 3,
@@ -109,6 +109,11 @@ const STATS = {
       "city": "Bettembourg",
       "count": 3,
       "avg_price": 2350
+    },
+    {
+      "city": "Helmsange",
+      "count": 2,
+      "avg_price": 2450
     },
     {
       "city": "Alzette",
@@ -356,11 +361,6 @@ const STATS = {
       "avg_price": 2300
     },
     {
-      "city": "Helmsange",
-      "count": 1,
-      "avg_price": 2500
-    },
-    {
       "city": "Schouweiler",
       "count": 1,
       "avg_price": 2390
@@ -384,7 +384,7 @@ const STATS = {
   "by_price_range": {
     "< 1500": 0,
     "1500 - 2000": 27,
-    "2000 - 2500": 86,
+    "2000 - 2500": 87,
     "> 2500": 48
   }
 };

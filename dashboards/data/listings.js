@@ -1,6 +1,23 @@
-// Genere le 07/03/2026 12:17
-// 161 annonces depuis listings.db
+// Genere le 07/03/2026 15:42
+// 162 annonces depuis listings.db
 const LISTINGS = [
+  {
+    "listing_id": "athome_9017249",
+    "site": "Athome.lu",
+    "title": "MT Real Estate Invest vous propose en location exclusive ce superbe ap",
+    "city": "Helmsange",
+    "price": 2400,
+    "rooms": 2,
+    "surface": 85,
+    "url": "https://www.athome.lu/location/appartement/helmsange/id-9017249.html",
+    "latitude": 49.6680784,
+    "longitude": 6.1331479,
+    "distance_km": 7.6,
+    "created_at": "2026-03-07 14:42:28",
+    "image_url": "images/athome_9017249.jpg",
+    "price_m2": 28.2,
+    "local_image": "images/athome_9017249.jpg"
+  },
   {
     "listing_id": "athome_9017189",
     "site": "Athome.lu",
