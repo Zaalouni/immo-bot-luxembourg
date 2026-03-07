@@ -1,16 +1,17 @@
-// Genere le 06/03/2026 21:19
+// Genere le 07/03/2026 10:58
 const STATS = {
-  "total": 157,
-  "avg_price": 2284,
+  "total": 160,
+  "avg_price": 2289,
   "min_price": 1500,
   "max_price": 2700,
   "avg_surface": 98,
   "cities": 71,
   "sites": {
+    "LuxExpats.lu": 2,
+    "Wortimmo.lu": 2,
     "Immotop.lu": 3,
     "Athome.lu": 109,
     "ImmoSolutions.lu": 3,
-    "Wortimmo.lu": 1,
     "DDImmo.lu": 2,
     "Luxhome.lu": 12,
     "Nextimmo.lu": 11,
@@ -30,6 +31,11 @@ const STATS = {
       "avg_price": 2387
     },
     {
+      "city": "Hollerich",
+      "count": 8,
+      "avg_price": 2425
+    },
+    {
       "city": "Limpertsberg",
       "count": 7,
       "avg_price": 2207
@@ -43,11 +49,6 @@ const STATS = {
       "city": "Strassen",
       "count": 7,
       "avg_price": 2477
-    },
-    {
-      "city": "Hollerich",
-      "count": 6,
-      "avg_price": 2366
     },
     {
       "city": "Bonnevoie",
@@ -108,6 +109,11 @@ const STATS = {
       "city": "Bettembourg",
       "count": 3,
       "avg_price": 2350
+    },
+    {
+      "city": "Alzette",
+      "count": 2,
+      "avg_price": 2450
     },
     {
       "city": "Belvaux",
@@ -208,11 +214,6 @@ const STATS = {
       "city": "Schifflange",
       "count": 1,
       "avg_price": 1600
-    },
-    {
-      "city": "Alzette",
-      "count": 1,
-      "avg_price": 2500
     },
     {
       "city": "Angelsberg",
@@ -383,24 +384,25 @@ const STATS = {
   "by_price_range": {
     "< 1500": 0,
     "1500 - 2000": 27,
-    "2000 - 2500": 84,
-    "> 2500": 46
+    "2000 - 2500": 85,
+    "> 2500": 48
   }
 };
 const SITE_COLORS = {
-  "Immotop.lu": "#FF6384",
-  "Athome.lu": "#36A2EB",
-  "ImmoSolutions.lu": "#FFCE56",
-  "Wortimmo.lu": "#4BC0C0",
-  "DDImmo.lu": "#9966FF",
-  "Luxhome.lu": "#FF9F40",
-  "Nextimmo.lu": "#2ECC71",
-  "Weckbecker.lu": "#E74C3C",
-  "VIVI.lu": "#3498DB",
-  "Remax.lu": "#FF6384",
-  "PropertyInvest.lu": "#36A2EB",
-  "Rockenbrod.lu": "#FFCE56",
-  "SothebysRealty.lu": "#4BC0C0",
-  "Newimmo.lu": "#9966FF",
-  "Accord-Immo.lu": "#FF9F40"
+  "LuxExpats.lu": "#FF6384",
+  "Wortimmo.lu": "#36A2EB",
+  "Immotop.lu": "#FFCE56",
+  "Athome.lu": "#4BC0C0",
+  "ImmoSolutions.lu": "#9966FF",
+  "DDImmo.lu": "#FF9F40",
+  "Luxhome.lu": "#2ECC71",
+  "Nextimmo.lu": "#E74C3C",
+  "Weckbecker.lu": "#3498DB",
+  "VIVI.lu": "#FF6384",
+  "Remax.lu": "#36A2EB",
+  "PropertyInvest.lu": "#FFCE56",
+  "Rockenbrod.lu": "#4BC0C0",
+  "SothebysRealty.lu": "#9966FF",
+  "Newimmo.lu": "#FF9F40",
+  "Accord-Immo.lu": "#2ECC71"
 };
